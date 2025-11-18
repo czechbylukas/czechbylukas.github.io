@@ -1,7 +1,7 @@
 // data/2_verbs_and_sentences.js
 const vocab = [
   {
-    czech:   "Prosit → (já) prosím",
+    czech:   "prosit → (já) prosím",
     english: "to ask → I ask",
     spanish: "pedir → yo pido",
     german:  "bitten → ich bitte"
