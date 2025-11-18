@@ -1,64 +1,64 @@
 // data/2_verbs_and_sentences.js
 const vocab = [
   {
-    czech:   "Prosit (1. osoba) prosím",
-    english: "to ask / I ask",
-    spanish: "pedir / yo pido",
-    german:  "bitten / ich bitte"
+    czech:   "Prosit → (já) prosím",
+    english: "to ask → I ask",
+    spanish: "pedir → yo pido",
+    german:  "bitten → ich bitte"
   },
   {
-    czech:   "Mluvit (1. osoba) mluvím",
-    english: "to speak / I speak",
-    spanish: "hablar / yo hablo",
-    german:  "sprechen / ich spreche"
+    czech:   "mluvit → (já) mluvím",
+    english: "to speak → I speak",
+    spanish: "hablar → yo hablo",
+    german:  "sprechen → ich spreche"
   },
   {
-    czech:   "Rozumět (1. osoba) rozumím",
-    english: "to understand / I understand",
-    spanish: "entender / yo entiendo",
-    german:  "verstehen / ich verstehe"
+    czech:   "rozumět → (já) rozumím",
+    english: "to understand → I understand",
+    spanish: "entender → yo entiendo",
+    german:  "verstehen → ich verstehe"
   },
   {
-    czech:   "Vařit (1. osoba) vařím",
-    english: "to cook / I cook",
-    spanish: "cocinar / yo cocino",
-    german:  "kochen / ich koche"
+    czech:   "vařit → (já) vařím",
+    english: "to cook → I cook",
+    spanish: "cocinar → yo cocino",
+    german:  "kochen → ich koche"
   },
   {
-    czech:   "Běžet (1. osoba) běžím",
-    english: "to run / I run",
-    spanish: "correr / yo corro",
-    german:  "rennen / ich renne"
+    czech:   "běžet → (já) běžím",
+    english: "to run → I run",
+    spanish: "correr → yo corro",
+    german:  "rennen → ich renne"
   },
   {
-    czech:   "Vidět (1. osoba) vidím",
-    english: "to see / I see",
-    spanish: "ver / yo veo",
-    german:  "sehen / ich sehe"
+    czech:   "vidět → (já) vidím",
+    english: "to see → I see",
+    spanish: "ver → yo veo",
+    german:  "sehen → ich sehe"
   },
   {
-    czech:   "Uklízet (1. osoba) uklízím",
-    english: "to clean / I clean",
-    spanish: "limpiar / yo limpio",
-    german:  "putzen / ich putze"
+    czech:   "uklízet → (já) uklízím",
+    english: "to clean → I clean",
+    spanish: "limpiar → yo limpio",
+    german:  "putzen → ich putze"
   },
   {
-    czech:   "Jíst (1. osoba) jím",
-    english: "to eat / I eat",
-    spanish: "comer / yo como",
-    german:  "essen / ich esse"
+    czech:   "jíst → (já) jím",
+    english: "to eat → I eat",
+    spanish: "comer → yo como",
+    german:  "essen → ich esse"
   },
   {
-    czech:   "Stát (1. osoba) stojím",
-    english: "to stand / I stand",
-    spanish: "estar de pie / yo estoy de pie",
-    german:  "stehen / ich stehe"
+    czech:   "stát → (já) stojím",
+    english: "to stand → I stand",
+    spanish: "estar de pie → yo estoy de pie",
+    german:  "stehen → ich stehe"
   },
   {
-    czech:   "Spát (1. osoba) spím",
-    english: "to sleep / I sleep",
-    spanish: "dormir / yo duermo",
-    german:  "schlafen / ich schlafe"
+    czech:   "spát → (já) spím",
+    english: "to sleep → I sleep",
+    spanish: "dormir → yo duermo",
+    german:  "schlafen → ich schlafe"
   },
   {
     czech:   "Prosím číšníka o vodu.",

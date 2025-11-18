@@ -1,106 +1,106 @@
 // data/2_verbs_basic.js
 const vocab = [
   {
-    czech: "Děkovat (1. osoba) – děkuju",
-    english: "to thank (I thank)",
-    spanish: "agradecer (yo agradezco)",
-    german: "danken (ich danke)"
+    czech: "děkovat → (já) děkuju",
+    english: "to thank → I thank",
+    spanish: "agradecer → yo agradezco",
+    german: "danken → ich danke"
   },
   {
-    czech: "Litovat (1. osoba) – lituju",
-    english: "to regret (I regret)",
-    spanish: "lamentar (yo lamento)",
-    german: "bedauern (ich bedaure)"
+    czech: "litovat → (já) lituju",
+    english: "to regret → I regret",
+    spanish: "lamentar → yo lamento",
+    german: "bedauern → ich bedaure"
   },
   {
-    czech: "Nakupovat (1. osoba) – nakupuju",
-    english: "to shop (I shop)",
-    spanish: "comprar (yo compro)",
-    german: "einkaufen (ich kaufe ein)"
+    czech: "nakupovat → (já) nakupuju",
+    english: "to shop → I shop",
+    spanish: "comprar → yo compro",
+    german: "einkaufen → ich kaufe ein"
   },
   {
-    czech: "Telefonovat (1. osoba) – telefonuju",
-    english: "to call (I call)",
-    spanish: "llamar por teléfono (yo llamo)",
-    german: "telefonieren (ich telefoniere)"
+    czech: "telefonovat → (já) telefonuju",
+    english: "to call → I call",
+    spanish: "llamar por teléfono → yo llamo",
+    german: "telefonieren → ich telefoniere"
   },
   {
-    czech: "Sportovat (1. osoba) – sportuju",
-    english: "to do sports (I do sports)",
-    spanish: "hacer deporte (yo hago deporte)",
-    german: "Sport treiben (ich mache Sport)"
+    czech: "sportovat → (já) sportuju",
+    english: "to do sports → I do sports",
+    spanish: "hacer deporte → yo hago deporte",
+    german: "Sport treiben → ich mache Sport"
   },
   {
-    czech: "Pracovat (1. osoba) – pracuju",
-    english: "to work (I work)",
-    spanish: "trabajar (yo trabajo)",
-    german: "arbeiten (ich arbeite)"
+    czech: "pracovat → (já) pracuju",
+    english: "to work → I work",
+    spanish: "trabajar → yo trabajo",
+    german: "arbeiten → ich arbeite"
   },
   {
-    czech: "Studovat (1. osoba) – studuju",
-    english: "to study (I study)",
-    spanish: "estudiar (yo estudio)",
-    german: "studieren (ich studiere)"
+    czech: "studovat → (já) studuju",
+    english: "to study → I study",
+    spanish: "estudiar → yo estudio",
+    german: "studieren → ich studiere"
   },
   {
-    czech: "Malovat (1. osoba) – maluju",
-    english: "to paint (I paint)",
-    spanish: "pintar (yo pinto)",
-    german: "malen (ich male)"
+    czech: "malovat → (já) maluju",
+    english: "to paint → I paint",
+    spanish: "pintar → yo pinto",
+    german: "malen → ich male"
   },
   {
-    czech: "Tancovat (1. osoba) – tancuju",
-    english: "to dance (I dance)",
-    spanish: "bailar (yo bailo)",
-    german: "tanzen (ich tanze)"
+    czech: "tancovat → (já) tancuju",
+    english: "to dance → I dance",
+    spanish: "bailar → yo bailo",
+    german: "tanzen → ich tanze"
   },
   {
-    czech: "Sprchovat se (1. osoba) – sprchuju se",
-    english: "to shower (I shower)",
-    spanish: "ducharse (me ducho)",
-    german: "sich duschen (ich dusche mich)"
+    czech: "sprchovat se → (já) sprchuju se",
+    english: "to shower → I shower",
+    spanish: "ducharse → me ducho",
+    german: "sich duschen → ich dusche mich"
   },
   {
-    czech: "Hrát (1. osoba) – hraju",
-    english: "to play (I play)",
-    spanish: "jugar (yo juego)",
-    german: "spielen (ich spiele)"
+    czech: "hrát → (já) hraju",
+    english: "to play → I play",
+    spanish: "jugar → yo juego",
+    german: "spielen → ich spiele"
   },
   {
-    czech: "Plavat (1. osoba) – plavu",
-    english: "to swim (I swim)",
-    spanish: "nadar (yo nado)",
-    german: "schwimmen (ich schwimme)"
+    czech: "plavat → (já) plavu",
+    english: "to swim → I swim",
+    spanish: "nadar → yo nado",
+    german: "schwimmen → ich schwimme"
   },
   {
-    czech: "Jet (1. osoba) – jedu",
-    english: "to go (by vehicle) (I go)",
-    spanish: "ir (en vehículo) (voy)",
-    german: "fahren (ich fahre)"
+    czech: "jet → (já) jedu",
+    english: "to go (by vehicle) → I go",
+    spanish: "ir en vehículo → yo voy",
+    german: "fahren → ich fahre"
   },
   {
-    czech: "Jít (1. osoba) – jdu",
-    english: "to go (on foot) (I go)",
-    spanish: "ir (a pie) (voy)",
-    german: "gehen (ich gehe)"
+    czech: "jít → (já) jdu",
+    english: "to go (on foot) → I go",
+    spanish: "ir a pie → yo voy",
+    german: "gehen → ich gehe"
   },
   {
-    czech: "Číst (1. osoba) – čtu",
-    english: "to read (I read)",
-    spanish: "leer (yo leo)",
-    german: "lesen (ich lese)"
+    czech: "číst → (já) čtu",
+    english: "to read → I read",
+    spanish: "leer → yo leo",
+    german: "lesen → ich lese"
   },
   {
-    czech: "Psát (1. osoba) – píšu",
-    english: "to write (I write)",
-    spanish: "escribir (yo escribo)",
-    german: "schreiben (ich schreibe)"
+    czech: "psát → (já) píšu",
+    english: "to write → I write",
+    spanish: "escribir → yo escribo",
+    german: "schreiben → ich schreibe"
   },
   {
-    czech: "Cestovat (1. osoba) – cestuju",
-    english: "to travel (I travel)",
-    spanish: "viajar (yo viajo)",
-    german: "reisen (ich reise)"
+    czech: "cestovat → (já) cestuju",
+    english: "to travel → I travel",
+    spanish: "viajar → yo viajo",
+    german: "reisen → ich reise"
   },
   {
     czech: "Děkuju za pomoc.",

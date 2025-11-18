@@ -1,52 +1,52 @@
 // data/2_basicverbs.js
 const vocab = [
   {
-    czech: "Běhat (1. osoba) - běhám",
-    english: "běhám — I run / am running",
-    spanish: "Corro / Estoy corriendo",
-    german: "Ich laufe"
+    czech: "běhat → (já) běhám",
+    english: "to run → I run / I am running",
+    spanish: "correr → yo corro / estoy corriendo",
+    german: "laufen → ich laufe"
   },
   {
-    czech: "Dělat (1. osoba) - dělám",
-    english: "dělám — I do / am doing",
-    spanish: "Hago / Estoy haciendo",
-    german: "Ich mache"
+    czech: "dělat → (já) dělám",
+    english: "to do → I do / I am doing",
+    spanish: "hacer → yo hago / estoy haciendo",
+    german: "machen → ich mache"
   },
   {
-    czech: "Dát (1. osoba) - dám",
-    english: "dám — I give / I will give",
-    spanish: "Doy / Daré",
-    german: "Ich gebe"
+    czech: "dát → (já) dám",
+    english: "to give → I give / I will give",
+    spanish: "dar → yo doy / daré",
+    german: "geben → ich gebe"
   },
   {
-    czech: "Dát si (1. osoba) - dám si",
-    english: "dám si — I’ll have / I take (food, drink)",
-    spanish: "Tomar / Me tomaré",
-    german: "Ich nehme / Ich bestelle"
+    czech: "dát si → (já) dám si",
+    english: "to have (food/drink) → I’ll have / I take",
+    spanish: "tomarse → yo me tomo / me tomaré",
+    german: "sich nehmen → ich nehme / ich bestelle"
   },
   {
-    czech: "Koukat se (1. osoba) - koukám se",
-    english: "koukám se — I watch / am watching",
-    spanish: "Veo / Estoy viendo",
-    german: "Ich schaue"
+    czech: "koukat se → (já) koukám se",
+    english: "to watch → I watch / I am watching",
+    spanish: "ver → yo veo / estoy viendo",
+    german: "schauen → ich schaue"
   },
   {
-    czech: "Dívat se (1. osoba) - dívám se",
-    english: "dívám se — I watch / am watching",
-    spanish: "Veo / Estoy viendo",
-    german: "Ich sehe"
+    czech: "dívat se → (já) dívám se",
+    english: "to watch → I watch / I am watching",
+    spanish: "ver → yo veo / estoy viendo",
+    german: "sehen → ich sehe"
   },
   {
-    czech: "Odpočívat (1. osoba) - odpočívám",
-    english: "odpočívám — I rest / am resting",
-    spanish: "Descanso / Estoy descansando",
-    german: "Ich ruhe mich aus"
+    czech: "odpočívat → (já) odpočívám",
+    english: "to rest → I rest / I am resting",
+    spanish: "descansar → yo descanso / estoy descansando",
+    german: "sich ausruhen → ich ruhe mich aus"
   },
   {
-    czech: "Mít (1. osoba) - mám",
-    english: "mám — I have",
-    spanish: "Tengo",
-    german: "Ich habe"
+    czech: "mít → (já) mám",
+    english: "to have → I have",
+    spanish: "tener → yo tengo",
+    german: "haben → ich habe"
   },
   {
     czech: "Běhám s kamarádem.",
