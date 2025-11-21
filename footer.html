@@ -4,30 +4,5 @@
     If you’d like to support my work, <a id="footer-link" href="../support.html">click here</a>.
   </div>
 
-  <!-- Cookie Consent Banner -->
-  <div id="cookie-banner" style="position: fixed; bottom:0; left:0; right:0; background:#333; color:#fff; padding:15px; text-align:center; z-index:9999;">
-    I use cookies to improve your experience and for analytics. 
-    <button id="accept-cookies" style="background:#fff; color:#333; border:none; padding:5px 10px; cursor:pointer; margin-left:10px;">Accept</button>
-  </div>
-
   <p>© 2025 CzechByLukas | <a href="../privacy.html">Privacy Policy</a></p>
 </footer>
-
-<script>
-// Simple banner handling
-(function(){
-  var banner = document.getElementById("cookie-banner");
-  var acceptBtn = document.getElementById("accept-cookies");
-
-  // Check if already accepted
-  if(localStorage.getItem("cookies_accepted") === "true") {
-    banner.style.display = "none";
-  }
-
-  // Click to accept
-  acceptBtn.addEventListener("click", function(){
-    localStorage.setItem("cookies_accepted", "true");
-    banner.style.display = "none";
-  });
-})();
-</script>
