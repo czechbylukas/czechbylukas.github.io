@@ -14,43 +14,20 @@
 </footer>
 
 <script>
+// Simple banner handling
 (function(){
   var banner = document.getElementById("cookie-banner");
   var acceptBtn = document.getElementById("accept-cookies");
 
-  // Simple cookie check
-  function cookiesAccepted() {
-    return document.cookie.split(';').some(c => c.trim().startsWith('cookies_accepted=true'));
+  // Check if already accepted
+  if(localStorage.getItem("cookies_accepted") === "true") {
+    banner.style.display = "none";
   }
 
-  // Hide banner if already accepted
-  if(cookiesAccepted()) {
-    banner.style.display = 'none';
-    loadGA();
-  }
-
-  // Button click
-  acceptBtn.addEventListener('click', function(){
-    document.cookie = "cookies_accepted=true; path=/; max-age=" + 60*60*24*365;
-    banner.style.display = 'none';
-    loadGA();
+  // Click to accept
+  acceptBtn.addEventListener("click", function(){
+    localStorage.setItem("cookies_accepted", "true");
+    banner.style.display = "none";
   });
-
-  // GA load
-  function loadGA(){
-    if(window.gtagLoaded) return; // avoid loading twice
-    window.gtagLoaded = true;
-    var script = document.createElement('script');
-    script.async = true;
-    script.src = "https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"; // replace with your GA4 ID
-    script.onload = function() {
-      window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      window.gtag = gtag;
-      gtag('js', new Date());
-      gtag('config', 'G-XXXXXXXXXX'); // replace with GA4 ID
-    };
-    document.head.appendChild(script);
-  }
 })();
 </script>
