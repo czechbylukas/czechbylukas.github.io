@@ -14,32 +14,43 @@
 </footer>
 
 <script>
-// Helper functions for cookies
-function setCookie(name, value, days) {
-  var expires = "";
-  if (days) {
-    var date = new Date();
-    date.setTime(date.getTime() + (days*24*60*60*1000));
-    expires = "; expires=" + date.toUTCString();
-  }
-  document.cookie = name + "=" + (value || "")  + expires + "; path=/";
+// Hide banner function
+function hideBanner() {
+  var banner = document.getElementById("cookie-banner");
+  if(banner) banner.style.display = "none";
 }
 
+// Try setting a cookie
+function setCookie(name, value, days) {
+  try {
+    var expires = "";
+    if (days) {
+      var date = new Date();
+      date.setTime(date.getTime() + (days*24*60*60*1000));
+      expires = "; expires=" + date.toUTCString();
+    }
+    document.cookie = name + "=" + (value || "")  + expires + "; path=/";
+  } catch(e) {
+    console.log("Cookie could not be set:", e);
+  }
+}
+
+// Read cookie
 function getCookie(name) {
   var nameEQ = name + "=";
   var ca = document.cookie.split(';');
   for(var i=0;i < ca.length;i++) {
     var c = ca[i].trim();
-    if (c.indexOf(nameEQ) === 0) return c.substring(nameEQ.length);
+    if(c.indexOf(nameEQ) === 0) return c.substring(nameEQ.length);
   }
   return null;
 }
 
-// Load GA function
+// GA load function
 function loadGA(){
   var script = document.createElement('script');
   script.async = true;
-  script.src = "https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"; // replace with your GA4 ID
+  script.src = "https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"; // replace with GA4 ID
   script.onload = function() {
     window.dataLayer = window.dataLayer || [];
     function gtag(){dataLayer.push(arguments);}
@@ -50,20 +61,20 @@ function loadGA(){
   document.head.appendChild(script);
 }
 
-// Setup banner behavior
 document.addEventListener("DOMContentLoaded", function(){
-  var banner = document.getElementById("cookie-banner");
-  var acceptBtn = document.getElementById("accept-cookies");
-
+  // Immediately hide banner if cookie exists
   if(getCookie("cookies_accepted")) {
-    banner.style.display = "none";
+    hideBanner();
     loadGA();
   }
 
-  acceptBtn.addEventListener("click", function() {
-    setCookie("cookies_accepted", "true", 365);
-    banner.style.display = "none"; // hide the banner
-    loadGA();
-  });
+  var acceptBtn = document.getElementById("accept-cookies");
+  if(acceptBtn){
+    acceptBtn.addEventListener("click", function() {
+      setCookie("cookies_accepted", "true", 365);
+      hideBanner(); // hide immediately
+      loadGA();
+    });
+  }
 });
 </script>
