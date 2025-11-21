@@ -2,13 +2,16 @@
   <div id="footer-text">
     ❤️ I build this site myself to help people learn Czech.  
     If you’d like to support my work, <a id="footer-link" href="../support.html">click here</a>.
+  </div>
 
+  <!-- Cookie Consent Banner -->
+  <div id="cookie-banner" style="position: fixed; bottom:0; left:0; right:0; background:#333; color:#fff; padding:15px; text-align:center; z-index:9999;">
+    I use cookies to improve your experience and for analytics. 
+    <button id="accept-cookies" style="background:#fff; color:#333; border:none; padding:5px 10px; cursor:pointer; margin-left:10px;">Accept</button>
+  </div>
 
-<!-- Cookie Consent Banner -->
-<div id="cookie-banner" style="position: fixed; bottom:0; left:0; right:0; background:#333; color:#fff; padding:15px; text-align:center; z-index:9999;">
-  We use cookies to improve your experience and for analytics. 
-  <button id="accept-cookies" style="background:#fff; color:#333; border:none; padding:5px 10px; cursor:pointer; margin-left:10px;">Accept</button>
-</div>
+  <p>© 2025 CzechByLukas | <a href="../privacy.html">Privacy Policy</a></p>
+</footer>
 
 <script>
 // Helper functions for cookies
@@ -27,32 +30,16 @@ function getCookie(name) {
   var ca = document.cookie.split(';');
   for(var i=0;i < ca.length;i++) {
     var c = ca[i].trim();
-    if (c.indexOf(nameEQ) == 0) return c.substring(nameEQ.length,c.length);
+    if (c.indexOf(nameEQ) === 0) return c.substring(nameEQ.length);
   }
   return null;
 }
-
-// Hide banner if already accepted
-document.addEventListener("DOMContentLoaded", function(){
-  var banner = document.getElementById("cookie-banner");
-  if(getCookie("cookies_accepted")) {
-    banner.style.display = "none";
-    loadGA(); // load GA if already accepted
-  }
-
-  // Accept button
-  document.getElementById("accept-cookies").onclick = function() {
-    setCookie("cookies_accepted", "true", 365);
-    banner.style.display = "none"; // hide the banner
-    loadGA(); // load GA after acceptance
-  };
-});
 
 // Load GA function
 function loadGA(){
   var script = document.createElement('script');
   script.async = true;
-  script.src = "https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"; // replace with GA4 ID
+  script.src = "https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"; // replace with your GA4 ID
   script.onload = function() {
     window.dataLayer = window.dataLayer || [];
     function gtag(){dataLayer.push(arguments);}
@@ -62,14 +49,21 @@ function loadGA(){
   };
   document.head.appendChild(script);
 }
+
+// Setup banner behavior
+document.addEventListener("DOMContentLoaded", function(){
+  var banner = document.getElementById("cookie-banner");
+  var acceptBtn = document.getElementById("accept-cookies");
+
+  if(getCookie("cookies_accepted")) {
+    banner.style.display = "none";
+    loadGA();
+  }
+
+  acceptBtn.addEventListener("click", function() {
+    setCookie("cookies_accepted", "true", 365);
+    banner.style.display = "none"; // hide the banner
+    loadGA();
+  });
+});
 </script>
-
-
-
-
-
-
-  </div>
-
-  <p>© 2025 CzechByLukas | <a href="../privacy.html">Privacy Policy</a></p>
-</footer>
