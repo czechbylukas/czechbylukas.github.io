@@ -2,6 +2,82 @@
   <div id="footer-text">
     ❤️ I build this site myself to help people learn Czech.  
     If you’d like to support my work, <a id="footer-link" href="../support.html">click here</a>.
+
+
+<!-- Cookie Consent Banner -->
+<style>
+#cookie-banner {
+  position: fixed;
+  bottom: 0; left: 0; right: 0;
+  background: #333; color: #fff;
+  padding: 15px; text-align: center;
+  font-family: sans-serif; z-index: 9999;
+}
+#cookie-banner button {
+  background: #fff; color: #333;
+  border: none; padding: 5px 10px; cursor: pointer;
+  margin-left: 10px;
+}
+</style>
+
+<div id="cookie-banner">
+  We use cookies to improve your experience and for analytics. 
+  <button id="accept-cookies">Accept</button>
+</div>
+
+<script>
+function setCookie(name, value, days) {
+  var expires = "";
+  if (days) {
+    var date = new Date();
+    date.setTime(date.getTime() + (days*24*60*60*1000));
+    expires = "; expires=" + date.toUTCString();
+  }
+  document.cookie = name + "=" + (value || "")  + expires + "; path=/";
+}
+
+function getCookie(name) {
+  var nameEQ = name + "=";
+  var ca = document.cookie.split(';');
+  for(var i=0;i < ca.length;i++) {
+    var c = ca[i];
+    while (c.charAt(0)==' ') c = c.substring(1,c.length);
+    if (c.indexOf(nameEQ) == 0) return c.substring(nameEQ.length,c.length);
+  }
+  return null;
+}
+
+document.addEventListener("DOMContentLoaded", function(){
+  if(getCookie("cookies_accepted")) {
+    document.getElementById("cookie-banner").style.display = "none";
+    loadGA(); // Load GA if previously accepted
+  }
+
+  document.getElementById("accept-cookies").onclick = function() {
+    setCookie("cookies_accepted", "true", 365);
+    document.getElementById("cookie-banner").style.display = "none";
+    loadGA(); // Load GA after acceptance
+  }
+});
+
+// GA load function (replace with your GA4 ID)
+function loadGA(){
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-XXXXXXXXXX'); // <- replace with your GA4 ID
+
+  var script = document.createElement('script');
+  script.async = true;
+  script.src = "https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX";
+  document.head.appendChild(script);
+}
+</script>
+
+
+
+
+
   </div>
 
   <p>© 2025 CzechByLukas | <a href="../privacy.html">Privacy Policy</a></p>
