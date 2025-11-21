@@ -17,36 +17,32 @@
 // Hide banner function
 function hideBanner() {
   var banner = document.getElementById("cookie-banner");
-  if(banner) banner.style.display = "none";
+  if (banner) banner.style.display = "none";
 }
 
-// Try setting a cookie
+// Set cookie
 function setCookie(name, value, days) {
-  try {
-    var expires = "";
-    if (days) {
-      var date = new Date();
-      date.setTime(date.getTime() + (days*24*60*60*1000));
-      expires = "; expires=" + date.toUTCString();
-    }
-    document.cookie = name + "=" + (value || "")  + expires + "; path=/";
-  } catch(e) {
-    console.log("Cookie could not be set:", e);
+  var expires = "";
+  if (days) {
+    var date = new Date();
+    date.setTime(date.getTime() + (days*24*60*60*1000));
+    expires = "; expires=" + date.toUTCString();
   }
+  document.cookie = name + "=" + (value || "") + expires + "; path=/";
 }
 
-// Read cookie
+// Get cookie
 function getCookie(name) {
   var nameEQ = name + "=";
   var ca = document.cookie.split(';');
-  for(var i=0;i < ca.length;i++) {
+  for(var i=0; i<ca.length; i++) {
     var c = ca[i].trim();
     if(c.indexOf(nameEQ) === 0) return c.substring(nameEQ.length);
   }
   return null;
 }
 
-// GA load function
+// Load GA function
 function loadGA(){
   var script = document.createElement('script');
   script.async = true;
@@ -61,20 +57,24 @@ function loadGA(){
   document.head.appendChild(script);
 }
 
-document.addEventListener("DOMContentLoaded", function(){
-  // Immediately hide banner if cookie exists
+// Wait until DOM is fully loaded
+window.addEventListener("load", function() {
+  var banner = document.getElementById("cookie-banner");
+  var acceptBtn = document.getElementById("accept-cookies");
+
+  // Hide banner if cookie exists
   if(getCookie("cookies_accepted")) {
     hideBanner();
     loadGA();
   }
 
-  var acceptBtn = document.getElementById("accept-cookies");
-  if(acceptBtn){
-    acceptBtn.addEventListener("click", function() {
+  // Accept button click
+  if(acceptBtn) {
+    acceptBtn.onclick = function() {
       setCookie("cookies_accepted", "true", 365);
       hideBanner(); // hide immediately
       loadGA();
-    });
+    };
   }
 });
 </script>
