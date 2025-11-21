@@ -14,67 +14,43 @@
 </footer>
 
 <script>
-// Hide banner function
-function hideBanner() {
-  var banner = document.getElementById("cookie-banner");
-  if (banner) banner.style.display = "none";
-}
-
-// Set cookie
-function setCookie(name, value, days) {
-  var expires = "";
-  if (days) {
-    var date = new Date();
-    date.setTime(date.getTime() + (days*24*60*60*1000));
-    expires = "; expires=" + date.toUTCString();
-  }
-  document.cookie = name + "=" + (value || "") + expires + "; path=/";
-}
-
-// Get cookie
-function getCookie(name) {
-  var nameEQ = name + "=";
-  var ca = document.cookie.split(';');
-  for(var i=0; i<ca.length; i++) {
-    var c = ca[i].trim();
-    if(c.indexOf(nameEQ) === 0) return c.substring(nameEQ.length);
-  }
-  return null;
-}
-
-// Load GA function
-function loadGA(){
-  var script = document.createElement('script');
-  script.async = true;
-  script.src = "https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"; // replace with GA4 ID
-  script.onload = function() {
-    window.dataLayer = window.dataLayer || [];
-    function gtag(){dataLayer.push(arguments);}
-    window.gtag = gtag;
-    gtag('js', new Date());
-    gtag('config', 'G-XXXXXXXXXX'); // replace with GA4 ID
-  };
-  document.head.appendChild(script);
-}
-
-// Wait until DOM is fully loaded
-window.addEventListener("load", function() {
+(function(){
   var banner = document.getElementById("cookie-banner");
   var acceptBtn = document.getElementById("accept-cookies");
 
-  // Hide banner if cookie exists
-  if(getCookie("cookies_accepted")) {
-    hideBanner();
+  // Simple cookie check
+  function cookiesAccepted() {
+    return document.cookie.split(';').some(c => c.trim().startsWith('cookies_accepted=true'));
+  }
+
+  // Hide banner if already accepted
+  if(cookiesAccepted()) {
+    banner.style.display = 'none';
     loadGA();
   }
 
-  // Accept button click
-  if(acceptBtn) {
-    acceptBtn.onclick = function() {
-      setCookie("cookies_accepted", "true", 365);
-      hideBanner(); // hide immediately
-      loadGA();
+  // Button click
+  acceptBtn.addEventListener('click', function(){
+    document.cookie = "cookies_accepted=true; path=/; max-age=" + 60*60*24*365;
+    banner.style.display = 'none';
+    loadGA();
+  });
+
+  // GA load
+  function loadGA(){
+    if(window.gtagLoaded) return; // avoid loading twice
+    window.gtagLoaded = true;
+    var script = document.createElement('script');
+    script.async = true;
+    script.src = "https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"; // replace with your GA4 ID
+    script.onload = function() {
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      window.gtag = gtag;
+      gtag('js', new Date());
+      gtag('config', 'G-XXXXXXXXXX'); // replace with GA4 ID
     };
+    document.head.appendChild(script);
   }
-});
+})();
 </script>
