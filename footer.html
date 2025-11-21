@@ -21,7 +21,7 @@
 </style>
 
 <div id="cookie-banner">
-  We use cookies to improve your experience and for analytics. 
+  I use cookies to improve your experience and for analytics. 
   <button id="accept-cookies">Accept</button>
 </div>
 
@@ -61,16 +61,23 @@ document.addEventListener("DOMContentLoaded", function(){
 });
 
 // GA load function (replace with your GA4 ID)
-function loadGA(){
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-  gtag('config', 'G-XXXXXXXXXX'); // <- replace with your GA4 ID
+function loadGA() {
+  if (window.gaLoaded) return; // avoid loading twice
+  window.gaLoaded = true;
 
   var script = document.createElement('script');
   script.async = true;
   script.src = "https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX";
+  script.onload = function() {
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    window.gtag = gtag; // make gtag global
+    gtag('js', new Date());
+    gtag('config', 'G-XXXXXXXXXX');
+  };
   document.head.appendChild(script);
+}
+
 }
 </script>
 
