@@ -5,27 +5,13 @@
 
 
 <!-- Cookie Consent Banner -->
-<style>
-#cookie-banner {
-  position: fixed;
-  bottom: 0; left: 0; right: 0;
-  background: #333; color: #fff;
-  padding: 15px; text-align: center;
-  font-family: sans-serif; z-index: 9999;
-}
-#cookie-banner button {
-  background: #fff; color: #333;
-  border: none; padding: 5px 10px; cursor: pointer;
-  margin-left: 10px;
-}
-</style>
-
-<div id="cookie-banner">
-  I use cookies to improve your experience and for analytics. 
-  <button id="accept-cookies">Accept</button>
+<div id="cookie-banner" style="position: fixed; bottom:0; left:0; right:0; background:#333; color:#fff; padding:15px; text-align:center; z-index:9999;">
+  We use cookies to improve your experience and for analytics. 
+  <button id="accept-cookies" style="background:#fff; color:#333; border:none; padding:5px 10px; cursor:pointer; margin-left:10px;">Accept</button>
 </div>
 
 <script>
+// Helper functions for cookies
 function setCookie(name, value, days) {
   var expires = "";
   if (days) {
@@ -40,46 +26,44 @@ function getCookie(name) {
   var nameEQ = name + "=";
   var ca = document.cookie.split(';');
   for(var i=0;i < ca.length;i++) {
-    var c = ca[i];
-    while (c.charAt(0)==' ') c = c.substring(1,c.length);
+    var c = ca[i].trim();
     if (c.indexOf(nameEQ) == 0) return c.substring(nameEQ.length,c.length);
   }
   return null;
 }
 
+// Hide banner if already accepted
 document.addEventListener("DOMContentLoaded", function(){
+  var banner = document.getElementById("cookie-banner");
   if(getCookie("cookies_accepted")) {
-    document.getElementById("cookie-banner").style.display = "none";
-    loadGA(); // Load GA if previously accepted
+    banner.style.display = "none";
+    loadGA(); // load GA if already accepted
   }
 
+  // Accept button
   document.getElementById("accept-cookies").onclick = function() {
     setCookie("cookies_accepted", "true", 365);
-    document.getElementById("cookie-banner").style.display = "none";
-    loadGA(); // Load GA after acceptance
-  }
+    banner.style.display = "none"; // hide the banner
+    loadGA(); // load GA after acceptance
+  };
 });
 
-// GA load function (replace with your GA4 ID)
-function loadGA() {
-  if (window.gaLoaded) return; // avoid loading twice
-  window.gaLoaded = true;
-
+// Load GA function
+function loadGA(){
   var script = document.createElement('script');
   script.async = true;
-  script.src = "https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX";
+  script.src = "https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"; // replace with GA4 ID
   script.onload = function() {
     window.dataLayer = window.dataLayer || [];
     function gtag(){dataLayer.push(arguments);}
-    window.gtag = gtag; // make gtag global
+    window.gtag = gtag;
     gtag('js', new Date());
-    gtag('config', 'G-XXXXXXXXXX');
+    gtag('config', 'G-XXXXXXXXXX'); // replace with GA4 ID
   };
   document.head.appendChild(script);
 }
-
-}
 </script>
+
 
 
 
