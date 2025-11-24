@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-1BCW5XQ0X5"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-1BCW5XQ0X5');
+</script>
+
+
+  <meta charset="UTF-8">
+  <title id="page-title">Pocasi | CzechByLukas</title>
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="../css/style.css">
+  <link rel="stylesheet" href="../css/language-selector.css">
+
+</head>
+
+<body class="vocab-page">
+<header>
+  <h1 id="heading-vocab">Pocasi – Vocabulary</h1>
+  <div id="language-selector-container"></div>
+</header>
+
+<main>
+  <table id="vocabTable">
+    <thead>
+      <tr>
+        <th id="table-czech">Czech</th>
+        <th id="table-pronunciation">Pronunciation</th>
+        <th id="table-english">English</th>
+      </tr>
+    </thead>
+    <tbody id="vocabBody"></tbody>
+  </table>
+
+  <div class="big-buttons">
+    <a id="btn-practice" href="../exercise/11_pocasi.html">🧠 Practice</a>
+    <a id="btn-test" href="../tests/11_pocasi.html">📝 Test</a>
+  </div>
+
+  <div class="small-buttons">
+    <a id="btn-home" href="../index.html">🏠 Home</a>
+    <a id="btn-vocabList" href="../vocabulary/index.html">📘 Vocabulary List</a>
+  </div>
+</main>
+
+
+<div id="footer-placeholder"></div>
+
+<script>
+  // Load footer.html dynamically
+  fetch("/footer.html")
+    .then(response => response.text())
+    .then(data => {
+      document.getElementById("footer-placeholder").innerHTML = data;
+    })
+    .catch(error => console.error("Error loading footer:", error));
+</script>
+
+<!-- Vocabulary data -->
+<script src="../data/11_vocab.js" defer></script>
+
+<script src="../js/language-selector.js"></script>
+<script src="../js/translations.js" defer></script>
+
+<!-- Vocabulary table renderer -->
+<script>
+  function renderVocab() {
+    const lang = localStorage.getItem("selectedLanguage") || "en";
+    const tbody = document.getElementById("vocabBody");
+    tbody.innerHTML = "";
+
+    const fragment = document.createDocumentFragment();
+
+    vocab.forEach(item => {
+      const row = document.createElement("tr");
+      let translation;
+
+      switch (lang) {
+        case "cz": translation = item.english; break;
+        case "de": translation = item.german; break;
+        case "es": translation = item.spanish; break;
+        default: translation = item.english; break;
+      }
+
+      row.innerHTML = `<td>${item.czech}</td><td>${item.pronunciation}</td><td>${translation}</td>`;
+      fragment.appendChild(row);
+    });
+
+    tbody.appendChild(fragment);
+  }
+
+  document.addEventListener("DOMContentLoaded", () => {
+    renderVocab();
+    if (typeof applyTranslations === "function") applyTranslations();
+  });
+
+  document.addEventListener("languageChanged", () => {
+    renderVocab();
+    if (typeof applyTranslations === "function") applyTranslations();
+  });
+</script>
+
+</body>
+</html>

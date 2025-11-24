@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-1BCW5XQ0X5"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-1BCW5XQ0X5');
+</script>
+
+  <meta charset="UTF-8">
+  <title id="page-title">Practice: Osobní údaje, rodina, životopis – CzechByLukas</title>
+
+ <!-- Google AdSense -->
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"
+          client="ca-pub-9067674021614925" crossorigin="anonymous"></script>
+  <meta name="google-adsense-account" content="ca-pub-9067674021614925">
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="../css/style.css">
+  <link rel="stylesheet" href="../css/practice.css">
+  <link rel="stylesheet" href="../css/language-selector.css">
+</head>
+
+<body class="vocab-page">
+
+<header>
+  <h1 id="heading-practice">Practice Osobní údaje, rodina, životopis</h1>
+  <div id="language-selector-container"></div>
+</header>
+
+<main>
+  <!-- Flashcards -->
+  <div class="vocab-container">
+    <div id="englishCard" class="card"></div>
+    <div id="czechCard" class="card"></div>
+  </div>
+
+  <!-- Navigation buttons -->
+  <div class="big-buttons">
+    <button id="prevBtn"></button>
+    <button id="nextBtn"></button>
+  </div>
+
+  <!-- Progress bar -->
+  <div class="progress-wrapper">
+    <div class="progress-bar">
+      <div id="progress" class="progress"></div>
+    </div>
+    <div id="progressText" class="progress-text"></div>
+  </div>
+
+  <!-- Vocabulary & Test buttons -->
+  <div class="big-buttons">
+    <a id="btn-vocab" href="../vocabulary/1_osobni_udaje_rodina_zivotopis.html"></a>
+    <a id="btn-test" href="../tests/1_osobni_udaje_rodina_zivotopis.html"></a>
+  </div>
+
+  <!-- Small buttons: Home & Exercise List -->
+  <div class="small-buttons">
+    <a id="btn-home" href="../index.html"></a>
+    <a id="btn-exerciseList" href="../exercise/index.html"></a>
+  </div>
+</main>
+
+<div id="footer-placeholder"></div>
+
+<script>
+  fetch("/footer.html")
+    .then(response => response.text())
+    .then(data => { document.getElementById("footer-placeholder").innerHTML = data; })
+    .catch(error => console.error("Error loading footer:", error));
+</script>
+
+<!-- Vocabulary data -->
+<script src="../data/1_osobni_udaje_rodina_zivotopis.html" defer></script>
+
+<!-- Translations -->
+<script src="../js/translations.js"></script>
+
+<!-- Language selector -->
+<script src="../js/language-selector.js"></script>
+
+<!-- Practice logic -->
+<script src="../js/practice.js"></script>
+
+<script>
+  const btnMap = {
+    "prevBtn": "prev",
+    "nextBtn": "next",
+    "btn-vocab": "vocabulary",
+    "btn-test": "test",
+    "btn-home": "home",
+    "btn-exerciseList": "exerciseList"
+  };
+
+  function applyPracticeTranslations() {
+    if (!translations) return;
+    const pageTitle = document.querySelector("title");
+    if (pageTitle && translations.pageTitle) pageTitle.textContent = translations.pageTitle;
+
+    const heading = document.getElementById("heading-practice");
+    if (heading && translations["heading-useful-phrases"]) heading.textContent = translations["heading-useful-phrases"];
+
+    for (const [id, key] of Object.entries(btnMap)) {
+      const el = document.getElementById(id);
+      if (el && translations.buttons && translations.buttons[key]) el.textContent = translations.buttons[key];
+    }
+
+    const footerText = document.getElementById("footer-text");
+    const footerLink = document.getElementById("footer-link");
+    if (footerText && footerLink) {
+      footerText.childNodes[0].nodeValue = (translations["footer-text"] || "") + " ";
+      footerLink.textContent = translations["footer-link"] || footerLink.textContent;
+    }
+
+    if (typeof renderVocab === "function") {
+      try { renderVocab(); } catch(e) {}
+    }
+  }
+
+  document.addEventListener("DOMContentLoaded", () => {
+    const savedLang = localStorage.getItem("selectedLanguage") || "en";
+    if (typeof loadTranslations === "function") loadTranslations(savedLang);
+  });
+</script>
+
+</body>
+</html>
