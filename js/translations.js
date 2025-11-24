@@ -69,7 +69,23 @@ function applyTranslations() {
     "heading-vocabTitle",
     "heading-practice",
     "heading-test-title",
-    "heading-test-instructions"
+    "heading-test-instructions",
+
+
+    "link-ex-osobni-udaje",
+    "link-ex-nakupovani",
+    "link-ex-denni-rezim",
+    "link-ex-cestovani",
+    "link-ex-jidlo-piti",
+    "link-ex-prace",
+    "link-ex-konicky",
+    "link-ex-bydleni",
+    "link-ex-urady",
+    "link-ex-vzdelavani",
+    "link-ex-pocasi",
+    "link-ex-zdravi",
+    "link-ex-kontakt"
+
   ];
 
   idsToTranslate.forEach(id => {
