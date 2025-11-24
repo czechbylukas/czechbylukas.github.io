@@ -14,17 +14,17 @@
 
 
   <meta charset="UTF-8">
-  <title id="page-title">Pocasi | CzechByLukas</title>
+  <title id="page-title">Počasí | CzechByLukas</title>
 
   <!-- CSS -->
-  <link rel="stylesheet" href="../css/style.css">
-  <link rel="stylesheet" href="../css/language-selector.css">
+  <link rel="stylesheet" href="../../css/style.css">
+  <link rel="stylesheet" href="../../css/language-selector.css">
 
 </head>
 
 <body class="vocab-page">
 <header>
-  <h1 id="heading-vocab">Pocasi – Vocabulary</h1>
+  <h1 id="heading-vocab">Počasí – Vocabulary</h1>
   <div id="language-selector-container"></div>
 </header>
 
@@ -33,7 +33,6 @@
     <thead>
       <tr>
         <th id="table-czech">Czech</th>
-        <th id="table-pronunciation">Pronunciation</th>
         <th id="table-english">English</th>
       </tr>
     </thead>
@@ -41,13 +40,13 @@
   </table>
 
   <div class="big-buttons">
-    <a id="btn-practice" href="../exercise/11_pocasi.html">🧠 Practice</a>
-    <a id="btn-test" href="../tests/11_pocasi.html">📝 Test</a>
+    <a id="btn-practice" href="../../../exercise/level_a2/11_pocasi.html">🧠 Practice</a>
+    <a id="btn-test" href="../../../tests/level_a2/11_pocasi.html">📝 Test</a>
   </div>
 
   <div class="small-buttons">
-    <a id="btn-home" href="../index.html">🏠 Home</a>
-    <a id="btn-vocabList" href="../vocabulary/index.html">📘 Vocabulary List</a>
+    <a id="btn-home" href="../../index.html">🏠 Home</a>
+    <a id="btn-vocabList" href="../../vocabulary/index.html">📘 Vocabulary List</a>
   </div>
 </main>
 
@@ -65,10 +64,10 @@
 </script>
 
 <!-- Vocabulary data -->
-<script src="../data/11_vocab.js" defer></script>
+<script src="../../data/level_a2/11_pocasi.js" defer></script>
 
-<script src="../js/language-selector.js"></script>
-<script src="../js/translations.js" defer></script>
+<script src="../../js/language-selector.js"></script>
+<script src="../../js/translations.js" defer></script>
 
 <!-- Vocabulary table renderer -->
 <script>
@@ -90,7 +89,7 @@
         default: translation = item.english; break;
       }
 
-      row.innerHTML = `<td>${item.czech}</td><td>${item.pronunciation}</td><td>${translation}</td>`;
+      row.innerHTML = `<td>${item.czech}</td><td>${translation}</td>`;
       fragment.appendChild(row);
     });
 
