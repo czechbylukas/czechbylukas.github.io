@@ -71,6 +71,23 @@
   "link-test-pronouns": "Zájmena",
   "link-test-numbers": "Čísla",
 
+
+  "link-ex-osobni-udaje": "Osobní údaje, rodina, životopis",
+  "link-ex-nakupovani": "Nakupování",
+  "link-ex-denni-rezim": "Denní režim",
+  "link-ex-cestovani": "Cestování",
+  "link-ex-jidlo-piti": "Jídlo a pití",
+  "link-ex-prace": "Práce",
+  "link-ex-konicky": "Koníčky",
+  "link-ex-bydleni": "Bydlení",
+  "link-ex-urady": "Úřady",
+  "link-ex-vzdelavani": "Vzdělávání",
+  "link-ex-pocasi": "Počasí",
+  "link-ex-zdravi": "Zdraví",
+  "link-ex-kontakt": "Kontakt s majoritní společností a zařazení do společenského a politického života"
+
+
+
   "buttons": {
     "next": "Další",
     "prev": "Zpět",
