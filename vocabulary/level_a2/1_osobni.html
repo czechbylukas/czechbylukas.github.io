@@ -33,7 +33,6 @@
     <thead>
       <tr>
         <th id="table-czech">Czech</th>
-        <th id="table-pronunciation">Pronunciation</th>
         <th id="table-english">English</th>
       </tr>
     </thead>
@@ -41,7 +40,7 @@
   </table>
 
   <div class="big-buttons">
-    <a id="btn-practice" href="../../exercise/1_osobni_udaje_rodina_zivotopis.html">🧠 Practice</a>
+    <a id="btn-practice" href="../../exercise/level_a2/1_osobni_udaje_rodina_zivotopis.html">🧠 Practice</a>
     <a id="btn-test" href="../../tests/1_osobni_udaje_rodina_zivotopis.html">📝 Test</a>
   </div>
 
@@ -65,7 +64,8 @@
 </script>
 
 <!-- Vocabulary data -->
-<script src="../../data/1_vocab.js" defer></script>
+<script src="../../data/level_a2/1_osobni
+.js" defer></script>
 
 <script src="../../js/language-selector.js"></script>
 <script src="../../js/translations.js" defer></script>
@@ -90,7 +90,7 @@
         default: translation = item.english; break;
       }
 
-      row.innerHTML = `<td>${item.czech}</td><td>${item.pronunciation}</td><td>${translation}</td>`;
+      row.innerHTML = `<td>${item.czech}</td><td>${translation}</td>`;
       fragment.appendChild(row);
     });
 

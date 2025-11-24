@@ -33,7 +33,6 @@
     <thead>
       <tr>
         <th id="table-czech">Czech</th>
-        <th id="table-pronunciation">Pronunciation</th>
         <th id="table-english">English</th>
       </tr>
     </thead>
@@ -90,7 +89,7 @@
         default: translation = item.english; break;
       }
 
-      row.innerHTML = `<td>${item.czech}</td><td>${item.pronunciation}</td><td>${translation}</td>`;
+      row.innerHTML = `<td>${item.czech}</td><td>${translation}</td>`;
       fragment.appendChild(row);
     });
 
