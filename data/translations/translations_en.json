@@ -71,6 +71,21 @@
   "link-test-pronouns": "Pronouns",
   "link-test-numbers": "Numbers",
 
+  "link-ex-osobni-udaje": "Personal Information, Family, CV",
+  "link-ex-nakupovani": "Shopping",
+  "link-ex-denni-rezim": "Daily Routine",
+  "link-ex-cestovani": "Travel",
+  "link-ex-jidlo-piti": "Food and Drinks",
+  "link-ex-prace": "Work",
+  "link-ex-konicky": "Hobbies",
+  "link-ex-bydleni": "Housing",
+  "link-ex-urady": "Offices / Authorities",
+  "link-ex-vzdelavani": "Education",
+  "link-ex-pocasi": "Weather",
+  "link-ex-zdravi": "Health",
+  "link-ex-kontakt": "Contact with Majority Society and Social/Political Integration"
+
+
   "buttons": {
     "next": "Next",
     "prev": "Previous",

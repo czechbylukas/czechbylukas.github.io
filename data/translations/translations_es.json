@@ -52,6 +52,22 @@
   "link-ex-pronouns": "Pronombres",
   "link-ex-numbers": "Números",
 
+
+  "link-ex-osobni-udaje": "Datos personales, familia, currículum",
+  "link-ex-nakupovani": "Compras",
+  "link-ex-denni-rezim": "Rutina diaria",
+  "link-ex-cestovani": "Viajes",
+  "link-ex-jidlo-piti": "Comida y bebida",
+  "link-ex-prace": "Trabajo",
+  "link-ex-konicky": "Aficiones",
+  "link-ex-bydleni": "Vivienda",
+  "link-ex-urady": "Oficinas / Autoridades",
+  "link-ex-vzdelavani": "Educación",
+  "link-ex-pocasi": "Clima / Tiempo",
+  "link-ex-zdravi": "Salud",
+  "link-ex-kontakt": "Contacto con la sociedad mayoritaria e integración social/política"
+
+
   "heading-tests": "Pruebas",
   "heading-testList": "Lista de pruebas",
   "link-test-useful-phrases": "Frases útiles",
