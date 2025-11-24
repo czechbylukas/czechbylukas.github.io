@@ -1,47 +1,108 @@
 <!DOCTYPE html>
 <html lang="cs">
 <head>
-<meta charset="UTF-8">
-<title id="page-title">Praotec Čech — legenda</title>
-<link rel="stylesheet" href="/css/style.css">
-<link rel="stylesheet" href="/css/language-selector.css">
-<style>
-  .container {
-    display: flex;
-    gap: 20px;
-    flex-wrap: wrap;
-  }
-  .column {
-    flex: 1;
-    min-width: 300px;
-    border: 1px solid #ccc;
-    padding: 15px;
-    box-shadow: 1px 1px 5px rgba(0,0,0,0.1);
-  }
-  .level-buttons {
-    text-align: center;
-    margin-bottom: 20px;
-  }
-  .level-buttons button {
-    margin: 0 5px;
-    padding: 5px 10px;
-    cursor: pointer;
-  }
-  .hidden {
-    display: none;
-  }
-  .author-line {
-    font-size: 0.9em;
-    margin-bottom: 10px;
-  }
-  .yt-button {
-    text-decoration: none;
-    font-size: 1.2em;
-    background: none;
-    border: none;
-    padding: 0;
-  }
-</style>
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-1BCW5XQ0X5"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-1BCW5XQ0X5');
+  </script>
+
+  <meta charset="UTF-8">
+  <link rel="alternate" type="application/rss+xml" title="Praotec Čech (RSS)" href="/rss.xml">
+  <title id="page-title">Praotec Čech — legenda</title>
+
+  <link rel="stylesheet" href="/css/style.css">
+  <link rel="stylesheet" href="/css/language-selector.css">
+
+  <style>
+    .container {
+      display: flex;
+      gap: 20px;
+      flex-wrap: wrap;
+    }
+    .column {
+      flex: 1;
+      min-width: 300px;
+      border: 1px solid #ccc;
+      padding: 15px;
+      box-shadow: 1px 1px 5px rgba(0,0,0,0.1);
+    }
+    .level-buttons {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+    .level-buttons button {
+      margin: 0 5px;
+      padding: 5px 10px;
+      cursor: pointer;
+    }
+    .hidden {
+      display: none;
+    }
+    .author-line {
+      font-size: 0.9em;
+      margin-bottom: 10px;
+    }
+    .yt-button {
+      text-decoration: none;
+      font-size: 1.2em;
+      background: none;
+      border: none;
+      padding: 0;
+    }
+
+    /* Newsletter CSS (kept from original) */
+    #mlb2-33190729.ml-form-embedContainer {
+      display: table;
+      margin: 20px auto;
+      width: 100% !important;
+      font-family: 'Open Sans', Arial, sans-serif;
+    }
+    #mlb2-33190729 .ml-form-embedWrapper {
+      background-color: #f6f6f6;
+      border-radius: 4px;
+      padding: 20px;
+      max-width: 400px;
+      margin: 0 auto;
+    }
+    #mlb2-33190729 h4 {
+      font-size: 30px;
+      margin-bottom: 10px;
+      color: #000;
+      text-align: center;
+    }
+    #mlb2-33190729 p {
+      font-size: 14px;
+      margin-bottom: 20px;
+      text-align: center;
+    }
+    #mlb2-33190729 input.form-control {
+      width: 100% !important;
+      padding: 10px;
+      margin-bottom: 10px;
+      border-radius: 4px;
+      border: 1px solid #ccc;
+      box-sizing: border-box;
+      font-size: 14px;
+    }
+    #mlb2-33190729 button.primary {
+      width: 100%;
+      background-color: #000;
+      color: #fff;
+      padding: 10px;
+      font-weight: 700;
+      border-radius: 4px;
+      border: none;
+      cursor: pointer;
+    }
+    #mlb2-33190729 button.primary:hover {
+      background-color: #333;
+    }
+  </style>
+
 </head>
 <body class="vocab-page">
 
@@ -51,12 +112,14 @@
 </header>
 
 <!-- Author and YouTube link -->
-<div class="author-line">
-  Video o Praotci Čechovi: &nbsp;&nbsp;
-  <a href="https://www.youtube.com/watch?v=BKXf-ujUqyM" target="_blank" class="yt-button">▶️</a>
+<div style="font-size: 0.9em; margin-bottom: 10px;">
+  Author: Kosmas &nbsp;&nbsp;
+  <a href="https://www.youtube.com/watch?v=BKXf-ujUqyM" target="_blank" style="text-decoration: none; font-size: 1.2em;">▶️</a>
 </div>
 
 <main>
+
+  <!-- Level buttons -->
   <div class="level-buttons">
     <button onclick="showLevel('A1')">A1</button>
     <button onclick="showLevel('A2')">A2</button>
@@ -64,101 +127,170 @@
   </div>
 
   <div class="container">
+    <!-- Czech column -->
     <div class="column" id="czech">
       <!-- A1 -->
       <div class="level A1">
-        <p>Praotec Čech <strong>je</strong> stará česká legenda.<br><br>
-Čech <strong>jde</strong> se svými lidmi dlouhou cestu.<br><br>
-Lidé <strong>jsou</strong> unavení a <strong>mají</strong> málo jídla.<br><br>
-<strong>Hledají</strong> nový domov.<br><br>
-Čech <strong>jde</strong> na vysokou horu. <br><br>Hora <strong>se jmenuje</strong> Říp.<br><br>
-Čech <strong>se dívá</strong> kolem sebe.<br><br> <strong>Vidí</strong> hezkou krajinu.<br><br>
-<strong>Jsou</strong> tam lesy, řeky a pole.<br><br>
-„Tady <strong>budeme žít</strong>,“ <strong>říká</strong> Čech.<br><br>
-Lidé <strong>jsou</strong> rádi.<br><br> <strong>Postaví</strong> domy, stáje a zahrady.<br><br>
-<strong>Začnou</strong> nový život.<br><br>
-Tak <strong>vznikne</strong> česká země.</p>
+        <p>Praotec Čech <strong>je</strong> starý český příběh.<br><br>
+        Čech <strong>jde</strong> se svým lidem dlouhou cestu.<br><br>
+        Lidé <strong>jsou</strong> unavení a <strong>mají</strong> málo jídla.<br><br>
+        Hledají nový domov.<br><br>
+        Čech <strong>jde</strong> na vysokou horu. Hora <strong>se jmenuje</strong> Říp.<br><br>
+        Čech <strong>se dívá</strong> kolem sebe. <strong>Vidí</strong> hezkou krajinu.<br><br>
+        Jsou tam lesy, řeky a pole.<br><br>
+        „Tady <strong>budeme žít</strong>,“ <strong>říká</strong> Čech.<br><br>
+        Lidé <strong>jsou</strong> rádi. <strong>Postaví</strong> domy, stáje a zahrady.<br><br>
+        <strong>Začnou</strong> nový život.<br><br>
+        Tak <strong>vznikne</strong> česká země.</p>
       </div>
+
       <!-- A2 -->
       <div class="level A2 hidden">
-        <p>Podle české legendy <strong>šel</strong> Praotec Čech se svými lidmi z daleké země.<br><br>
-Cesta <strong>trvala</strong> dlouho a lidé <strong>byli</strong> unavení. <br><br>Někteří <strong>měli</strong> strach, protože nevěděli, kde <strong>budou</strong> žít.<br><br>
-Všichni však <strong>doufali</strong>, že <strong>najdou</strong> pěkné a bezpečné místo.<br><br>
-Když jednou <strong>dorazili</strong> k hoře Říp, Čech <strong>se rozhodl vystoupit</strong> až na vrchol.<br><br>
-Chtěl <strong>se podívat</strong>, jak to v okolí <strong>vypadá</strong>.<br><br>
-Z vrcholu <strong>viděl</strong> hezkou krajinu – lesy, řeky s čistou vodou a široká pole.<br><br>
-Místo <strong>bylo</strong> klidné a <strong>mělo</strong> všechno, co lidé potřebovali.<br><br>
-Praotec Čech <strong>se vrátil</strong> dolů a <strong>řekl</strong>: „Tady <strong>zůstaneme</strong>. Tady <strong>bude</strong> náš nový domov.“<br><br>
-Lidé <strong>byli</strong> rádi a už <strong>nechtěli</strong> dál putovat.<br><br>
-Začali <strong>stavět</strong> domy a <strong>připravovali</strong> pole.<br><br>
-Pod horou Říp <strong>vznikla</strong> první osada.<br><br>
-Legenda <strong>říká</strong>, že právě tady <strong>začínají</strong> dějiny českého národa.<br><br>
-A mnoho lidí na horu Říp <strong>chodí</strong> dodnes.</p>
+        <p>Podle české legendy <strong>šel</strong> Praotec Čech se svým lidem z daleké země.<br><br>
+        Cesta <strong>trvala</strong> dlouho a lidé <strong>byli</strong> unavení. Někteří <strong>měli</strong> strach, protože nevěděli, kde <strong>budou</strong> žít.<br><br>
+        Všichni však <strong>doufali</strong>, že <strong>najdou</strong> pěkné a bezpečné místo.<br><br>
+        Když jednou <strong>dorazili</strong> k hoře Říp, Čech <strong>se rozhodl</strong> vystoupit až na vrchol.<br><br>
+        Chtěl <strong>se podívat</strong>, jak to v okolí <strong>vypadá</strong>.<br><br>
+        Z vrcholu <strong>viděl</strong> hezkou krajinu – lesy, řeky s čistou vodou a široká pole.<br><br>
+        Místo <strong>bylo</strong> klidné a <strong>mělo</strong> všechno, co lidé potřebovali.<br><br>
+        Praotec Čech <strong>se vrátil</strong> dolů a <strong>řekl</strong>: „Tady <strong>zůstaneme</strong>. Tady <strong>bude</strong> náš nový domov.“<br><br>
+        Lidé <strong>byli</strong> rádi a už <strong>nechtěli</strong> dál putovat.<br><br>
+        <strong>Začali</strong> <strong>stavět</strong> domy a <strong>připravovali</strong> pole.<br><br>
+        Pod horou Říp <strong>vznikla</strong> první osada.<br><br>
+        Legenda <strong>říká</strong>, že právě tady <strong>začínají</strong> dějiny českého národa.<br><br>
+        A mnoho lidí na horu Říp <strong>chodí</strong> dodnes.</p>
       </div>
+
       <!-- B1 -->
       <div class="level B1 hidden">
         <p>Legenda o Praotci Čechovi <strong>patří</strong> k nejstarším vyprávěním o českém národě.<br><br>
-Říká se, že Čech <strong>vedl</strong> svůj lid z východní země, kde už pro ně <strong>nebylo</strong> dost prostoru ani klidu.<br><br>
-Lidé <strong>putovali</strong> mnoho týdnů a <strong>ztráceli</strong> sílu i naději. <br><br>Přesto Čechovi <strong>věřili</strong>.<br><br>
-Když jednou <strong>dorazili</strong> k hoře Říp, Čech <strong>se rozhodl vystoupit</strong> až na její vrchol.<br><br>
-Chtěl <strong>zjistit</strong>, jestli <strong>je</strong> kraj kolem vhodný pro nový život.<br><br>
-Cesta nahoru <strong>byla</strong> náročná, ale pohled z vrcholu <strong>byl</strong> nádherný.<br><br>
-Čech <strong>viděl</strong> úrodná pole, hluboké lesy a řeky s čistou vodou.<br><br>
-Praotec Čech pak <strong>řekl</strong> svému lidu slavnou větu: „Toto <strong>je</strong> země zaslíbená. Tady <strong>budeme žít</strong>.“<br><br>
-Lidé jeho rozhodnutí <strong>přijali</strong> s radostí. <br><br>Pod horou <strong>založili</strong> první osadu, která <strong>se</strong> později <strong>rozrůstala</strong>.<br><br>
-Příběh <strong>se předával</strong> z generace na generaci a <strong>stal se</strong> symbolem nového začátku.<br><br>
-Dodnes mnoho lidí na vrchol Řípu <strong>chodí</strong> a <strong>připomínají</strong> si tak starou legendu a její význam.</p>
+        Říká se, že Čech <strong>vedl</strong> svůj lid z východní země, kde už pro ně <strong>nebylo</strong> dost prostoru ani klidu.<br><br>
+        Lidé <strong>putovali</strong> mnoho týdnů a <strong>ztráceli</strong> sílu i naději. Přesto Čechovi <strong>věřili</strong>.<br><br>
+        Když jednou <strong>dorazili</strong> k hoře Říp, Čech <strong>se rozhodl</strong> vystoupit až na její vrchol.<br><br>
+        Chtěl <strong>zjistit</strong>, jestli <strong>je</strong> kraj kolem vhodný pro nový život.<br><br>
+        Cesta nahoru <strong>byla</strong> náročná, ale pohled z vrcholu <strong>byl</strong> nádherný.<br><br>
+        Čech <strong>viděl</strong> úrodná pole, hluboké lesy a řeky s čistou vodou.<br><br>
+        Praotec Čech pak <strong>řekl</strong> svému lidu slavnou větu: „Toto <strong>je</strong> země zaslíbená. Tady <strong>budeme žít</strong>.“<br><br>
+        Lidé jeho rozhodnutí <strong>přijali</strong> s radostí. <br><br>
+        Pod horou <strong>založili</strong> první osadu, která <strong>se později rozrůstala</strong>.<br><br>
+        Příběh <strong>se předával</strong> z generace na generaci a <strong>stal se</strong> symbolem nového začátku.<br><br>
+        Dodnes mnoho lidí na vrchol Řípu <strong>chodí</strong> a <strong>připomínají</strong> si tak starou legendu a její význam.</p>
       </div>
     </div>
 
+    <!-- English column -->
     <div class="column" id="english">
       <!-- A1 -->
       <div class="level A1">
         <p>Praotec Čech <strong>is</strong> an old Czech legend.<br><br>
-Čech <strong>goes</strong> with his people on a long journey.<br><br>
-The people <strong>are</strong> tired and <strong>have</strong> little food.<br><br>
-They <strong>look for</strong> a new home.<br><br>
-Čech <strong>goes</strong> to a high mountain. <br><br>The mountain is called Říp.<br><br>
-Čech <strong>looks around</strong>. <br><br>He <strong>sees</strong> a beautiful landscape.<br><br>
-There <strong>are</strong> forests, rivers, and fields.<br><br>
-“We <strong>will live</strong> here,” Čech says.<br><br>
-The people <strong>are</strong> happy. <br><br>They <strong>build</strong> houses, stables, and gardens.<br><br>
-They <strong>start</strong> a new life.<br><br>
-And this <strong>is</strong> how the Czech land begins.</p>
+        Čech <strong>goes</strong> with his people on a long journey.<br><br>
+        The people <strong>are</strong> tired and <strong>have</strong> little food.<br><br>
+        They <strong>look for</strong> a new home.<br><br>
+        Čech <strong>goes</strong> to a high mountain. The mountain <strong>is called</strong> Říp.<br><br>
+        Čech <strong>looks around</strong>. <br><br> He <strong>sees</strong> a beautiful landscape.<br><br>
+        There <strong>are</strong> forests, rivers, and fields.<br><br>
+        “We <strong>will live</strong> here,” Čech <strong>says</strong>.<br><br>
+        The people <strong>are</strong> happy. <br><br> They <strong>build</strong> houses, stables, and gardens.<br><br>
+        They <strong>start</strong> a new life.<br><br>
+        And this <strong>is</strong> how the Czech land begins.</p>
       </div>
+
       <!-- A2 -->
       <div class="level A2 hidden">
         <p>According to a Czech legend, Praotec Čech <strong>went</strong> with his people from a distant land.<br><br>
-The journey <strong>lasted</strong> a long time and the people <strong>were</strong> tired. <br><br>Some <strong>had</strong> fear because they did not know where they <strong>would live</strong>.<br><br>
-But everyone <strong>hoped</strong> that they <strong>would find</strong> a nice and safe place.<br><br>
-When they <strong>arrived</strong> at Mount Říp, Čech <strong>decided</strong> to climb to the top.<br><br>
-He <strong>wanted</strong> to look at how the area <strong>looked</strong>.<br><br>
-From the top he <strong>saw</strong> a beautiful landscape – forests, rivers with clean water, and wide fields.<br><br>
-The place <strong>was</strong> peaceful and <strong>had</strong> everything the people needed.<br><br>
-Praotec Čech <strong>returned</strong> down and <strong>said</strong>: “We <strong>will stay</strong> here. This <strong>will be</strong> our new home.”<br><br>
-The people <strong>were</strong> happy and <strong>did not want</strong> to travel farther.<br><br>
-They <strong>began</strong> to build houses and <strong>prepared</strong> the fields.<br><br>
-Under Mount Říp the first settlement <strong>was created</strong>.<br><br>
-The legend <strong>says</strong> that the Czech nation’s history <strong>begins</strong> here.<br><br>
-And many people <strong>go</strong> to Mount Říp even today.</p>
+        The journey <strong>lasted</strong> a long time and the people <strong>were</strong> tired. <br><br> Some <strong>had</strong> fear because they did not know where they <strong>would live</strong>.<br><br>
+        But everyone <strong>hoped</strong> that they <strong>would find</strong> a nice and safe place.<br><br>
+        When they <strong>arrived</strong> at Mount Říp, Čech <strong>decided</strong> to climb to the top.<br><br>
+        He <strong>wanted</strong> to look at how the area <strong>looked</strong>.<br><br>
+        From the top he <strong>saw</strong> a beautiful landscape – forests, rivers with clean water, and wide fields.<br><br>
+        The place <strong>was</strong> peaceful and <strong>had</strong> everything the people needed.<br><br>
+        Praotec Čech <strong>returned</strong> down and <strong>said</strong>: “We <strong>will stay</strong> here. This <strong>will be</strong> our new home.”<br><br>
+        The people <strong>were</strong> happy and <strong>did not want</strong> to travel farther.<br><br>
+        They <strong>began</strong> to build houses and <strong>prepared</strong> the fields.<br><br>
+        Under Mount Říp the first settlement <strong>was created</strong>.<br><br>
+        The legend <strong>says</strong> that the Czech nation’s history <strong>begins</strong> here.<br><br>
+        And many people <strong>go</strong> to Mount Říp even today.</p>
       </div>
+
       <!-- B1 -->
       <div class="level B1 hidden">
         <p>The legend of Praotec Čech <strong>belongs</strong> among the oldest stories about the Czech nation.<br><br>
-It <strong>is said</strong> that Čech <strong>led</strong> his people from an eastern land where there <strong>was</strong> no longer enough space or peace for them.<br><br>
-The people <strong>travelled</strong> for many weeks and <strong>were loosing</strong> both strength and hope. <br><br>Still, they <strong>trusted</strong> Čech.<br><br>
-When they <strong>arrived</strong> at Mount Říp, Čech <strong>decided</strong> to climb to the top.<br><br>
-He <strong>wanted</strong> to find out whether the land around <strong>was</strong> suitable for a new life.<br><br>
-The path up <strong>was</strong> difficult, but the view from the top <strong>was</strong> beautiful.<br><br>
-Čech <strong>saw</strong> fertile fields, deep forests, and rivers with clean water.<br><br>
-Praotec Čech then <strong>said</strong> to his people the famous sentence: “This <strong>is</strong> the promised land. We <strong>will live</strong> here.”<br><br>
-The people <strong>accepted</strong> his decision with joy. <br><br>Under the mountain they <strong>founded</strong> the first settlement, which later <strong>grew</strong>.<br><br>
-The story <strong>was passed</strong> from generation to generation and <strong>became</strong> a symbol of a new beginning.<br><br>
-Even today many people <strong>go</strong> to the top of Říp and <strong>remember</strong> this old legend and its meaning.</p>
+        It <strong>is said</strong> that Čech <strong>led</strong> his people from an eastern land where there <strong>was</strong> no longer enough space or peace for them.<br><br>
+        The people <strong>travelled</strong> for many weeks and <strong>lost</strong> both strength and hope. Still, they <strong>trusted</strong> Čech.<br><br>
+        When they <strong>arrived</strong> at Mount Říp, Čech <strong>decided</strong> to climb to the top.<br><br>
+        He <strong>wanted</strong> to find out whether the land around <strong>was</strong> suitable for a new life.<br><br>
+        The path up <strong>was</strong> difficult, but the view from the top <strong>was</strong> beautiful.<br><br>
+        Čech <strong>saw</strong> fertile fields, deep forests, and rivers with clean water.<br><br>
+        Praotec Čech then <strong>said</strong> to his people the famous sentence: “This <strong>is</strong> the promised land. We <strong>will live</strong> here.”<br><br>
+        The people <strong>accepted</strong> his decision with joy. <br><br>
+        Under the mountain they <strong>founded</strong> the first settlement, which later <strong>grew</strong>.<br><br>
+        The story <strong>was passed</strong> from generation to generation and <strong>became</strong> a symbol of a new beginning.<br><br>
+        Even today many people <strong>go</strong> to the top of Říp and <strong>remember</strong> this old legend and its meaning.</p>
       </div>
     </div>
   </div>
 
+  <div>
+    ❤️ Your review will help me a lot to grow my business. <a href="https://g.page/r/CRxFpCGXkfBsEBM/review">Review here</a>.
+  </div>
+
+  <!-- Newsletter Subscribe Form -->
+  <div id="mlb2-33190729" class="ml-form-embedContainer ml-subscribe-form ml-subscribe-form-33190729">
+    <div class="ml-form-align-center">
+      <div class="ml-form-embedWrapper embedForm">
+        <div class="ml-form-embedBody ml-form-embedBodyDefault row-form">
+          <div class="ml-form-embedContent">
+            <h4>Newsletter</h4>
+            <p>Signup for news and special offers!</p>
+          </div>
+          <form class="ml-block-form" action="https://assets.mailerlite.com/jsonp/1912455/forms/170758706347116236/subscribe" method="post" target="_blank">
+            <div class="ml-form-formContent">
+              <div class="ml-form-fieldRow">
+                <div class="ml-field-group ml-field-last_name">
+                  <input type="text" class="form-control" name="fields[last_name]" placeholder="Name (not required, but recommended)" autocomplete="family-name">
+                </div>
+              </div>
+              <div class="ml-form-fieldRow ml-last-item">
+                <div class="ml-field-group ml-field-email ml-validate-email ml-validate-required">
+                  <input type="email" class="form-control" name="fields[email]" placeholder="Email" autocomplete="email" required>
+                </div>
+              </div>
+            </div>
+            <input type="hidden" name="ml-submit" value="1">
+            <div class="ml-form-embedSubmit">
+              <button type="submit" class="primary">Subscribe</button>
+              <button disabled="disabled" style="display:none;" type="button" class="loading">
+                <div class="ml-form-embedSubmitLoad"></div>
+                <span class="sr-only">Loading...</span>
+              </button>
+            </div>
+            <input type="hidden" name="anticsrf" value="true">
+          </form>
+        </div>
+        <div class="ml-form-successBody row-success" style="display: none">
+          <div class="ml-form-successContent">
+            <h4>Thank you!</h4>
+            <p>You have successfully joined our subscriber list.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    function ml_webform_success_33190729() {
+      var $ = ml_jQuery || jQuery;
+      $('.ml-subscribe-form-33190729 .row-success').show();
+      $('.ml-subscribe-form-33190729 .row-form').hide();
+    }
+  </script>
+
+  <script src="https://groot.mailerlite.com/js/w/webforms.min.js" type="text/javascript"></script>
+  <script>
+    fetch("https://assets.mailerlite.com/jsonp/1912455/forms/170758706347116236/takel");
+  </script>
+
+  <!-- Navigation buttons -->
   <div class="page-buttons" style="text-align:center; margin:20px 0;">
     <a id="button-blogIndex" href="/blog/index.html" class="btn">📰 Blog Index</a>
     <a id="button-mainPage" href="../index.html" class="btn">🏠 Main Page</a>
@@ -166,14 +298,26 @@ Even today many people <strong>go</strong> to the top of Říp and <strong>remem
 
 </main>
 
+<div id="footer-placeholder"></div>
+
 <script>
-function showLevel(level) {
-  const levels = ['A1','A2','B1'];
-  levels.forEach(l => {
-    document.querySelectorAll('.level.' + l).forEach(el => el.classList.add('hidden'));
-  });
-  document.querySelectorAll('.level.' + level).forEach(el => el.classList.remove('hidden'));
-}
+  // Load footer.html dynamically
+  fetch("/footer.html")
+    .then(response => response.text())
+    .then(data => {
+      document.getElementById("footer-placeholder").innerHTML = data;
+    })
+    .catch(error => console.error("Error loading footer:", error));
+</script>
+
+<script>
+  function showLevel(level) {
+    const levels = ['A1','A2','B1'];
+    levels.forEach(l => {
+      document.querySelectorAll('.level.' + l).forEach(el => el.classList.add('hidden'));
+    });
+    document.querySelectorAll('.level.' + level).forEach(el => el.classList.remove('hidden'));
+  }
 </script>
 
 </body>
