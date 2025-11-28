@@ -49,19 +49,24 @@
   <script>
     let lang = localStorage.getItem("selectedLanguage") || "en";
 
-    const timerEl = document.getElementById('timer');
-    let timeLeft = 10 * 60;
-    setInterval(() => {
-      const minutes = Math.floor(timeLeft / 60).toString().padStart(2,'0');
-      const seconds = (timeLeft % 60).toString().padStart(2,'0');
-      timerEl.textContent = `⏱ ${translations.messages?.timeRemaining || "Time remaining:"} ${minutes}:${seconds}`;
-      timeLeft--;
-      if(timeLeft < 0){
-        timerEl.textContent = translations.messages?.timesUp || "Time’s up! Please submit your answers now.";
-        timerEl.style.color = '#c0392b';
-        alert(timerEl.textContent);
-      }
-    }, 1000);
+let timeLeft = 10 * 60;
+const timerEl = document.getElementById('timer');
+
+const timerInterval = setInterval(() => {
+  const minutes = Math.floor(timeLeft / 60).toString().padStart(2,'0');
+  const seconds = (timeLeft % 60).toString().padStart(2,'0');
+
+  timerEl.textContent = `⏱ ${translations.messages?.timeRemaining || "Time remaining:"} ${minutes}:${seconds}`;
+  timeLeft--;
+
+  if (timeLeft < 0) {
+    clearInterval(timerInterval);  // stop timer
+    timerEl.textContent = translations.messages?.timesUp || "Time’s up! Please submit your answers now.";
+    timerEl.style.color = '#c0392b';
+    alert(timerEl.textContent);    // alert once only
+  }
+}, 1000);
+
 
     async function updatePage(lang){
       if(typeof loadTranslations === "function") await loadTranslations(lang);
