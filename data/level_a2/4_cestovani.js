@@ -260,13 +260,13 @@ const vocab = [
   },
   {
     czech:   "Kam jedeš?",
-    english: "Where are you going?",
+    english: "Where (to) are you going?",
     spanish: "¿A dónde vas?",
     german:  "Wohin gehst du?"
   },
   {
     czech:   "Kam bys chtěl jet?",
-    english: "Where would you like to go?",
+    english: "Where (to) would you like to go?",
     spanish: "¿A dónde te gustaría ir?",
     german:  "Wohin möchtest du gehen?"
   },
@@ -296,7 +296,7 @@ const vocab = [
   },
   {
     czech:   "Touto cestou.",
-    english: "That way.",
+    english: "This way.",
     spanish: "Por este camino.",
     german:  "Diesen Weg entlang."
   },
@@ -373,7 +373,7 @@ const vocab = [
     german:  "Bitte bringen Sie mich zum Bahnhof."
   },
   {
-    czech:   "Chtěl bych pokoj pro jednoho.",
+    czech:   "Chtěl bych pokoj pro jednoho / jednolůžkový pokoj.",
     english: "I would like a single room.",
     spanish: "Quisiera una habitación individual.",
     german:  "Ich möchte ein Einzelzimmer."
