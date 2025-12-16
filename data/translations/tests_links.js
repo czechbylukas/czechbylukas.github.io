@@ -165,3 +165,9 @@ const testLinksA2 = {
     de: "https://docs.google.com/forms/d/e/1FAIpQLSdqyh_weqpz50mstC-ZHHNQwRqVkFoZRcLmt3lEROEhfBr-lw/viewform?embedded=true"
   },
 };
+// Merge A2 tests into main testLinks object
+Object.assign(testLinks, testLinksA2);
+
+
+
+
