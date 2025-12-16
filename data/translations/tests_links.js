@@ -97,15 +97,15 @@ const testLinksA2 = {
   },
 
   lessonA2DenniRezim: {
-    en: "https://docs.google.com/forms/d/e/EN_FORM_ID_DENNI_REZIM/viewform?embedded=true",
-    es: "https://docs.google.com/forms/d/e/EN_FORM_ID_DENNI_REZIM/viewform?embedded=true",
-    de: "https://docs.google.com/forms/d/e/EN_FORM_ID_DENNI_REZIM/viewform?embedded=true"
+    en: "https://docs.google.com/forms/d/e/1FAIpQLSdrqEE79U1ORz1VUiloI5DLkoynTsLxyKFhcE_t_bjho6BSPw/viewform?embedded=true",
+    es: "https://docs.google.com/forms/d/e/1FAIpQLSfjil6DG5J5ssoQfcdxH6jjQW3RsqAUECl2hdymx90qMPeK5Q/viewform?embedded=true",
+    de: "https://docs.google.com/forms/d/e/1FAIpQLSdOjdBl2iy3GMOOlFDrq6Bmk7PnMHFmUTzoUXkmqd1mxXkPrA/viewform?embedded=true"
   },
 
   lessonA2Cestovani: {
-    en: "https://docs.google.com/forms/d/e/EN_FORM_ID_CESTOVANI/viewform?embedded=true",
-    es: "https://docs.google.com/forms/d/e/EN_FORM_ID_CESTOVANI/viewform?embedded=true",
-    de: "https://docs.google.com/forms/d/e/EN_FORM_ID_CESTOVANI/viewform?embedded=true"
+    en: "https://docs.google.com/forms/d/e/1FAIpQLSeIFYjaK1fSRMmoT7cvkq7sDRrF9PCsp8-wiDvQp5SXPi6eyw/viewform?embedded=true",
+    es: "https://docs.google.com/forms/d/e/1FAIpQLSeRf-ETNtv-t_-yCQzERKKPYc5lzpIpyLAqWirCJSkzP1QAVQ/viewform?embedded=true",
+    de: "hhttps://docs.google.com/forms/d/e/1FAIpQLSdwehQVrpC0n0ZCqfPA4Mh1QYbe8nN-5_i9JaXixtC_6ERXbA/viewform?embedded=true"
   },
 
   lessonA2JidloPiti: {
