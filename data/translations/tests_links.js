@@ -120,7 +120,7 @@ const testLinksA2 = {
   lessonA2Prace: {
     en: "https://docs.google.com/forms/d/e/1FAIpQLSdLKnm6hEYCZC5G-HbVD4LVsVETa-GGC1AUmF04hwVpnSsYeA/viewform?embedded=true",
     es: "https://docs.google.com/forms/d/e/1FAIpQLSd0x9CmWjjne4siPrXsV86GBNO6qxRhhVHYi2F4Wet0eh48kg/viewform?embedded=true",
-    de: "https://docs.google.com/forms/d/e/1FAIpQLSce44fG028SfypuXKIVQ9cScIQPqTJLrKD0JL3cnpH0KPUJAg/viewform?embedded=true"
+    de: "https://docs.google.com/forms/d/e/1FAIpQLSd9nxAelx_g0xkM2tEcc7igEpIUESE8RO49qwqqYW_nwGgmhw/viewform?embedded=true"
   },
 
   lessonA2Konicky: {
