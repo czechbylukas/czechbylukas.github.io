@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+  <meta charset="UTF-8">
+  <title>Presentations | CzechByLukas</title>
+  <link rel="stylesheet" href="../css/style.css">
+</head>
+
+<body>
+<header>
+  <h1>📊 Presentations</h1>
+</header>
+
+<main>
+  <p>Interactive presentations you can view directly in your browser.</p>
+
+  <ul class="presentation-list">
+    <li>
+      <a href="useful-phrases.html">Useful Phrases – Lesson 1</a>
+    </li>
+  </ul>
+</main>
+
+<div id="footer-placeholder"></div>
+
+<script>
+fetch("/footer.html")
+  .then(r => r.text())
+  .then(t => document.getElementById("footer-placeholder").innerHTML = t);
+</script>
+</body>
+</html>
