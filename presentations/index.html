@@ -5,28 +5,51 @@
   <title>Presentations | CzechByLukas</title>
   <link rel="stylesheet" href="../css/style.css">
 </head>
-
 <body>
+
 <header>
-  <h1>📊 Presentations</h1>
+  <h1 id="heading-presentations">📊 Presentations</h1>
 </header>
 
 <main>
-  <p>Interactive presentations you can view directly in your browser.</p>
+  <p id="text-presentations-intro">
+    Interactive presentations you can view directly in your browser.
+  </p>
 
   <ul class="presentation-list">
-    <li>
-      <a href="useful-phrases.html">Useful Phrases – Lesson 1</a>
-    </li>
+    <li><a id="link-ex-uzitecna-slova" href="uzitecna-slova.html">Užitečná slova v češtině</a></li>
+    <li><a id="link-ex-basic-past-tense" href="basic-past-tense.html">Learning Past Tense in Czech</a></li>
+    <li><a id="link-ex-verbs-a" href="verbs-a.html">Verbs -á: Learning Present Tense in Czech</a></li>
+    <li><a id="link-ex-verbs-i" href="verbs-i.html">Verbs -í: Learning Present Tense in Czech</a></li>
+    <li><a id="link-ex-verbs-e" href="verbs-e.html">Verbs -e: Learning Present Tense in Czech</a></li>
+    <li><a id="link-ex-cestovani" href="cestovani.html">Cestování</a></li>
+    <li><a id="link-ex-jidlo-piti" href="jidlo-a-piti.html">Jídlo a pití</a></li>
+    <li><a id="link-ex-prace" href="prace.html">Práce</a></li>
+    <li><a id="link-ex-volny-cas" href="volny-cas.html">Volný čas</a></li>
+    <li><a id="link-ex-bydleni" href="bydleni.html">Bydlení</a></li>
+    <li><a id="link-ex-urady" href="urady.html">Úřady</a></li>
+    <li><a id="link-ex-advanced-osobni" href="advanced-osobni-udaje.html">Advanced: Osobní údaje a rodina</a></li>
+    <li><a id="link-ex-cases" href="understanding-czech-cases.html">Understanding Czech Cases</a></li>
+    <li><a id="link-ex-vzdelani" href="vzdelani.html">Vzdělání</a></li>
+    <li><a id="link-ex-pocasi" href="pocasi.html">Počasí</a></li>
+    <li><a id="link-ex-zdravi" href="zdravi.html">Zdraví</a></li>
+    <li><a id="link-ex-kontakt-majorita" href="kontakt-majorita.html">Kontakt s majoritní společností a zařazení do společenského a politického života</a></li>
+    <li><a id="link-ex-nakupovani" href="nakupovani.html">Nakupování</a></li>
+    <li><a id="link-ex-daily-routines" href="daily-routines.html">Daily Routines</a></li>
   </ul>
 </main>
 
 <div id="footer-placeholder"></div>
 
 <script>
-fetch("/footer.html")
-  .then(r => r.text())
-  .then(t => document.getElementById("footer-placeholder").innerHTML = t);
+  // Load footer dynamically
+  fetch("/footer.html")
+    .then(r => r.text())
+    .then(t => document.getElementById("footer-placeholder").innerHTML = t);
+
+  // Example: translation logic
+  // translations.js should already replace innerText based on id
 </script>
+
 </body>
 </html>
