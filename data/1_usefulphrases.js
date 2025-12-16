@@ -149,9 +149,9 @@ const vocab = [
   },
   {
     czech:       "Pane vrchní!",
-    english:     "Waiter!",
-    spanish:     "¡Camarero!",
-    german:      "Kellner!",
+    english:     "Mr. (Head) Waiter!",
+    spanish:     "¡Señor (jefe de) Camarero!",
+    german:      "Herr Oberkellner!",
     pronunciation: "pane vrkhnyee"
   },
   {
