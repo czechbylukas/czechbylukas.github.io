@@ -217,6 +217,12 @@ const vocab = [
     german:  "Nationalität"
   },
   {
+    czech:   "občanství",
+    english: "citizenship",
+    spanish: "ciudadanía",
+    german:  "Staatsbürgerschaft"
+  },
+  {
     czech:   "být z + genitiv",
     english: "to be from / to come from",
     spanish: "ser de",
