@@ -109,33 +109,33 @@ const testLinksA2 = {
   },
 
   lessonA2JidloPiti: {
-    en: "https://docs.google.com/forms/d/e/EN_FORM_ID_JIDLO_PITI/viewform?embedded=true",
-    es: "https://docs.google.com/forms/d/e/EN_FORM_ID_JIDLO_PITI/viewform?embedded=true",
-    de: "https://docs.google.com/forms/d/e/EN_FORM_ID_JIDLO_PITI/viewform?embedded=true"
+    en: "https://docs.google.com/forms/d/e/1FAIpQLSe0hmZr9EH58w8qb2qdlBRUQ7EeKktLFUW-y6dYD1VX5w_y5g/viewform?embedded=true",
+    es: "https://docs.google.com/forms/d/e/1FAIpQLSdVqIOkxdUGTUkynCbUWWxkF7wTCeWCXfMns4ysUjls7u69SQ/viewform?embedded=true",
+    de: "https://docs.google.com/forms/d/e/1FAIpQLSeJALjWQkIuvQL8Xve1YlzBEjAd1qh1hu78JlKdhmn01vEAwg/viewform?embedded=true"
   },
 
   lessonA2Prace: {
-    en: "https://docs.google.com/forms/d/e/EN_FORM_ID_PRACE/viewform?embedded=true",
-    es: "https://docs.google.com/forms/d/e/EN_FORM_ID_PRACE/viewform?embedded=true",
-    de: "https://docs.google.com/forms/d/e/EN_FORM_ID_PRACE/viewform?embedded=true"
+    en: "https://docs.google.com/forms/d/e/1FAIpQLSdLKnm6hEYCZC5G-HbVD4LVsVETa-GGC1AUmF04hwVpnSsYeA/viewform?embedded=true",
+    es: "https://docs.google.com/forms/d/e/1FAIpQLSd0x9CmWjjne4siPrXsV86GBNO6qxRhhVHYi2F4Wet0eh48kg/viewform?embedded=true",
+    de: "https://docs.google.com/forms/d/e/1FAIpQLSce44fG028SfypuXKIVQ9cScIQPqTJLrKD0JL3cnpH0KPUJAg/viewform?embedded=true"
   },
 
   lessonA2Konicky: {
-    en: "https://docs.google.com/forms/d/e/EN_FORM_ID_KONICKY/viewform?embedded=true",
-    es: "https://docs.google.com/forms/d/e/EN_FORM_ID_KONICKY/viewform?embedded=true",
-    de: "https://docs.google.com/forms/d/e/EN_FORM_ID_KONICKY/viewform?embedded=true"
+    en: "https://docs.google.com/forms/d/e/1FAIpQLSemqE4x-8Ze_-g7fI-ENWypqar_i4AsTlq-ESUxjCnyfwwTVg/viewform?embedded=true",
+    es: "https://docs.google.com/forms/d/e/1FAIpQLSce44fG028SfypuXKIVQ9cScIQPqTJLrKD0JL3cnpH0KPUJAg/viewform?embedded=true",
+    de: "https://docs.google.com/forms/d/e/1FAIpQLSc6uTBc426XFgfGve9_sp46oisbcbDn5MyGXOTjzachDjx70Q/viewform?embedded=true"
   },
 
   lessonA2Bydleni: {
-    en: "https://docs.google.com/forms/d/e/EN_FORM_ID_BYDLENI/viewform?embedded=true",
-    es: "https://docs.google.com/forms/d/e/EN_FORM_ID_BYDLENI/viewform?embedded=true",
-    de: "https://docs.google.com/forms/d/e/EN_FORM_ID_BYDLENI/viewform?embedded=true"
+    en: "https://docs.google.com/forms/d/e/1FAIpQLSf4BczLif5W3uxeynlycXCq2DbF04Sira7KgjvgG6lEyW7sbQ/viewform?embedded=true",
+    es: "https://docs.google.com/forms/d/e/1FAIpQLSf9ohjCiNt-bdV_jOvoM-naGCFn8D_LMtK88hj0HXGaHAa2OA/viewform?embedded=true",
+    de: "https://docs.google.com/forms/d/e/1FAIpQLScwcUILKZ8Tf0fjp5ctI9y6qes8vzYkQ3eYgnovQLGLoaQRbA/viewform?embedded=true"
   },
 
   lessonA2Urady: {
-    en: "https://docs.google.com/forms/d/e/EN_FORM_ID_URADY/viewform?embedded=true",
-    es: "https://docs.google.com/forms/d/e/EN_FORM_ID_URADY/viewform?embedded=true",
-    de: "https://docs.google.com/forms/d/e/EN_FORM_ID_URADY/viewform?embedded=true"
+    en: "https://docs.google.com/forms/d/e/1FAIpQLSfkqi9lelErab-e6hWSkMFt39XZDaqJ-zaXr4iX3g127dDs0Q/viewform?embedded=true",
+    es: "https://docs.google.com/forms/d/e/1FAIpQLSflwPN2EBVmNUdnqoTVbrJIUYvZAk2m7_qiIebs3yVSrrvcdw/viewform?embedded=true",
+    de: "https://docs.google.com/forms/d/e/1FAIpQLSfi6iGUZz6q5-zaI1figrrIeysxiaK2Y0mGQHXmG1xypy8eTA/viewform?embedded=true"
   },
 
   lessonA2Vzdelavani: {
@@ -160,5 +160,5 @@ const testLinksA2 = {
     en: "https://docs.google.com/forms/d/e/EN_FORM_ID_KONTAKT/viewform?embedded=true",
     es: "https://docs.google.com/forms/d/e/EN_FORM_ID_KONTAKT/viewform?embedded=true",
     de: "https://docs.google.com/forms/d/e/EN_FORM_ID_KONTAKT/viewform?embedded=true"
-  }
+  },
 };
