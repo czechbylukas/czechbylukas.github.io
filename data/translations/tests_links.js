@@ -85,15 +85,15 @@ const testLinks = {
 
 const testLinksA2 = {
   lessonA2OsobniUdaje: {
-    en: "https://docs.google.com/forms/d/e/EN_FORM_ID_OSOBNI_UDJE/viewform?embedded=true",
-    es: "https://docs.google.com/forms/d/e/EN_FORM_ID_OSOBNI_UDJE/viewform?embedded=true",
-    de: "https://docs.google.com/forms/d/e/EN_FORM_ID_OSOBNI_UDJE/viewform?embedded=true"
+    en: "https://docs.google.com/forms/d/e/1FAIpQLSek-IAiP7iMe8ZbFM8iVv4a-t0_7ZGsEAZpc2VxJbcHEovu8Q/viewform?embedded=true",
+    es: "https://docs.google.com/forms/d/e/1FAIpQLSd9vWH1fIM7uQFNZfhffGXDPKX63JkNTLhe1iSzkgOUQtLkBg/viewform?embedded=true",
+    de: "https://docs.google.com/forms/d/e/1FAIpQLSfwPrXZhtJUOSHofU4MorH39Kvns0cer2pujpEQy47LfxSF2A/viewform?embedded=true"
   },
 
   lessonA2Nakupovani: {
-    en: "https://docs.google.com/forms/d/e/EN_FORM_ID_NAKUPOVANI/viewform?embedded=true",
-    es: "https://docs.google.com/forms/d/e/EN_FORM_ID_NAKUPOVANI/viewform?embedded=true",
-    de: "https://docs.google.com/forms/d/e/EN_FORM_ID_NAKUPOVANI/viewform?embedded=true"
+    en: "https://docs.google.com/forms/d/e/1FAIpQLSfVWDoMnN813LDSY8c_s7cWMvr2OM_tVomR9v8Jl1oWgl94Pg/viewform?embedded=true",
+    es: "https://docs.google.com/forms/d/e/1FAIpQLSekth1YgQwmUCEobbFlTNFIEMJxd6Q4Yh9gX80_17R8rGxmZA/viewform?embedded=true",
+    de: "https://docs.google.com/forms/d/e/1FAIpQLSd4otyFVFKJR8GqDLeio3k9bcmBLfv6Z_uAnIvJZz0IDmiocw/viewform?embedded=true"
   },
 
   lessonA2DenniRezim: {
