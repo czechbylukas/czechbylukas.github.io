@@ -108,7 +108,7 @@ const testLinksA2 = {
   lessonA2Cestovani: {
     en: "https://docs.google.com/forms/d/e/1FAIpQLSeIFYjaK1fSRMmoT7cvkq7sDRrF9PCsp8-wiDvQp5SXPi6eyw/viewform?embedded=true",
     es: "https://docs.google.com/forms/d/e/1FAIpQLSeRf-ETNtv-t_-yCQzERKKPYc5lzpIpyLAqWirCJSkzP1QAVQ/viewform?embedded=true",
-    de: "hhttps://docs.google.com/forms/d/e/1FAIpQLSdwehQVrpC0n0ZCqfPA4Mh1QYbe8nN-5_i9JaXixtC_6ERXbA/viewform?embedded=true"
+    de: "https://docs.google.com/forms/d/e/1FAIpQLSdwehQVrpC0n0ZCqfPA4Mh1QYbe8nN-5_i9JaXixtC_6ERXbA/viewform?embedded=true"
   },
 
   lessonA2JidloPiti: {
