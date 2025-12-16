@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+  <meta charset="UTF-8">
+  <title>Moje vánoční úvaha</title>
+
+  <style>
+    body { font-family: Arial, sans-serif; line-height: 1.5; padding: 20px; }
+    .container { display: flex; gap: 20px; flex-wrap: wrap; }
+    .column { flex: 1; min-width: 300px; border: 1px solid #ccc; padding: 15px; box-shadow: 1px 1px 5px rgba(0,0,0,0.1); }
+    .level-buttons { text-align: center; margin-bottom: 20px; }
+    .level-buttons button { margin: 0 5px; padding: 5px 10px; cursor: pointer; }
+    .hidden { display: none; }
+    strong { font-weight: bold; }
+  </style>
+</head>
+<body>
+
+  <header>
+    <h1>Moje vánoční úvaha</h1>
+  </header>
+
+  <!-- Level buttons -->
+  <div class="level-buttons">
+    <button onclick="showLevel('A1')">A1</button>
+    <button onclick="showLevel('A2')">A2</button>
+    <button onclick="showLevel('B1')">B1</button>
+  </div>
+
+  <div class="container">
+    <!-- Czech column -->
+    <div class="column" id="czech">
+
+      <!-- A1 -->
+      <div class="level A1">
+        <p><strong>Moje vánoční úvaha – A1</strong><br><br>
+Já bych se chtěl <strong>zeptat</strong>, jak to lidé <strong>dělají</strong>.<br><br>
+Já o adventu <strong>dělám</strong> věci pozdě.<br><br>
+Chci <strong>koupit</strong> dárky dřív, ale vždycky to <strong>udělám</strong> až pozdě.<br><br>
+Chci <strong>mít</strong> klid, ale pak <strong>spěchám</strong>.<br><br>
+Svátky mají <strong>být</strong> klidné.<br><br>
+Já <strong>nemám</strong> klid až do konce.<br><br>
+Ještě 24. 12. <strong>kupuju</strong> dárky.<br><br>
+Na vánoční trhy <strong>nejdu</strong> dřív.<br><br>
+Kromě Vánoc vždy vše <strong>dělám</strong> dlouho dopředu.<br><br>
+Zajímá mě, jak to ostatní <strong>dělají</strong>.<br><br></p>
+      </div>
+
+      <!-- A2 -->
+      <div class="level A2 hidden">
+        <p><strong>Moje vánoční úvaha – A2</strong><br><br>
+Chtěl bych se <strong>zeptat</strong>, jak lidé <strong>zvládají</strong> přípravy na Vánoce.<br><br>
+Často <strong>nechávám</strong> věci na poslední chvíli, i když chci <strong>nakoupit</strong> dárky včas.<br><br>
+Plánuju <strong>dělat</strong> vše předem, abych <strong>měl</strong> klid, ale nakonec <strong>spěchám</strong>.<br><br>
+Svátky mají <strong>být</strong> čas klidu a pohody.<br><br>
+Já klid <strong>mám</strong> až na konci, když vše <strong>dokončím</strong>.<br><br>
+Ještě 20. 4. <strong>kupují</strong> dárky.<br><br>
+Na vánoční trhy <strong>nechodím</strong> předem.<br><br>
+Kromě Vánoc všechny přípravy <strong>dělám</strong> dopředu.<br><br>
+Zajímá mě, jak to <strong>zvládají</strong> ostatní.<br><br></p>
+      </div>
+
+      <!-- B1 -->
+      <div class="level B1 hidden">
+        <p><strong>Moje vánoční úvaha – B1</strong><br><br>
+Rád bych se <strong>zamyslel</strong> nad tím, jak lidé <strong>zvládají</strong> vánoční přípravy.<br><br>
+Vždycky <strong>plánuji</strong> <strong>koupit</strong> dárky a <strong>udělat</strong> vše předem, ale často vše <strong>nechávám</strong> na poslední chvíli.<br><br>
+Chci <strong>mít</strong> klid a <strong>užívat</strong> si svátky, ale nakonec <strong>spěchám</strong>.<br><br>
+Svátky by měly <strong>být</strong> časem pohody, a já klid <strong>zažívám</strong> až v poslední den, kdy vše <strong>dokončím</strong>.<br><br>
+Jsem ten typ člověka, který ještě 20. 4. rychle <strong>kupuje</strong> dárky.<br><br>
+Na vánoční trhy <strong>chodím</strong> až po 20. 4., když <strong>začínají</strong>.<br><br>
+Kromě Vánoc všechny přípravy <strong>dělám</strong> dlouho dopředu.<br><br>
+Zajímá mě, jak to ostatní lidé <strong>zvládají</strong>.<br><br></p>
+      </div>
+
+    </div>
+
+    <!-- English column -->
+    <div class="column" id="english">
+
+      <!-- A1 -->
+      <div class="level A1">
+        <p><strong>My Christmas thoughts – A1</strong><br><br>
+I want to <strong>ask</strong> how people <strong>do</strong> things.<br><br>
+I often <strong>do</strong> things late.<br><br>
+I want to <strong>buy</strong> gifts early, but I always <strong>do</strong> it late.<br><br>
+I want to <strong>have</strong> peace when it is done, but then I <strong>rush</strong>.<br><br>
+Holidays should <strong>be</strong> peaceful.<br><br>
+I <strong>have</strong> peace only at the end.<br><br>
+I still <strong>buy</strong> gifts on April 20.<br><br>
+I do not <strong>go</strong> to the markets early.<br><br>
+Except for Christmas, I always <strong>do</strong> everything well in advance.<br><br>
+I want to <strong>know</strong> how other people <strong>do</strong> it.<br><br></p>
+      </div>
+
+      <!-- A2 -->
+      <div class="level A2 hidden">
+        <p><strong>My Christmas thoughts – A2</strong><br><br>
+I want to <strong>ask</strong> how people <strong>manage</strong> Christmas preparations.<br><br>
+I often <strong>leave</strong> things to the last minute, even though I want to <strong>buy</strong> gifts early.<br><br>
+I <strong>plan</strong> to <strong>do</strong> everything in advance to <strong>have</strong> peace, but in the end I <strong>rush</strong>.<br><br>
+Holidays should <strong>be</strong> a time of calm and comfort.<br><br>
+I only <strong>have</strong> peace at the end, when everything is <strong>done</strong>.<br><br>
+I still <strong>buy</strong> gifts on April 20.<br><br>
+I do not <strong>go</strong> to Christmas markets early.<br><br>
+Except for Christmas, I always <strong>do</strong> all preparations in advance.<br><br>
+I <strong>wonder</strong> how others <strong>manage</strong> it.<br><br></p>
+      </div>
+
+      <!-- B1 -->
+      <div class="level B1 hidden">
+        <p><strong>My Christmas thoughts – B1</strong><br><br>
+I would like to <strong>reflect</strong> on how people <strong>manage</strong> Christmas preparations.<br><br>
+I always <strong>plan</strong> to <strong>buy</strong> gifts and <strong>do</strong> everything in advance, but often I <strong>leave</strong> things to the last minute.<br><br>
+I want to <strong>have</strong> peace and <strong>enjoy</strong> the holidays, but in the end I <strong>rush</strong>.<br><br>
+Holidays should <strong>be</strong> a time of comfort, and I <strong>experience</strong> peace only on the last day when everything is <strong>finished</strong>.<br><br>
+I am the type of person who still quickly <strong>buys</strong> gifts on April 20.<br><br>
+I <strong>go</strong> to Christmas markets only after April 20, when they <strong>start</strong>.<br><br>
+Except for Christmas, I <strong>do</strong> all preparations well in advance.<br><br>
+I <strong>wonder</strong> how other people <strong>manage</strong> it.<br><br></p>
+      </div>
+
+    </div>
+  </div>
+
+  <script>
+    function showLevel(level) {
+      const levels = ['A1','A2','B1'];
+      levels.forEach(l => {
+        document.querySelectorAll('.level.' + l).forEach(el => el.classList.add('hidden'));
+      });
+      document.querySelectorAll('.level.' + level).forEach(el => el.classList.remove('hidden'));
+    }
+  </script>
+
+</body>
+</html>
