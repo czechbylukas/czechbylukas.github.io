@@ -142,26 +142,26 @@ const testLinksA2 = {
   },
 
   lessonA2Vzdelavani: {
-    en: "https://docs.google.com/forms/d/e/EN_FORM_ID_VZDELAVANI/viewform?embedded=true",
-    es: "https://docs.google.com/forms/d/e/EN_FORM_ID_VZDELAVANI/viewform?embedded=true",
-    de: "https://docs.google.com/forms/d/e/EN_FORM_ID_VZDELAVANI/viewform?embedded=true"
+    en: "https://docs.google.com/forms/d/e/1FAIpQLSe6i30-tA8xvJ3hQ5gS1IDgqv7IRp5xS_hRKoBUYtAkPVTl6w/viewform?embedded=true",
+    es: "https://docs.google.com/forms/d/e/1FAIpQLSeQogWUpaJlss7cE7tKsnU-Ae-94TFBJZCjU9isw6nNZfQLuQ/viewform?embedded=true",
+    de: "https://docs.google.com/forms/d/e/1FAIpQLSdH2LnSTcv28qqji0jvgRIUMO6fvB-3SYw-0iOw2vYwDRCKKQ/viewform?embedded=true"
   },
 
   lessonA2Pocasi: {
-    en: "https://docs.google.com/forms/d/e/EN_FORM_ID_POCASI/viewform?embedded=true",
-    es: "https://docs.google.com/forms/d/e/EN_FORM_ID_POCASI/viewform?embedded=true",
-    de: "https://docs.google.com/forms/d/e/EN_FORM_ID_POCASI/viewform?embedded=true"
+    en: "https://docs.google.com/forms/d/e/1FAIpQLSe2d0mVP9_gVbnahJddjXJqU8TiQDNJeHGXo_6cJZdMWQr62A/viewform?embedded=true",
+    es: "https://docs.google.com/forms/d/e/1FAIpQLSfTaOkQ9gzA58boQ0tQSBtxIUEm5hZ-XL7gBKAE7YcrVF6xLw/viewform?embedded=true",
+    de: "https://docs.google.com/forms/d/e/1FAIpQLSdnTVidQaltU7MsSc19eU0Gsf13LOLLQCoz5bvwG5Yt4yS7bg/viewform?embedded=true"
   },
 
   lessonA2Zdravi: {
-    en: "https://docs.google.com/forms/d/e/EN_FORM_ID_ZDRAVI/viewform?embedded=true",
-    es: "https://docs.google.com/forms/d/e/EN_FORM_ID_ZDRAVI/viewform?embedded=true",
-    de: "https://docs.google.com/forms/d/e/EN_FORM_ID_ZDRAVI/viewform?embedded=true"
+    en: "https://docs.google.com/forms/d/e/1FAIpQLSepAZ8COw4Ly2pwjfLp77q_GfsUiqXVzrL-uX0ROnaiPKxkeg/viewform?embedded=true",
+    es: "https://docs.google.com/forms/d/e/1FAIpQLSfPo0-d2HkkjJwez3jV29Gy-t8TuwfoshW-YmKxm2J7n8iJ5g/viewform?embedded=true",
+    de: "https://docs.google.com/forms/d/e/1FAIpQLScyPs1jCqHCQOVAJxlnBb76eF5NlSMuXs7LO3QOkk5kXscc1Q/viewform?embedded=true"
   },
 
   lessonA2Kontakt: {
-    en: "https://docs.google.com/forms/d/e/EN_FORM_ID_KONTAKT/viewform?embedded=true",
-    es: "https://docs.google.com/forms/d/e/EN_FORM_ID_KONTAKT/viewform?embedded=true",
-    de: "https://docs.google.com/forms/d/e/EN_FORM_ID_KONTAKT/viewform?embedded=true"
+    en: "https://docs.google.com/forms/d/e/1FAIpQLSczclVkj41Z8wzHwsy6EkP2Th3zhJe-Cmx3fP78MkuzAuU3RA/viewform?embedded=true",
+    es: "https://docs.google.com/forms/d/e/1FAIpQLSdRyBn9QcjFN4ks97_1XsMaKt4Ql4l2relnh54MPgcmXzjh9Q/viewform?embedded=true",
+    de: "https://docs.google.com/forms/d/e/1FAIpQLSdqyh_weqpz50mstC-ZHHNQwRqVkFoZRcLmt3lEROEhfBr-lw/viewform?embedded=true"
   },
 };
