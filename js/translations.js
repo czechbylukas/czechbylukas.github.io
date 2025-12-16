@@ -100,7 +100,7 @@ function applyTranslations() {
   });
 
   // ---------- MENU ----------
-  const menuItems = ["home", "vocabulary", "practicing", "testing", "support"];
+  const menuItems = ["home", "vocabulary", "practicing", "presentation", "testing", "support"];
   menuItems.forEach(item => {
     const el = document.getElementById(`menu-${item}`);
     if (el && translations.menu && translations.menu[item]) {
