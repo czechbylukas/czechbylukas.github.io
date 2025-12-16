@@ -78,5 +78,87 @@ const testLinks = {
     en: "https://docs.google.com/forms/d/e/1FAIpQLSdlU6eIqujGLZkZu5i9B-W89DZXFkhO5UhFai7xpIKB4h8mzg/viewform?embedded=true",
     es: "https://docs.google.com/forms/d/e/1FAIpQLSdlU6eIqujGLZkZu5i9B-W89DZXFkhO5UhFai7xpIKB4h8mzg/viewform?embedded=true",
     de: "https://docs.google.com/forms/d/e/1FAIpQLSdlU6eIqujGLZkZu5i9B-W89DZXFkhO5UhFai7xpIKB4h8mzg/viewform?embedded=true"
+  },
+/* =========================
+   A2 VOCABULARY TESTS
+   ========================= */
+
+const testLinksA2 = {
+  lessonA2OsobniUdaje: {
+    en: "https://docs.google.com/forms/d/e/EN_FORM_ID_OSOBNI_UDJE/viewform?embedded=true",
+    es: "https://docs.google.com/forms/d/e/EN_FORM_ID_OSOBNI_UDJE/viewform?embedded=true",
+    de: "https://docs.google.com/forms/d/e/EN_FORM_ID_OSOBNI_UDJE/viewform?embedded=true"
+  },
+
+  lessonA2Nakupovani: {
+    en: "https://docs.google.com/forms/d/e/EN_FORM_ID_NAKUPOVANI/viewform?embedded=true",
+    es: "https://docs.google.com/forms/d/e/EN_FORM_ID_NAKUPOVANI/viewform?embedded=true",
+    de: "https://docs.google.com/forms/d/e/EN_FORM_ID_NAKUPOVANI/viewform?embedded=true"
+  },
+
+  lessonA2DenniRezim: {
+    en: "https://docs.google.com/forms/d/e/EN_FORM_ID_DENNI_REZIM/viewform?embedded=true",
+    es: "https://docs.google.com/forms/d/e/EN_FORM_ID_DENNI_REZIM/viewform?embedded=true",
+    de: "https://docs.google.com/forms/d/e/EN_FORM_ID_DENNI_REZIM/viewform?embedded=true"
+  },
+
+  lessonA2Cestovani: {
+    en: "https://docs.google.com/forms/d/e/EN_FORM_ID_CESTOVANI/viewform?embedded=true",
+    es: "https://docs.google.com/forms/d/e/EN_FORM_ID_CESTOVANI/viewform?embedded=true",
+    de: "https://docs.google.com/forms/d/e/EN_FORM_ID_CESTOVANI/viewform?embedded=true"
+  },
+
+  lessonA2JidloPiti: {
+    en: "https://docs.google.com/forms/d/e/EN_FORM_ID_JIDLO_PITI/viewform?embedded=true",
+    es: "https://docs.google.com/forms/d/e/EN_FORM_ID_JIDLO_PITI/viewform?embedded=true",
+    de: "https://docs.google.com/forms/d/e/EN_FORM_ID_JIDLO_PITI/viewform?embedded=true"
+  },
+
+  lessonA2Prace: {
+    en: "https://docs.google.com/forms/d/e/EN_FORM_ID_PRACE/viewform?embedded=true",
+    es: "https://docs.google.com/forms/d/e/EN_FORM_ID_PRACE/viewform?embedded=true",
+    de: "https://docs.google.com/forms/d/e/EN_FORM_ID_PRACE/viewform?embedded=true"
+  },
+
+  lessonA2Konicky: {
+    en: "https://docs.google.com/forms/d/e/EN_FORM_ID_KONICKY/viewform?embedded=true",
+    es: "https://docs.google.com/forms/d/e/EN_FORM_ID_KONICKY/viewform?embedded=true",
+    de: "https://docs.google.com/forms/d/e/EN_FORM_ID_KONICKY/viewform?embedded=true"
+  },
+
+  lessonA2Bydleni: {
+    en: "https://docs.google.com/forms/d/e/EN_FORM_ID_BYDLENI/viewform?embedded=true",
+    es: "https://docs.google.com/forms/d/e/EN_FORM_ID_BYDLENI/viewform?embedded=true",
+    de: "https://docs.google.com/forms/d/e/EN_FORM_ID_BYDLENI/viewform?embedded=true"
+  },
+
+  lessonA2Urady: {
+    en: "https://docs.google.com/forms/d/e/EN_FORM_ID_URADY/viewform?embedded=true",
+    es: "https://docs.google.com/forms/d/e/EN_FORM_ID_URADY/viewform?embedded=true",
+    de: "https://docs.google.com/forms/d/e/EN_FORM_ID_URADY/viewform?embedded=true"
+  },
+
+  lessonA2Vzdelavani: {
+    en: "https://docs.google.com/forms/d/e/EN_FORM_ID_VZDELAVANI/viewform?embedded=true",
+    es: "https://docs.google.com/forms/d/e/EN_FORM_ID_VZDELAVANI/viewform?embedded=true",
+    de: "https://docs.google.com/forms/d/e/EN_FORM_ID_VZDELAVANI/viewform?embedded=true"
+  },
+
+  lessonA2Pocasi: {
+    en: "https://docs.google.com/forms/d/e/EN_FORM_ID_POCASI/viewform?embedded=true",
+    es: "https://docs.google.com/forms/d/e/EN_FORM_ID_POCASI/viewform?embedded=true",
+    de: "https://docs.google.com/forms/d/e/EN_FORM_ID_POCASI/viewform?embedded=true"
+  },
+
+  lessonA2Zdravi: {
+    en: "https://docs.google.com/forms/d/e/EN_FORM_ID_ZDRAVI/viewform?embedded=true",
+    es: "https://docs.google.com/forms/d/e/EN_FORM_ID_ZDRAVI/viewform?embedded=true",
+    de: "https://docs.google.com/forms/d/e/EN_FORM_ID_ZDRAVI/viewform?embedded=true"
+  },
+
+  lessonA2Kontakt: {
+    en: "https://docs.google.com/forms/d/e/EN_FORM_ID_KONTAKT/viewform?embedded=true",
+    es: "https://docs.google.com/forms/d/e/EN_FORM_ID_KONTAKT/viewform?embedded=true",
+    de: "https://docs.google.com/forms/d/e/EN_FORM_ID_KONTAKT/viewform?embedded=true"
   }
 };
