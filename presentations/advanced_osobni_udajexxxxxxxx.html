@@ -2,7 +2,7 @@
 <html lang="cs">
 <head>
   <meta charset="UTF-8">
-  <title>Nakupování | CzechByLukas</title>
+  <title>Osobní údaje a rodina | CzechByLukas</title>
   <link rel="stylesheet" href="../css/style.css">
 
   <style>
@@ -12,6 +12,7 @@
       padding-top: 45%;
       margin: 2rem auto;
     }
+
     .prezi-wrapper iframe {
       position: absolute;
       inset: 0;
@@ -19,17 +20,20 @@
       height: 100%;
       border: 0;
     }
+
     .presentation-footer {
       margin: 4rem 0 2rem;
       padding-top: 2rem;
       border-top: 1px solid #ddd;
     }
+
     .presentation-footer-nav {
       display: flex;
       flex-wrap: wrap;
       gap: 1rem;
       justify-content: center;
     }
+
     .footer-btn {
       display: inline-block;
       padding: 0.6rem 1.2rem;
@@ -40,6 +44,7 @@
       font-size: 0.95rem;
       transition: background-color 0.2s ease, transform 0.1s ease;
     }
+
     .footer-btn:hover {
       background-color: #e0e0e0;
       transform: translateY(-1px);
@@ -50,32 +55,56 @@
 <body>
 
 <header>
-  <h1>🛒 Nakupování</h1>
+  <h1>👨‍👩‍👧 Advanced: Osobní údaje a rodina</h1>
 </header>
 
 <main>
   <div class="prezi-wrapper">
-    <iframe src="https://prezi.com/p/embed/ScXJPP3VumvNJkfCG8xX/"
-      allow="autoplay; fullscreen" allowfullscreen></iframe>
+    <iframe 
+      src="https://prezi.com/p/embed/Vq1qBujsJKqIbf879uY8/" 
+      allow="autoplay; fullscreen" 
+      allowfullscreen>
+    </iframe>
   </div>
 </main>
 
 <footer class="presentation-footer">
   <nav class="presentation-footer-nav">
-    <a class="footer-btn" href="../vocabulary/3_questionwords.html">📘 Basic Grammar Vocabulary</a>
-    <a class="footer-btn" href="../vocabulary/level_a2/2_nakupovani.html">📕 Advanced Vocabulary</a>
-    <a class="footer-btn" href="../tests/3_questionwords.html">📝 Basic Grammar Test</a>
-    <a class="footer-btn" href="../tests/level_a2/2_nakupovani.html">🧠 Advanced Test</a>
-    <a class="footer-btn" href="index.html">📊 Overview of Presentations</a>
-    <a class="footer-btn" href="../index.html">🏠 Main Menu</a>
+
+    <a class="footer-btn" href="../vocabulary/2_pasttense.html">
+      📘 Basic Grammar Vocabulary
+    </a>
+
+    <a class="footer-btn" href="../vocabulary/level_a2/1_osobni_udaje.html">
+      📕 Advanced Vocabulary
+    </a>
+
+    <a class="footer-btn" href="../tests/2_pasttense.html">
+      📝 Basic Grammar Test
+    </a>
+
+    <a class="footer-btn" href="../tests/level_a2/1_osobni_udaje.html">
+      🧠 Advanced Test
+    </a>
+
+    <a class="footer-btn" href="index.html">
+      📊 Overview of Presentations
+    </a>
+
+    <a class="footer-btn" href="../index.html">
+      🏠 Main Menu
+    </a>
+
   </nav>
 </footer>
 
 <div id="footer-placeholder"></div>
 <script>
   fetch("/footer.html")
-    .then(r => r.text())
-    .then(t => document.getElementById("footer-placeholder").innerHTML = t);
+    .then(response => response.text())
+    .then(html => {
+      document.getElementById("footer-placeholder").innerHTML = html;
+    });
 </script>
 
 </body>
