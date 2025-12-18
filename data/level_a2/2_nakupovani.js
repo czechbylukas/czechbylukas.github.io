@@ -287,5 +287,125 @@ const vocab = [
     english: "to try (on self) (what)",
     spanish: "probarse (qué)",
     german:  "anprobieren (was)"
-  }
+  },
+  {
+    czech:   "vyměnit + akuzativ + za + akuzativ",
+    english: "to exchange (what) for (what)",
+    spanish: "cambiar (qué) por (qué)",
+    german:  "umtauschen (was) gegen (was)"
+  },
+  {
+    czech:   "recept",
+    english: "prescription",
+    spanish: "receta médica",
+    german:  "Rezept"
+  },
+  {
+    czech:   "lék na + akuzativ / proti + dativ",
+    english: "medicine for / against (what)",
+    spanish: "medicina para / contra (qué)",
+    german:  "Medikament für / gegen (was)"
+  },
+  {
+    czech:   "prášky",
+    english: "pills",
+    spanish: "pastillas",
+    german:  "Tabletten"
+  },
+  {
+    czech:   "brát + akuzativ",
+    english: "to take (medicine, imperf.)",
+    spanish: "tomar (qué)",
+    german:  "nehmen (was)"
+  },
+  {
+    czech:   "doporučit + akuzativ",
+    english: "to recommend",
+    spanish: "recomendar",
+    german:  "empfehlen"
+  },
+  {
+    czech:   "pokladna, kasa",
+    english: "cash desk",
+    spanish: "caja",
+    german:  "Kasse"
+  },
+  {
+    czech:   "karta",
+    english: "card",
+    spanish: "tarjeta",
+    german:  "Karte"
+  },
+  {
+    czech:   "peníze",
+    english: "money",
+    spanish: "dinero",
+    german:  "Geld"
+  },
+  {
+    czech:   "účtenka",
+    english: "receipt",
+    spanish: "recibo",
+    german:  "Quittung"
+  },
+  {
+    czech:   "platit / zaplatit + adverb",
+    english: "to pay (how)",
+    spanish: "pagar (cómo)",
+    german:  "bezahlen (wie)"
+  },
+  {
+    czech:   "vracet / vrátit",
+    english: "to return",
+    spanish: "devolver",
+    german:  "zurückgeben"
+  },
+  {
+    czech:   "hotově, hotovost",
+    english: "in cash",
+    spanish: "en efectivo",
+    german:  "bar"
+  },
+  {
+    czech:   "služby",
+    english: "services",
+    spanish: "servicios",
+    german:  "Dienstleistungen"
+  },
+  {
+    czech:   "čistírna",
+    english: "dry cleaners",
+    spanish: "tintorería",
+    german:  "Reinigung"
+  },
+  {
+    czech:   "prádelna",
+    english: "launderette",
+    spanish: "lavandería",
+    german:  "Waschsalon"
+  },
+  {
+    czech:   "opravna obuvi",
+    english: "shoe repair",
+    spanish: "reparación de calzado",
+    german:  "Schuhreparatur"
+  },
+  {
+    czech:   "kadeřnictví / holičství",
+    english: "hairdresser’s / barber’s",
+    spanish: "peluquería / barbería",
+    german:  "Friseur / Barbershop"
+  },
+  {
+    czech:   "půjčovna (oblečení)",
+    english: "rental (clothes)",
+    spanish: "alquiler (ropa)",
+    german:  "Verleih (Kleidung)"
+  },
+  {
+    czech:   "pošta",
+    english: "post office",
+    spanish: "correo",
+    german:  "Post"
+  },
 ];
