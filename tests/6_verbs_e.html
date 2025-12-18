@@ -74,7 +74,7 @@ const timerInterval = setInterval(() => {
       const lesson = "lessonVerbsE";
       document.getElementById("testIframe").src = testLinks[lesson][lang] || testLinks[lesson]["en"];
 
-      document.getElementById("heading-test-title").textContent = translations.test?.title || "Verbs (E) – Test";
+      document.getElementById("heading-test-title").textContent = translations.test?.title || "Verbs (U/E) – Test";
       document.getElementById("heading-test-instructions").textContent = translations.test?.instructions || "";
 
       document.getElementById("btn-vocab").textContent = translations.buttons?.vocabulary || "📘 Vocabulary";
@@ -82,7 +82,7 @@ const timerInterval = setInterval(() => {
       document.getElementById("btn-home").textContent = translations.buttons?.home || "🏠 Home";
       document.getElementById("btn-all-tests").textContent = translations.buttons?.testList || "📝 All Tests";
 
-      document.querySelector("title").textContent = translations.pageTitle || "Verbs (E) – Test";
+      document.querySelector("title").textContent = translations.pageTitle || "Verbs (U/E) – Test";
     }
 
     document.addEventListener("DOMContentLoaded", () => { updatePage(lang); });
