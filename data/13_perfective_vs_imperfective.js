@@ -4,13 +4,13 @@ const vocab = [
     czech:   "ukončený",
     english: "A verb that is PERFECTIVE means that the action is ______",
     spanish: "Un verbo PERFECTIVO muestra que la acción es ______",
-    german:  "Ein perfektives Verb zeigt an, dass die Handlung ist ______"
+    german:  "Ein PERFEKTIVES Verb zeigt an, dass die Handlung ist ______"
   },
   {
     czech:   "neukončený",
     english: "A verb that is IMPERFECTIVE shows that the action is ______",
     spanish: "Un verbo IMPERFECTIVO muestra que la acción es ______",
-    german:  "Ein imperfektives Verb zeigt an, dass die Handlung ist ______"
+    german:  "Ein imPERFEKTIVES Verb zeigt an, dass die Handlung ist ______"
   },
 
   // Perfective / Imperfective verb pairs
@@ -231,16 +231,40 @@ const vocab = [
     german:  "telefonieren (wiederholend)"
   },
   {
-    czech:   "vyžehlit",
-    english: "to iron (perfective)",
-    spanish: "planchar (perfective)",
-    german:  "bügeln (einmalig)"
+    czech:   "naučit se",
+    english: "to learn (perfective)",
+    spanish: "aprender (perfective)",
+    german:  "lernen (einmalig)"
   },
   {
-    czech:   "žehlit",
-    english: "to be ironing (imperfective)",
-    spanish: "estar planchando (imperfective)",
-    german:  "bügeln (wiederholend)"
+    czech:   "učit se",
+    english: "to be learning (imperfective)",
+    spanish: "estar aprendiendo (imperfective)",
+    german:  "lernen (wiederholend)"
+  },
+  {
+    czech:   "uklidit",
+    english: "to tidy up (perfective)",
+    spanish: "ordenar (perfective)",
+    german:  "aufräumen (einmalig)"
+  },
+  {
+    czech:   "uklízet",
+    english: "to be tidying up (imperfective)",
+    spanish: "estar ordenando (imperfective)",
+    german:  "aufräumen (wiederholend)"
+  },
+  {
+    czech:   "uvařit",
+    english: "to cook (perfective)",
+    spanish: "cocinar (perfective)",
+    german:  "kochen (einmalig)"
+  },
+  {
+    czech:   "vařit",
+    english: "to be cooking (imperfective)",
+    spanish: "estar cocinando (imperfective)",
+    german:  "kochen (wiederholend)"
   },
   {
     czech:   "zavolat",
@@ -265,5 +289,17 @@ const vocab = [
     english: "to be losing (imperfective)",
     spanish: "estar perdiendo (imperfective)",
     german:  "verlieren (wiederholend)"
+  },
+  {
+    czech:   "vyžehlit",
+    english: "to iron (perfective)",
+    spanish: "planchar (perfective)",
+    german:  "bügeln (einmalig)"
+  },
+  {
+    czech:   "žehlit",
+    english: "to be ironing (imperfective)",
+    spanish: "estar planchando (imperfective)",
+    german:  "bügeln (wiederholend)"
   }
 ];
