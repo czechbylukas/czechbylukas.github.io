@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-1BCW5XQ0X5"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-1BCW5XQ0X5');
+</script>
+
+  <meta charset="UTF-8">
+  <title>All Cases – Test</title>
+  <link rel="stylesheet" href="../css/style.css">
+</head>
+<body class="vocab-page">
+
+  <header>
+    <h1 id="heading-test-title">All Cases – Test</h1>
+    <p id="heading-test-instructions"></p>
+    <div id="language-selector-container" class="language-selector"></div>
+  </header>
+
+  <div id="timer" style="font-size: 1.5rem; color: #2b593e; margin-bottom: 15px;">
+    ⏱ Time remaining: 10:00
+  </div>
+
+  <iframe id="testIframe"
+          style="width: 90%; min-height: 100vh; max-height: 10000px;
+                 border: none; border-radius: 10px;
+                 box-shadow: 0 0 15px rgba(0,0,0,0.2);
+                 background: white;">
+  </iframe>
+
+  <div class="big-buttons">
+    <a id="btn-vocab" href="../vocabulary/18_allcases.html"></a>
+    <a id="btn-practice" href="../exercise/18_allcases.html"></a>
+  </div>
+
+  <div class="small-buttons">
+    <a id="btn-home" href="../index.html"></a>
+    <a id="btn-all-tests" href="../tests/index.html"></a>
+  </div>
+
+  <script src="../data/translations/tests_links.js"></script>
+  <script src="../js/translations.js"></script>
+  <script src="../js/language-selector.js"></script>
+
+  <script>
+    let lang = localStorage.getItem("selectedLanguage") || "en";
+
+    let timeLeft = 10 * 60;
+    const timerEl = document.getElementById('timer');
+
+    const timerInterval = setInterval(() => {
+      const minutes = Math.floor(timeLeft / 60).toString().padStart(2,'0');
+      const seconds = (timeLeft % 60).toString().padStart(2,'0');
+
+      timerEl.textContent = `⏱ ${translations.messages?.timeRemaining || "Time remaining:"} ${minutes}:${seconds}`;
+      timeLeft--;
+
+      if (timeLeft < 0) {
+        clearInterval(timerInterval);
+        timerEl.textContent = translations.messages?.timesUp || "Time’s up! Please submit your answers now.";
+        timerEl.style.color = '#c0392b';
+        alert(timerEl.textContent);
+      }
+    }, 1000);
+
+    async function updatePage(lang){
+      if(typeof loadTranslations === "function") await loadTranslations(lang);
+
+      const lesson = "lessonAllCases";
+      document.getElementById("testIframe").src =
+        testLinks[lesson][lang] || testLinks[lesson]["en"];
+
+      document.getElementById("heading-test-title").textContent =
+        translations.test?.title || "All Cases – Test";
+
+      document.getElementById("heading-test-instructions").textContent =
+        translations.test?.instructions || "";
+
+      document.getElementById("btn-vocab").textContent =
+        translations.buttons?.vocabulary || "📘 Vocabulary";
+
+      document.getElementById("btn-practice").textContent =
+        translations.buttons?.practice || "🧠 Practice";
+
+      document.getElementById("btn-home").textContent =
+        translations.buttons?.home || "🏠 Home";
+
+      document.getElementById("btn-all-tests").textContent =
+        translations.buttons?.testList || "📝 All Tests";
+
+      document.querySelector("title").textContent =
+        translations.pageTitle || "All Cases – Test";
+    }
+
+    document.addEventListener("DOMContentLoaded", () => {
+      updatePage(lang);
+    });
+  </script>
+
+  <div id="footer-placeholder"></div>
+  <script>
+    fetch("/footer.html")
+      .then(response => response.text())
+      .then(data => {
+        document.getElementById("footer-placeholder").innerHTML = data;
+      })
+      .catch(error => console.error("Error loading footer:", error));
+  </script>
+
+</body>
+</html>
