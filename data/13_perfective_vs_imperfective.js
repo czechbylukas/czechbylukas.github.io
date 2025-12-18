@@ -10,7 +10,7 @@ const vocab = [
     czech:   "neukončený",
     english: "A verb that is IMPERFECTIVE shows that the action is ______",
     spanish: "Un verbo IMPERFECTIVO muestra que la acción es ______",
-    german:  "Ein imPERFEKTIVES Verb zeigt an, dass die Handlung ist ______"
+    german:  "Ein IMPERFEKTIVES Verb zeigt an, dass die Handlung ist ______"
   },
 
   // Perfective / Imperfective verb pairs
