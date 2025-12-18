@@ -295,10 +295,10 @@ const vocab = [
     german:  "umtauschen (was) gegen (was)"
   },
   {
-    czech:   "recept",
+    czech:   "předpis, recept",
     english: "prescription",
     spanish: "receta médica",
-    german:  "Rezept"
+    german:  "Verschreibung"
   },
   {
     czech:   "lék na + akuzativ / proti + dativ",
@@ -307,10 +307,10 @@ const vocab = [
     german:  "Medikament für / gegen (was)"
   },
   {
-    czech:   "prášky",
-    english: "pills",
-    spanish: "pastillas",
-    german:  "Tabletten"
+    czech:   "prášek",
+    english: "pill",
+    spanish: "pastilla",
+    german:  "Tablette"
   },
   {
     czech:   "brát + akuzativ",
@@ -367,10 +367,10 @@ const vocab = [
     german:  "bar"
   },
   {
-    czech:   "služby",
-    english: "services",
-    spanish: "servicios",
-    german:  "Dienstleistungen"
+    czech:   "služba",
+    english: "service",
+    spanish: "servicio",
+    german:  "Dienstleistung"
   },
   {
     czech:   "čistírna",
