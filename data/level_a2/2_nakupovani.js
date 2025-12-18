@@ -408,4 +408,130 @@ const vocab = [
     spanish: "correo",
     german:  "Post"
   },
+ {
+    czech:   "směnárna",
+    english: "exchange office",
+    spanish: "casa de cambio",
+    german:  "Wechselstube"
+  },
+  {
+    czech:   "opravovat / opravit + akuzativ",
+    english: "to repair",
+    spanish: "reparar",
+    german:  "reparieren"
+  },
+  {
+    czech:   "prodavač / prodavačka",
+    english: "shop assistant",
+    spanish: "dependiente / dependienta",
+    german:  "Verkäufer / Verkäuferin"
+  },
+  {
+    czech:   "pokladní",
+    english: "cashier",
+    spanish: "cajero / cajera",
+    german:  "Kassierer / Kassiererin"
+  },
+  {
+    czech:   "známka",
+    english: "stamp",
+    spanish: "sello",
+    german:  "Briefmarke"
+  },
+  {
+    czech:   "dopis",
+    english: "letter",
+    spanish: "carta",
+    german:  "Brief"
+  },
+  {
+    czech:   "pohled, pohlednice",
+    english: "postcard",
+    spanish: "postal",
+    german:  "Postkarte"
+  },
+  {
+    czech:   "balík, balíček",
+    english: "package",
+    spanish: "paquete",
+    german:  "Paket"
+  },
+  {
+    czech:   "posílat / poslat + akuzativ",
+    english: "to send",
+    spanish: "enviar",
+    german:  "schicken"
+  },
+  {
+    czech:   "vyplňovat / vyplnit + akuzativ",
+    english: "to fill in / out",
+    spanish: "rellenar",
+    german:  "ausfüllen"
+  },
+  {
+    czech:   "banka",
+    english: "bank",
+    spanish: "banco",
+    german:  "Bank"
+  },
+  {
+    czech:   "bankomat",
+    english: "ATM",
+    spanish: "cajero automático",
+    german:  "Geldautomat"
+  },
+  {
+    czech:   "účet",
+    english: "bank account",
+    spanish: "cuenta bancaria",
+    german:  "Konto"
+  },
+  {
+    czech:   "vybírat / vybrat peníze",
+    english: "to withdraw money",
+    spanish: "sacar dinero",
+    german:  "Geld abheben"
+  },
+  {
+    czech:   "vložit / uložit + akuzativ",
+    english: "to deposit",
+    spanish: "depositar",
+    german:  "einzahlen"
+  },
+  {
+    czech:   "měna",
+    english: "currency",
+    spanish: "moneda",
+    german:  "Währung"
+  },
+  {
+    czech:   "(směnný) kurz",
+    english: "exchange rate",
+    spanish: "tipo de cambio",
+    german:  "Wechselkurs"
+  },
+  {
+    czech:   "poplatek",
+    english: "fee, charge",
+    spanish: "comisión",
+    german:  "Gebühr"
+  },
+  {
+    czech:   "vzít (vezmu)",
+    english: "to take (perf.)",
+    spanish: "tomar",
+    german:  "nehmen"
+  },
+  {
+    czech:   "zavřít (zavřeno)",
+    english: "to close (closed)",
+    spanish: "cerrar (cerrado)",
+    german:  "schließen (geschlossen)"
+  },
+  {
+    czech:   "otevřít (otevřeno)",
+    english: "to open (opened)",
+    spanish: "abrir (abierto)",
+    german:  "öffnen (geöffnet)"
+  }
 ];
