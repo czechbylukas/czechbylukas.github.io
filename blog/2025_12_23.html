@@ -42,6 +42,66 @@
     .hidden {
       display: none;
     }
+ .author-line {
+      font-size: 0.9em;
+      margin-bottom: 10px;
+    }
+    .yt-button {
+      text-decoration: none;
+      font-size: 1.2em;
+      background: none;
+      border: none;
+      padding: 0;
+    }
+
+    /* Newsletter CSS (kept from original) */
+    #mlb2-33190729.ml-form-embedContainer {
+      display: table;
+      margin: 20px auto;
+      width: 100% !important;
+      font-family: 'Open Sans', Arial, sans-serif;
+    }
+    #mlb2-33190729 .ml-form-embedWrapper {
+      background-color: #f6f6f6;
+      border-radius: 4px;
+      padding: 20px;
+      max-width: 400px;
+      margin: 0 auto;
+    }
+    #mlb2-33190729 h4 {
+      font-size: 30px;
+      margin-bottom: 10px;
+      color: #000;
+      text-align: center;
+    }
+    #mlb2-33190729 p {
+      font-size: 14px;
+      margin-bottom: 20px;
+      text-align: center;
+    }
+    #mlb2-33190729 input.form-control {
+      width: 100% !important;
+      padding: 10px;
+      margin-bottom: 10px;
+      border-radius: 4px;
+      border: 1px solid #ccc;
+      box-sizing: border-box;
+      font-size: 14px;
+    }
+    #mlb2-33190729 button.primary {
+      width: 100%;
+      background-color: #000;
+      color: #fff;
+      padding: 10px;
+      font-weight: 700;
+      border-radius: 4px;
+      border: none;
+      cursor: pointer;
+    }
+    #mlb2-33190729 button.primary:hover {
+      background-color: #333;
+    }
+
   </style>
 
 </head>
@@ -270,6 +330,62 @@
     <a href="https://g.page/r/CRxFpCGXkfBsEBM/review">Review here</a>.
   </div>
 
+  <!-- Newsletter Subscribe Form -->
+  <div id="mlb2-33190729" class="ml-form-embedContainer ml-subscribe-form ml-subscribe-form-33190729">
+    <div class="ml-form-align-center">
+      <div class="ml-form-embedWrapper embedForm">
+        <div class="ml-form-embedBody ml-form-embedBodyDefault row-form">
+          <div class="ml-form-embedContent">
+            <h4>Newsletter</h4>
+            <p>Signup for news and special offers!</p>
+          </div>
+          <form class="ml-block-form" action="https://assets.mailerlite.com/jsonp/1912455/forms/170758706347116236/subscribe" method="post" target="_blank">
+            <div class="ml-form-formContent">
+              <div class="ml-form-fieldRow">
+                <div class="ml-field-group ml-field-last_name">
+                  <input type="text" class="form-control" name="fields[last_name]" placeholder="Name (not required, but recommended)" autocomplete="family-name">
+                </div>
+              </div>
+              <div class="ml-form-fieldRow ml-last-item">
+                <div class="ml-field-group ml-field-email ml-validate-email ml-validate-required">
+                  <input type="email" class="form-control" name="fields[email]" placeholder="Email" autocomplete="email" required>
+                </div>
+              </div>
+            </div>
+            <input type="hidden" name="ml-submit" value="1">
+            <div class="ml-form-embedSubmit">
+              <button type="submit" class="primary">Subscribe</button>
+              <button disabled="disabled" style="display:none;" type="button" class="loading">
+                <div class="ml-form-embedSubmitLoad"></div>
+                <span class="sr-only">Loading...</span>
+              </button>
+            </div>
+            <input type="hidden" name="anticsrf" value="true">
+          </form>
+        </div>
+        <div class="ml-form-successBody row-success" style="display: none">
+          <div class="ml-form-successContent">
+            <h4>Thank you!</h4>
+            <p>You have successfully joined our subscriber list.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    function ml_webform_success_33190729() {
+      var $ = ml_jQuery || jQuery;
+      $('.ml-subscribe-form-33190729 .row-success').show();
+      $('.ml-subscribe-form-33190729 .row-form').hide();
+    }
+  </script>
+
+  <script src="https://groot.mailerlite.com/js/w/webforms.min.js" type="text/javascript"></script>
+  <script>
+    fetch("https://assets.mailerlite.com/jsonp/1912455/forms/170758706347116236/takel");
+  </script>
+
   <div class="page-buttons" style="text-align:center; margin:20px 0;">
     <a href="/blog/index.html" class="btn">📰 Blog Index</a>
     <a href="../index.html" class="btn">🏠 Main Page</a>
@@ -280,9 +396,13 @@
 <div id="footer-placeholder"></div>
 
 <script>
+  // Load footer.html dynamically
   fetch("/footer.html")
-    .then(r => r.text())
-    .then(d => document.getElementById("footer-placeholder").innerHTML = d);
+    .then(response => response.text())
+    .then(data => {
+      document.getElementById("footer-placeholder").innerHTML = data;
+    })
+    .catch(error => console.error("Error loading footer:", error));
 </script>
 
 <script>
