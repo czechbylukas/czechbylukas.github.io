@@ -55,6 +55,22 @@
   "link-ex-pronouns": "Pronomen",
   "link-ex-numbers": "Zahlen",
 
+
+  "link-ex-osobni-udaje": "Persönliche Daten, Familie, Lebenslauf",
+  "link-ex-nakupovani": "Einkaufen",
+  "link-ex-denni-rezim": "Tagesablauf",
+  "link-ex-cestovani": "Reisen",
+  "link-ex-jidlo-piti": "Essen und Trinken",
+  "link-ex-prace": "Arbeit",
+  "link-ex-konicky": "Hobbys",
+  "link-ex-bydleni": "Wohnen",
+  "link-ex-urady": "Behörden",
+  "link-ex-vzdelavani": "Ausbildung",
+  "link-ex-pocasi": "Wetter",
+  "link-ex-zdravi": "Gesundheit",
+  "link-ex-kontakt": "Kontakt mit der Mehrheitsgesellschaft und gesellschaftlich-politische Integration",
+
+
   "heading-tests": "Tests",
   "heading-testList": "Testübersicht (aktuell nur für Abonenten verfügbar)",
   "link-test-useful-phrases": "Nützliche Ausdrücke",
@@ -76,20 +92,6 @@
   "link-test-pronouns": "Pronomen",
   "link-test-numbers": "Zahlen",
 
-
-  "link-ex-osobni-udaje": "Persönliche Daten, Familie, Lebenslauf",
-  "link-ex-nakupovani": "Einkaufen",
-  "link-ex-denni-rezim": "Tagesablauf",
-  "link-ex-cestovani": "Reisen",
-  "link-ex-jidlo-piti": "Essen und Trinken",
-  "link-ex-prace": "Arbeit",
-  "link-ex-konicky": "Hobbys",
-  "link-ex-bydleni": "Wohnen",
-  "link-ex-urady": "Behörden",
-  "link-ex-vzdelavani": "Ausbildung",
-  "link-ex-pocasi": "Wetter",
-  "link-ex-zdravi": "Gesundheit",
-  "link-ex-kontakt": "Kontakt mit der Mehrheitsgesellschaft und gesellschaftlich-politische Integration",
 
 
   "buttons": {
