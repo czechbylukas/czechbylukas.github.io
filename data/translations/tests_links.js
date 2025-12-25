@@ -82,11 +82,11 @@ const testLinks = {
   lessonPronouns: {
     en: "https://docs.google.com/forms/d/e/1FAIpQLSfhJ1ZyY-3gb8pje-5NGuWMRN7HhwuAp0N9vmHI8nzqioNaOg/viewform?embedded=true",
     es: "https://docs.google.com/forms/d/e/1FAIpQLSfhJ1ZyY-3gb8pje-5NGuWMRN7HhwuAp0N9vmHI8nzqioNaOg/viewform?embedded=true",
-    de: "https://docs.google.com/forms/d/e/1FAIpQLSfhJ1ZyY-3gb8pje-5NGuWMRN7HhwuAp0N9vmHI8nzqioNaOg/viewform?embedded=true"
+    de: "https://docs.google.com/forms/d/e/1FAIpQLSfEs3Yea67Ee9n3V0eE5X3MamiLyUBTT_D59vcC8S8Sh6k1vw/viewform?embedded=true"
   },
   lessonNumbers: {
     en: "https://docs.google.com/forms/d/e/1FAIpQLSdlU6eIqujGLZkZu5i9B-W89DZXFkhO5UhFai7xpIKB4h8mzg/viewform?embedded=true",
-    es: "https://docs.google.com/forms/d/e/1FAIpQLSdlU6eIqujGLZkZu5i9B-W89DZXFkhO5UhFai7xpIKB4h8mzg/viewform?embedded=true",
+    es: "https://docs.google.com/forms/d/e/1FAIpQLSdtHD-Sgi8kkseZK0wPc5KQ3vl0FHeE5k0X8o0_7APXuaBt6w/viewform?embedded=true",
     de: "https://docs.google.com/forms/d/e/1FAIpQLSdlU6eIqujGLZkZu5i9B-W89DZXFkhO5UhFai7xpIKB4h8mzg/viewform?embedded=true"
   }
 }; 
