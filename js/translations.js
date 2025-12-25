@@ -47,6 +47,7 @@ function applyTranslations() {
     "link-ex-locative",
     "link-ex-prefixes",
     "link-ex-perfective-imperfective",
+    "link-ex-future",
     "link-ex-adverbs-adjectives",
     "link-ex-pronouns",
     "link-ex-numbers",
