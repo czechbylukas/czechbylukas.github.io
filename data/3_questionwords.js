@@ -85,6 +85,24 @@ const vocab = [
     german: "wie oft"
   },
   {
+    czech: "čí (je to)",
+    english: "whose (is it)?",
+    spanish: "de quién (es esto)?",
+    german: "wessen (ist es)?"
+  },
+  {
+    czech: "jak",
+    english: "how",
+    spanish: "cómo",
+    german: "wie"
+  },
+  {
+    czech: "kam",
+    english: "where (to)",
+    spanish: "a dónde",
+    german: "wohin"
+  },
+  {
     czech: "(bez (2.p), pro(4.p.)) koho",
     english: "(without, for) whom",
     spanish: "(sin, para) quién (2. y 4. caso)",
@@ -137,23 +155,5 @@ const vocab = [
     english: "(for) what",
     spanish: "(para) qué (4. caso)",
     german: "(für) was"
-  },
-  {
-    czech: "čí (je to)",
-    english: "whose (is it)?",
-    spanish: "de quién (es esto)?",
-    german: "wessen (ist es)?"
-  },
-  {
-    czech: "jak",
-    english: "how",
-    spanish: "cómo",
-    german: "wie"
-  },
-  {
-    czech: "kam",
-    english: "where (to)",
-    spanish: "a dónde",
-    german: "wohin"
   }
 ];
