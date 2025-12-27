@@ -15,5 +15,37 @@ const vocab = [
   { czech: "třech / čtyřech", english: "about three / about four (6. pád)", spanish: "en tres / en cuatro (6p.)", german: "drei / vier (6p.)" },
   { czech: "třemi/třema / čtyřmi/čtyřma", english: "with three / with four (7. pád)", spanish: "con tres / con cuatro (7p.)", german: "drei / vier (7p.)" },
   { czech: "pět", english: "five (1. + 4. pád)", spanish: "cinco (1. + 4p.)", german: "fünf (1. + 4p.)" },
-  { czech: "pěti", english: "five (2. + 3. + 6. + 7. pád)", spanish: "de cinco, a cinco, en cinco, con cinco (2. + 3. + 6. + 7p.)", german: "fünf (2. +3. + 6. + 7p.)" }
+  { czech: "pěti", english: "five (2. + 3. + 6. + 7. pád)", spanish: "de cinco, a cinco, en cinco, con cinco (2. + 3. + 6. + 7p.)", german: "fünf (2. +3. + 6. + 7p.)" },
+  { czech: "šest", english: "six (1. + 4. pád)", spanish: "seis (1. + 4p.)", german: "sechs (1. + 4p.)" },
+  { czech: "sedm", english: "seven (1. + 4. pád)", spanish: "siete (1. + 4p.)", german: "sieben (1. + 4p.)" },
+  { czech: "osm", english: "eight (1. + 4. pád)", spanish: "ocho (1. + 4p.)", german: "acht (1. + 4p.)" },
+  { czech: "devět", english: "nine (1. + 4. pád)", spanish: "nueve (1. + 4p.)", german: "neun (1. + 4p.)" },
+  { czech: "deset", english: "ten (1. + 4. pád)", spanish: "diez (1. + 4p.)", german: "zehn (1. + 4p.)" },
+  { czech: "jedenáct", english: "eleven (1. + 4. pád)", spanish: "once (1. + 4p.)", german: "elf (1. + 4p.)" },
+  { czech: "dvanáct", english: "twelve (1. + 4. pád)", spanish: "doce (1. + 4p.)", german: "zwölf (1. + 4p.)" },
+  { czech: "třináct", english: "thirteen (1. + 4. pád)", spanish: "trece (1. + 4p.)", german: "dreizehn (1. + 4p.)" },
+  { czech: "čtrnáct", english: "fourteen (1. + 4. pád)", spanish: "catorce (1. + 4p.)", german: "vierzehn (1. + 4p.)" },
+  { czech: "patnáct", english: "fifteen (1. + 4. pád)", spanish: "quince (1. + 4p.)", german: "fünfzehn (1. + 4p.)" },
+  { czech: "šestnáct", english: "sixteen (1. + 4. pád)", spanish: "dieciséis (1. + 4p.)", german: "sechzehn (1. + 4p.)" },
+  { czech: "sedmnáct", english: "seventeen (1. + 4. pád)", spanish: "diecisiete (1. + 4p.)", german: "siebzehn (1. + 4p.)" },
+  { czech: "osmnáct", english: "eighteen (1. + 4. pád)", spanish: "dieciocho (1. + 4p.)", german: "achtzehn (1. + 4p.)" },
+  { czech: "devatenáct", english: "nineteen (1. + 4. pád)", spanish: "diecinueve (1. + 4p.)", german: "neunzehn (1. + 4p.)" },
+  { czech: "dvacet", english: "twenty (1. + 4. pád)", spanish: "veinte (1. + 4p.)", german: "zwanzig (1. + 4p.)" },
+
+  { czech: "třicet", english: "thirty (1. + 4. pád)", spanish: "treinta (1. + 4p.)", german: "dreißig (1. + 4p.)" },
+  { czech: "čtyřicet", english: "forty (1. + 4. pád)", spanish: "cuarenta (1. + 4p.)", german: "vierzig (1. + 4p.)" },
+  { czech: "padesát", english: "fifty (1. + 4. pád)", spanish: "cincuenta (1. + 4p.)", german: "fünfzig (1. + 4p.)" },
+  { czech: "šedesát", english: "sixty (1. + 4. pád)", spanish: "sesenta (1. + 4p.)", german: "sechzig (1. + 4p.)" },
+  { czech: "sedmdesát", english: "seventy (1. + 4. pád)", spanish: "setenta (1. + 4p.)", german: "siebzig (1. + 4p.)" },
+  { czech: "osmdesát", english: "eighty (1. + 4. pád)", spanish: "ochenta (1. + 4p.)", german: "achtzig (1. + 4p.)" },
+  { czech: "devadesát", english: "ninety (1. + 4. pád)", spanish: "noventa (1. + 4p.)", german: "neunzig (1. + 4p.)" },
+
+  { czech: "sto", english: "one hundred (1. + 4. pád)", spanish: "cien (1. + 4p.)", german: "hundert (1. + 4p.)" },
+  { czech: "dvě stě", english: "two hundred (1. + 4. pád)", spanish: "doscientos (1. + 4p.)", german: "zweihundert (1. + 4p.)" },
+  { czech: "tři sta", english: "three hundred (1. + 4. pád)", spanish: "trescientos (1. + 4p.)", german: "dreihundert (1. + 4p.)" },
+  { czech: "pět set", english: "five hundred (1. + 4. pád)", spanish: "quinientos (1. + 4p.)", german: "fünfhundert (1. + 4p.)" },
+
+  { czech: "tisíc", english: "one thousand (1. + 4. pád)", spanish: "mil (1. + 4p.)", german: "tausend (1. + 4p.)" },
+  { czech: "milion", english: "one million (1. + 4. pád)", spanish: "millón (1. + 4p.)", german: "Million (1. + 4p.)" }
+
 ];
