@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+<meta charset="UTF-8">
+<title>Accusative Case Exercise – Czech</title>
+<style>
+  body { font-family: Arial, sans-serif; margin: 20px; line-height: 1.6; }
+  h1 { text-align: center; margin-bottom: 20px; }
+  .level-buttons { text-align: center; margin-bottom: 20px; }
+  .level-buttons button { margin: 0 5px; padding: 5px 15px; cursor: pointer; }
+  .hidden { display: none; }
+  .exercise { margin-bottom: 30px; }
+  input.answer { width: 140px; padding: 2px 5px; margin: 0 3px; font-size: 1em; }
+  .check-btn { display: block; margin: 10px 0 20px; padding: 5px 15px; cursor: pointer; }
+  .results { font-weight: bold; margin-top: 10px; }
+  .vocab-link { text-align: center; margin-top: 30px; }
+  .vocab-link a { text-decoration: none; color: blue; font-weight: bold; }
+</style>
+</head>
+<body>
+
+<h1>Accusative Case Exercises – Czech</h1>
+
+<div class="level-buttons">
+  <button onclick="showLevel('A1')">Basic – A1</button>
+  <button onclick="showLevel('A2')">Advanced – A2</button>
+  <button onclick="showLevel('B1')">Communicative – B1</button>
+</div>
+
+<!-- A1 Level -->
+<div class="exercise level A1">
+  <p><strong>Basic – A1 Level</strong><br>
+  Dnes jdu do <input type="text" class="answer" data-correct="restaurace"> (restaurace).<br>
+  Dám si <input type="text" class="answer" data-correct="kávu"> (káva), 
+  <input type="text" class="answer" data-correct="lososa"> (losos), 
+  <input type="text" class="answer" data-correct="pivo"> (pivo) a 
+  <input type="text" class="answer" data-correct="vodu"> (voda).<br>
+  Eva má ráda <input type="text" class="answer" data-correct="Petra"> (Petr) a 
+  <input type="text" class="answer" data-correct="Barboru"> (Barbora).<br>
+  Petr schová <input type="text" class="answer" data-correct="dárek"> (dárek) za 
+  <input type="text" class="answer" data-correct="skříň"> (skříň), pod 
+  <input type="text" class="answer" data-correct="postel"> (postel) nebo nad 
+  <input type="text" class="answer" data-correct="knihovnu"> (knihovna).<br>
+  Eliška studuje <input type="text" class="answer" data-correct="češtinu"> (čeština).<br>
+  Petr kupuje <input type="text" class="answer" data-correct="dárek"> (dárek) pro 
+  <input type="text" class="answer" data-correct="Evu"> (Eva).<br>
+  Mám <input type="text" class="answer" data-correct="narozeniny"> (narozeniny), dělám 
+  <input type="text" class="answer" data-correct="oslavu"> (oslava).
+  </p>
+</div>
+
+<!-- A2 Level -->
+<div class="exercise level A2 hidden">
+  <p><strong>Advanced – A2 Level</strong><br>
+  Jdu do <input type="text" class="answer" data-correct="restaurace"> (restaurace) na 
+  <input type="text" class="answer" data-correct="oběd"> (oběd).<br>
+  Číšník mi přináší <input type="text" class="answer" data-correct="jídelní lístek"> (jídelní lístek).<br>
+  Mám alergii na ořechy, takže nemohu jíst <input type="text" class="answer" data-correct="sladký zákusek"> (sladký zákusek).<br>
+  Objednám si <input type="text" class="answer" data-correct="hovězí guláš s knedlíkem"> (hovězí guláš s knedlíkem) a 
+  <input type="text" class="answer" data-correct="pečené kuře s brambory"> (pečené kuře s brambory).<br>
+  Dám si také <input type="text" class="answer" data-correct="jablečný džus"> (jablečný džus) a 
+  <input type="text" class="answer" data-correct="pivo"> (pivo).<br>
+  Na dezert si vezmu <input type="text" class="answer" data-correct="zmrzlinu"> (zmrzlina) a 
+  <input type="text" class="answer" data-correct="čokoládovou palačinku"> (čokoládová palačinka).<br>
+  Zaplatím <input type="text" class="answer" data-correct="účet"> (účet) hotově.<br>
+  Dohromady to stojí <input type="text" class="answer" data-correct="dvě stě korun"> (dvě stě korun).
+  </p>
+</div>
+
+<!-- B1 Level -->
+<div class="exercise level B1 hidden">
+  <p><strong>Communicative – B1 Level</strong><br>
+  Dnes večer připravím <input type="text" class="answer" data-correct="večeři"> (večeře) pro 
+  <input type="text" class="answer" data-correct="rodinu"> (rodina).<br>
+  Na stůl položím <input type="text" class="answer" data-correct="pečeného lososa"> (losos), 
+  <input type="text" class="answer" data-correct="grilovaná kuřecí prsíčka"> (kuřecí prsíčka), 
+  <input type="text" class="answer" data-correct="smažený sýr"> (smažený sýr) a 
+  <input type="text" class="answer" data-correct="čerstvý salát"> (salát).<br>
+  Na pití nabídnu <input type="text" class="answer" data-correct="bílé víno"> (bílé víno), 
+  <input type="text" class="answer" data-correct="minerálku"> (minerálka) a 
+  <input type="text" class="answer" data-correct="pomerančový džus"> (pomerančový džus).<br>
+  Petr koupil <input type="text" class="answer" data-correct="nové talíře"> (talíře) a 
+  <input type="text" class="answer" data-correct="příbory"> (příbory) pro 
+  <input type="text" class="answer" data-correct="hosty"> (host).<br>
+  Po večeři si dáme <input type="text" class="answer" data-correct="dort"> (dort) a 
+  <input type="text" class="answer" data-correct="čokoládovou zmrzlinu"> (zmrzlina).<br>
+  V restauraci bych si objednal <input type="text" class="answer" data-correct="hovězí svíčkovou na smetaně s knedlíkem"> (hovězí svíčková) nebo 
+  <input type="text" class="answer" data-correct="pečenou kachnu se zelím a knedlíkem"> (kachna).<br>
+  Kuchař připravuje <input type="text" class="answer" data-correct="čerstvé těstoviny"> (těstoviny) a 
+  <input type="text" class="answer" data-correct="lahodnou pizzu"> (pizza).
+  </p>
+</div>
+
+<button class="check-btn" onclick="checkAnswers()">Check Answers</button>
+<div class="results" id="results"></div>
+
+<div class="vocab-link">
+  <p>📖 <a href="/vocab/accusative.html" target="_blank">Vocabulary for this lesson</a></p>
+</div>
+
+<script>
+function showLevel(level) {
+  ['A1','A2','B1'].forEach(l => {
+    document.querySelectorAll('.exercise.level.'+l).forEach(el => el.classList.add('hidden'));
+  });
+  document.querySelectorAll('.exercise.level.'+level).forEach(el => el.classList.remove('hidden'));
+}
+
+function checkAnswers() {
+  let score = 0;
+  let total = 0;
+  document.querySelectorAll('.exercise input.answer').forEach(input => {
+    if (!input.closest('.hidden')) {
+      total++;
+      if (input.value.trim().toLowerCase() === input.dataset.correct.toLowerCase()) {
+        score++;
+        input.style.backgroundColor = '#c8e6c9'; // green
+      } else {
+        input.style.backgroundColor = '#ffcdd2'; // red
+      }
+    }
+  });
+  document.getElementById('results').innerText = `You got ${score} out of ${total} correct.`;
+}
+</script>
+
+</body>
+</html>
