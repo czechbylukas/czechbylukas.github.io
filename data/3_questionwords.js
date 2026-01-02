@@ -103,6 +103,12 @@ const vocab = [
     german: "wohin"
   },
   {
+    czech: "jak dlouho",
+    english: "how long",
+    spanish: "cuánto tiempo",
+    german: "wie lange"
+  },
+  {
     czech: "(bez (2.p), pro(4.p.)) koho",
     english: "(without, for) whom",
     spanish: "(sin, para) quién (2. y 4. caso)",
