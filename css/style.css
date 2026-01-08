@@ -514,3 +514,83 @@ body.index-page {
   font-style: italic;       /* optional */
   cursor: pointer;          /* indicate it's clickable */
 }
+
+
+
+
+/* =========================
+   Mobile / small screens
+   ========================= */
+@media (max-width: 480px) {
+  /* Controls / selectors stacked */
+  #controls {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    padding: 0 10px;
+  }
+
+  #controls select {
+    width: 100%;
+    font-size: 1rem;
+    padding: 10px;
+  }
+
+  /* Game selector buttons stacked */
+  #game-selector {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    padding: 0 10px;
+  }
+
+  #game-selector button {
+    width: 100%;
+    font-size: 1rem;
+    padding: 12px;
+  }
+
+  /* Game area */
+  #game {
+    font-size: 1.1rem;
+    padding: 10px;
+  }
+
+  input.gap {
+    font-size: 1rem;
+    padding: 6px;
+    min-width: 40px;
+  }
+
+  /* Heading */
+  h1 {
+    font-size: 1.5rem;
+    text-align: center;
+  }
+
+  /* Big / small buttons */
+  .big-buttons, .small-buttons {
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .big-buttons a, .small-buttons a {
+    width: 100%;
+    text-align: center;
+    font-size: 1rem;
+    padding: 12px;
+  }
+
+  /* Vocab table / practice pages */
+  .vocab-page, .vocab-container {
+    margin: 10px;
+    flex-direction: column;
+  }
+
+  .card {
+    width: 90%;
+    min-height: 120px;
+    font-size: 1.2em;
+    padding: 20px;
+  }
+}
