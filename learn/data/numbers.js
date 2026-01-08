@@ -9,20 +9,29 @@ export const numbersData = {
     { value: 7, cs: "sedm", en: "seven", de: "sieben", es: "siete" },
     { value: 8, cs: "osm", en: "eight", de: "acht", es: "ocho" },
     { value: 9, cs: "devět", en: "nine", de: "neun", es: "nueve" },
-    { value: 10, cs: "deset", en: "ten", de: "zehn", es: "diez" },
-    { value: 11, cs: "jedenáct", en: "eleven", de: "elf", es: "once" },
-    { value: 12, cs: "dvanáct", en: "twelve", de: "zwölf", es: "doce" },
-    { value: 13, cs: "třináct", en: "thirteen", de: "dreizehn", es: "trece" },
-    { value: 14, cs: "čtrnáct", en: "fourteen", de: "vierzehn", es: "catorce" },
-    { value: 15, cs: "patnáct", en: "fifteen", de: "fünfzehn", es: "quince" },
-    { value: 16, cs: "šestnáct", en: "sixteen", de: "sechzehn", es: "dieciséis" },
-    { value: 17, cs: "sedmnáct", en: "seventeen", de: "siebzehn", es: "diecisiete" },
-    { value: 18, cs: "osmnáct", en: "eighteen", de: "achtzehn", es: "dieciocho" },
-    { value: 19, cs: "devatenáct", en: "nineteen", de: "neunzehn", es: "diecinueve" },
-    { value: 20, cs: "dvacet", en: "twenty", de: "zwanzig", es: "veinte" }
+    { value: 10, cs: "deset", en: "ten", de: "zehn", es: "diez" }
   ],
   A2: [
-    { value: 21, cs: "dvacet jedna", en: "twenty-one", de: "einundzwanzig", es: "veintiuno" },
-    { value: 22, cs: "dvacet dva", en: "twenty-two", de: "zweiundzwanzig", es: "veintidós" }
+    { value: 11, cs: "jedenáct", en: "eleven", de: "elf", es: "once" },
+    { value: 12, cs: "dvanáct", en: "twelve", de: "zwölf", es: "doce" }
+  ]
+};
+
+export const numbersQuestions = {
+  A1: [
+    { text: "Mám {{gap}} mobil (1).", answers: ["jeden"] },
+    { text: "Koupil jsem {{gap}} rohlíky (2).", answers: ["dva"] },
+    { text: "Vidím {{gap}} kočky (3).", answers: ["tři"] },
+    { text: "Máme {{gap}} psy (4).", answers: ["čtyři"] },
+    { text: "Na stole je {{gap}} knih (5).", answers: ["pět"] },
+    { text: "V krabici je {{gap}} míčů (6).", answers: ["šest"] },
+    { text: "Na zahradě roste {{gap}} stromů (7).", answers: ["sedm"] },
+    { text: "Mám {{gap}} přátel (8).", answers: ["osm"] },
+    { text: "Na stěně visí {{gap}} obrazů (9).", answers: ["devět"] },
+    { text: "V kuchyni je {{gap}} židlí (10).", answers: ["deset"] }
+  ],
+  A2: [
+    { text: "Mám {{gap}} dětí (11).", answers: ["jedenáct"] },
+    { text: "V obchodě koupil {{gap}} pomeranče (12).", answers: ["dvanáct"] }
   ]
 };
