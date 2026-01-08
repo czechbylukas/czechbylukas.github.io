@@ -1,9 +1,50 @@
 <!DOCTYPE html>
-<html>
-<head><meta charset="UTF-8"><title>Games</title></head>
+<html lang="cs">
+<head>
+  <meta charset="UTF-8">
+  <title>Hry</title>
+
+<link rel="stylesheet" href="CSS/style.css">
+
+</head>
 <body>
-<h1>Games</h1>
-<div id="game"></div>
-<script type="module" src="core/loader.js"></script>
+
+<h1>Hry</h1>
+
+<!-- Selectors -->
+<div id="controls">
+  <select id="topic">
+    <option value="">Vyber téma</option>
+    <option value="numbers">Čísla</option>
+  </select>
+
+  <select id="level">
+    <option value="">Vyber úroveň</option>
+    <option value="A1">A1</option>
+    <option value="A2">A2</option>
+  </select>
+
+  <select id="language">
+    <option value="">Vyber jazyk</option>
+    <option value="en">English</option>
+    <option value="de">Deutsch</option>
+    <option value="es">Español</option>
+  </select>
+</div>
+
+<hr>
+
+<!-- Game buttons: initially hidden -->
+<div id="game-selector" style="display:none">
+  <button data-game="mcq">Multiple Choice</button>
+  <button data-game="fillGap">Fill in the Gap</button>¨
+  <button data-game="hangman">Hangman</button>
+</div>
+
+<hr>
+
+<div id="game">⬆️ Vyber téma, úroveň a jazyk</div>
+
+<script type="module" src="./core/loader.js"></script>
 </body>
 </html>
