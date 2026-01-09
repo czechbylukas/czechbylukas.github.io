@@ -23,24 +23,41 @@
   <select id="level">
     <option value="">Vyber úroveň</option>
     <option value="A1">A1</option>
-    <option value="A2">A2</option>
+    <option value="A2">A2 - not yet ready :(... </option>
   </select>
 
-  <select id="language">
-    <option value="">Vyber jazyk</option>
-    <option value="en">English</option>
-    <option value="de">Deutsch</option>
-    <option value="es">Español</option>
-  </select>
+<!-- language selector: keep in DOM but hide from user -->
+<select id="language" style="display:none;">
+  <option value="">Vyber jazyk</option>
+  <option value="en">English</option>
+  <option value="de">Deutsch</option>
+  <option value="es">Español</option>
+</select>
+
 </div>
 
 <hr>
 
 <!-- Game buttons: initially hidden -->
 <div id="game-selector" style="display:none">
+
+  <button data-game="flashcards">Flashcards</button>
   <button data-game="mcq">Multiple Choice</button>
   <button data-game="fillGap">Fill in the Gap</button>
   <button data-game="hangman">Hangman</button>
+  <button data-game="dragDrop">Drag & Drop</button>
+  <button data-game="memory">Memory</button>
+  <button data-game="pexeso">Pexeso</button>
+  <button data-game="match">Match Game</button>
+  <button data-game="writeAnswer">Write the Answer</button>
+  <button data-game="speedClick">Speed Click</button>
+  <button data-game="fallingWords">Falling Words</button>
+  <button data-game="orderWords">Order the Words</button>
+  <button data-game="sentenceBuilder">Sentence Builder</button>
+  <button data-game="guessNumber">Guess the Number</button>
+  <button data-game="whatDidYouHear">What Did You Hear?</button>
+
+
 </div>
 
 <hr>

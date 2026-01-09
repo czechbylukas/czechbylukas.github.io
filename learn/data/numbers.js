@@ -1,22 +1,32 @@
+// words with translations (for Hangman, Flashcards, Drag & Drop, etc.)
 export const numbersData = {
   A1: [
-    { value: 1, cs: "jeden", en: "one", de: "eins", es: "uno" },
-    { value: 2, cs: "dva", en: "two", de: "zwei", es: "dos" },
-    { value: 3, cs: "tři", en: "three", de: "drei", es: "tres" },
-    { value: 4, cs: "čtyři", en: "four", de: "vier", es: "cuatro" },
-    { value: 5, cs: "pět", en: "five", de: "fünf", es: "cinco" },
-    { value: 6, cs: "šest", en: "six", de: "sechs", es: "seis" },
-    { value: 7, cs: "sedm", en: "seven", de: "sieben", es: "siete" },
-    { value: 8, cs: "osm", en: "eight", de: "acht", es: "ocho" },
-    { value: 9, cs: "devět", en: "nine", de: "neun", es: "nueve" },
-    { value: 10, cs: "deset", en: "ten", de: "zehn", es: "diez" }
+    { cs: "jeden", en: "one", de: "eins", es: "uno" },
+    { cs: "dva", en: "two", de: "zwei", es: "dos" },
+    { cs: "tři", en: "three", de: "drei", es: "tres" },
+    { cs: "čtyři", en: "four", de: "vier", es: "cuatro" },
+    { cs: "pět", en: "five", de: "fünf", es: "cinco" },
+    { cs: "šest", en: "six", de: "sechs", es: "seis" },
+    { cs: "sedm", en: "seven", de: "sieben", es: "siete" },
+    { cs: "osm", en: "eight", de: "acht", es: "ocho" },
+    { cs: "devět", en: "nine", de: "neun", es: "nueve" },
+    { cs: "deset", en: "ten", de: "zehn", es: "diez" }
   ],
   A2: [
-    { value: 11, cs: "jedenáct", en: "eleven", de: "elf", es: "once" },
-    { value: 12, cs: "dvanáct", en: "twelve", de: "zwölf", es: "doce" }
+    { cs: "jedenáct", en: "eleven", de: "elf", es: "once" },
+    { cs: "dvanáct", en: "twelve", de: "zwölf", es: "doce" },
+    { cs: "třináct", en: "thirteen", de: "dreizehn", es: "trece" },
+    { cs: "čtrnáct", en: "fourteen", de: "vierzehn", es: "catorce" },
+    { cs: "patnáct", en: "fifteen", de: "fünfzehn", es: "quince" },
+    { cs: "šestnáct", en: "sixteen", de: "sechzehn", es: "dieciséis" },
+    { cs: "sedmnáct", en: "seventeen", de: "siebzehn", es: "diecisiete" },
+    { cs: "osmnáct", en: "eighteen", de: "achtzehn", es: "dieciocho" },
+    { cs: "devatenáct", en: "nineteen", de: "neunzehn", es: "diecinueve" },
+    { cs: "dvacet", en: "twenty", de: "zwanzig", es: "veinte" }
   ]
 };
 
+// fill-in-the-gap / multiple choice questions
 export const numbersQuestions = {
   A1: [
     { text: "Mám {{gap}} mobil (1).", answers: ["jeden"] },

@@ -2,7 +2,10 @@ import { normalize } from "../core/utils.js";
 
 export function startGame(state) {
   const container = document.getElementById("game");
-  const questions = state.questions; // already set in loader.js
+
+  // Shuffle questions
+  const questions = [...state.questions].sort(() => Math.random() - 0.5);
+
   let currentIndex = 0;
   let score = 0;
 
@@ -14,16 +17,26 @@ export function startGame(state) {
     }
 
     const q = questions[currentIndex];
-
-    // Correct answer
     const correct = q.answers[0];
 
-    // Create wrong options from state.data
-    let options = [correct];
-    while (options.length < 4 && state.data) {
-      const rand = state.data[Math.floor(Math.random() * state.data.length)].cs;
-      if (!options.includes(rand)) options.push(rand);
+    // Prepare wrong options
+    let wrongOptions = [];
+    if (state.data && state.data.length > 0) {
+      wrongOptions = state.data
+        .map(item => item.cs)
+        .filter(word => word !== correct);
     }
+
+    // Pick up to 3 random wrong options
+    let randomWrong = [];
+    while (randomWrong.length < 3 && wrongOptions.length > 0) {
+      const idx = Math.floor(Math.random() * wrongOptions.length);
+      randomWrong.push(wrongOptions[idx]);
+      wrongOptions.splice(idx, 1); // remove to avoid duplicates
+    }
+
+    // Combine correct + wrong options
+    let options = [correct, ...randomWrong];
 
     // Shuffle options
     options = options.sort(() => Math.random() - 0.5);
@@ -39,7 +52,6 @@ export function startGame(state) {
 
     const feedback = document.getElementById("feedback");
 
-    // Add click listeners
     container.querySelectorAll(".opt").forEach(btn => {
       btn.onclick = () => {
         if (normalize(btn.textContent) === normalize(correct)) {
