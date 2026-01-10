@@ -1,5 +1,6 @@
 /* =========================
-   HackCzech: Simple Smooth Theme
+   HackCzech: Smooth Blue Theme
+   Shrinking Header, Centered Logo
    ========================= */
 
 /* ===== Reset & Global ===== */
@@ -11,7 +12,7 @@
 
 body {
     font-family: 'Arial', sans-serif;
-    background-color: #f0f4ff; /* soft blue background */
+    background-color: #f0f4ff;
     color: #2c3e50;
     line-height: 1.6;
 }
@@ -22,21 +23,24 @@ header {
     top: 0;
     left: 0;
     width: 100%;
-    background-color: #2f52b5; /* main HackCzech blue */
+    background-color: #2f52b5;
     color: white;
     display: flex;
+    flex-direction: column;
     align-items: center;
-    justify-content: flex-start;
     padding: 20px 40px;
-    gap: 16px;
+    gap: 12px;
     box-shadow: 0 4px 12px rgba(0,0,0,0.1);
     z-index: 1000;
     transition: all 0.3s ease;
 }
 
-/* Shrink header on scroll */
-header.shrink {
-    padding: 8px 30px;
+header .header-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 16px;
+    width: 100%;
 }
 
 header .logo {
@@ -45,49 +49,54 @@ header .logo {
     transition: all 0.3s ease;
 }
 
-header.shrink .logo {
-    height: 30px;
-}
-
 header h1 {
     font-size: 1.8rem;
-    color: #fff;
+    color: white;
     transition: all 0.3s ease;
+}
+
+/* Shrink header on scroll */
+header.shrink {
+    padding: 8px 20px;
+}
+
+header.shrink .logo {
+    height: 30px;
 }
 
 header.shrink h1 {
     font-size: 1.2rem;
 }
 
-/* ===== Main Content ===== */
-main {
-    padding: 120px 20px 40px 20px; /* top padding = header height */
-    max-width: 960px;
-    margin: 0 auto;
-    text-align: center;
-}
-
-/* ===== Navigation ===== */
-nav {
+/* Navigation */
+header nav {
     display: flex;
     justify-content: center;
     gap: 12px;
-    margin: 20px 0;
     flex-wrap: wrap;
+    width: 100%;
 }
 
-nav a {
+header nav a {
     text-decoration: none;
     color: #2f52b5;
     padding: 8px 16px;
     border-radius: 8px;
-    transition: all 0.3s ease;
     background-color: #e3e9ff;
+    transition: all 0.3s ease;
 }
 
-nav a:hover {
+header nav a:hover {
     background-color: #2f52b5;
     color: white;
+}
+
+/* ===== Main Content ===== */
+main {
+    padding-top: 120px; /* space for fixed header */
+    max-width: 960px;
+    margin: 0 auto;
+    text-align: center;
 }
 
 /* ===== Buttons ===== */
@@ -130,7 +139,7 @@ nav a:hover {
     color: #1c3a8a;
 }
 
-/* ===== Vocabulary / Practice Cards ===== */
+/* ===== Practice / Vocabulary Cards ===== */
 .vocab-container {
     display: flex;
     justify-content: center;
@@ -187,25 +196,29 @@ footer {
     transform: scale(1.05);
 }
 
-/* ===== Responsive ===== */
+/* ===== Mobile / Responsive ===== */
 @media (max-width: 480px) {
     header {
-        flex-direction: column;
-        align-items: center;
-        text-align: center;
         padding: 12px 20px;
     }
 
-    header .logo {
-        height: 40px;
+    header .header-container {
+        flex-direction: column; /* logo above title */
+        gap: 8px;
     }
 
     header h1 {
         font-size: 1.4rem;
     }
 
-    nav {
+    header nav {
         flex-direction: column;
+        gap: 8px;
+    }
+
+    header nav a {
+        width: 100%;
+        text-align: center;
     }
 
     .big-buttons, .small-buttons, .vocab-container {
