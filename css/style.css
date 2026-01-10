@@ -1,23 +1,4 @@
-/* =========================
-   HackCzech: Smooth Blue Theme
-   Shrinking Header, Centered Logo
-   ========================= */
-
-/* ===== Reset & Global ===== */
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
-
-body {
-    font-family: 'Arial', sans-serif;
-    background-color: #f0f4ff;
-    color: #2c3e50;
-    line-height: 1.6;
-}
-
-/* ===== Header / Banner ===== */
+/* ===== Header ===== */
 header {
     position: fixed;
     top: 0;
@@ -27,37 +8,41 @@ header {
     color: white;
     display: flex;
     flex-direction: column;
-    align-items: center;
+    align-items: stretch; /* content stretches horizontally */
     padding: 20px 40px;
-    gap: 12px;
+    gap: 8px;
     box-shadow: 0 4px 12px rgba(0,0,0,0.1);
     z-index: 1000;
     transition: all 0.3s ease;
 }
 
-header .header-container {
+.header-container {
     display: flex;
     align-items: center;
-    justify-content: center;
+    justify-content: center; /* centers h1 horizontally */
     gap: 16px;
     width: 100%;
 }
 
-header .logo {
+.logo {
     height: 50px;
     width: auto;
     transition: all 0.3s ease;
 }
 
+/* Title centered */
 header h1 {
     font-size: 1.8rem;
     color: white;
+    flex: 1;
+    text-align: center;
+    margin: 0;
     transition: all 0.3s ease;
 }
 
-/* Shrink header on scroll */
+/* Shrink effect */
 header.shrink {
-    padding: 8px 20px;
+    padding: 8px 30px;
 }
 
 header.shrink .logo {
@@ -74,7 +59,6 @@ header nav {
     justify-content: center;
     gap: 12px;
     flex-wrap: wrap;
-    width: 100%;
 }
 
 header nav a {
@@ -91,148 +75,9 @@ header nav a:hover {
     color: white;
 }
 
-/* ===== Main Content ===== */
+/* Main content below fixed header */
 main {
     padding-top: 120px; /* space for fixed header */
     max-width: 960px;
     margin: 0 auto;
-    text-align: center;
-}
-
-/* ===== Buttons ===== */
-.big-buttons, .small-buttons {
-    display: flex;
-    justify-content: center;
-    gap: 20px;
-    flex-wrap: wrap;
-    margin: 30px 0;
-}
-
-.big-buttons a {
-    padding: 16px 36px;
-    font-size: 1.2rem;
-    background: linear-gradient(180deg,#4a6edb 0%,#2f52b5 100%);
-    color: white;
-    border-radius: 12px;
-    text-decoration: none;
-    transition: all 0.3s ease;
-}
-
-.big-buttons a:hover {
-    background: linear-gradient(180deg,#2f52b5 0%,#1c3a8a 100%);
-    transform: translateY(-2px);
-}
-
-.small-buttons a {
-    padding: 10px 20px;
-    font-size: 1rem;
-    background: #ffffff;
-    color: #2f52b5;
-    border: 2px solid #4a6edb;
-    border-radius: 12px;
-    text-decoration: none;
-    transition: all 0.3s ease;
-}
-
-.small-buttons a:hover {
-    background-color: #d9e3ff;
-    color: #1c3a8a;
-}
-
-/* ===== Practice / Vocabulary Cards ===== */
-.vocab-container {
-    display: flex;
-    justify-content: center;
-    gap: 20px;
-    flex-wrap: wrap;
-    margin: 30px 0;
-}
-
-.card {
-    background-color: #ffffff;
-    padding: 30px;
-    min-width: 240px;
-    min-height: 140px;
-    border-radius: 16px;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.08);
-    font-size: 1.4em;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    cursor: pointer;
-    transition: all 0.3s ease;
-}
-
-.card:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 8px 20px rgba(0,0,0,0.12);
-}
-
-/* ===== Footer ===== */
-footer {
-    text-align: center;
-    padding: 20px;
-    margin-top: 40px;
-    background-color: #f5f7ff;
-    color: #2c3e50;
-    border-top: 1px solid #d9e3ff;
-    border-radius: 12px;
-}
-
-/* ===== QR Container ===== */
-.qr-container {
-    margin: 20px 0;
-}
-
-.qr-container img {
-    width: 20%;
-    border: 2px solid #2f52b5;
-    border-radius: 12px;
-    padding: 4px;
-    transition: transform 0.2s ease;
-}
-
-.qr-container img:hover {
-    transform: scale(1.05);
-}
-
-/* ===== Mobile / Responsive ===== */
-@media (max-width: 480px) {
-    header {
-        padding: 12px 20px;
-    }
-
-    header .header-container {
-        flex-direction: column; /* logo above title */
-        gap: 8px;
-    }
-
-    header h1 {
-        font-size: 1.4rem;
-    }
-
-    header nav {
-        flex-direction: column;
-        gap: 8px;
-    }
-
-    header nav a {
-        width: 100%;
-        text-align: center;
-    }
-
-    .big-buttons, .small-buttons, .vocab-container {
-        flex-direction: column;
-        gap: 12px;
-    }
-
-    .card {
-        width: 90%;
-        font-size: 1.2em;
-        padding: 20px;
-    }
-
-    main {
-        padding-top: 100px;
-    }
 }
