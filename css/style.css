@@ -22,6 +22,7 @@ body {
 }
 
 /* ============================================================
+/* ============================================================
    2. HEADER (The Blue Banner)
    ============================================================ */
 header {
@@ -31,8 +32,30 @@ header {
     text-align: center;
     width: 100%;
     box-sizing: border-box;
-    display: block;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    position: relative; /* Essential for logo positioning */
     box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    min-height: 80px;   /* Ensures enough space for logo */
+}
+
+/* This creates the logo automatically */
+header::before {
+    content: "";
+    display: block;
+    background-image: url('../images/hackczech-logo.png');
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    /* Default (Internal Pages): Small and fixed to the left */
+    position: absolute;
+    left: 20px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 50px;
+    height: 50px;
 }
 
 header h1 {
@@ -40,8 +63,25 @@ header h1 {
     padding: 0;
     color: white !important;
     font-size: 1.8rem;
+    width: 100%; /* Ensures text takes up space to center correctly */
 }
 
+/* ============================================================
+   AUTOMATIC LAYOUT LOGIC
+   ============================================================ */
+
+/* HOME PAGE: Make logo big and put it back into the normal flow (Centered) */
+body:has(nav.home-nav) header {
+    padding-top: 40px;
+}
+
+body:has(nav.home-nav) header::before {
+    position: static;   /* Returns to center above text */
+    transform: none;    /* Removes the vertical centering math */
+    width: 150px;
+    height: 150px;
+    margin: 0 auto 20px auto;
+}
 /* ============================================================
    3. NAVIGATION LOGIC
    ============================================================ */
