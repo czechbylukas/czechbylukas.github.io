@@ -1,61 +1,61 @@
 // data/2_actions.js
 const vocab = [
   {
-    czech:   "Dělat",
+    czech:   "dělat",
     english: "to do",
     spanish: "hacer",
     german:  "machen"
   },
   {
-    czech:   "Plavat",
+    czech:   "plavat",
     english: "to swim",
     spanish: "nadar",
     german:  "schwimmen"
   },
   {
-    czech:   "Pracovat",
+    czech:   "pracovat",
     english: "to work",
     spanish: "trabajar",
     german:  "arbeiten"
   },
   {
-    czech:   "Koukat se, dívat se",
+    czech:   "koukat se, dívat se",
     english: "to watch",
     spanish: "mirar",
     german:  "schauen"
   },
   {
-    czech:   "Spát",
+    czech:   "spát",
     english: "to sleep",
     spanish: "dormir",
     german:  "schlafen"
   },
   {
-    czech:   "Odpočívat",
+    czech:   "odpočívat",
     english: "to rest",
     spanish: "descansar",
     german:  "sich ausruhen"
   },
   {
-    czech:   "Sportovat",
+    czech:   "sportovat",
     english: "to do sports",
     spanish: "hacer deporte",
     german:  "Sport treiben"
   },
   {
-    czech:   "Studovat, učit se",
+    czech:   "studovat, učit se",
     english: "to study, to learn",
     spanish: "estudiar, aprender",
     german:  "studieren, lernen"
   },
   {
-    czech:   "Vařit",
+    czech:   "vařit",
     english: "to cook",
     spanish: "cocinar",
     german:  "kochen"
   },
   {
-    czech:   "Telefonovat",
+    czech:   "telefonovat",
     english: "to call",
     spanish: "llamar por teléfono",
     german:  "telefonieren"
