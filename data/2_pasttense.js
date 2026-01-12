@@ -1,64 +1,64 @@
 // data/2_actions.js
 const vocab = [
   {
-    czech:   "Dělat (1. osoba) - dělal/a jsem",
-    english: "to do / I did",
-    spanish: "hacer / yo hice",
-    german:  "machen / ich habe gemacht"
+    czech:   "Dělat",
+    english: "to do",
+    spanish: "hacer",
+    german:  "machen"
   },
   {
-    czech:   "Plavat (1. osoba) - plaval/a jsem",
-    english: "to swim / I swam",
-    spanish: "nadar / yo nadé",
-    german:  "schwimmen / ich bin geschwommen"
+    czech:   "Plavat",
+    english: "to swim",
+    spanish: "nadar,
+    german:  "schwimmen"
   },
   {
-    czech:   "Pracovat (1. osoba) - pracoval/a jsem",
-    english: "to work / I worked",
-    spanish: "trabajar / yo trabajé",
-    german:  "arbeiten / ich habe gearbeitet"
+    czech:   "Pracovat",
+    english: "to work",
+    spanish: "trabajar",
+    german:  "arbeiten"
   },
   {
-    czech:   "Koukat se, dívat se (1. osoba) - koukal/a jsem se / díval/a jsem se",
-    english: "to watch / I watched",
-    spanish: "mirar / yo miré",
-    german:  "schauen / ich habe geschaut"
+    czech:   "Koukat se, dívat se",
+    english: "to watch",
+    spanish: "mirar",
+    german:  "schauen"
   },
   {
-    czech:   "Spát (1. osoba) - spal/a jsem",
-    english: "to sleep / I slept",
-    spanish: "dormir / yo dormí",
-    german:  "schlafen / ich habe geschlafen"
+    czech:   "Spát",
+    english: "to sleep",
+    spanish: "dormir",
+    german:  "schlafen"
   },
   {
-    czech:   "Odpočívat (1. osoba) - odpočíval/a jsem",
-    english: "to rest / I rested",
-    spanish: "descansar / yo descansé",
-    german:  "sich ausruhen / ich habe mich ausgeruht"
+    czech:   "Odpočívat",
+    english: "to rest",
+    spanish: "descansar",
+    german:  "sich ausruhen"
   },
   {
-    czech:   "Sportovat (1. osoba) - sportoval/a jsem",
-    english: "to do sports / I did sports",
-    spanish: "hacer deporte / yo hice deporte",
-    german:  "Sport treiben / ich habe Sport getrieben"
+    czech:   "Sportovat",
+    english: "to do sports",
+    spanish: "hacer deporte",
+    german:  "Sport treiben"
   },
   {
-    czech:   "Studovat, učit se (1. osoba) - studoval/a jsem / učil/a jsem se",
-    english: "to study, to learn / I studied, I learned",
-    spanish: "estudiar, aprender / yo estudié, yo aprendí",
-    german:  "studieren, lernen / ich habe studiert, ich habe gelernt"
+    czech:   "Studovat, učit se",
+    english: "to study, to learn",
+    spanish: "estudiar, aprender",
+    german:  "studieren, lernen"
   },
   {
-    czech:   "Vařit (1. osoba) - vařil/a jsem",
-    english: "to cook / I cooked",
-    spanish: "cocinar / yo cociné",
-    german:  "kochen / ich habe gekocht"
+    czech:   "Vařit",
+    english: "to cook",
+    spanish: "cocinar",
+    german:  "kochen"
   },
   {
-    czech:   "Telefonovat (1. osoba) - telefonoval/a jsem",
-    english: "to call / I called",
-    spanish: "llamar por teléfono / yo llamé",
-    german:  "telefonieren / ich habe telefoniert"
+    czech:   "Telefonovat",
+    english: "to call",
+    spanish: "llamar por teléfono",
+    german:  "telefonieren"
   },
   {
     czech:   "Co jsi dělal/a včera?",
