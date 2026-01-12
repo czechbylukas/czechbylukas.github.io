@@ -61,7 +61,7 @@ const vocab = [
     german:  "telefonieren"
   },
   {
-    czech:   "Co jsi dělal/a včera?",
+    czech:   "Co jsi dělal/dělala včera?",
     english: "What were you doing yesterday? / What did you do?",
     spanish: "¿Qué hiciste ayer?",
     german:  "Was hast du gestern gemacht?"

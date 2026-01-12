@@ -25,10 +25,22 @@ const vocab = [
     german:  "heißen"
   },
   {
-    czech:   "pan, paní, slečna",
-    english: "Mr, Mrs, Ms",
-    spanish: "señor, señora, señorita",
-    german:  "Herr, Frau, Fräulein"
+    czech:   "pan",
+    english: "Mr",
+    spanish: "señor",
+    german:  "Herr"
+  },
+  {
+    czech:   "paní",
+    english: "Mrs",
+    spanish: "señora",
+    german:  "Frau"
+  },
+  {
+    czech:   "slečna",
+    english: "Ms",
+    spanish: "señorita",
+    german:  "Fräulein"
   },
   {
     czech:   "adresa",
@@ -61,7 +73,7 @@ const vocab = [
     german:  "Postleitzahl"
   },
   {
-    czech:   "(číslo) popisný, orientační",
+    czech:   "(číslo) popisné, orientační",
     english: "house number",
     spanish: "número de casa",
     german:  "Hausnummer"
@@ -87,8 +99,8 @@ const vocab = [
   {
     czech:   "zavináč",
     english: "@",
-    spanish: "arroba @",
-    german:  "Klammeraffe @"
+    spanish: "@",
+    german:  "@"
   },
   {
     czech:   "datum narození",
@@ -169,8 +181,8 @@ const vocab = [
     german:  "Ehemann / Ehefrau"
   },
   {
-    czech:   "přítel, přítelkyně",
-    english: "boyfriend, girlfriend",
+    czech:   "přítel / přítelkyně",
+    english: "boyfriend / girlfriend",
     spanish: "novio, novia",
     german:  "Freund, Freundin"
   },
