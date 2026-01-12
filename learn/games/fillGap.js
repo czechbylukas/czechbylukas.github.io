@@ -4,9 +4,7 @@ export function startGame(state) {
   const container = document.getElementById("game");
   container.innerHTML = "";
 
-  // Shuffle questions
   const questions = [...state.questions].sort(() => Math.random() - 0.5);
-
   let currentIndex = 0;
   let score = 0;
   const total = questions.length;
@@ -14,15 +12,14 @@ export function startGame(state) {
   function showQuestion() {
     if (currentIndex >= total) {
       container.innerHTML = `<h2>🎉 Quiz finished!</h2>
-        <p>Your score: ${score} / ${total}</p>`;
+                             <p>Your score: ${score} / ${total}</p>`;
       return;
     }
 
     const q = questions[currentIndex];
     let html = q.text;
-
-    // Replace {{gap}} placeholders with inputs
     let gapIndex = 0;
+    
     html = html.replace(/{{gap}}/g, () =>
       `<input class="gap" data-answer="${q.answers[gapIndex++]}">`
     );
@@ -64,16 +61,21 @@ export function startGame(state) {
       }
     }
 
-    // Click listener
     checkBtn.onclick = handleCheck;
 
-    // Enter key listener
+    // --- FIX APPLIED HERE ---
     container.querySelectorAll(".gap").forEach(input => {
       input.addEventListener("keydown", e => {
+        // 1. Allow spaces! This stops the "Space" key from triggering 
+        // any other game functions elsewhere in your site.
+        if (e.key === " ") {
+          e.stopPropagation(); 
+        }
+
+        // 2. Handle Enter key
         if (e.key === "Enter") {
           e.preventDefault();
           handleCheck();
-          // Ensure cursor stays in first empty/wrong input
           setTimeout(() => {
             const firstEmpty = Array.from(container.querySelectorAll(".gap"))
               .find(i => i.value.trim() === "" || i.style.borderColor === "red");
@@ -83,7 +85,6 @@ export function startGame(state) {
       });
     });
 
-    // Focus first input
     const firstInput = container.querySelector(".gap");
     if (firstInput) firstInput.focus();
   }

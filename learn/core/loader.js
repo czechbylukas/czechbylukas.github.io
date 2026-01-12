@@ -5,8 +5,24 @@ import { gameMapping } from "./gameMapping.js";
 
 // Import topic datasets
 import { numbersData } from "../data/numbers.js";
-// add other topics when ready
-// import { colorsData } from "../data/colors.js";
+import { verbConjugationData } from "../data/verbConjugationData.js"; // 1. ADD THIS
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 // DOM elements
 const topicSelect = document.getElementById("topic");
@@ -18,7 +34,18 @@ const gameDiv = document.getElementById("game");
 // Mapping of topic names to data
 const topicDataMap = {
   numbers: numbersData,
-  // colors: colorsData
+  verbs: verbConjugationData, // 2. ADD THIS (Matches the value in your HTML)
+
+
+
+
+
+
+
+
+
+
+
 };
 
 // ---------------------------

@@ -14,12 +14,24 @@ export const gameMapping = {
     A2: ["mcq", "fillGap", "hangman", "memory", "pexeso", "match", "writeAnswer", "speedClick", "fallingWords", "orderWords", "sentenceBuilder", "guessNumber", "whatDidYouHear"]
   },
 
-  colors: {
-    A1: ["mcq", "fillGap", "memory", "match", "writeAnswer"],
-    A2: ["mcq", "fillGap", "memory", "match", "writeAnswer"]
-  },
-  animals: {
-    A1: ["mcq", "fillGap", "hangman", "memory", "pexeso", "match", "writeAnswer", "speedClick", "fallingWords", "orderWords", "sentenceBuilder"],
-    A2: ["mcq", "fillGap", "hangman", "memory", "pexeso", "match", "writeAnswer", "speedClick", "fallingWords", "orderWords", "sentenceBuilder"]
+
+verbs: { // <--- ADD THIS SECTION
+    A1: ["flashcards", "dragDrop", "mcq", "fillGap", "hangman", "memory", "pexeso", "match", "writeAnswer", "speedClick", "fallingWords"],
+    A2: ["flashcards", "dragDrop", "mcq", "fillGap", "hangman", "memory", "pexeso", "match", "writeAnswer", "speedClick", "fallingWords"]
   }
-};
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ };
