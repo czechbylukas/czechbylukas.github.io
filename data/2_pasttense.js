@@ -9,7 +9,7 @@ const vocab = [
   {
     czech:   "Plavat",
     english: "to swim",
-    spanish: "nadar,
+    spanish: "nadar",
     german:  "schwimmen"
   },
   {
