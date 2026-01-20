@@ -111,7 +111,9 @@
     "empty": "No items found.",
     "clickToShow": "Click to show in Czech",
     "timeRemaining": "⏱ Time Remaining:",
-    "timesUp": "⏱ Time is up! Please submit your answers."
+    "timesUp": "⏱ Time is up! Please submit your answers.",
+    "shuffle": "🔀 Shuffle Randomly"
+
   },
 
   "placeholders": {

@@ -111,7 +111,9 @@
     "empty": "No se encontraron elementos.",
     "clickToShow": "Haz clic para mostrar en checo",
     "timeRemaining": "⏱ Tiempo restante:",
-    "timesUp": "⏱ ¡Se acabó el tiempo! Por favor envía tus respuestas."
+    "timesUp": "⏱ ¡Se acabó el tiempo! Por favor envía tus respuestas.",
+    "shuffle": "🔀 Mezclar aleatoriamente"
+
   },
 
   "placeholders": {

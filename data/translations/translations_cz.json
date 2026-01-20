@@ -116,7 +116,8 @@
     "empty": "Žádné položky nenalezeny.",
     "clickToShow": "Klikni pro zobrazení v češtině",
     "timeRemaining": "⏱ Zbývající čas:",
-    "timesUp": "⏱ Čas vypršel! Odevzdej prosím své odpovědi."
+    "timesUp": "⏱ Čas vypršel! Odevzdej prosím své odpovědi.",
+    "shuffle": "🔀 Náhodně zamíchat"
   },
 
   "placeholders": {

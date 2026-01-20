@@ -114,7 +114,9 @@
     "empty": "Keine Einträge gefunden.",
     "clickToShow": "Klicke, um auf Tschechisch anzuzeigen",
     "timeRemaining": "⏱ Verbleibende Zeit:",
-    "timesUp": "⏱ Die Zeit ist abgelaufen! Bitte reiche deine Antworten ein."
+    "timesUp": "⏱ Die Zeit ist abgelaufen! Bitte reiche deine Antworten ein.",
+    "shuffle": "🔀 Zufällig mischen"
+
   },
 
   "placeholders": {

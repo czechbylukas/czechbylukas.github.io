@@ -66,7 +66,7 @@ body.vocab-page h1 {
 .progress {
   height: 100%;
   width: 0%;
-  background-color: #4CAF50;
+  background-color: #007BFF;
   transition: width 0.3s ease;
 }
 
@@ -89,7 +89,7 @@ body.vocab-page h1 {
 .big-buttons button {
   font-size: 1.15rem;
   padding: 16px 36px;
-  background: linear-gradient(180deg, #4caf50 0%, #3e8e41 100%);
+  background: linear-gradient(180deg, #007BFF 0%, #0056b3 100%);
   color: #fff;
   border: none;
   border-radius: 12px;
@@ -101,7 +101,7 @@ body.vocab-page h1 {
 
 .big-buttons a:hover,
 .big-buttons button:hover {
-  background: linear-gradient(180deg, #3e8e41 0%, #2f6f31 100%);
+  background: linear-gradient(180deg, #0056b3 0%, #004085 100%);
   transform: translateY(-3px);
 }
 
@@ -125,7 +125,7 @@ body.vocab-page h1 {
   padding: 8px 18px;
   background: #ffffff;
   color: #2f5230;
-  border: 2px solid #4CAF50;
+  border: 2px solid #007BFF;
   border-radius: 10px;
   text-decoration: none;
 }
