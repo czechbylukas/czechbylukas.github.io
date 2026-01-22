@@ -13,38 +13,59 @@
       gap: 15px;
       margin-bottom: 20px;
     }
-    #game-selector {
+    
+    /* We use a class for the grid so we don't force it to be visible via !important */
+    .game-grid-layout {
       display: flex;
       flex-wrap: wrap;
       gap: 10px;
     }
+
     #game-selector button {
       padding: 10px 20px;
       cursor: pointer;
       border: 1px solid #2f52b5;
       background: white;
       border-radius: 5px;
+      transition: background 0.2s;
     }
 
-    /* Mobile Adjustments (Only for small screens) */
+    #game-selector button:active {
+      background: #d9e3ff; /* Feedback when tapped on mobile */
+    }
+
+    /* THE GAME AREA - Make it big */
+    #game {
+      min-height: 400px;
+      width: 100%;
+      margin-top: 20px;
+      border: 2px solid #d9e3ff;
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background-color: #ffffff;
+    }
+
+    /* Mobile Adjustments */
     @media (max-width: 600px) {
       #controls {
-        flex-direction: column; /* Selectors stack on top of each other */
+        flex-direction: column;
       }
-      #controls select {
-        width: 100%;
-        padding: 12px;
-        font-size: 16px; /* Prevents iPhone zoom bug */
-      }
-      #game-selector {
-        display: grid !important; /* Switch to grid for better button alignment */
-        grid-template-columns: 1fr 1fr; /* 2 buttons per row */
+      
+      /* Use this class instead of targeting the ID with !important */
+      .game-grid-layout {
+        display: grid; 
+        grid-template-columns: 1fr 1fr; 
         gap: 8px;
       }
+
       #game-selector button {
         padding: 15px 5px;
         font-size: 13px;
       }
+
+      h1 { font-size: 1.5rem; text-align: center; }
     }
   </style>
 </head>
@@ -52,7 +73,6 @@
 
 <h1>Hry</h1>
 
-<!-- Selectors -->
 <div id="controls">
   <select id="topic">
     <option value="">Vyber téma</option>
@@ -66,21 +86,14 @@
     <option value="A2">A2 - not yet ready :(... </option>
   </select>
 
-<!-- language selector: keep in DOM but hide from user -->
-<select id="language" style="display:none;">
-  <option value="">Vyber jazyk</option>
-  <option value="en">English</option>
-  <option value="de">Deutsch</option>
-  <option value="es">Español</option>
-</select>
-
+  <select id="language" style="display:none;">
+    <option value="en" selected>English</option>
+  </select>
 </div>
 
 <hr>
 
-<!-- Game buttons: initially hidden -->
-<div id="game-selector" style="display:none">
-
+<div id="game-selector" class="game-grid-layout" style="display:none">
   <button data-game="flashcards">Flashcards</button>
   <button data-game="mcq">Multiple Choice</button>
   <button data-game="fillGap">Fill in the Gap</button>
@@ -96,14 +109,25 @@
   <button data-game="sentenceBuilder">Sentence Builder</button>
   <button data-game="guessNumber">Guess the Number</button>
   <button data-game="whatDidYouHear">What Did You Hear?</button>
-
-
 </div>
 
 <hr>
 
-<div id="game">⬆️ Vyber téma, úroveň a jazyk</div>
+<div id="game">⬆️ Vyber téma a úroveň</div>
 
 <script type="module" src="./core/loader.js"></script>
+
+<script>
+  // Script to focus on the game once a button is clicked
+  document.getElementById('game-selector').addEventListener('click', function(e) {
+    if (e.target.tagName === 'BUTTON') {
+      // Small delay to let the game load, then scroll
+      setTimeout(() => {
+        document.getElementById('game').scrollIntoView({ behavior: 'smooth' });
+      }, 100);
+    }
+  });
+</script>
+
 </body>
 </html>
