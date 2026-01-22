@@ -219,3 +219,46 @@ footer.support-note {
     border-top: 1px solid #d9e3ff;
     margin-top: auto;
 }
+
+
+/* ============================================================
+   7. MOBILE OVERRIDES (Only for screens smaller than 768px)
+   ============================================================ */
+@media (max-width: 768px) {
+    
+    /* 1. Adjust the Header Logo */
+    header::before {
+        width: 40px;
+        height: 40px;
+        left: 10px;
+    }
+
+    header h1 {
+        font-size: 1.4rem;
+        padding-left: 40px; /* Make room for the logo */
+    }
+
+    /* 2. Fix the Buttons */
+    /* On laptop they are side-by-side, on phone they stack */
+    .big-buttons {
+        flex-direction: column;
+        align-items: center;
+        gap: 15px !important;
+    }
+
+    .big-buttons a {
+        width: 80%; /* Make buttons easier to tap with thumbs */
+        text-align: center;
+    }
+
+    /* 3. Handle the Table */
+    /* Tables are notoriously bad on mobile. This makes it scrollable. */
+    .table-container {
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+    }
+    
+    table {
+        font-size: 14px; /* Slightly smaller text for small screens */
+    }
+}
