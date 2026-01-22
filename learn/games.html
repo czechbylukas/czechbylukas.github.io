@@ -11,6 +11,36 @@
 
 
 </head>
+
+
+<style>
+  /* Make selectors easy to tap */
+  #controls select {
+    width: 100%;
+    padding: 12px;
+    margin-bottom: 10px;
+    font-size: 16px; /* Prevents iOS zoom-on-focus */
+  }
+
+  /* Make game buttons big and chunky for thumbs */
+  #game-selector {
+    display: grid !important;
+    grid-template-columns: 1fr 1fr; /* Two buttons per row */
+    gap: 10px;
+    padding: 10px;
+  }
+
+  #game-selector button {
+    padding: 15px 5px;
+    font-size: 14px;
+    border-radius: 8px;
+    border: 1px solid #2f52b5;
+    background: white;
+    cursor: pointer;
+  }
+</style>
+
+
 <body>
 
 <h1>Hry</h1>
