@@ -22,7 +22,7 @@ export const verbConjugationData = {
     { cs: "piju", en: "I drink", de: "ich trinke", es: "bebo", tense: "přítomný čas" },
     { cs: "budu pít", en: "I will drink", de: "ich werde trinken", es: "beberé", tense: "budoucí čas" },
     { cs: "četl jsem", en: "I read (past)", de: "ich las", es: "leí", tense: "minulý čas" },
-    { cs: "čtu", en: "I read (pres.)", de: "ich lese", es: "leo", tense: "přítomný čas" },
+    { cs: "čtu", en: "I read (present)", de: "ich lese", es: "leo", tense: "přítomný čas" },
     { cs: "budu číst", en: "I will read", de: "ich werde lesen", es: "leeré", tense: "budoucí čas" },
     { cs: "psal jsem", en: "I wrote", de: "ich schrieb", es: "escribí", tense: "minulý čas" },
     { cs: "píšu", en: "I write", de: "ich schreibe", es: "escribo", tense: "přítomný čas" },

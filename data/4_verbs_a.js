@@ -1,52 +1,52 @@
 // data/2_basicverbs.js
 const vocab = [
   {
-    czech: "běhat → (já) běhám",
-    english: "to run → I run / I am running",
-    spanish: "correr → yo corro / estoy corriendo",
-    german: "laufen → ich laufe"
+    czech: "běhat",
+    english: "to run",
+    spanish: "correr",
+    german: "laufen"
   },
   {
-    czech: "dělat → (já) dělám",
-    english: "to do → I do / I am doing",
-    spanish: "hacer → yo hago / estoy haciendo",
-    german: "machen → ich mache"
+    czech: "dělat",
+    english: "to do",
+    spanish: "hacer",
+    german: "machen"
   },
   {
-    czech: "dát → (já) dám",
-    english: "to give → I give / I will give",
-    spanish: "dar → yo doy / daré",
-    german: "geben → ich gebe"
+    czech: "dát",
+    english: "to give",
+    spanish: "dar",
+    german: "geben"
   },
   {
-    czech: "dát si → (já) dám si",
-    english: "to have (food/drink) → I’ll have / I take",
-    spanish: "tomarse → yo me tomo / me tomaré",
-    german: "sich nehmen → ich nehme / ich bestelle"
+    czech: "dát si",
+    english: "to have (food/drink)",
+    spanish: "tomar",
+    german: "sich nehmen"
   },
   {
-    czech: "koukat se → (já) koukám se",
-    english: "to watch → I watch / I am watching",
-    spanish: "ver → yo veo / estoy viendo",
-    german: "schauen → ich schaue"
+    czech: "koukat se",
+    english: "to watch",
+    spanish: "ver",
+    german: "schauen"
   },
   {
-    czech: "dívat se → (já) dívám se",
-    english: "to watch → I watch / I am watching",
-    spanish: "ver → yo veo / estoy viendo",
-    german: "sehen → ich sehe"
+    czech: "dívat se",
+    english: "to watch",
+    spanish: "ver",
+    german: "sehen"
   },
   {
-    czech: "odpočívat → (já) odpočívám",
-    english: "to rest → I rest / I am resting",
-    spanish: "descansar → yo descanso / estoy descansando",
-    german: "sich ausruhen → ich ruhe mich aus"
+    czech: "odpočívat",
+    english: "to rest",
+    spanish: "descansar",
+    german: "sich ausruhen"
   },
   {
-    czech: "mít → (já) mám",
-    english: "to have → I have",
-    spanish: "tener → yo tengo",
-    german: "haben → ich habe"
+    czech: "mít",
+    english: "to have",
+    spanish: "tener",
+    german: "haben"
   },
   {
     czech: "Běhám s kamarádem.",

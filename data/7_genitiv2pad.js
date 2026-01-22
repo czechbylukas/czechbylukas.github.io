@@ -44,7 +44,7 @@ const vocab = [
   },
   {
     czech: "od",
-    english: "from",
+    english: "from (the surface)",
     spanish: "de, desde",
     german: "von (aus, seit, ab)"
   },
@@ -74,7 +74,7 @@ const vocab = [
   },
   {
     czech: "z",
-    english: "from (inside)",
+    english: "from (the inside)",
     spanish: "de, desde",
     german: "aus"
   },
