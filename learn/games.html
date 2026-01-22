@@ -1,46 +1,53 @@
 <!DOCTYPE html>
 <html lang="cs">
 <head>
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<link rel="stylesheet" href="../css/style.css">
-
-
   <meta charset="UTF-8">
-
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Hry</title>
+  <link rel="stylesheet" href="../css/style.css">
 
+  <style>
+    /* Desktop Look (Default) */
+    #controls {
+      display: flex;
+      gap: 15px;
+      margin-bottom: 20px;
+    }
+    #game-selector {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+    #game-selector button {
+      padding: 10px 20px;
+      cursor: pointer;
+      border: 1px solid #2f52b5;
+      background: white;
+      border-radius: 5px;
+    }
 
+    /* Mobile Adjustments (Only for small screens) */
+    @media (max-width: 600px) {
+      #controls {
+        flex-direction: column; /* Selectors stack on top of each other */
+      }
+      #controls select {
+        width: 100%;
+        padding: 12px;
+        font-size: 16px; /* Prevents iPhone zoom bug */
+      }
+      #game-selector {
+        display: grid !important; /* Switch to grid for better button alignment */
+        grid-template-columns: 1fr 1fr; /* 2 buttons per row */
+        gap: 8px;
+      }
+      #game-selector button {
+        padding: 15px 5px;
+        font-size: 13px;
+      }
+    }
+  </style>
 </head>
-
-
-<style>
-  /* Make selectors easy to tap */
-  #controls select {
-    width: 100%;
-    padding: 12px;
-    margin-bottom: 10px;
-    font-size: 16px; /* Prevents iOS zoom-on-focus */
-  }
-
-  /* Make game buttons big and chunky for thumbs */
-  #game-selector {
-    display: grid !important;
-    grid-template-columns: 1fr 1fr; /* Two buttons per row */
-    gap: 10px;
-    padding: 10px;
-  }
-
-  #game-selector button {
-    padding: 15px 5px;
-    font-size: 14px;
-    border-radius: 8px;
-    border: 1px solid #2f52b5;
-    background: white;
-    cursor: pointer;
-  }
-</style>
-
-
 <body>
 
 <h1>Hry</h1>
