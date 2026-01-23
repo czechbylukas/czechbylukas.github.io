@@ -77,6 +77,39 @@
       margin-bottom: 20px;
     }
 
+/* This targets the text and inputs inside the expanded games */
+.game-expanded {
+  font-size: 1.5rem; /* Makes all text inside significantly larger */
+}
+
+.game-expanded button {
+  padding: 15px 30px !important; /* Makes game buttons (like MCQ options) much larger */
+  font-size: 1.3rem !important;
+  margin: 10px;
+  width: auto;
+  min-width: 200px; /* Ensures buttons have a nice weight */
+}
+
+.game-expanded input[type="text"] {
+  font-size: 2rem; /* Makes the "Fill in the Gap" or "Write Answer" box huge */
+  padding: 10px;
+  width: 80%; /* Takes up most of the container width */
+  text-align: center;
+  border: 2px solid #2f52b5;
+  border-radius: 8px;
+}
+
+/* Specific fix for Hangman drawing size */
+.game-expanded canvas, 
+.game-expanded svg {
+  transform: scale(1.5); /* Scales up the hangman drawing */
+  margin: 40px 0;
+}
+
+
+    /* 4. Mobile Adjustments */
+    @media (max-width: 600px) {
+
     /* 4. Mobile Adjustments */
     @media (max-width: 600px) {
       #controls { flex-direction: column; }
@@ -149,27 +182,40 @@
   <a href="/index.html" class="home-link-small">🏠 Home</a>
 </div>
 
-<footer class="support-note">
-  <div id="footer-text">
-    ❤️ I build this site myself to help people learn Czech.  
-    If you’d like to support my work, <a id="footer-link" href="../support.html">click here</a> or <a id="footer-link" href="https://calendly.com/ucitellukas/">book a lesson</a>.
-  </div>
+<div id="footer-placeholder"></div>
 
-  <p>© 2025 CzechByLukas | 
-    <a href="../privacy.html">Privacy Policy</a> | 
-    <a href="/about.html">About</a> | 
-    <a href="/contact.html">Contact</a> | 
-    <a href="mailto:lukas@hackczech.com?subject=Feedback%20on%20Games">Feedback</a>
-  </p>
-</footer>
+<script>
+  // Load footer.html dynamically
+  fetch("/footer.html")
+    .then(response => response.text())
+    .then(data => {
+      document.getElementById("footer-placeholder").innerHTML = data;
+    })
+    .catch(error => console.error("Error loading footer:", error));
+</script>
+
+
 
 <script type="module" src="./core/loader.js"></script>
 
 <script>
   document.getElementById('game-selector').addEventListener('click', function(e) {
     if (e.target.tagName === 'BUTTON') {
+      const gameContainer = document.getElementById('game');
+      const gameType = e.target.getAttribute('data-game');
+
+      // 1. Identify which games should be centered and expanded
+      const expandedGames = ['mcq', 'fillGap', 'hangman', 'writeAnswer'];
+
+      // 2. Add or remove the layout class based on the selection
+      if (expandedGames.includes(gameType)) {
+        gameContainer.classList.add('game-expanded');
+      } else {
+        gameContainer.classList.remove('game-expanded');
+      }
+
+      // 3. Scroll to the game
       setTimeout(() => {
-        const gameContainer = document.getElementById('game');
         gameContainer.scrollIntoView({ behavior: 'smooth', block: 'start' });
       }, 150);
     }

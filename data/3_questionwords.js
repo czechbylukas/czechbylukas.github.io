@@ -25,7 +25,7 @@ const vocab = [
     german: "warum"
   },
   {
-    czech: "v kolik",
+    czech: "v kolik (hodin)",
     english: "at what time?",
     spanish: "qué tiempo / a qué hora",
     german: "wann / um wie viel Uhr"

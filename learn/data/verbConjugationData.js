@@ -70,7 +70,7 @@ export const verbConjugationQuestions = {
     { text: "Já {{gap}} (psát - budoucí čas).", answers: ["budu psát"] },
     { text: "Já {{gap}} (vidět - minulý čas).", answers: ["viděl jsem"] },
     { text: "Já {{gap}} (vidět - přítomný čas).", answers: ["vidím"] },
-    { text: "Já {{gap}} (vidět - budoucí čas).", answers: ["uvidím"] }
+    { text: "Já {{gap}} (vidět - budoucí čas).", answers: ["budu vidět"] }
   ], 
   A2: [
     { text: "Včera {{gap}} v Praze (být).", answers: ["jsem byl", "byl jsem"] },
