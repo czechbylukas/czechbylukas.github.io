@@ -5,87 +5,117 @@ export function startMatchGame(state) {
 
   const lang = state.language || "en";
 
-  // Left column: foreign language, in original order
-  const leftItems = state.data.map(w => w[lang] || w.cs);
-
-  // Right column: Czech words, shuffled randomly
+  // Data preparation
+  const leftItems = state.data.map(w => w[lang] || w.en);
   const rightItems = state.data.map(w => w.cs).sort(() => Math.random() - 0.5);
 
-  container.innerHTML = `<h2>Match Game (${lang.toUpperCase()} → CS)</h2>
-    <div style="display:flex;justify-content:center;gap:50px;max-width:700px;margin:auto;">
-      <div id="left-column"></div>
-      <div id="right-column"></div>
+  // 1. Layout with Grid Containers
+  container.innerHTML = `
+    <h2 style="text-align:center; margin-bottom: 20px;">Match Game</h2>
+    
+    <div style="max-width: 800px; margin: auto; display: flex; flex-direction: column; gap: 20px;">
+      <div>
+        <h3 style="font-size: 1rem; color: #666;">${lang.toUpperCase()} Words</h3>
+        <div id="left-grid" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(120px, 1fr)); gap: 10px;"></div>
+      </div>
+
+      <hr style="border: 0; border-top: 1px solid #ddd; margin: 10px 0;">
+
+      <div>
+        <h3 style="font-size: 1rem; color: #666;">Czech Translations</h3>
+        <div id="right-grid" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(120px, 1fr)); gap: 10px;"></div>
+      </div>
     </div>
-    <p id="result"></p>
+
+    <p id="result" style="text-align:center; font-weight:bold; margin-top: 20px; min-height: 1.5em;"></p>
   `;
 
-  const leftCol = document.getElementById("left-column");
-  const rightCol = document.getElementById("right-column");
+  const leftCol = document.getElementById("left-grid");
+  const rightCol = document.getElementById("right-grid");
   const result = document.getElementById("result");
 
-  // Render left column
-  leftItems.forEach(word => {
+  // Helper to create word boxes
+  function createWordDiv(word) {
     const div = document.createElement("div");
     div.textContent = word;
-    div.dataset.word = word;
-    div.style.padding = "10px 15px";
-    div.style.background = "#FF9800"; // orange
-    div.style.marginBottom = "10px";
+    div.style.padding = "12px 8px";
+    div.style.background = "#FF9800"; // Orange
     div.style.borderRadius = "8px";
     div.style.cursor = "pointer";
+    div.style.textAlign = "center";
+    div.style.transition = "all 0.2s";
+    div.style.userSelect = "none";
+    return div;
+  }
+
+  // 2. Render Words
+  leftItems.forEach(word => {
+    const div = createWordDiv(word);
+    div.dataset.word = word;
     leftCol.appendChild(div);
   });
 
-  // Render right column
   rightItems.forEach(word => {
-    const div = document.createElement("div");
-    div.textContent = word;
+    const div = createWordDiv(word);
     div.dataset.matched = "false";
-    div.style.padding = "10px 15px";
-    div.style.background = "#FF9800"; // orange
-    div.style.marginBottom = "10px";
-    div.style.borderRadius = "8px";
-    div.style.cursor = "pointer";
     rightCol.appendChild(div);
   });
 
   let selectedLeft = null;
 
-  // Left column click
+  // 3. Logic for selecting Left Column
   leftCol.querySelectorAll("div").forEach(div => {
     div.addEventListener("click", () => {
-      if (selectedLeft) selectedLeft.style.outline = "";
+      // Clear previous selection
+      if (selectedLeft) {
+        selectedLeft.style.outline = "";
+        selectedLeft.style.transform = "scale(1)";
+      }
+      // Set new selection
       selectedLeft = div;
-      div.style.outline = "3px solid #000";
+      div.style.outline = "3px solid #333";
+      div.style.transform = "scale(1.05)";
     });
   });
 
-  // Right column click
+  // 4. Logic for selecting Right Column
   rightCol.querySelectorAll("div").forEach(div => {
     div.addEventListener("click", () => {
-      if (!selectedLeft) return;
+      if (!selectedLeft || div.dataset.matched === "true") return;
 
       const leftWord = selectedLeft.dataset.word;
-      const match = state.data.find(w => (w[lang] || w.cs) === leftWord);
+      const match = state.data.find(w => (w[lang] || w.en) === leftWord);
 
       if (div.textContent === match.cs) {
-        // Correct
-        div.style.background = "#00C853"; // green
-        selectedLeft.style.background = "#00C853";
+        // SUCCESS
+        div.style.background = "#00C853"; // Green
+        div.style.color = "white";
         div.dataset.matched = "true";
+        
+        selectedLeft.style.background = "#00C853";
+        selectedLeft.style.color = "white";
+        selectedLeft.style.outline = "";
+        selectedLeft.style.transform = "scale(1)";
         selectedLeft = null;
 
-        // Check if all matched
-        const allMatched = Array.from(rightCol.children).every(c => c.dataset.matched === "true");
-        if (allMatched) result.textContent = "🎉 All matched!";
+        // Check Win Condition
+        const remaining = Array.from(rightCol.children).filter(c => c.dataset.matched === "false");
+        if (remaining.length === 0) {
+          result.textContent = "🎉 Excellent! All words matched!";
+        }
       } else {
-        // Wrong
-        div.style.background = "#F44336"; // red briefly
+        // ERROR
+        const originalLeft = selectedLeft;
+        div.style.background = "#F44336"; // Red
+        originalLeft.style.background = "#F44336";
+
         setTimeout(() => {
-          div.style.background = "#FF9800"; 
-          selectedLeft.style.background = "#FF9800"; 
+          div.style.background = "#FF9800";
+          originalLeft.style.background = "#FF9800";
+          originalLeft.style.outline = "";
+          originalLeft.style.transform = "scale(1)";
         }, 500);
-        selectedLeft.style.outline = "";
+        
         selectedLeft = null;
       }
     });
