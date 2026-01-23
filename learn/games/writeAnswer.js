@@ -50,11 +50,12 @@ export function startWriteAnswerGame(state) {
 
     checkBtn.onclick = check;
 
-// Press Enter to check
+    // Press Enter to check
     input.addEventListener("keydown", e => {
-      // ADD THIS: Stops the spacebar from triggering other site functions
+
+// 2. SPACE
       if (e.key === " " || e.code === "Space") {
-        e.stopPropagation();
+        e.stopPropagation(); 
       }
 
       if (e.key === "Enter") {
@@ -62,3 +63,7 @@ export function startWriteAnswerGame(state) {
         check();
       }
     });
+  }
+
+  show();
+}
