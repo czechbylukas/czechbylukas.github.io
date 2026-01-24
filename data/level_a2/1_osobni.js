@@ -490,7 +490,7 @@ const vocab = [
     czech:   "plnoštíhlý",
     english: "full-figured",
     spanish: "rellenito",
-    german:  "vollschlank"
+    german:  "vollschlank (kurvig)"
   },
   {
     czech:   "tlustý",

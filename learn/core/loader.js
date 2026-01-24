@@ -5,24 +5,8 @@ import { gameMapping } from "./gameMapping.js";
 
 // Import topic datasets
 import { numbersData } from "../data/numbers.js";
-import { verbConjugationData } from "../data/verbConjugationData.js"; // 1. ADD THIS
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+import { verbConjugationData } from "../data/verbConjugationData.js";
+import { pastTenseData, pastTenseQuestions } from "../../data/2_pasttense.js"; // New Data Source
 
 // DOM elements
 const topicSelect = document.getElementById("topic");
@@ -31,21 +15,11 @@ const languageSelect = document.getElementById("language");
 const gameSelector = document.getElementById("game-selector");
 const gameDiv = document.getElementById("game");
 
-// Mapping of topic names to data
+// Mapping of topic names to data objects
 const topicDataMap = {
   numbers: numbersData,
-  verbs: verbConjugationData, // 2. ADD THIS (Matches the value in your HTML)
-
-
-
-
-
-
-
-
-
-
-
+  verbs: verbConjugationData,
+  past_tense: pastTenseData, // Key matches <option value="past_tense">
 };
 
 // ---------------------------
@@ -56,15 +30,20 @@ function updateStateFromSelectors() {
   state.level = levelSelect.value;
   state.language = languageSelect.value || "en";
 
-  // Set the data for selected topic & level
+  // 1. Set the Vocabulary Data
   if (topicDataMap[state.topic] && topicDataMap[state.topic][state.level]) {
     state.data = topicDataMap[state.topic][state.level];
   } else {
     state.data = [];
   }
 
-  // Set questions
-  state.questions = getQuestions(state.topic, state.level) || [];
+  // 2. Set the Questions 
+  // Custom logic for Past Tense which exports questions directly
+  if (state.topic === "past_tense") {
+    state.questions = pastTenseQuestions[state.level] || [];
+  } else {
+    state.questions = getQuestions(state.topic, state.level) || [];
+  }
 }
 
 function readyToPlay() {
@@ -79,10 +58,14 @@ function readyToPlay() {
     updateStateFromSelectors();
 
     if (readyToPlay()) {
-      const availableGames = gameMapping[state.topic][state.level] || [];
+      // Check if gameMapping exists for this topic/level
+      const availableGames = (gameMapping[state.topic] && gameMapping[state.topic][state.level]) 
+                            ? gameMapping[state.topic][state.level] 
+                            : [];
+      
       gameSelector.style.display = "block";
 
-      // Show only available buttons
+      // Show only buttons defined in gameMapping.js
       gameSelector.querySelectorAll("button").forEach(btn => {
         if (availableGames.includes(btn.dataset.game)) {
           btn.style.display = "inline-block";
@@ -107,7 +90,7 @@ gameSelector.querySelectorAll("button").forEach(button => {
     const game = button.dataset.game;
     gameDiv.innerHTML = "⏳ Načítám hru...";
 
-    // Refresh state
+    // Refresh state before starting
     updateStateFromSelectors();
 
     if (!state.questions.length) {
@@ -121,6 +104,7 @@ gameSelector.querySelectorAll("button").forEach(button => {
     }
 
     try {
+      // Dynamic imports for game logic
       switch (game) {
         case "mcq":
           (await import("../games/mcq.js")).startGame(state);

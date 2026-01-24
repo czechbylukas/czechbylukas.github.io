@@ -18,12 +18,15 @@ export const gameMapping = {
 verbs: { // <--- ADD THIS SECTION
     A1: ["flashcards", "dragDrop", "mcq", "fillGap", "hangman", "memory", "pexeso", "match", "writeAnswer", "speedClick", "fallingWords"],
     A2: ["flashcards", "dragDrop", "mcq", "fillGap", "hangman", "memory", "pexeso", "match", "writeAnswer", "speedClick", "fallingWords"]
+  },
+
+
+
+
+past_tense: { // <--- ADD THIS SECTION
+    A1: ["flashcards", "dragDrop", "mcq", "fillGap", "hangman", "memory", "pexeso", "match", "writeAnswer", "speedClick", "fallingWords"],
+    A2: ["flashcards", "dragDrop", "mcq", "fillGap", "hangman", "memory", "pexeso", "match", "writeAnswer", "speedClick", "fallingWords"]
   }
-
-
-
-
-
 
 
 

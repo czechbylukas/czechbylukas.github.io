@@ -1,150 +1,137 @@
 <!DOCTYPE html>
 <html lang="cs">
 <head>
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<link rel="stylesheet" href="style.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
 
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-1BCW5XQ0X5"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-1BCW5XQ0X5');
+    </script>
 
-<!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-1BCW5XQ0X5"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
+    <meta charset="UTF-8">
+    <title id="page-title">Practice: Past Tense – CzechByLukas</title>
 
-  gtag('config', 'G-1BCW5XQ0X5');
-</script>
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"
+            client="ca-pub-9067674021614925" crossorigin="anonymous"></script>
+    <meta name="google-adsense-account" content="ca-pub-9067674021614925">
 
-
-  <meta charset="UTF-8">
-  <title id="page-title">Practice: Past Tense – CzechByLukas</title>
-
-  <!-- Google AdSense -->
-  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"
-          client="ca-pub-9067674021614925" crossorigin="anonymous"></script>
-  <meta name="google-adsense-account" content="ca-pub-9067674021614925">
-
-  <!-- CSS -->
-  <link rel="stylesheet" href="../css/style.css">
-  <link rel="stylesheet" href="../css/practice.css">
-  <link rel="stylesheet" href="../css/language-selector.css">
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/practice.css">
+    <link rel="stylesheet" href="../css/language-selector.css">
 </head>
 
 <body class="vocab-page">
 
 <header>
-  <h1 id="heading-practice">Practice Past Tense</h1>
-  <div id="language-selector-container"></div>
+    <h1 id="heading-practice">Practice Past Tense</h1>
+    <div id="language-selector-container"></div>
 </header>
 
 <main>
-  <!-- Flashcards -->
-  <div class="vocab-container">
-    <div id="englishCard" class="card"></div>
-    <div id="czechCard" class="card"></div>
-  </div>
-
-  <!-- Navigation buttons -->
-  <div class="big-buttons">
-    <button id="prevBtn"></button>
-    <button id="nextBtn"></button>
-  </div>
-
-  <!-- Progress bar -->
-  <div class="progress-wrapper">
-    <div class="progress-bar">
-      <div id="progress" class="progress"></div>
+    <div class="vocab-container">
+        <div id="englishCard" class="card"></div>
+        <div id="czechCard" class="card"></div>
     </div>
-    <div id="progressText" class="progress-text"></div>
-  </div>
 
-  <!-- Vocabulary & Test buttons -->
-  <div class="big-buttons">
-    <a id="btn-vocab" href="../vocabulary/2_pasttense.html"></a>
-    <a id="btn-test" href="../tests/2_pasttense.html"></a>
-  </div>
+    <div class="big-buttons">
+        <button id="prevBtn"></button>
+        <button id="nextBtn"></button>
+    </div>
 
-  <!-- Small buttons: Home & Exercise List -->
-  <div class="small-buttons">
-    <a id="btn-home" href="../index.html"></a>
-    <a id="btn-exerciseList" href="../exercise/index.html"></a>
-  </div>
+    <div class="progress-wrapper">
+        <div class="progress-bar">
+            <div id="progress" class="progress"></div>
+        </div>
+        <div id="progressText" class="progress-text"></div>
+    </div>
+
+    <div class="big-buttons">
+        <a id="btn-vocab" href="../vocabulary/2_pasttense.html"></a>
+        <a id="btn-test" href="../tests/2_pasttense.html"></a>
+    </div>
+
+    <div class="small-buttons">
+        <a id="btn-home" href="../index.html"></a>
+        <a id="btn-exerciseList" href="../exercise/index.html"></a>
+    </div>
 </main>
-
 
 <div id="footer-placeholder"></div>
 
 <script>
-  // Load footer.html dynamically
-  fetch("/footer.html")
-    .then(response => response.text())
-    .then(data => {
-      document.getElementById("footer-placeholder").innerHTML = data;
-    })
-    .catch(error => console.error("Error loading footer:", error));
+    fetch("/footer.html")
+        .then(response => response.text())
+        .then(data => {
+            document.getElementById("footer-placeholder").innerHTML = data;
+        })
+        .catch(error => console.error("Error loading footer:", error));
 </script>
 
+<script type="module">
+    import { vocab } from "../data/2_pasttense.js";
 
+    // Filter ONLY blocks 1 and 2 as requested
+    const filtered = vocab.filter(item => item.block === 1 || item.block === 2 || item.block === 3);
 
-<!-- Vocabulary data -->
-<script src="../data/2_pasttense.js"></script>
+    // Map to the format practice.js expects (global window.vocab)
+    window.vocab = filtered.map(item => ({
+        czech: item.czech,
+        english: item.english,
+        spanish: item.spanish,
+        german: item.german
+    }));
 
-<!-- Translations -->
+    // Trigger game logic once data is ready
+    if (typeof initPractice === "function") initPractice();
+    else if (typeof renderCard === "function") renderCard();
+</script>
+
 <script src="../js/translations.js"></script>
-
-<!-- Language selector -->
 <script src="../js/language-selector.js"></script>
-
-<!-- Practice logic -->
 <script src="../js/practice.js"></script>
 
 <script>
-  // Map element IDs to translation keys
-  const btnMap = {
-    "prevBtn": "prev",
-    "nextBtn": "next",
-    "btn-vocab": "vocabulary",
-    "btn-test": "test",
-    "btn-home": "home",
-    "btn-exerciseList": "exerciseList"
-  };
+    const btnMap = {
+        "prevBtn": "prev",
+        "nextBtn": "next",
+        "btn-vocab": "vocabulary",
+        "btn-test": "test",
+        "btn-home": "home",
+        "btn-exerciseList": "exerciseList"
+    };
 
-  function applyPracticeTranslations() {
-    if (!translations) return;
+    function applyPracticeTranslations() {
+        if (!translations) return;
 
-    // Page title
-    const pageTitle = document.querySelector("title");
-    if (pageTitle && translations.pageTitle) pageTitle.textContent = translations.pageTitle;
+        const pageTitle = document.querySelector("title");
+        if (pageTitle && translations.pageTitle) pageTitle.textContent = translations.pageTitle;
 
-    // Header
-    const heading = document.getElementById("heading-practice");
-    if (heading && translations["heading-past-tense"]) heading.textContent = translations["heading-past-tense"];
+        const heading = document.getElementById("heading-practice");
+        if (heading && translations["heading-past-tense"]) heading.textContent = translations["heading-past-tense"];
 
-    // Buttons
-    for (const [id, key] of Object.entries(btnMap)) {
-      const el = document.getElementById(id);
-      if (el && translations.buttons && translations.buttons[key]) el.textContent = translations.buttons[key];
+        for (const [id, key] of Object.entries(btnMap)) {
+            const el = document.getElementById(id);
+            if (el && translations.buttons && translations.buttons[key]) el.textContent = translations.buttons[key];
+        }
     }
 
-    // Footer
-    const footerText = document.getElementById("footer-text");
-    const footerLink = document.getElementById("footer-link");
-    if (footerText && footerLink) {
-      footerText.childNodes[0].nodeValue = (translations["footer-text"] || "") + " ";
-      footerLink.textContent = translations["footer-link"] || footerLink.textContent;
-    }
+    document.addEventListener("DOMContentLoaded", () => {
+        const savedLang = localStorage.getItem("selectedLanguage") || "en";
+        if (typeof loadTranslations === "function") loadTranslations(savedLang);
 
-    // Optional vocab rendering for current exercise
-    if (typeof renderVocab === "function") {
-      try { renderVocab(); } catch(e) { /* ignore */ }
-    }
-  }
-
-  // Load saved language on page load
-  document.addEventListener("DOMContentLoaded", () => {
-    const savedLang = localStorage.getItem("selectedLanguage") || "en";
-    if (typeof loadTranslations === "function") loadTranslations(savedLang);
-  });
+        // SAFETY: Check if cards are empty because the module loaded late
+        const retryInterval = setInterval(() => {
+            if (window.vocab && window.vocab.length > 0) {
+                if (typeof renderCard === "function") renderCard();
+                else if (typeof showCard === "function") showCard();
+                clearInterval(retryInterval);
+            }
+        }, 100);
+    });
 </script>
 
 </body>

@@ -69,8 +69,7 @@
 
 
 <!-- Vocabulary data -->
-<script src="../data/2_pasttense.js" defer></script>
-
+<script type="module" src="../data/2_pasttense.js"></script>
 <!-- Language selector -->
 <script src="../js/language-selector.js"></script>
 
@@ -78,42 +77,36 @@
 <script src="../js/translations.js" defer></script>
 
 <!-- Vocabulary table renderer -->
-<script>
+<script type="module">
+  import { vocab } from "../data/2_pasttense.js";
+
   function renderVocab() {
     const lang = localStorage.getItem("selectedLanguage") || "en";
     const tbody = document.getElementById("vocabBody");
     tbody.innerHTML = "";
 
-    const fragment = document.createDocumentFragment();
-
+    // FILTER HERE: Use blocks 1 and 2
     vocab.forEach(item => {
+      if (item.block !== 1 && item.block !== 2 && item.block !== 3) return;
+
       const row = document.createElement("tr");
       let translation;
-
-      switch (lang) {
-        case "cz": translation = item.english; break;
-        case "de": translation = item.german; break;
-        case "es": translation = item.spanish; break;
-        default: translation = item.english; break;
-      }
+      if (lang === "es") translation = item.spanish;
+      else if (lang === "de") translation = item.german;
+      else translation = item.english;
 
       row.innerHTML = `<td>${item.czech}</td><td>${translation}</td>`;
-      fragment.appendChild(row);
+      tbody.appendChild(row);
     });
-
-    tbody.appendChild(fragment);
   }
 
-  document.addEventListener("DOMContentLoaded", () => {
-    renderVocab();
-    if (typeof applyTranslations === "function") applyTranslations();
-  });
-
-  document.addEventListener("languageChanged", () => {
-    renderVocab();
-    if (typeof applyTranslations === "function") applyTranslations();
-  });
+  // Run on load and language change
+  window.addEventListener("DOMContentLoaded", renderVocab);
+  document.addEventListener("languageChanged", renderVocab);
+  // Modules load late, so call it immediately too
+  renderVocab();
 </script>
+
 
 </body>
 </html>
