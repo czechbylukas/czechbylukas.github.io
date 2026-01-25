@@ -55,6 +55,12 @@
             </select>
         </div>
 
+<div style="height: 180px; margin-bottom: 15px;">
+    <img id="word-image" src="" style="max-height: 100%; border-radius: 8px; display: none;">
+</div>
+
+<div id="czech-word" class="display-czech">---</div>
+
         <div id="czech-word" class="display-czech">---</div>
         <div id="english-word" class="display-eng hidden">---</div>
 
@@ -89,44 +95,59 @@
         }
     }
 
-    function getRandomWord() {
-        if (!db) return;
-        const selectedLevel = document.getElementById('level-select').value;
-        
-        try {
-            // Get all data from 'words' table
-            const res = db.exec("SELECT * FROM words");
-            if (res.length > 0) {
-                const cols = res[0].columns;
-                const rows = res[0].values;
+function getRandomWord() {
+    if (!db) return;
+    const selectedLevel = document.getElementById('level-select').value;
+    
+    try {
+        const res = db.exec("SELECT * FROM words");
+        if (res.length > 0) {
+            const cols = res[0].columns;
+            const rows = res[0].values;
 
-                // Find indices (handles both correct names or field1/field2)
-                const lIdx = cols.findIndex(c => c.toLowerCase() === 'lemma');
-                const tIdx = cols.findIndex(c => c.toLowerCase() === 'trans_en');
-                const vIdx = cols.findIndex(c => c.toLowerCase() === 'level');
+            // 1. Find indices for the new columns
+            const lIdx = cols.findIndex(c => c.toLowerCase() === 'lemma');
+            const tIdx = cols.findIndex(c => c.toLowerCase() === 'trans_en');
+            const vIdx = cols.findIndex(c => c.toLowerCase() === 'level');
+            const iIdx = cols.findIndex(c => c.toLowerCase() === 'image_path'); // NEW
+            const aIdx = cols.findIndex(c => c.toLowerCase() === 'audio_path'); // NEW
 
-                // Fallback indices if headers weren't found
-                const lemmaIdx = lIdx !== -1 ? lIdx : 1;
-                const transIdx = tIdx !== -1 ? tIdx : 7;
-                const levelIdx = vIdx !== -1 ? vIdx : 3;
+            // 2. Filter
+            const filtered = rows.filter(r => String(r[vIdx]).trim() === selectedLevel);
 
-                // Filter by level
-                const filtered = rows.filter(r => String(r[levelIdx]).trim() === selectedLevel);
+            if (filtered.length > 0) {
+                const randomRow = filtered[Math.floor(Math.random() * filtered.length)];
+                
+                // 3. Update Text
+                document.getElementById('czech-word').innerText = randomRow[lIdx];
+                document.getElementById('english-word').innerText = randomRow[tIdx];
+                document.getElementById('english-word').classList.add('hidden');
 
-                if (filtered.length > 0) {
-                    const randomRow = filtered[Math.floor(Math.random() * filtered.length)];
-                    document.getElementById('czech-word').innerText = randomRow[lemmaIdx];
-                    document.getElementById('english-word').innerText = randomRow[transIdx];
-                    document.getElementById('english-word').classList.add('hidden');
+                // 4. Update Image Logic
+                const imgElement = document.getElementById('word-image');
+                const imgPath = randomRow[iIdx]; 
+                
+                if (imgPath && imgPath !== "") {
+                    // We use ../ to go from /exercise folder back to root where /images is
+                    imgElement.src = "../" + imgPath; 
+                    imgElement.style.display = "inline-block";
                 } else {
-                    alert("No words found for " + selectedLevel);
+                    imgElement.style.display = "none";
+                }
+
+                // 5. Audio Auto-Play (Optional)
+                const audioPath = randomRow[aIdx];
+                if (audioPath && audioPath !== "") {
+                    let audio = new Audio("../" + audioPath);
+                    audio.play();
                 }
             }
-        } catch (e) {
-            console.error(e);
-            alert("Database table 'words' not found!");
         }
+    } catch (e) {
+        console.error(e);
     }
+}
+
 
     function showTranslation() {
         document.getElementById('english-word').classList.remove('hidden');
