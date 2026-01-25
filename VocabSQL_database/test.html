@@ -1,60 +1,69 @@
 <!DOCTYPE html>
 <html lang="cs">
 <head>
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta charset="UTF-8">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/language-selector.css">
 
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-1BCW5XQ0X5"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-  gtag('config', 'G-1BCW5XQ0X5');
-</script>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-1BCW5XQ0X5"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-1BCW5XQ0X5');
+    </script>
 
-<title>Test Vocabulary - HáCzech</title>
-<link rel="stylesheet" href="../CSS/style.css">
-<link rel="stylesheet" href="../CSS/language-selector.css">
+    <title>Test Vocabulary - HáCzech</title>
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/sql.js/1.6.2/sql-wasm.js"></script>
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/sql.js/1.6.2/sql-wasm.js"></script>
-
-<style>
-    /* Minimal styles to support the test logic within your design */
-    .test-area { margin: 20px 0; padding: 20px; border: 1px solid #ccc; border-radius: 8px; text-align: center; }
-    .word-large { font-size: 2.5rem; font-weight: bold; margin: 10px 0; color: #d32f2f; }
-    .trans-hidden { font-size: 1.5rem; color: #666; margin-bottom: 20px; visibility: hidden; }
-    .btn-test { padding: 10px 20px; cursor: pointer; background: #2c3e50; color: white; border: none; border-radius: 5px; margin: 5px; }
-</style>
+    <style>
+        .test-box {
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 12px;
+            padding: 20px;
+            margin: 20px 0;
+            text-align: center;
+            border: 2px solid #2c3e50;
+        }
+        .display-czech { font-size: 2.5rem; font-weight: bold; color: #d32f2f; margin: 15px 0; }
+        .display-eng { font-size: 1.5rem; color: #555; height: 30px; margin-bottom: 20px; }
+        .test-btn { 
+            padding: 10px 25px; font-size: 1rem; cursor: pointer; border-radius: 5px; border: none; 
+            background: #2c3e50; color: white; margin: 5px;
+        }
+        .hidden { visibility: hidden; }
+    </style>
 </head>
 <body class="home">
 
 <header>
-    <h1 id="heading-welcome">Welcome in HáCzech</h1>
+    <h1 id="heading-welcome">Vocabulary Tester</h1>
     <div id="language-selector-container"></div>
 </header>
 
 <main>
-    <p id="heading-mainPageText">Test your vocabulary learned from the database.</p>
+    <p id="heading-mainPageText">Practicing your learned vocabulary from the database.</p>
 
-    <h2 id="heading-topics">Vocabulary Practice</h2>
+    <div class="test-box">
+        <div style="margin-bottom: 15px;">
+            <label for="level-select">Select Level: </label>
+            <select id="level-select" style="padding: 5px;">
+                <option value="A1">A1</option>
+                <option value="A2">A2</option>
+            </select>
+        </div>
 
-    <div class="test-area">
-        <select id="level-select" style="padding: 5px; margin-bottom: 10px;">
-            <option value="A1">Level A1</option>
-            <option value="A2">Level A2</option>
-        </select>
+        <div id="czech-word" class="display-czech">---</div>
+        <div id="english-word" class="display-eng hidden">---</div>
 
-        <div id="czech-word" class="word-large">---</div>
-        <div id="english-word" class="trans-hidden">---</div>
-
-        <button class="btn-test" onclick="getRandomWord()">Next Word</button>
-        <button class="btn-test" style="background:#7f8c8d" onclick="document.getElementById('english-word').style.visibility='visible'">Show Answer</button>
+        <button class="test-btn" onclick="getRandomWord()">Next Word</button>
+        <button class="test-btn" style="background:#7f8c8d;" onclick="showTranslation()">Show Answer</button>
     </div>
 
     <nav>
         <a id="menu-home" href="index.html">🏠 Main Page</a>
-        <a id="menu-vocabulary" href="vocabulary/index.html">📘 Vocabulary</a>
-        <a id="menu-practicing" href="exercise/index.html">❓ Practicing</a>
     </nav>
 </main>
 
@@ -63,51 +72,73 @@
 <script>
     let db = null;
 
+    // Load Database
     async function initDatabase() {
         try {
             const sqlPromise = initSqlJs({ locateFile: file => `https://cdnjs.cloudflare.com/ajax/libs/sql.js/1.6.2/${file}` });
             const response = await fetch("czech_master.db");
+            if (!response.ok) throw new Error("Database file czech_master.db not found!");
+            
             const buf = await response.arrayBuffer();
             const [SQL, data] = await Promise.all([sqlPromise, buf]);
             db = new SQL.Database(new Uint8Array(data));
             console.log("Database connected!");
         } catch (err) {
-            console.error("DB Load Error:", err);
+            console.error(err);
+            document.getElementById('czech-word').innerText = "Error loading DB";
         }
     }
 
     function getRandomWord() {
         if (!db) return;
-        const level = document.getElementById('level-select').value;
+        const selectedLevel = document.getElementById('level-select').value;
         
-        // This query is now more flexible to handle column naming issues
         try {
-            const res = db.exec(`SELECT * FROM words WHERE level LIKE '%${level}%' ORDER BY RANDOM() LIMIT 1`);
-            
+            // Get all data from 'words' table
+            const res = db.exec("SELECT * FROM words");
             if (res.length > 0) {
-                const columns = res[0].columns;
-                const values = res[0].values[0];
-                
-                // Find column indexes dynamically in case they aren't lowercase
-                const lemmaIdx = columns.findIndex(c => c.toLowerCase() === 'lemma');
-                const transIdx = columns.findIndex(c => c.toLowerCase() === 'trans_en');
+                const cols = res[0].columns;
+                const rows = res[0].values;
 
-                document.getElementById('czech-word').innerText = values[lemmaIdx];
-                document.getElementById('english-word').innerText = values[transIdx];
-                document.getElementById('english-word').style.visibility = 'hidden';
-            } else {
-                alert("No words found for this level.");
+                // Find indices (handles both correct names or field1/field2)
+                const lIdx = cols.findIndex(c => c.toLowerCase() === 'lemma');
+                const tIdx = cols.findIndex(c => c.toLowerCase() === 'trans_en');
+                const vIdx = cols.findIndex(c => c.toLowerCase() === 'level');
+
+                // Fallback indices if headers weren't found
+                const lemmaIdx = lIdx !== -1 ? lIdx : 1;
+                const transIdx = tIdx !== -1 ? tIdx : 7;
+                const levelIdx = vIdx !== -1 ? vIdx : 3;
+
+                // Filter by level
+                const filtered = rows.filter(r => String(r[levelIdx]).trim() === selectedLevel);
+
+                if (filtered.length > 0) {
+                    const randomRow = filtered[Math.floor(Math.random() * filtered.length)];
+                    document.getElementById('czech-word').innerText = randomRow[lemmaIdx];
+                    document.getElementById('english-word').innerText = randomRow[transIdx];
+                    document.getElementById('english-word').classList.add('hidden');
+                } else {
+                    alert("No words found for " + selectedLevel);
+                }
             }
         } catch (e) {
-            alert("SQL Error: " + e.message + "\nCheck your table column names in DB Browser!");
+            console.error(e);
+            alert("Database table 'words' not found!");
         }
+    }
+
+    function showTranslation() {
+        document.getElementById('english-word').classList.remove('hidden');
     }
 
     initDatabase();
 
-    fetch("footer.html")
+    // Footer Loader
+    fetch("/footer.html")
         .then(response => response.text())
-        .then(data => { document.getElementById("footer-placeholder").innerHTML = data; });
+        .then(data => { document.getElementById("footer-placeholder").innerHTML = data; })
+        .catch(error => console.error("Error loading footer:", error));
 </script>
 
 <script src="js/translations.js"></script>
