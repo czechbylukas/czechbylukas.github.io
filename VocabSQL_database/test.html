@@ -90,57 +90,57 @@
         }
     }
 
-    function getRandomWord() {
-        if (!db) return;
-        const selectedLevel = document.getElementById('level-select').value;
-        
-        try {
-            const res = db.exec("SELECT * FROM words");
-            if (res.length > 0) {
-                const cols = res[0].columns;
-                const rows = res[0].values;
+function getRandomWord() {
+    if (!db) return;
+    const selectedLevel = document.getElementById('level-select').value;
+    
+    try {
+        const res = db.exec("SELECT * FROM words");
+        if (res.length > 0) {
+            const cols = res[0].columns;
+            const rows = res[0].values;
 
-                const lIdx = cols.findIndex(c => c.toLowerCase() === 'lemma');
-                const tIdx = cols.findIndex(c => c.toLowerCase() === 'trans_en');
-                const vIdx = cols.findIndex(c => c.toLowerCase() === 'level');
-                const iIdx = cols.findIndex(c => c.toLowerCase() === 'image_path');
-                const aIdx = cols.findIndex(c => c.toLowerCase() === 'audio_path');
+            const lIdx = cols.findIndex(c => c.toLowerCase() === 'lemma');
+            const tIdx = cols.findIndex(c => c.toLowerCase() === 'trans_en');
+            const vIdx = cols.findIndex(c => c.toLowerCase() === 'level');
+            const iIdx = cols.findIndex(c => c.toLowerCase() === 'image_path');
+            const aIdx = cols.findIndex(c => c.toLowerCase() === 'audio_path');
 
-                const filtered = rows.filter(r => String(r[vIdx]).trim() === selectedLevel);
+            const filtered = rows.filter(r => String(r[vIdx]).trim() === selectedLevel);
 
-                if (filtered.length > 0) {
-                    const randomRow = filtered[Math.floor(Math.random() * filtered.length)];
-                    
-                    document.getElementById('czech-word').innerText = randomRow[lIdx];
-                    document.getElementById('english-word').innerText = randomRow[tIdx];
-                    document.getElementById('english-word').classList.add('hidden');
+            if (filtered.length > 0) {
+                const randomRow = filtered[Math.floor(Math.random() * filtered.length)];
+                
+                document.getElementById('czech-word').innerText = randomRow[lIdx];
+                document.getElementById('english-word').innerText = randomRow[tIdx];
+                document.getElementById('english-word').classList.add('hidden');
 
-                    // --- IMAGE LOGIC ---
-                    const imgElement = document.getElementById('word-image');
-                    const imgPath = randomRow[iIdx]; 
-                    if (imgPath) {
-                        const finalImgPath = "../" + imgPath.trim();
-                        console.log("Loading image from:", finalImgPath);
-                        imgElement.src = finalImgPath; 
-                        imgElement.style.display = "inline-block";
-                    } else {
-                        imgElement.style.display = "none";
-                    }
+                // --- IMAGE LOGIC ---
+                const imgElement = document.getElementById('word-image');
+                const imgPath = randomRow[iIdx]; 
+                imgElement.src = ""; 
 
-                    // --- AUDIO LOGIC ---
-                    const audioPath = randomRow[aIdx];
-                    if (audioPath) {
-                        const finalAudioPath = "../" + audioPath.trim();
-                        console.log("Playing audio from:", finalAudioPath);
-                        let audio = new Audio(finalAudioPath);
-                        audio.play().catch(e => console.log("Audio play blocked or file missing."));
-                    }
+                if (imgPath && imgPath.trim() !== "") {
+                    // Navigate up from /exercise/ and use the DB path
+                    imgElement.src = "../" + imgPath.trim();
+                    imgElement.style.display = "inline-block";
+                } else {
+                    imgElement.style.display = "none";
+                }
+
+                // --- AUDIO LOGIC ---
+                const audioPath = randomRow[aIdx];
+                if (audioPath && audioPath.trim() !== "") {
+                    // Navigate up from /exercise/ and use the DB path
+                    let audio = new Audio("../" + audioPath.trim());
+                    audio.play().catch(e => console.warn("Audio file missing or blocked."));
                 }
             }
-        } catch (e) {
-            console.error("Query Error:", e);
         }
+    } catch (e) {
+        console.error("Query Error:", e);
     }
+}
 
     function showTranslation() {
         document.getElementById('english-word').classList.remove('hidden');
