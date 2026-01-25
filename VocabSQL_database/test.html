@@ -15,7 +15,6 @@
     </script>
 
     <title>Test Vocabulary - HáCzech</title>
-    
     <script src="https://cdnjs.cloudflare.com/ajax/libs/sql.js/1.6.2/sql-wasm.js"></script>
 
     <style>
@@ -55,11 +54,9 @@
             </select>
         </div>
 
-<div style="height: 180px; margin-bottom: 15px;">
-    <img id="word-image" src="" style="max-height: 100%; border-radius: 8px; display: none;">
-</div>
-
-<div id="czech-word" class="display-czech">---</div>
+        <div style="height: 180px; margin-bottom: 15px; display: flex; justify-content: center; align-items: center;">
+            <img id="word-image" src="" style="max-height: 100%; border-radius: 8px; display: none;">
+        </div>
 
         <div id="czech-word" class="display-czech">---</div>
         <div id="english-word" class="display-eng hidden">---</div>
@@ -78,76 +75,72 @@
 <script>
     let db = null;
 
-    // Load Database
     async function initDatabase() {
         try {
             const sqlPromise = initSqlJs({ locateFile: file => `https://cdnjs.cloudflare.com/ajax/libs/sql.js/1.6.2/${file}` });
             const response = await fetch("czech_master.db");
             if (!response.ok) throw new Error("Database file czech_master.db not found!");
-            
             const buf = await response.arrayBuffer();
             const [SQL, data] = await Promise.all([sqlPromise, buf]);
             db = new SQL.Database(new Uint8Array(data));
             console.log("Database connected!");
         } catch (err) {
-            console.error(err);
+            console.error("DB Error:", err);
             document.getElementById('czech-word').innerText = "Error loading DB";
         }
     }
 
-function getRandomWord() {
-    if (!db) return;
-    const selectedLevel = document.getElementById('level-select').value;
-    
-    try {
-        const res = db.exec("SELECT * FROM words");
-        if (res.length > 0) {
-            const cols = res[0].columns;
-            const rows = res[0].values;
+    function getRandomWord() {
+        if (!db) return;
+        const selectedLevel = document.getElementById('level-select').value;
+        
+        try {
+            const res = db.exec("SELECT * FROM words");
+            if (res.length > 0) {
+                const cols = res[0].columns;
+                const rows = res[0].values;
 
-            // 1. Find indices for the new columns
-            const lIdx = cols.findIndex(c => c.toLowerCase() === 'lemma');
-            const tIdx = cols.findIndex(c => c.toLowerCase() === 'trans_en');
-            const vIdx = cols.findIndex(c => c.toLowerCase() === 'level');
-            const iIdx = cols.findIndex(c => c.toLowerCase() === 'image_path'); // NEW
-            const aIdx = cols.findIndex(c => c.toLowerCase() === 'audio_path'); // NEW
+                const lIdx = cols.findIndex(c => c.toLowerCase() === 'lemma');
+                const tIdx = cols.findIndex(c => c.toLowerCase() === 'trans_en');
+                const vIdx = cols.findIndex(c => c.toLowerCase() === 'level');
+                const iIdx = cols.findIndex(c => c.toLowerCase() === 'image_path');
+                const aIdx = cols.findIndex(c => c.toLowerCase() === 'audio_path');
 
-            // 2. Filter
-            const filtered = rows.filter(r => String(r[vIdx]).trim() === selectedLevel);
+                const filtered = rows.filter(r => String(r[vIdx]).trim() === selectedLevel);
 
-            if (filtered.length > 0) {
-                const randomRow = filtered[Math.floor(Math.random() * filtered.length)];
-                
-                // 3. Update Text
-                document.getElementById('czech-word').innerText = randomRow[lIdx];
-                document.getElementById('english-word').innerText = randomRow[tIdx];
-                document.getElementById('english-word').classList.add('hidden');
+                if (filtered.length > 0) {
+                    const randomRow = filtered[Math.floor(Math.random() * filtered.length)];
+                    
+                    document.getElementById('czech-word').innerText = randomRow[lIdx];
+                    document.getElementById('english-word').innerText = randomRow[tIdx];
+                    document.getElementById('english-word').classList.add('hidden');
 
-                // 4. Update Image Logic
-                const imgElement = document.getElementById('word-image');
-                const imgPath = randomRow[iIdx]; 
-                
-                if (imgPath && imgPath !== "") {
-                    // We use ../ to go from /exercise folder back to root where /images is
-                    imgElement.src = "../" + imgPath; 
-                    imgElement.style.display = "inline-block";
-                } else {
-                    imgElement.style.display = "none";
-                }
+                    // --- IMAGE LOGIC ---
+                    const imgElement = document.getElementById('word-image');
+                    const imgPath = randomRow[iIdx]; 
+                    if (imgPath) {
+                        const finalImgPath = "../" + imgPath.trim();
+                        console.log("Loading image from:", finalImgPath);
+                        imgElement.src = finalImgPath; 
+                        imgElement.style.display = "inline-block";
+                    } else {
+                        imgElement.style.display = "none";
+                    }
 
-                // 5. Audio Auto-Play (Optional)
-                const audioPath = randomRow[aIdx];
-                if (audioPath && audioPath !== "") {
-                    let audio = new Audio("../" + audioPath);
-                    audio.play();
+                    // --- AUDIO LOGIC ---
+                    const audioPath = randomRow[aIdx];
+                    if (audioPath) {
+                        const finalAudioPath = "../" + audioPath.trim();
+                        console.log("Playing audio from:", finalAudioPath);
+                        let audio = new Audio(finalAudioPath);
+                        audio.play().catch(e => console.log("Audio play blocked or file missing."));
+                    }
                 }
             }
+        } catch (e) {
+            console.error("Query Error:", e);
         }
-    } catch (e) {
-        console.error(e);
     }
-}
-
 
     function showTranslation() {
         document.getElementById('english-word').classList.remove('hidden');
@@ -155,15 +148,14 @@ function getRandomWord() {
 
     initDatabase();
 
-    // Footer Loader
-    fetch("/footer.html")
+    fetch("../footer.html")
         .then(response => response.text())
         .then(data => { document.getElementById("footer-placeholder").innerHTML = data; })
         .catch(error => console.error("Error loading footer:", error));
 </script>
 
-<script src="js/translations.js"></script>
-<script src="js/language-selector.js"></script>
+<script src="../js/translations.js"></script>
+<script src="../js/language-selector.js"></script>
 
 </body>
 </html>
