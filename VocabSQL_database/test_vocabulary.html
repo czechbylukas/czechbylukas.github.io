@@ -13,44 +13,56 @@
     </script>
 
     <title>Test Vocabulary - HáCzech</title>
-    <link rel="stylesheet" href="../css/style.css">
-    <link rel="stylesheet" href="../css/language-selector.css">
+    
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/language-selector.css">
     
     <script src="https://cdnjs.cloudflare.com/ajax/libs/sql.js/1.6.2/sql-wasm.js"></script>
 
     <style>
         .test-container {
             background: white;
-            padding: 30px;
-            border-radius: 15px;
+            padding: 40px;
+            border-radius: 20px;
             text-align: center;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-            margin-top: 20px;
+            box-shadow: 0 8px 30px rgba(0,0,0,0.1);
+            max-width: 600px;
+            margin: 40px auto;
+            font-family: sans-serif;
         }
-        .word-display { font-size: 2.5rem; font-weight: bold; color: #d32f2f; margin: 20px 0; }
-        .translation-display { font-size: 1.5rem; color: #555; display: none; margin-bottom: 20px; }
+        .word-display { font-size: 3rem; font-weight: bold; color: #2c3e50; margin: 30px 0; min-height: 80px; }
+        .translation-display { font-size: 1.8rem; color: #7f8c8d; height: 40px; margin-bottom: 30px; transition: 0.3s; }
+        .btn-group { display: flex; gap: 10px; justify-content: center; }
         .btn-test {
-            background-color: #2c3e50; color: white; border: none;
-            padding: 10px 20px; border-radius: 5px; cursor: pointer; font-size: 1rem;
+            background-color: #d32f2f; color: white; border: none;
+            padding: 15px 30px; border-radius: 8px; cursor: pointer; font-size: 1.1rem; font-weight: bold;
         }
-        .btn-test:hover { background-color: #34495e; }
-        select { padding: 10px; border-radius: 5px; margin-bottom: 10px; }
+        .btn-test:hover { background-color: #b71c1c; }
+        .btn-reveal { background-color: #34495e; color: white; border: none; padding: 15px 30px; border-radius: 8px; cursor: pointer; }
+        select { padding: 12px; border-radius: 8px; border: 1px solid #ccc; font-size: 1rem; width: 100px; }
+        .status-dot { height: 10px; width: 10px; border-radius: 50%; display: inline-block; margin-right: 5px; }
     </style>
 </head>
 <body class="home">
 
 <header>
-    <h1 id="heading-welcome">Test Vocabulary Learned</h1>
+    <h1 id="heading-welcome">Vocabulary Tester</h1>
     <div id="language-selector-container"></div>
 </header>
 
 <main>
-    <nav>
-        <a id="menu-home" href="../index.html">🏠 Main Page</a>
+    <nav style="text-align: center; margin-top: 20px;">
+        <a id="menu-home" href="index.html">🏠 Back to Main Page</a>
     </nav>
 
     <section class="test-container">
-        <label for="level-select">Choose Level:</label>
+        <div>
+            <span id="db-status-dot" class="status-dot" style="background-color: gray;"></span>
+            <small id="db-status-text">Loading Database...</small>
+        </div>
+        <br>
+        
+        <label for="level-select">Level:</label>
         <select id="level-select">
             <option value="A1">A1</option>
             <option value="A2">A2</option>
@@ -58,66 +70,96 @@
         </select>
 
         <div id="word-box">
-            <p>Click the button to start!</p>
             <div id="czech-word" class="word-display">---</div>
-            <div id="english-word" class="translation-display">---</div>
+            <div id="english-word" class="translation-display" style="visibility: hidden;">---</div>
         </div>
 
-        <button class="btn-test" onclick="getRandomWord()">Get Random Word</button>
-        <button class="btn-test" id="reveal-btn" onclick="revealTranslation()" style="background-color: #7f8c8d;">Show Translation</button>
+        <div class="btn-group">
+            <button class="btn-test" onclick="getRandomWord()">Next Word</button>
+            <button class="btn-reveal" onclick="revealTranslation()">Show Answer</button>
+        </div>
     </section>
 </main>
 
 <div id="footer-placeholder"></div>
 
 <script>
-    let db;
+    let db = null;
 
-    // 1. Initialize SQL.js and load the database file
+    // 1. Initialize and Load the Database
     async function initDatabase() {
-        const sqlPromise = initSqlJs({ locateFile: file => `https://cdnjs.cloudflare.com/ajax/libs/sql.js/1.6.2/${file}` });
-        const dataPromise = fetch("/czech_database.db").then(res => res.arrayBuffer());
-        
-        const [SQL, buf] = await Promise.all([sqlPromise, dataPromise]);
-        db = new SQL.Database(new Uint8Array(buf));
-        console.log("Database loaded successfully!");
+        try {
+            const sqlPromise = initSqlJs({ 
+                locateFile: file => `https://cdnjs.cloudflare.com/ajax/libs/sql.js/1.6.2/${file}` 
+            });
+            
+            // Matches your actual filename
+            const response = await fetch("czech_master.db"); 
+            
+            if (!response.ok) {
+                throw new Error(`File 'czech_master.db' not found. Status: ${response.status}`);
+            }
+
+            const buf = await response.arrayBuffer();
+            const [SQL, data] = await Promise.all([sqlPromise, buf]);
+            db = new SQL.Database(new Uint8Array(data));
+            
+            document.getElementById('db-status-dot').style.backgroundColor = "#4caf50";
+            document.getElementById('db-status-text').innerText = "Database Connected";
+            console.log("Success: czech_master.db loaded.");
+        } catch (err) {
+            document.getElementById('db-status-dot').style.backgroundColor = "#f44336";
+            document.getElementById('db-status-text').innerText = "Connection Failed";
+            console.error("Database Error:", err.message);
+        }
     }
 
-    // 2. Function to pick a random word based on Level
+    // 2. Fetch a random word from the 'words' table
     function getRandomWord() {
+        if (!db) {
+            alert("Database not loaded yet!");
+            return;
+        }
+
         const level = document.getElementById('level-select').value;
+        // Using the 'words' table name you confirmed
         const query = `SELECT lemma, trans_en FROM words WHERE level = ? ORDER BY RANDOM() LIMIT 1`;
         
-        const stmt = db.prepare(query);
-        stmt.bind([level]);
-        
-        if (stmt.step()) {
-            const row = stmt.getAsObject();
-            document.getElementById('czech-word').innerText = row.lemma;
-            document.getElementById('english-word').innerText = row.trans_en;
-            document.getElementById('english-word').style.display = 'none';
-        } else {
-            alert("No words found for this level!");
+        try {
+            const stmt = db.prepare(query);
+            stmt.bind([level]);
+            
+            if (stmt.step()) {
+                const row = stmt.getAsObject();
+                document.getElementById('czech-word').innerText = row.lemma;
+                document.getElementById('english-word').innerText = row.trans_en;
+                document.getElementById('english-word').style.visibility = 'hidden';
+            } else {
+                alert("No words found for level " + level + " in the 'words' table.");
+            }
+            stmt.free();
+        } catch (err) {
+            console.error("Query Error:", err.message);
+            alert("SQL Error: " + err.message);
         }
-        stmt.free();
     }
 
     function revealTranslation() {
-        document.getElementById('english-word').style.display = 'block';
+        document.getElementById('english-word').style.visibility = 'visible';
     }
 
-    // Load database on page load
+    // Start initialization
     initDatabase();
 
-    // Standard footer loader
-    fetch("/footer.html")
+    // Footer Loader
+    fetch("footer.html")
         .then(response => response.text())
         .then(data => { document.getElementById("footer-placeholder").innerHTML = data; })
-        .catch(error => console.error("Error loading footer:", error));
+        .catch(err => console.log("Footer skipped or not found"));
 </script>
 
-<script src="../js/translations.js"></script>
-<script src="../js/language-selector.js"></script>
+<script src="js/translations.js"></script>
+<script src="js/language-selector.js"></script>
 
 </body>
 </html>
