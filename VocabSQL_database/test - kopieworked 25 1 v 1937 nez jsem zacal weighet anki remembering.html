@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/language-selector.css">
+
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-1BCW5XQ0X5"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-1BCW5XQ0X5');
+    </script>
+
+    <title>Test Vocabulary - HáCzech</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/sql.js/1.6.2/sql-wasm.js"></script>
+
+    <style>
+        .test-box {
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 12px;
+            padding: 20px;
+            margin: 20px 0;
+            text-align: center;
+            border: 2px solid #2c3e50;
+        }
+        .display-czech { font-size: 2.5rem; font-weight: bold; color: #d32f2f; margin: 15px 0; }
+        .display-eng { font-size: 1.5rem; color: #555; height: 30px; margin-bottom: 20px; }
+        .test-btn { 
+            padding: 10px 25px; font-size: 1rem; cursor: pointer; border-radius: 5px; border: none; 
+            background: #2c3e50; color: white; margin: 5px;
+        }
+        .hidden { visibility: hidden; }
+    </style>
+</head>
+<body class="home">
+
+<header>
+    <h1 id="heading-welcome">Vocabulary Tester</h1>
+    <div id="language-selector-container"></div>
+</header>
+
+<main>
+    <p id="heading-mainPageText">Practicing your learned vocabulary.</p>
+
+    <div class="test-box">
+        <div style="margin-bottom: 15px;">
+            <label for="level-select">Select Level: </label>
+            <select id="level-select" style="padding: 5px;">
+                <option value="A1">A1</option>
+                <option value="A2">A2</option>
+            </select>
+        </div>
+
+        <div style="height: 180px; margin-bottom: 15px; display: flex; justify-content: center; align-items: center;">
+            <img id="word-image" src="" style="max-height: 100%; border-radius: 8px; display: none;">
+        </div>
+
+<div id="english-word" class="display-eng">---</div>
+
+<div id="czech-word" class="display-czech hidden">---</div>
+
+        <button class="test-btn" onclick="getRandomWord()">Next Word</button>
+        <button class="test-btn" style="background:#7f8c8d;" onclick="showTranslation()">Show Answer</button>
+    </div>
+
+    <nav>
+        <a id="menu-home" href="../index.html">🏠 Main Page</a>
+    </nav>
+</main>
+
+<div id="footer-placeholder"></div>
+
+<script>
+    let db = null;
+
+    async function initDatabase() {
+        try {
+            const sqlPromise = initSqlJs({ locateFile: file => `https://cdnjs.cloudflare.com/ajax/libs/sql.js/1.6.2/${file}` });
+            const response = await fetch("czech_master.db");
+            if (!response.ok) throw new Error("Database file czech_master.db not found!");
+            const buf = await response.arrayBuffer();
+            const [SQL, data] = await Promise.all([sqlPromise, buf]);
+            db = new SQL.Database(new Uint8Array(data));
+            console.log("Database connected!");
+        } catch (err) {
+            console.error("DB Error:", err);
+            document.getElementById('czech-word').innerText = "Error loading DB";
+        }
+    }
+
+function getRandomWord() {
+    if (!db) return;
+    const selectedLevel = document.getElementById('level-select').value;
+    
+    try {
+        const res = db.exec("SELECT * FROM words");
+        if (res.length > 0) {
+            const cols = res[0].columns;
+            const rows = res[0].values;
+
+            const lIdx = cols.findIndex(c => c.toLowerCase() === 'lemma');
+            const tIdx = cols.findIndex(c => c.toLowerCase() === 'trans_en');
+            const vIdx = cols.findIndex(c => c.toLowerCase() === 'level');
+            const iIdx = cols.findIndex(c => c.toLowerCase() === 'image_path');
+            const aIdx = cols.findIndex(c => c.toLowerCase() === 'audio_path');
+
+            const filtered = rows.filter(r => String(r[vIdx]).trim() === selectedLevel);
+
+            if (filtered.length > 0) {
+                const randomRow = filtered[Math.floor(Math.random() * filtered.length)];
+                
+                // --- FIXED HERE: Put English into english-word ---
+                document.getElementById('english-word').innerText = randomRow[tIdx];
+                
+                // --- FIXED HERE: Put Czech into czech-word and hide it ---
+                const czechElem = document.getElementById('czech-word');
+                czechElem.innerText = randomRow[lIdx];
+                czechElem.classList.add('hidden'); 
+
+                // Store Audio Path
+                currentAudioPath = randomRow[aIdx] ? randomRow[aIdx].trim() : "";
+
+                // Update Image
+                const imgElement = document.getElementById('word-image');
+                const imgPath = randomRow[iIdx]; 
+                imgElement.src = ""; 
+
+                if (imgPath && imgPath.trim() !== "") {
+                    imgElement.src = imgPath.trim(); 
+                    imgElement.style.display = "inline-block";
+                } else {
+                    imgElement.style.display = "none";
+                }
+            }
+        }
+    } catch (e) {
+        console.error("Query Error:", e);
+    }
+}
+
+function showTranslation() {
+    // 1. Reveal the Czech word by removing the hidden class
+    const czechElem = document.getElementById('czech-word');
+    czechElem.classList.remove('hidden');
+
+    // 2. Play the audio that was stored during getRandomWord
+    if (currentAudioPath !== "") {
+        console.log("Playing audio from:", currentAudioPath); // Debugging line
+        let audio = new Audio(currentAudioPath);
+        audio.play().catch(e => console.warn("Audio failed to play:", e));
+    } else {
+        console.warn("No audio path found for this word.");
+    }
+}
+
+    initDatabase();
+
+    fetch("../footer.html")
+        .then(response => response.text())
+        .then(data => { document.getElementById("footer-placeholder").innerHTML = data; })
+        .catch(error => console.error("Error loading footer:", error));
+</script>
+
+<script src="../js/translations.js"></script>
+<script src="../js/language-selector.js"></script>
+
+</body>
+</html>

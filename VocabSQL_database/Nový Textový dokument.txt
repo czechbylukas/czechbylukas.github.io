@@ -1,0 +1,12 @@
+{
+  "users": {
+    "user_id_123": {
+      "username": "Jan Novák",
+      "scores": {
+        "pes": 5,
+        "kočka": 1,
+        "jablko": 8
+      }
+    }
+  }
+}

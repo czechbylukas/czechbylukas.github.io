@@ -18,24 +18,91 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/sql.js/1.6.2/sql-wasm.js"></script>
 
     <style>
+        /* STABLE BOX DESIGN */
         .test-box {
             background: rgba(255, 255, 255, 0.9);
             border-radius: 12px;
             padding: 20px;
-            margin: 20px 0;
+            margin: 20px auto;
             text-align: center;
             border: 2px solid #2c3e50;
+            /* FIXED DIMENSIONS */
+            width: 90%;
+            max-width: 500px;
+            height: 600px; 
+            position: relative; 
+            display: flex;
+            flex-direction: column;
         }
-        .display-czech { font-size: 2.5rem; font-weight: bold; color: #d32f2f; margin: 15px 0; }
-        .display-eng { font-size: 1.5rem; color: #555; height: 30px; margin-bottom: 20px; }
-        .test-btn { 
-            padding: 10px 25px; font-size: 1rem; cursor: pointer; border-radius: 5px; border: none; 
-            background: #2c3e50; color: white; margin: 5px;
+
+        /* Elements inside display area */
+        #image-container { 
+            height: 200px; 
+            display: flex; 
+            justify-content: center; 
+            align-items: center; 
+            margin-bottom: 10px;
         }
+
+        .display-eng { font-size: 1.5rem; color: #555; transition: all 0.3s ease; }
+        .display-czech { font-size: 2.5rem; font-weight: bold; color: #d32f2f; margin: 15px 0; min-height: 60px; }
+        
+        /* LARGE TEXT MODE: When image is missing, English text gets bigger and takes image space */
+        .no-image-text { 
+            font-size: 3rem; 
+            color: #2c3e50; 
+            font-weight: bold; 
+            margin-top: -100px; /* Pulls text into the empty image container area */
+        }
+        .no-image-czech {
+            font-size: 3.5rem;
+        }
+
+        /* LOCKED BUTTONS AT BOTTOM */
+        #btn-container, #reveal-next {
+            position: absolute;
+            bottom: 30px;
+            left: 0;
+            right: 0;
+            display: flex;
+            justify-content: center;
+        }
+
+        .test-btn { padding: 10px 25px; font-size: 1rem; cursor: pointer; border-radius: 5px; border: none; background: #2c3e50; color: white; margin: 5px; }
         .hidden { visibility: hidden; }
+
+        #user-input { padding: 12px; font-size: 1.2rem; width: 80%; border-radius: 8px; border: 2px solid #ddd; margin: 15px auto; outline: none; }
+        #success-msg { color: #27ae60; font-weight: bold; font-size: 1.8rem; height: 40px; margin-top: 10px; }
+        .typo-warning { color: #f39c12; font-weight: bold; height: 20px; margin-bottom: 10px; }
+        
+        #auth-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: #2c3e50; display: flex; justify-content: center; align-items: center; z-index: 10000; }
+        .auth-card { background: white; padding: 30px; border-radius: 15px; width: 320px; text-align: center; }
+        .auth-card input { width: 100%; padding: 10px; margin: 8px 0; border: 1px solid #ddd; border-radius: 5px; box-sizing: border-box; }
+        
+        #unpaid-message { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: white; z-index: 9999; justify-content: center; align-items: center; flex-direction: column; text-align: center; }
     </style>
 </head>
 <body class="home">
+
+<div id="auth-overlay">
+    <div class="auth-card">
+        <h2 id="auth-title">Log In</h2>
+        <div id="signup-fields" style="display:none;"><input type="text" id="reg-name" placeholder="Full Name"></div>
+        <input type="email" id="auth-email" placeholder="Email">
+        <input type="password" id="auth-pass" placeholder="Password">
+        <button class="test-btn" style="width:100%; margin-top:10px;" onclick="handleAuth()">Confirm</button>
+        <p style="margin-top:15px; font-size:0.8rem;">
+            <span id="toggle-link" style="color:#3498db; cursor:pointer;" onclick="toggleAuth()">Need an account? Sign Up</span><br><br>
+            <span style="color:#e67e22; cursor:pointer;" onclick="forgotPassword()">Forgot Password?</span>
+        </p>
+    </div>
+</div>
+
+<div id="unpaid-message">
+    <h1 style="color: #e74c3c;">Subscription Required</h1>
+    <p>Please contact your teacher to activate your account.</p>
+    <button class="test-btn" onclick="signOutUser()">Sign Out</button>
+</div>
 
 <header>
     <h1 id="heading-welcome">Vocabulary Tester</h1>
@@ -43,119 +110,251 @@
 </header>
 
 <main>
-    <p id="heading-mainPageText">Practicing your learned vocabulary.</p>
-
     <div class="test-box">
         <div style="margin-bottom: 15px;">
-            <label for="level-select">Select Level: </label>
-            <select id="level-select" style="padding: 5px;">
+            <select id="level-select" style="padding: 5px;" onchange="getRandomWord()">
                 <option value="A1">A1</option>
                 <option value="A2">A2</option>
             </select>
         </div>
 
-        <div style="height: 180px; margin-bottom: 15px; display: flex; justify-content: center; align-items: center;">
+        <div id="image-container">
             <img id="word-image" src="" style="max-height: 100%; border-radius: 8px; display: none;">
         </div>
 
-        <div id="czech-word" class="display-czech">---</div>
-        <div id="english-word" class="display-eng hidden">---</div>
+        <div id="english-word" class="display-eng">---</div>
+        
+        <div id="success-msg"></div>
+        <div id="typo-msg" class="typo-warning"></div>
 
-        <button class="test-btn" onclick="getRandomWord()">Next Word</button>
-        <button class="test-btn" style="background:#7f8c8d;" onclick="showTranslation()">Show Answer</button>
+        <input type="text" id="user-input" placeholder="Type in Czech..." autocomplete="off" onkeydown="if(event.key==='Enter') evaluateTyping()">
+
+        <div id="czech-word" class="display-czech hidden">---</div>
+
+        <div id="btn-container">
+            <button class="test-btn" style="background:#27ae60;" onclick="updateWeight('yes')">YES</button>
+            <button class="test-btn" onclick="getRandomWord()">NEXT</button>
+            <button class="test-btn" style="background:#e74c3c;" onclick="updateWeight('no')">NO</button>
+        </div>
+        
+        <button id="reveal-next" class="test-btn" style="display:none; width:80%; margin: 0 auto;" onclick="getRandomWord()">NEXT WORD</button>
     </div>
 
-    <nav>
-        <a id="menu-home" href="../index.html">🏠 Main Page</a>
+    <nav style="text-align: center; margin-top: 10px;">
+        <button class="test-btn" style="background:#7f8c8d; font-size: 0.8rem;" onclick="signOutUser()">Sign Out</button>
+        <a id="menu-home" href="../index.html" style="text-decoration:none; color: #2c3e50; font-weight: bold; margin-left: 10px;">🏠 Main Page</a>
     </nav>
 </main>
 
 <div id="footer-placeholder"></div>
 
+<script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-auth-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-database-compat.js"></script>
+
 <script>
-    let db = null;
+    const firebaseConfig = {
+        apiKey: "AIzaSyAGCKtAQkj9bsrSpJ1IQWLAm_PA20vTluM",
+        authDomain: "vocabsql-database.firebaseapp.com",
+        databaseURL: "https://vocabsql-database-default-rtdb.europe-west1.firebasedatabase.app",
+        projectId: "vocabsql-database",
+        storageBucket: "vocabsql-database.firebasestorage.app",
+        messagingSenderId: "122357206206",
+        appId: "1:122357206206:web:bc6a3b03e4f87c910ae2ef"
+    };
+    firebase.initializeApp(firebaseConfig);
+    const auth = firebase.auth();
+    const dbRef = firebase.database();
+    
+    let db, currentWord, userWeights = {}, isSignUp = false, currentAudioPath = "";
+
+    function toggleAuth() {
+        isSignUp = !isSignUp;
+        document.getElementById('auth-title').innerText = isSignUp ? "Sign Up" : "Log In";
+        document.getElementById('signup-fields').style.display = isSignUp ? 'block' : 'none';
+        document.getElementById('toggle-link').innerText = isSignUp ? "Already have an account? Log In" : "Need an account? Sign Up";
+    }
+
+    async function handleAuth() {
+        const email = document.getElementById('auth-email').value;
+        const pass = document.getElementById('auth-pass').value;
+        try {
+            if (isSignUp) {
+                const c = await auth.createUserWithEmailAndPassword(email, pass);
+                await dbRef.ref('users/'+c.user.uid).set({name: document.getElementById('reg-name').value, email, status:'pending'});
+                alert("Account created. Please ask teacher for approval.");
+            } else { await auth.signInWithEmailAndPassword(email, pass); }
+        } catch(e) { alert(e.message); }
+    }
+
+    function forgotPassword() {
+        const email = document.getElementById('auth-email').value;
+        if(!email) return alert("Please enter your email first.");
+        auth.sendPasswordResetEmail(email).then(() => alert("Reset email sent!")).catch(e => alert(e.message));
+    }
+
+    function signOutUser() { auth.signOut().then(() => location.reload()); }
+
+    auth.onAuthStateChanged(user => {
+        if(user) {
+            dbRef.ref('users/'+user.uid).on('value', snap => {
+                const d = snap.val();
+                if(d && d.status === 'paid') {
+                    userWeights = d.weights || {};
+                    document.getElementById('auth-overlay').style.display = 'none';
+                    document.getElementById('unpaid-message').style.display = 'none';
+                    if(!db) initDatabase();
+                } else {
+                    document.getElementById('auth-overlay').style.display = 'none';
+                    document.getElementById('unpaid-message').style.display = 'flex';
+                }
+            });
+        } else { document.getElementById('auth-overlay').style.display = 'flex'; }
+    });
 
     async function initDatabase() {
         try {
             const sqlPromise = initSqlJs({ locateFile: file => `https://cdnjs.cloudflare.com/ajax/libs/sql.js/1.6.2/${file}` });
             const response = await fetch("czech_master.db");
-            if (!response.ok) throw new Error("Database file czech_master.db not found!");
             const buf = await response.arrayBuffer();
             const [SQL, data] = await Promise.all([sqlPromise, buf]);
             db = new SQL.Database(new Uint8Array(data));
-            console.log("Database connected!");
-        } catch (err) {
-            console.error("DB Error:", err);
-            document.getElementById('czech-word').innerText = "Error loading DB";
-        }
+            getRandomWord();
+        } catch (err) { console.error("DB Error:", err); }
     }
 
-function getRandomWord() {
-    if (!db) return;
-    const selectedLevel = document.getElementById('level-select').value;
-    
-    try {
-        const res = db.exec("SELECT * FROM words");
-        if (res.length > 0) {
-            const cols = res[0].columns;
+    function getRandomWord() {
+        if(!db) return;
+        document.getElementById('btn-container').style.display = 'flex';
+        document.getElementById('reveal-next').style.display = 'none';
+        document.getElementById('czech-word').classList.add('hidden');
+        document.getElementById('user-input').value = "";
+        document.getElementById('typo-msg').innerText = "";
+        document.getElementById('success-msg').innerText = "";
+        
+        const level = document.getElementById('level-select').value;
+        const res = db.exec(`SELECT lemma, trans_en, image_path, audio_path FROM words WHERE level='${level}'`);
+        
+        if(res[0]) {
             const rows = res[0].values;
+            let pool = [];
+            rows.forEach(r => {
+                const w = userWeights[r[0]] || 5;
+                for(let i=0; i<w; i++) pool.push(r);
+            });
+            const s = pool[Math.floor(Math.random()*pool.length)];
+            currentWord = { czech: s[0], english: s[1], img: s[2], audio: s[3] };
+            
+            const engElem = document.getElementById('english-word');
+            const czechElem = document.getElementById('czech-word');
+            const imgElem = document.getElementById('word-image');
+            
+            engElem.innerText = currentWord.english;
+            czechElem.innerText = currentWord.czech;
+            currentAudioPath = s[3] || "";
 
-            const lIdx = cols.findIndex(c => c.toLowerCase() === 'lemma');
-            const tIdx = cols.findIndex(c => c.toLowerCase() === 'trans_en');
-            const vIdx = cols.findIndex(c => c.toLowerCase() === 'level');
-            const iIdx = cols.findIndex(c => c.toLowerCase() === 'image_path');
-            const aIdx = cols.findIndex(c => c.toLowerCase() === 'audio_path');
-
-            const filtered = rows.filter(r => String(r[vIdx]).trim() === selectedLevel);
-
-            if (filtered.length > 0) {
-                const randomRow = filtered[Math.floor(Math.random() * filtered.length)];
-                
-                document.getElementById('czech-word').innerText = randomRow[lIdx];
-                document.getElementById('english-word').innerText = randomRow[tIdx];
-                document.getElementById('english-word').classList.add('hidden');
-
-                // --- IMAGE LOGIC ---
-                const imgElement = document.getElementById('word-image');
-                const imgPath = randomRow[iIdx]; 
-                imgElement.src = ""; 
-
-                if (imgPath && imgPath.trim() !== "") {
-                    // Navigate up from /exercise/ and use the DB path
-                    imgElement.src = "../" + imgPath.trim();
-                    imgElement.style.display = "inline-block";
-                } else {
-                    imgElement.style.display = "none";
-                }
-
-                // --- AUDIO LOGIC ---
-                const audioPath = randomRow[aIdx];
-                if (audioPath && audioPath.trim() !== "") {
-                    // Navigate up from /exercise/ and use the DB path
-                    let audio = new Audio("../" + audioPath.trim());
-                    audio.play().catch(e => console.warn("Audio file missing or blocked."));
-                }
+            if(s[2] && s[2].trim() !== "") {
+                imgElem.src = s[2].trim();
+                imgElem.style.display = 'inline-block';
+                engElem.classList.remove('no-image-text');
+                czechElem.classList.remove('no-image-czech');
+            } else {
+                imgElem.style.display = 'none';
+                engElem.classList.add('no-image-text');
+                czechElem.classList.add('no-image-czech');
             }
         }
-    } catch (e) {
-        console.error("Query Error:", e);
-    }
-}
-
-    function showTranslation() {
-        document.getElementById('english-word').classList.remove('hidden');
+        document.getElementById('user-input').focus();
     }
 
-    initDatabase();
+    function evaluateTyping() {
+        const input = document.getElementById('user-input').value.trim().toLowerCase();
+        const target = currentWord.czech.toLowerCase();
+        if (input === target) {
+            triggerSuccess();
+        } else {
+            const dist = levenshtein(input, target);
+            if (dist <= 2) {
+                document.getElementById('typo-msg').innerText = "Almost! Just a small typo.";
+                showAnswer(1);
+            } else {
+                document.getElementById('typo-msg').innerText = "Not quite...";
+                showAnswer(3);
+            }
+        }
+    }
 
-    fetch("../footer.html")
-        .then(response => response.text())
-        .then(data => { document.getElementById("footer-placeholder").innerHTML = data; })
-        .catch(error => console.error("Error loading footer:", error));
+    function triggerSuccess() {
+        document.getElementById('success-msg').innerText = "Správně!";
+        document.getElementById('czech-word').classList.remove('hidden');
+        adjustWeight(-1);
+        setTimeout(getRandomWord, 1200);
+    }
+
+    function showAnswer(penalty) {
+        document.getElementById('czech-word').classList.remove('hidden');
+        document.getElementById('btn-container').style.display = 'none';
+        document.getElementById('reveal-next').style.display = 'block';
+        if(currentAudioPath) new Audio(currentAudioPath).play().catch(e=>{});
+        adjustWeight(penalty);
+    }
+
+    function updateWeight(choice) {
+        if(choice === 'yes') triggerSuccess();
+        else showAnswer(2);
+    }
+
+    function adjustWeight(change) {
+        let w = userWeights[currentWord.czech] || 5;
+        userWeights[currentWord.czech] = Math.max(1, w + change);
+        dbRef.ref('users/'+auth.currentUser.uid+'/weights').set(userWeights);
+    }
+
+    function levenshtein(a, b) {
+        const matrix = [];
+        for (let i = 0; i <= b.length; i++) matrix[i] = [i];
+        for (let j = 0; j <= a.length; j++) matrix[0][j] = j;
+        for (let i = 1; i <= b.length; i++) {
+            for (let j = 1; j <= a.length; j++) {
+                if (b.charAt(i - 1) === a.charAt(j - 1)) matrix[i][j] = matrix[i - 1][j - 1];
+                else matrix[i][j] = Math.min(matrix[i - 1][j - 1] + 1, matrix[i][j - 1] + 1, matrix[i - 1][j] + 1);
+            }
+        }
+        return matrix[b.length][a.length];
+    }
+
+
+// KEYBOARD SHORTCUTS
+    document.addEventListener('keydown', function(event) {
+        // Don't trigger shortcuts if the user is in the login/auth screens
+        if (document.getElementById('auth-overlay').style.display !== 'none') return;
+
+        const isRevealNextVisible = document.getElementById('reveal-next').style.display === 'block';
+
+        if (isRevealNextVisible) {
+            // If the answer is already shown (Next Word button is visible)
+            if (event.key === 'ArrowRight' || event.key === 'Enter' || event.code === 'Space') {
+                event.preventDefault();
+                getRandomWord();
+            }
+        } else {
+            // During the active test
+            if (event.key === 'ArrowUp') {
+                event.preventDefault();
+                updateWeight('yes');
+            } else if (event.key === 'ArrowDown') {
+                event.preventDefault();
+                updateWeight('no');
+            } else if (event.key === 'ArrowRight') {
+                event.preventDefault();
+                getRandomWord();
+            }
+        }
+    });
+
+
+    fetch("../footer.html").then(r => r.text()).then(d => { document.getElementById("footer-placeholder").innerHTML = d; });
 </script>
-
-<script src="../js/translations.js"></script>
-<script src="../js/language-selector.js"></script>
 
 </body>
 </html>
