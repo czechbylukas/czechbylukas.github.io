@@ -322,16 +322,39 @@ function togglePaidStatus(uid, isChecked) {
 
 
     // --- GAME LOGIC ---
-    async function initDatabase() {
-        try {
-            const sqlPromise = initSqlJs({ locateFile: file => `https://cdnjs.cloudflare.com/ajax/libs/sql.js/1.6.2/${file}` });
-            const response = await fetch("czech_master.db");
-            const buf = await response.arrayBuffer();
-            const [SQL, data] = await Promise.all([sqlPromise, buf]);
-            db = new SQL.Database(new Uint8Array(data));
-            getRandomWord();
-        } catch (err) { console.error(err); }
+    // GET LEVELS FROM DATABASE COLUMD D
+async function initDatabase() {
+    try {
+        const sqlPromise = initSqlJs({ locateFile: file => `https://cdnjs.cloudflare.com/ajax/libs/sql.js/1.6.2/${file}` });
+        const response = await fetch("czech_master.db");
+        const buf = await response.arrayBuffer();
+        const [SQL, data] = await Promise.all([sqlPromise, buf]);
+        db = new SQL.Database(new Uint8Array(data));
+
+        // --- NEW LOGIC TO POPULATE LEVELS ---
+        const levelRes = db.exec("SELECT DISTINCT level FROM words ORDER BY level ASC");
+        const select = document.getElementById('level-select');
+        select.innerHTML = ''; // Clear existing
+
+        if (levelRes[0]) {
+            levelRes[0].values.forEach(row => {
+                const levelVal = row[0];
+                const opt = document.createElement('option');
+                opt.value = levelVal;
+                opt.innerText = levelVal;
+                select.appendChild(opt);
+            });
+        }
+        // -------------------------------------
+
+        getRandomWord();
+    } catch (err) { 
+        console.error("Database Error:", err); 
     }
+}
+
+
+
 
 function getRandomWord() {
     if(!db) return;
