@@ -77,9 +77,9 @@
     <div class="test-box">
 
 <div style="margin-bottom: 15px;">
-    <select id="level-select" style="padding: 8px; width: 90%; max-width: 400px; border-radius: 5px;" onchange="getRandomWord()">
-        <option>Loading lessons...</option>
-    </select>
+<select id="level-select" style="padding: 8px; width: 90%; max-width: 400px; border-radius: 5px;" onchange="getRandomWord()">
+    <option disabled selected>Select a lesson...</option>
+</select>
 </div>
 
         <div id="image-container">
@@ -342,8 +342,9 @@ async function initDatabase() {
             let groupElement = null;
 
             res[0].values.forEach(row => {
-                const levelVal = row[0] || "Uncategorized";
-                const lessonVal = row[1] || "General";
+                // FIX: Use nullish coalescing (??) or explicit check to allow '0' as a value
+                const levelVal = (row[0] !== null && row[0] !== undefined) ? row[0] : "N/A";
+                const lessonVal = (row[1] !== null && row[1] !== undefined) ? row[1] : "General";
 
                 // Create a new <optgroup> whenever the Level changes
                 if (levelVal !== currentGroup) {
@@ -355,9 +356,8 @@ async function initDatabase() {
 
                 // Add the lesson as an option inside the group
                 const opt = document.createElement('option');
-                // We store both values in the value attribute using a separator
                 opt.value = `${levelVal}|${lessonVal}`;
-                opt.innerText = lessonVal;
+                opt.innerText = lessonVal; // This will now correctly show '0'
                 groupElement.appendChild(opt);
             });
         }
