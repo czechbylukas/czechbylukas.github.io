@@ -75,12 +75,13 @@
 
 <main>
     <div class="test-box">
-        <div style="margin-bottom: 15px;">
-            <select id="level-select" style="padding: 5px;" onchange="getRandomWord()">
-                <option value="A1">A1</option>
-                <option value="A2">A2</option>
-            </select>
-        </div>
+
+<div style="margin-bottom: 15px;">
+    <select id="level-select" style="padding: 8px; width: 90%; max-width: 400px; border-radius: 5px;" onchange="getRandomWord()">
+        <option>Loading lessons...</option>
+    </select>
+</div>
+
         <div id="image-container">
             <img id="word-image" src="" style="max-height: 100%; border-radius: 8px; display: none;">
         </div>
@@ -331,21 +332,35 @@ async function initDatabase() {
         const [SQL, data] = await Promise.all([sqlPromise, buf]);
         db = new SQL.Database(new Uint8Array(data));
 
-        // --- NEW LOGIC TO POPULATE LEVELS ---
-        const levelRes = db.exec("SELECT DISTINCT level FROM words ORDER BY level ASC");
+        // Fetch unique Level + Lesson combinations
+        const res = db.exec("SELECT DISTINCT level, lesson FROM words ORDER BY level ASC, lesson ASC");
         const select = document.getElementById('level-select');
-        select.innerHTML = ''; // Clear existing
+        select.innerHTML = ''; 
 
-        if (levelRes[0]) {
-            levelRes[0].values.forEach(row => {
-                const levelVal = row[0];
+        if (res[0]) {
+            let currentGroup = null;
+            let groupElement = null;
+
+            res[0].values.forEach(row => {
+                const levelVal = row[0] || "Uncategorized";
+                const lessonVal = row[1] || "General";
+
+                // Create a new <optgroup> whenever the Level changes
+                if (levelVal !== currentGroup) {
+                    currentGroup = levelVal;
+                    groupElement = document.createElement('optgroup');
+                    groupElement.label = `Level ${levelVal}`;
+                    select.appendChild(groupElement);
+                }
+
+                // Add the lesson as an option inside the group
                 const opt = document.createElement('option');
-                opt.value = levelVal;
-                opt.innerText = levelVal;
-                select.appendChild(opt);
+                // We store both values in the value attribute using a separator
+                opt.value = `${levelVal}|${lessonVal}`;
+                opt.innerText = lessonVal;
+                groupElement.appendChild(opt);
             });
         }
-        // -------------------------------------
 
         getRandomWord();
     } catch (err) { 
@@ -359,7 +374,7 @@ async function initDatabase() {
 function getRandomWord() {
     if(!db) return;
     
-    // UI Reset
+    // UI Reset code... (Keep your existing reset code here)
     document.getElementById('btn-container').style.display = 'flex';
     document.getElementById('reveal-next').style.display = 'none';
     document.getElementById('czech-word').classList.add('hidden');
@@ -368,13 +383,20 @@ function getRandomWord() {
     document.getElementById('typo-msg').innerText = "";
     document.getElementById('success-msg').innerText = "";
 
-    const level = document.getElementById('level-select').value;
-    const langColumn = document.getElementById('lang-select').value; // Get trans_en, trans_es, etc.
+    // SPLIT the combined value
+    const combinedValue = document.getElementById('level-select').value;
+    const [level, lesson] = combinedValue.split('|');
+    
+    const langColumn = document.getElementById('lang-select').value;
 
-    // Updated SQL to use the dynamic language column
-    const query = `SELECT lemma, ${langColumn}, image_path, audio_path FROM words WHERE level='${level}'`;
+    // Filter by BOTH level and lesson
+    const query = `SELECT lemma, ${langColumn}, image_path, audio_path 
+                   FROM words 
+                   WHERE level='${level}' AND lesson='${lesson}'`;
+    
     const res = db.exec(query);
 
+    // Existing pool logic... (Keep the rest of your function)
     if(res[0]) {
         const rows = res[0].values;
         let pool = [];
@@ -382,15 +404,10 @@ function getRandomWord() {
             const w = userWeights[r[0]] || 5;
             for(let i=0; i<w; i++) pool.push(r);
         });
-        
         const s = pool[Math.floor(Math.random()*pool.length)];
-        
-        // currentWord.english will now hold Spanish/German if selected
         currentWord = { czech: s[0], translation: s[1], img: s[2], audio: s[3] };
-        
         document.getElementById('english-word').innerText = s[1];
         document.getElementById('czech-word').innerText = s[0];
-        
         const img = document.getElementById('word-image');
         if(s[2]) { img.src = s[2]; img.style.display = 'block'; } else { img.style.display = 'none'; }
     }
