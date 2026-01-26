@@ -2,7 +2,9 @@
 <html lang="cs">
 <head>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="stylesheet" href="style.css">
 
+<!-- Google tag (gtag.js) -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-1BCW5XQ0X5"></script>
 <script>
   window.dataLayer = window.dataLayer || [];
@@ -16,10 +18,12 @@
   <meta charset="UTF-8">
   <title id="page-title">Useful Phrases | CzechByLukas</title>
 
+ 
+
+  <!-- CSS -->
   <link rel="stylesheet" href="../css/style.css">
   <link rel="stylesheet" href="../css/language-selector.css">
 
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/sql.js/1.8.0/sql-wasm.js"></script>
 
 </head>
 
@@ -27,6 +31,8 @@
 <header>
   <h1 id="heading-vocab">Useful Phrases – Vocabulary</h1>
   <div id="language-selector-container"></div>
+
+
 </header>
 
 <main>
@@ -34,6 +40,7 @@
     <thead>
       <tr>
         <th id="table-czech">Czech</th>
+        <th id="table-pronunciation">Pronunciation</th>
         <th id="table-english">English</th>
       </tr>
     </thead>
@@ -64,86 +71,53 @@
     .catch(error => console.error("Error loading footer:", error));
 </script>
 
+
+
+<!-- Vocabulary data -->
+<script src="../data/1_usefulphrases.js" defer></script>
+
 <script src="../js/language-selector.js"></script>
+
+<!-- Shared translations -->
 <script src="../js/translations.js" defer></script>
 
 
+<!-- Vocabulary table renderer -->
 <script>
-  let db = null;
-
-  async function initDatabase() {
-    try {
-      const sqlPromise = initSqlJs({
-        locateFile: file => `https://cdnjs.cloudflare.com/ajax/libs/sql.js/1.8.0/${file}`
-      });
-      
-      // Path to your database
-      const dataPromise = fetch("../VocabSQL_database/czech_master.db").then(res => res.arrayBuffer());
-      
-      const [SQL, buf] = await Promise.all([sqlPromise, dataPromise]);
-      db = new SQL.Database(new Uint8Array(buf));
-      
-      renderVocab();
-    } catch (err) {
-      console.error("Database error:", err);
-    }
-  }
-
   function renderVocab() {
-    if (!db) return;
-
     const lang = localStorage.getItem("selectedLanguage") || "en";
     const tbody = document.getElementById("vocabBody");
     tbody.innerHTML = "";
 
     const fragment = document.createDocumentFragment();
 
-    // Query modified: pronunciation removed, only lemma and translations kept
-    const query = "SELECT lemma, trans_en, trans_de, trans_es FROM words WHERE level = 'A0' AND lesson = 0";
-    
-    try {
-        const results = db.exec(query);
+    vocab.forEach(item => {
+      const row = document.createElement("tr");
+      let translation;
 
-        if (results.length > 0) {
-        const rows = results[0].values;
+      switch (lang) {
+        case "cz": translation = item.english; break;
+        case "de": translation = item.german; break;
+        case "es": translation = item.spanish; break;
+        default: translation = item.english; break;
+      }
 
-        rows.forEach(row => {
-            const item = {
-                czech: row[0],
-                english: row[1],
-                german: row[2],
-                spanish: row[3]
-            };
+      row.innerHTML = `<td>${item.czech}</td><td>${item.pronunciation}</td><td>${translation}</td>`;
+      fragment.appendChild(row);
+    });
 
-            const tr = document.createElement("tr");
-            let translation;
-
-            switch (lang) {
-                case "cz": translation = item.english; break;
-                case "de": translation = item.german; break;
-                case "es": translation = item.spanish; break;
-                default: translation = item.english; break;
-            }
-
-            // Table row now only has 2 columns: Czech and Translation
-            tr.innerHTML = `<td>${item.czech}</td><td>${translation}</td>`;
-            fragment.appendChild(tr);
-        });
-        }
-
-        tbody.appendChild(fragment);
-    } catch (e) {
-        console.error("SQL Error:", e);
-    }
+    tbody.appendChild(fragment);
+    // DO NOT call applyTranslations() here to avoid recursion.
   }
 
   // initial render after DOM ready
   document.addEventListener("DOMContentLoaded", () => {
-    initDatabase();
+    renderVocab();
+    // applyTranslations once on load if available
     if (typeof applyTranslations === "function") applyTranslations();
   });
 
-  // listen for language changes
+  // listen for language changes dispatched by the selector
   document.addEventListener("languageChanged", () => {
     renderVocab();
     if (typeof applyTranslations === "function") applyTranslations();
