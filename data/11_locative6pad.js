@@ -5,7 +5,7 @@ const vocab = [
     czech: "o",
     english: "about",
     spanish: "sobre / de",
-    german: "o / über"
+    german: "über"
   },
   {
     czech: "po",
