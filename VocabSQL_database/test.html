@@ -12,7 +12,8 @@
       gtag('js', new Date());
       gtag('config', 'G-1BCW5XQ0X5');
     </script>
-    <title>Test Vocabulary - HáCzech</title>
+  <title id="page-title">Study Tool | HáCZech</title>
+
     <script src="https://cdnjs.cloudflare.com/ajax/libs/sql.js/1.6.2/sql-wasm.js"></script>
     <style>
         .test-box { background: rgba(255, 255, 255, 0.9); border-radius: 12px; padding: 20px; margin: 20px auto; text-align: center; border: 2px solid #2c3e50; width: 90%; max-width: 500px; height: 600px; position: relative; display: flex; flex-direction: column; }
@@ -72,7 +73,7 @@
 <button id="admin-trigger" class="test-btn" style="display:none; position: fixed; top: 10px; left: 10px; z-index: 999; background: #e67e22;" onclick="openAdmin()">Teacher Console</button>
 
 <header>
-    <h1 id="heading-welcome">Vocabulary Tester</h1>
+    <h1 id="heading-welcome">Study Tool</h1>
     <div id="language-selector-container">
         <select id="lang-select" style="padding: 8px; border-radius: 5px; border: 2px solid #2c3e50; font-weight: bold;" onchange="getRandomWord()">
             <option value="trans_en">🇬🇧</option>
@@ -104,9 +105,9 @@
 
         <div id="czech-word" class="display-czech hidden">---</div>
         <div id="btn-container">
-            <button class="test-btn" style="background:#27ae60;" onclick="updateWeight('yes')">YES</button>
-            <button class="test-btn" onclick="getRandomWord()">NEXT</button>
-            <button class="test-btn" style="background:#e74c3c;" onclick="updateWeight('no')">NO</button>
+            <button class="test-btn" style="background:#27ae60;" onclick="updateWeight('yes')">UMÍM</button>
+            <button class="test-btn" onclick="getRandomWord()">DALŠÍ</button>
+            <button class="test-btn" style="background:#e74c3c;" onclick="updateWeight('no')">NEUMÍM</button>
         </div>
         <button id="reveal-next" class="test-btn" style="display:none; width:80%; margin: 0 auto;" onclick="getRandomWord()">NEXT WORD</button>
     </div>
@@ -368,15 +369,24 @@ async function initDatabase() {
         const [SQL, data] = await Promise.all([sqlPromise, buf]);
         db = new SQL.Database(new Uint8Array(data));
 
-        const res = db.exec("SELECT DISTINCT level, lesson FROM words ORDER BY level ASC, lesson ASC");
+        const res = db.exec("SELECT DISTINCT level, lesson FROM words");
         const select = document.getElementById('level-select');
-        select.innerHTML = ''; 
+        
+        // Sets the default text you requested
+        select.innerHTML = '<option disabled selected>Vyberte sadu...</option>'; 
 
         if (res[0]) {
+            // Sorts Level (A0, A1) and then Lessons numerically (1, 2, 3... 10)
+            const sortedRows = res[0].values.sort((a, b) => {
+                if (a[0] !== b[0]) return a[0].localeCompare(b[0]);
+                // parseInt ensures "10" comes after "9" instead of after "1"
+                return parseInt(a[1]) - parseInt(b[1]) || a[1].localeCompare(b[1]);
+            });
+
             let currentGroup = null;
             let groupElement = null;
 
-            res[0].values.forEach(row => {
+            sortedRows.forEach(row => {
                 const levelVal = (row[0] !== null) ? row[0] : "N/A";
                 const lessonVal = (row[1] !== null) ? row[1] : "General";
 
@@ -392,10 +402,6 @@ async function initDatabase() {
                 opt.innerText = lessonVal;
                 groupElement.appendChild(opt);
             });
-
-            // Set the default lesson and start the game
-            select.value = "A0|0";
-            getRandomWord();
         }
     } catch (err) { 
         console.error("Database Error:", err); 
@@ -405,16 +411,34 @@ async function initDatabase() {
 
 
 
+
+
 function getRandomWord() {
     if(!db) return;
     
     // 1. Get current selection values
     const combinedValue = document.getElementById('level-select').value;
-    const [level, lesson] = combinedValue.split('|');
     const langColumn = document.getElementById('lang-select').value;
 
-    // 2. Permission Check
-    const isFreeLesson = (level === 'A0' && lesson === '0');
+    // Stop if the default "Vyberte sadu" is selected
+    if(!combinedValue || combinedValue.includes("Vyberte")) return;
+
+    // Define Level and Lesson from the dropdown value
+    const [level, lesson] = combinedValue.split('|');
+
+    // 2. UI RESET: Clear old word immediately so the screen reloads visually
+    document.getElementById('english-word').innerText = "---";
+    document.getElementById('czech-word').innerText = "---";
+    document.getElementById('word-image').style.display = 'none';
+    document.getElementById('typo-msg').innerText = "";
+    document.getElementById('success-msg').innerText = "";
+    document.getElementById('word-guess-box').value = ""; 
+    document.getElementById('czech-word').classList.add('hidden');
+    document.getElementById('btn-container').style.display = 'flex';
+    document.getElementById('reveal-next').style.display = 'none';
+
+    // 3. Permission Check
+    const isFreeLesson = (level === 'A0' && lesson === '0 Užitečná slova');
     const isUserPaid = (window.userStatus === 'paid');
 
     if (!isFreeLesson && !isUserPaid) {
@@ -426,16 +450,6 @@ function getRandomWord() {
         }
         return; 
     }
-
-    // 3. UI Reset (Hide paywall if switching back to free)
-    document.getElementById('unpaid-message').style.display = 'none'; 
-    document.getElementById('btn-container').style.display = 'flex';
-    document.getElementById('reveal-next').style.display = 'none';
-    document.getElementById('czech-word').classList.add('hidden');
-    document.getElementById('word-guess-box').value = ""; 
-    document.getElementById('word-guess-box').focus();
-    document.getElementById('typo-msg').innerText = "";
-    document.getElementById('success-msg').innerText = "";
 
     // 4. Database Query
     const query = `SELECT lemma, ${langColumn}, image_path, audio_path 
@@ -474,19 +488,31 @@ function getRandomWord() {
 
 
 
-    function evaluateTyping() {
+function evaluateTyping() {
     const input = document.getElementById('word-guess-box').value.trim().toLowerCase();
     const target = currentWord.czech.toLowerCase();
-        if (input === target) {
-            document.getElementById('success-msg').innerText = "Správně!";
-            document.getElementById('czech-word').classList.remove('hidden');
-            adjustWeight(-1);
-            setTimeout(getRandomWord, 1200);
-        } else {
-            document.getElementById('typo-msg').innerText = "Not quite...";
-            showAnswer(2);
-        }
+    const distance = getEditDistance(input, target);
+
+    if (distance === 0) {
+        // Perfect match
+        document.getElementById('success-msg').innerText = "Výborně!";
+        document.getElementById('czech-word').classList.remove('hidden');
+        adjustWeight(-1);
+        setTimeout(getRandomWord, 1200);
+    } else if (distance <= (target.length > 5 ? 2 : 1)) {
+        // "Close enough" (Typo)
+        document.getElementById('typo-msg').innerText = `Téměř! Správně je: ${currentWord.czech}`;
+        document.getElementById('czech-word').classList.remove('hidden');
+        // Weight stays the same (no penalty, but no reward)
+        adjustWeight(0); 
+        document.getElementById('btn-container').style.display = 'none';
+        document.getElementById('reveal-next').style.display = 'block';
+    } else {
+        // Way off
+        document.getElementById('typo-msg').innerText = "Bohužel...";
+        showAnswer(2); // Full penalty
     }
+}
 
     function showAnswer(penalty) {
         document.getElementById('czech-word').classList.remove('hidden');
@@ -496,14 +522,26 @@ function getRandomWord() {
         adjustWeight(penalty);
     }
 
-    function updateWeight(choice) {
-        if(choice === 'yes') {
+function updateWeight(choice) {
+    const inputField = document.getElementById('word-guess-box');
+    const hasTyped = inputField.value.trim().length > 0;
+
+    if (choice === 'yes') {
+        // If they clicked "UMÍM" but actually typed something
+        if (hasTyped) {
+            evaluateTyping(); // This will check if their typing is correct
+        } else {
+            // Standard "I knew it" behavior (empty box)
             document.getElementById('success-msg').innerText = "Správně!";
             document.getElementById('czech-word').classList.remove('hidden');
             adjustWeight(-1);
             setTimeout(getRandomWord, 1200);
-        } else showAnswer(2);
+        }
+    } else {
+        // choice === 'no'
+        showAnswer(2);
     }
+}
 
 function adjustWeight(change) {
     if(window.userStatus !== 'paid' || !auth.currentUser) return; 
@@ -517,6 +555,28 @@ function adjustWeight(change) {
 
     // Levenshtein and Keyboard logic removed for brevity but keep them in your actual file!
     fetch("../footer.html").then(r => r.text()).then(d => { document.getElementById("footer-placeholder").innerHTML = d; });
+
+
+
+
+// DONT BE STRICT IF THE ANSWER HAS TYPO
+function getEditDistance(a, b) {
+    if (a.length === 0) return b.length;
+    if (b.length === 0) return a.length;
+    const matrix = [];
+    for (let i = 0; i <= b.length; i++) matrix[i] = [i];
+    for (let j = 0; j <= a.length; j++) matrix[0][j] = j;
+    for (let i = 1; i <= b.length; i++) {
+        for (let j = 1; j <= a.length; j++) {
+            if (b.charAt(i - 1) === a.charAt(j - 1)) {
+                matrix[i][j] = matrix[i - 1][j - 1];
+            } else {
+                matrix[i][j] = Math.min(matrix[i - 1][j - 1] + 1, Math.min(matrix[i][j - 1] + 1, matrix[i - 1][j] + 1));
+            }
+        }
+    }
+    return matrix[b.length][a.length];
+}
 
 
 
