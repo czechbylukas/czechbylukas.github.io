@@ -78,7 +78,10 @@
       });
       
       // Path to your database
-      const dataPromise = fetch("../VocabSQL_database/czech_master.db").then(res => res.arrayBuffer());
+      const dataPromise = fetch("../VocabSQL_database/czech_master.db").then(res => {
+  if (!res.ok) throw new Error("Database file not found at path!");
+  return res.arrayBuffer();
+});
       
       const [SQL, buf] = await Promise.all([sqlPromise, dataPromise]);
       db = new SQL.Database(new Uint8Array(buf));
@@ -99,8 +102,9 @@
     const fragment = document.createDocumentFragment();
 
     // Query modified: pronunciation removed, only lemma and translations kept
-    const query = "SELECT lemma, trans_en, trans_de, trans_es FROM words WHERE level = 'A0' AND lesson = 0";
-    
+   // Change lesson = 0 to lesson = 1
+const query = "SELECT lemma, trans_en, trans_de, trans_es FROM words WHERE level = 'A0' AND lesson = '0 Užitečná slova'";
+
     try {
         const results = db.exec(query);
 
@@ -119,7 +123,7 @@
             let translation;
 
             switch (lang) {
-                case "cz": translation = item.english; break;
+                case "cs": translation = item.english; break;
                 case "de": translation = item.german; break;
                 case "es": translation = item.spanish; break;
                 default: translation = item.english; break;
@@ -138,10 +142,7 @@
   }
 
   // initial render after DOM ready
-  document.addEventListener("DOMContentLoaded", () => {
-    initDatabase();
-    if (typeof applyTranslations === "function") applyTranslations();
-  });
+document.addEventListener("DOMContentLoaded", initDatabase);
 
   // listen for language changes
   document.addEventListener("languageChanged", () => {
