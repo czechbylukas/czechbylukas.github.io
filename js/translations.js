@@ -17,10 +17,7 @@ function applyTranslations() {
   if (!translations || Object.keys(translations).length === 0) return;
 
   // ---------- PAGE TITLE ----------
-  const pageTitle = document.querySelector("title");
-  if (pageTitle && translations["pageTitle"]) {
-    pageTitle.textContent = translations["pageTitle"];
-  }
+
 
   // ---------- HEADINGS ----------
   const idsToTranslate = [

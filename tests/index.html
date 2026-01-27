@@ -5,6 +5,11 @@
 <link rel="stylesheet" href="style.css">
 
 
+  <meta charset="UTF-8">
+  <title>Tests | Overview | HáCZech</title>
+
+
+
 <!-- Google tag (gtag.js) -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-1BCW5XQ0X5"></script>
 <script>
@@ -12,12 +17,16 @@
   function gtag(){dataLayer.push(arguments);}
   gtag('js', new Date());
 
-  gtag('config', 'G-1BCW5XQ0X5');
+  // 1. Get the language (e.g., "cs" or "en")
+  const savedLang = (localStorage.getItem("selectedLanguage") || "en").toUpperCase();
+
+  // 2. This sends "[CS] Title..." to Google Analytics
+  gtag('config', 'G-1BCW5XQ0X5', {
+    'language_code': savedLang.toLowerCase(),
+    'page_title': '[' + savedLang + '] ' + document.title
+  });
 </script>
 
-
-  <meta charset="UTF-8">
-  <title id="page-title">Tests | Overview | HáCZech</title>
 
   <!-- Main stylesheet -->
   <link rel="stylesheet" href="/css/style.css">
@@ -65,7 +74,7 @@
 
     <h3 id="heading-vocabA2Section">Vocabulary building</h3>
     <ul>
-   <li><a id="link-ex-osobni-udaje" href="/tests/level_a2/1_osobni_udaje.html">Osobní údaje, rodina, životopis</a></li>
+   <li><a id="link-ex-osobni-udaje" href="/tests/level_a2/1_osobni.html">Osobní údaje, rodina, životopis</a></li>
       <li><a id="link-ex-nakupovani" href="/tests/level_a2/2_nakupovani.html">Nakupování</a></li>
       <li><a id="link-ex-denni-rezim" href="/tests/level_a2/3_denni_rezim.html">Denní režim</a></li>
       <li><a id="link-ex-cestovani" href="/tests/level_a2/4_cestovani.html">Cestování</a></li>

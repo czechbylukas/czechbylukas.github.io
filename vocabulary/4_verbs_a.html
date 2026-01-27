@@ -5,6 +5,11 @@
 <link rel="stylesheet" href="style.css">
 
 
+
+  <meta charset="UTF-8">
+  <title id="page-title">Vocabulary 1 | Verbs (A) | HáCZech</title>
+
+
 <!-- Google tag (gtag.js) -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-1BCW5XQ0X5"></script>
 <script>
@@ -12,12 +17,17 @@
   function gtag(){dataLayer.push(arguments);}
   gtag('js', new Date());
 
-  gtag('config', 'G-1BCW5XQ0X5');
+  // 1. Get the language (e.g., "cs" or "en")
+  const savedLang = (localStorage.getItem("selectedLanguage") || "en").toUpperCase();
+
+  // 2. This sends "[CS] Title..." to Google Analytics
+  gtag('config', 'G-1BCW5XQ0X5', {
+    'language_code': savedLang.toLowerCase(),
+    'page_title': '[' + savedLang + '] ' + document.title
+  });
 </script>
 
 
-  <meta charset="UTF-8">
-  <title id="page-title">Vocabulary 1 | Verbs (A) | HáCZech</title>
   <link rel="stylesheet" href="../css/style.css">
   <link rel="stylesheet" href="../css/language-selector.css">
 </head>
@@ -79,7 +89,7 @@
       const row = document.createElement("tr");
       let translation;
       switch (lang) {
-        case "cz": translation = item.english; break;
+        case "cs": translation = item.english; break;
         case "de": translation = item.german; break;
         case "es": translation = item.spanish; break;
         default: translation = item.english; break;

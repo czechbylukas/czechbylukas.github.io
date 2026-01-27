@@ -1,15 +1,27 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+
+<meta charset="UTF-8">
+  <title>Test 2 | Osobní | HáCZech</title>
+
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-1BCW5XQ0X5"></script>
 <script>
-window.dataLayer = window.dataLayer || [];
-function gtag(){dataLayer.push(arguments);}
-gtag('js', new Date());
-gtag('config', 'G-1BCW5XQ0X5');
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  // 1. Get the language (e.g., "cs" or "en")
+  const savedLang = (localStorage.getItem("selectedLanguage") || "en").toUpperCase();
+
+  // 2. This sends "[CS] Title..." to Google Analytics
+  gtag('config', 'G-1BCW5XQ0X5', {
+    'language_code': savedLang.toLowerCase(),
+    'page_title': '[' + savedLang + '] ' + document.title
+  });
 </script>
-<meta charset="UTF-8">
-  <title id="page-title">Test 2 | Osobní | HáCZech</title>
+
+
 
 <link rel="stylesheet" href="../../css/style.css">
 <link rel="stylesheet" href="../../css/language-selector.css">
@@ -60,25 +72,136 @@ alert(timerEl.textContent);
 }
 }, 1000);
 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="stylesheet" href="style.css">
+
+
+  <meta charset="UTF-8">
+  <title>Test 1 | Useful Phrases | HáCZech</title>
+
+
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-1BCW5XQ0X5"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  // 1. Get the language (e.g., "cs" or "en")
+  const savedLang = (localStorage.getItem("selectedLanguage") || "en").toUpperCase();
+
+  // 2. This sends "[CS] Title..." to Google Analytics
+  gtag('config', 'G-1BCW5XQ0X5', {
+    'language_code': savedLang.toLowerCase(),
+    'page_title': '[' + savedLang + '] ' + document.title
+  });
+</script>
+
+
+  <link rel="stylesheet" href="../css/style.css">
+  <link rel="stylesheet" href="../css/language-selector.css">
+
+</head>
+<body class="vocab-page">
+
+  <header>
+    <h1 id="heading-test-title">Useful Phrases – Test</h1>
+    <p id="heading-test-instructions"></p>
+    
+    <!-- Language selector container -->
+    <div id="language-selector-container" class="language-selector"></div>
+  </header>
+
+  <!-- Timer -->
+  <div id="timer" style="font-size: 1.5rem; color: #2b593e; margin-bottom: 15px;">
+    ⏱ Time remaining: 10:00
+  </div>
+
+  <!-- Google Form iframe -->
+  <iframe id="testIframe"
+          style="width: 90%; min-height: 100vh; max-height: 10000px; border: none; border-radius: 10px; box-shadow: 0 0 15px rgba(0,0,0,0.2); background: white;">
+  </iframe>
+
+  <!-- Big buttons -->
+  <div class="big-buttons">
+    <a id="btn-vocab" href="../vocabulary/1_usefulphrases.html"></a>
+    <a id="btn-practice" href="../exercise/1_usefulphrases.html"></a>
+  </div>
+
+  <!-- Small buttons -->
+  <div class="small-buttons">
+    <a id="btn-home" href="../index.html"></a>
+    <a id="btn-all-tests" href="../tests/index.html"></a>
+  </div>
+
+  <script src="../data/translations/tests_links.js"></script>
+  <script src="../js/translations.js"></script>
+  <script src="../js/language-selector.js"></script>
+  <script>
+    let lang = localStorage.getItem("selectedLanguage") || "en";
+
+    let timeLeft = 10 * 60;
+const timerEl = document.getElementById('timer');
+
+const timerInterval = setInterval(() => {
+  const minutes = Math.floor(timeLeft / 60).toString().padStart(2,'0');
+  const seconds = (timeLeft % 60).toString().padStart(2,'0');
+
+  timerEl.textContent = `⏱ ${translations.messages?.timeRemaining || "Time remaining:"} ${minutes}:${seconds}`;
+  timeLeft--;
+
+  if (timeLeft < 0) {
+    clearInterval(timerInterval);  // stop timer
+    timerEl.textContent = translations.messages?.timesUp || "Time’s up! Please submit your answers now.";
+    timerEl.style.color = '#c0392b';
+    alert(timerEl.textContent);    // alert once only
+  }
+}, 1000);
+
+
 async function updatePage(lang) {
-if(typeof loadTranslations === "function") await loadTranslations(lang);
-const lessonKey = "lessonA2OsobniUdaje";
-document.getElementById("testIframe").src =
-testLinks[lessonKey][lang] || testLinks[lessonKey]["en"];
-document.getElementById("btn-vocab").textContent = translations.buttons?.vocabulary || "📘 Vocabulary";
-document.getElementById("btn-practice").textContent = translations.buttons?.practice || "🧠 Practice";
-document.getElementById("btn-home").textContent = translations.buttons?.home || "🏠 Home";
-document.getElementById("btn-all-tests").textContent = translations.buttons?.testList || "📝 All Tests";
+  if (typeof loadTranslations === "function") await loadTranslations(lang);
+
+  const lesson = "lessonA2OsobniUdaje";
+  document.getElementById("testIframe").src = testLinks[lesson][lang] || testLinks[lesson]["en"];
+
+  // Header
+  document.getElementById("heading-test-title").textContent = translations.test?.title || "Useful Phrases – Test";
+  document.getElementById("heading-test-instructions").textContent = translations.test?.instructions || "";
+
+  // Buttons
+  document.getElementById("btn-vocab").textContent = translations.buttons?.vocabulary || "📘 Vocabulary";
+  document.getElementById("btn-practice").textContent = translations.buttons?.practice || "🧠 Practice";
+  document.getElementById("btn-home").textContent = translations.buttons?.home || "🏠 Home";
+  document.getElementById("btn-all-tests").textContent = translations.buttons?.testList || "📝 All Tests";
 }
 
-document.addEventListener("DOMContentLoaded", () => updatePage(lang));
+// 1. Initial Load
+document.addEventListener("DOMContentLoaded", () => { 
+  updatePage(localStorage.getItem("selectedLanguage") || "en"); 
+});
+
+// 2. Listen for language changes (flag clicks)
+document.addEventListener("languageChanged", () => {
+  const newLang = localStorage.getItem("selectedLanguage") || "en";
+  updatePage(newLang);
+});
 </script>
 
 <div id="footer-placeholder"></div>
+
 <script>
-fetch("/footer.html")
-.then(r => r.text())
-.then(h => document.getElementById("footer-placeholder").innerHTML = h);
+  // Load footer.html dynamically
+  fetch("/footer.html")
+    .then(response => response.text())
+    .then(data => {
+      document.getElementById("footer-placeholder").innerHTML = data;
+    })
+    .catch(error => console.error("Error loading footer:", error));
 </script>
+
 </body>
 </html>

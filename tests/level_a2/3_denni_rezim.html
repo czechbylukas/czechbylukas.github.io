@@ -1,15 +1,27 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+
+
+<meta charset="UTF-8">
+  <title>Test 2 | Denní režim  | HáCZech</title>
+
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-1BCW5XQ0X5"></script>
 <script>
-window.dataLayer = window.dataLayer || [];
-function gtag(){dataLayer.push(arguments);}
-gtag('js', new Date());
-gtag('config', 'G-1BCW5XQ0X5');
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  // 1. Get the language (e.g., "cs" or "en")
+  const savedLang = (localStorage.getItem("selectedLanguage") || "en").toUpperCase();
+
+  // 2. This sends "[CS] Title..." to Google Analytics
+  gtag('config', 'G-1BCW5XQ0X5', {
+    'language_code': savedLang.toLowerCase(),
+    'page_title': '[' + savedLang + '] ' + document.title
+  });
 </script>
-<meta charset="UTF-8">
-  <title id="page-title">Test 2 | Denní režim  | HáCZech</title>
+
 
 <link rel="stylesheet" href="../../css/style.css">
 <link rel="stylesheet" href="../../css/language-selector.css">
@@ -61,24 +73,45 @@ alert(timerEl.textContent);
 }, 1000);
 
 async function updatePage(lang) {
-if(typeof loadTranslations === "function") await loadTranslations(lang);
-const lessonKey = "lessonA2DenniRezim";
-document.getElementById("testIframe").src =
-testLinks[lessonKey][lang] || testLinks[lessonKey]["en"];
-document.getElementById("btn-vocab").textContent = translations.buttons?.vocabulary || "📘 Vocabulary";
-document.getElementById("btn-practice").textContent = translations.buttons?.practice || "🧠 Practice";
-document.getElementById("btn-home").textContent = translations.buttons?.home || "🏠 Home";
-document.getElementById("btn-all-tests").textContent = translations.buttons?.testList || "📝 All Tests";
+  if (typeof loadTranslations === "function") await loadTranslations(lang);
+
+  const lesson = "lessonA2DenniRezim";
+  document.getElementById("testIframe").src = testLinks[lesson][lang] || testLinks[lesson]["en"];
+
+  // Header
+  document.getElementById("heading-test-title").textContent = translations.test?.title || "Useful Phrases – Test";
+  document.getElementById("heading-test-instructions").textContent = translations.test?.instructions || "";
+
+  // Buttons
+  document.getElementById("btn-vocab").textContent = translations.buttons?.vocabulary || "📘 Vocabulary";
+  document.getElementById("btn-practice").textContent = translations.buttons?.practice || "🧠 Practice";
+  document.getElementById("btn-home").textContent = translations.buttons?.home || "🏠 Home";
+  document.getElementById("btn-all-tests").textContent = translations.buttons?.testList || "📝 All Tests";
 }
 
-document.addEventListener("DOMContentLoaded", () => updatePage(lang));
+// 1. Initial Load
+document.addEventListener("DOMContentLoaded", () => { 
+  updatePage(localStorage.getItem("selectedLanguage") || "en"); 
+});
+
+// 2. Listen for language changes (flag clicks)
+document.addEventListener("languageChanged", () => {
+  const newLang = localStorage.getItem("selectedLanguage") || "en";
+  updatePage(newLang);
+});
 </script>
 
 <div id="footer-placeholder"></div>
+
 <script>
-fetch("/footer.html")
-.then(r => r.text())
-.then(h => document.getElementById("footer-placeholder").innerHTML = h);
+  // Load footer.html dynamically
+  fetch("/footer.html")
+    .then(response => response.text())
+    .then(data => {
+      document.getElementById("footer-placeholder").innerHTML = data;
+    })
+    .catch(error => console.error("Error loading footer:", error));
 </script>
+
 </body>
 </html>
