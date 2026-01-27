@@ -144,11 +144,20 @@ const query = "SELECT lemma, trans_en, trans_de, trans_es FROM words WHERE level
   // initial render after DOM ready
 document.addEventListener("DOMContentLoaded", initDatabase);
 
-  // listen for language changes
-  document.addEventListener("languageChanged", () => {
-    renderVocab();
-    if (typeof applyTranslations === "function") applyTranslations();
+// listen for language changes
+document.addEventListener("languageChanged", () => {
+  renderVocab();
+  if (typeof applyTranslations === "function") applyTranslations();
+
+  // --- ADD THIS FOR GOOGLE ANALYTICS ---
+  const currentLang = localStorage.getItem("selectedLanguage") || "en";
+  gtag('event', 'change_language', {
+    'language_code': currentLang,
+    'page_title': document.title
   });
+});
+
+
 </script>
 
 </body>
