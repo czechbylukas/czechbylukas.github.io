@@ -65,9 +65,16 @@ async function updatePage(lang) {
   document.getElementById("testIframe").src = testLinks[lesson][lang] || testLinks[lesson]["en"];
 
   // Header
-const pageTitlePart = document.title.split('|')[1]?.trim() || "Test"; 
-  document.getElementById("heading-test-title").textContent = `${pageTitlePart} – ${translations.buttons?.test || "Test"}`;
-document.getElementById("heading-test-instructions").textContent = translations["heading-test-instructions"] || "";
+// This pulls the translated name for the category (e.g., "Shopping")
+// Header
+  const rawTitle = document.title.split('|')[1]?.trim(); 
+  const lessonKey = `link-ex-${rawTitle.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "")}`;
+  
+  const lessonTitle = translations[lessonKey] || rawTitle;
+  const testLabel = translations.buttons?.test || "Test";
+  
+  document.getElementById("heading-test-title").textContent = `${lessonTitle} – ${testLabel}`;
+
 
   // Buttons
   document.getElementById("btn-vocab").textContent = translations.buttons?.vocabulary || "📘 Vocabulary";

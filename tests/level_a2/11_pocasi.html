@@ -60,94 +60,7 @@ alert(timerEl.textContent);
 }
 }, 1000);
 
-<!DOCTYPE html>
-<html lang="en">
-<head>
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<link rel="stylesheet" href="style.css">
 
-
-  <meta charset="UTF-8">
-  <title>Test 1 | Useful Phrases | HáCZech</title>
-
-
-<!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-1BCW5XQ0X5"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-
-  // 1. Get the language (e.g., "cs" or "en")
-  const savedLang = (localStorage.getItem("selectedLanguage") || "en").toUpperCase();
-
-  // 2. This sends "[CS] Title..." to Google Analytics
-  gtag('config', 'G-1BCW5XQ0X5', {
-    'language_code': savedLang.toLowerCase(),
-    'page_title': '[' + savedLang + '] ' + document.title
-  });
-</script>
-
-
-  <link rel="stylesheet" href="../css/style.css">
-  <link rel="stylesheet" href="../css/language-selector.css">
-
-</head>
-<body class="vocab-page">
-
-  <header>
-    <h1 id="heading-test-title">Useful Phrases – Test</h1>
-    <p id="heading-test-instructions"></p>
-    
-    <!-- Language selector container -->
-    <div id="language-selector-container" class="language-selector"></div>
-  </header>
-
-  <!-- Timer -->
-  <div id="timer" style="font-size: 1.5rem; color: #2b593e; margin-bottom: 15px;">
-    ⏱ Time remaining: 10:00
-  </div>
-
-  <!-- Google Form iframe -->
-  <iframe id="testIframe"
-          style="width: 90%; min-height: 100vh; max-height: 10000px; border: none; border-radius: 10px; box-shadow: 0 0 15px rgba(0,0,0,0.2); background: white;">
-  </iframe>
-
-  <!-- Big buttons -->
-  <div class="big-buttons">
-    <a id="btn-vocab" href="../vocabulary/1_usefulphrases.html"></a>
-    <a id="btn-practice" href="../exercise/1_usefulphrases.html"></a>
-  </div>
-
-  <!-- Small buttons -->
-  <div class="small-buttons">
-    <a id="btn-home" href="../index.html"></a>
-    <a id="btn-all-tests" href="../tests/index.html"></a>
-  </div>
-
-  <script src="../data/translations/tests_links.js"></script>
-  <script src="../js/translations.js"></script>
-  <script src="../js/language-selector.js"></script>
-  <script>
-    let lang = localStorage.getItem("selectedLanguage") || "en";
-
-    let timeLeft = 10 * 60;
-const timerEl = document.getElementById('timer');
-
-const timerInterval = setInterval(() => {
-  const minutes = Math.floor(timeLeft / 60).toString().padStart(2,'0');
-  const seconds = (timeLeft % 60).toString().padStart(2,'0');
-
-  timerEl.textContent = `⏱ ${translations.messages?.timeRemaining || "Time remaining:"} ${minutes}:${seconds}`;
-  timeLeft--;
-
-  if (timeLeft < 0) {
-    clearInterval(timerInterval);  // stop timer
-    timerEl.textContent = translations.messages?.timesUp || "Time’s up! Please submit your answers now.";
-    timerEl.style.color = '#c0392b';
-    alert(timerEl.textContent);    // alert once only
-  }
-}, 1000);
 
 
 async function updatePage(lang) {
@@ -156,10 +69,15 @@ async function updatePage(lang) {
   const lesson = "lessonA2Pocasi";
   document.getElementById("testIframe").src = testLinks[lesson][lang] || testLinks[lesson]["en"];
 
-  // Header
-const pageTitlePart = document.title.split('|')[1]?.trim() || "Test"; 
-  document.getElementById("heading-test-title").textContent = `${pageTitlePart} – ${translations.buttons?.test || "Test"}`;
-document.getElementById("heading-test-instructions").textContent = translations["heading-test-instructions"] || "";
+  // Header - Automatically gets "Osobní" from the title and translates it
+  const rawTitle = document.title.split('|')[1]?.trim(); 
+  const lessonKey = `link-ex-${rawTitle.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "").replace(/\s+/g, '_')}`;
+  
+  const lessonTitle = translations[lessonKey] || rawTitle;
+  const testLabel = translations.buttons?.test || "Test";
+  
+  document.getElementById("heading-test-title").textContent = `${lessonTitle} – ${testLabel}`;
+  document.getElementById("heading-test-instructions").textContent = translations["heading-test-instructions"] || "";
 
   // Buttons
   document.getElementById("btn-vocab").textContent = translations.buttons?.vocabulary || "📘 Vocabulary";
@@ -167,6 +85,7 @@ document.getElementById("heading-test-instructions").textContent = translations[
   document.getElementById("btn-home").textContent = translations.buttons?.home || "🏠 Home";
   document.getElementById("btn-all-tests").textContent = translations.buttons?.testList || "📝 All Tests";
 }
+
 
 // 1. Initial Load
 document.addEventListener("DOMContentLoaded", () => { 
