@@ -4,7 +4,7 @@
     "vocabulary": "📘 Vocabulary",
     "practicing": "❓ Practice",
     "presentations": "📊 Presentations",
-    "testing": "💬 Tests (currently only available to subscribers)",
+    "testing": "💬 Tests",
     "support": "🛠 Support"
   },
 
@@ -98,10 +98,10 @@
     "search": "Search",
     "home": "🏠 Home",
     "exerciseList": "🧠 Exercises List",
-    "testList": "📝 All Tests (currently only available to subscribers)",
+    "testList": "📝 All Tests",
     "vocabulary": "📘 Vocabulary",
     "practice": "🧠 Practice",
-    "test": "📝 Test (currently only available to subscribers)",
+    "test": "📝 Test",
     "vocabList": "📘 Vocabulary"
   },
 

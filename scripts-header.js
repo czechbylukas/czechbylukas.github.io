@@ -28,11 +28,13 @@ script.src = 'https://www.googletagmanager.com/gtag/js?id=G-1BCW5XQ0X5';
 document.head.appendChild(script);
 
 gtag('js', new Date());
-const savedLang = (localStorage.getItem("selectedLanguage") || "en").toUpperCase();
-gtag('config', 'G-1BCW5XQ0X5', {
-    'language_code': savedLang.toLowerCase(),
-    'page_title': '[' + savedLang + '] ' + document.title
-});
+(function() {
+    const gaLang = (localStorage.getItem("selectedLanguage") || "en").toLowerCase();
+    gtag('config', 'G-1BCW5XQ0X5', {
+        'language_code': gaLang,
+        'page_title': '[' + gaLang.toUpperCase() + '] ' + document.title
+    });
+})();
 
 // 3. COOKIE BANNER LOGIC
 document.addEventListener("DOMContentLoaded", function() {
@@ -52,7 +54,7 @@ document.addEventListener("DOMContentLoaded", function() {
     banner.innerHTML = `
         <span style="display:inline-block; margin-bottom:10px;">${msg}</span> 
         <div style="display:inline-block; margin-left:15px;">
-            <a href="/privacy-policy.html" style="color:white; text-decoration:underline; font-size:14px; margin-right:15px;">${policyText}</a>
+            <a href="/privacy.html" style="color:white; text-decoration:underline; font-size:14px; margin-right:15px;">${policyText}</a>
             <button id='accept-cookies' style='padding:8px 18px; cursor:pointer; background:white; color:#2b593e; border:none; border-radius:5px; font-weight:bold; transition: 0.3s;'>${btnText}</button>
         </div>
     `;
