@@ -21,39 +21,52 @@
   <div id="language-selector-container"></div>
 </header>
 
-<main>
-  <table id="vocabTable">
-    <thead>
-      <tr>
-        <th id="table-czech">Czech</th>
-        <th id="table-english">English</th>
-      </tr>
-    </thead>
-    <tbody id="vocabBody"></tbody>
-  </table>
+<div class="content-layout">
+    <aside id="sidebar-placeholder"></aside>
 
-  <div class="big-buttons">
-    <a id="btn-practice" href="../exercise/14_adverbsadjectives.html">🧠 Practice</a>
-    <a id="btn-test" href="../tests/14_adverbsadjectives.html">📝 Test</a>
-  </div>
+    <main class="page-content">
+        <div class="table-container">
+            <table id="vocabTable">
+                <thead>
+                    <tr>
+                        <th id="table-czech">Czech</th>
+                        <th id="table-english">English</th>
+                    </tr>
+                </thead>
+                <tbody id="vocabBody"></tbody>
+            </table>
+        </div>
 
-  <div class="small-buttons">
-    <a id="btn-home" href="../index.html">🏠 Home</a>
-    <a id="btn-vocabList" href="../vocabulary/index.html">📘 Vocabulary List</a>
-  </div>
-</main>
+        <div class="big-buttons">
+            <a id="btn-practice" href="../exercise/1_usefulphrases.html">🧠 Practice</a>
+            <a id="btn-test" href="../tests/1_usefulphrases.html">📝 Test</a>
+        </div>
 
+        <div class="small-buttons">
+            <a id="btn-home" href="../index.html">🏠 Home</a>
+            <a id="btn-vocabList" href="../vocabulary/index.html">📘 Vocabulary List</a>
+        </div>
+    </main>
+</div>
 
 <div id="footer-placeholder"></div>
 
 <script>
-  // Load footer.html dynamically
+  // Load Sidebar
+  fetch("/sidebar/sidebar.html")
+    .then(res => res.text())
+    .then(data => { 
+      document.getElementById("sidebar-placeholder").innerHTML = data; 
+    })
+    .catch(err => console.error("Sidebar error:", err));
+
+  // Load Footer
   fetch("/footer.html")
-    .then(response => response.text())
+    .then(res => res.text())
     .then(data => {
       document.getElementById("footer-placeholder").innerHTML = data;
     })
-    .catch(error => console.error("Error loading footer:", error));
+    .catch(err => console.error("Footer error:", err));
 </script>
 
 

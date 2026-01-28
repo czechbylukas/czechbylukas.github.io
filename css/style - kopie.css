@@ -1,25 +1,24 @@
 /* ============================================================
-/* ============================================================
    1. GLOBAL RESET & BASE LAYOUT
    ============================================================ */
-html {
-    height: auto; /* Allow the page to determine its own height */
+html, body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    background-color: #f0f4ff;
+    font-family: Arial, sans-serif;
+    color: #333;
 }
 
 body {
-    margin: 0 !important;
-    padding: 0 !important;
-    width: 100%;
-    display: block; /* Change from flex to block */
-    background-color: #f0f4ff;
-    font-family: Arial, sans-serif;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
 }
 
-.content-layout {
-    display: flex; /* Keep this flex so sidebar stays next to main */
-    flex-direction: row;
-    width: 100%;
-    min-height: 400px; /* Gives it a base size */
+.page-content {
+    flex: 1 0 auto;
+    padding-bottom: 2rem;
 }
 
 /* ============================================================
@@ -86,38 +85,56 @@ body:has(nav.home-nav) header::before {
 /* ============================================================
    3. NAVIGATION LOGIC
    ============================================================ */
-/* Sidebar Container */
-#sidebar-placeholder {
-    /* Change 'width: 250px' to these two lines: */
-    width: max-content; 
-    min-width: 200px; /* Optional: keeps it from being too skinny on short words */
-    
+
+/* DEFAULT: Vertical Stack with Blue Separator Lines (Internal Pages) */
+nav {
     background-color: #d9e3ff;
-    border-right: 2px solid #2f52b5;
-    flex-shrink: 0;
-    align-self: flex-start;
+    padding: 0; /* Padding handled by links for the lines */
+    display: flex;
+    flex-direction: column;
+    align-items: left;
 }
 
-/* Ensure the links don't wrap to a second line */
 nav a {
-    white-space: nowrap; /* This is the secret! It forces the width to fit the text */
     text-decoration: none;
     color: #2f52b5;
-    padding: 12px 20px;
+    padding: 4px 7px;
     font-weight: bold;
-    font-size: 0.9rem;
-    border-bottom: 1px solid rgba(47, 82, 181, 0.2); 
-    display: block; /* Makes the whole area clickable */
+    font-size: 0.75rem;
+    width: 100%;
+    max-width: 300px;
+    text-align: left;
+    box-sizing: border-box;
+    transition: background 0.2s;
+    /* The Blue Separator Line */
+    border-bottom: 1px solid #2f52b5; 
 }
 
-/* ============================================================
-   3.5 CONTENT SPACING
-   ============================================================ */
-.page-content {
-    flex: 1;             /* Takes up the remaining width */
-    padding-left: 40px;  /* Space between sidebar line and text */
-    padding-right: 20px; /* Prevents text from touching right edge */
-    padding-top: 20px;   /* Space below the header */
+nav a:last-child {
+    border-bottom: none; /* Remove line from last item */
+}
+
+nav a:hover {
+    background-color: #c0cfff;
+}
+
+/* HOME PAGE SPECIFIC: Left Aligned, no separator lines */
+nav.home-nav {
+    align-items: flex-start; /* Aligns to the left */
+    padding: 20px;
+}
+
+nav.home-nav a {
+    width: auto;
+    text-align: left;
+    border-bottom: none; /* No lines on home page */
+    padding: 10px 15px;
+    border-radius: 6px;
+}
+
+nav.home-nav a:hover {
+    background-color: #ffffff;
+    color: #1a3580;
 }
 
 /* ============================================================
@@ -195,66 +212,53 @@ td {
 /* ============================================================
    6. FOOTER
    ============================================================ */
-#footer-placeholder {
-    display: block;
-    width: 100%;
-    clear: both;
-    /* This is the magic: it forces the browser to allow scrolling 
-       past the text so the second line is never cut off */
-    margin-bottom: 50px; 
-}
-
 footer.support-note {
     text-align: center;
-    /* Very tight top (10px) to stay near the line */
-    padding: 10px 20px 20px 20px; 
+    padding: 30px;
     background-color: #f0f4ff;
     border-top: 1px solid #d9e3ff;
-    width: 100%;
-    box-sizing: border-box;
+    margin-top: auto;
 }
 
-/* Remove all browser defaults that push text around */
-footer.support-note #footer-text, 
-footer.support-note p {
-    margin: 5px 0 !important; 
-    padding: 0 !important;
-    line-height: 1.4;
-    display: block;
-}
 
 /* ============================================================
    7. MOBILE OVERRIDES (Only for screens smaller than 768px)
    ============================================================ */
 @media (max-width: 768px) {
-    body {
-        flex-direction: column; /* Stack vertically on mobile */
+    
+    /* 1. Adjust the Header Logo */
+    header::before {
+        width: 40px;
+        height: 40px;
+        left: 10px;
     }
 
-    #sidebar-placeholder {
-        width: 100%;
-        border-right: none;
-        border-bottom: 2px solid #2f52b5;
+    header h1 {
+        font-size: 1.4rem;
+        padding-left: 40px; /* Make room for the logo */
+    }
+
+    /* 2. Fix the Buttons */
+    /* On laptop they are side-by-side, on phone they stack */
+    .big-buttons {
+        flex-direction: column;
+        align-items: center;
+        gap: 15px !important;
+    }
+
+    .big-buttons a {
+        width: 80%; /* Make buttons easier to tap with thumbs */
+        text-align: center;
+    }
+
+    /* 3. Handle the Table */
+    /* Tables are notoriously bad on mobile. This makes it scrollable. */
+    .table-container {
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
     }
     
-    header::before {
-        display: none; /* Optional: hides logo icon on mobile to save space */
+    table {
+        font-size: 14px; /* Slightly smaller text for small screens */
     }
-
-
-
-/* Zebra Striping for Vocabulary */
-#vocabTable tbody tr:nth-child(even) {
-    background-color: #f9faff;
-}
-
-#vocabTable td:first-child {
-    font-weight: bold;
-    color: #2f52b5;
-}
-
-.table-container {
-    margin-bottom: 30px;
-}
-
 }

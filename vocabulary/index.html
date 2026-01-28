@@ -23,15 +23,12 @@
   <header>
     <h1 id="heading-vocab">Vocabulary</h1>
     <div id="language-selector-container"></div>
-  </header>
+</header>
 
-  <nav>
-    <a id="menu-home" href="/index.html">🏠 Main Page</a>
-    <a id="menu-vocabulary" href="/vocabulary/index.html">📘 Vocabulary</a>
-    <a id="menu-practicing" href="/exercise/index.html">❓ Practicing</a>
-    <a id="menu-testing" href="/tests/index.html">💬 Testing</a>
-        <a id="menu-blog" href="/blog/index.html">📰 Blog</a>
-  </nav>
+<div class="content-layout">
+    <aside id="sidebar-placeholder"></aside>
+    <main class="page-content">
+
 
   <main>
     <h2 id="heading-vocabList">List of Vocabularies</h2>
@@ -73,11 +70,12 @@ Perfective vs Imperfective</a></li>
       <li><a id="link-ex-pocasi" href="/vocabulary/level_a2/11_pocasi.html">Počasí</a></li>
       <li><a id="link-ex-zdravi" href="/vocabulary/level_a2/12_zdravi.html">Zdraví</a></li>
       <li><a id="link-ex-kontakt" href="/vocabulary/level_a2/13_kontakt.html">Kontakt s majoritní společností a zařazení do společenského a politického života</a></li>
-    </ul>
+</ul>
   </main>
-
-
+</div> 
 <div id="footer-placeholder"></div>
+
+
 
 <script>
   // Load footer.html dynamically
@@ -89,7 +87,17 @@ Perfective vs Imperfective</a></li>
     .catch(error => console.error("Error loading footer:", error));
 </script>
 
+<script>
+    // Load Sidebar
+    fetch("/sidebar/sidebar.html")
+        .then(res => res.text())
+        .then(data => { document.getElementById("sidebar-placeholder").innerHTML = data; });
 
+    // Load Footer
+    fetch("/footer.html")
+        .then(res => res.text())
+        .then(data => { document.getElementById("footer-placeholder").innerHTML = data; });
+</script>
 
   <!-- Scripts (root paths) -->
   <script src="/js/translations.js"></script>

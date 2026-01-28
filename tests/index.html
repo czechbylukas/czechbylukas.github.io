@@ -24,15 +24,12 @@
     <div id="language-selector-container"></div>
   </header>
 
-  <nav>
-    <a id="menu-home" href="/index.html">🏠 Main Page</a>
-    <a id="menu-vocabulary" href="/vocabulary/index.html">📘 Vocabulary</a>
-    <a id="menu-practicing" href="/exercise/index.html">❓ Practicing</a>
-    <a id="menu-testing" href="/tests/index.html">💬 Testing</a>
-    <a id="menu-blog" href="/blog/index.html">📰 Blog</a>
-  </nav>
+<div class="content-layout">
+    <aside id="sidebar-placeholder"></aside>
+    <main class="page-content">
 
-  <main>
+
+
     <h2 id="heading-testList">List of Tests</h2>
     <h3 id="heading-vocabA2Section">Grammar</h3>
     <ul>
@@ -74,20 +71,25 @@
       <li><a id="link-ex-kontakt" href="/tests/level_a2/13_kontakt.html">Kontakt s majoritní společností a zařazení do společenského a politického života</a></li>
     </ul>
 
-    </ul>
+</ul>
   </main>
+</div>
 
   <div id="footer-placeholder"></div>
 
-  <script>
-    // Load footer.html dynamically
+<script>
+    // Load Sidebar
+    fetch("/sidebar/sidebar.html")
+        .then(res => res.text())
+        .then(data => { document.getElementById("sidebar-placeholder").innerHTML = data; })
+        .catch(err => console.error("Sidebar error:", err));
+
+    // Load Footer
     fetch("/footer.html")
-      .then(response => response.text())
-      .then(data => {
-        document.getElementById("footer-placeholder").innerHTML = data;
-      })
-      .catch(error => console.error("Error loading footer:", error));
-  </script>
+        .then(res => res.text())
+        .then(data => { document.getElementById("footer-placeholder").innerHTML = data; })
+        .catch(err => console.error("Footer error:", err));
+</script>
 
   <!-- Scripts -->
   <script src="/js/translations.js"></script>

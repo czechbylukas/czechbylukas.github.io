@@ -1,61 +1,57 @@
 <!DOCTYPE html>
 <html lang="cs">
 <head>
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<link rel="stylesheet" href="style.css">
-
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-  <title>Main Page | HáCZech</title>
-
-
-<script src="/scripts-header.js"></script>
-
-
-
+    <title>Main Page | HáCZech</title>
+    
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="css/language-selector.css">
+    <script src="/scripts-header.js"></script>
 </head>
 <body class="home">
-
 <header>
-    <h1 id="heading-welcome">Welcome in HáCzech</h1>
+        <h1 id="heading-welcome">Welcome in HáCzech</h1>
+        <div id="language-selector-container"></div>
+    </header>
 
-    <!-- Language selector placeholder -->
-    <div id="language-selector-container"></div>
-</header>
 
-<main>
-    <p id="heading-mainPageText">This is the main page. I will be adding more chapters and content.</p>
 
-    <h2 id="heading-topics">Topics and applications</h2>
+    <aside id="sidebar-placeholder"></aside>
 
-    <nav>
-        <a id="menu-home" href="index.html">🏠 Main Page</a>
-        <a id="menu-vocabulary" href="vocabulary/index.html">📘 Vocabulary</a>
-        <a id="menu-practicing" href="exercise/index.html">❓ Practicing</a>
-        <a id="menu-testing" href="tests/index.html">💬 Testing</a>
-        <a id="menu-blog" href="blog/index.html">📰 Blog</a>
-    </nav>
+    <div class="main-wrapper">
+
+
+    <div class="content-layout"> 
+        <aside id="sidebar-placeholder"></aside>
+
+
 </main>
+    </div> 
 
 <div id="footer-placeholder"></div>
 
-<script>
-  // Load footer.html dynamically
-  fetch("/footer.html")
-    .then(response => response.text())
-    .then(data => {
-      document.getElementById("footer-placeholder").innerHTML = data;
-    })
-    .catch(error => console.error("Error loading footer:", error));
-</script>
+    <script>
+        // Load sidebar.html
+// Load sidebar.html
+        fetch("/sidebar/sidebar.html")
+            .then(response => response.text())
+            .then(data => {
+                document.getElementById("sidebar-placeholder").innerHTML = data;
+            })
+            .catch(error => console.error("Error loading sidebar:", error));
 
 
-<!-- Scripts -->
-<script src="js/translations.js"></script>       <!-- Translations logic -->
-<script src="js/language-selector.js"></script>  <!-- Flag language selector -->
+        // Load footer.html
+        fetch("/footer.html")
+            .then(response => response.text())
+            .then(data => {
+                document.getElementById("footer-placeholder").innerHTML = data;
+            })
+            .catch(error => console.error("Error loading footer:", error));
+    </script>
 
+    <script src="js/translations.js"></script>
+    <script src="js/language-selector.js"></script>
 </body>
 </html>

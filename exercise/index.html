@@ -1,98 +1,85 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="cs">
 <head>
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<link rel="stylesheet" href="style.css">
-
-
-  <meta charset="UTF-8">
-  <title id="page-title">Practice | Overview | HáCZech</title>
-
-
-<script src="../scripts-header.js"></script>
-
-
-
-  <!-- Styles -->
-  <link rel="stylesheet" href="/css/style.css">
-  <link rel="stylesheet" href="/css/language-selector.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title id="page-title">Practice | Overview | HáCZech</title>
+    
+    <script src="../scripts-header.js"></script>
+    
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="/css/language-selector.css">
 </head>
 <body>
-  <header>
-    <!-- IDs must match translation keys -->
-    <h1 id="heading-exercise">Practice</h1>
-    <div id="language-selector-container"></div>
-  </header>
+    <header>
+        <h1 id="heading-exercise">Practice</h1>
+        <div id="language-selector-container"></div>
+    </header>
 
-  <nav>
-    <a id="menu-home" href="/index.html">🏠 Main Page</a>
-    <a id="menu-vocabulary" href="/vocabulary/index.html">📘 Vocabulary</a>
-    <a id="menu-practicing" href="/exercise/index.html">❓ Practicing</a>
-    <a id="menu-testing" href="/tests/index.html">💬 Testing</a>
-        <a id="menu-blog" href="/blog/index.html">📰 Blog</a>
-  </nav>
+    <div class="content-layout">
+        
+        <aside id="sidebar-placeholder"></aside>
 
-  <main>
-    <h2 id="heading-exList">List of Exercises</h2>
-    <h3 id="heading-vocabA2Section">Grammar</h3>
-    <ul>
-      <li><a id="link-ex-useful-phrases" href="/exercise/1_usefulphrases.html">Useful Phrases</a></li>
-      <li><a id="link-ex-past-tense" href="/exercise/2_pasttense.html">Past Tense</a></li>
-      <li><a id="link-ex-question-words" href="/exercise/3_questionwords.html">Question Words</a></li>
-      <li><a id="link-ex-verbs-a" href="/exercise/4_verbs_a.html">Verbs (A)</a></li>
-      <li><a id="link-ex-verbs-i" href="/exercise/5_verbs_i.html">Verbs (I)</a></li>
-      <li><a id="link-ex-verbs-e" href="/exercise/6_verbs_e.html">Verbs (E)</a></li>
-      <li><a id="link-ex-genitive" href="/exercise/7_genitiv2pad.html">Genitive (2nd Case)</a></li>
-      <li><a id="link-ex-accusative" href="/exercise/8_acusative4pad.html">Accusative (4th Case)</a></li>
-      <li><a id="link-ex-instrumental" href="/exercise/9_instrumental7pad.html">Instrumental (7th Case)</a></li>
-      <li><a id="link-ex-dative" href="/exercise/10_dativ3pad.html">Dative (3rd Case)</a></li>
-      <li><a id="link-ex-locative" href="/exercise/11_locative6pad.html">Locative (6th Case)</a></li>
-      <li><a id="link-ex-prefixes" href="/exercise/12_prefixes.html">Prefixes</a></li>
-      <li><a id="link-ex-perfective-imperfective" href="/exercise/13_perfective_vs_imperfective.html">Perfective vs Imperfective</a></li>
-      <li><a id="link-ex-future" href="/exercise/17_future.html">Future Tense</a></li>
-      <li><a id="link-ex-adverbs-adjectives" href="/exercise/14_adverbsadjectives.html">Adverbs & Adjectives</a></li>
-      <li><a id="link-ex-pronouns" href="/exercise/15_pronouns.html">Pronouns</a></li>
-      <li><a id="link-ex-numbers" href="/exercise/16_numbers.html">Numbers</a></li>
-      <li><a id="link-ex-question-generator" href="/exercise/questiongeneratorA0/">Question Generator (A0)</a></li>
-    </ul>
+        <main class="page-content">
+            <h2 id="heading-exList">List of Exercises</h2>
+            
+            <h3 id="heading-vocabA2Section">Grammar</h3>
+            <ul>
+                <li><a id="link-ex-useful-phrases" href="/exercise/1_usefulphrases.html">Useful Phrases</a></li>
+                <li><a id="link-ex-past-tense" href="/exercise/2_pasttense.html">Past Tense</a></li>
+                <li><a id="link-ex-question-words" href="/exercise/3_questionwords.html">Question Words</a></li>
+                <li><a id="link-ex-verbs-a" href="/exercise/4_verbs_a.html">Verbs (A)</a></li>
+                <li><a id="link-ex-verbs-i" href="/exercise/5_verbs_i.html">Verbs (I)</a></li>
+                <li><a id="link-ex-verbs-e" href="/exercise/6_verbs_e.html">Verbs (E)</a></li>
+                <li><a id="link-ex-genitive" href="/exercise/7_genitiv2pad.html">Genitive (2nd Case)</a></li>
+                <li><a id="link-ex-accusative" href="/exercise/8_acusative4pad.html">Accusative (4th Case)</a></li>
+                <li><a id="link-ex-instrumental" href="/exercise/9_instrumental7pad.html">Instrumental (7th Case)</a></li>
+                <li><a id="link-ex-dative" href="/exercise/10_dativ3pad.html">Dative (3rd Case)</a></li>
+                <li><a id="link-ex-locative" href="/exercise/11_locative6pad.html">Locative (6th Case)</a></li>
+                <li><a id="link-ex-prefixes" href="/exercise/12_prefixes.html">Prefixes</a></li>
+                <li><a id="link-ex-perfective-imperfective" href="/exercise/13_perfective_vs_imperfective.html">Perfective vs Imperfective</a></li>
+                <li><a id="link-ex-future" href="/exercise/17_future.html">Future Tense</a></li>
+                <li><a id="link-ex-adverbs-adjectives" href="/exercise/14_adverbsadjectives.html">Adverbs & Adjectives</a></li>
+                <li><a id="link-ex-pronouns" href="/exercise/15_pronouns.html">Pronouns</a></li>
+                <li><a id="link-ex-numbers" href="/exercise/16_numbers.html">Numbers</a></li>
+                <li><a id="link-ex-question-generator" href="/exercise/questiongeneratorA0/">Question Generator (A0)</a></li>
+            </ul>
 
-
-    <h3 id="heading-vocabA2Section">Vocabulary building</h3>
-    <ul>
-      <li><a id="link-ex-osobni-udaje" href="/exercise/level_a2/1_osobni.html">Osobní údaje, rodina, životopis</a></li>
-      <li><a id="link-ex-nakupovani" href="/exercise/level_a2/2_nakupovani.html">Nakupování</a></li>
-      <li><a id="link-ex-denni-rezim" href="/exercise/level_a2/3_denni_rezim.html">Denní režim</a></li>
-      <li><a id="link-ex-cestovani" href="/exercise/level_a2/4_cestovani.html">Cestování</a></li>
-      <li><a id="link-ex-jidlo-piti" href="/exercise/level_a2/5_jidlo_a_piti.html">Jídlo a pití</a></li>
-      <li><a id="link-ex-prace" href="/exercise/level_a2/6_prace.html">Práce</a></li>
-      <li><a id="link-ex-konicky" href="/exercise/level_a2/7_konicky.html">Koníčky</a></li>
-      <li><a id="link-ex-bydleni" href="/exercise/level_a2/8_bydleni.html">Bydlení</a></li>
-      <li><a id="link-ex-urady" href="/exercise/level_a2/9_urady.html">Úřady</a></li>
-      <li><a id="link-ex-vzdelavani" href="/exercise/level_a2/10_vzdelavani.html">Vzdělávání</a></li>
-      <li><a id="link-ex-pocasi" href="/exercise/level_a2/11_pocasi.html">Počasí</a></li>
-      <li><a id="link-ex-zdravi" href="/exercise/level_a2/12_zdravi.html">Zdraví</a></li>
-      <li><a id="link-ex-kontakt" href="/exercise/level_a2/13_kontakt.html">Kontakt s majoritní společností a zařazení do společenského a politického života</a></li>
-
-    </ul>
-  </main>
-
-
+            <h3 id="heading-vocabA2Section">Vocabulary building</h3>
+            <ul>
+                <li><a id="link-ex-osobni-udaje" href="/exercise/level_a2/1_osobni.html">Osobní údaje, rodina, životopis</a></li>
+                <li><a id="link-ex-nakupovani" href="/exercise/level_a2/2_nakupovani.html">Nakupování</a></li>
+                <li><a id="link-ex-denni-rezim" href="/exercise/level_a2/3_denni_rezim.html">Denní režim</a></li>
+                <li><a id="link-ex-cestovani" href="/exercise/level_a2/4_cestovani.html">Cestování</a></li>
+                <li><a id="link-ex-jidlo-piti" href="/exercise/level_a2/5_jidlo_a_piti.html">Jídlo a pití</a></li>
+                <li><a id="link-ex-prace" href="/exercise/level_a2/6_prace.html">Práce</a></li>
+                <li><a id="link-ex-konicky" href="/exercise/level_a2/7_konicky.html">Koníčky</a></li>
+                <li><a id="link-ex-bydleni" href="/exercise/level_a2/8_bydleni.html">Bydlení</a></li>
+                <li><a id="link-ex-urady" href="/exercise/level_a2/9_urady.html">Úřady</a></li>
+                <li><a id="link-ex-vzdelavani" href="/exercise/level_a2/10_vzdelavani.html">Vzdělávání</a></li>
+                <li><a id="link-ex-pocasi" href="/exercise/level_a2/11_pocasi.html">Počasí</a></li>
+                <li><a id="link-ex-zdravi" href="/exercise/level_a2/12_zdravi.html">Zdraví</a></li>
+                <li><a id="link-ex-kontakt" href="/exercise/level_a2/13_kontakt.html">Kontakt s majoritní společností a zařazení do společenského a politického života</a></li>
+            </ul>
+    </main>
+    </div> 
 <div id="footer-placeholder"></div>
 
-<script>
-  // Load footer.html dynamically
-  fetch("/footer.html")
-    .then(response => response.text())
-    .then(data => {
-      document.getElementById("footer-placeholder").innerHTML = data;
-    })
-    .catch(error => console.error("Error loading footer:", error));
-</script>
+    <script>
+        // Load Sidebar dynamically
+        fetch("/sidebar/sidebar.html")
+            .then(res => res.text())
+            .then(data => { document.getElementById("sidebar-placeholder").innerHTML = data; })
+            .catch(err => console.error("Sidebar error:", err));
 
+        // Load Footer dynamically
+        fetch("/footer.html")
+            .then(res => res.text())
+            .then(data => { document.getElementById("footer-placeholder").innerHTML = data; })
+            .catch(err => console.error("Footer error:", err));
+    </script>
 
-
-  <!-- Scripts -->
-  <script src="/js/translations.js"></script>
-  <script src="/js/language-selector.js"></script>
+    <script src="/js/translations.js"></script>
+    <script src="/js/language-selector.js"></script>
 </body>
 </html>
