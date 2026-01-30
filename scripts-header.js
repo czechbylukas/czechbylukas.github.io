@@ -1,22 +1,22 @@
 /** * MASTER HEADER SCRIPT + COOKIE BANNER + PRIVACY LINK
  */
 
-// 1. INITIAL CONSENT (Denied by default)
+// 1. INITIAL CONSENT (Consent Mode v2 Compliant)
 window.dataLayer = window.dataLayer || [];
 function gtag(){dataLayer.push(arguments);}
 
 if (!localStorage.getItem("cookieConsent")) {
     gtag('consent', 'default', {
         'ad_storage': 'denied',
-        'ad_user_data': 'denied',
-        'ad_personalization': 'denied',
-        'analytics_storage': 'granted'
+        'ad_user_data': 'denied',        // New for v2
+        'ad_personalization': 'denied', // New for v2
+        'analytics_storage': 'granted'  // You chose to keep analytics on
     });
 } else {
     gtag('consent', 'default', {
         'ad_storage': 'granted',
-        'ad_user_data': 'granted',
-        'ad_personalization': 'granted',
+        'ad_user_data': 'granted',      // New for v2
+        'ad_personalization': 'granted',// New for v2
         'analytics_storage': 'granted'
     });
 }
@@ -60,13 +60,14 @@ document.addEventListener("DOMContentLoaded", function() {
     `;
     document.body.appendChild(banner);
 
-    // Handle Click
+// Handle Click
     document.getElementById('accept-cookies').addEventListener('click', function() {
         localStorage.setItem("cookieConsent", "true");
         gtag('consent', 'update', {
             'ad_storage': 'granted',
-            'ad_user_data': 'granted',
-            'ad_personalization': 'granted'
+            'ad_user_data': 'granted',      // Add this
+            'ad_personalization': 'granted', // Add this
+            'analytics_storage': 'granted'
         });
         banner.style.display = "none";
     });
