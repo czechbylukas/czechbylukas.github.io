@@ -467,8 +467,8 @@ function getRandomWord() {
         return; 
     }
 
-    // 4. Database Query
-    const query = `SELECT lemma, ${langColumn}, image_path, audio_path 
+   // 4. Database Query (Added 'synonym' to the SELECT)
+    const query = `SELECT lemma, ${langColumn}, image_path, audio_path, synonym 
                    FROM words 
                    WHERE level='${level}' AND lesson='${lesson}'`;
     
@@ -483,10 +483,13 @@ function getRandomWord() {
             for(let i=0; i<w; i++) pool.push(r);
         });
         const s = pool[Math.floor(Math.random()*pool.length)];
-        currentWord = { czech: s[0], translation: s[1], img: s[2], audio: s[3] };
+        // Mapping s[4] to synonym
+        currentWord = { czech: s[0], translation: s[1], img: s[2], audio: s[3], synonym: s[4] };
         
         document.getElementById('english-word').innerText = s[1];
-        document.getElementById('czech-word').innerText = s[0];
+        // Display both main word and synonym when revealed
+        const displayWord = currentWord.synonym ? `${s[0]} / ${s[4]}` : s[0];
+        document.getElementById('czech-word').innerText = displayWord;
         
         const img = document.getElementById('word-image');
         if(s[2]) { 
@@ -507,28 +510,36 @@ function getRandomWord() {
 function evaluateTyping() {
     const input = document.getElementById('word-guess-box').value.trim().toLowerCase();
     const target = currentWord.czech.toLowerCase();
-    const distance = getEditDistance(input, target);
+    const synonym = currentWord.synonym ? currentWord.synonym.toLowerCase() : null;
 
-    if (distance === 0) {
-        // Perfect match
+    // Check distance for both main word and synonym
+    const distanceTarget = getEditDistance(input, target);
+    const distanceSynonym = synonym ? getEditDistance(input, synonym) : 999;
+
+    // A match is perfect if either the lemma or the synonym matches exactly
+    if (distanceTarget === 0 || distanceSynonym === 0) {
         document.getElementById('success-msg').innerText = "Výborně!";
         document.getElementById('czech-word').classList.remove('hidden');
         adjustWeight(-1);
         setTimeout(getRandomWord, 1200);
-    } else if (distance <= (target.length > 5 ? 2 : 1)) {
-        // "Close enough" (Typo)
-        document.getElementById('typo-msg').innerText = `Téměř! Správně je: ${currentWord.czech}`;
+    } 
+    // Check for typos in either the lemma or the synonym
+    else if (distanceTarget <= (target.length > 5 ? 2 : 1) || (synonym && distanceSynonym <= (synonym.length > 5 ? 2 : 1))) {
+        const correctDisplay = synonym ? `${currentWord.czech} / ${currentWord.synonym}` : currentWord.czech;
+        document.getElementById('typo-msg').innerText = `Téměř! Správně je: ${correctDisplay}`;
         document.getElementById('czech-word').classList.remove('hidden');
-        // Weight stays the same (no penalty, but no reward)
         adjustWeight(0); 
         document.getElementById('btn-container').style.display = 'none';
         document.getElementById('reveal-next').style.display = 'block';
     } else {
-        // Way off
         document.getElementById('typo-msg').innerText = "Bohužel...";
-        showAnswer(2); // Full penalty
+        showAnswer(2);
     }
 }
+
+
+
+
 
     function showAnswer(penalty) {
         document.getElementById('czech-word').classList.remove('hidden');
