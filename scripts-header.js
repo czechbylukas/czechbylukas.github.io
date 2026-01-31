@@ -1,6 +1,16 @@
 /** * MASTER HEADER SCRIPT + COOKIE BANNER + PRIVACY LINK
  */
 
+
+// LOAD GOOGLE ADSENSE
+var adsenseScript = document.createElement('script');
+adsenseScript.async = true;
+adsenseScript.src = 'https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9067674021614925';
+adsenseScript.crossOrigin = 'anonymous';
+document.head.appendChild(adsenseScript);
+
+
+
 // 1. INITIAL CONSENT (Consent Mode v2 Compliant)
 window.dataLayer = window.dataLayer || [];
 function gtag(){dataLayer.push(arguments);}
