@@ -30,7 +30,7 @@
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/sql.js/1.6.2/sql-wasm.js"></script>
     <style>
-        .test-box { background: rgba(255, 255, 255, 0.9); border-radius: 12px; padding: 20px; margin: 20px auto; text-align: center; border: 2px solid #2c3e50; width: 90%; max-width: 500px; height: 600px; position: relative; display: flex; flex-direction: column; }
+        .test-box { background: rgba(255, 255, 255, 0.9); border-radius: 12px; padding: 20px; margin: 20px auto; text-align: center; border: 2px solid #2c3e50; width: 90%; max-width: 500px; height: 550px; position: relative; display: flex; flex-direction: column; }
         #image-container { height: 200px; display: flex; justify-content: center; align-items: center; margin-bottom: 10px; }
         .display-eng { font-size: 1.5rem; color: #555; transition: all 0.3s ease; }
         .display-czech { font-size: 2.5rem; font-weight: bold; color: #d32f2f; margin: 15px 0; min-height: 60px; }
@@ -97,22 +97,35 @@
     </div>
 </header>
 
-<main>
-    <div class="test-box">
+
+
+<main style="display: flex; flex-wrap: wrap; justify-content: center; gap: 20px; padding: 20px;">
+    <aside id="study-filters" style="width: 250px; background: rgba(255,255,255,0.9); padding: 20px; border-radius: 12px; border: 2px solid #2c3e50; height: fit-content;">
+        <h3 style="margin-top:0;">Filters (Optional)</h3>
+        
+        <label>Lesson:</label>
+        <select id="level-select" style="padding: 8px; width: 100%; margin-bottom: 15px; border-radius: 5px;" onchange="getRandomWord()">
+            <option disabled selected>Vyberte sadu...</option>
+        </select>
+
+        <label>Word Type (POS):</label>
+        <select id="pos-select" style="padding: 8px; width: 100%; margin-bottom: 15px; border-radius: 5px;" onchange="getRandomWord()">
+            <option value="all">All Types</option>
+        </select>
+
+        <label>Category:</label>
+        <select id="category-select" style="padding: 8px; width: 100%; margin-bottom: 15px; border-radius: 5px;" onchange="getRandomWord()">
+            <option value="all">All Categories</option>
+        </select>
+    </aside>
+
+    <div class="test-box" style="margin: 0;">
 
 
 
 
 
-
-
-
-<div style="margin-bottom: 15px;">
-<select id="level-select" style="padding: 8px; width: 90%; max-width: 400px; border-radius: 5px;" onchange="getRandomWord()">
-    <option disabled selected>Select a lesson...</option>
-</select>
-</div>
-
+        
         <div id="image-container">
             <img id="word-image" src="" style="max-height: 100%; border-radius: 8px; display: none;">
         </div>
@@ -392,26 +405,25 @@ async function initDatabase() {
         const [SQL, data] = await Promise.all([sqlPromise, buf]);
         db = new SQL.Database(new Uint8Array(data));
 
+// 1. Populate Lesson Select
         const res = db.exec("SELECT DISTINCT level, lesson FROM words");
         const select = document.getElementById('level-select');
-        
-        // Sets the default text you requested
         select.innerHTML = '<option disabled selected>Vyberte sadu...</option>'; 
 
         if (res[0]) {
-            // Sorts Level (A0, A1) and then Lessons numerically (1, 2, 3... 10)
             const sortedRows = res[0].values.sort((a, b) => {
                 if (a[0] !== b[0]) return a[0].localeCompare(b[0]);
-                // parseInt ensures "10" comes after "9" instead of after "1"
                 return parseInt(a[1]) - parseInt(b[1]) || a[1].localeCompare(b[1]);
             });
 
+            let uniqueLevels = new Set(); // To store levels for the "All" options later
             let currentGroup = null;
             let groupElement = null;
 
             sortedRows.forEach(row => {
-                const levelVal = (row[0] !== null) ? row[0] : "N/A";
-                const lessonVal = (row[1] !== null) ? row[1] : "General";
+                const levelVal = row[0] || "N/A";
+                const lessonVal = row[1] || "General";
+                uniqueLevels.add(levelVal);
 
                 if (levelVal !== currentGroup) {
                     currentGroup = levelVal;
@@ -419,13 +431,43 @@ async function initDatabase() {
                     groupElement.label = `Level ${levelVal}`;
                     select.appendChild(groupElement);
                 }
-
                 const opt = document.createElement('option');
                 opt.value = `${levelVal}|${lessonVal}`;
                 opt.innerText = lessonVal;
                 groupElement.appendChild(opt);
             });
+
+            // ADD "ALL LEVEL" OPTIONS AT THE VERY BOTTOM
+            const allGroup = document.createElement('optgroup');
+            allGroup.label = "Celé úrovně (Full Levels)";
+            select.appendChild(allGroup);
+
+            Array.from(uniqueLevels).sort().forEach(lvl => {
+                const opt = document.createElement('option');
+                opt.value = `${lvl}|ALL_LESSONS`;
+                opt.innerText = `Vše z úrovně ${lvl}`;
+                allGroup.appendChild(opt);
+            });
         }
+
+        // 2. DYNAMICALLY POPULATE POS (Column C)
+        const posRes = db.exec("SELECT DISTINCT pos FROM words WHERE pos IS NOT NULL AND pos != ''");
+        if(posRes[0]) {
+            const posSelect = document.getElementById('pos-select');
+            posRes[0].values.sort().forEach(row => {
+                posSelect.innerHTML += `<option value="${row[0]}">${row[0]}</option>`;
+            });
+        }
+
+// --- DYNAMICALLY LOAD CATEGORY (COLUMN K) ---
+        const catRes = db.exec("SELECT DISTINCT category FROM words WHERE category IS NOT NULL AND category != '' AND category != 'TBD' ORDER BY category ASC");
+        if(catRes[0]) {
+            const catSelect = document.getElementById('category-select');
+            catRes[0].values.sort().forEach(row => {
+                catSelect.innerHTML += `<option value="${row[0]}">${row[0]}</option>`;
+            });
+        }
+
     } catch (err) { 
         console.error("Database Error:", err); 
     }
@@ -475,12 +517,36 @@ function getRandomWord() {
     }
 
    // 4. Database Query (Added 'synonym' to the SELECT)
+// 4. Build Optional Filter Clauses
+    const posVal = document.getElementById('pos-select').value;
+    const catVal = document.getElementById('category-select').value;
+
+let filterClause = "";
+    if (posVal !== "all") filterClause += ` AND pos = '${posVal}'`;
+    if (catVal !== "all") filterClause += ` AND category = '${catVal}'`;
+
+    // NEW: If the lesson is ALL_LESSONS, we remove the lesson filter entirely
+    let lessonClause = (lesson === "ALL_LESSONS") ? "" : `AND lesson='${lesson}'`;
+
     const query = `SELECT lemma, ${langColumn}, image_path, audio_path, synonym 
                    FROM words 
-                   WHERE level='${level}' AND lesson='${lesson}'`;
-    
-    const res = db.exec(query);
+                   WHERE level='${level}' ${lessonClause} ${filterClause}`;
 
+
+    
+const res = db.exec(query);
+
+    if(res[0] && res[0].values.length > 0) { // Added length check
+        const rows = res[0].values;
+        let pool = [];
+        // ... rest of your code ...
+    } else {
+        // If no words found (maybe level + filter combined is empty)
+        document.getElementById('english-word').innerText = "No words found for this filter.";
+    }
+
+
+    
     // 5. Pool and Word Selection Logic
     if(res[0]) {
         const rows = res[0].values;
