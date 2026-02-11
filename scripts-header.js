@@ -1,3 +1,52 @@
+const path = window.location.pathname;
+window.isPremiumPage = path.includes('/premium/') || path.includes('study-tool');
+window.isLoginOnlyPage = path.includes('/members/') || path.includes('grammar-guide');
+
+function applyAccessControl(user) {
+    const authOverlay = document.getElementById('auth-overlay');
+    const unpaidMsg = document.getElementById('unpaid-message');
+    const authIcon = document.getElementById('auth-icon');
+    if (authIcon) authIcon.innerText = user ? '🚪' : '👤';
+
+    if (!user) {
+        if (window.isLoginOnlyPage || window.isPremiumPage) {
+            if (authOverlay) authOverlay.style.display = 'flex';
+        }
+    } else {
+        // [CHANGE: Move logic here so user.uid is valid]
+        if (authOverlay) authOverlay.style.display = 'none';
+
+        if (window.isPremiumPage && !path.includes('study-tool')) { 
+            if (typeof firebase !== 'undefined' && firebase.database) {
+                firebase.database().ref('users/' + user.uid + '/status').on('value', snap => {
+                    const status = snap.val();
+                    if (status !== 'paid') {
+                        if (unpaidMsg) unpaidMsg.style.display = 'flex';
+                    } else {
+                        if (unpaidMsg) unpaidMsg.style.display = 'none';
+                    }
+                });
+            }
+        }
+    }
+}
+
+
+// THIS IS THE CRITICAL CHANGE
+window.addEventListener('load', function() {
+    // Wait until EVERYTHING (including Firebase scripts) is loaded
+    if (typeof firebase !== 'undefined') {
+        firebase.auth().onAuthStateChanged(user => {
+            applyAccessControl(user);
+        });
+    }
+});
+
+
+
+
+
+
 /** * MASTER HEADER SCRIPT + COOKIE BANNER + PRIVACY LINK
  */
 
@@ -88,55 +137,89 @@ const btnAccept = isCzech ? "Přijmout" : "Accept";
     `;
 
 
-
     document.body.appendChild(banner);
 
 // Handle Accept
     document.getElementById('accept-cookies').addEventListener('click', function() {
         localStorage.setItem("cookieConsent", "granted");
+
         gtag('consent', 'update', {
             'ad_storage': 'granted',
             'ad_user_data': 'granted',
             'ad_personalization': 'granted',
             'analytics_storage': 'granted'
         });
-     loadAdSense(); 
+        
+        loadAdSense(); 
 
-    // NEW: This triggers any ad placeholders already on the page
-    setTimeout(() => {
-        const ads = document.querySelectorAll('ins.adsbygoogle');
-        ads.forEach(() => {
-            (window.adsbygoogle = window.adsbygoogle || []).push({});
-        });
-    }, 500); // Small delay to ensure script is loaded
+        // NEW: This triggers any ad placeholders already on the page
+        setTimeout(() => {
+            const ads = document.querySelectorAll('ins.adsbygoogle');
+            ads.forEach(() => {
+                (window.adsbygoogle = window.adsbygoogle || []).push({});
+            });
+        }, 500);
 
-    banner.style.display = "none";
-});
-
-
-
+        banner.style.display = "none";
+    }); // <--- FIX 1: Closes Accept Click Listener
 
     // Handle Reject
     document.getElementById('reject-cookies').addEventListener('click', function() {
         localStorage.setItem("cookieConsent", "denied");
-        // We stay in the 'denied' state (pings only), so we just hide the banner
         banner.style.display = "none";
     });
-});
+}); // <--- FIX 2: Closes the Cookie Banner DOMContentLoaded block
 
 
-// MAKE LOGO/HEADER CLICKABLE
+// MAKE ONLY LOGO CLICKABLE
 document.addEventListener("DOMContentLoaded", function() {
-    const header = document.querySelector('header');
-    if (header) {
-        header.title = "Go to Home";
-        header.addEventListener('click', function(e) {
-            // Only redirect if they didn't click a specific link inside the header
-            if (e.target.tagName !== 'A' && e.target.tagName !== 'BUTTON') {
-                window.location.href = "/";
-            }
+    const logo = document.getElementById('heading-welcome');
+    if (logo) {
+        logo.style.cursor = "pointer";
+        logo.title = "Go to Home";
+        logo.addEventListener('click', function() {
+            window.location.href = "/";
         });
     }
 });
 
 
+window.isSignUp = false;
+
+window.toggleAuth = function() {
+    window.isSignUp = !window.isSignUp;
+    const title = document.getElementById('auth-title');
+    const fields = document.getElementById('signup-fields');
+    const link = document.getElementById('toggle-link');
+    if (title) title.innerText = window.isSignUp ? "Sign Up" : "Log In";
+    if (fields) fields.style.display = window.isSignUp ? 'block' : 'none';
+    if (link) link.innerText = window.isSignUp ? "Already have an account? Log In" : "Need an account? Sign Up";
+};
+
+window.forgotPassword = function() {
+    const email = document.getElementById('auth-email').value;
+    if(!email) return alert("Enter email first.");
+    firebase.auth().sendPasswordResetEmail(email).then(()=>alert("Reset sent!")).catch(e=>alert(e.message));
+};
+
+window.signOutUser = function() { 
+    firebase.auth().signOut().then(() => {
+        window.location.reload();
+    }); 
+}; // <--- FIX 3: Closes the signOutUser function
+
+
+window.handleAuth = async function() {
+    const email = document.getElementById('auth-email').value;
+    const pass = document.getElementById('auth-pass').value;
+    try {
+        if (window.isSignUp) {
+            const name = document.getElementById('reg-name').value;
+            const c = await firebase.auth().createUserWithEmailAndPassword(email, pass);
+            await firebase.database().ref('users/' + c.user.uid).set({ name, email, status: 'pending' });
+            alert("Account created. Please ask teacher for approval.");
+        } else {
+            await firebase.auth().signInWithEmailAndPassword(email, pass);
+        }
+    } catch (e) { alert(e.message); }
+};

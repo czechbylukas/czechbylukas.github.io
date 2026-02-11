@@ -5,27 +5,18 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="../css/style.css">
     <link rel="stylesheet" href="../css/language-selector.css">
+    <script src="../scripts-header.js"></script>
 
+
+<script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-auth-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-database-compat.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
 
   <title id="page-title">Study Tool | HáCZech</title>
 
 
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-1BCW5XQ0X5"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-
-  // 1. Get the language (e.g., "cs" or "en")
-  const savedLang = (localStorage.getItem("selectedLanguage") || "en").toUpperCase();
-
-  // 2. This sends "[CS] Title..." to Google Analytics
-  gtag('config', 'G-1BCW5XQ0X5', {
-    'language_code': savedLang.toLowerCase(),
-    'page_title': '[' + savedLang + '] ' + document.title
-  });
-</script>
 
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/sql.js/1.6.2/sql-wasm.js"></script>
@@ -202,11 +193,6 @@
 
 <div id="footer-placeholder"></div>
 
-<script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-app-compat.js"></script>
-<script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-auth-compat.js"></script>
-<script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-database-compat.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-
 <script>
     const firebaseConfig = {
         apiKey: "AIzaSyAGCKtAQkj9bsrSpJ1IQWLAm_PA20vTluM",
@@ -270,28 +256,19 @@ if (event.key === 'ArrowUp' || event.key === 'ArrowDown' || event.key === 'Arrow
 
 
     // --- AUTH LOGIC ---
-auth.onAuthStateChanged(user => {
+    auth.onAuthStateChanged(user => {
+    applyAccessControl(user); 
     if(user) {
-        // 1. Hide the login screen and show Logout
-        document.getElementById('auth-overlay').style.display = 'none';
         document.getElementById('header-logout').style.display = 'block';
-        
-        // 2. Fetch the user's status (paid vs pending) from Firebase
         dbRef.ref('users/' + user.uid).on('value', snap => {
             const userData = snap.val();
             if (userData) {
-                window.userStatus = userData.status; // This will be 'paid' or 'pending'
-                userWeights = userData.weights || {}; // Load their progress
+                window.userStatus = userData.status;
+                userWeights = userData.weights || {};
             }
         });
-
-        // 3. Show Teacher button ONLY for Lukas
-        if(user.email === 'lukas@hackczech.com') {
-            document.getElementById('admin-trigger').style.display = 'block';
-        }
+        if(user.email === 'lukas@hackczech.com') document.getElementById('admin-trigger').style.display = 'block';
     } else {
-        // Not logged in
-        document.getElementById('auth-overlay').style.display = 'flex';
         document.getElementById('header-logout').style.display = 'none';
         window.userStatus = 'guest';
     }
@@ -302,34 +279,6 @@ auth.onAuthStateChanged(user => {
 
 
 
-
-
-    async function handleAuth() {
-        const email = document.getElementById('auth-email').value;
-        const pass = document.getElementById('auth-pass').value;
-        try {
-            if (isSignUp) {
-                const c = await auth.createUserWithEmailAndPassword(email, pass);
-                await dbRef.ref('users/'+c.user.uid).set({name: document.getElementById('reg-name').value, email, status:'pending'});
-                alert("Account created. Please ask teacher for approval.");
-            } else { await auth.signInWithEmailAndPassword(email, pass); }
-        } catch(e) { alert(e.message); }
-    }
-
-    function toggleAuth() {
-        isSignUp = !isSignUp;
-        document.getElementById('auth-title').innerText = isSignUp ? "Sign Up" : "Log In";
-        document.getElementById('signup-fields').style.display = isSignUp ? 'block' : 'none';
-        document.getElementById('toggle-link').innerText = isSignUp ? "Already have an account? Log In" : "Need an account? Sign Up";
-    }
-    
-    function forgotPassword() {
-        const email = document.getElementById('auth-email').value;
-        if(!email) return alert("Enter email first.");
-        auth.sendPasswordResetEmail(email).then(()=>alert("Reset sent!")).catch(e=>alert(e.message));
-    }
-
-    function signOutUser() { auth.signOut().then(() => location.reload()); }
 
     // --- ADMIN LOGIC ---
 function openAdmin() { 
