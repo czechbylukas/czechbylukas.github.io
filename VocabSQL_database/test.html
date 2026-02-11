@@ -78,25 +78,27 @@
     </div>
 </div>
 
-<header style="display: flex; align-items: center; justify-content: center; gap: 20px; position: relative; cursor: pointer;">
-    <h1 id="heading-welcome" style="margin: 0;">Study Tool</h1>
+<header style="display: flex; align-items: center; justify-content: space-between; padding: 10px 20px; background: white; border-bottom: 2px solid #2c3e50;">
     
-
-<div class="lang-switcher">
-        <select id="ui-lang-select" onchange="localStorage.setItem('selectedLanguage', this.value); location.reload();" style="padding: 5px; border-radius: 5px; cursor: pointer;">
-            <option value="en">🇬🇧 English</option>
-            <option value="de">🇩🇪 Deutsch</option>
-            <option value="es">🇪🇸 Español</option>
-        </select>
+    <div style="flex: 1; display: flex; justify-content: flex-start;">
+        <button id="admin-trigger" class="test-btn" style="display:none; background:#f39c12; padding: 5px 10px; font-size: 0.7rem;" onclick="openAdmin()">Teacher Console</button>
     </div>
 
+    <div style="flex: 2; text-align: center;">
+        <h1 id="heading-welcome" style="margin: 0; display: inline-block;">Study Tool</h1>
+        <div class="lang-switcher" style="display: inline-block; margin-left: 10px;">
+            <select id="ui-lang-select" onchange="localStorage.setItem('selectedLanguage', this.value); location.reload();" style="padding: 5px; border-radius: 5px; cursor: pointer;">
+                <option value="en">🇬🇧 English</option>
+                <option value="de">🇩🇪 Deutsch</option>
+                <option value="es">🇪🇸 Español</option>
+            </select>
+        </div>
+    </div>
 
-    <button id="header-logout" class="test-btn" style="display:none; background:#7f8c8d; padding: 5px 10px; font-size: 0.7rem; position: absolute; right: 20px;" onclick="event.stopPropagation(); signOutUser()">Sign Out</button>
-
-
-<button id="admin-trigger" class="test-btn" style="display:none; background:#f39c12; padding: 5px 10px; font-size: 0.7rem; position: absolute; left: 20px;" onclick="openAdmin()">Teacher Console</button>
-
-
+    <div style="flex: 1; display: flex; justify-content: flex-end;">
+        <button id="header-logout" class="test-btn" style="display:none; background:#7f8c8d; padding: 5px 10px; font-size: 0.7rem;" onclick="event.stopPropagation(); signOutUser()">Sign Out</button>
+    </div>
+    
 </header>
 
 
@@ -384,6 +386,9 @@ function togglePaidStatus(uid, isChecked) {
     // --- GAME LOGIC ---
     // GET LEVELS FROM DATABASE COLUMD D
 async function initDatabase() {
+    // FIX: Set the dropdown value to match saved language
+    const savedLang = localStorage.getItem("selectedLanguage") || "en";
+    document.getElementById('ui-lang-select').value = savedLang;
     try {
         const sqlPromise = initSqlJs({ locateFile: file => `https://cdnjs.cloudflare.com/ajax/libs/sql.js/1.6.2/${file}` });
         const response = await fetch("czech_master.db");
