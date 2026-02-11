@@ -73,6 +73,12 @@ header {
     box-shadow: 0 2px 10px rgba(0,0,0,0.1);
     min-height: 80px;   /* Ensures enough space for logo */
 }
+header:hover::before {
+    opacity: 0.8; 
+    transition: 0.3s;
+}
+
+
 
 /* This creates the logo automatically */
 header::before {

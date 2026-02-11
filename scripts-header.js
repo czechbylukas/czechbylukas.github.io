@@ -2,12 +2,21 @@
  */
 
 
-// LOAD GOOGLE ADSENSE
-var adsenseScript = document.createElement('script');
-adsenseScript.async = true;
-adsenseScript.src = 'https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9067674021614925';
-adsenseScript.crossOrigin = 'anonymous';
-document.head.appendChild(adsenseScript);
+// 0. FUNCTION TO LOAD ADSENSE ONLY AFTER CONSENT
+function loadAdSense() {
+    if (!document.querySelector('script[src*="pagead2"]')) {
+        var adsenseScript = document.createElement('script');
+        adsenseScript.async = true;
+        adsenseScript.src = 'https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9067674021614925';
+        adsenseScript.crossOrigin = 'anonymous';
+        document.head.appendChild(adsenseScript);
+    }
+}
+
+// Load AdSense immediately if consent was already granted in a previous session
+if (localStorage.getItem("cookieConsent") === "granted") {
+    loadAdSense();
+}
 
 
 
@@ -16,12 +25,16 @@ window.dataLayer = window.dataLayer || [];
 function gtag(){dataLayer.push(arguments);}
 
 if (!localStorage.getItem("cookieConsent")) {
+
+
     gtag('consent', 'default', {
         'ad_storage': 'denied',
-        'ad_user_data': 'denied',        // New for v2
-        'ad_personalization': 'denied', // New for v2
-        'analytics_storage': 'granted'  // You chose to keep analytics on
+        'ad_user_data': 'denied',
+        'ad_personalization': 'denied',
+        'analytics_storage': 'denied' // Matches your policy: Denied by default
     });
+
+
 } else {
     gtag('consent', 'default', {
         'ad_storage': 'granted',
@@ -58,27 +71,72 @@ document.addEventListener("DOMContentLoaded", function() {
     // Logic for language
     const isCzech = (localStorage.getItem("selectedLanguage") === "cs");
     const msg = isCzech ? "Tento web používá cookies pro lepší zkušenost." : "This website uses cookies to improve your experience.";
-    const btnText = isCzech ? "Rozumím" : "I understand";
+
+
+
+const btnAccept = isCzech ? "Přijmout" : "Accept";
+    const btnReject = isCzech ? "Odmítnout" : "Reject";
     const policyText = isCzech ? "Zásady ochrany soukromí" : "Privacy Policy";
 
     banner.innerHTML = `
         <span style="display:inline-block; margin-bottom:10px;">${msg}</span> 
         <div style="display:inline-block; margin-left:15px;">
             <a href="/privacy.html" style="color:white; text-decoration:underline; font-size:14px; margin-right:15px;">${policyText}</a>
-            <button id='accept-cookies' style='padding:8px 18px; cursor:pointer; background:white; color:#2b593e; border:none; border-radius:5px; font-weight:bold; transition: 0.3s;'>${btnText}</button>
+            <button id='reject-cookies' style='padding:6px 14px; cursor:pointer; background:transparent; color:white; border:1px solid white; border-radius:5px; margin-right:10px;'>${btnReject}</button>
+            <button id='accept-cookies' style='padding:8px 18px; cursor:pointer; background:white; color:#2b593e; border:none; border-radius:5px; font-weight:bold;'>${btnAccept}</button>
         </div>
     `;
+
+
+
     document.body.appendChild(banner);
 
-// Handle Click
+// Handle Accept
     document.getElementById('accept-cookies').addEventListener('click', function() {
-        localStorage.setItem("cookieConsent", "true");
+        localStorage.setItem("cookieConsent", "granted");
         gtag('consent', 'update', {
             'ad_storage': 'granted',
-            'ad_user_data': 'granted',      // Add this
-            'ad_personalization': 'granted', // Add this
+            'ad_user_data': 'granted',
+            'ad_personalization': 'granted',
             'analytics_storage': 'granted'
         });
+     loadAdSense(); 
+
+    // NEW: This triggers any ad placeholders already on the page
+    setTimeout(() => {
+        const ads = document.querySelectorAll('ins.adsbygoogle');
+        ads.forEach(() => {
+            (window.adsbygoogle = window.adsbygoogle || []).push({});
+        });
+    }, 500); // Small delay to ensure script is loaded
+
+    banner.style.display = "none";
+});
+
+
+
+
+    // Handle Reject
+    document.getElementById('reject-cookies').addEventListener('click', function() {
+        localStorage.setItem("cookieConsent", "denied");
+        // We stay in the 'denied' state (pings only), so we just hide the banner
         banner.style.display = "none";
     });
 });
+
+
+// MAKE LOGO/HEADER CLICKABLE
+document.addEventListener("DOMContentLoaded", function() {
+    const header = document.querySelector('header');
+    if (header) {
+        header.title = "Go to Home";
+        header.addEventListener('click', function(e) {
+            // Only redirect if they didn't click a specific link inside the header
+            if (e.target.tagName !== 'A' && e.target.tagName !== 'BUTTON') {
+                window.location.href = "/";
+            }
+        });
+    }
+});
+
+

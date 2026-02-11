@@ -84,12 +84,13 @@
     </div>
 </div>
 
-<button id="admin-trigger" class="test-btn" style="display:none; position: fixed; top: 10px; left: 10px; z-index: 999; background: #e67e22;" onclick="openAdmin()">Teacher Console</button>
+<header style="display: flex; align-items: center; justify-content: center; gap: 20px; position: relative; cursor: pointer;" onclick="if(event.target.tagName !== 'BUTTON' && event.target.tagName !== 'SELECT') window.location.href='../index.html'">
+    <button id="admin-trigger" class="test-btn" style="display:none; background: #e67e22; margin: 0;" onclick="event.stopPropagation(); openAdmin()">Teacher Console</button>
+    
+    <h1 id="heading-welcome" style="margin: 0;">Study Tool</h1>
 
-<header>
-    <h1 id="heading-welcome">Study Tool</h1>
     <div id="language-selector-container">
-        <select id="lang-select" style="padding: 8px; border-radius: 5px; border: 2px solid #2c3e50; font-weight: bold;" onchange="getRandomWord()">
+        <select id="lang-select" style="padding: 8px; border-radius: 5px; border: 2px solid #2c3e50; font-weight: bold;" onchange="event.stopPropagation(); getRandomWord()">
             <option value="trans_en">🇬🇧</option>
             <option value="trans_es">🇪🇸</option>
             <option value="trans_de">🇩🇪</option>
@@ -182,6 +183,21 @@
     </div>
 </div>
 
+
+
+
+<div id="ad-wrapper" style="text-align: center; margin: 15px 0; min-height: 90px; display: none;">
+    <ins class="adsbygoogle"
+         style="display:block"
+         data-ad-client="ca-pub-9067674021614925"
+         data-ad-slot="6031820485" 
+         data-ad-format="auto"
+         data-full-width-responsive="true"></ins>
+</div>
+
+
+
+
 <div id="footer-placeholder"></div>
 
 <script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-app-compat.js"></script>
@@ -248,6 +264,9 @@ if (event.key === 'ArrowUp' || event.key === 'ArrowDown' || event.key === 'Arrow
 }, true); // The "true" ensures your code handles the key before the browser's autofill logic
 
 
+
+
+
     // --- AUTH LOGIC ---
 auth.onAuthStateChanged(user => {
     if(user) {
@@ -255,20 +274,32 @@ auth.onAuthStateChanged(user => {
             document.getElementById('admin-trigger').style.display = 'block';
             loadUsers();
         }
-        dbRef.ref('users/'+user.uid).on('value', snap => {
+dbRef.ref('users/'+user.uid).on('value', snap => {
             const d = snap.val();
             window.userStatus = (d && (d.status === 'paid' || user.email === 'lukas@hackczech.com')) ? 'paid' : 'unpaid';
-            userWeights = d?.weights || {};
-            document.getElementById('auth-overlay').style.display = 'none';
-            document.getElementById('unpaid-message').style.display = 'none';
-            if(!db) initDatabase();
+
+            // AD LOGIC HERE:
+            const adWrapper = document.getElementById('ad-wrapper');
+            if(window.userStatus !== 'paid' && localStorage.getItem("cookieConsent") === "granted") {
+                if (adWrapper.style.display === 'none') { // Only push if not already shown
+                    adWrapper.style.display = 'block';
+                    (window.adsbygoogle = window.adsbygoogle || []).push({});
+                }
+            } else {
+                adWrapper.style.display = 'none';
+            }
+            // ... (rest of your weights logic)
         });
     } else {
-        window.userStatus = 'guest';
-        document.getElementById('auth-overlay').style.display = 'none'; 
-        if(!db) initDatabase();
+        // GUEST LOGIC:
+        if(localStorage.getItem("cookieConsent") === "granted") {
+             document.getElementById('ad-wrapper').style.display = 'block';
+             (window.adsbygoogle = window.adsbygoogle || []).push({});
+        }
     }
 });
+
+
 
 
 
