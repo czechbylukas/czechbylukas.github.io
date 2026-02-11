@@ -81,6 +81,16 @@
 <header style="display: flex; align-items: center; justify-content: center; gap: 20px; position: relative; cursor: pointer;">
     <h1 id="heading-welcome" style="margin: 0;">Study Tool</h1>
     
+
+    <div id="language-nav-wrapper">
+    <div class="lang-switcher">
+        <button onclick="localStorage.setItem('selectedLanguage', 'en'); location.reload();">🇬🇧 EN</button>
+        <button onclick="localStorage.setItem('selectedLanguage', 'de'); location.reload();">🇩🇪 DE</button>
+        <button onclick="localStorage.setItem('selectedLanguage', 'es'); location.reload();">🇪🇸 ES</button>
+    </div>
+</div>
+
+
     <button id="header-logout" class="test-btn" style="display:none; background:#7f8c8d; padding: 5px 10px; font-size: 0.7rem; position: absolute; right: 20px;" onclick="event.stopPropagation(); signOutUser()">Sign Out</button>
 
 
