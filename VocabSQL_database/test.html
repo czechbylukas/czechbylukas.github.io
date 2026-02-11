@@ -42,11 +42,14 @@
         #word-guess-box { padding: 12px; font-size: 1.2rem; width: 80%; border-radius: 8px; border: 2px solid #ddd; margin: 15px auto; outline: none; }
         #success-msg { color: #27ae60; font-weight: bold; font-size: 1.8rem; height: 40px; margin-top: 10px; }
         .typo-warning { color: #f39c12; font-weight: bold; height: 20px; margin-bottom: 10px; }
-        #auth-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: #2c3e50; display: flex; justify-content: center; align-items: center; z-index: 10000; }
-        .auth-card { background: white; padding: 30px; border-radius: 15px; width: 320px; text-align: center; }
-        .auth-card input { width: 100%; padding: 10px; margin: 8px 0; border: 1px solid #ddd; border-radius: 5px; box-sizing: border-box; }
-        #unpaid-message { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: white; z-index: 9999; justify-content: center; align-items: center; flex-direction: column; text-align: center; }
-        
+
+
+
+
+
+
+
+
         /* Modal Styles */
         .modal-content { background:white; max-width:800px; margin:40px auto; padding:20px; border-radius:12px; position:relative; box-shadow: 0 5px 15px rgba(0,0,0,0.5); }
         #user-table { width:100%; border-collapse: collapse; margin-top: 10px; }
@@ -84,19 +87,18 @@
     </div>
 </div>
 
-<header style="display: flex; align-items: center; justify-content: center; gap: 20px; position: relative; cursor: pointer;" onclick="if(event.target.tagName !== 'BUTTON' && event.target.tagName !== 'SELECT') window.location.href='../index.html'">
-    <button id="admin-trigger" class="test-btn" style="display:none; background: #e67e22; margin: 0;" onclick="event.stopPropagation(); openAdmin()">Teacher Console</button>
-    
+<header style="display: flex; align-items: center; justify-content: center; gap: 20px; position: relative; cursor: pointer;">
     <h1 id="heading-welcome" style="margin: 0;">Study Tool</h1>
+    
+    <button id="header-logout" class="test-btn" style="display:none; background:#7f8c8d; padding: 5px 10px; font-size: 0.7rem; position: absolute; right: 20px;" onclick="event.stopPropagation(); signOutUser()">Sign Out</button>
 
-    <div id="language-selector-container">
-        <select id="lang-select" style="padding: 8px; border-radius: 5px; border: 2px solid #2c3e50; font-weight: bold;" onchange="event.stopPropagation(); getRandomWord()">
-            <option value="trans_en">🇬🇧</option>
-            <option value="trans_es">🇪🇸</option>
-            <option value="trans_de">🇩🇪</option>
-        </select>
-    </div>
+
+<button id="admin-trigger" class="test-btn" style="display:none; background:#f39c12; padding: 5px 10px; font-size: 0.7rem; position: absolute; left: 20px;" onclick="openAdmin()">Teacher Console</button>
+
+
 </header>
+
+
 
 
 
@@ -270,34 +272,33 @@ if (event.key === 'ArrowUp' || event.key === 'ArrowDown' || event.key === 'Arrow
     // --- AUTH LOGIC ---
 auth.onAuthStateChanged(user => {
     if(user) {
+        // 1. Hide the login screen and show Logout
+        document.getElementById('auth-overlay').style.display = 'none';
+        document.getElementById('header-logout').style.display = 'block';
+        
+        // 2. Fetch the user's status (paid vs pending) from Firebase
+        dbRef.ref('users/' + user.uid).on('value', snap => {
+            const userData = snap.val();
+            if (userData) {
+                window.userStatus = userData.status; // This will be 'paid' or 'pending'
+                userWeights = userData.weights || {}; // Load their progress
+            }
+        });
+
+        // 3. Show Teacher button ONLY for Lukas
         if(user.email === 'lukas@hackczech.com') {
             document.getElementById('admin-trigger').style.display = 'block';
-            loadUsers();
         }
-dbRef.ref('users/'+user.uid).on('value', snap => {
-            const d = snap.val();
-            window.userStatus = (d && (d.status === 'paid' || user.email === 'lukas@hackczech.com')) ? 'paid' : 'unpaid';
-
-            // AD LOGIC HERE:
-            const adWrapper = document.getElementById('ad-wrapper');
-            if(window.userStatus !== 'paid' && localStorage.getItem("cookieConsent") === "granted") {
-                if (adWrapper.style.display === 'none') { // Only push if not already shown
-                    adWrapper.style.display = 'block';
-                    (window.adsbygoogle = window.adsbygoogle || []).push({});
-                }
-            } else {
-                adWrapper.style.display = 'none';
-            }
-            // ... (rest of your weights logic)
-        });
     } else {
-        // GUEST LOGIC:
-        if(localStorage.getItem("cookieConsent") === "granted") {
-             document.getElementById('ad-wrapper').style.display = 'block';
-             (window.adsbygoogle = window.adsbygoogle || []).push({});
-        }
+        // Not logged in
+        document.getElementById('auth-overlay').style.display = 'flex';
+        document.getElementById('header-logout').style.display = 'none';
+        window.userStatus = 'guest';
     }
 });
+
+
+
 
 
 
@@ -331,7 +332,12 @@ dbRef.ref('users/'+user.uid).on('value', snap => {
     function signOutUser() { auth.signOut().then(() => location.reload()); }
 
     // --- ADMIN LOGIC ---
-    function openAdmin() { document.getElementById('admin-modal').style.display = 'block'; }
+function openAdmin() { 
+    document.getElementById('admin-modal').style.display = 'block'; 
+    loadUsers(); // This tells the code to fetch the students as soon as the window opens
+}
+
+
     function closeAdmin() { document.getElementById('admin-modal').style.display = 'none'; }
 
 function loadUsers() {
@@ -349,16 +355,6 @@ function loadUsers() {
 
 
 
-function loadUsers() {
-    console.log("Attempting to load users..."); 
-    dbRef.ref('users').on('value', snap => {
-        allUsers = snap.val() || {};
-        console.log("Users received:", allUsers); 
-        renderUserTable(allUsers);
-    }, error => {
-        console.error("Firebase error:", error);
-    });
-} // This is the end of loadUsers
 
 // PASTE THESE TWO BELOW IT:
 function filterUsers() {
@@ -508,21 +504,18 @@ async function initDatabase() {
 
 
 
-
 function getRandomWord() {
     if(!db) return;
     
-    // 1. Get current selection values
     const combinedValue = document.getElementById('level-select').value;
-    const langColumn = document.getElementById('lang-select').value;
+const currentLang = localStorage.getItem("selectedLanguage") || "en";
+const langColumn = "trans_" + currentLang;
 
-    // Stop if the default "Vyberte sadu" is selected
     if(!combinedValue || combinedValue.includes("Vyberte")) return;
 
-    // Define Level and Lesson from the dropdown value
     const [level, lesson] = combinedValue.split('|');
 
-    // 2. UI RESET: Clear old word immediately so the screen reloads visually
+    // 1. UI RESET
     document.getElementById('english-word').innerText = "---";
     document.getElementById('czech-word').innerText = "---";
     document.getElementById('word-image').style.display = 'none';
@@ -533,7 +526,7 @@ function getRandomWord() {
     document.getElementById('btn-container').style.display = 'flex';
     document.getElementById('reveal-next').style.display = 'none';
 
-    // 3. Permission Check
+    // 2. Permission Check
     const isFreeLesson = (level === 'A0' && lesson === '0 Užitečná slova');
     const isUserPaid = (window.userStatus === 'paid');
 
@@ -547,51 +540,38 @@ function getRandomWord() {
         return; 
     }
 
-   // 4. Database Query (Added 'synonym' to the SELECT)
-// 4. Build Optional Filter Clauses
+    // 3. Build Query
     const posVal = document.getElementById('pos-select').value;
     const catVal = document.getElementById('category-select').value;
-
-let filterClause = "";
+    let filterClause = "";
     if (posVal !== "all") filterClause += ` AND pos = '${posVal}'`;
     if (catVal !== "all") filterClause += ` AND category = '${catVal}'`;
-
-    // NEW: If the lesson is ALL_LESSONS, we remove the lesson filter entirely
     let lessonClause = (lesson === "ALL_LESSONS") ? "" : `AND lesson='${lesson}'`;
 
     const query = `SELECT lemma, ${langColumn}, image_path, audio_path, synonym 
                    FROM words 
                    WHERE level='${level}' ${lessonClause} ${filterClause}`;
 
+    const res = db.exec(query);
 
-    
-const res = db.exec(query);
-
-    if(res[0] && res[0].values.length > 0) { // Added length check
+    // 4. Selection Logic
+    if(res[0] && res[0].values.length > 0) {
         const rows = res[0].values;
         let pool = [];
-        // ... rest of your code ...
-    } else {
-        // If no words found (maybe level + filter combined is empty)
-        document.getElementById('english-word').innerText = "No words found for this filter.";
-    }
-
-
-    
-    // 5. Pool and Word Selection Logic
-    if(res[0]) {
-        const rows = res[0].values;
-        let pool = [];
+        
+        // Fill pool based on weights
         rows.forEach(r => {
             const w = userWeights[r[0]] || 5;
             for(let i=0; i<w; i++) pool.push(r);
         });
-        const s = pool[Math.floor(Math.random()*pool.length)];
-        // Mapping s[4] to synonym
+        
+        // Pick random word from pool
+        const s = pool[Math.floor(Math.random() * pool.length)];
         currentWord = { czech: s[0], translation: s[1], img: s[2], audio: s[3], synonym: s[4] };
         
         document.getElementById('english-word').innerText = s[1];
-        // Display both main word and synonym when revealed
+        
+        // Show synonym if it exists
         const displayWord = currentWord.synonym ? `${s[0]} / ${s[4]}` : s[0];
         document.getElementById('czech-word').innerText = displayWord;
         
@@ -602,9 +582,13 @@ const res = db.exec(query);
         } else { 
             img.style.display = 'none'; 
         }
+    } else {
+        document.getElementById('english-word').innerText = "No words found for this filter.";
     }
     document.getElementById('word-guess-box').focus();
 }
+
+
 
 
 
@@ -710,8 +694,7 @@ function getEditDistance(a, b) {
 }
 
 
-
-
+initDatabase();
 
 </script>
 </body>
