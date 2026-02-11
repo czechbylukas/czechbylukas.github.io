@@ -62,8 +62,8 @@ function loadAdSense() {
     }
 }
 
-// Load AdSense immediately if consent was already granted in a previous session
-if (localStorage.getItem("cookieConsent") === "granted") {
+// Load AdSense immediately if a choice (any choice) was made
+if (localStorage.getItem("cookieConsent")) {
     loadAdSense();
 }
 
@@ -153,19 +153,46 @@ const btnAccept = isCzech ? "Přijmout" : "Accept";
         loadAdSense(); 
 
         // NEW: This triggers any ad placeholders already on the page
-        setTimeout(() => {
-            const ads = document.querySelectorAll('ins.adsbygoogle');
-            ads.forEach(() => {
-                (window.adsbygoogle = window.adsbygoogle || []).push({});
-            });
+        // Trigger ads even if footer/sidebar are still loading
+        let checkAds = setInterval(() => {
+            const ads = document.querySelectorAll('ins.adsbygoogle:not([data-adsbygoogle-status="done"])');
+            if (ads.length > 0) {
+                ads.forEach(() => (window.adsbygoogle = window.adsbygoogle || []).push({}));
+                clearInterval(checkAds);
+            }
         }, 500);
+        setTimeout(() => clearInterval(checkAds), 5000); // Stop looking after 5s
 
         banner.style.display = "none";
     }); // <--- FIX 1: Closes Accept Click Listener
 
-    // Handle Reject
+// Handle Reject
     document.getElementById('reject-cookies').addEventListener('click', function() {
         localStorage.setItem("cookieConsent", "denied");
+        
+        // Signal Google to show ONLY non-personalized ads
+        gtag('consent', 'update', {
+            'ad_storage': 'denied',
+            'ad_user_data': 'denied',
+            'ad_personalization': 'denied',
+            'analytics_storage': 'denied'
+        });
+
+        loadAdSense(); // Still load the script
+        
+// Trigger non-personalized ads even if footer/sidebar are still loading
+        let checkAdsNPA = setInterval(() => {
+            const ads = document.querySelectorAll('ins.adsbygoogle:not([data-adsbygoogle-status="done"])');
+            if (ads.length > 0) {
+                ads.forEach(() => {
+                    (window.adsbygoogle = window.adsbygoogle || []).requestNonPersonalizedAds = 1;
+                    (window.adsbygoogle = window.adsbygoogle || []).push({});
+                });
+                clearInterval(checkAdsNPA);
+            }
+        }, 500);
+        setTimeout(() => clearInterval(checkAdsNPA), 5000); // Stop looking after 5s
+
         banner.style.display = "none";
     });
 }); // <--- FIX 2: Closes the Cookie Banner DOMContentLoaded block
@@ -223,3 +250,20 @@ window.handleAuth = async function() {
         }
     } catch (e) { alert(e.message); }
 };
+
+
+// Handle ads for returning users who already gave consent or rejected
+if (localStorage.getItem("cookieConsent")) {
+    let checkAdsReturning = setInterval(() => {
+        const ads = document.querySelectorAll('ins.adsbygoogle:not([data-adsbygoogle-status="done"])');
+        if (ads.length > 0) {
+            const isNPA = localStorage.getItem("cookieConsent") === "denied";
+            ads.forEach(() => {
+                if (isNPA) (window.adsbygoogle = window.adsbygoogle || []).requestNonPersonalizedAds = 1;
+                (window.adsbygoogle = window.adsbygoogle || []).push({});
+            });
+            clearInterval(checkAdsReturning);
+        }
+    }, 500);
+    setTimeout(() => clearInterval(checkAdsReturning), 5000);
+}
