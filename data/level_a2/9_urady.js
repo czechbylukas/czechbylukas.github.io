@@ -56,5 +56,5 @@ const vocab = [
   { czech: "krize", english: "crisis", spanish: "crisis", german: "Krise" },
   { czech: "válka", english: "war", spanish: "guerra", german: "Krieg" },
   { czech: "stát se", english: "to become, to happen", spanish: "suceder, convertirse", german: "geschehen, werden" },
-  { czech: "vybuchnout", english: "to explode", spanish: "explotar", german: "explodieren" }
+  { czech: "vybouchnout", english: "to explode", spanish: "explotar", german: "explodieren" }
 ];
