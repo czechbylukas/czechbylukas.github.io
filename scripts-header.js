@@ -346,33 +346,42 @@ if (localStorage.getItem("cookieConsent")) {
 
 
 
-// --- PAGE TIME TRACKER ---
-let startTime = Date.now();
-let currentPage = window.location.pathname.split('/').pop() || 'index.html';
+// --- SMART PAGE TIME TRACKER ---
+let totalActiveTime = 0;
+let lastActiveTime = Date.now();
+let currentPage = window.location.pathname;
 
 function logTimeSpent() {
-    const endTime = Date.now();
-    const timeSpent = Math.round((endTime - startTime) / 1000); 
+    const timeToLog = Math.round(totalActiveTime / 1000); 
     
-    // Check if firebase and auth are ready
-    if (typeof firebase !== 'undefined' && firebase.auth().currentUser && timeSpent > 2) {
+    if (typeof firebase !== 'undefined' && firebase.auth().currentUser && timeToLog > 2) {
         const user = firebase.auth().currentUser;
         const dateKey = new Date().toISOString().split('T')[0];
-        const cleanPageName = currentPage.replace(/\./g, '_');
+        const cleanPageName = currentPage.replace(/\./g, '_').replace(/\//g, '_');
         
-        // Using firebase.database() directly to ensure it works globally
+        // Save the Title
+        const pageTitle = document.title || "Untitled Page";
+        firebase.database().ref(`page_titles/${cleanPageName}`).set(pageTitle);
+
+        // Save the Time
         const path = `usage_logs/${user.uid}/${dateKey}/${cleanPageName}`;
-        firebase.database().ref(path).transaction((currentValue) => {
-            return (currentValue || 0) + timeSpent;
-        });
+        firebase.database().ref(path).transaction((currentValue) => (currentValue || 0) + timeToLog);
+        
+        totalActiveTime = 0; // Reset after logging
     }
 }
 
-window.addEventListener('beforeunload', logTimeSpent);
-window.addEventListener('visibilitychange', () => {
-    if (document.visibilityState === 'hidden') {
-        logTimeSpent();
+// Only count time if the tab is actually visible (not minimized/hidden)
+setInterval(() => {
+    if (document.visibilityState === 'visible') {
+        const now = Date.now();
+        totalActiveTime += (now - lastActiveTime);
+        lastActiveTime = now;
     } else {
-        startTime = Date.now(); 
+        lastActiveTime = Date.now(); // Keep updating so it doesn't "jump" when they come back
     }
-});
+}, 1000);
+
+window.addEventListener('beforeunload', logTimeSpent);
+// Log every 30 seconds automatically so we don't lose data if they just close the laptop
+setInterval(logTimeSpent, 30000);

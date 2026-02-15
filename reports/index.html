@@ -43,14 +43,15 @@
         <input type="text" id="user-search" class="search-bar" placeholder="Search students by name or email..." onkeyup="filterUsers()">
 
         <table id="user-table">
-            <thead style="background:#2c3e50; color: white;">
-                <tr>
-                    <th>Name</th>
-                    <th>Email</th>
-                    <th>Paid Status</th>
-                    <th>Actions</th>
-                </tr>
-            </thead>
+<thead style="background:#2c3e50; color: white;">
+    <tr>
+        <th>Name</th>
+        <th>Email</th>
+        <th>Total Usage</th> 
+        <th>Paid Status</th>
+        <th>Actions</th>
+    </tr>
+</thead>
             <tbody id="user-tbody"></tbody>
         </table>
 
@@ -90,32 +91,36 @@ function renderUserTable(data) {
         let u = data[id];
         const isPaid = u.status === 'paid';
         
-        // We will fetch the usage totals for this user to show in the table
-        let row = `<tr id="row-${id}">
+        // We add a specific ID to the time cell so we can update it live
+        let row = `<tr>
             <td>**${u.name || 'N/A'}**</td>
             <td>${u.email}</td>
-            <td id="time-${id}">Calculating...</td>
+            <td id="time-${id}" style="font-weight:bold; color:#34495e;">Loading...</td>
             <td style="text-align:center;">
                 <input type="checkbox" ${isPaid ? 'checked' : ''} 
+                       style="transform: scale(1.2);"
                        onchange="togglePaidStatus('${id}', this.checked)">
+                <span class="${isPaid ? 'status-paid' : 'status-pending'}">${u.status || 'pending'}</span>
             </td>
             <td>
-                <button class="test-btn" style="background:#3498db; padding: 5px;" 
-                        onclick="showReport('${id}', '${u.name}')">Stats</button>
+                <button class="test-btn" style="background:#3498db; padding: 5px 10px;" 
+                        onclick="showReport('${id}', '${u.name}')">View Stats</button>
             </td>
         </tr>`;
         tbody.innerHTML += row;
 
-        // Immediately fetch the total time for this specific user to fill the cell
+        // Fetch the time for this user
         fetchUserTotalTime(id);
     }
 }
 
 function fetchUserTotalTime(uid) {
+    // We listen to usage_logs for this specific student
     dbRef.ref(`usage_logs/${uid}`).on('value', snap => {
         const logs = snap.val() || {};
         let totalSeconds = 0;
         
+        // Loop through dates and pages to sum up the time
         for (let date in logs) {
             for (let page in logs[date]) {
                 totalSeconds += logs[date][page];
@@ -124,53 +129,61 @@ function fetchUserTotalTime(uid) {
         
         const minutes = Math.floor(totalSeconds / 60);
         const cell = document.getElementById(`time-${uid}`);
-        if (cell) cell.innerText = minutes + " mins";
+        
+        if (cell) {
+            cell.innerText = minutes + " min";
+            // Optional: Color code active students (e.g., more than 60 mins is green)
+            if (minutes > 60) cell.style.color = "#27ae60"; 
+        }
     });
 }
 
-    function togglePaidStatus(uid, isChecked) {
-        const newStatus = isChecked ? 'paid' : 'pending';
-        dbRef.ref('users/' + uid).update({ status: newStatus });
-    }
 
-    function filterUsers() {
-        const term = document.getElementById('user-search').value.toLowerCase();
-        const rows = document.querySelectorAll('#user-tbody tr');
-        rows.forEach(row => {
-            row.style.display = row.innerText.toLowerCase().includes(term) ? '' : 'none';
-        });
-    }
 
 let myChart; // Global variable to hold the chart instance
+
+let pageTitleMap = {};
+
+// Load titles once when the page opens
+dbRef.ref('page_titles').on('value', snap => {
+    pageTitleMap = snap.val() || {};
+});
 
 function showReport(uid, name) {
     document.getElementById('report-section').style.display = 'block';
     document.getElementById('report-title').innerText = "Usage Report: " + name;
 
-    // Fetch the usage logs for this specific user
     dbRef.ref(`usage_logs/${uid}`).once('value', snap => {
         const logs = snap.val() || {};
-        const pageTotals = {};
+        const categories = {
+            "Slovíčka": 0,
+            "Cvičení": 0,
+            "Study Tool": 0,
+            "Testy": 0,
+            "Other": 0
+        };
 
-        // Aggregate data: Loop through dates -> Loop through pages
         for (let date in logs) {
-            for (let page in logs[date]) {
-                const seconds = logs[date][page];
-                pageTotals[page] = (pageTotals[page] || 0) + (seconds / 60); // Convert to minutes
+            for (let pageKey in logs[date]) {
+                const mins = logs[date][pageKey] / 60;
+                
+                // Grouping Logic based on your sidebar paths
+                if (pageKey.includes('vocabulary')) categories["Slovíčka"] += mins;
+                else if (pageKey.includes('exercise')) categories["Cvičení"] += mins;
+                else if (pageKey.includes('VocabSQL')) categories["Study Tool"] += mins;
+                else if (pageKey.includes('tests')) categories["Testy"] += mins;
+                else categories["Other"] += mins;
             }
         }
-
-        renderChart(pageTotals);
+        renderCategoryChart(categories);
     });
 }
 
 function renderChart(data) {
     const ctx = document.getElementById('adminProgressChart').getContext('2d');
-    
-    // If a chart already exists, destroy it so we can draw a new one
     if (myChart) { myChart.destroy(); }
 
-    const labels = Object.keys(data).map(p => p.replace('_html', '.html'));
+    const labels = Object.keys(data);
     const values = Object.values(data);
 
     myChart = new Chart(ctx, {
@@ -178,19 +191,36 @@ function renderChart(data) {
         data: {
             labels: labels,
             datasets: [{
-                label: 'Total Minutes Spent',
+                label: 'Minutes Spent',
                 data: values,
-                backgroundColor: '#3498db',
-                borderColor: '#2980b9',
-                borderWidth: 1
+                backgroundColor: '#3498db'
             }]
         },
         options: {
+            indexAxis: 'y', // Horizontal bars are much better for long page titles
             responsive: true,
-            scales: {
-                y: { beginAtZero: true, title: { display: true, text: 'Minutes' } }
+            plugins: {
+                legend: { display: false }
             }
         }
+    });
+}
+// Function to update Paid/Pending status in Firebase
+function togglePaidStatus(uid, isChecked) {
+    const newStatus = isChecked ? 'paid' : 'pending';
+    dbRef.ref(`users/${uid}`).update({ status: newStatus })
+        .then(() => console.log("Status updated!"))
+        .catch(err => alert("Error updating status: " + err.message));
+}
+
+// Function to filter the table when typing in the search bar
+function filterUsers() {
+    const input = document.getElementById('user-search').value.toLowerCase();
+    const rows = document.querySelectorAll('#user-tbody tr');
+
+    rows.forEach(row => {
+        const text = row.innerText.toLowerCase();
+        row.style.display = text.includes(input) ? '' : 'none';
     });
 }
 </script>
