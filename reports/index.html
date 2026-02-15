@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-database-compat.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    
+    <script src="../scripts-header.js"></script>
+    <link rel="stylesheet" href="../css/style.css">
+    
+    <title>Teacher Dashboard | HáCZech</title>
+
+    <style>
+        .admin-container { max-width: 1000px; margin: 40px auto; padding: 20px; background: white; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); }
+        #user-table { width: 100%; border-collapse: collapse; margin-top: 20px; }
+        #user-table th, #user-table td { border: 1px solid #ddd; padding: 12px; text-align: left; }
+        #user-table tr:nth-child(even) { background-color: #f9f9f9; }
+        .status-paid { color: #27ae60; font-weight: bold; }
+        .status-pending { color: #e67e22; font-weight: bold; }
+        .search-bar { width: 100%; padding: 12px; margin-bottom: 20px; border: 2px solid #2c3e50; border-radius: 8px; font-size: 1rem; }
+        #access-denied { display: none; text-align: center; margin-top: 100px; color: #e74c3c; }
+    </style>
+</head>
+<body>
+
+<div id="access-denied">
+    <h1>Restricted Access</h1>
+    <p>You do not have permission to view this page.</p>
+    <a href="../index.html">Return to Home</a>
+</div>
+
+<div id="admin-content" style="display:none;">
+    <div class="admin-container">
+        <header style="display: flex; justify-content: space-between; align-items: center;">
+            <h2>Teacher Dashboard</h2>
+            <button class="test-btn" onclick="location.href='../index.html'">Main Page</button>
+        </header>
+
+        <input type="text" id="user-search" class="search-bar" placeholder="Search students by name or email..." onkeyup="filterUsers()">
+
+        <table id="user-table">
+            <thead style="background:#2c3e50; color: white;">
+                <tr>
+                    <th>Name</th>
+                    <th>Email</th>
+                    <th>Paid Status</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody id="user-tbody"></tbody>
+        </table>
+
+        <div id="report-section" style="display:none; margin-top:40px; border-top:3px solid #eee; padding-top:20px;">
+            <h3 id="report-title">Student Progress</h3>
+            <canvas id="adminProgressChart"></canvas>
+        </div>
+    </div>
+</div>
+
+<script>
+    const auth = firebase.auth();
+    const dbRef = firebase.database();
+
+    auth.onAuthStateChanged(user => {
+        // SECURITY CHECK: Only allow your email
+        if (user && user.email === 'lukas@hackczech.com') {
+            document.getElementById('admin-content').style.display = 'block';
+            loadUsers();
+        } else {
+            document.getElementById('access-denied').style.display = 'block';
+        }
+    });
+
+    function loadUsers() {
+        dbRef.ref('users').on('value', snap => {
+            const allUsers = snap.val() || {};
+            renderUserTable(allUsers);
+        });
+    }
+
+    function renderUserTable(data) {
+        const tbody = document.getElementById('user-tbody');
+        tbody.innerHTML = '';
+        
+        for(let id in data) {
+            let u = data[id];
+            const isPaid = u.status === 'paid';
+            
+            let row = `<tr>
+                <td>**${u.name || 'N/A'}**</td>
+                <td>${u.email}</td>
+                <td style="text-align:center;">
+                    <input type="checkbox" ${isPaid ? 'checked' : ''} 
+                           style="transform: scale(1.3); cursor:pointer;"
+                           onchange="togglePaidStatus('${id}', this.checked)">
+                    <span class="${isPaid ? 'status-paid' : 'status-pending'}">${u.status || 'pending'}</span>
+                </td>
+                <td>
+                    <button class="test-btn" style="background:#3498db; font-size:0.8rem;" 
+                            onclick="showReport('${id}', '${u.name}')">View Progress</button>
+                </td>
+            </tr>`;
+            tbody.innerHTML += row;
+        }
+    }
+
+    function togglePaidStatus(uid, isChecked) {
+        const newStatus = isChecked ? 'paid' : 'pending';
+        dbRef.ref('users/' + uid).update({ status: newStatus });
+    }
+
+    function filterUsers() {
+        const term = document.getElementById('user-search').value.toLowerCase();
+        const rows = document.querySelectorAll('#user-tbody tr');
+        rows.forEach(row => {
+            row.style.display = row.innerText.toLowerCase().includes(term) ? '' : 'none';
+        });
+    }
+
+let myChart; // Global variable to hold the chart instance
+
+function showReport(uid, name) {
+    document.getElementById('report-section').style.display = 'block';
+    document.getElementById('report-title').innerText = "Usage Report: " + name;
+
+    // Fetch the usage logs for this specific user
+    dbRef.ref(`usage_logs/${uid}`).once('value', snap => {
+        const logs = snap.val() || {};
+        const pageTotals = {};
+
+        // Aggregate data: Loop through dates -> Loop through pages
+        for (let date in logs) {
+            for (let page in logs[date]) {
+                const seconds = logs[date][page];
+                pageTotals[page] = (pageTotals[page] || 0) + (seconds / 60); // Convert to minutes
+            }
+        }
+
+        renderChart(pageTotals);
+    });
+}
+
+function renderChart(data) {
+    const ctx = document.getElementById('adminProgressChart').getContext('2d');
+    
+    // If a chart already exists, destroy it so we can draw a new one
+    if (myChart) { myChart.destroy(); }
+
+    const labels = Object.keys(data).map(p => p.replace('_html', '.html'));
+    const values = Object.values(data);
+
+    myChart = new Chart(ctx, {
+        type: 'bar',
+        data: {
+            labels: labels,
+            datasets: [{
+                label: 'Total Minutes Spent',
+                data: values,
+                backgroundColor: '#3498db',
+                borderColor: '#2980b9',
+                borderWidth: 1
+            }]
+        },
+        options: {
+            responsive: true,
+            scales: {
+                y: { beginAtZero: true, title: { display: true, text: 'Minutes' } }
+            }
+        }
+    });
+}
+</script>
+</body>
+</html>

@@ -1,25 +1,21 @@
 <!DOCTYPE html>
 <html lang="cs">
 <head>
+        
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-database-compat.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/sql.js/1.6.2/sql-wasm.js"></script> <script src="../scripts-header.js"></script>
+
     <link rel="stylesheet" href="../css/style.css">
     <link rel="stylesheet" href="../css/language-selector.css">
-    <script src="../scripts-header.js"></script>
+    <title id="page-title">Study Tool | HáCZech</title>
 
 
-<script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-app-compat.js"></script>
-<script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-auth-compat.js"></script>
-<script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-database-compat.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-
-
-  <title id="page-title">Study Tool | HáCZech</title>
-
-
-
-
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/sql.js/1.6.2/sql-wasm.js"></script>
     <style>
         .test-box { background: rgba(255, 255, 255, 0.9); border-radius: 12px; padding: 20px; margin: 20px auto; text-align: center; border: 2px solid #2c3e50; width: 90%; max-width: 500px; height: 550px; position: relative; display: flex; flex-direction: column; }
         #image-container { height: 200px; display: flex; justify-content: center; align-items: center; margin-bottom: 10px; }
@@ -72,33 +68,31 @@
         <button class="test-btn" style="background: #27ae60;" onclick="location.reload()">
             Back to Free Lesson
         </button>
-        <button class="test-btn" style="background: #7f8c8d; font-size: 0.8rem;" onclick="signOutUser()">
-            Sign Out
-        </button>
+
     </div>
 </div>
 
 <header style="display: flex; align-items: center; justify-content: space-between; padding: 10px 20px; background: white; border-bottom: 2px solid #2c3e50;">
-    
-    <div style="flex: 1; display: flex; justify-content: flex-start;">
-        <button id="admin-trigger" class="test-btn" style="display:none; background:#f39c12; padding: 5px 10px; font-size: 0.7rem;" onclick="openAdmin()">Teacher Console</button>
+
+<div style="flex: 1; display: flex; align-items: center; justify-content: center; gap: 15px;">
+    <button id="admin-trigger" class="test-btn" style="display:none; background:#f39c12; padding: 5px 10px; font-size: 0.7rem; white-space: nowrap;" onclick="openAdmin()">Teacher Console</button>
+</div>
+
+    <div style="flex: 1; text-align: center;">
+        <h1 id="heading-welcome" style="margin: 0; font-size: 1.5rem;">Study Tool</h1>
     </div>
 
-    <div style="flex: 2; text-align: center;">
-        <h1 id="heading-welcome" style="margin: 0; display: inline-block;">Study Tool</h1>
-        <div class="lang-switcher" style="display: inline-block; margin-left: 10px;">
+    <div style="flex: 1; display: flex; justify-content: flex-end; align-items: center; gap: 15px;">
+        <div class="lang-switcher">
             <select id="ui-lang-select" onchange="localStorage.setItem('selectedLanguage', this.value); location.reload();" style="padding: 5px; border-radius: 5px; cursor: pointer;">
                 <option value="en">🇬🇧 English</option>
                 <option value="de">🇩🇪 Deutsch</option>
                 <option value="es">🇪🇸 Español</option>
             </select>
         </div>
+        <div id="auth-status-container" style="min-width: 40px; display: flex; justify-content: center;"></div>
     </div>
 
-    <div style="flex: 1; display: flex; justify-content: flex-end;">
-        <button id="header-logout" class="test-btn" style="display:none; background:#7f8c8d; padding: 5px 10px; font-size: 0.7rem;" onclick="event.stopPropagation(); signOutUser()">Sign Out</button>
-    </div>
-    
 </header>
 
 
@@ -163,9 +157,7 @@
     </div>
 
 <nav style="display: flex; flex-direction: column; align-items: center; justify-content: center; width: 100%; margin-top: 20px; gap: 10px;">
-    <button class="test-btn" 
-            style="background:#7f8c8d; font-size: 0.8rem; width: 120px !important; padding: 8px 10px; margin: 0 !important; display: block;" 
-            onclick="signOutUser()">Sign Out</button>
+
 
     <a href="../index.html" 
        style="text-decoration:none; color: #2c3e50; font-weight: bold; font-size: 1rem; margin: 0 !important; display: block; text-align: center;">🏠 Main Page</a>
@@ -216,18 +208,9 @@
 <div id="footer-placeholder"></div>
 
 <script>
-    const firebaseConfig = {
-        apiKey: "AIzaSyAGCKtAQkj9bsrSpJ1IQWLAm_PA20vTluM",
-        authDomain: "vocabsql-database.firebaseapp.com",
-        databaseURL: "https://vocabsql-database-default-rtdb.europe-west1.firebasedatabase.app",
-        projectId: "vocabsql-database",
-        storageBucket: "vocabsql-database.firebasestorage.app",
-        messagingSenderId: "122357206206",
-        appId: "1:122357206206:web:bc6a3b03e4f87c910ae2ef"
-    };
-    firebase.initializeApp(firebaseConfig);
-    const auth = firebase.auth();
-    const dbRef = firebase.database();
+// Just link to the ones already created by scripts-header.js
+const auth = firebase.auth();
+const dbRef = firebase.database();
     
     let db, currentWord, userWeights = {}, isSignUp = false, allUsers = {}, myChart;
 
@@ -278,21 +261,37 @@ if (event.key === 'ArrowUp' || event.key === 'ArrowDown' || event.key === 'Arrow
 
 
     // --- AUTH LOGIC ---
-    auth.onAuthStateChanged(user => {
-    applyAccessControl(user); 
+auth.onAuthStateChanged(user => {
+    // 1. Let the global script handle the icon/overlay
+    if (typeof applyAccessControl === 'function') {
+        applyAccessControl(user); 
+    }
+
     if(user) {
-        document.getElementById('header-logout').style.display = 'block';
+        // 2. Only handle Data and Admin access here
         dbRef.ref('users/' + user.uid).on('value', snap => {
             const userData = snap.val();
             if (userData) {
                 window.userStatus = userData.status;
                 userWeights = userData.weights || {};
             }
+        document.getElementById('auth-overlay').style.display = 'none';
+if (window.userStatus !== 'paid') {
+    document.getElementById('ad-wrapper').style.display = 'block';
+    loadAdsSafely();
+}
+
         });
-        if(user.email === 'lukas@hackczech.com') document.getElementById('admin-trigger').style.display = 'block';
+
+        // 3. Show Teacher Console only for you
+        if(user.email === 'lukas@hackczech.com') {
+            document.getElementById('admin-trigger').style.display = 'block';
+        }
     } else {
-        document.getElementById('header-logout').style.display = 'none';
         window.userStatus = 'guest';
+        document.getElementById('admin-trigger').style.display = 'none';
+        document.getElementById('ad-wrapper').style.display = 'block';
+loadAdsSafely();
     }
 });
 
@@ -665,6 +664,16 @@ function getEditDistance(a, b) {
         }
     }
     return matrix[b.length][a.length];
+}
+
+
+function loadAdsSafely() {
+    if (window.location.hostname === 'localhost') return;
+    try {
+        if (document.getElementById('ad-wrapper').style.display !== 'none') {
+            (adsbygoogle = window.adsbygoogle || []).push({});
+        }
+    } catch (e) { console.error("Ads blocked"); }
 }
 
 

@@ -56,53 +56,74 @@ nav a:last-child {
 
 /* ============================================================
 /* ============================================================
+ /* ============================================================
    2. HEADER (The Blue Banner)
    ============================================================ */
 header {
     background-color: #2f52b5 !important;
     color: white !important;
-    padding: 20px;
-    text-align: center;
+    padding: 10px 20px;
     width: 100%;
     box-sizing: border-box;
     display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    position: relative; /* Essential for logo positioning */
+    flex-direction: row;      
+    align-items: center;      
+    justify-content: flex-end; /* This pushes the Flag/Icon group to the right */
+    position: relative; 
     box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-    min-height: 80px;   /* Ensures enough space for logo */
-}
-header:hover::before {
-    opacity: 0.8; 
-    transition: 0.3s;
+    min-height: 80px; 
 }
 
-
-
-/* This creates the logo automatically */
 header::before {
+    position: absolute; 
+    left: 20px;
+    top: 50%; 
+    transform: translateY(-50%);
+    width: 100px; 
+    height: 100px;
     content: "";
     display: block;
     background-image: url('../images/hackczech-logo.png');
     background-size: contain;
     background-repeat: no-repeat;
     background-position: center;
-    /* Default (Internal Pages): Small and fixed to the left */
-    position: absolute;
-    left: 20px;
-    top: 50%;
-    transform: translateY(-50%);
-    width: 100px;
-    height: 100px;
 }
 
 header h1 {
+    /* THIS IS THE CENTER TRICK */
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
     margin: 0;
     padding: 0;
     color: white !important;
-    font-size: 1.8rem;
-    width: 100%; /* Ensures text takes up space to center correctly */
+    font-size: 1.5rem;
+    white-space: nowrap;
+}
+
+#auth-icon {
+    font-size: 28px;
+    cursor: pointer;
+    padding: 5px;
+    user-select: none;
+    margin-left: 10px; /* Space between flag and icon */
+}
+
+/* This targets the flag container you already have */
+#language-selector-container {
+    margin-left: auto; /* This pushes the flag to the right */
+    display: flex;
+    align-items: center;
+    gap: 15px; /* This creates the space between the flag and the icon */
+    z-index: 10;
+}
+
+/* This ensures the icon stays next to the flag */
+#auth-icon {
+    font-size: 28px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
 }
 
 /* ============================================================

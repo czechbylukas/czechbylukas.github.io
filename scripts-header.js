@@ -1,43 +1,118 @@
+// --- GLOBAL FIREBASE CONFIG ---
+const firebaseConfig = {
+    apiKey: "AIzaSyAGCKtAQkj9bsrSpJ1IQWLAm_PA20vTluM",
+    authDomain: "vocabsql-database.firebaseapp.com",
+    databaseURL: "https://vocabsql-database-default-rtdb.europe-west1.firebasedatabase.app",
+    projectId: "vocabsql-database",
+    storageBucket: "vocabsql-database.firebasestorage.app",
+    messagingSenderId: "122357206206",
+    appId: "1:122357206206:web:bc6a3b03e4f87c910ae2ef"
+};
+
+// Start Firebase if it hasn't been started yet
+if (!firebase.apps.length) {
+    firebase.initializeApp(firebaseConfig);
+}
+// ------------------------------
+
+
 const path = window.location.pathname;
-window.isPremiumPage = path.includes('/premium/') || path.includes('study-tool');
+window.isPremiumPage = path.includes('/premium/');
 window.isLoginOnlyPage = path.includes('/members/') || path.includes('grammar-guide');
 
-function applyAccessControl(user) {
-    const authOverlay = document.getElementById('auth-overlay');
-    const unpaidMsg = document.getElementById('unpaid-message');
-    const authIcon = document.getElementById('auth-icon');
-    if (authIcon) authIcon.innerText = user ? '🚪' : '👤';
 
-    if (!user) {
-        if (window.isLoginOnlyPage || window.isPremiumPage) {
-            if (authOverlay) authOverlay.style.display = 'flex';
-        }
-    } else {
-        // [CHANGE: Move logic here so user.uid is valid]
-        if (authOverlay) authOverlay.style.display = 'none';
 
-        if (window.isPremiumPage && !path.includes('study-tool')) { 
-            if (typeof firebase !== 'undefined' && firebase.database) {
-                firebase.database().ref('users/' + user.uid + '/status').on('value', snap => {
-                    const status = snap.val();
-                    if (status !== 'paid') {
-                        if (unpaidMsg) unpaidMsg.style.display = 'flex';
-                    } else {
-                        if (unpaidMsg) unpaidMsg.style.display = 'none';
-                    }
-                });
-            }
-        }
-    }
+
+function ensureAuthOverlay() {
+    if (document.getElementById('auth-overlay')) return;
+    const overlay = document.createElement('div');
+    overlay.id = 'auth-overlay';
+    overlay.style = "position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.7); display:none; justify-content:center; align-items:center; z-index:10000; font-family:sans-serif;";
+    overlay.innerHTML = `
+        <div style="background:white; padding:30px; border-radius:12px; width:90%; max-width:350px; text-align:center; position:relative;">
+            <span onclick="document.getElementById('auth-overlay').style.display='none'" style="position:absolute; right:15px; top:10px; cursor:pointer; font-size:20px;">&times;</span>
+            <h2 id="auth-title" style="color:#2c3e50;">Log In</h2>
+            <div id="signup-fields" style="display:none;">
+                <input type="text" id="reg-name" placeholder="Full Name" style="width:100%; padding:10px; margin-bottom:10px; border:1px solid #ddd; border-radius:5px; box-sizing:border-box;">
+            </div>
+            <input type="email" id="auth-email" placeholder="Email" style="width:100%; padding:10px; margin-bottom:10px; border:1px solid #ddd; border-radius:5px; box-sizing:border-box;">
+            <input type="password" id="auth-pass" placeholder="Password" style="width:100%; padding:10px; margin-bottom:10px; border:1px solid #ddd; border-radius:5px; box-sizing:border-box;">
+            <button onclick="handleAuth()" style="width:100%; padding:12px; background:#2c3e50; color:white; border:none; border-radius:5px; cursor:pointer; font-weight:bold;">Confirm</button>
+            <p style="margin-top:15px; font-size:0.85rem;">
+                <span id="toggle-link" style="color:#3498db; cursor:pointer;" onclick="toggleAuth()">Need an account? Sign Up</span><br><br>
+                <span style="color:#e67e22; cursor:pointer;" onclick="forgotPassword()">Forgot Password?</span>
+            </p>
+        </div>`;
+    document.body.appendChild(overlay);
 }
 
 
+
+
+function applyAccessControl(user) {
+    ensureAuthOverlay(); // <--- Add this line
+    const authOverlay = document.getElementById('auth-overlay');
+    let authIcon = document.getElementById('auth-icon');
+
+
+    // 1. If the icon doesn't exist yet, create it
+    if (!authIcon) {
+        authIcon = document.createElement('div');
+        authIcon.id = 'auth-icon';
+        // Styling to make it fit nicely in your flex-header
+        authIcon.style = "cursor:pointer; font-size:24px; display:inline-block; margin-left:15px; vertical-align:middle; line-height:1;";
+        
+        // Find the header or the welcome heading
+        // Find the right-side group div
+// 1. Find a place to put the icon (Checks all your different page layouts)
+const rightGroup = document.getElementById('auth-status-container') || 
+                   document.getElementById('language-selector-container') || 
+                   document.getElementById('header-right-group');
+                   
+const header = document.querySelector('header');
+
+if (rightGroup) {
+    rightGroup.appendChild(authIcon); 
+} else if (header) {
+    header.appendChild(authIcon); 
+}
+        }
+
+    // 2. Set the icon and the click action
+    authIcon.innerText = user ? '🚪' : '👤';
+    authIcon.title = user ? 'Logout' : 'Login';
+    
+authIcon.onclick = (e) => {
+    e.stopPropagation();
+    if (user) {
+        if (confirm("Logout?")) window.signOutUser();
+    } else {
+        document.getElementById('auth-overlay').style.display = 'flex';
+    }
+};
+
+    // 3. Page Access Control
+// Fixed code
+if (!user && (window.isLoginOnlyPage || window.isPremiumPage)) {
+    if (authOverlay) authOverlay.style.display = 'flex';
+}
+// ADD THESE TWO LINES HERE:
+    const adminBtn = document.getElementById('admin-trigger');
+    if (adminBtn) adminBtn.style.display = (user && user.email === 'lukas@hackczech.com') ? 'block' : 'none';
+} // This is the end of the function
+
+
+
 // THIS IS THE CRITICAL CHANGE
-window.addEventListener('load', function() {
-    // Wait until EVERYTHING (including Firebase scripts) is loaded
+document.addEventListener('DOMContentLoaded', function() {
     if (typeof firebase !== 'undefined') {
         firebase.auth().onAuthStateChanged(user => {
+            // 1. Re-run the logic to update the icon (👤 -> 🚪) and show/hide the Admin button
             applyAccessControl(user);
+
+            // 2. Hide the login window if the user is now logged in
+            const overlay = document.getElementById('auth-overlay');
+            if (user && overlay) overlay.style.display = 'none';
         });
     }
 });
