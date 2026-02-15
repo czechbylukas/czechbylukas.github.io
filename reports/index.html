@@ -149,35 +149,68 @@ dbRef.ref('page_titles').on('value', snap => {
     pageTitleMap = snap.val() || {};
 });
 
+let sidebarMap = [];
+
+// 1. Function to learn categories from your sidebar.html
+async function loadSidebarCategories() {
+    try {
+        const response = await fetch('../sidebar/sidebar.html');
+        const text = await response.text();
+        const parser = new DOMParser();
+        const doc = parser.parseFromString(text, 'text/html');
+        const links = doc.querySelectorAll('a');
+
+        sidebarMap = Array.from(links).map(link => {
+            // Get the folder name from the href (e.g., "/vocabulary/index.html" -> "vocabulary")
+            const path = link.getAttribute('href').split('/')[1] || 'home';
+            // Get the text, removing emojis for the chart labels
+            const label = link.innerText.replace(/[\u{1F300}-\u{1F9FF}]|[\u{2700}-\u{27BF}]/gu, '').trim();
+            return { path, label };
+        });
+        
+        console.log("Categories loaded from sidebar:", sidebarMap);
+    } catch (e) {
+        console.error("Could not load sidebar categories:", e);
+    }
+}
+
+// Call this immediately when the page loads
+loadSidebarCategories();
+
+// 2. Updated showReport that uses the dynamic map
 function showReport(uid, name) {
     document.getElementById('report-section').style.display = 'block';
     document.getElementById('report-title').innerText = "Usage Report: " + name;
 
     dbRef.ref(`usage_logs/${uid}`).once('value', snap => {
         const logs = snap.val() || {};
-        const categories = {
-            "Slovíčka": 0,
-            "Cvičení": 0,
-            "Study Tool": 0,
-            "Testy": 0,
-            "Other": 0
-        };
+        const categories = {};
+
+        // Initialize categories from our map
+        sidebarMap.forEach(item => categories[item.label] = 0);
+        categories["Other"] = 0;
 
         for (let date in logs) {
             for (let pageKey in logs[date]) {
                 const mins = logs[date][pageKey] / 60;
                 
-                // Grouping Logic based on your sidebar paths
-                if (pageKey.includes('vocabulary')) categories["Slovíčka"] += mins;
-                else if (pageKey.includes('exercise')) categories["Cvičení"] += mins;
-                else if (pageKey.includes('VocabSQL')) categories["Study Tool"] += mins;
-                else if (pageKey.includes('tests')) categories["Testy"] += mins;
-                else categories["Other"] += mins;
+                // Find which category this page belongs to
+                const match = sidebarMap.find(item => pageKey.includes(item.path));
+                
+                if (match) {
+                    categories[match.label] += mins;
+                } else {
+                    categories["Other"] += mins;
+                }
             }
         }
         renderCategoryChart(categories);
     });
 }
+
+
+
+
 
 function renderChart(data) {
     const ctx = document.getElementById('adminProgressChart').getContext('2d');
