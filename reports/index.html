@@ -82,31 +82,51 @@
         });
     }
 
-    function renderUserTable(data) {
-        const tbody = document.getElementById('user-tbody');
-        tbody.innerHTML = '';
+function renderUserTable(data) {
+    const tbody = document.getElementById('user-tbody');
+    tbody.innerHTML = '';
+    
+    for(let id in data) {
+        let u = data[id];
+        const isPaid = u.status === 'paid';
         
-        for(let id in data) {
-            let u = data[id];
-            const isPaid = u.status === 'paid';
-            
-            let row = `<tr>
-                <td>**${u.name || 'N/A'}**</td>
-                <td>${u.email}</td>
-                <td style="text-align:center;">
-                    <input type="checkbox" ${isPaid ? 'checked' : ''} 
-                           style="transform: scale(1.3); cursor:pointer;"
-                           onchange="togglePaidStatus('${id}', this.checked)">
-                    <span class="${isPaid ? 'status-paid' : 'status-pending'}">${u.status || 'pending'}</span>
-                </td>
-                <td>
-                    <button class="test-btn" style="background:#3498db; font-size:0.8rem;" 
-                            onclick="showReport('${id}', '${u.name}')">View Progress</button>
-                </td>
-            </tr>`;
-            tbody.innerHTML += row;
-        }
+        // We will fetch the usage totals for this user to show in the table
+        let row = `<tr id="row-${id}">
+            <td>**${u.name || 'N/A'}**</td>
+            <td>${u.email}</td>
+            <td id="time-${id}">Calculating...</td>
+            <td style="text-align:center;">
+                <input type="checkbox" ${isPaid ? 'checked' : ''} 
+                       onchange="togglePaidStatus('${id}', this.checked)">
+            </td>
+            <td>
+                <button class="test-btn" style="background:#3498db; padding: 5px;" 
+                        onclick="showReport('${id}', '${u.name}')">Stats</button>
+            </td>
+        </tr>`;
+        tbody.innerHTML += row;
+
+        // Immediately fetch the total time for this specific user to fill the cell
+        fetchUserTotalTime(id);
     }
+}
+
+function fetchUserTotalTime(uid) {
+    dbRef.ref(`usage_logs/${uid}`).on('value', snap => {
+        const logs = snap.val() || {};
+        let totalSeconds = 0;
+        
+        for (let date in logs) {
+            for (let page in logs[date]) {
+                totalSeconds += logs[date][page];
+            }
+        }
+        
+        const minutes = Math.floor(totalSeconds / 60);
+        const cell = document.getElementById(`time-${uid}`);
+        if (cell) cell.innerText = minutes + " mins";
+    });
+}
 
     function togglePaidStatus(uid, isChecked) {
         const newStatus = isChecked ? 'paid' : 'pending';

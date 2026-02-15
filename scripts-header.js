@@ -342,3 +342,37 @@ if (localStorage.getItem("cookieConsent")) {
     }, 500);
     setTimeout(() => clearInterval(checkAdsReturning), 5000);
 }
+
+
+
+
+// --- PAGE TIME TRACKER ---
+let startTime = Date.now();
+let currentPage = window.location.pathname.split('/').pop() || 'index.html';
+
+function logTimeSpent() {
+    const endTime = Date.now();
+    const timeSpent = Math.round((endTime - startTime) / 1000); 
+    
+    // Check if firebase and auth are ready
+    if (typeof firebase !== 'undefined' && firebase.auth().currentUser && timeSpent > 2) {
+        const user = firebase.auth().currentUser;
+        const dateKey = new Date().toISOString().split('T')[0];
+        const cleanPageName = currentPage.replace(/\./g, '_');
+        
+        // Using firebase.database() directly to ensure it works globally
+        const path = `usage_logs/${user.uid}/${dateKey}/${cleanPageName}`;
+        firebase.database().ref(path).transaction((currentValue) => {
+            return (currentValue || 0) + timeSpent;
+        });
+    }
+}
+
+window.addEventListener('beforeunload', logTimeSpent);
+window.addEventListener('visibilitychange', () => {
+    if (document.visibilityState === 'hidden') {
+        logTimeSpent();
+    } else {
+        startTime = Date.now(); 
+    }
+});
