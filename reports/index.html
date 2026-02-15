@@ -212,12 +212,13 @@ function showReport(uid, name) {
 
 
 
-function renderChart(data) {
+function renderCategoryChart(data) {
     const ctx = document.getElementById('adminProgressChart').getContext('2d');
     if (myChart) { myChart.destroy(); }
 
-    const labels = Object.keys(data);
-    const values = Object.values(data);
+    // This filters out categories the student hasn't used yet
+    const labels = Object.keys(data).filter(key => data[key] > 0);
+    const values = labels.map(key => data[key]);
 
     myChart = new Chart(ctx, {
         type: 'bar',
@@ -230,7 +231,7 @@ function renderChart(data) {
             }]
         },
         options: {
-            indexAxis: 'y', // Horizontal bars are much better for long page titles
+            indexAxis: 'y', 
             responsive: true,
             plugins: {
                 legend: { display: false }
@@ -238,6 +239,12 @@ function renderChart(data) {
         }
     });
 }
+
+
+
+
+
+
 // Function to update Paid/Pending status in Firebase
 function togglePaidStatus(uid, isChecked) {
     const newStatus = isChecked ? 'paid' : 'pending';
