@@ -16,106 +16,171 @@ if (!firebase.apps.length) {
 // ------------------------------
 
 
-const path = window.location.pathname;
-window.isPremiumPage = path.includes('/premium/');
-window.isLoginOnlyPage = path.includes('/members/') || path.includes('grammar-guide');
+// --- LOGIC GATE CONFIG ---
+// This respects the <script>window.isLoginOnlyPage = true;</script> in your HTML
+window.isPremiumPage = window.isPremiumPage || false;
+window.isLoginOnlyPage = window.isLoginOnlyPage || false;
 
 
 
 
-function ensureAuthOverlay() {
-    if (document.getElementById('auth-overlay')) return;
-    const overlay = document.createElement('div');
-    overlay.id = 'auth-overlay';
-    overlay.style = "position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.7); display:none; justify-content:center; align-items:center; z-index:10000; font-family:sans-serif;";
-    overlay.innerHTML = `
-        <div style="background:white; padding:30px; border-radius:12px; width:90%; max-width:350px; text-align:center; position:relative;">
-            <span onclick="document.getElementById('auth-overlay').style.display='none'" style="position:absolute; right:15px; top:10px; cursor:pointer; font-size:20px;">&times;</span>
-            <h2 id="auth-title" style="color:#2c3e50;">Log In</h2>
-            <div id="signup-fields" style="display:none;">
-                <input type="text" id="reg-name" placeholder="Full Name" style="width:100%; padding:10px; margin-bottom:10px; border:1px solid #ddd; border-radius:5px; box-sizing:border-box;">
-            </div>
-            <input type="email" id="auth-email" placeholder="Email" style="width:100%; padding:10px; margin-bottom:10px; border:1px solid #ddd; border-radius:5px; box-sizing:border-box;">
-            <input type="password" id="auth-pass" placeholder="Password" style="width:100%; padding:10px; margin-bottom:10px; border:1px solid #ddd; border-radius:5px; box-sizing:border-box;">
-            <button onclick="handleAuth()" style="width:100%; padding:12px; background:#2c3e50; color:white; border:none; border-radius:5px; cursor:pointer; font-weight:bold;">Confirm</button>
-            <p style="margin-top:15px; font-size:0.85rem;">
-                <span id="toggle-link" style="color:#3498db; cursor:pointer;" onclick="toggleAuth()">Need an account? Sign Up</span><br><br>
-                <span style="color:#e67e22; cursor:pointer;" onclick="forgotPassword()">Forgot Password?</span>
-            </p>
-        </div>`;
-    document.body.appendChild(overlay);
-}
 
 
 
 
-function applyAccessControl(user) {
-    ensureAuthOverlay(); // <--- Add this line
+
+async function applyAccessControl(user) {
+    if (!document.body) {
+        setTimeout(() => applyAccessControl(user), 50);
+        return;
+    }
+
+    // Define these properly at the start
     const authOverlay = document.getElementById('auth-overlay');
-    let authIcon = document.getElementById('auth-icon');
+    const authTitle = document.getElementById('auth-title');
+    let authIcon = document.getElementById('auth-icon'); // Added 'let' here
 
+    // 1. Logic to show/hide the overlay container
+    if (!user || window.isLoginOnlyPage || window.isPremiumPage) {
+        ensureAuthOverlay();
+    }
 
-    // 1. If the icon doesn't exist yet, create it
+    // IMPORTANT: Redefine overlay here in case ensureAuthOverlay just created it
+    const activeOverlay = document.getElementById('auth-overlay');
+    
+    if (activeOverlay && !window.isLoginOnlyPage && !window.isPremiumPage) {
+        activeOverlay.style.display = 'none';
+    }
+
+    // 1. Icon Management
     if (!authIcon) {
         authIcon = document.createElement('div');
         authIcon.id = 'auth-icon';
-        // Styling to make it fit nicely in your flex-header
         authIcon.style = "cursor:pointer; font-size:24px; display:inline-block; margin-left:15px; vertical-align:middle; line-height:1;";
         
-        // Find the header or the welcome heading
-        // Find the right-side group div
-// 1. Find a place to put the icon (Checks all your different page layouts)
-const rightGroup = document.getElementById('auth-status-container') || 
-                   document.getElementById('language-selector-container') || 
-                   document.getElementById('header-right-group');
-                   
-const header = document.querySelector('header');
+        const rightGroup = document.getElementById('auth-status-container') || 
+                           document.getElementById('language-selector-container') || 
+                           document.getElementById('header-right-group');
+        const header = document.querySelector('header');
 
-if (rightGroup) {
-    rightGroup.appendChild(authIcon); 
-} else if (header) {
-    header.appendChild(authIcon); 
-}
-        }
-
-    // 2. Set the icon and the click action
-    authIcon.innerText = user ? '🚪' : '👤';
-    authIcon.title = user ? 'Logout' : 'Login';
-    
-authIcon.onclick = (e) => {
-    e.stopPropagation();
-    if (user) {
-        if (confirm("Logout?")) window.signOutUser();
-    } else {
-        document.getElementById('auth-overlay').style.display = 'flex';
+        if (rightGroup) { rightGroup.appendChild(authIcon); } 
+        else if (header) { header.appendChild(authIcon); }
     }
-};
 
-    // 3. Page Access Control
-// Fixed code
-if (!user && (window.isLoginOnlyPage || window.isPremiumPage)) {
-    if (authOverlay) authOverlay.style.display = 'flex';
-}
-// ADD THESE TWO LINES HERE:
+
+
+
+
+    
+authIcon.innerText = user ? '🚪' : '👤';
+    authIcon.onclick = (e) => {
+        e.stopPropagation();
+        if (user) { 
+            if (confirm("Logout?")) window.signOutUser(); 
+        } 
+        else { 
+            // FIX: Re-find or ensure the overlay exists before showing it
+            ensureAuthOverlay(); 
+            const targetOverlay = document.getElementById('auth-overlay');
+            if (targetOverlay) {
+                targetOverlay.style.display = 'flex';
+                // Ensure the 'X' button is visible so people can close it on free pages
+                const closeBtn = document.getElementById('close-x');
+                if (closeBtn) {
+                    closeBtn.style.display = 'block';
+                    // On free pages, just hide it; on restricted, go home
+                    closeBtn.onclick = (window.isLoginOnlyPage || window.isPremiumPage) 
+                        ? () => window.location.href = 'https://www.hackczech.com'
+                        : () => targetOverlay.style.display = 'none';
+                }
+            }
+        }
+    };
+
+
+
+
+    // 2. The Logic Gate
+    if (user) {
+        if (window.isPremiumPage) {
+            // Check database for 'active' status on premium pages
+            const snapshot = await firebase.database().ref('users/' + user.uid + '/status').get();
+            const status = snapshot.val();
+
+            if (status === 'paid') {
+                document.body.classList.add('logged-in');
+                if (authOverlay) authOverlay.style.display = 'none';
+                } else {
+                // Logged in but not approved by teacher
+                document.body.classList.remove('logged-in');
+                if (authOverlay) {
+                    authOverlay.style.display = 'flex';
+                    
+                    // Show contact message and hide login fields
+                    if (authTitle) authTitle.innerHTML = "Premium Access Required<br><span style='font-size: 0.9rem; font-weight: normal;'>Please contact: lukas@hackczech.com</span>";
+                    
+                    if (document.getElementById('auth-email')) document.getElementById('auth-email').style.display = 'none';
+                    if (document.getElementById('auth-pass')) document.getElementById('auth-pass').style.display = 'none';
+                    const mainBtn = authOverlay.querySelector('button:not(#close-x)');
+                    if (mainBtn) mainBtn.style.display = 'none';
+                    if (document.getElementById('toggle-link')) document.getElementById('toggle-link').style.display = 'none';
+
+                    const closeBtn = document.getElementById('close-x');
+                    if (closeBtn) {
+                        closeBtn.style.display = 'block';
+                        closeBtn.onclick = () => window.location.href = 'https://www.hackczech.com';
+                    }
+                }
+            }
+        } else {
+            // Normal logged-in page (not premium)
+            document.body.classList.add('logged-in');
+            if (authOverlay) authOverlay.style.display = 'none';
+        }
+    } else { 
+        // Not logged in section
+        document.body.classList.remove('logged-in');
+        if ((window.isLoginOnlyPage || window.isPremiumPage) && authOverlay) {
+            authOverlay.style.display = 'flex';
+            const closeBtn = document.getElementById('close-x');
+            if (closeBtn) closeBtn.style.display = 'block'; 
+        }
+    }
+
     const adminBtn = document.getElementById('admin-trigger');
     if (adminBtn) adminBtn.style.display = (user && user.email === 'lukas@hackczech.com') ? 'block' : 'none';
-} // This is the end of the function
-
+}
 
 
 // THIS IS THE CRITICAL CHANGE
+// --- ENFORCEMENT ---
 document.addEventListener('DOMContentLoaded', function() {
     if (typeof firebase !== 'undefined') {
         firebase.auth().onAuthStateChanged(user => {
-            // 1. Re-run the logic to update the icon (👤 -> 🚪) and show/hide the Admin button
             applyAccessControl(user);
-
-            // 2. Hide the login window if the user is now logged in
-            const overlay = document.getElementById('auth-overlay');
-            if (user && overlay) overlay.style.display = 'none';
         });
     }
+
+    // 1. If it's a restricted page (Login-only or Premium)
+    if (window.isLoginOnlyPage || window.isPremiumPage) {
+        // Only show overlay if there is no user session in progress
+        const hasSession = Object.keys(localStorage).some(key => key.includes('firebase:authUser'));
+        if (!hasSession) {
+            ensureAuthOverlay(); 
+        }
+    } 
+    // 2. If it's a FREE page
+    else {
+        // Automatically unlock the CSS shield so content shows
+        document.body.classList.add('logged-in');
+        
+        // Ensure the overlay is hidden (in case it was created by mistake)
+        const overlay = document.getElementById('auth-overlay');
+        if (overlay) overlay.style.display = 'none';
+    }
 });
+
+
 
 
 
@@ -305,10 +370,12 @@ window.forgotPassword = function() {
 };
 
 window.signOutUser = function() { 
+    // Remove the class immediately so the CSS shield hides the content
+    document.body.classList.remove('logged-in');
     firebase.auth().signOut().then(() => {
         window.location.reload();
     }); 
-}; // <--- FIX 3: Closes the signOutUser function
+};
 
 
 window.handleAuth = async function() {
@@ -318,8 +385,13 @@ window.handleAuth = async function() {
         if (window.isSignUp) {
             const name = document.getElementById('reg-name').value;
             const c = await firebase.auth().createUserWithEmailAndPassword(email, pass);
-            await firebase.database().ref('users/' + c.user.uid).set({ name, email, status: 'pending' });
-            alert("Account created. Please ask teacher for approval.");
+            // This sets the default status to pending
+        await firebase.database().ref('users/' + c.user.uid).set({ 
+            name, 
+            email, 
+            status: 'pending' // This must match the status check in applyAccessControl
+            });
+            alert("Account created. Please ask Lukas for premium approval.");
         } else {
             await firebase.auth().signInWithEmailAndPassword(email, pass);
         }
@@ -385,3 +457,56 @@ setInterval(() => {
 window.addEventListener('beforeunload', logTimeSpent);
 // Log every 30 seconds automatically so we don't lose data if they just close the laptop
 setInterval(logTimeSpent, 30000);
+
+
+
+
+
+
+
+
+// 1. Run immediately on load to catch restricted pages
+
+// --- AT THE VERY END OF scripts-header.js ---
+
+
+
+function ensureAuthOverlay() {
+    // 1. If it's already there, don't make another one
+    if (document.getElementById('auth-overlay')) return;
+
+    // 2. Safety: If body doesn't exist yet, wait and try again
+    if (!document.body) {
+        setTimeout(ensureAuthOverlay, 50);
+        return;
+    }
+
+    // 3. Create the element
+    const overlay = document.createElement('div');
+    overlay.id = 'auth-overlay';
+    
+    // FORCE visibility for troubleshooting
+    overlay.style.cssText = "position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.9); display:flex !important; justify-content:center; align-items:center; z-index:999999; font-family:sans-serif; backdrop-filter: blur(5px);";
+    
+        overlay.innerHTML = `
+        <div style="background:white; padding:30px; border-radius:12px; width:90%; max-width:350px; text-align:center; position:relative; box-shadow: 0 10px 25px rgba(0,0,0,0.5); color: #333 !important;">
+            <span id="close-x" onclick="window.location.href='https://www.hackczech.com'" style="position:absolute; right:15px; top:10px; cursor:pointer; font-size:24px; color:#000;">&times;</span>
+            
+            <h2 id="auth-title" style="margin-top:0; color:#2b593e;">Log In</h2>
+
+            <div id="signup-fields" style="display:none;">
+                <input type="text" id="reg-name" placeholder="Full Name" style="width:100%; padding:12px; margin-bottom:10px; border:1px solid #ddd; border-radius:5px; box-sizing:border-box;">
+            </div>
+            <input type="email" id="auth-email" placeholder="Email" style="width:100%; padding:12px; margin-bottom:10px; border:1px solid #ddd; border-radius:5px; box-sizing:border-box;">
+            <input type="password" id="auth-pass" placeholder="Password" style="width:100%; padding:12px; margin-bottom:15px; border:1px solid #ddd; border-radius:5px; box-sizing:border-box;">
+            <button onclick="handleAuth()" style="width:100%; padding:12px; background:#2b593e; color:white; border:none; border-radius:5px; cursor:pointer; font-weight:bold; font-size:16px;">Confirm</button>
+            <p style="margin-top:20px; font-size:0.9rem;">
+                <span id="toggle-link" style="color:#3498db; cursor:pointer;" onclick="toggleAuth()">Need an account? Sign Up</span><br><br>
+                <span style="color:#e67e22; cursor:pointer; font-size:0.8rem;" onclick="forgotPassword()">Forgot Password?</span><br><br>
+                <a href="https://www.hackczech.com" style="color:#666; text-decoration:none; font-size:0.8rem; display:block; margin-top:10px;">🏠 Back to Home</a>
+            </p>
+        </div>`;
+
+    document.body.appendChild(overlay);
+    console.log("Auth overlay has been appended to body."); // Check your console for this!
+}
