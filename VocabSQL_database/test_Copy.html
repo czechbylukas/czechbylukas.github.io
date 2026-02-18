@@ -108,7 +108,7 @@
             <option disabled selected>Vyberte sadu...</option>
         </select>
 
-        <label>Word Type (POS):</label>
+        <label>Word Type:</label>
         <select id="pos-select" style="padding: 8px; width: 100%; margin-bottom: 15px; border-radius: 5px;" onchange="getRandomWord()">
             <option value="all">All Types</option>
         </select>
@@ -120,10 +120,25 @@
 
 
 
-<div style="margin-top: 10px; font-size: 0.9rem; color: #2c3e50; line-height: 1.6;">
-            ž, š, č, ř, ď, ť, ň, ě <br>
-            á, é, í, ý, ó, ú, ů 
-        </div>
+<div id="char-picker" style="margin-top: 10px; display: flex; flex-wrap: wrap; gap: 8px; color: #2c3e50;">
+    <script>
+        ['ž','š','č','ř','ď','ť','ň','ě','á','é','í','ý','ó','ú','ů'].forEach(char => {
+            document.write(`<span onclick="insertChar('${char}')" style="cursor:pointer; padding: 5px 8px; background: #eee; border-radius: 4px; font-weight: bold; border: 1px solid #ccc;">${char}</span>`);
+        });
+
+
+// ADD THIS TO THE BOTTOM OF YOUR SCRIPT SECTION
+function insertChar(char) {
+    const input = document.getElementById('word-guess-box');
+    const start = input.selectionStart;
+    const end = input.selectionEnd;
+    input.setRangeText(char, start, end, 'end');
+    input.focus();
+}
+    </script>
+</div>
+
+
 
 
 
@@ -433,7 +448,7 @@ async function initDatabase() {
                 }
                 const opt = document.createElement('option');
                 opt.value = `${levelVal}|${lessonVal}`;
-                opt.innerText = lessonVal;
+                opt.innerText = lessonVal.substring(3);
                 groupElement.appendChild(opt);
             });
 
@@ -455,8 +470,14 @@ async function initDatabase() {
         if(posRes[0]) {
             const posSelect = document.getElementById('pos-select');
             posRes[0].values.sort().forEach(row => {
-                posSelect.innerHTML += `<option value="${row[0]}">${row[0]}</option>`;
-            });
+    if (row[0].toLowerCase() === 'verb') {
+        // We manually add the two versions and skip the default one
+        posSelect.innerHTML += `<option value="verb|filtered">verb</option>`;
+        posSelect.innerHTML += `<option value="verb">verb with vid (Grammatical aspect)</option>`;
+    } else {
+        posSelect.innerHTML += `<option value="${row[0]}">${row[0]}</option>`;
+    }
+});
         }
 
 // --- DYNAMICALLY LOAD CATEGORY (COLUMN K) ---
@@ -517,15 +538,29 @@ const langColumn = "trans_" + currentLang;
     const posVal = document.getElementById('pos-select').value;
     const catVal = document.getElementById('category-select').value;
     let filterClause = "";
-    if (posVal !== "all") filterClause += ` AND pos = '${posVal}'`;
+    
+    if (posVal !== "all") {
+        if (posVal.includes("|filtered")) {
+            const actualPos = posVal.split('|')[0];
+            // This handles potential case-sensitivity (verb vs Verb) and text vs number for the 1
+            filterClause += ` AND (pos = '${actualPos}' OR pos = 'verb' OR pos = 'Verb') AND (show_vid_pair = 1 OR show_vid_pair = '1')`;
+        } else {
+            filterClause += ` AND pos = '${posVal}'`;
+        }
+    }
+
     if (catVal !== "all") filterClause += ` AND category = '${catVal}'`;
     let lessonClause = (lesson === "ALL_LESSONS") ? "" : `AND lesson='${lesson}'`;
 
-    const query = `SELECT lemma, ${langColumn}, image_path, audio_path, synonym 
-                   FROM words 
-                   WHERE level='${level}' ${lessonClause} ${filterClause}`;
+    // Change the SELECT to include 'vid_pair' (Column M)
+const query = `SELECT lemma, ${langColumn}, image_path, audio_path, synonym, vid_pair 
+               FROM words 
+               WHERE level='${level}' ${lessonClause} ${filterClause}`;
 
+    console.log("Running SQL:", query); // DEBUG: Look at your browser console (F12) to see the actual query
     const res = db.exec(query);
+
+
 
     // 4. Selection Logic
     if(res[0] && res[0].values.length > 0) {
@@ -540,7 +575,14 @@ const langColumn = "trans_" + currentLang;
         
         // Pick random word from pool
         const s = pool[Math.floor(Math.random() * pool.length)];
-        currentWord = { czech: s[0], translation: s[1], img: s[2], audio: s[3], synonym: s[4] };
+currentWord = { 
+    czech: s[0], 
+    translation: s[1], 
+    img: s[2], 
+    audio: s[3], 
+    synonym: s[4],
+    vidPair: s[5] // This stores the value from Column M
+};
         
         document.getElementById('english-word').innerText = s[1];
         
@@ -570,45 +612,71 @@ const langColumn = "trans_" + currentLang;
 
 function evaluateTyping() {
     const input = document.getElementById('word-guess-box').value.trim().toLowerCase();
-    const target = currentWord.czech.toLowerCase();
+    if (!input) return;
+
+    const lemma = currentWord.czech.toLowerCase();
     const synonym = currentWord.synonym ? currentWord.synonym.toLowerCase() : null;
+    const vPair = currentWord.vidPair ? currentWord.vidPair.toLowerCase() : null;
 
-    // Check distance for both main word and synonym
-    const distanceTarget = getEditDistance(input, target);
-    const distanceSynonym = synonym ? getEditDistance(input, synonym) : 999;
+    // Create a list of all acceptable answers
+    let acceptableAnswers = [lemma];
+    if (synonym) acceptableAnswers.push(synonym);
+    
+    if (vPair) {
+        acceptableAnswers.push(vPair);
+        // Add combinations: "lemma/vPair" and "vPair/lemma"
+        acceptableAnswers.push(`${lemma}/${vPair}`);
+        acceptableAnswers.push(`${vPair}/${lemma}`);
+        // Add versions with spaces: "lemma / vPair"
+        acceptableAnswers.push(`${lemma} / ${vPair}`);
+        acceptableAnswers.push(`${vPair} / ${lemma}`);
+    }
 
-    // A match is perfect if either the lemma or the synonym matches exactly
-    if (distanceTarget === 0 || distanceSynonym === 0) {
+    // Check for a perfect match in any of the acceptable answers
+    const isCorrect = acceptableAnswers.some(ans => input === ans);
+
+    if (isCorrect) {
         document.getElementById('success-msg').innerText = "Výborně!";
-        document.getElementById('czech-word').classList.remove('hidden');
+        showAnswerInUI();
         adjustWeight(-1);
         setTimeout(getRandomWord, 1200);
-    } 
-    // Check for typos in either the lemma or the synonym
-    else if (distanceTarget <= (target.length > 5 ? 2 : 1) || (synonym && distanceSynonym <= (synonym.length > 5 ? 2 : 1))) {
-        const correctDisplay = synonym ? `${currentWord.czech} / ${currentWord.synonym}` : currentWord.czech;
-        document.getElementById('typo-msg').innerText = `Téměř! Správně je: ${correctDisplay}`;
-        document.getElementById('czech-word').classList.remove('hidden');
-        adjustWeight(0); 
-        document.getElementById('btn-container').style.display = 'none';
-        document.getElementById('reveal-next').style.display = 'block';
     } else {
-        document.getElementById('typo-msg').innerText = "Bohužel...";
-        showAnswer(2);
+        // Check for typos (Levensthein distance)
+        const hasTypo = acceptableAnswers.some(ans => getEditDistance(input, ans) <= (ans.length > 5 ? 2 : 1));
+        
+        if (hasTypo) {
+            document.getElementById('typo-msg').innerText = "Téměř! Podívejte se na správný tvar.";
+            showAnswer(0);
+        } else {
+            document.getElementById('typo-msg').innerText = "Bohužel...";
+            showAnswer(2);
+        }
     }
+}
+
+// Helper to show the full answer (Lemma + Pair)
+function showAnswerInUI() {
+    let display = currentWord.czech;
+    if (currentWord.vidPair) display += ` / ${currentWord.vidPair}`;
+    if (currentWord.synonym) display += ` (syn: ${currentWord.synonym})`;
+    
+    document.getElementById('czech-word').innerText = display;
+    document.getElementById('czech-word').classList.remove('hidden');
 }
 
 
 
 
 
-    function showAnswer(penalty) {
-        document.getElementById('czech-word').classList.remove('hidden');
-        document.getElementById('btn-container').style.display = 'none';
-        document.getElementById('reveal-next').style.display = 'block';
-        if(currentWord.audio) new Audio(currentWord.audio).play().catch(()=>{});
-        adjustWeight(penalty);
-    }
+   function showAnswer(penalty) {
+    showAnswerInUI(); // Uses the new helper above
+    document.getElementById('btn-container').style.display = 'none';
+    document.getElementById('reveal-next').style.display = 'block';
+    if(currentWord.audio) new Audio(currentWord.audio).play().catch(()=>{});
+    adjustWeight(penalty);
+}
+
+
 
 function updateWeight(choice) {
     const inputField = document.getElementById('word-guess-box');

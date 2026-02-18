@@ -2,8 +2,11 @@
 /* ============================================================
    1. GLOBAL RESET & BASE LAYOUT
    ============================================================ */
-html {
-    height: auto; /* Allow the page to determine its own height */
+html, body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    overflow-x: hidden; /* Prevents horizontal shaking */
 }
 
 body {
@@ -287,7 +290,14 @@ footer.support-note p {
    ============================================================ */
 @media (max-width: 768px) {
     body {
-        flex-direction: column; /* Stack vertically on mobile */
+        display: flex; /* Re-enable flex so the column direction works */
+        flex-direction: column;
+        min-height: 100vh;
+    }
+    
+    /* This prevents ads from pushing your header off-screen */
+    header {
+        flex-shrink: 0;
     }
 
    #sidebar-placeholder, #study-filters {
@@ -325,10 +335,7 @@ footer.support-note p {
     margin-bottom: 30px;
 }
 
-
 }
-
-
 
 /* ============================================================
    8. AUTHENTICATION & LOCK SCREENS
@@ -369,6 +376,20 @@ footer.support-note p {
 #unpaid-message { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: white; display: none; justify-content: center; align-items: center; flex-direction: column; text-align: center; color: #2c3e50; z-index: 9999; }
 
 
+
+
+/* Prevent the site from 'trapping' ad overlays */
+ins.adsbygoogle, 
+div[id^="google_ads"], 
+.google-ads-vignette,
+iframe[id^="google_ads_iframe"] {
+    z-index: 2147483647 !important; /* Maximum possible z-index */
+}
+
+/* Ensure the 'X' button isn't hidden by your auth overlays */
+#auth-overlay, #unpaid-message {
+    z-index: 99999; 
+}
 
 
 
