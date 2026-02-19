@@ -616,6 +616,23 @@ currentWord = {
 
 
 
+function recordMistake(czechWord) {
+    const user = auth.currentUser;
+    if (!user || window.userStatus !== 'paid') return;
+
+    // Sanitize the word for Firebase (no dots or slashes allowed in keys)
+    const safeWord = czechWord.replace(/[.#$[\]/]/g, "_");
+
+    // Increment mistake count in users/UID/mistakes/Word
+    const ref = dbRef.ref(`users/${user.uid}/mistakes/${safeWord}`);
+    ref.transaction((currentValue) => {
+        return (currentValue || 0) + 1;
+    });
+}
+
+
+
+
 
 
 
@@ -658,6 +675,7 @@ function evaluateTyping() {
             showAnswer(0);
         } else {
             document.getElementById('typo-msg').innerText = "Bohužel...";
+            recordMistake(currentWord.czech);
             showAnswer(2);
         }
     }
@@ -704,6 +722,7 @@ function updateWeight(choice) {
         }
     } else {
         // choice === 'no'
+        recordMistake(currentWord.czech);
         showAnswer(2);
     }
 }

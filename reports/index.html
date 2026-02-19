@@ -12,17 +12,30 @@
     <script src="../scripts-header.js"></script>
     <link rel="stylesheet" href="../css/style.css">
     
-    <title>Teacher Dashboard | HáCZech</title>
+    <title>Advanced Teacher Dashboard | HáCZech</title>
 
     <style>
-        .admin-container { max-width: 1000px; margin: 40px auto; padding: 20px; background: white; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); }
-        #user-table { width: 100%; border-collapse: collapse; margin-top: 20px; }
-        #user-table th, #user-table td { border: 1px solid #ddd; padding: 12px; text-align: left; }
-        #user-table tr:nth-child(even) { background-color: #f9f9f9; }
-        .status-paid { color: #27ae60; font-weight: bold; }
-        .status-pending { color: #e67e22; font-weight: bold; }
-        .search-bar { width: 100%; padding: 12px; margin-bottom: 20px; border: 2px solid #2c3e50; border-radius: 8px; font-size: 1rem; }
+        .admin-container { max-width: 1100px; margin: 20px auto; padding: 20px; background: white; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); }
+        #user-table { width: 100%; border-collapse: collapse; margin-top: 20px; font-size: 0.9rem; }
+        #user-table th, #user-table td { border: 1px solid #ddd; padding: 10px; text-align: left; }
+        #user-table th { background:#2c3e50; color: white; cursor: pointer; position: sticky; top: 0; }
+        #user-table tr:hover { background: #f1f1f1; }
+        
+        .report-card { background: #f9f9f9; padding: 20px; border-radius: 10px; border: 1px solid #ddd; margin-bottom: 20px; }
+        .matrix-table { width: 100%; border-collapse: collapse; background: white; }
+        .matrix-table td, .matrix-table th { border: 1px solid #eee; padding: 8px; text-align: center; }
+        
+        .controls { display: flex; gap: 10px; margin-bottom: 20px; flex-wrap: wrap; align-items: center; }
+        .search-bar { flex: 2; padding: 10px; border: 2px solid #2c3e50; border-radius: 8px; }
+        .filter-select { padding: 10px; border-radius: 8px; border: 1px solid #ccc; }
+        
+        .btn-reset { background: #e74c3c; color: white; border: none; padding: 8px 12px; border-radius: 5px; cursor: pointer; }
+        .btn-reset:hover { background: #c0392b; }
         #access-denied { display: none; text-align: center; margin-top: 100px; color: #e74c3c; }
+
+        /* Style for the new Breakdown Matrix */
+        .group-row { background: #ecf0f1; font-weight: bold; text-align: left !important; }
+        .page-row td:first-child { color: #7f8c8d; padding-left: 25px; text-align: left !important; }
     </style>
 </head>
 <body>
@@ -35,29 +48,63 @@
 
 <div id="admin-content" style="display:none;">
     <div class="admin-container">
-        <header style="display: flex; justify-content: space-between; align-items: center;">
-            <h2>Teacher Dashboard</h2>
-            <button class="test-btn" onclick="location.href='../index.html'">Main Page</button>
+        <header style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+            <h2>Teacher Console</h2>
+            <div style="display:flex; gap:10px;">
+                <button class="test-btn" style="background:#e67e22;" onclick="resetAllStats()">Reset All Students Time</button>
+                <button class="test-btn" onclick="location.href='../index.html'">Main Page</button>
+            </div>
         </header>
 
-        <input type="text" id="user-search" class="search-bar" placeholder="Search students by name or email..." onkeyup="filterUsers()">
+        <div class="controls">
+            <input type="text" id="user-search" class="search-bar" placeholder="Search by name or email..." onkeyup="processUsers()">
+            <select id="filter-status" class="filter-select" onchange="processUsers()">
+                <option value="all">All Status</option>
+                <option value="paid">Paid Only</option>
+                <option value="pending">Pending Only</option>
+            </select>
+        </div>
 
         <table id="user-table">
-<thead style="background:#2c3e50; color: white;">
-    <tr>
-        <th>Name</th>
-        <th>Email</th>
-        <th>Total Usage</th> 
-        <th>Paid Status</th>
-        <th>Actions</th>
-    </tr>
-</thead>
+            <thead>
+                <tr>
+                    <th onclick="setSort('name')">Name ↕</th>
+                    <th onclick="setSort('email')">Email ↕</th>
+                    <th onclick="setSort('totalSeconds')">Total Usage ↕</th> 
+                    <th>Paid Status</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
             <tbody id="user-tbody"></tbody>
         </table>
 
-        <div id="report-section" style="display:none; margin-top:40px; border-top:3px solid #eee; padding-top:20px;">
-            <h3 id="report-title">Student Progress</h3>
-            <canvas id="adminProgressChart"></canvas>
+        <div id="report-section" style="display:none; margin-top:40px; border-top:5px solid #2c3e50; padding-top:20px;">
+            <div style="display:flex; justify-content:space-between; align-items:center;">
+                <h3 id="report-title" style="margin:0;">Student Progress</h3>
+                <button class="test-btn" style="background:#7f8c8d;" onclick="document.getElementById('report-section').style.display='none'">Close Report</button>
+            </div>
+
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-top: 20px;">
+                <div class="report-card">
+                    <h4>Time Development (Last 14 Days)</h4>
+                    <canvas id="timeChart" height="200"></canvas>
+                </div>
+                
+                <div class="report-card">
+                    <h4>Activity Breakdown (Group | Page)</h4>
+                    <div id="matrix-container"></div>
+                </div>
+            </div>
+
+            <div class="report-card" style="background: #fffafa;">
+                <h4>Top Mistakes (Study Tool)</h4>
+                <table class="matrix-table">
+                    <thead>
+                        <tr style="background:#eee;"><th>Czech Word</th><th>Mistakes Count</th><th>Current Weight</th></tr>
+                    </thead>
+                    <tbody id="mistake-tbody"></tbody>
+                </table>
+            </div>
         </div>
     </div>
 </div>
@@ -65,204 +112,205 @@
 <script>
     const auth = firebase.auth();
     const dbRef = firebase.database();
+    let allUsersRaw = {};
+    let sortField = 'name';
+    let sortAsc = true;
+    let myChartInstance = null;
 
     auth.onAuthStateChanged(user => {
-        // SECURITY CHECK: Only allow your email
         if (user && user.email === 'lukas@hackczech.com') {
             document.getElementById('admin-content').style.display = 'block';
-            loadUsers();
+            loadData();
         } else {
             document.getElementById('access-denied').style.display = 'block';
         }
     });
 
-    function loadUsers() {
+    function loadData() {
         dbRef.ref('users').on('value', snap => {
-            const allUsers = snap.val() || {};
-            renderUserTable(allUsers);
+            allUsersRaw = snap.val() || {};
+            processUsers();
         });
     }
 
-function renderUserTable(data) {
-    const tbody = document.getElementById('user-tbody');
-    tbody.innerHTML = '';
-    
-    for(let id in data) {
-        let u = data[id];
-        const isPaid = u.status === 'paid';
-        
-        // We add a specific ID to the time cell so we can update it live
-        let row = `<tr>
-            <td>**${u.name || 'N/A'}**</td>
-            <td>${u.email}</td>
-            <td id="time-${id}" style="font-weight:bold; color:#34495e;">Loading...</td>
-            <td style="text-align:center;">
-                <input type="checkbox" ${isPaid ? 'checked' : ''} 
-                       style="transform: scale(1.2);"
-                       onchange="togglePaidStatus('${id}', this.checked)">
-                <span class="${isPaid ? 'status-paid' : 'status-pending'}">${u.status || 'pending'}</span>
-            </td>
-            <td>
-                <button class="test-btn" style="background:#3498db; padding: 5px 10px;" 
-                        onclick="showReport('${id}', '${u.name}')">View Stats</button>
-            </td>
-        </tr>`;
-        tbody.innerHTML += row;
-
-        // Fetch the time for this user
-        fetchUserTotalTime(id);
+    function setSort(field) {
+        if (sortField === field) sortAsc = !sortAsc;
+        else { sortField = field; sortAsc = true; }
+        processUsers();
     }
-}
 
-function fetchUserTotalTime(uid) {
-    // We listen to usage_logs for this specific student
-    dbRef.ref(`usage_logs/${uid}`).on('value', snap => {
-        const logs = snap.val() || {};
-        let totalSeconds = 0;
-        
-        // Loop through dates and pages to sum up the time
-        for (let date in logs) {
-            for (let page in logs[date]) {
-                totalSeconds += logs[date][page];
+    function processUsers() {
+        const searchTerm = document.getElementById('user-search').value.toLowerCase();
+        const filterVal = document.getElementById('filter-status').value;
+        let usersArray = [];
+
+        for (let id in allUsersRaw) {
+            let u = allUsersRaw[id];
+            let totalSecs = 0;
+            
+            // NEW TRACKER: Sum detailed_usage
+            if (u.detailed_usage) {
+                Object.values(u.detailed_usage).forEach(day => {
+                    Object.values(day).forEach(group => {
+                        Object.values(group).forEach(val => totalSecs += val);
+                    });
+                });
             }
+            // LEGACY TRACKER: Sum old usage node if it exists
+            if (u.usage) {
+                Object.values(u.usage).forEach(day => {
+                    Object.values(day).forEach(val => totalSecs += val);
+                });
+            }
+
+            usersArray.push({ id, ...u, totalSeconds: totalSecs });
         }
-        
-        const minutes = Math.floor(totalSeconds / 60);
-        const cell = document.getElementById(`time-${uid}`);
-        
-        if (cell) {
-            cell.innerText = minutes + " min";
-            // Optional: Color code active students (e.g., more than 60 mins is green)
-            if (minutes > 60) cell.style.color = "#27ae60"; 
-        }
-    });
-}
 
-
-
-let myChart; // Global variable to hold the chart instance
-
-let pageTitleMap = {};
-
-// Load titles once when the page opens
-dbRef.ref('page_titles').on('value', snap => {
-    pageTitleMap = snap.val() || {};
-});
-
-let sidebarMap = [];
-
-// 1. Function to learn categories from your sidebar.html
-async function loadSidebarCategories() {
-    try {
-        const response = await fetch('../sidebar/sidebar.html');
-        const text = await response.text();
-        const parser = new DOMParser();
-        const doc = parser.parseFromString(text, 'text/html');
-        const links = doc.querySelectorAll('a');
-
-        sidebarMap = Array.from(links).map(link => {
-            // Get the folder name from the href (e.g., "/vocabulary/index.html" -> "vocabulary")
-            const path = link.getAttribute('href').split('/')[1] || 'home';
-            // Get the text, removing emojis for the chart labels
-            const label = link.innerText.replace(/[\u{1F300}-\u{1F9FF}]|[\u{2700}-\u{27BF}]/gu, '').trim();
-            return { path, label };
+        usersArray = usersArray.filter(u => {
+            const matchesSearch = (u.name || '').toLowerCase().includes(searchTerm) || u.email.toLowerCase().includes(searchTerm);
+            const matchesStatus = filterVal === 'all' || u.status === filterVal;
+            return matchesSearch && matchesStatus;
         });
-        
-        console.log("Categories loaded from sidebar:", sidebarMap);
-    } catch (e) {
-        console.error("Could not load sidebar categories:", e);
+
+        usersArray.sort((a, b) => {
+            let valA = a[sortField] || 0;
+            let valB = b[sortField] || 0;
+            if (typeof valA === 'string') return sortAsc ? valA.localeCompare(valB) : valB.localeCompare(valA);
+            return sortAsc ? valA - valB : valB - valA;
+        });
+
+        renderTable(usersArray);
     }
-}
 
-// Call this immediately when the page loads
-loadSidebarCategories();
+    function renderTable(users) {
+        const tbody = document.getElementById('user-tbody');
+        tbody.innerHTML = '';
+        users.forEach(u => {
+            const isPaid = u.status === 'paid';
+            const mins = Math.floor(u.totalSeconds / 60);
+            tbody.innerHTML += `
+                <tr>
+                    <td><strong>${u.name || 'N/A'}</strong></td>
+                    <td>${u.email}</td>
+                    <td>${mins} min</td>
+                    <td>
+                        <input type="checkbox" ${isPaid ? 'checked' : ''} onchange="togglePaidStatus('${u.id}', this.checked)">
+                        <span style="color:${isPaid?'#27ae60':'#e67e22'}">${u.status || 'pending'}</span>
+                    </td>
+                    <td>
+                        <button class="test-btn" style="background:#3498db; padding:5px;" onclick="showReport('${u.id}')">Report</button>
+                        <button class="btn-reset" onclick="resetUserStats('${u.id}')">Reset</button>
+                    </td>
+                </tr>`;
+        });
+    }
 
-// 2. Updated showReport that uses the dynamic map
-function showReport(uid, name) {
-    document.getElementById('report-section').style.display = 'block';
-    document.getElementById('report-title').innerText = "Usage Report: " + name;
+    function showReport(uid) {
+        const u = allUsersRaw[uid];
+        document.getElementById('report-section').style.display = 'block';
+        document.getElementById('report-title').innerText = "Progress: " + (u.name || u.email);
+        document.getElementById('report-section').scrollIntoView({ behavior: 'smooth' });
 
-    dbRef.ref(`usage_logs/${uid}`).once('value', snap => {
-        const logs = snap.val() || {};
-        const categories = {};
-
-        // Initialize categories from our map
-        sidebarMap.forEach(item => categories[item.label] = 0);
-        categories["Other"] = 0;
-
-        for (let date in logs) {
-            for (let pageKey in logs[date]) {
-                const mins = logs[date][pageKey] / 60;
-                
-                // Find which category this page belongs to
-                const match = sidebarMap.find(item => pageKey.includes(item.path));
-                
-                if (match) {
-                    categories[match.label] += mins;
-                } else {
-                    categories["Other"] += mins;
+        // 1. New Detailed Activity Matrix
+        const detailed = u.detailed_usage || {};
+        let summary = {};
+        
+        // Collate all pages into categories
+        Object.values(detailed).forEach(day => {
+            for (let group in day) {
+                if (!summary[group]) summary[group] = { total: 0, pages: {} };
+                for (let page in day[group]) {
+                    let time = day[group][page];
+                    summary[group].pages[page] = (summary[group].pages[page] || 0) + time;
+                    summary[group].total += time;
                 }
             }
-        }
-        renderCategoryChart(categories);
-    });
-}
+        });
 
+        let matrixHtml = `<table class="matrix-table">
+            <thead><tr><th>Category / Page</th><th>Total Time</th></tr></thead><tbody>`;
 
-
-
-
-function renderCategoryChart(data) {
-    const ctx = document.getElementById('adminProgressChart').getContext('2d');
-    if (myChart) { myChart.destroy(); }
-
-    // This filters out categories the student hasn't used yet
-    const labels = Object.keys(data).filter(key => data[key] > 0);
-    const values = labels.map(key => data[key]);
-
-    myChart = new Chart(ctx, {
-        type: 'bar',
-        data: {
-            labels: labels,
-            datasets: [{
-                label: 'Minutes Spent',
-                data: values,
-                backgroundColor: '#3498db'
-            }]
-        },
-        options: {
-            indexAxis: 'y', 
-            responsive: true,
-            plugins: {
-                legend: { display: false }
+        for (let group in summary) {
+            matrixHtml += `<tr class="group-row"><td>📁 ${group}</td><td>${Math.floor(summary[group].total/60)}m</td></tr>`;
+            for (let page in summary[group].pages) {
+                let s = summary[group].pages[page];
+                matrixHtml += `<tr class="page-row"><td>└ ${page}</td><td>${Math.floor(s/60)}m ${s%60}s</td></tr>`;
             }
         }
-    });
-}
+        
+        if (Object.keys(summary).length === 0) matrixHtml += `<tr><td colspan="2">No detailed logs found.</td></tr>`;
+        document.getElementById('matrix-container').innerHTML = matrixHtml + `</tbody></table>`;
 
+        // 2. Time Development Chart (Last 14 Days)
+        const last14 = [];
+        for(let i=13; i>=0; i--) {
+            let d = new Date(); d.setDate(d.getDate() - i);
+            last14.push(d.toISOString().split('T')[0]);
+        }
+        
+        const chartData = last14.map(date => {
+            let dayTotal = 0;
+            // From Detailed Node
+            if (u.detailed_usage && u.detailed_usage[date]) {
+                Object.values(u.detailed_usage[date]).forEach(group => {
+                    Object.values(group).forEach(t => dayTotal += t);
+                });
+            }
+            // From Legacy Node
+            if (u.usage && u.usage[date]) {
+                Object.values(u.usage[date]).forEach(t => dayTotal += t);
+            }
+            return dayTotal / 60;
+        });
 
+        renderChart(last14, chartData);
 
+        // 3. Mistakes Table
+        const mBody = document.getElementById('mistake-tbody');
+        mBody.innerHTML = '';
+            console.log("Mistakes data for this user:", u.mistakes);
 
+        if (u.mistakes) {
+            Object.entries(u.mistakes).sort((a,b) => b[1] - a[1]).slice(0, 10).forEach(([word, count]) => {
+                mBody.innerHTML += `<tr><td>${word}</td><td style="color:red; font-weight:bold;">${count}</td><td>${(u.weights||{})[word] || 5}</td></tr>`;
+            });
+        } else {
+            mBody.innerHTML = '<tr><td colspan="3">No mistakes recorded yet.</td></tr>';
+        }
+    }
 
+    function renderChart(labels, data) {
+        const ctx = document.getElementById('timeChart').getContext('2d');
+        if (myChartInstance) myChartInstance.destroy();
+        myChartInstance = new Chart(ctx, {
+            type: 'line',
+            data: {
+                labels: labels,
+                datasets: [{ label: 'Minutes Active', data: data, borderColor: '#3498db', tension: 0.2, fill: true, backgroundColor: 'rgba(52, 152, 219, 0.1)' }]
+            },
+            options: { responsive: true, plugins: { legend: { display: false } } }
+        });
+    }
 
-// Function to update Paid/Pending status in Firebase
-function togglePaidStatus(uid, isChecked) {
-    const newStatus = isChecked ? 'paid' : 'pending';
-    dbRef.ref(`users/${uid}`).update({ status: newStatus })
-        .then(() => console.log("Status updated!"))
-        .catch(err => alert("Error updating status: " + err.message));
-}
+    function resetUserStats(uid) {
+        if(confirm("Reset usage time for this student? (Weights and Mistakes remain)")) {
+            dbRef.ref(`users/${uid}/detailed_usage`).remove();
+            dbRef.ref(`users/${uid}/usage`).remove();
+        }
+    }
 
-// Function to filter the table when typing in the search bar
-function filterUsers() {
-    const input = document.getElementById('user-search').value.toLowerCase();
-    const rows = document.querySelectorAll('#user-tbody tr');
+    function resetAllStats() {
+        if(confirm("Reset time stats for ALL students? This cannot be undone.")) {
+            Object.keys(allUsersRaw).forEach(uid => {
+                dbRef.ref(`users/${uid}/detailed_usage`).remove();
+                dbRef.ref(`users/${uid}/usage`).remove();
+            });
+        }
+    }
 
-    rows.forEach(row => {
-        const text = row.innerText.toLowerCase();
-        row.style.display = text.includes(input) ? '' : 'none';
-    });
-}
+    function togglePaidStatus(uid, isChecked) {
+        dbRef.ref(`users/${uid}`).update({ status: isChecked ? 'paid' : 'pending' });
+    }
 </script>
 </body>
 </html>

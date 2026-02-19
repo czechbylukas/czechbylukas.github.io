@@ -418,10 +418,13 @@ if (localStorage.getItem("cookieConsent")) {
 
 
 
-// --- SMART PAGE TIME TRACKER ---
+
+
+
+
+// --- SMART PAGE TIME TRACKER (DETAILED VERSION) ---
 let totalActiveTime = 0;
 let lastActiveTime = Date.now();
-let currentPage = window.location.pathname;
 
 function logTimeSpent() {
     const timeToLog = Math.round(totalActiveTime / 1000); 
@@ -429,34 +432,41 @@ function logTimeSpent() {
     if (typeof firebase !== 'undefined' && firebase.auth().currentUser && timeToLog > 2) {
         const user = firebase.auth().currentUser;
         const dateKey = new Date().toISOString().split('T')[0];
-        const cleanPageName = currentPage.replace(/\./g, '_').replace(/\//g, '_');
         
-        // Save the Title
-        const pageTitle = document.title || "Untitled Page";
-        firebase.database().ref(`page_titles/${cleanPageName}`).set(pageTitle);
+        // 1. Parse the Title: "Vocabulary 1 | Past Tense | HáCZech"
+        const titleText = document.title || "General | Main Page | HáCZech";
+        const parts = titleText.split('|').map(p => p.trim());
+        
+        // 2. Extract Category (Group) and Page
+        // Result: group = "Vocabulary 1", detail = "Past Tense"
+        const group = parts[0] || 'General';
+        const detail = parts[1] || 'Main';
 
-        // Save the Time
-        const path = `usage_logs/${user.uid}/${dateKey}/${cleanPageName}`;
+        // 3. Sanitize keys for Firebase (remove symbols that break paths)
+        const safeGroup = group.replace(/[.#$[\]]/g, "_");
+        const safeDetail = detail.replace(/[.#$[\]]/g, "_");
+
+        // 4. Save to a NEW node called 'detailed_usage'
+        const path = `users/${user.uid}/detailed_usage/${dateKey}/${safeGroup}/${safeDetail}`;
         firebase.database().ref(path).transaction((currentValue) => (currentValue || 0) + timeToLog);
         
         totalActiveTime = 0; // Reset after logging
     }
 }
 
-// Only count time if the tab is actually visible (not minimized/hidden)
+// Logic to detect if user is active
 setInterval(() => {
     if (document.visibilityState === 'visible') {
         const now = Date.now();
         totalActiveTime += (now - lastActiveTime);
         lastActiveTime = now;
     } else {
-        lastActiveTime = Date.now(); // Keep updating so it doesn't "jump" when they come back
+        lastActiveTime = Date.now();
     }
 }, 1000);
 
 window.addEventListener('beforeunload', logTimeSpent);
-// Log every 30 seconds automatically so we don't lose data if they just close the laptop
-setInterval(logTimeSpent, 30000);
+setInterval(logTimeSpent, 5000); // Auto-save every 5s
 
 
 

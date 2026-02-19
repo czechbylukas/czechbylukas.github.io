@@ -113,7 +113,7 @@
     const tbody = document.getElementById("vocabBody");
     tbody.innerHTML = "";
 
-    const query = "SELECT lemma, trans_en, trans_de, trans_es FROM words WHERE level = 'A1' AND lesson = '1 Minulý čas'";
+    const query = "SELECT lemma, trans_en, trans_de, trans_es FROM words WHERE level = 'A1' AND lesson = '01 Minulý čas'";
 
     try {
       const results = db.exec(query);
