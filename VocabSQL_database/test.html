@@ -578,9 +578,10 @@ const query = `SELECT lemma, ${langColumn}, image_path, audio_path, synonym, vid
         
         // Fill pool based on weights
         rows.forEach(r => {
-            const w = userWeights[r[0]] || 5;
-            for(let i=0; i<w; i++) pool.push(r);
-        });
+            const safeKey = r[0].replace(/[.#$[\]/]/g, "_"); 
+        const w = userWeights[safeKey] || 5;
+        for(let i=0; i<w; i++) pool.push(r);
+    });
         
         // Pick random word from pool
         const s = pool[Math.floor(Math.random() * pool.length)];
@@ -676,7 +677,7 @@ function evaluateTyping() {
         } else {
             document.getElementById('typo-msg').innerText = "Bohužel...";
             recordMistake(currentWord.czech);
-            showAnswer(2);
+            showAnswer(1);
         }
     }
 }
