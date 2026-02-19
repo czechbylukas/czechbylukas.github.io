@@ -730,8 +730,10 @@ function updateWeight(choice) {
 function adjustWeight(change) {
     if(window.userStatus !== 'paid' || !auth.currentUser) return; 
     
-    let w = userWeights[currentWord.czech] || 5;
-    userWeights[currentWord.czech] = Math.max(1, w + change);
+    const safeKey = currentWord.czech.replace(/[.#$[\]/]/g, "_");
+    
+    let w = userWeights[safeKey] || 5;
+    userWeights[safeKey] = Math.max(1, w + change);
     dbRef.ref('users/'+auth.currentUser.uid+'/weights').set(userWeights);
 }
 
