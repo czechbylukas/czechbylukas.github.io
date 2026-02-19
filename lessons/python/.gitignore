@@ -1,0 +1,6 @@
+# Google Credentials (the secret file)
+credentials.json
+
+# Python temporary files
+__pycache__/
+*.pyc

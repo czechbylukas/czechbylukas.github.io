@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+    <meta charset="UTF-8">
+    <title>Tool Teacher | Lesson 001 | HáCZech</title>
+
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-database.js"></script>
+
+    <link rel="stylesheet" href="../css/style.css">
+    <script src="../scripts-header.js"></script>
+
+    <style>
+        body { font-family: 'Arial', sans-serif; display: flex; flex-direction: column; margin: 0; min-height: 100vh; background-color: #f0f4ff; }
+        header { background: white; padding: 10px; border-bottom: 1px solid #ddd; }
+        .main-layout { display: flex; flex: 1; }
+        
+        #student-view { flex: 3; padding: 50px; text-align: center; display: flex; flex-direction: column; justify-content: center; align-items: center; }
+        #teacher-sidebar { flex: 1; background: #f4f7f6; border-left: 2px solid #007bff; padding: 20px; overflow-y: auto; display: none; }
+        
+        #input-section { background: white; padding: 40px; border-radius: 15px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); }
+        #verb-input { padding: 15px; font-size: 24px; border: 2px solid #007bff; border-radius: 8px; width: 300px; outline: none; }
+        #verb-input.error { border-color: red; background-color: #fff0f0; }
+
+        #sentence-display { font-size: 38px; margin-bottom: 20px; color: #333; }
+        #answer-display { font-size: 42px; color: #28a745; margin-bottom: 40px; min-height: 60px; font-weight: bold; }
+        
+        .blue-bold { color: #007bff !important; font-weight: bold !important; }
+        .btn-main { padding: 15px 30px; font-size: 20px; cursor: pointer; background: #007bff; color: white; border: none; border-radius: 8px; }
+        
+        #history-log { width: 80%; max-width: 600px; margin-top: 30px; text-align: left; background: white; padding: 15px; border-radius: 10px; border: 1px solid #ddd; }
+        #history-log div { margin-bottom: 8px; padding-bottom: 5px; border-bottom: 1px dotted #ccc; font-size: 18px; }
+
+        .rules-box { border: 2px dashed #999; padding: 15px; margin-top: 20px; font-size: 14px; text-align: left; line-height: 1.6; background: #fff; }
+        .rules-box b { color: red; }
+
+        .verb-list-item { padding: 8px; cursor: pointer; border-bottom: 1px solid #eee; font-size: 14px; }
+        .verb-list-item:hover { background: #e9ecef; }
+        
+        /* Modal and Overlay Styles */
+        .modal { position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); 
+                 background: white; padding: 30px; border: 2px solid #333; display: none; box-shadow: 0 10px 30px rgba(0,0,0,0.5); z-index: 1000; border-radius: 10px; }
+        .overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); display: none; z-index: 999; }
+        
+        /* New Container for Gender Switch */
+        .gender-box { background: #eef4ff; padding: 15px; border-radius: 10px; border: 1px solid #007bff33; margin-bottom: 30px; }
+    </style>
+</head>
+<body>
+
+    <header><div id="header-right-group"></div></header>
+
+    <div class="main-layout">
+        <div id="student-view">
+            <div id="input-section">
+                <h2 id="dynamic-question" style="margin-top:0;">
+                    Co <span class="blue-bold">jsi</span> děla<span class="blue-bold">l</span> v neděli?
+                </h2>
+                <p>Napiš infinitiv slovesa:</p>
+
+                <input type="text" id="verb-input" placeholder="např. dělat..." onkeypress="if(event.key === 'Enter') startLesson()">
+                <br><br>
+                <button class="btn-main" onclick="startLesson()">Začít lekci</button>
+            </div>
+
+            <div id="lesson-section" style="display: none;">
+                <div class="gender-box">
+                    <label style="font-weight: bold; margin-right: 10px;">Subjekt:</label>
+                    <select id="gender-switch" onchange="updateGender()" style="padding: 10px; font-size: 18px; border-radius: 8px; border: 2px solid #007bff;">
+                        <option value="M">Masculine (L)</option>
+                        <option value="F">Feminine (LA)</option>
+                        <option value="N">Neutral (LO)</option>
+                        <option value="Pl">Plural, M (LI)</option>
+                        <option value="PlFem">Plural, F (LY)</option>
+                        <option value="PlN">Plural, N (LA)</option>
+                    </select>
+                </div>
+
+                <div id="sentence-display"></div>
+                <div id="answer-display"></div>
+                
+                <div style="margin-bottom: 20px;">
+                    <button id="next-step-btn" class="btn-main" onclick="nextStep()">Odpovědět (Krok 1)</button>
+                </div>
+            </div>
+
+            <div id="history-log">
+                <h3>Historie lekce:</h3>
+                <div id="log-content"></div>
+            </div>
+        </div>
+
+        <div id="teacher-sidebar">
+            <h3>Teacher Dashboard</h3>
+            <div class="rules-box">
+                <b>Gramatická pravidla:</b><br>
+                1. Create past participle: Infinitiv -T -> -L<br>
+                2. Adjust for gender: -LA for feminine, -LI for plural...<br>
+                3. Add modal verb for 1st and 2nd person (jsem, jsi...)<br>
+                4. "Jsem/Jsi" on 2nd position
+            </div>
+            <hr>
+            <label>Instruction Lang:</label>
+            <select id="lang" style="width: 100%; margin-bottom: 15px; padding: 5px;">
+                <option value="en">English</option>
+                <option value="de">German</option>
+                <option value="es">Spanish</option>
+            </select>
+            
+            <label>Filter Verbs (Lesson 1):</label>
+            <input type="text" id="v-search" onkeyup="filterVerbs()" placeholder="Type to search lemma..." style="width: 100%; padding: 8px; box-sizing: border-box; margin-bottom: 5px;">
+            <ul id="v-list" style="padding:0; list-style:none; max-height: 250px; overflow-y:auto; background: white; border: 1px solid #ddd;">
+                <li style="padding: 10px; color: #666;">Loading verbs...</li>
+            </ul>
+            
+            <button onclick="openGoogleModal()" style="width:100%; margin-top:20px; background: #28a745; color: white; padding: 12px; border: none; border-radius: 5px; cursor: pointer; font-weight: bold;">Finish & Send to Doc</button>
+        </div>
+    </div>
+
+    <div id="overlay" class="overlay" onclick="closeModals()"></div>
+    
+    <div id="g-modal" class="modal">
+        <h3>Google Doc Link</h3>
+        <p style="font-size: 12px; color: #666;">Paste the URL of the student's document.</p>
+        <input type="text" id="doc-url" placeholder="https://docs.google.com/document/d/..." style="width: 100%; padding: 10px; box-sizing: border-box;">
+        <br><br>
+        <button class="btn-main" style="width: 100%;" onclick="saveSession()">Save to Google Doc</button>
+    </div>
+
+    <div id="m-modal" class="modal">
+        <h3>Teacher Message</h3>
+        <textarea id="final-msg" style="width: 400px; height: 180px; padding: 10px; font-family: sans-serif;"></textarea>
+        <br><br>
+        <button class="btn-main" style="width: 100%;" onclick="location.reload()">Done / Next Student</button>
+    </div>
+
+    <div id="footer-placeholder"></div>
+
+
+
+
+
+
+
+
+    <script>
+    // VERSION CHECK: Change this number every time you save. 
+    // If you don't see "VERSION 1.05" in the console, your browser is STUCK on old code.
+    console.log("LOGIC LOADED: VERSION 1.05");
+
+    // 1. Force these into the global window space immediately.
+    // By not using 'let' or 'const' here, we avoid the "Initialization" error.
+    window.currentVerb = ""; 
+    window.step = 0;
+    window.sessionSentences = [];
+    window.days = ["v neděli", "v pondělí", "v úterý", "ve středu", "ve čtvrtek", "v pátek", "v sobotu", "o víkendu", "minulý týden", "minulý rok", "loni"];
+    window.dayIdx = 0;
+
+    window.startLesson = function() {
+        console.log("startLesson function called");
+        const input = document.getElementById('verb-input');
+        if (!input) return;
+
+        const val = input.value.trim().toLowerCase();
+        
+        if (!/t$|t\s+se$|t\s+si$/.test(val)) {
+            input.classList.add('error');
+            alert("Please enter an infinitive ending in -t");
+            return;
+        }
+        
+        input.classList.remove('error');
+        
+        // Use the window-scoped version
+        window.currentVerb = val; 
+        
+        document.getElementById('input-section').style.display = 'none';
+        document.getElementById('lesson-section').style.display = 'block';
+        
+        if (typeof showQuestion === 'function') {
+            showQuestion();
+        } else {
+            console.error("showQuestion function not found!");
+        }
+    };
+
+    window.showQuestion = function() {
+        window.step = 1;
+        let day = window.days[window.dayIdx];
+        let base = String(window.currentVerb).split(' ')[0];
+        let questionVerb = base.replace(/t$/, 'l');
+        
+        document.getElementById('sentence-display').innerHTML = 
+            `Co <span class="blue-bold">jsi</span> ${questionVerb} ${day}?`;
+        document.getElementById('answer-display').innerText = "";
+        document.getElementById('next-step-btn').innerText = "Odpovědět (Krok 1)";
+    };
+
+    function nextStep() {
+        let day = window.days[window.dayIdx];
+        let answerDiv = document.getElementById('answer-display');
+
+        if (window.step === 1) {
+            answerDiv.innerText = day.charAt(0).toUpperCase() + day.slice(1);
+            document.getElementById('next-step-btn').innerText = "Krok 2 (jsi -> jsem)";
+            window.step = 2;
+        } 
+        else if (window.step === 2) {
+            answerDiv.innerHTML += ` <span class="blue-bold">jsem</span>`;
+            document.getElementById('next-step-btn').innerText = "Krok 3 (Sloveso)";
+            window.step = 3;
+        } 
+        else if (window.step === 3) {
+            let parts = window.currentVerb.split(/\s+/);
+            let base = parts[0].replace(/t$/, 'l');
+            let reflex = parts.length > 1 ? " " + parts[1] : "";
+            
+            answerDiv.innerHTML += `${reflex} ${base}<span id="suffix" class="blue-bold"></span>.`;
+            updateGender();
+            
+            document.getElementById('next-step-btn').innerText = "Další sloveso";
+            window.step = 4;
+        } 
+        else {
+            document.getElementById('log-content').innerHTML += `<div>${answerDiv.innerHTML}</div>`;
+            window.sessionSentences.push(answerDiv.innerText);
+
+            window.dayIdx = (window.dayIdx + 1) % window.days.length;
+            document.getElementById('input-section').style.display = 'block';
+            document.getElementById('lesson-section').style.display = 'none';
+            document.getElementById('verb-input').value = "";
+            document.getElementById('verb-input').focus();
+        }
+    }
+
+    function updateGender() {
+        const val = document.getElementById('gender-switch').value;
+        const endings = { 'M': '', 'F': 'la', 'N': 'lo', 'Pl': 'li', 'PlFem': 'ly', 'PlN': 'la' };
+        const suffix = document.getElementById('suffix');
+        if (suffix) suffix.innerText = endings[val];
+    }
+
+    // Auth and extra logic
+    try {
+        firebase.auth().onAuthStateChanged((user) => {
+            if (user && user.email === 'lukas@hackczech.com') {
+                document.getElementById('teacher-sidebar').style.display = 'block';
+            }
+        });
+    } catch (e) {}
+</script>
+
+</body>
+</html>
