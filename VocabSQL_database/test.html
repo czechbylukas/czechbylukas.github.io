@@ -716,7 +716,7 @@ function updateWeight(choice) {
         } else {
             // Standard "I knew it" behavior (empty box)
             document.getElementById('success-msg').innerText = "Správně!";
-            document.getElementById('czech-word').classList.remove('hidden');
+            showAnswerInUI();
             adjustWeight(-1);
             setTimeout(getRandomWord, 1200);
         }
