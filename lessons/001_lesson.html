@@ -249,6 +249,43 @@
             }
         });
     } catch (e) {}
+
+
+
+
+    // --- MODAL CONTROL FUNCTIONS ---
+    window.openGoogleModal = function() {
+        document.getElementById('g-modal').style.display = 'block';
+        document.getElementById('overlay').style.display = 'block';
+    };
+
+    window.closeModals = function() {
+        document.getElementById('g-modal').style.display = 'none';
+        document.getElementById('m-modal').style.display = 'none';
+        document.getElementById('overlay').style.display = 'none';
+    };
+
+    window.saveSession = function() {
+        const docUrl = document.getElementById('doc-url').value;
+        if (!docUrl) {
+            alert("Please paste a Google Doc URL first!");
+            return;
+        }
+
+        // Prepare the text for the teacher to copy/paste or for an API call
+        const logContent = window.sessionSentences.join('\n');
+        const finalMessage = `Lesson Summary:\n${logContent}`;
+        
+        document.getElementById('final-msg').value = finalMessage;
+        
+        // Switch modals
+        document.getElementById('g-modal').style.display = 'none';
+        document.getElementById('m-modal').style.display = 'block';
+    };
+
+
+
+    
 </script>
 
 </body>
