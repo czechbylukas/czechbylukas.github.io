@@ -338,17 +338,51 @@ const btnAccept = isCzech ? "Přijmout" : "Accept";
 }); // <--- FIX 2: Closes the Cookie Banner DOMContentLoaded block
 
 
-// MAKE ONLY LOGO CLICKABLE
+
+
+
+
+// --- AUTO-INJECT & ACTIVATE LOGO ---
 document.addEventListener("DOMContentLoaded", function() {
-    const logo = document.getElementById('heading-welcome');
-    if (logo) {
-        logo.style.cursor = "pointer";
-        logo.title = "Go to Home";
-        logo.addEventListener('click', function() {
-            window.location.href = "/";
+    const header = document.querySelector('header');
+    
+    if (header) {
+        const logoImg = document.createElement('img');
+        
+        // FIX 1: Use a leading slash / to start from the root folder
+        // This ensures it works on both the home page and sub-pages
+        logoImg.src = '/images/hackczech-logo.png'; 
+        
+        logoImg.id = 'dynamic-main-logo';
+        logoImg.title = "Go to Home";
+        
+        logoImg.style.cssText = `
+            position: absolute;
+            left: 20px;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 100px;
+            height: auto;
+            cursor: pointer;
+            z-index: 100;
+            pointer-events: auto;
+        `;
+
+        // FIX 2: Use window.location.origin to always go to the root domain
+        logoImg.addEventListener('click', function() {
+            window.location.href = window.location.origin;
         });
+
+        header.prepend(logoImg);
     }
 });
+
+
+
+
+
+
+
 
 
 window.isSignUp = false;

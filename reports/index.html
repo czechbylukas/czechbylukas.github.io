@@ -83,10 +83,14 @@
         </table>
 
         <div id="report-section" style="display:none; margin-top:40px; border-top:5px solid #2c3e50; padding-top:20px;">
-            <div style="display:flex; justify-content:space-between; align-items:center;">
-                <h3 id="report-title" style="margin:0;">Student Progress</h3>
-                <button class="test-btn" style="background:#7f8c8d;" onclick="document.getElementById('report-section').style.display='none'">Close Report</button>
-            </div>
+    <div style="display:flex; justify-content:space-between; align-items:center;">
+        <h3 id="report-title" style="margin:0;">Student Progress</h3>
+        <div style="display:flex; gap:10px;">
+            <button id="current-user-reset-btn" class="btn-reset" style="padding: 5px 10px;">Reset Student Time</button>
+            <button class="test-btn" style="background:#7f8c8d;" onclick="document.getElementById('report-section').style.display='none'">Close Report</button>
+        </div>
+    </div>
+    
 
             <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-top: 20px;">
                 <div class="report-card">
@@ -211,7 +215,6 @@
                     </td>
                     <td>
                         <button class="test-btn" style="background:#3498db; padding:5px;" onclick="showReport('${u.id}')">Report</button>
-                        <button class="btn-reset" onclick="resetUserStats('${u.id}')">Reset</button>
                     </td>
                 </tr>`;
         });
@@ -220,6 +223,8 @@
     function showReport(uid) {
         const u = allUsersRaw[uid];
         document.getElementById('reset-weights-btn').onclick = () => resetUserWeights(uid);
+        document.getElementById('current-user-reset-btn').onclick = () => resetUserStats(uid);
+
         document.getElementById('report-section').style.display = 'block';
         document.getElementById('report-title').innerText = "Progress: " + (u.name || u.email);
         document.getElementById('report-section').scrollIntoView({ behavior: 'smooth' });
@@ -323,24 +328,70 @@ if (u.mistakes) {
         });
     }
 
+
+
+
+
     function resetUserStats(uid) {
     if(confirm("Reset usage time for this student? (Weights and Mistakes remain)")) {
-        dbRef.ref(`users/${uid}/detailed_usage`).remove();
-        dbRef.ref(`users/${uid}/usage`).remove();
-        // Option: document.getElementById('report-section').style.display='none';
+        // We use .then() to wait for the database to finish
+        Promise.all([
+            dbRef.ref(`users/${uid}/detailed_usage`).remove(),
+            dbRef.ref(`users/${uid}/usage`).remove()
+        ]).then(() => {
+            // Update our local data object so the UI knows it's empty
+            if (allUsersRaw[uid]) {
+                allUsersRaw[uid].detailed_usage = {};
+                allUsersRaw[uid].usage = {};
+            }
+            // 2. Refresh the main background table
+            processUsers(); 
+            // 3. Refresh the report view so the charts go to zero
+            showReport(uid); 
+            alert("Student time reset.");
+        });
     }
 }
 
+
+
+
+
 function resetAllStats() {
     if(confirm("Reset time stats for ALL students? This cannot be undone.")) {
+        const updates = {};
+        
         Object.keys(allUsersRaw).forEach(uid => {
-            dbRef.ref(`users/${uid}/detailed_usage`).remove();
-            dbRef.ref(`users/${uid}/usage`).remove();
+            // 1. Prepare Firebase updates
+            updates[`users/${uid}/detailed_usage`] = null;
+            updates[`users/${uid}/usage`] = null;
+            
+            // 2. IMPORTANT: Manually clear local data for the refresh
+            if(allUsersRaw[uid]) {
+                allUsersRaw[uid].detailed_usage = {};
+                allUsersRaw[uid].usage = {};
+            }
         });
-        // This will force the table to refresh with 0 mins
-        processUsers(); 
+
+        // 3. Send the bulk update to Firebase
+        dbRef.ref().update(updates).then(() => {
+            // 4. Trigger the UI Refresh
+            processUsers(); 
+            
+            // 5. Hide the report section (prevents showing "ghost" data)
+            document.getElementById('report-section').style.display = 'none';
+            
+            alert("All student stats have been reset and table refreshed.");
+        }).catch(err => {
+            console.error("Reset failed:", err);
+            alert("Error resetting data.");
+        });
     }
 }
+
+
+
+
 
     function togglePaidStatus(uid, isChecked) {
         dbRef.ref(`users/${uid}`).update({ status: isChecked ? 'paid' : 'pending' });
