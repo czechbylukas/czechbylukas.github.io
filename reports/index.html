@@ -9,7 +9,7 @@
     <script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-database-compat.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     
-    <script></script>
+    <script>
     window.canShowAds = false;
     </script>
 
@@ -101,14 +101,22 @@
             </div>
 
             <div class="report-card" style="background: #fffafa;">
-                <h4>Top Mistakes (Study Tool)</h4>
-                <table class="matrix-table">
-                    <thead>
-                        <tr style="background:#eee;"><th>Czech Word</th><th>Mistakes Count</th><th>Current Weight</th></tr>
-                    </thead>
-                    <tbody id="mistake-tbody"></tbody>
-                </table>
-            </div>
+    <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom: 15px;">
+        <h4 style="margin:0;">Top Mistakes (Study Tool)</h4>
+        <button class="btn-reset" id="reset-weights-btn" style="font-size:0.8rem; padding: 5px 10px;">Reset All Weights</button>
+    </div>
+
+    <table class="matrix-table">
+        <thead>
+            <tr style="background:#eee;">
+                <th>Czech Word</th>
+                <th>Mistakes Count</th>
+                <th>Current Weight</th>
+            </tr>
+        </thead>
+        <tbody id="mistake-tbody"></tbody>
+    </table>
+</div>
         </div>
     </div>
 </div>
@@ -211,6 +219,7 @@
 
     function showReport(uid) {
         const u = allUsersRaw[uid];
+        document.getElementById('reset-weights-btn').onclick = () => resetUserWeights(uid);
         document.getElementById('report-section').style.display = 'block';
         document.getElementById('report-title').innerText = "Progress: " + (u.name || u.email);
         document.getElementById('report-section').scrollIntoView({ behavior: 'smooth' });
@@ -270,17 +279,35 @@
         renderChart(last14, chartData);
 
         // 3. Mistakes Table
-        const mBody = document.getElementById('mistake-tbody');
-        mBody.innerHTML = '';
-            console.log("Mistakes data for this user:", u.mistakes);
+        // 3. Mistakes Table logic inside showReport(uid)
+// 3. Mistakes Table (Sorted by Current Weight)
+const mBody = document.getElementById('mistake-tbody');
+mBody.innerHTML = '';
 
-        if (u.mistakes) {
-            Object.entries(u.mistakes).sort((a,b) => b[1] - a[1]).slice(0, 10).forEach(([word, count]) => {
-                mBody.innerHTML += `<tr><td>${word}</td><td style="color:red; font-weight:bold;">${count}</td><td>${(u.weights||{})[word] || 5}</td></tr>`;
-            });
-        } else {
-            mBody.innerHTML = '<tr><td colspan="3">No mistakes recorded yet.</td></tr>';
-        }
+if (u.mistakes) {
+    // Convert mistakes object to an array so we can sort it
+    const wordsArray = Object.entries(u.mistakes).map(([word, count]) => {
+        const safeWord = word.replace(/[.#$[\]/]/g, "_");
+        const weight = (u.weights || {})[safeWord] || 5;
+        return { word, count, weight };
+    });
+
+    // SORT BY WEIGHT (Highest first)
+    wordsArray.sort((a, b) => b.weight - a.weight);
+
+    // Show top 10 most "weighted" words
+    wordsArray.slice(0, 10).forEach(item => {
+        mBody.innerHTML += `<tr>
+            <td>${item.word}</td>
+            <td style="color:#7f8c8d;">${item.count}</td>
+            <td style="color:red; font-weight:bold;">${item.weight}</td>
+        </tr>`;
+    });
+} else {
+    mBody.innerHTML = '<tr><td colspan="3">No mistakes recorded yet.</td></tr>';
+}
+
+
     }
 
     function renderChart(labels, data) {
@@ -297,24 +324,40 @@
     }
 
     function resetUserStats(uid) {
-        if(confirm("Reset usage time for this student? (Weights and Mistakes remain)")) {
+    if(confirm("Reset usage time for this student? (Weights and Mistakes remain)")) {
+        dbRef.ref(`users/${uid}/detailed_usage`).remove();
+        dbRef.ref(`users/${uid}/usage`).remove();
+        // Option: document.getElementById('report-section').style.display='none';
+    }
+}
+
+function resetAllStats() {
+    if(confirm("Reset time stats for ALL students? This cannot be undone.")) {
+        Object.keys(allUsersRaw).forEach(uid => {
             dbRef.ref(`users/${uid}/detailed_usage`).remove();
             dbRef.ref(`users/${uid}/usage`).remove();
-        }
+        });
+        // This will force the table to refresh with 0 mins
+        processUsers(); 
     }
-
-    function resetAllStats() {
-        if(confirm("Reset time stats for ALL students? This cannot be undone.")) {
-            Object.keys(allUsersRaw).forEach(uid => {
-                dbRef.ref(`users/${uid}/detailed_usage`).remove();
-                dbRef.ref(`users/${uid}/usage`).remove();
-            });
-        }
-    }
+}
 
     function togglePaidStatus(uid, isChecked) {
         dbRef.ref(`users/${uid}`).update({ status: isChecked ? 'paid' : 'pending' });
     }
+
+
+function resetUserWeights(uid) {
+    if(confirm("Reset all word weights for this student? This will return all words to their default frequency (5).")) {
+        dbRef.ref(`users/${uid}/weights`).remove().then(() => {
+            alert("Weights reset!");
+            // Update local data and refresh the view
+            if(allUsersRaw[uid]) allUsersRaw[uid].weights = {};
+            showReport(uid); 
+        });
+    }
+}
+    
 </script>
 </body>
 </html>
