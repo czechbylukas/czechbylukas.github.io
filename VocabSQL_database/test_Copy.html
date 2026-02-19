@@ -154,7 +154,9 @@ function insertChar(char) {
         <div id="image-container">
             <img id="word-image" src="" style="max-height: 100%; border-radius: 8px; display: none;">
         </div>
-        <div id="english-word" class="display-eng">---</div>
+        <div id="english-word" class="display-eng">
+    👈 select from the filters to start!
+</div>
         <div id="success-msg"></div>
         <div id="typo-msg" class="typo-warning"></div>
        
@@ -162,10 +164,9 @@ function insertChar(char) {
 <input type="text" id="word-guess-box" name="czech_tester_unique" placeholder="Type in Czech..." autocomplete="new-password" autocorrect="off" spellcheck="false" onkeydown="if(event.key==='Enter') evaluateTyping()">
 
 
-        <div id="czech-word" class="display-czech hidden">---</div>
+        <div id="czech-word" class="display-czech hidden"></div>
         <div id="btn-container">
             <button class="test-btn" style="background:#27ae60;" onclick="updateWeight('yes')">UMÍM</button>
-            <button class="test-btn" onclick="getRandomWord()">DALŠÍ</button>
             <button class="test-btn" style="background:#e74c3c;" onclick="updateWeight('no')">NEUMÍM</button>
         </div>
         <button id="reveal-next" class="test-btn" style="display:none; width:80%; margin: 0 auto;" onclick="getRandomWord()">NEXT WORD</button>
@@ -231,7 +232,6 @@ const dbRef = firebase.database();
 
 window.userStatus = 'guest';
 
-// --- FINAL KEYBOARD SHORTCUTS (FIXED ARROWS & NO HINTS) ---
 // --- FINAL KEYBOARD SHORTCUTS (KILLS ALL HINTS/EMAILS) ---
 document.addEventListener('keydown', function(event) {
     // 1. Exit if Admin Modal or Auth is open
@@ -505,13 +505,22 @@ function getRandomWord() {
 const currentLang = localStorage.getItem("selectedLanguage") || "en";
 const langColumn = "trans_" + currentLang;
 
-    if(!combinedValue || combinedValue.includes("Vyberte")) return;
+// IF NO LESSON IS SELECTED
+    if(!combinedValue || combinedValue.includes("Vyberte")) {
+        document.getElementById('english-word').innerText = "👈 select from the filters to start!";
+        document.getElementById('btn-container').style.display = 'none'; 
+        document.getElementById('word-guess-box').style.display = 'none'; // Hide the input box too
+        return;
+    } else {
+        // Show the input box once they pick a lesson
+        document.getElementById('word-guess-box').style.display = 'block';
+    }
 
     const [level, lesson] = combinedValue.split('|');
 
     // 1. UI RESET
-    document.getElementById('english-word').innerText = "---";
-    document.getElementById('czech-word').innerText = "---";
+    document.getElementById('english-word').innerText = "";
+    document.getElementById('czech-word').innerText = "";
     document.getElementById('word-image').style.display = 'none';
     document.getElementById('typo-msg').innerText = "";
     document.getElementById('success-msg').innerText = "";
@@ -658,7 +667,7 @@ function evaluateTyping() {
 function showAnswerInUI() {
     let display = currentWord.czech;
     if (currentWord.vidPair) display += ` / ${currentWord.vidPair}`;
-    if (currentWord.synonym) display += ` (syn: ${currentWord.synonym})`;
+    if (currentWord.synonym) display += ` (${currentWord.synonym})`;
     
     document.getElementById('czech-word').innerText = display;
     document.getElementById('czech-word').classList.remove('hidden');
