@@ -266,24 +266,43 @@
     };
 
     window.saveSession = function() {
-        const docUrl = document.getElementById('doc-url').value;
-        if (!docUrl) {
-            alert("Please paste a Google Doc URL first!");
-            return;
-        }
+    const docUrl = document.getElementById('doc-url').value;
+    const webAppUrl = "https://script.google.com/macros/s/AKfycbwzvuUkpUQEBw_lfVuv_UKSzyMeoAaADbhhYSDqT_HjAza0LgefaQGofp1UU4E-xVGm3A/exec"; // Update this!
+    
+    if (!docUrl) {
+        alert("Please paste the Google Doc URL!");
+        return;
+    }
 
-        // Prepare the text for the teacher to copy/paste or for an API call
-        const logContent = window.sessionSentences.join('\n');
-        const finalMessage = `Lesson Summary:\n${logContent}`;
-        
-        document.getElementById('final-msg').value = finalMessage;
-        
-        // Switch modals
-        document.getElementById('g-modal').style.display = 'none';
-        document.getElementById('m-modal').style.display = 'block';
+    // Prepare data
+    const payload = {
+        url: docUrl,
+        content: window.sessionSentences
     };
 
+    // Change button state
+    const btn = document.querySelector("#g-modal .btn-main");
+    btn.innerText = "Writing to Doc...";
+    btn.disabled = true;
 
+    fetch(webAppUrl, {
+        method: "POST",
+        mode: "no-cors", 
+        body: JSON.stringify(payload)
+    })
+    .then(() => {
+        alert("Lesson successfully added to the top of the Doc!");
+        closeModals();
+        // Optional: clear history and reset for next session
+        document.getElementById('log-content').innerHTML = "";
+        window.sessionSentences = [];
+        location.reload(); 
+    })
+    .catch(err => {
+        console.error("Fetch Error:", err);
+        alert("Check the Doc; it likely saved despite this warning.");
+    });
+};
 
     
 </script>
