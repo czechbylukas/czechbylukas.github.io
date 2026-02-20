@@ -193,6 +193,11 @@ document.addEventListener('DOMContentLoaded', function() {
 
 // 0. FUNCTION TO LOAD ADSENSE ONLY AFTER CONSENT
 function loadAdSense() {
+    if (window.canShowAds === false) {
+        console.log("Ads are disabled for this page.");
+        return; 
+    }
+
     if (!document.querySelector('script[src*="pagead2"]')) {
         var adsenseScript = document.createElement('script');
         adsenseScript.async = true;
@@ -434,7 +439,8 @@ window.handleAuth = async function() {
 
 
 // Handle ads for returning users who already gave consent or rejected
-if (localStorage.getItem("cookieConsent")) {
+// --- UPDATE THIS BLOCK AT THE END OF YOUR SCRIPT ---
+if (localStorage.getItem("cookieConsent") && window.canShowAds !== false) { 
     let checkAdsReturning = setInterval(() => {
         const ads = document.querySelectorAll('ins.adsbygoogle:not([data-adsbygoogle-status="done"])');
         if (ads.length > 0) {
