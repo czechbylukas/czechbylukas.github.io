@@ -3,6 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <title>Tool Teacher | Lesson 001 | HáCZech</title>
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/sql.js/1.6.2/sql-wasm.js"></script>
+
 
     <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-auth.js"></script>
@@ -53,43 +56,46 @@
 
     <div class="main-layout">
         <div id="student-view">
-            <div id="input-section">
-                <h2 id="dynamic-question" style="margin-top:0;">
-                    Co <span class="blue-bold">jsi</span> děla<span class="blue-bold">l</span> v neděli?
-                </h2>
-                <p>Napiš infinitiv slovesa:</p>
+    <div class="gender-box">
+        <label style="font-weight: bold; margin-right: 10px;">I am:</label>
+        <select id="gender-switch" onchange="showVerbInput()" style="padding: 10px; font-size: 18px; border-radius: 8px; border: 2px solid #007bff;">
+            <option value="" disabled selected>Vyber...</option>
+            <option value="M">Male (L)</option>
+            <option value="F">Female (LA)</option>
+            <option value="N">Neutral (LO)</option>
+            <option value="Pl">Plural, M (LI)</option>
+            <option value="PlFem">Plural, F (LY)</option>
+            <option value="PlN">Plural, N (LA)</option>
+        </select>
+    <span id="verb-info-display" style="margin-left: 20px; font-size: 22px; color: #333;"></span>
+    </div>
 
-                <input type="text" id="verb-input" placeholder="např. dělat..." onkeypress="if(event.key === 'Enter') startLesson()">
-                <br><br>
-                <button class="btn-main" onclick="startLesson()">Začít lekci</button>
-            </div>
+    <div id="input-section" style="display: none;">
+    <p>Napiš infinitiv slovesa:</p>
+    <input type="text" id="verb-input" placeholder="např. dělat..." 
+           onkeyup="checkInputForButton()" 
+           onkeypress="if(event.key === 'Enter' && !document.getElementById('start-btn').disabled) startLesson()">
+    <br><br>
+    <button id="start-btn" class="btn-main" onclick="startLesson()" disabled style="opacity: 0.5; cursor: not-allowed;">
+        Začít lekci (Enter)
+    </button>
+</div>
 
-            <div id="lesson-section" style="display: none;">
-                <div class="gender-box">
-                    <label style="font-weight: bold; margin-right: 10px;">Subjekt:</label>
-                    <select id="gender-switch" onchange="updateGender()" style="padding: 10px; font-size: 18px; border-radius: 8px; border: 2px solid #007bff;">
-                        <option value="M">Masculine (L)</option>
-                        <option value="F">Feminine (LA)</option>
-                        <option value="N">Neutral (LO)</option>
-                        <option value="Pl">Plural, M (LI)</option>
-                        <option value="PlFem">Plural, F (LY)</option>
-                        <option value="PlN">Plural, N (LA)</option>
-                    </select>
-                </div>
 
-                <div id="sentence-display"></div>
-                <div id="answer-display"></div>
-                
-                <div style="margin-bottom: 20px;">
-                    <button id="next-step-btn" class="btn-main" onclick="nextStep()">Odpovědět (Krok 1)</button>
-                </div>
-            </div>
 
-            <div id="history-log">
-                <h3>Historie lekce:</h3>
-                <div id="log-content"></div>
-            </div>
+    <div id="lesson-section" style="display: none;">
+        <div id="sentence-display"></div>
+        <div id="answer-display"></div>
+        <div style="margin-bottom: 20px;">
+            <button id="next-step-btn" class="btn-main" onclick="nextStep()">Odpovědět (Krok 1)</button>
         </div>
+    </div>
+
+    <div id="history-log">
+        <h3>Historie lekce:</h3>
+        <div id="log-content"></div>
+    </div>
+</div>
 
         <div id="teacher-sidebar">
             <h3>Teacher Dashboard</h3>
@@ -108,8 +114,7 @@
                 <option value="es">Spanish</option>
             </select>
             
-            <label>Filter Verbs (Lesson 1):</label>
-            <input type="text" id="v-search" onkeyup="filterVerbs()" placeholder="Type to search lemma..." style="width: 100%; padding: 8px; box-sizing: border-box; margin-bottom: 5px;">
+            <label>Get Verbs (Lesson1: Past tense):</label>
             <ul id="v-list" style="padding:0; list-style:none; max-height: 250px; overflow-y:auto; background: white; border: 1px solid #ddd;">
                 <li style="padding: 10px; color: #666;">Loading verbs...</li>
             </ul>
@@ -129,11 +134,12 @@
     </div>
 
     <div id="m-modal" class="modal">
-        <h3>Teacher Message</h3>
-        <textarea id="final-msg" style="width: 400px; height: 180px; padding: 10px; font-family: sans-serif;"></textarea>
-        <br><br>
-        <button class="btn-main" style="width: 100%;" onclick="location.reload()">Done / Next Student</button>
-    </div>
+    <h3>Copy to Google Doc</h3>
+    <p style="font-size: 12px; color: #666;">Copy this content and paste it into the student's document:</p>
+    <textarea id="final-msg" style="width: 450px; height: 350px; padding: 12px; font-family: monospace; border: 2px solid #007bff; border-radius: 8px; font-size: 14px;"></textarea>
+    <br><br>
+    <button class="btn-main" style="width: 100%;">Next: Get Teacher Message</button>
+</div>
 
     <div id="footer-placeholder"></div>
 
@@ -143,61 +149,225 @@
 
 
 
+<script>
 
-    <script>
-    // VERSION CHECK: Change this number every time you save. 
-    // If you don't see "VERSION 1.05" in the console, your browser is STUCK on old code.
-    console.log("LOGIC LOADED: VERSION 1.05");
+    // --- DATABASE LOGIC ---
+// --- DATABASE LOGIC ---
+let db = null;
+window.allVerbs = []; 
 
-    // 1. Force these into the global window space immediately.
-    // By not using 'let' or 'const' here, we avoid the "Initialization" error.
+async function initDatabase() {
+    const vList = document.getElementById('v-list');
+    
+    // Check if the library is loaded yet
+    if (typeof initSqlJs === 'undefined') {
+        console.log("Waiting for SQL.js library...");
+        setTimeout(initDatabase, 100); // Try again in 100ms
+        return;
+    }
+
+    try {
+        const sqlPromise = initSqlJs({
+            locateFile: file => `https://cdnjs.cloudflare.com/ajax/libs/sql.js/1.6.2/${file}`
+        });
+
+        const dataPromise = fetch('../VocabSQL_database/czech_master.db').then(res => {
+            if (!res.ok) throw new Error("Database file not found. Check path: ../VocabSQL_database/czech_master.db");
+            return res.arrayBuffer();
+        });
+        
+        const [SQL, buf] = await Promise.all([sqlPromise, dataPromise]);
+        db = new SQL.Database(new Uint8Array(buf));
+        
+        // Filter: Lesson 1 + Verbs
+        const results = db.exec(`
+            SELECT lemma 
+            FROM words 
+            WHERE lesson LIKE '%1 Minulý čas%' 
+            AND pos LIKE '%verb%' 
+            ORDER BY lemma ASC
+        `);
+
+
+        if (results.length > 0) {
+            window.allVerbs = results[0].values.map(v => v[0]);
+            renderVerbList(window.allVerbs);
+        } else {
+            vList.innerHTML = '<li style="padding:10px;">No verbs found in this category.</li>';
+        }
+
+    } catch (err) {
+        console.error("Database Error:", err);
+        vList.innerHTML = `<li style="padding:10px; color:red;">Error: ${err.message}</li>`;
+    }
+}
+
+function renderVerbList(list) {
+    const vList = document.getElementById('v-list');
+    vList.innerHTML = '';
+    
+    list.forEach(verb => {
+        const li = document.createElement('li');
+        li.className = 'verb-list-item';
+        li.style.padding = '8px';
+        li.style.cursor = 'pointer';
+        li.style.borderBottom = '1px solid #eee';
+        li.innerText = verb;
+        
+        li.onclick = () => {
+            const inputSection = document.getElementById('input-section');
+            const inputField = document.getElementById('verb-input');
+
+            // Only allow clicking if the input section is visible (Step 1/Input page)
+            if (inputSection.style.display !== 'none') {
+                inputField.value = verb;
+                inputField.focus();
+                
+                // Trigger the existing logic to light up the blue button
+                if (window.checkInputForButton) {
+                    window.checkInputForButton();
+                }
+                
+                console.log(`Verb "${verb}" selected.`);
+            } else {
+                console.log("Click ignored: Lesson is currently in progress.");
+            }
+        };
+        vList.appendChild(li);
+    });
+}
+
+// Search filter logic
+window.filterVerbs = function() {
+    const term = document.getElementById('v-search').value.toLowerCase();
+    const filtered = window.allVerbs.filter(v => v.toLowerCase().includes(term));
+    renderVerbList(filtered);
+};
+
+// Start the process
+initDatabase();
+
+
+
+
+
+
+
+
+    console.log("LOGIC LOADED: VERSION 1.07 - CLEANED");
+
+    // --- GLOBAL VARIABLES ---
     window.currentVerb = ""; 
     window.step = 0;
     window.sessionSentences = [];
     window.days = ["v neděli", "v pondělí", "v úterý", "ve středu", "ve čtvrtek", "v pátek", "v sobotu", "o víkendu", "minulý týden", "minulý rok", "loni"];
     window.dayIdx = 0;
 
-    window.startLesson = function() {
-        console.log("startLesson function called");
-        const input = document.getElementById('verb-input');
-        if (!input) return;
-
-        const val = input.value.trim().toLowerCase();
-        
-        if (!/t$|t\s+se$|t\s+si$/.test(val)) {
-            input.classList.add('error');
-            alert("Please enter an infinitive ending in -t");
-            return;
-        }
-        
-        input.classList.remove('error');
-        
-        // Use the window-scoped version
-        window.currentVerb = val; 
-        
-        document.getElementById('input-section').style.display = 'none';
-        document.getElementById('lesson-section').style.display = 'block';
-        
-        if (typeof showQuestion === 'function') {
-            showQuestion();
-        } else {
-            console.error("showQuestion function not found!");
-        }
+    // --- STEP 1: GENDER PICKED ---
+    window.showVerbInput = function() {
+        document.getElementById('input-section').style.display = 'block';
+        document.getElementById('verb-input').focus();
     };
 
+    // --- STEP 2: TYPING VERB (BUTTON APPEARS) ---
+    window.checkInputForButton = function() {
+    const input = document.getElementById('verb-input');
+    const btn = document.getElementById('start-btn');
+    const val = input.value.trim().toLowerCase();
+
+    // Logic: ends with 't', 't se', or 't si'
+    const isValid = /t$|t\s+se$|t\s+si$/.test(val);
+
+    if (isValid) {
+        btn.disabled = false;
+        btn.style.opacity = "1";
+        btn.style.cursor = "pointer";
+    } else {
+        btn.disabled = true;
+        btn.style.opacity = "0.5";
+        btn.style.cursor = "not-allowed";
+    }
+};
+
+    // --- STEP 3: START LESSON ---
+    window.startLesson = function() {
+    const input = document.getElementById('verb-input');
+    const val = input.value.trim().toLowerCase();
+    const infoDisplay = document.getElementById('verb-info-display');
+    
+    // 1. Basic format validation (-t ending)
+    if (!/t$|t\s+se$|t\s+si$/.test(val)) {
+        input.classList.add('error');
+        alert("Please enter an infinitive ending in -t");
+        return;
+    }
+
+    // 2. Database Checks
+    if (db) {
+        try {
+            // Check for existence and irregular flag
+            const stmt = db.prepare("SELECT is_irr FROM words WHERE lemma = ? AND pos LIKE '%verb%' LIMIT 1");
+            stmt.bind([val]);
+            
+            let exists = false;
+            let isIrregular = false;
+
+            if (stmt.step()) {
+                exists = true;
+                const row = stmt.get();
+                isIrregular = (row[0] === 1); // 1 = irregular
+            }
+            stmt.free();
+
+            // Check A: Irregularity block
+            if (isIrregular) {
+                alert("This Verb may be irregular and I do not yet know how to handle irregulars. Kindly choose a different word.\n\nBut the feature is coming soon... I am already working on it! 🛠️");
+                return; // Stop the lesson from starting
+            }
+
+            // Check B: Existence warning
+            if (!exists) {
+                const proceed = confirm(`I do not know the verb "${val}" in my database. Do you really want to proceed?`);
+                if (!proceed) return;
+            }
+
+        } catch (e) {
+            console.error("Verification error:", e);
+        }
+    }
+
+    // 3. Success - Proceed to Lesson
+    input.classList.remove('error');
+    window.currentVerb = val; 
+
+    let displayHtml = val.replace(/t(\s|$)/, '<b style="color:red">t</b>$1');
+    infoDisplay.innerHTML = " | " + displayHtml;
+    
+    document.getElementById('input-section').style.display = 'none';
+    document.getElementById('lesson-section').style.display = 'block';
+    showQuestion();
+};
+
+    // --- STEP 4: THE QUESTION (Fixed to use "dělat") ---
     window.showQuestion = function() {
         window.step = 1;
         let day = window.days[window.dayIdx];
-        let base = String(window.currentVerb).split(' ')[0];
-        let questionVerb = base.replace(/t$/, 'l');
         
+        // Logic for "dělat" endings based on gender
+        const val = document.getElementById('gender-switch').value;
+        const endings = { 'M': 'l', 'F': 'la', 'N': 'lo', 'Pl': 'li', 'PlFem': 'ly', 'PlN': 'la' };
+        const end = endings[val] || 'l';
+
+        // Always use "dělat" for the question
         document.getElementById('sentence-display').innerHTML = 
-            `Co <span class="blue-bold">jsi</span> ${questionVerb} ${day}?`;
+            `Co <span class="blue-bold">jsi</span> děla<span class="blue-bold">${end}</span> ${day}?`;
+        
         document.getElementById('answer-display').innerText = "";
         document.getElementById('next-step-btn').innerText = "Odpovědět (Krok 1)";
     };
 
-    function nextStep() {
+    // --- STEP 5: THE PROGRESSIVE ANSWER ---
+    window.nextStep = function() {
         let day = window.days[window.dayIdx];
         let answerDiv = document.getElementById('answer-display');
 
@@ -212,48 +382,57 @@
             window.step = 3;
         } 
         else if (window.step === 3) {
-            let parts = window.currentVerb.split(/\s+/);
-            let base = parts[0].replace(/t$/, 'l');
-            let reflex = parts.length > 1 ? " " + parts[1] : "";
+            // 1. Parse the verb and reflexive pronoun
+            let parts = window.currentVerb.split(/\s+/); // Splits "učit se" into ["učit", "se"]
+            let base = parts[0].replace(/t$/, '');       // "učit" -> "uči"
+            let reflex = parts.length > 1 ? parts[1] : ""; // "se" or "si"
             
-            answerDiv.innerHTML += `${reflex} ${base}<span id="suffix" class="blue-bold"></span>.`;
-            updateGender();
+            const val = document.getElementById('gender-switch').value;
+            const endings = { 'M': 'l', 'F': 'la', 'N': 'lo', 'Pl': 'li', 'PlFem': 'ly', 'PlN': 'la' };
+            const end = endings[val] || 'l';
+
+            // 2. Word Order Logic: 
+            // If reflexive exists, put it after "jsem", then the L-part.
+            // If not, just put the L-part.
+            if (reflex !== "") {
+                // Get the current text (which ends with "jsem") and insert reflex
+                answerDiv.innerHTML += ` <span class="blue-bold">${reflex}</span> ${base}<span class="blue-bold">${end}</span>.`;
+            } else {
+                answerDiv.innerHTML += ` ${base}<span class="blue-bold">${end}</span>.`;
+            }
             
             document.getElementById('next-step-btn').innerText = "Další sloveso";
             window.step = 4;
-        } 
+        }
         else {
+            // 1. Save to history
             document.getElementById('log-content').innerHTML += `<div>${answerDiv.innerHTML}</div>`;
             window.sessionSentences.push(answerDiv.innerText);
 
+            // 2. Move to next day
             window.dayIdx = (window.dayIdx + 1) % window.days.length;
+            
+            // 3. CLEAR THE VISUAL VERB INFO (The red bold 't')
+            document.getElementById('verb-info-display').innerHTML = "";
+
+            // 4. Toggle sections
             document.getElementById('input-section').style.display = 'block';
             document.getElementById('lesson-section').style.display = 'none';
-            document.getElementById('verb-input').value = "";
-            document.getElementById('verb-input').focus();
+            
+            // 5. Reset Input and Button
+            const input = document.getElementById('verb-input');
+            const btn = document.getElementById('start-btn');
+            input.value = "";
+            input.focus();
+            
+            // Re-disable the button for the new word
+            btn.disabled = true;
+            btn.style.opacity = "0.5";
+            btn.style.cursor = "not-allowed";
         }
-    }
+    };
 
-    function updateGender() {
-        const val = document.getElementById('gender-switch').value;
-        const endings = { 'M': '', 'F': 'la', 'N': 'lo', 'Pl': 'li', 'PlFem': 'ly', 'PlN': 'la' };
-        const suffix = document.getElementById('suffix');
-        if (suffix) suffix.innerText = endings[val];
-    }
-
-    // Auth and extra logic
-    try {
-        firebase.auth().onAuthStateChanged((user) => {
-            if (user && user.email === 'lukas@hackczech.com') {
-                document.getElementById('teacher-sidebar').style.display = 'block';
-            }
-        });
-    } catch (e) {}
-
-
-
-
-    // --- MODAL CONTROL FUNCTIONS ---
+    // --- TEACHER MODAL LOGIC ---
     window.openGoogleModal = function() {
         document.getElementById('g-modal').style.display = 'block';
         document.getElementById('overlay').style.display = 'block';
@@ -266,32 +445,51 @@
     };
 
     window.saveSession = function() {
-    const docUrl = document.getElementById('doc-url').value;
-    const webAppUrl = "https://script.google.com/macros/s/AKfycbzw93EY00rnpP893VV42skZ-J7xThOqRXVPFF0keTpVYBe3TB9ljb0QnwfE12q2Nqufew/exec"; 
+        const selectedLang = document.getElementById('lang').value;
+        const today = new Date().toLocaleDateString('cs-CZ');
+        
+        // 1. FORMAT FOR GOOGLE DOC (Sentences + Homework List)
+        let docContent = `Lesson Past Tense (${today})\n`;
+        docContent += `------------------------------------------\n`;
+        docContent += window.sessionSentences.join('\n') + `\n\n`;
+        docContent += `Domácí úkol (homework)\n`;
+        docContent += `napiš 10 vět s minulým časem (write 10 sentenses in past tense)\n`;
+        docContent += `1.\n2.\n3.\n4.\n5.\n6.\n7.\n8.\n9.\n10.\n`;
 
-    if (!docUrl) { alert("Paste Doc URL!"); return; }
+        // 2. TEACHER MESSAGES BY LANGUAGE
+        const messages = {
+            'en': `Ahoj,\nděkuji za dnešní lekci dobrá práce (thanks for today's class, well done!).\nZa domácí úkol napiš 10 vět v minulém čase (for your homework, write 10 sentences in the past tense)\n\nTěším se na příští hodinu :)\nLukáš`,
+            'de': `Ahoj,\nděkuji za dnešní lekci dobrá práce (danke für die heutige Stunde, gute Arbeit!).\nZa domácí úkol napiš 10 vět v minulém čase (als Hausaufgabe schreibe 10 Sätze in der Vergangenheitsform)\n\nTěším se na příští hodinu :)\nLukáš`,
+            'es': `Ahoj,\nděkuji za dnešní lekci dobrá práce (¡gracias por la clase de hoy, buen trabajo!).\nZa domácí úkol napiš 10 vět v minulém čase (de tarea escribe 10 frases en pretérito)\n\nTěším se na příští hodinu :)\nLukáš`
+        };
 
-    fetch(webAppUrl, {
-        method: "POST",
-        mode: "no-cors", // This prevents the CORS error after the 403 is fixed
-        headers: {
-            "Content-Type": "text/plain", // Keeps Google happy
-        },
-        body: JSON.stringify({
-            url: docUrl,
-            content: window.sessionSentences
-        })
-    })
-    .then(() => {
-        alert("Success! Check the top of your Doc.");
-        closeModals();
-    })
-    .catch(err => {
-        console.error("Error:", err);
-    });
-};
+        // Show the Google Doc content first
+        document.getElementById('final-msg').value = docContent;
+        document.getElementById('g-modal').style.display = 'none';
+        document.getElementById('m-modal').style.display = 'block';
+        
+        // Setup the button to switch to the Teacher Message
+        const actionBtn = document.querySelector('#m-modal .btn-main');
+        actionBtn.innerText = "Next: Get Teacher Message";
+        
+        actionBtn.onclick = function() { 
+            // Show the translated teacher message
+            document.getElementById('final-msg').value = messages[selectedLang] || messages['en'];
+            
+            // Change button to final reset
+            actionBtn.innerText = "Finish & Reset";
+            actionBtn.onclick = function() { location.reload(); };
+        };
+    };
 
-    
+    // Firebase Auth Sidebar
+    try {
+        firebase.auth().onAuthStateChanged((user) => {
+            if (user && user.email === 'lukas@hackczech.com') {
+                document.getElementById('teacher-sidebar').style.display = 'block';
+            }
+        });
+    } catch (e) {}
 </script>
 
 </body>
