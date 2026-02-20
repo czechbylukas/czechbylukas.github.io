@@ -20,8 +20,11 @@
 <body class="home">
 <header>
     <h1 id="heading-welcome">Welcome in HáCzech</h1>
+    
     <button id="admin-console-btn" style="display:none; background:#f39c12; color:white; border:none; padding:8px 15px; border-radius:5px; cursor:pointer; font-weight:bold; position:absolute; right:120px; top:50%; transform:translateY(-50%); z-index:100;" onclick="window.location.href='/reports/index.html'">Teacher Console</button>
     
+    <button id="teacher-tool-btn" style="display:none; background:#3498db; color:white; border:none; padding:8px 15px; border-radius:5px; cursor:pointer; font-weight:bold; position:absolute; right:260px; top:50%; transform:translateY(-50%); z-index:100;" onclick="window.location.href='/lessons/001_lesson.html'">Teacher Tool</button>
+
     <div id="language-selector-container"></div>
 </header>
 
@@ -63,16 +66,21 @@
     <script src="js/language-selector.js"></script>
 
 
-    <script>
+<script>
     // Check for Admin access to show the Teacher Console button
+
 firebase.auth().onAuthStateChanged(user => {
     const adminBtn = document.getElementById('admin-console-btn');
+    const toolBtn = document.getElementById('teacher-tool-btn');
+    
     if (user && user.email === 'lukas@hackczech.com') {
-        adminBtn.style.display = 'block';
+        if(adminBtn) adminBtn.style.display = 'block';
+        if(toolBtn) toolBtn.style.display = 'block';
     } else {
-        adminBtn.style.display = 'none';
+        if(adminBtn) adminBtn.style.display = 'none';
+        if(toolBtn) toolBtn.style.display = 'none';
     }
 });
-    </script>
+</script>
 </body>
 </html>
