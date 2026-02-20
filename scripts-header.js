@@ -191,13 +191,15 @@ document.addEventListener('DOMContentLoaded', function() {
  */
 
 
-// 0. FUNCTION TO LOAD ADSENSE ONLY AFTER CONSENT
+// 0. FUNCTION TO LOAD ADSENSE
 function loadAdSense() {
+    // 1. Strict block for specific pages (like your Dashboard)
     if (window.canShowAds === false) {
         console.log("Ads are disabled for this page.");
         return; 
     }
 
+    // 2. Load the script if it's not already there
     if (!document.querySelector('script[src*="pagead2"]')) {
         var adsenseScript = document.createElement('script');
         adsenseScript.async = true;
@@ -207,10 +209,8 @@ function loadAdSense() {
     }
 }
 
-// Load AdSense immediately if a choice (any choice) was made
-if (localStorage.getItem("cookieConsent")) {
-    loadAdSense();
-}
+// 1. RUN IMMEDIATELY FOR EVERYONE (unless it's the dashboard)
+loadAdSense();
 
 
 
