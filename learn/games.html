@@ -5,28 +5,25 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Hry - GameZone | HáCZech</title>
 <style>body:not(.logged-in) .content-layout { display: none; }</style>
-<script>window.isLoginOnlyPage = true;</script>
-
+<script>window.isPremiumPage = true;</script>
 
 <script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-auth-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-database-compat.js"></script>
 
-
-
 <script src="../scripts-header.js"></script>
-
-
 
   <link rel="stylesheet" href="../css/style.css">
 
   <style>
     /* 1. Layout & Controls */
     #controls {
-      display: flex;
-      gap: 15px;
-      margin-bottom: 20px;
-    }
+  display: flex;
+  justify-content: center; /* Centering the selectors */
+  gap: 15px;
+  margin-top: 50px; 
+  margin-bottom: 20px;
+}
     
     .game-grid-layout {
       display: flex;
@@ -46,24 +43,22 @@
     #game-selector button:hover { background: #f0f4ff; }
     #game-selector button:active { background: #d9e3ff; }
 
-    /* 2. THE GAME BOX - Improved for Laptop/Desktop */
+    /* 2. THE GAME BOX */
     #game {
       width: 100%;
-      max-width: 1000px; /* Wider for better laptop experience */
+      max-width: 1000px;
       min-height: 500px;
-      /* Removes flex centering which causes the "messed up" layout */
       display: block; 
       margin: 20px auto;
-      padding: 20px; /* Gives the game content some breathing room */
+      padding: 20px;
       border: 2px solid #d9e3ff;
       border-radius: 12px;
       background-color: #ffffff;
-      overflow-y: auto; /* Scroll only vertically if game is long */
+      overflow-y: auto;
       box-shadow: 0 4px 12px rgba(0,0,0,0.05);
       box-sizing: border-box;
     }
 
-    /* Message for when game is not yet loaded */
     .placeholder-text {
       text-align: center;
       margin-top: 100px;
@@ -91,36 +86,34 @@
       margin-bottom: 20px;
     }
 
-/* This targets the text and inputs inside the expanded games */
+/* Game Expansion Styles */
 .game-expanded {
-  font-size: 1.5rem; /* Makes all text inside significantly larger */
+  font-size: 1.5rem;
 }
 
 .game-expanded button {
-  padding: 15px 30px !important; /* Makes game buttons (like MCQ options) much larger */
+  padding: 15px 30px !important;
   font-size: 1.3rem !important;
   margin: 10px;
   width: auto;
-  min-width: 200px; /* Ensures buttons have a nice weight */
+  min-width: 200px;
 }
 
 .game-expanded input[type="text"] {
-  font-size: 2rem; /* Makes the "Fill in the Gap" or "Write Answer" box huge */
+  font-size: 2rem;
   padding: 10px;
-  width: 80%; /* Takes up most of the container width */
+  width: 80%;
   text-align: center;
   border: 2px solid #2f52b5;
   border-radius: 8px;
 }
 
-/* Specific fix for Hangman drawing size */
+/* Hangman drawing size */
 .game-expanded canvas, 
 .game-expanded svg {
-  transform: scale(1.5); /* Scales up the hangman drawing */
+  transform: scale(1.5);
   margin: 40px 0;
 }
-
-
 
     /* 4. Mobile Adjustments */
     @media (max-width: 600px) {
@@ -144,58 +137,69 @@
 </head>
 <body>
 
-<h1>Hry</h1>
+  <header>
+    <h1>Hry</h1>
+  </header>
 
-<div id="controls">
-  <select id="topic">
-    <option value="">Vyber téma</option>
-    <option value="numbers">Čísla</option>
-    <option value="verbs">Časování sloves</option>
-    <option value="past_tense">Minulý čas</option>
-  </select>
+<div class="content-layout"> <div id="controls">
+    <select id="topic">
+      <option value="">Vyber téma</option>
+      <option value="numbers">Čísla</option>
+      <option value="verbs">Časování sloves</option>
+      <option value="past_tense">Minulý čas</option>
+    </select>
 
-  <select id="level">
-    <option value="">Vyber úroveň</option>
-    <option value="A1">A1</option>
-    <option value="A2">A2 - not yet ready :(... </option>
-  </select>
+    <select id="level">
+      <option value="">Vyber úroveň</option>
+      <option value="A1">A1</option>
+      <option value="A2">A2 - not yet ready :(... </option>
+    </select>
 
-  <select id="language" style="display:none;">
-    <option value="en" selected>English</option>
-  </select>
-</div>
+    <select id="language" style="display:none;">
+      <option value="en" selected>English</option>
+    </select>
+  </div>
 
-<hr>
+  <hr>
 
-<div id="game-selector" class="game-grid-layout" style="display:none">
-  <button data-game="flashcards">Flashcards</button>
-  <button data-game="mcq">Multiple Choice</button>
-  <button data-game="fillGap">Fill in the Gap</button>
-  <button data-game="hangman">Hangman</button>
-  <button data-game="dragDrop">Drag & Drop</button>
-  <button data-game="memory">Memory</button>
-  <button data-game="pexeso">Pexeso</button>
-  <button data-game="match">Match Game</button>
-  <button data-game="writeAnswer">Write the Answer</button>
-  <button data-game="speedClick">Speed Click</button>
-  <button data-game="fallingWords">Falling Words</button>
-  <button data-game="orderWords">Order the Words</button>
-  <button data-game="sentenceBuilder">Sentence Builder</button>
-  <button data-game="guessNumber">Guess the Number</button>
-  <button data-game="whatDidYouHear">What Did You Hear?</button>
-</div>
+  <div id="game-selector" class="game-grid-layout" style="display:none">
+    <button data-game="flashcards">Flashcards</button>
+    <button data-game="mcq">Multiple Choice</button>
+    <button data-game="fillGap">Fill in the Gap</button>
+    <button data-game="hangman">Hangman</button>
+    <button data-game="dragDrop">Drag & Drop</button>
+    <button data-game="memory">Memory</button>
+    <button data-game="pexeso">Pexeso</button>
+    <button data-game="match">Match Game</button>
+    <button data-game="writeAnswer">Write the Answer</button>
+    <button data-game="speedClick">Speed Click</button>
+    <button data-game="fallingWords">Falling Words</button>
+    <button data-game="orderWords">Order the Words</button>
+    <button data-game="sentenceBuilder">Sentence Builder</button>
+    <button data-game="guessNumber">Guess the Number</button>
+    <button data-game="whatDidYouHear">What Did You Hear?</button>
+  </div>
 
-<hr>
+  <hr>
 
-<div id="game">
-  <div class="placeholder-text">⬆️ Vyber téma a úroveň</div>
-</div>
+  <div id="game">
+    <div class="placeholder-text">⬆️ Vyber téma a úroveň</div>
+  </div>
 
-<div style="text-align: center;">
-  <a href="/index.html" class="home-link-small">🏠 Home</a>
-</div>
+  <div id="ad-wrapper" style="text-align: center; margin: 20px 0; display: none;">
+    <ins class="adsbygoogle"
+         style="display:block"
+         data-ad-client="ca-pub-9067674021614925"
+         data-ad-slot="6031820485"
+         data-ad-format="auto"
+         data-full-width-responsive="true"></ins>
+  </div>
 
-<div id="footer-placeholder"></div>
+  <div style="text-align: center;">
+    <a href="/index.html" class="home-link-small">🏠 Home</a>
+  </div>
+
+</div> <div id="footer-placeholder"></div>
 
 <script>
   // Load footer.html dynamically
@@ -207,8 +211,6 @@
     .catch(error => console.error("Error loading footer:", error));
 </script>
 
-
-
 <script type="module" src="./core/loader.js"></script>
 
 <script>
@@ -217,17 +219,14 @@
       const gameContainer = document.getElementById('game');
       const gameType = e.target.getAttribute('data-game');
 
-      // 1. Identify which games should be centered and expanded
       const expandedGames = ['mcq', 'fillGap', 'hangman', 'writeAnswer'];
 
-      // 2. Add or remove the layout class based on the selection
       if (expandedGames.includes(gameType)) {
         gameContainer.classList.add('game-expanded');
       } else {
         gameContainer.classList.remove('game-expanded');
       }
 
-      // 3. Scroll to the game
       setTimeout(() => {
         gameContainer.scrollIntoView({ behavior: 'smooth', block: 'start' });
       }, 150);
