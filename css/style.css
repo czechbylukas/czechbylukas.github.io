@@ -3,7 +3,7 @@
    1. GLOBAL RESET & BASE LAYOUT
    ============================================================ */
 html, body {
-    height: 100%;
+    min-height: 100%;
     margin: 0;
     padding: 0;
     overflow-x: hidden; /* Prevents horizontal shaking */
@@ -263,13 +263,13 @@ td {
     clear: both;
     /* This is the magic: it forces the browser to allow scrolling 
        past the text so the second line is never cut off */
-    margin-bottom: 50px; 
+    margin-bottom: 0px; 
 }
 
 footer.support-note {
     text-align: center;
     /* Very tight top (10px) to stay near the line */
-    padding: 10px 20px 20px 20px; 
+    padding: 10px 20px 0px 20px; 
     background-color: #f0f4ff;
     border-top: 1px solid #d9e3ff;
     width: 100%;
