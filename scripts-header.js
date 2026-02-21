@@ -162,13 +162,9 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     // 1. If it's a restricted page (Login-only or Premium)
-    if (window.isLoginOnlyPage || window.isPremiumPage) {
-        // Only show overlay if there is no user session in progress
-        const hasSession = Object.keys(localStorage).some(key => key.includes('firebase:authUser'));
-        if (!hasSession) {
-            ensureAuthOverlay(); 
-        }
-    } 
+    if (window.isLoginOnlyPage || window.isPremiumPage) {
+        // Overlay logic is now handled exclusively by onAuthStateChanged to prevent flickering
+    }
     // 2. If it's a FREE page
     else {
         // Automatically unlock the CSS shield so content shows
@@ -536,8 +532,7 @@ function ensureAuthOverlay() {
     overlay.id = 'auth-overlay';
     
     // FORCE visibility for troubleshooting
-    overlay.style.cssText = "position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.9); display:flex !important; justify-content:center; align-items:center; z-index:999999; font-family:sans-serif; backdrop-filter: blur(5px);";
-    
+overlay.style.cssText = "position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.9); display:none; justify-content:center; align-items:center; z-index:999999; font-family:sans-serif; backdrop-filter: blur(5px);";    
         overlay.innerHTML = `
         <div style="background:white; padding:30px; border-radius:12px; width:90%; max-width:350px; text-align:center; position:relative; box-shadow: 0 10px 25px rgba(0,0,0,0.5); color: #333 !important;">
             <span id="close-x" onclick="window.location.href='https://www.hackczech.com'" style="position:absolute; right:15px; top:10px; cursor:pointer; font-size:24px; color:#000;">&times;</span>

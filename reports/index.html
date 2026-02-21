@@ -66,6 +66,14 @@
                 <option value="paid">Paid Only</option>
                 <option value="pending">Pending Only</option>
             </select>
+    
+    
+            <div style="display:flex; align-items:center; gap:5px; background:#f1f1f1; padding:5px 10px; border-radius:8px; border:1px solid #ccc;">
+        <label for="filter-time" style="font-size:0.8rem; font-weight:bold;">Min. Minutes:</label>
+        <input type="number" id="filter-time" class="filter-select" style="width:70px;" value="0" min="0" oninput="processUsers()">
+    </div>
+
+
         </div>
 
         <table id="user-table">
@@ -154,48 +162,77 @@
         processUsers();
     }
 
+
+
+
+    
     function processUsers() {
         const searchTerm = document.getElementById('user-search').value.toLowerCase();
         const filterVal = document.getElementById('filter-status').value;
+        // Get the actual number from the input
+        const minMinutes = parseFloat(document.getElementById('filter-time').value) || 0; 
+        
         let usersArray = [];
 
         for (let id in allUsersRaw) {
             let u = allUsersRaw[id];
             let totalSecs = 0;
             
-            // NEW TRACKER: Sum detailed_usage
+            // NaN FIX: Use (val || 0)
             if (u.detailed_usage) {
                 Object.values(u.detailed_usage).forEach(day => {
-                    Object.values(day).forEach(group => {
-                        Object.values(group).forEach(val => totalSecs += val);
-                    });
+                    if (day) {
+                        Object.values(day).forEach(group => {
+                            if (group) {
+                                Object.values(group).forEach(val => totalSecs += (Number(val) || 0));
+                            }
+                        });
+                    }
                 });
             }
-            // LEGACY TRACKER: Sum old usage node if it exists
             if (u.usage) {
                 Object.values(u.usage).forEach(day => {
-                    Object.values(day).forEach(val => totalSecs += val);
+                    if (day) {
+                        Object.values(day).forEach(val => totalSecs += (Number(val) || 0));
+                    }
                 });
             }
 
             usersArray.push({ id, ...u, totalSeconds: totalSecs });
         }
 
+        // 1. APPLY FILTERS
         usersArray = usersArray.filter(u => {
             const matchesSearch = (u.name || '').toLowerCase().includes(searchTerm) || u.email.toLowerCase().includes(searchTerm);
             const matchesStatus = filterVal === 'all' || u.status === filterVal;
-            return matchesSearch && matchesStatus;
+            
+            // Numeric comparison: Total minutes must be greater than or equal to input
+            const mins = u.totalSeconds / 60;
+            const matchesTime = mins >= minMinutes;
+
+            return matchesSearch && matchesStatus && matchesTime;
         });
 
+        // 2. APPLY SORTING
         usersArray.sort((a, b) => {
-            let valA = a[sortField] || 0;
-            let valB = b[sortField] || 0;
-            if (typeof valA === 'string') return sortAsc ? valA.localeCompare(valB) : valB.localeCompare(valA);
-            return sortAsc ? valA - valB : valB - valA;
+            let valA = a[sortField];
+            let valB = b[sortField];
+
+            if (valA === undefined || valA === null) valA = (typeof valB === 'string') ? "" : 0;
+            if (valB === undefined || valB === null) valB = (typeof valA === 'string') ? "" : 0;
+
+            if (typeof valA === 'string') {
+                return sortAsc ? valA.localeCompare(valB) : valB.localeCompare(valA);
+            } else {
+                return sortAsc ? valA - valB : valB - valA;
+            }
         });
 
         renderTable(usersArray);
     }
+
+
+
 
     function renderTable(users) {
         const tbody = document.getElementById('user-tbody');
