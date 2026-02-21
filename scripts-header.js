@@ -154,25 +154,37 @@ authIcon.innerText = user ? '🚪' : '👤';
 
 // THIS IS THE CRITICAL CHANGE
 // --- ENFORCEMENT ---
+// --- ENFORCEMENT ---
 document.addEventListener('DOMContentLoaded', function() {
+    // 1. Immediately create the overlay if this is a restricted page
+    // This prevents the "blank screen" issue by ensuring the box exists before Firebase even responds
+    if (window.isLoginOnlyPage || window.isPremiumPage) {
+        ensureAuthOverlay();
+    }
+
     if (typeof firebase !== 'undefined') {
         firebase.auth().onAuthStateChanged(user => {
             applyAccessControl(user);
         });
     }
 
-    // 1. If it's a restricted page (Login-only or Premium)
-    if (window.isLoginOnlyPage || window.isPremiumPage) {
-        // Overlay logic is now handled exclusively by onAuthStateChanged to prevent flickering
-    }
-    // 2. If it's a FREE page
-    else {
+    // 2. Logic for FREE pages
+    if (!window.isLoginOnlyPage && !window.isPremiumPage) {
         // Automatically unlock the CSS shield so content shows
         document.body.classList.add('logged-in');
         
-        // Ensure the overlay is hidden (in case it was created by mistake)
+        // Ensure the overlay is hidden
         const overlay = document.getElementById('auth-overlay');
         if (overlay) overlay.style.display = 'none';
+    } 
+    else {
+        // 3. Logic for RESTRICTED pages
+        // If we have no user yet, show the overlay immediately
+        const user = firebase.auth().currentUser;
+        if (!user) {
+            const overlay = document.getElementById('auth-overlay');
+            if (overlay) overlay.style.display = 'flex';
+        }
     }
 });
 
