@@ -48,14 +48,47 @@
         
         /* New Container for Gender Switch */
         .gender-box { background: #eef4ff; padding: 15px; border-radius: 10px; border: 1px solid #007bff33; margin-bottom: 30px; }
+    
+    .char-btn {
+    display: inline-block;
+    min-width: 30px;
+    text-align: center;
+    transition: all 0.2s;
+    user-select: none;
+    box-shadow: 0 2px 0 #ccc;
+}
+
+.char-btn:hover {
+    background: #007bff !important;
+    color: white !important;
+    border-color: #0056b3 !important;
+}
+
+.char-btn:active {
+    transform: translateY(2px);
+    box-shadow: none;
+}
+    
     </style>
 </head>
 <body>
 
-    <header><div id="header-right-group"></div></header>
+<header>
+    <h1 style="margin:0; color: #007bff;">Past Tense Practice (Minulý čas)</h1>
+    <div id="header-right-group"></div>
+</header>
+
+
+
 
     <div class="main-layout">
         <div id="student-view">
+            
+    <p style="margin-bottom: 15px; color: #666; font-size: 18px;">
+        Practice forming past tense sentences.
+    </p>
+
+
     <div class="gender-box">
         <label style="font-weight: bold; margin-right: 10px;">I am:</label>
         <select id="gender-switch" onchange="showVerbInput()" style="padding: 10px; font-size: 18px; border-radius: 8px; border: 2px solid #007bff;">
@@ -75,6 +108,9 @@
     <input type="text" id="verb-input" placeholder="např. dělat..." 
            onkeyup="checkInputForButton()" 
            onkeypress="if(event.key === 'Enter' && !document.getElementById('start-btn').disabled) startLesson()">
+    
+    <div id="char-picker" style="margin-top: 15px; display: flex; flex-wrap: wrap; gap: 8px; justify-content: center;"></div>
+
     <br><br>
     <button id="start-btn" class="btn-main" onclick="startLesson()" disabled style="opacity: 0.5; cursor: not-allowed;">
         Začít lekci (Enter)
@@ -157,9 +193,11 @@ let db = null;
 window.allVerbs = []; 
 
 async function initDatabase() {
+    
     const vList = document.getElementById('v-list');
     
-    // Check if the library is loaded yet
+
+        // Check if the library is loaded yet
     if (typeof initSqlJs === 'undefined') {
         console.log("Waiting for SQL.js library...");
         setTimeout(initDatabase, 100); // Try again in 100ms
@@ -302,34 +340,35 @@ initDatabase();
         return;
     }
 
+
     // 2. Database Checks
     if (db) {
-        try {
-            // Check for existence and irregular flag
-            const stmt = db.prepare("SELECT is_irr FROM words WHERE lemma = ? AND pos LIKE '%verb%' LIMIT 1");
-            stmt.bind([val]);
-            
-            let exists = false;
-            let isIrregular = false;
+    try {
+        const stmt = db.prepare("SELECT is_irr FROM words WHERE lemma = ? AND pos LIKE '%verb%' LIMIT 1");
+        stmt.bind([val]);
+        
+        let exists = false;
+        let isIrregular = false;
 
-            if (stmt.step()) {
-                exists = true;
-                const row = stmt.get();
-                isIrregular = (row[0] === 1); // 1 = irregular
-            }
-            stmt.free();
+        if (stmt.step()) {
+            exists = true;
+            const row = stmt.get();
+            isIrregular = (row[0] === 1);
+        }
+        stmt.free();
 
-            // Check A: Irregularity block
-            if (isIrregular) {
-                alert("This Verb may be irregular and I do not yet know how to handle irregulars. Kindly choose a different word.\n\nBut the feature is coming soon... I am already working on it! 🛠️");
-                return; // Stop the lesson from starting
-            }
+        if (isIrregular) {
+            alert("This Verb may be irregular...");
+            return;
+        }
 
-            // Check B: Existence warning
-            if (!exists) {
-                const proceed = confirm(`I do not know the verb "${val}" in my database. Do you really want to proceed?`);
-                if (!proceed) return;
-            }
+        if (!exists) {
+            window.currentVerbVerified = false; // Flag as false
+            const proceed = confirm(`I do not know the verb "${val}". Proceed?`);
+            if (!proceed) return;
+        } else {
+            window.currentVerbVerified = true; // IMPORTANT: Reset to true if found!
+        }
 
         } catch (e) {
             console.error("Verification error:", e);
@@ -350,21 +389,27 @@ initDatabase();
 
     // --- STEP 4: THE QUESTION (Fixed to use "dělat") ---
     window.showQuestion = function() {
-        window.step = 1;
-        let day = window.days[window.dayIdx];
-        
-        // Logic for "dělat" endings based on gender
-        const val = document.getElementById('gender-switch').value;
-        const endings = { 'M': 'l', 'F': 'la', 'N': 'lo', 'Pl': 'li', 'PlFem': 'ly', 'PlN': 'la' };
-        const end = endings[val] || 'l';
+    window.step = 1;
+    let day = window.days[window.dayIdx];
+    
+    const g = document.getElementById('gender-switch').value;
+    const endings = { 'M': 'l', 'F': 'la', 'N': 'lo', 'Pl': 'li', 'PlFem': 'ly', 'PlN': 'la' };
+    const end = endings[g] || 'l';
+    
+    // Fix: If Neutral Plural, use __ instead of jste
+    let aux;
+    if (g === 'PlN') {
+        aux = '<span style="color:#999">__</span>';
+    } else {
+        aux = g.startsWith('Pl') ? "jste" : "jsi";
+    }
 
-        // Always use "dělat" for the question
-        document.getElementById('sentence-display').innerHTML = 
-            `Co <span class="blue-bold">jsi</span> děla<span class="blue-bold">${end}</span> ${day}?`;
-        
-        document.getElementById('answer-display').innerText = "";
-        document.getElementById('next-step-btn').innerText = "Odpovědět (Krok 1)";
-    };
+    document.getElementById('sentence-display').innerHTML = 
+        `Co <span class="blue-bold">${aux}</span> děla<span class="blue-bold">${end}</span> ${day}?`;
+
+    document.getElementById('answer-display').innerText = "";
+    document.getElementById('next-step-btn').innerText = "Odpovědět (Krok 1)";
+};
 
     // --- STEP 5: THE PROGRESSIVE ANSWER ---
     window.nextStep = function() {
@@ -372,15 +417,28 @@ initDatabase();
         let answerDiv = document.getElementById('answer-display');
 
         if (window.step === 1) {
-            answerDiv.innerText = day.charAt(0).toUpperCase() + day.slice(1);
-            document.getElementById('next-step-btn').innerText = "Krok 2 (jsi -> jsem)";
-            window.step = 2;
-        } 
+    answerDiv.innerText = day.charAt(0).toUpperCase() + day.slice(1);
+    
+    // Label logic
+    const g = document.getElementById('gender-switch').value;
+    let nextAux = g.startsWith('Pl') ? "jsme" : "jsem";
+    if (g === 'PlN') nextAux = "jsme";
+    
+    document.getElementById('next-step-btn').innerText = `Krok 2 (${g.startsWith('Pl')?'jste':'jsi'} -> ${nextAux})`;
+    window.step = 2;
+}
         else if (window.step === 2) {
-            answerDiv.innerHTML += ` <span class="blue-bold">jsem</span>`;
-            document.getElementById('next-step-btn').innerText = "Krok 3 (Sloveso)";
-            window.step = 3;
-        } 
+            const g = document.getElementById('gender-switch').value;
+    if (g === 'PlN') {
+        answerDiv.innerHTML += ` <span style="color:#999">__</span>`; // Neutral Plural bypass
+    } else {
+        const aux = g.startsWith('Pl') ? "jsme" : "jsem";
+        answerDiv.innerHTML += ` <span class="blue-bold">${aux}</span>`;
+    }
+    window.step = 3;
+}
+
+
         else if (window.step === 3) {
             // 1. Parse the verb and reflexive pronoun
             let parts = window.currentVerb.split(/\s+/); // Splits "učit se" into ["učit", "se"]
@@ -405,9 +463,15 @@ initDatabase();
             window.step = 4;
         }
         else {
-            // 1. Save to history
-            document.getElementById('log-content').innerHTML += `<div>${answerDiv.innerHTML}</div>`;
-            window.sessionSentences.push(answerDiv.innerText);
+    // 1. Save to history
+    // Only create the note string IF currentVerbVerified is false
+    let note = (window.currentVerbVerified === false) 
+        ? `<br><small style="color:red; font-style:italic;">I do not know this verb, so I could not verify.</small>` 
+        : "";
+
+    document.getElementById('log-content').innerHTML += `<div>${answerDiv.innerHTML}${note}</div>`;
+    window.sessionSentences.push(answerDiv.innerText);
+
 
             // 2. Move to next day
             window.dayIdx = (window.dayIdx + 1) % window.days.length;
@@ -490,6 +554,28 @@ initDatabase();
             }
         });
     } catch (e) {}
+
+
+
+
+    const chars = ['ž','š','č','ř','ď','ť','ň','ě','á','é','í','ý','ó','ú','ů'];
+const picker = document.getElementById('char-picker'); // Ensure you have this div in HTML
+chars.forEach(char => {
+    let span = document.createElement('span');
+    span.className = 'char-btn'; // Add this class to your CSS for styling
+    span.style = "cursor:pointer; padding: 5px 8px; background: #eee; border-radius: 4px; font-weight: bold; border: 1px solid #ccc; margin-right: 5px;";
+    span.innerText = char;
+    span.onclick = () => {
+        const input = document.getElementById('verb-input');
+        input.value += char;
+        input.focus();
+        if(window.checkInputForButton) window.checkInputForButton();
+    };
+    picker.appendChild(span);
+});
+
+
+
 </script>
 
 </body>
