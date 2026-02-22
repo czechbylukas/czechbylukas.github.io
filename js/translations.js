@@ -82,7 +82,24 @@ function applyTranslations() {
     "link-ex-vzdelavani",
     "link-ex-pocasi",
     "link-ex-zdravi",
-    "link-ex-kontakt"
+    "link-ex-kontakt",
+    "heading-vocabSectionGrammar",
+    "heading-vocabA2Section",
+    "text-more-present",
+    "text-more-cases",
+    "text-more-prefixes",
+    "text-more-future",
+    "link-ex-allcases",
+    "link-pres-easy",
+    "link-pres-mid",
+    "link-pres-hard",
+    "link-past-pres-multi",
+    "link-cases-easy",
+    "link-cases-mid",
+    "link-cases-hard",
+    "link-prefix-mid",
+    "link-prefix-hard",
+    "link-future-mid"
 
   ];
 

@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="UTF-8">
+<title>Přítomný čas (Střední) | HáCZech</title>
+
+<style>body:not(.logged-in) .content-layout { display: none; }</style>
+<script>window.isLoginOnlyPage = true;</script>
+
+<script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-auth-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-database-compat.js"></script>
+
+<script src="../../scripts-header.js"></script>
+
+<link rel="stylesheet" href="../../css/style.css">
+<link rel="stylesheet" href="../../css/language-selector.css">
+
+</head>
+<body class="vocab-page">
+
+<header>
+<h1 id="heading-test-title">Přítomný čas (Střední)</h1>
+<p id="heading-test-instructions"></p>
+<div id="language-selector-container" class="language-selector"></div>
+</header>
+
+<div id="timer" style="font-size: 1.5rem; color: #2b593e; margin-bottom: 15px;">
+⏱ Time remaining: 10:00
+</div>
+
+<iframe id="testIframe"
+style="width: 90%; min-height: 100vh; max-height: 10000px; border: none; border-radius: 10px; box-shadow: 0 0 15px rgba(0,0,0,0.2); background: white;">
+</iframe>
+
+<div class="big-buttons">
+<a id="btn-vocab" href="../../index.html"></a>
+<a id="btn-practice" href="../../index.html"></a>
+</div>
+
+<div class="small-buttons">
+<a id="btn-home" href="../../index.html"></a>
+<a id="btn-all-tests" href="../../tests/index.html"></a>
+</div>
+
+<script src="../../data/translations/tests_links.js"></script>
+<script src="../../js/translations.js"></script>
+<script src="../../js/language-selector.js"></script>
+
+
+
+<script>
+  let lang = localStorage.getItem("selectedLanguage") || "en";
+  let timeLeft = 10 * 60;
+  const timerEl = document.getElementById('timer');
+
+  const timerInterval = setInterval(() => {
+    const minutes = Math.floor(timeLeft / 60).toString().padStart(2, '0');
+    const seconds = (timeLeft % 60).toString().padStart(2, '0');
+
+    const label = translations.messages?.timeRemaining || "Time remaining:";
+    timerEl.textContent = `⏱ ${label} ${minutes}:${seconds}`;
+    timeLeft--;
+
+    if (timeLeft < 0) {
+      clearInterval(timerInterval);
+      const timeoutMsg = translations.messages?.timesUp || "Time’s up! Please submit your answers now.";
+      timerEl.textContent = timeoutMsg;
+      timerEl.style.color = '#c0392b';
+      alert(timeoutMsg);
+    }
+  }, 1000);
+
+  async function updatePage(lang) {
+    if (typeof loadTranslations === "function") await loadTranslations(lang);
+
+    // KEY CHANGE: Points to the Intermediate Present Tense entry in tests-links.js
+    const lesson = "lessonPresMid"; 
+    
+    const iframe = document.getElementById("testIframe");
+    if (iframe && testLinks[lesson]) {
+      iframe.src = testLinks[lesson][lang] || testLinks[lesson]["en"];
+    }
+
+    // Translate Header
+    const pageTitlePart = document.title.split('|')[0]?.trim() || "Test"; 
+    document.getElementById("heading-test-title").textContent = `${pageTitlePart} – ${translations.buttons?.test || "Test"}`;
+    document.getElementById("heading-test-instructions").textContent = translations["heading-test-instructions"] || "";
+
+    // Translate Buttons
+    document.getElementById("btn-vocab").textContent = translations.buttons?.vocabulary || "📘 Vocabulary";
+    document.getElementById("btn-practice").textContent = translations.buttons?.practice || "🧠 Practice";
+    document.getElementById("btn-home").textContent = translations.buttons?.home || "🏠 Home";
+    document.getElementById("btn-all-tests").textContent = translations.buttons?.testList || "📝 All Tests";
+  }
+
+  document.addEventListener("DOMContentLoaded", () => {
+    updatePage(localStorage.getItem("selectedLanguage") || "en");
+  });
+
+  document.addEventListener("languageChanged", () => {
+    const newLang = localStorage.getItem("selectedLanguage") || "en";
+    updatePage(newLang);
+  });
+</script>
+
+
+
+
+<div id="footer-placeholder"></div>
+
+<script>
+fetch("/footer.html")
+.then(response => response.text())
+.then(data => {
+document.getElementById("footer-placeholder").innerHTML = data;
+})
+.catch(error => console.error("Error loading footer:", error));
+</script>
+
+</body>
+</html>

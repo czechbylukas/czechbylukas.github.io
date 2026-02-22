@@ -70,6 +70,25 @@
   "link-ex-zdravi": "Gesundheit",
   "link-ex-kontakt": "Kontakt mit der Mehrheitsgesellschaft und gesellschaftlich-politische Integration",
 
+  "heading-vocabSectionGrammar": "Grammatik",
+  "heading-vocabA2Section": "Wortschatzaufbau",
+  "text-more-present": "Weitere Tests zum Präsens",
+  "text-more-cases": "Weitere Tests zu den Fällen:",
+  "text-more-prefixes": "Weitere Tests zu Präfixen:",
+  "text-more-future": "Weitere Tests zur Zukunft",
+  "link-ex-allcases": "Alle Fälle",
+  "link-pres-easy": "Präsens (2)",
+  "link-pres-mid": "Präsens (3)",
+  "link-pres-hard": "Präsens (4)",
+  "link-past-pres-multi": "Vergangenheit und Präsens",
+  "link-cases-easy": "Fälle 1. - 7. Fall (2)",
+  "link-cases-mid": "Fälle 1. - 7. Fall (3)",
+  "link-cases-hard": "Fälle 1. - 7. Fall (4)",
+  "link-prefix-mid": "Präfixe (2)",
+  "link-prefix-hard": "Präfixe (3)",
+  "link-future-mid": "Zukunf (2)",
+
+
 
   "heading-tests": "Tests",
   "heading-testList": "Testübersicht (aktuell nur für Abonenten verfügbar)",

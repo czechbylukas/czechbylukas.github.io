@@ -174,6 +174,73 @@ const testLinksA2 = {
     es: "https://docs.google.com/forms/d/e/1FAIpQLSdRyBn9QcjFN4ks97_1XsMaKt4Ql4l2relnh54MPgcmXzjh9Q/viewform?embedded=true",
     de: "https://docs.google.com/forms/d/e/1FAIpQLSdqyh_weqpz50mstC-ZHHNQwRqVkFoZRcLmt3lEROEhfBr-lw/viewform?embedded=true"
   },
+
+
+
+
+
+
+
+
+//bonus links
+lessonPresEasy: {
+    en: "https://docs.google.com/forms/d/e/1FAIpQLSc1kB5LrbFsLOK4XjBe7HTIF9aqn53s00zk2wjQ8BS32ZtzPQ/viewform?embedded=true",
+    es: "https://docs.google.com/forms/d/e/1FAIpQLSco_4GTICkktcOW_1dlzzG4GgLDY1KdCisPPgEV97P9lr5Q2A/viewform?embedded=true",
+    de: "https://docs.google.com/forms/d/e/1FAIpQLSc9oIxAa_R-5A2Z_doEt18mJ_HUrlhVwWr3sAmtIFVq9kT78w/viewform?embedded=true"
+  },
+  lessonPresMid: {
+    en: "https://docs.google.com/forms/d/e/1FAIpQLScIHZLg1r5Y_34lzRqktNzQHH8FZVBeubAgSVM_QRzyOWIKVQ/viewform?embedded=true",
+    es: "https://docs.google.com/forms/d/e/1FAIpQLScIHZLg1r5Y_34lzRqktNzQHH8FZVBeubAgSVM_QRzyOWIKVQ/viewform?embedded=true",
+    de: "https://docs.google.com/forms/d/e/1FAIpQLScIHZLg1r5Y_34lzRqktNzQHH8FZVBeubAgSVM_QRzyOWIKVQ/viewform?embedded=true"
+  },
+  lessonPresHard: {
+    en: "https://docs.google.com/forms/d/e/1FAIpQLScQ0m5p3o0aAu1PllA9TijILfBDPi5WiMPTGGGWnw9WLRH8Aw/viewform?embedded=true",
+    es: "https://docs.google.com/forms/d/e/1FAIpQLScQ0m5p3o0aAu1PllA9TijILfBDPi5WiMPTGGGWnw9WLRH8Aw/viewform?embedded=true",
+    de: "https://docs.google.com/forms/d/e/1FAIpQLScQ0m5p3o0aAu1PllA9TijILfBDPi5WiMPTGGGWnw9WLRH8Aw/viewform?embedded=true"
+  },
+  
+  // Mixed Tenses
+  lessonPastPresMulti: {
+    en: "https://docs.google.com/forms/d/e/1FAIpQLSfisvW8N1BdslkTEKXHrYpORXzEbZTy5PlXSgyLpKMNKI6N0Q/viewform?embedded=true",
+    es: "https://docs.google.com/forms/d/e/1FAIpQLSfisvW8N1BdslkTEKXHrYpORXzEbZTy5PlXSgyLpKMNKI6N0Q/viewform?embedded=true",
+    de: "https://docs.google.com/forms/d/e/1FAIpQLSfisvW8N1BdslkTEKXHrYpORXzEbZTy5PlXSgyLpKMNKI6N0Q/viewform?embedded=true"
+  },
+
+  // Cases Levels
+  lessonCasesEasy: {
+    en: "https://docs.google.com/forms/d/e/1FAIpQLSetog3IkAuRirlc2h0TlWNq6f5mcXujV4nZ0L1KciI-PdrD_g/viewform?embedded=true",
+    es: "https://docs.google.com/forms/d/e/1FAIpQLSetog3IkAuRirlc2h0TlWNq6f5mcXujV4nZ0L1KciI-PdrD_g/viewform?embedded=true",
+    de: "https://docs.google.com/forms/d/e/1FAIpQLSetog3IkAuRirlc2h0TlWNq6f5mcXujV4nZ0L1KciI-PdrD_g/viewform?embedded=true"
+  },
+  lessonCasesMid: {
+    en: "https://docs.google.com/forms/d/e/1FAIpQLSdCMD34sxBnExK0z3dO5RCAi9g2r1SRGZaDoto9iWSO8kAXIw/viewform?embedded=true",
+    es: "https://docs.google.com/forms/d/e/1FAIpQLSdCMD34sxBnExK0z3dO5RCAi9g2r1SRGZaDoto9iWSO8kAXIw/viewform?embedded=true",
+    de: "https://docs.google.com/forms/d/e/1FAIpQLSdCMD34sxBnExK0z3dO5RCAi9g2r1SRGZaDoto9iWSO8kAXIw/viewform?embedded=true"
+  },
+  lessonCasesHard: {
+    en: "https://docs.google.com/forms/d/e/1FAIpQLScqV3f39BmbsZPWO0ZQflIqhAEhs4gTOxbJZyLZ6veXI1N6iA/viewform?embedded=true",
+    es: "https://docs.google.com/forms/d/e/1FAIpQLScqV3f39BmbsZPWO0ZQflIqhAEhs4gTOxbJZyLZ6veXI1N6iA/viewform?embedded=true",
+    de: "https://docs.google.com/forms/d/e/1FAIpQLScqV3f39BmbsZPWO0ZQflIqhAEhs4gTOxbJZyLZ6veXI1N6iA/viewform?embedded=true"
+  },
+
+  // Prefixes Levels
+  lessonPrefixMid: {
+    en: "https://docs.google.com/forms/d/e/1FAIpQLSeeWY3j3jwJVJ7krTYwE_7RkRAxe9NI1toBjcTyhi26MHqq6w/viewform?embedded=true",
+    es: "https://docs.google.com/forms/d/e/1FAIpQLSeeWY3j3jwJVJ7krTYwE_7RkRAxe9NI1toBjcTyhi26MHqq6w/viewform?embedded=true",
+    de: "https://docs.google.com/forms/d/e/1FAIpQLSeeWY3j3jwJVJ7krTYwE_7RkRAxe9NI1toBjcTyhi26MHqq6w/viewform?embedded=true"
+  },
+  lessonPrefixHard: {
+    en: "https://docs.google.com/forms/d/e/1FAIpQLScacxkORlb_8CcJtUxyIADLvdCmGa7oFouGHmA1ZeUabkfdGg/viewform?embedded=true",
+    es: "https://docs.google.com/forms/d/e/1FAIpQLScacxkORlb_8CcJtUxyIADLvdCmGa7oFouGHmA1ZeUabkfdGg/viewform?embedded=true",
+    de: "https://docs.google.com/forms/d/e/1FAIpQLScacxkORlb_8CcJtUxyIADLvdCmGa7oFouGHmA1ZeUabkfdGg/viewform?embedded=true"
+  },
+
+  // Future Levels (This is for your provided HTML page)
+  lessonFutureMid: {
+    en: "https://docs.google.com/forms/d/e/1FAIpQLSdxOEinDVjjcd9-PxY05y26e3Qr-WJSbjXNtnfZOs4NJYkVJg/viewform?embedded=true",
+    es: "https://docs.google.com/forms/d/e/1FAIpQLSdxOEinDVjjcd9-PxY05y26e3Qr-WJSbjXNtnfZOs4NJYkVJg/viewform?embedded=true",
+    de: "https://docs.google.com/forms/d/e/1FAIpQLSdxOEinDVjjcd9-PxY05y26e3Qr-WJSbjXNtnfZOs4NJYkVJg/viewform?embedded=true"
+  }
 };
 // Merge A2 tests into main testLinks object
 Object.assign(testLinks, testLinksA2);

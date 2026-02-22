@@ -91,6 +91,27 @@
   "link-ex-kontakt": "Contact with Majority Society and Social/Political Integration",
 
 
+
+  "heading-vocabSectionGrammar": "Grammar",
+  "heading-vocabA2Section": "Vocabulary Building",
+  "text-more-present": "More tests for Present Tense",
+  "text-more-cases": "More tests for Cases:",
+  "text-more-prefixes": "More tests for Prefixes:",
+  "text-more-future": "More tests for Future Tense",
+  "link-ex-allcases": "All Cases",
+  "link-pres-easy": "Present Tense (2)",
+  "link-pres-mid": "Present Tense (3)",
+  "link-pres-hard": "Present Tense (4)",
+  "link-past-pres-multi": "Past and Present Tense",
+  "link-cases-easy": "Cases 1st - 7th Case (2)",
+  "link-cases-mid": "Cases 1st - 7th Case (3)",
+  "link-cases-hard": "Cases 1st - 7th Case (4)",
+  "link-prefix-mid": "Prefixes (2)",
+  "link-prefix-hard": "Prefixes (3)",
+  "link-future-mid": "Future Tense (2)",
+
+
+
   "buttons": {
     "next": "Next",
     "prev": "Previous",
