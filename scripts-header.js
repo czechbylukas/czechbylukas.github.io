@@ -360,10 +360,7 @@ document.addEventListener("DOMContentLoaded", function() {
     if (header) {
         const logoImg = document.createElement('img');
         
-        // FIX 1: Use a leading slash / to start from the root folder
-        // This ensures it works on both the home page and sub-pages
         logoImg.src = '/images/hackczech-logo.png'; 
-        
         logoImg.id = 'dynamic-main-logo';
         logoImg.title = "Go to Home";
         
@@ -379,9 +376,21 @@ document.addEventListener("DOMContentLoaded", function() {
             pointer-events: auto;
         `;
 
-        // FIX 2: Use window.location.origin to always go to the root domain
-        logoImg.addEventListener('click', function() {
-            window.location.href = window.location.origin;
+        // 1. Handle standard Left-Click
+        logoImg.addEventListener('click', function(e) {
+            // e.button === 0 is the left mouse button
+            if (e.button === 0) {
+                window.location.href = window.location.origin;
+            }
+        });
+
+        // 2. Handle Middle-Click (Scroll wheel)
+        logoImg.addEventListener('auxclick', function(e) {
+            // e.button === 1 is the middle mouse button
+            if (e.button === 1) {
+                window.open(window.location.origin, '_blank');
+                e.preventDefault(); // Prevents the autoscroll icon from appearing
+            }
         });
 
         header.prepend(logoImg);
