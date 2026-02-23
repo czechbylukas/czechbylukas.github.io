@@ -78,7 +78,7 @@
     <div id="header-right-group"></div>
 </header>
 
-
+<aside id="sidebar-placeholder"></aside>
 
 
     <div class="main-layout">
@@ -546,6 +546,19 @@ initDatabase();
         };
     };
 
+
+// Sidebar Load
+fetch("../sidebar/sidebar.html")
+    .then(r => r.text())
+    .then(d => { document.getElementById("sidebar-placeholder").innerHTML = d; })
+    .catch(err => console.error("Sidebar load failed:", err));
+
+// Footer Load
+fetch("../footer.html")
+    .then(r => r.text())
+    .then(d => { document.getElementById("footer-placeholder").innerHTML = d; });
+
+    
     // Firebase Auth Sidebar
     try {
         firebase.auth().onAuthStateChanged((user) => {
