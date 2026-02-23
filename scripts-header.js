@@ -154,37 +154,35 @@ authIcon.innerText = user ? '🚪' : '👤';
 
 // THIS IS THE CRITICAL CHANGE
 // --- ENFORCEMENT ---
-// --- ENFORCEMENT ---
 document.addEventListener('DOMContentLoaded', function() {
-    // 1. Immediately create the overlay if this is a restricted page
-    // This prevents the "blank screen" issue by ensuring the box exists before Firebase even responds
-    if (window.isLoginOnlyPage || window.isPremiumPage) {
-        ensureAuthOverlay();
-    }
+    // 1. Create the overlay in the background, but keep it hidden (display:none)
+    ensureAuthOverlay();
 
     if (typeof firebase !== 'undefined') {
+        // 2. Listen for the user status. 
+        // This is the ONLY place that should decide to show the overlay.
         firebase.auth().onAuthStateChanged(user => {
             applyAccessControl(user);
         });
     }
 
-    // 2. Logic for FREE pages
+    // 3. Logic for FREE pages
     if (!window.isLoginOnlyPage && !window.isPremiumPage) {
-        // Automatically unlock the CSS shield so content shows
         document.body.classList.add('logged-in');
-        
-        // Ensure the overlay is hidden
         const overlay = document.getElementById('auth-overlay');
         if (overlay) overlay.style.display = 'none';
     } 
     else {
-        // 3. Logic for RESTRICTED pages
-        // If we have no user yet, show the overlay immediately
-        const user = firebase.auth().currentUser;
-        if (!user) {
-            const overlay = document.getElementById('auth-overlay');
-            if (overlay) overlay.style.display = 'flex';
-        }
+        // 4. Logic for RESTRICTED pages
+        // Instead of showing it immediately, we wait 1.5 seconds.
+        // If Firebase hasn't logged the user in by then, we show the login box.
+        setTimeout(() => {
+            const user = firebase.auth().currentUser;
+            if (!user) {
+                const overlay = document.getElementById('auth-overlay');
+                if (overlay) overlay.style.display = 'flex';
+            }
+        }, 1500); // 1.5 second "grace period" for Firebase to wake up
     }
 });
 
