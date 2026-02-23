@@ -477,51 +477,77 @@ if (localStorage.getItem("cookieConsent") && window.canShowAds !== false) {
 
 
 
-// --- SMART PAGE TIME TRACKER (DETAILED VERSION) ---
+// --- SMART PAGE TIME TRACKER (MULTI-TAB & IDLE PROOF) ---
 let totalActiveTime = 0;
-let lastActiveTime = Date.now();
+let lastActivePulse = Date.now(); 
+let lastIntervalTick = Date.now();
+const IDLE_TIMEOUT = 60000; // 1 minute: if no movement, stop counting
+
+// 1. Activity Detector
+['mousedown', 'keydown', 'scroll', 'touchstart'].forEach(evt => {
+    window.addEventListener(evt, () => {
+        lastActivePulse = Date.now();
+    });
+});
 
 function logTimeSpent() {
     const timeToLog = Math.round(totalActiveTime / 1000); 
     
-    if (typeof firebase !== 'undefined' && firebase.auth().currentUser && timeToLog > 2) {
+    if (typeof firebase !== 'undefined' && firebase.auth().currentUser && timeToLog > 1) {
         const user = firebase.auth().currentUser;
         const dateKey = new Date().toISOString().split('T')[0];
         
-        // 1. Parse the Title: "Vocabulary 1 | Past Tense | HáCZech"
         const titleText = document.title || "General | Main Page | HáCZech";
         const parts = titleText.split('|').map(p => p.trim());
-        
-        // 2. Extract Category (Group) and Page
-        // Result: group = "Vocabulary 1", detail = "Past Tense"
         const group = parts[0] || 'General';
         const detail = parts[1] || 'Main';
 
-        // 3. Sanitize keys for Firebase (remove symbols that break paths)
         const safeGroup = group.replace(/[.#$[\]]/g, "_");
         const safeDetail = detail.replace(/[.#$[\]]/g, "_");
 
-        // 4. Save to a NEW node called 'detailed_usage'
         const path = `users/${user.uid}/detailed_usage/${dateKey}/${safeGroup}/${safeDetail}`;
-        firebase.database().ref(path).transaction((currentValue) => (currentValue || 0) + timeToLog);
         
-        totalActiveTime = 0; // Reset after logging
+        // TRANSACTION ensures that even if 2 tabs log at once, 
+        // they add to the total rather than overwriting each other.
+        firebase.database().ref(path).transaction((currentValue) => {
+            return (currentValue || 0) + timeToLog;
+        });
+        
+        totalActiveTime = 0; 
     }
 }
 
-// Logic to detect if user is active
+// 2. The Logic Filter
 setInterval(() => {
-    if (document.visibilityState === 'visible') {
-        const now = Date.now();
-        totalActiveTime += (now - lastActiveTime);
-        lastActiveTime = now;
-    } else {
-        lastActiveTime = Date.now();
+    const now = Date.now();
+    
+    // CONDITION 1: Tab must be the active one the user is looking at
+    const isVisible = document.visibilityState === 'visible';
+    
+    // CONDITION 2: The window must have functional focus (clicked/active)
+    const isFocused = document.hasFocus();
+    
+    // CONDITION 3: User must have moved mouse/typed in last 60s
+    const isNotIdle = (now - lastActivePulse) < IDLE_TIMEOUT;
+
+    if (isVisible && isFocused && isNotIdle) {
+        totalActiveTime += (now - lastIntervalTick);
     }
+    
+    lastIntervalTick = now;
 }, 1000);
 
-window.addEventListener('beforeunload', logTimeSpent);
-setInterval(logTimeSpent, 5000); // Auto-save every 5s
+// 3. Save triggers
+document.addEventListener('visibilitychange', () => {
+    if (document.visibilityState === 'hidden') {
+        logTimeSpent();
+    } else {
+        // Just returned to the page? Reset the tick so we don't count the away-time
+        lastIntervalTick = Date.now();
+        lastActivePulse = Date.now(); 
+    }
+});
+setInterval(logTimeSpent, 10000);
 
 
 

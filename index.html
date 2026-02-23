@@ -21,9 +21,9 @@
 <header>
     <h1 id="heading-welcome">Welcome in HáCzech</h1>
     
-    <button id="admin-console-btn" style="display:none; background:#f39c12; color:white; border:none; padding:8px 15px; border-radius:5px; cursor:pointer; font-weight:bold; position:absolute; right:120px; top:50%; transform:translateY(-50%); z-index:100;" onclick="window.location.href='/reports/index.html'">Admin Console</button>
+    <button id="admin-console-btn" style="display:none; background:#f39c12; color:white; border:none; padding:8px 15px; border-radius:5px; cursor:pointer; font-weight:bold; position:absolute; right:120px; top:50%; transform:translateY(-50%); z-index:100;">Admin Console</button>
     
-    <button id="teacher-tool-btn" style="display:none; background:#3498db; color:white; border:none; padding:8px 15px; border-radius:5px; cursor:pointer; font-weight:bold; position:absolute; right:260px; top:50%; transform:translateY(-50%); z-index:100;" onclick="window.location.href='/lessons/001_lesson.html'">Lesson Tool</button>
+    <button id="teacher-tool-btn" style="display:none; background:#3498db; color:white; border:none; padding:8px 15px; border-radius:5px; cursor:pointer; font-weight:bold; position:absolute; right:260px; top:50%; transform:translateY(-50%); z-index:100;">Lesson Tool</button>
 
     <div id="language-selector-container"></div>
 </header>
@@ -66,7 +66,34 @@
     <script src="js/language-selector.js"></script>
 
 
+
+    
+
 <script>
+
+
+
+// Add this as a tool for the buttons to use
+function addMultiClickSupport(elementId, url) {
+    const btn = document.getElementById(elementId);
+    if (!btn) return;
+
+    // Left click
+    btn.addEventListener('click', (e) => {
+        if (e.button === 0) window.location.href = url;
+    });
+
+    // Middle click
+    btn.addEventListener('auxclick', (e) => {
+        if (e.button === 1) {
+            window.open(url, '_blank');
+            e.preventDefault();
+        }
+    });
+}
+
+
+
     // Check for Admin access to show the Teacher Console button
 
 firebase.auth().onAuthStateChanged(user => {
@@ -74,12 +101,15 @@ firebase.auth().onAuthStateChanged(user => {
     const toolBtn = document.getElementById('teacher-tool-btn');
     
     if (user && user.email === 'lukas@hackczech.com') {
-        if(adminBtn) adminBtn.style.display = 'block';
-        if(toolBtn) toolBtn.style.display = 'block';
-    } else {
-        if(adminBtn) adminBtn.style.display = 'none';
-        if(toolBtn) toolBtn.style.display = 'none';
+    if(adminBtn) {
+        adminBtn.style.display = 'block';
+        addMultiClickSupport('admin-console-btn', '/reports/index.html');
     }
+    if(toolBtn) {
+        toolBtn.style.display = 'block';
+        addMultiClickSupport('teacher-tool-btn', '/lessons/001_lesson.html');
+    }
+}
 });
 </script>
 </body>
