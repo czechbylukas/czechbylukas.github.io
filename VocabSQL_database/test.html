@@ -88,6 +88,7 @@
 </header>
 
 
+<aside id="sidebar-placeholder"></aside>
 
 
 
@@ -614,9 +615,9 @@ function adjustWeight(change) {
 
 
 
-    // Levenshtein and Keyboard logic removed for brevity but keep them in your actual file!
-    fetch("../footer.html").then(r => r.text()).then(d => { document.getElementById("footer-placeholder").innerHTML = d; });
-
+// Levenshtein and Keyboard logic removed for brevity but keep them in your actual file!
+fetch("/sidebar/sidebar.html").then(r => r.text()).then(d => { document.getElementById("sidebar-placeholder").innerHTML = d; }).catch(err => console.error("Sidebar load failed"));
+fetch("../footer.html").then(r => r.text()).then(d => { document.getElementById("footer-placeholder").innerHTML = d; });
 
 
 
