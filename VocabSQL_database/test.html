@@ -286,8 +286,10 @@ if (window.userStatus !== 'paid') {
     // GET LEVELS FROM DATABASE COLUMD D
 async function initDatabase() {
     // FIX: Set the dropdown value to match saved language
-    const savedLang = localStorage.getItem("selectedLanguage") || "en";
-    document.getElementById('ui-lang-select').value = savedLang;
+    // Polished version
+        let savedLang = localStorage.getItem("selectedLanguage") || "en";
+        if (savedLang === "cs") savedLang = "en"; // Force UI to show English
+document.getElementById('ui-lang-select').value = savedLang;
     try {
         const sqlPromise = initSqlJs({ locateFile: file => `https://cdnjs.cloudflare.com/ajax/libs/sql.js/1.6.2/${file}` });
 	const response = await fetch("czech_master.db");        
@@ -377,8 +379,12 @@ function getRandomWord() {
     if(!db) return;
     
     const combinedValue = document.getElementById('level-select').value;
-const currentLang = localStorage.getItem("selectedLanguage") || "en";
-const langColumn = "trans_" + currentLang;
+    
+    // Get the language, but if it's 'cs', treat it as 'en'
+    let currentLang = localStorage.getItem("selectedLanguage") || "en";
+    if (currentLang === "cs") currentLang = "en"; 
+
+    const langColumn = "trans_" + currentLang;
 
 // IF NO LESSON IS SELECTED
     if(!combinedValue || combinedValue.includes("Vyberte")) {
