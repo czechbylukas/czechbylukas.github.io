@@ -581,11 +581,21 @@ chars.forEach(char => {
     span.style = "cursor:pointer; padding: 5px 8px; background: #eee; border-radius: 4px; font-weight: bold; border: 1px solid #ccc; margin-right: 5px;";
     span.innerText = char;
     span.onclick = () => {
-        const input = document.getElementById('verb-input');
-        input.value += char;
-        input.focus();
-        if(window.checkInputForButton) window.checkInputForButton();
-    };
+    const input = document.getElementById('verb-input');
+    
+    // Get cursor position
+    const start = input.selectionStart;
+    const end = input.selectionEnd;
+
+    // Insert the character at the cursor position
+    input.setRangeText(char, start, end, 'end');
+    
+    // Put focus back so the user can keep typing
+    input.focus();
+
+    // Trigger your button logic
+    if(window.checkInputForButton) window.checkInputForButton();
+};
     picker.appendChild(span);
 });
 

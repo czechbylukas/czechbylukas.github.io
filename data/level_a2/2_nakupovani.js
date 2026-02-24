@@ -82,7 +82,7 @@ const vocab = [
     czech:   "boty",
     english: "shoes, boots",
     spanish: "zapatos, botas",
-    german:  "Schuhe, Stiefel"
+    german:  "Schuhe"
   },
   {
     czech:   "dárek",
@@ -158,15 +158,15 @@ const vocab = [
   },
   {
     czech:   "čepice",
-    english: "cap / hat",
+    english: "cap",
     spanish: "gorra / sombrero",
-    german:  "Mütze / Hut"
+    german:  "Mütze"
   },
   {
     czech:   "šátek, šála",
     english: "scarf",
     spanish: "pañuelo / bufanda",
-    german:  "Tuch / Schal"
+    german:  "Schal"
   },
   {
     czech:   "rukavice",
