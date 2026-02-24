@@ -302,18 +302,30 @@ initDatabase();
     window.sessionSentences = [];
     window.days = ["v neděli", "v pondělí", "v úterý", "ve středu", "ve čtvrtek", "v pátek", "v sobotu", "o víkendu", "minulý týden", "minulý rok", "loni"];
     window.dayIdx = 0;
+    // Identify the session from URL (e.g. ?sid=pavel)
+    const urlParams = new URLSearchParams(window.location.search);
+    window.sessionId = urlParams.get('sid') || "default-session";
+    window.dbRef = firebase.database().ref('sessions/' + window.sessionId);
 
     // --- STEP 1: GENDER PICKED ---
     window.showVerbInput = function() {
+        const g = document.getElementById('gender-switch').value;
+        window.dbRef.update({ gender: g }); // Sync gender choice
         document.getElementById('input-section').style.display = 'block';
         document.getElementById('verb-input').focus();
     };
 
     // --- STEP 2: TYPING VERB (BUTTON APPEARS) ---
     window.checkInputForButton = function() {
-    const input = document.getElementById('verb-input');
-    const btn = document.getElementById('start-btn');
-    const val = input.value.trim().toLowerCase();
+        const input = document.getElementById('verb-input');
+        const btn = document.getElementById('start-btn');
+        const val = input.value.trim().toLowerCase();
+
+        // 1. SYNC TO TEACHER LIVE
+        clearTimeout(window.syncTimer);
+        window.syncTimer = setTimeout(() => {
+            window.dbRef.update({ liveInput: input.value });
+        }, 300);
 
     // Logic: ends with 't', 't se', or 't si'
     const isValid = /t$|t\s+se$|t\s+si$/.test(val);
@@ -333,6 +345,12 @@ initDatabase();
     window.startLesson = function() {
     const input = document.getElementById('verb-input');
     const val = input.value.trim().toLowerCase();
+
+    // Sync live typing to Teacher
+    clearTimeout(window.syncTimer);
+    window.syncTimer = setTimeout(() => {
+        window.dbRef.update({ liveInput: input.value });
+    }, 300);
     const infoDisplay = document.getElementById('verb-info-display');
     
     // 1. Basic format validation (-t ending)
@@ -565,8 +583,29 @@ fetch("../footer.html")
     try {
         firebase.auth().onAuthStateChanged((user) => {
             if (user && user.email === 'lukas@hackczech.com') {
-                document.getElementById('teacher-sidebar').style.display = 'block';
-            }
+                document.getElementById('teacher-sidebar').style.display = 'block';
+                
+                // MIRROR LOGIC: Listen to student changes
+                window.dbRef.on('value', (snapshot) => {
+                    const data = snapshot.val();
+                    if (!data) return;
+                    
+                    const inputField = document.getElementById('verb-input');
+                    const genderField = document.getElementById('gender-switch');
+
+                    // Mirror Gender
+                    if (data.gender && genderField.value !== data.gender) {
+                        genderField.value = data.gender;
+                        window.showVerbInput();
+                    }
+                    
+                    // Mirror Input (only if Teacher is not currently typing)
+                    if (data.liveInput !== undefined && document.activeElement !== inputField) {
+                        inputField.value = data.liveInput;
+                        window.checkInputForButton();
+                    }
+                });
+            }
         });
     } catch (e) {}
 
