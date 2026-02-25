@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+    <meta charset="UTF-8">
+    <title>Tool Teacher | Universal Conjugator</title>
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/sql.js/1.6.2/sql-wasm.js"></script>
+    <style>
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: #f4f7f9; display: flex; flex-direction: column; align-items: center; padding: 40px; }
+        .container { background: white; padding: 30px; border-radius: 12px; box-shadow: 0 4px 20px rgba(0,0,0,0.08); width: 100%; max-width: 600px; text-align: center; }
+        
+        select, input { padding: 12px; font-size: 18px; border-radius: 8px; border: 2px solid #ddd; margin: 10px; outline: none; transition: border-color 0.3s; }
+        select:focus, input:focus { border-color: #007bff; }
+        
+        .btn-main { padding: 15px 30px; font-size: 18px; cursor: pointer; background: #007bff; color: white; border: none; border-radius: 8px; font-weight: bold; }
+        .btn-main:disabled { background: #ccc; cursor: not-allowed; }
+
+        #result-display { margin-top: 30px; font-size: 32px; font-weight: bold; color: #28a745; min-height: 50px; }
+        .error-msg { color: #dc3545; font-size: 14px; display: none; margin-top: -5px; }
+        
+        .setup-group { border-bottom: 2px solid #eee; margin-bottom: 20px; padding-bottom: 20px; }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h2>Czech Verb Conjugator</h2>
+
+    <div class="setup-group">
+        <label>Tense:</label>
+        <select id="tense-select" onchange="toggleGenderUI()">
+            <option value="present">Present</option>
+            <option value="past">Past</option>
+            <option value="future">Future</option>
+        </select>
+
+        <div id="gender-wrapper" style="display:none;">
+            <label>Gender:</label>
+            <select id="gender-select">
+                <option value="M">Male (L)</option>
+                <option value="F">Female (LA)</option>
+                <option value="Pl">Plural (LI/LY)</option>
+            </select>
+        </div>
+    </div>
+
+    <div class="input-group">
+        <p>Enter Infinitive (ends in -t):</p>
+        <input type="text" id="verb-input" placeholder="např. dělat se" onkeyup="validateInput()">
+        <div id="error-hint" class="error-msg">Verb must end in 't' (e.g., 'dělat' or 'učit se')</div>
+    </div>
+
+    <br>
+    <button id="create-btn" class="btn-main" onclick="handleConjugation()" disabled>Create</button>
+
+    <div id="result-display"></div>
+</div>
+
+<script>
+let db = null;
+
+// Initialize Database
+async function initDB() {
+    const SQL = await initSqlJs({ locateFile: file => `https://cdnjs.cloudflare.com/ajax/libs/sql.js/1.6.2/${file}` });
+    const data = await fetch('../VocabSQL_database/czech_master.db').then(res => res.arrayBuffer());
+    db = new SQL.Database(new Uint8Array(data));
+}
+initDB();
+
+// UI Logic
+function toggleGenderUI() {
+    const tense = document.getElementById('tense-select').value;
+    document.getElementById('gender-wrapper').style.display = (tense === 'past') ? 'inline-block' : 'none';
+}
+
+function validateInput() {
+    const val = document.getElementById('verb-input').value.trim().toLowerCase();
+    const btn = document.getElementById('create-btn');
+    const hint = document.getElementById('error-hint');
+    
+    // Regex: ends with 't' OR 't se' OR 't si'
+    const isValid = /t$|t\s+se$|t\s+si$/.test(val);
+    
+    btn.disabled = !isValid;
+    hint.style.display = (val.length > 0 && !isValid) ? 'block' : 'none';
+}
+
+// Logic Orchestrator
+async function handleConjugation() {
+    const lemma = document.getElementById('verb-input').value.trim().toLowerCase();
+    const tense = document.getElementById('tense-select').value;
+    const gender = document.getElementById('gender-select').value;
+    
+    let irrType = 0;
+    let overrides = null;
+
+    // Fetch Database Info
+    if (db) {
+        const res = db.exec("SELECT irr_type FROM words WHERE lemma = ?", [lemma]);
+        if (res.length > 0) {
+            irrType = res[0].values[0][0];
+            const overRes = db.exec("SELECT * FROM overrides WHERE lemma = ?", [lemma]);
+            if (overRes.length > 0) {
+                overrides = {};
+                overRes[0].columns.forEach((col, idx) => { overrides[col] = overRes[0].values[0][idx]; });
+            }
+        }
+    }
+
+    let result = "";
+    if (tense === "past") result = createPast(lemma, gender, irrType, overrides);
+    if (tense === "present") result = createPresent(lemma, irrType, overrides);
+    if (tense === "future") result = createFuture(lemma, irrType, overrides);
+
+    document.getElementById('result-display').innerText = result;
+}
+
+/** * FUNCTIONS FOR EACH TENSE
+ */
+
+function createPast(lemma, gender, type, overrides) {
+    let parts = lemma.split(/\s+/);
+    let inf = parts[0];
+    let reflex = parts.length > 1 ? parts[1] : null; // se/si
+    let pastParticiple = "";
+
+    // Stem Change (Type 5) or Full Irr (Type 1, 2)
+    if ([1, 2, 5].includes(type) && overrides) {
+        const col = (gender === 'M') ? 'past_m' : (gender === 'F') ? 'past_f' : 'past_pl';
+        pastParticiple = overrides[col];
+    } else {
+        // Regular: remove -t, add -l, -la, -li
+        let base = inf.replace(/t$/, '');
+        pastParticiple = base + (gender === 'M' ? 'l' : gender === 'F' ? 'la' : 'li');
+    }
+
+    // Modal verb (jsem) + reflexive position
+    if (reflex) return `jsem ${reflex} ${pastParticiple}`;
+    return `jsem ${pastParticiple}`;
+}
+
+function createPresent(lemma, type, overrides) {
+    let parts = lemma.split(/\s+/);
+    let inf = parts[0];
+    let reflex = parts.length > 1 ? parts[1] : null;
+
+    if ([1, 3, 6].includes(type) && overrides) {
+        let form = overrides['ja_present'];
+        return reflex ? `${form} ${reflex}` : form;
+    }
+    
+    // Simple regular fallback (e.g., dělat -> dělám)
+    let form = inf.replace(/at$/, 'ám').replace(/ovat$/, 'uju').replace(/it$/, 'ím').replace(/et$/, 'ím');
+    return reflex ? `${form} ${reflex}` : form;
+}
+
+function createFuture(lemma, type, overrides) {
+    let parts = lemma.split(/\s+/);
+    let inf = parts[0];
+    let reflex = parts.length > 1 ? parts[1] : null;
+
+    // Stem change or Fully Irr (Type 1, 4, 7)
+    if ([1, 4, 7].includes(type) && overrides) {
+        let form = overrides['ja_future'];
+        return reflex ? `${form} ${reflex}` : form;
+    }
+
+    // Regular Imperfective Future: budu + infinitive
+    if (reflex) return `budu ${reflex} ${inf}`;
+    return `budu ${inf}`;
+}
+
+</script>
+</body>
+</html>

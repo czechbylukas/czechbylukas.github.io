@@ -35,12 +35,6 @@
 
 
 
-
-
-        /* Modal Styles */
-        .modal-content { background:white; max-width:800px; margin:40px auto; padding:20px; border-radius:12px; position:relative; box-shadow: 0 5px 15px rgba(0,0,0,0.5); }
-        #user-table { width:100%; border-collapse: collapse; margin-top: 10px; }
-        #user-table th, #user-table td { border: 1px solid #ddd; padding: 12px; text-align: left; }
     </style>
 </head>
 <body class="home">
@@ -74,9 +68,7 @@
 
 <header style="display: flex; align-items: center; justify-content: space-between; padding: 10px 20px; background: white; border-bottom: 2px solid #2c3e50;">
 
-<div style="flex: 1; display: flex; align-items: center; justify-content: center; gap: 15px;">
-    <button id="admin-trigger" class="test-btn" style="display:none; background:#f39c12; padding: 5px 10px; font-size: 0.7rem; white-space: nowrap;" onclick="openAdmin()">Teacher Console</button>
-</div>
+
 
     <div style="flex: 1; text-align: center;">
         <h1 id="heading-welcome" style="margin: 0; font-size: 1.5rem;">Study Tool</h1>
@@ -96,6 +88,7 @@
 </header>
 
 
+<aside id="sidebar-placeholder"></aside>
 
 
 
@@ -181,30 +174,7 @@ function insertChar(char) {
 
 </main>
 
-<div id="admin-modal" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.8); z-index:10001; overflow-y:auto;">
-    <div class="modal-content">
-        <span style="position:absolute; right:20px; top:10px; cursor:pointer; font-size:2rem;" onclick="closeAdmin()">&times;</span>
-        <h2>Teacher Console</h2>
-        <input type="text" id="user-search" placeholder="Search by name or email..." style="width:100%; padding:10px; margin-bottom:15px; border:1px solid #ddd; border-radius:5px;" onkeyup="filterUsers()">
 
-<table id="user-table">
-    <thead style="background:#eee;">
-        <tr>
-            <th>Name</th>
-            <th>Email</th>
-            <th>Paid Status</th> <th>Actions</th>
-        </tr>
-    </thead>
-    <tbody id="user-tbody"></tbody>
-</table>
-
-        <div id="report-section" style="display:none; margin-top:30px; border-top:2px solid #eee; padding-top:20px;">
-            <button class="test-btn" style="float:right; background:#7f8c8d;" onclick="document.getElementById('report-section').style.display='none'">Close Report</button>
-            <h3 id="report-title">Student Progress</h3>
-            <canvas id="adminProgressChart" style="width:100%; height:300px;"></canvas>
-        </div>
-    </div>
-</div>
 
 
 
@@ -228,16 +198,16 @@ function insertChar(char) {
 const auth = firebase.auth();
 const dbRef = firebase.database();
     
-    let db, currentWord, userWeights = {}, isSignUp = false, allUsers = {}, myChart;
+    let db, currentWord, userWeights = {}, isSignUp = false;
 
 window.userStatus = 'guest';
 
 // --- FINAL KEYBOARD SHORTCUTS (KILLS ALL HINTS/EMAILS) ---
 document.addEventListener('keydown', function(event) {
     // 1. Exit if Admin Modal or Auth is open
-    const isAdminOpen = document.getElementById('admin-modal').style.display === 'block';
-    const isAuthOpen = document.getElementById('auth-overlay').style.display !== 'none';
-    if (isAdminOpen || isAuthOpen) return;
+    // Only check for Auth, since Admin is gone
+const isAuthOpen = document.getElementById('auth-overlay').style.display !== 'none';
+if (isAuthOpen) return;
 
 // 2. Allow normal typing if searching for users OR focused on the guess box
 if (event.target.id === 'user-search' || event.target.id === 'word-guess-box') return;
@@ -297,108 +267,13 @@ if (window.userStatus !== 'paid') {
 }
 
         });
-
+}
         // 3. Show Teacher Console only for you
-        if(user.email === 'lukas@hackczech.com') {
-            document.getElementById('admin-trigger').style.display = 'block';
-        }
-    } else {
-        window.userStatus = 'guest';
-        document.getElementById('admin-trigger').style.display = 'none';
-        document.getElementById('ad-wrapper').style.display = 'block';
-loadAdsSafely();
-    }
+
 });
 
 
 
-
-
-
-
-    // --- ADMIN LOGIC ---
-function openAdmin() { 
-    document.getElementById('admin-modal').style.display = 'block'; 
-    loadUsers(); // This tells the code to fetch the students as soon as the window opens
-}
-
-
-    function closeAdmin() { document.getElementById('admin-modal').style.display = 'none'; }
-
-function loadUsers() {
-    console.log("Attempting to load users..."); // Debugging line
-    dbRef.ref('users').on('value', snap => {
-        allUsers = snap.val() || {};
-        console.log("Users received:", allUsers); // Look at your browser console (F12)
-        renderUserTable(allUsers);
-    }, error => {
-        console.error("Firebase error:", error);
-    });
-}
-
-
-
-
-
-
-// PASTE THESE TWO BELOW IT:
-function filterUsers() {
-    const term = document.getElementById('user-search').value.toLowerCase();
-    const rows = document.querySelectorAll('#user-tbody tr');
-    rows.forEach(row => {
-        const text = row.innerText.toLowerCase();
-        row.style.display = text.includes(term) ? '' : 'none';
-    });
-}
-
-function showReport(uid, name) {
-    alert("Progress charts for " + name + " are coming soon!");
-}
-
-
-
-
-// This function builds the list of students
-function renderUserTable(data) {
-    const tbody = document.getElementById('user-tbody');
-    tbody.innerHTML = '';
-    
-    for(let id in data) {
-        let u = data[id];
-        // Check if the user is currently 'paid'
-        const isPaid = u.status === 'paid';
-        
-        let row = `<tr>
-            <td>${u.name || 'N/A'}</td>
-            <td>${u.email}</td>
-            <td style="text-align:center;">
-                <input type="checkbox" 
-                       ${isPaid ? 'checked' : ''} 
-                       style="transform: scale(1.5); cursor:pointer;"
-                       onchange="togglePaidStatus('${id}', this.checked)">
-            </td>
-            <td>
-                <button class="test-btn" 
-                        style="background:#3498db; color:white; padding: 5px 10px; font-size: 0.8rem;" 
-                        onclick="showReport('${id}', '${u.name}')">View Progress</button>
-            </td>
-        </tr>`;
-        tbody.innerHTML += row;
-    }
-}
-
-// This function saves the checkbox change to Firebase instantly
-function togglePaidStatus(uid, isChecked) {
-    const newStatus = isChecked ? 'paid' : 'pending';
-    
-    dbRef.ref('users/' + uid).update({
-        status: newStatus
-    }).then(() => {
-        console.log("Status updated for " + uid);
-    }).catch(e => {
-        alert("Error updating status: " + e.message);
-    });
-}
 
 
 
@@ -411,8 +286,10 @@ function togglePaidStatus(uid, isChecked) {
     // GET LEVELS FROM DATABASE COLUMD D
 async function initDatabase() {
     // FIX: Set the dropdown value to match saved language
-    const savedLang = localStorage.getItem("selectedLanguage") || "en";
-    document.getElementById('ui-lang-select').value = savedLang;
+    // Polished version
+        let savedLang = localStorage.getItem("selectedLanguage") || "en";
+        if (savedLang === "cs") savedLang = "en"; // Force UI to show English
+document.getElementById('ui-lang-select').value = savedLang;
     try {
         const sqlPromise = initSqlJs({ locateFile: file => `https://cdnjs.cloudflare.com/ajax/libs/sql.js/1.6.2/${file}` });
 	const response = await fetch("czech_master.db");        
@@ -502,8 +379,12 @@ function getRandomWord() {
     if(!db) return;
     
     const combinedValue = document.getElementById('level-select').value;
-const currentLang = localStorage.getItem("selectedLanguage") || "en";
-const langColumn = "trans_" + currentLang;
+    
+    // Get the language, but if it's 'cs', treat it as 'en'
+    let currentLang = localStorage.getItem("selectedLanguage") || "en";
+    if (currentLang === "cs") currentLang = "en"; 
+
+    const langColumn = "trans_" + currentLang;
 
 // IF NO LESSON IS SELECTED
     if(!combinedValue || combinedValue.includes("Vyberte")) {
@@ -578,9 +459,10 @@ const query = `SELECT lemma, ${langColumn}, image_path, audio_path, synonym, vid
         
         // Fill pool based on weights
         rows.forEach(r => {
-            const w = userWeights[r[0]] || 5;
-            for(let i=0; i<w; i++) pool.push(r);
-        });
+            const safeKey = r[0].replace(/[.#$[\]/]/g, "_"); 
+        const w = userWeights[safeKey] || 5;
+        for(let i=0; i<w; i++) pool.push(r);
+    });
         
         // Pick random word from pool
         const s = pool[Math.floor(Math.random() * pool.length)];
@@ -676,7 +558,7 @@ function evaluateTyping() {
         } else {
             document.getElementById('typo-msg').innerText = "Bohužel...";
             recordMistake(currentWord.czech);
-            showAnswer(2);
+            showAnswer(1);
         }
     }
 }
@@ -723,23 +605,25 @@ function updateWeight(choice) {
     } else {
         // choice === 'no'
         recordMistake(currentWord.czech);
-        showAnswer(2);
+        showAnswer(1);
     }
 }
 
 function adjustWeight(change) {
     if(window.userStatus !== 'paid' || !auth.currentUser) return; 
     
-    let w = userWeights[currentWord.czech] || 5;
-    userWeights[currentWord.czech] = Math.max(1, w + change);
+    const safeKey = currentWord.czech.replace(/[.#$[\]/]/g, "_");
+    
+    let w = userWeights[safeKey] || 5;
+    userWeights[safeKey] = Math.max(1, w + change);
     dbRef.ref('users/'+auth.currentUser.uid+'/weights').set(userWeights);
 }
 
 
 
-    // Levenshtein and Keyboard logic removed for brevity but keep them in your actual file!
-    fetch("../footer.html").then(r => r.text()).then(d => { document.getElementById("footer-placeholder").innerHTML = d; });
-
+// Levenshtein and Keyboard logic removed for brevity but keep them in your actual file!
+fetch("/sidebar/sidebar.html").then(r => r.text()).then(d => { document.getElementById("sidebar-placeholder").innerHTML = d; }).catch(err => console.error("Sidebar load failed"));
+fetch("../footer.html").then(r => r.text()).then(d => { document.getElementById("footer-placeholder").innerHTML = d; });
 
 
 
