@@ -258,17 +258,20 @@ function renderVerbList(list) {
             const inputSection = document.getElementById('input-section');
             const inputField = document.getElementById('verb-input');
 
-            // Only allow clicking if the input section is visible (Step 1/Input page)
             if (inputSection.style.display !== 'none') {
+                // 1. Update the local field
                 inputField.value = verb;
                 inputField.focus();
                 
-                // Trigger the existing logic to light up the blue button
+                // 2. BROADCAST to the student via Firebase
+                syncToCloud({ liveInput: verb });
+                
+                // 3. Trigger the button logic (lights up the blue button)
                 if (window.checkInputForButton) {
                     window.checkInputForButton();
                 }
                 
-                console.log(`Verb "${verb}" selected.`);
+                console.log(`Verb "${verb}" selected and synced.`);
             } else {
                 console.log("Click ignored: Lesson is currently in progress.");
             }
@@ -302,38 +305,200 @@ initDatabase();
     window.sessionSentences = [];
     window.days = ["v neděli", "v pondělí", "v úterý", "ve středu", "ve čtvrtek", "v pátek", "v sobotu", "o víkendu", "minulý týden", "minulý rok", "loni"];
     window.dayIdx = 0;
+    // Identify the session from URL (e.g. ?sid=pavel)
+    // --- SESSION & ROOM LOGIC ---
+// --- ROBUST SESSION LOGIC ---
+const urlParams = new URLSearchParams(window.location.search);
+const rawName = urlParams.get('sid') || "room1"; 
+
+// 1. Create a "Safe" ID for Firebase (Removes accents, spaces, and dots)
+// Example: "Pavel Dvořák" -> "pavel-dvorak"
+window.sessionId = rawName
+    .normalize("NFD")                   // Breaks "ř" into "r" + "ˇ"
+    .replace(/[\u0300-\u036f]/g, "")    // Removes the "ˇ"
+    .toLowerCase()
+    .replace(/\s+/g, '-')               // Replaces spaces with -
+    .replace(/[^a-z0-9\-]/g, '');       // Removes any other weird symbols
+
+// 2. Set the Firebase reference using the SAFE ID
+window.dbRef = firebase.database().ref('sessions/' + window.sessionId);
+console.log("Firebase Path:", "sessions/" + window.sessionId);
+
+// 3. Display the PRETTY name (original) in the header
+document.querySelector('header h1').innerText += ` | Student: ${rawName}`;
+
+
+// --- UPDATED UNIVERSAL LISTENER ---
+window.dbRef.on('value', (snapshot) => {
+    const data = snapshot.val();
+    if (!data) return;
+
+    
+    // 0. Sync the Day Index (PUT IT HERE)
+    if (data.dayIdx !== undefined) {
+        window.dayIdx = data.dayIdx;
+        // If the lesson is active and we are at Step 1, refresh the text
+        if (data.lessonStarted && data.currentStep === 1) {
+            // We use a small timeout to ensure other data (like liveInput) 
+            // is processed before we redraw the question
+            setTimeout(() => showQuestion(), 10);
+        }
+    }
+    const inputField = document.getElementById('verb-input');
+    const genderField = document.getElementById('gender-switch');
+    const infoDisplay = document.getElementById('verb-info-display');
+    const answerDiv = document.getElementById('answer-display');
+
+    // NEW: Sync the verification status globally so the student knows if it was in the DB
+    if (data.isVerified !== undefined) {
+        window.currentVerbVerified = data.isVerified;
+    }
+
+    // 1. Sync Gender
+    if (data.gender && genderField.value !== data.gender) {
+        genderField.value = data.gender;
+        document.getElementById('input-section').style.display = 'block';
+    }
+
+    // 2. Sync Input text
+    // 2. Sync Input text (Forced override)
+    if (data.liveInput !== undefined) {
+        // We update the value even if the student is focused on the field
+        if (inputField.value !== data.liveInput) {
+            inputField.value = data.liveInput;
+            window.checkInputForButton(); 
+        }
+    }
+
+    // 3. Sync Lesson State
+    const lessonSection = document.getElementById('lesson-section');
+    const inputSection = document.getElementById('input-section');
+
+    if (data.lessonStarted) {
+        window.currentVerb = data.liveInput;
+        inputSection.style.display = 'none';
+        lessonSection.style.display = 'block';
+        
+        let displayHtml = data.liveInput.replace(/t(\s|$)/, '<b style="color:red">t</b>$1');
+        infoDisplay.innerHTML = " | " + displayHtml;
+
+        if (data.currentStep !== undefined && window.step !== data.currentStep) {
+            window.step = data.currentStep;
+            renderStepUI(data.currentStep);
+        }
+    } else {
+        // LOGGING LOGIC: Now both computers use the shared window.currentVerbVerified
+        if (window.step > 0 && answerDiv.innerText.trim() !== "") {
+            const note = (window.currentVerbVerified === false) 
+                ? `<br><small style="color:red; font-style:italic;">I do not know this verb, so I could not verify.</small>` 
+                : "";
+            document.getElementById('log-content').innerHTML += `<div>${answerDiv.innerHTML}${note}</div>`;
+            window.sessionSentences.push(answerDiv.innerText);
+        }
+
+        // Reset UI
+        inputSection.style.display = 'block';
+        lessonSection.style.display = 'none';
+        infoDisplay.innerHTML = ""; 
+        window.step = 0;
+    }
+});
+
+// --- UPDATED RENDER UI ---
+function renderStepUI(step) {
+    if (step === 0) return; // Ignore reset state here
+
+    let day = window.days[window.dayIdx];
+    let answerDiv = document.getElementById('answer-display');
+    const g = document.getElementById('gender-switch').value;
+    const nextBtn = document.getElementById('next-step-btn');
+
+    if (step === 1) {
+        showQuestion(); // This resets the question text
+    } else if (step === 2) {
+        answerDiv.innerText = day.charAt(0).toUpperCase() + day.slice(1);
+        let nextAux = g.startsWith('Pl') ? "jsme" : "jsem";
+        nextBtn.innerText = `Krok 2 -> ${nextAux}`;
+    } else if (step === 3) {
+        const aux = (g === 'PlN') ? '<span style="color:#999">__</span>' : (g.startsWith('Pl') ? "jsme" : "jsem");
+        answerDiv.innerHTML = day.charAt(0).toUpperCase() + day.slice(1) + ` <span class="blue-bold">${aux}</span>`;
+        nextBtn.innerText = "Krok 3 (Sloveso)";
+    } else if (step === 4) {
+        let parts = window.currentVerb.split(/\s+/);
+        let base = parts[0].replace(/t$/, '');
+        let reflex = parts.length > 1 ? parts[1] : "";
+        const endings = { 'M': 'l', 'F': 'la', 'N': 'lo', 'Pl': 'li', 'PlFem': 'ly', 'PlN': 'la' };
+        const end = endings[g] || 'l';
+        
+        let aux = (g === 'PlN') ? '<span style="color:#999">__</span>' : (g.startsWith('Pl') ? "jsme" : "jsem");
+        let result = day.charAt(0).toUpperCase() + day.slice(1) + ` <span class="blue-bold">${aux}</span>`;
+        
+        if (reflex !== "") {
+            result += ` <span class="blue-bold">${reflex}</span> ${base}<span class="blue-bold">${end}</span>.`;
+        } else {
+            result += ` ${base}<span class="blue-bold">${end}</span>.`;
+        }
+        answerDiv.innerHTML = result;
+        nextBtn.innerText = "Další sloveso";
+    }
+}
+
+
+
+
+
+    // --- UNIVERSAL BI-DIRECTIONAL SYNC ---
+function syncToCloud(data) {
+    window.dbRef.update(data);
+}
+
+
+
+
+
+
+
+
+
 
     // --- STEP 1: GENDER PICKED ---
     window.showVerbInput = function() {
-        document.getElementById('input-section').style.display = 'block';
-        document.getElementById('verb-input').focus();
-    };
+        console.log("Gender changed!"); 
+    const g = document.getElementById('gender-switch').value;
+    syncToCloud({ gender: g }); // <--- Add this line
+    document.getElementById('input-section').style.display = 'block';
+    document.getElementById('verb-input').focus();
+};
 
     // --- STEP 2: TYPING VERB (BUTTON APPEARS) ---
-    window.checkInputForButton = function() {
-    const input = document.getElementById('verb-input');
-    const btn = document.getElementById('start-btn');
-    const val = input.value.trim().toLowerCase();
+    // --- STEP 2: TYPING VERB (BUTTON APPEARS) ---
+    window.checkInputForButton = function() {
+        console.log("Typing detected...");
+        const input = document.getElementById('verb-input');
+        const btn = document.getElementById('start-btn');
+        const val = input.value.trim().toLowerCase();
 
-    // Logic: ends with 't', 't se', or 't si'
-    const isValid = /t$|t\s+se$|t\s+si$/.test(val);
+        if (document.activeElement === input) {
+            syncToCloud({ liveInput: input.value });
+        }
 
-    if (isValid) {
-        btn.disabled = false;
-        btn.style.opacity = "1";
-        btn.style.cursor = "pointer";
-    } else {
-        btn.disabled = true;
-        btn.style.opacity = "0.5";
-        btn.style.cursor = "not-allowed";
-    }
-};
+        const isValid = /t$|t\s+se$|t\s+si$/.test(val);
+        btn.disabled = !isValid;
+        btn.style.opacity = isValid ? "1" : "0.5";
+        btn.style.cursor = isValid ? "pointer" : "not-allowed";
+    }; // <--- ONLY ONE CLOSING BRACKET HERE.
+
+
 
     // --- STEP 3: START LESSON ---
     window.startLesson = function() {
+        clearTimeout(window.syncTimer);
+// Missing update call here?
     const input = document.getElementById('verb-input');
     const val = input.value.trim().toLowerCase();
-    const infoDisplay = document.getElementById('verb-info-display');
+
+    // Clear any pending syncs and update liveInput to empty (cleaning up)
+    clearTimeout(window.syncTimer);
     
     // 1. Basic format validation (-t ending)
     if (!/t$|t\s+se$|t\s+si$/.test(val)) {
@@ -342,36 +507,34 @@ initDatabase();
         return;
     }
 
-
     // 2. Database Checks
     if (db) {
-    try {
-        const stmt = db.prepare("SELECT is_irr FROM words WHERE lemma = ? AND pos LIKE '%verb%' LIMIT 1");
-        stmt.bind([val]);
-        
-        let exists = false;
-        let isIrregular = false;
+        try {
+            const stmt = db.prepare("SELECT is_irr FROM words WHERE lemma = ? AND pos LIKE '%verb%' LIMIT 1");
+            stmt.bind([val]);
+            
+            let exists = false;
+            let isIrregular = false;
 
-        if (stmt.step()) {
-            exists = true;
-            const row = stmt.get();
-            isIrregular = (row[0] === 1);
-        }
-        stmt.free();
+            if (stmt.step()) {
+                exists = true;
+                const row = stmt.get();
+                isIrregular = (row[0] === 1);
+            }
+            stmt.free();
 
-        if (isIrregular) {
-            alert("This Verb may be irregular...");
-            return;
-        }
+            if (isIrregular) {
+                alert("This Verb may be irregular...");
+                return;
+            }
 
-        if (!exists) {
-            window.currentVerbVerified = false; // Flag as false
-            const proceed = confirm(`I do not know the verb "${val}". Proceed?`);
-            if (!proceed) return;
-        } else {
-            window.currentVerbVerified = true; // IMPORTANT: Reset to true if found!
-        }
-
+            if (!exists) {
+                window.currentVerbVerified = false; 
+                const proceed = confirm(`I do not know the verb "${val}". Proceed?`);
+                if (!proceed) return;
+            } else {
+                window.currentVerbVerified = true; 
+            }
         } catch (e) {
             console.error("Verification error:", e);
         }
@@ -381,9 +544,20 @@ initDatabase();
     input.classList.remove('error');
     window.currentVerb = val; 
 
+    // Define displayHtml BEFORE using it
     let displayHtml = val.replace(/t(\s|$)/, '<b style="color:red">t</b>$1');
-    infoDisplay.innerHTML = " | " + displayHtml;
-    
+
+    // SYNC EVERYTHING TO CLOUD
+    syncToCloud({ 
+        lessonStarted: true, 
+        liveInput: val, 
+        currentStep: 1,
+        isVerified: window.currentVerbVerified,
+        dayIdx: window.dayIdx // <--- Add this to ensure they start on the same day
+    });
+
+    // Local UI update
+    document.getElementById('verb-info-display').innerHTML = " | " + displayHtml;
     document.getElementById('input-section').style.display = 'none';
     document.getElementById('lesson-section').style.display = 'block';
     showQuestion();
@@ -414,89 +588,62 @@ initDatabase();
 };
 
     // --- STEP 5: THE PROGRESSIVE ANSWER ---
-    window.nextStep = function() {
-        let day = window.days[window.dayIdx];
-        let answerDiv = document.getElementById('answer-display');
+   window.nextStep = function() {
+    let day = window.days[window.dayIdx];
+    let answerDiv = document.getElementById('answer-display');
 
-        if (window.step === 1) {
-    answerDiv.innerText = day.charAt(0).toUpperCase() + day.slice(1);
-    
-    // Label logic
-    const g = document.getElementById('gender-switch').value;
-    let nextAux = g.startsWith('Pl') ? "jsme" : "jsem";
-    if (g === 'PlN') nextAux = "jsme";
-    
-    document.getElementById('next-step-btn').innerText = `Krok 2 (${g.startsWith('Pl')?'jste':'jsi'} -> ${nextAux})`;
-    window.step = 2;
-}
-        else if (window.step === 2) {
-            const g = document.getElementById('gender-switch').value;
-    if (g === 'PlN') {
-        answerDiv.innerHTML += ` <span style="color:#999">__</span>`; // Neutral Plural bypass
-    } else {
-        const aux = g.startsWith('Pl') ? "jsme" : "jsem";
-        answerDiv.innerHTML += ` <span class="blue-bold">${aux}</span>`;
+    if (window.step === 1) {
+        answerDiv.innerText = day.charAt(0).toUpperCase() + day.slice(1);
+        const g = document.getElementById('gender-switch').value;
+        let nextAux = g.startsWith('Pl') ? "jsme" : "jsem";
+        if (g === 'PlN') nextAux = "jsme";
+        document.getElementById('next-step-btn').innerText = `Krok 2 -> ${nextAux}`;
+        window.step = 2;
+        syncToCloud({ currentStep: 2 });
     }
-    window.step = 3;
-}
+    else if (window.step === 2) {
+        const g = document.getElementById('gender-switch').value;
+        const aux = (g === 'PlN') ? '<span style="color:#999">__</span>' : (g.startsWith('Pl') ? "jsme" : "jsem");
+        answerDiv.innerHTML += ` <span class="blue-bold">${aux}</span>`;
+        window.step = 3;
+        syncToCloud({ currentStep: 3 });
+    }
+    else if (window.step === 3) {
+        let parts = window.currentVerb.split(/\s+/);
+        let base = parts[0].replace(/t$/, '');
+        let reflex = parts.length > 1 ? parts[1] : "";
+        const val = document.getElementById('gender-switch').value;
+        const endings = { 'M': 'l', 'F': 'la', 'N': 'lo', 'Pl': 'li', 'PlFem': 'ly', 'PlN': 'la' };
+        const end = endings[val] || 'l';
 
-
-        else if (window.step === 3) {
-            // 1. Parse the verb and reflexive pronoun
-            let parts = window.currentVerb.split(/\s+/); // Splits "učit se" into ["učit", "se"]
-            let base = parts[0].replace(/t$/, '');       // "učit" -> "uči"
-            let reflex = parts.length > 1 ? parts[1] : ""; // "se" or "si"
-            
-            const val = document.getElementById('gender-switch').value;
-            const endings = { 'M': 'l', 'F': 'la', 'N': 'lo', 'Pl': 'li', 'PlFem': 'ly', 'PlN': 'la' };
-            const end = endings[val] || 'l';
-
-            // 2. Word Order Logic: 
-            // If reflexive exists, put it after "jsem", then the L-part.
-            // If not, just put the L-part.
-            if (reflex !== "") {
-                // Get the current text (which ends with "jsem") and insert reflex
-                answerDiv.innerHTML += ` <span class="blue-bold">${reflex}</span> ${base}<span class="blue-bold">${end}</span>.`;
-            } else {
-                answerDiv.innerHTML += ` ${base}<span class="blue-bold">${end}</span>.`;
-            }
-            
-            document.getElementById('next-step-btn').innerText = "Další sloveso";
-            window.step = 4;
+        if (reflex !== "") {
+            answerDiv.innerHTML += ` <span class="blue-bold">${reflex}</span> ${base}<span class="blue-bold">${end}</span>.`;
+        } else {
+            answerDiv.innerHTML += ` ${base}<span class="blue-bold">${end}</span>.`;
         }
-        else {
-    // 1. Save to history
-    // Only create the note string IF currentVerbVerified is false
-    let note = (window.currentVerbVerified === false) 
-        ? `<br><small style="color:red; font-style:italic;">I do not know this verb, so I could not verify.</small>` 
-        : "";
+        document.getElementById('next-step-btn').innerText = "Další sloveso";
+        window.step = 4;
+        syncToCloud({ currentStep: 4 });
+    }
+    else {
+        // UPDATE DAY INDEX locally for the person who clicked
+        const newDayIdx = (window.dayIdx + 1) % window.days.length;
 
-    document.getElementById('log-content').innerHTML += `<div>${answerDiv.innerHTML}${note}</div>`;
-    window.sessionSentences.push(answerDiv.innerText);
+        // SYNC RESET: This triggers the logging logic in the .on('value') listener for EVERYONE
+        syncToCloud({ 
+            lessonStarted: false, 
+            currentStep: 0, 
+            liveInput: "",
+            dayIdx: newDayIdx  
+        });
 
-
-            // 2. Move to next day
-            window.dayIdx = (window.dayIdx + 1) % window.days.length;
-            
-            // 3. CLEAR THE VISUAL VERB INFO (The red bold 't')
-            document.getElementById('verb-info-display').innerHTML = "";
-
-            // 4. Toggle sections
-            document.getElementById('input-section').style.display = 'block';
-            document.getElementById('lesson-section').style.display = 'none';
-            
-            // 5. Reset Input and Button
-            const input = document.getElementById('verb-input');
-            const btn = document.getElementById('start-btn');
-            input.value = "";
-            input.focus();
-            
-            // Re-disable the button for the new word
-            btn.disabled = true;
-            btn.style.opacity = "0.5";
-            btn.style.cursor = "not-allowed";
-        }
-    };
+        // Focus management
+        const input = document.getElementById('verb-input');
+        input.value = "";
+        input.focus();
+        document.getElementById('start-btn').disabled = true;
+    }
+};
 
     // --- TEACHER MODAL LOGIC ---
     window.openGoogleModal = function() {
@@ -562,18 +709,17 @@ fetch("../footer.html")
 
     
     // Firebase Auth Sidebar
-    try {
-        firebase.auth().onAuthStateChanged((user) => {
-            if (user && user.email === 'lukas@hackczech.com') {
-                document.getElementById('teacher-sidebar').style.display = 'block';
-            }
-        });
-    } catch (e) {}
+    // Firebase Auth Sidebar
+try {
+    firebase.auth().onAuthStateChanged((user) => {
+        if (user && user.email === 'lukas@hackczech.com') {
+            document.getElementById('teacher-sidebar').style.display = 'block';
+        }
+    });
+} catch (e) { console.error("Auth error:", e); }
 
-
-
-
-    const chars = ['ž','š','č','ř','ď','ť','ň','ě','á','é','í','ý','ó','ú','ů'];
+// --- CHAR PICKER ---
+const chars = ['ž','š','č','ř','ď','ť','ň','ě','á','é','í','ý','ó','ú','ů'];
 const picker = document.getElementById('char-picker'); // Ensure you have this div in HTML
 chars.forEach(char => {
     let span = document.createElement('span');
