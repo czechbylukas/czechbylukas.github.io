@@ -304,9 +304,15 @@ document.getElementById('ui-lang-select').value = savedLang;
 
         if (res[0]) {
             const sortedRows = res[0].values.sort((a, b) => {
-                if (a[0] !== b[0]) return a[0].localeCompare(b[0]);
-                return parseInt(a[1]) - parseInt(b[1]) || a[1].localeCompare(b[1]);
-            });
+    // Treat NULL or empty values as an empty string "" so localeCompare doesn't crash
+    const levelA = a[0] || "";
+    const levelB = b[0] || "";
+    const lessonA = a[1] || "";
+    const lessonB = b[1] || "";
+
+    if (levelA !== levelB) return levelA.localeCompare(levelB);
+    return parseInt(lessonA) - parseInt(lessonB) || lessonA.localeCompare(lessonB);
+});
 
             let uniqueLevels = new Set(); // To store levels for the "All" options later
             let currentGroup = null;
@@ -346,15 +352,17 @@ document.getElementById('ui-lang-select').value = savedLang;
         const posRes = db.exec("SELECT DISTINCT pos FROM words WHERE pos IS NOT NULL AND pos != ''");
         if(posRes[0]) {
             const posSelect = document.getElementById('pos-select');
+            let optionsHtml = '<option value="all">All Types</option>'; 
             posRes[0].values.sort().forEach(row => {
-    if (row[0].toLowerCase() === 'verb') {
-        // We manually add the two versions and skip the default one
-        posSelect.innerHTML += `<option value="verb|filtered">verb</option>`;
-        posSelect.innerHTML += `<option value="verb">verb with vid (Grammatical aspect)</option>`;
-    } else {
-        posSelect.innerHTML += `<option value="${row[0]}">${row[0]}</option>`;
-    }
-});
+                const val = row[0];
+                if (val.toLowerCase() === 'verb') {
+                    optionsHtml += `<option value="verb|filtered">verb</option>`;
+                    optionsHtml += `<option value="verb">verb with vid (Grammatical aspect)</option>`;
+                } else {
+                    optionsHtml += `<option value="${val}">${val}</option>`;
+                }
+            });
+            posSelect.innerHTML = optionsHtml;
         }
 
 // --- DYNAMICALLY LOAD CATEGORY (COLUMN K) ---
