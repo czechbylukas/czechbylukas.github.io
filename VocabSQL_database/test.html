@@ -292,48 +292,46 @@ async function initDatabase() {
 document.getElementById('ui-lang-select').value = savedLang;
     try {
         const sqlPromise = initSqlJs({ locateFile: file => `https://cdnjs.cloudflare.com/ajax/libs/sql.js/1.6.2/${file}` });
-	const response = await fetch("czech_master.db");        
-	const buf = await response.arrayBuffer();
+	    const response = await fetch("czech_master.db");        
+	    const buf = await response.arrayBuffer();
         const [SQL, data] = await Promise.all([sqlPromise, buf]);
         db = new SQL.Database(new Uint8Array(data));
 
 // 1. Populate Lesson Select
-        const res = db.exec("SELECT DISTINCT level, lesson FROM words");
+        const res = db.exec("SELECT DISTINCT level, lesson FROM words WHERE level IS NOT NULL AND level != '' AND lesson IS NOT NULL AND lesson != ''");
         const select = document.getElementById('level-select');
         select.innerHTML = '<option disabled selected>Vyberte sadu...</option>'; 
 
         if (res[0]) {
             const sortedRows = res[0].values.sort((a, b) => {
     // Treat NULL or empty values as an empty string "" so localeCompare doesn't crash
-    const levelA = a[0] || "";
-    const levelB = b[0] || "";
-    const lessonA = a[1] || "";
-    const lessonB = b[1] || "";
-
-    if (levelA !== levelB) return levelA.localeCompare(levelB);
-    return parseInt(lessonA) - parseInt(lessonB) || lessonA.localeCompare(lessonB);
+    // 1. Sort the valid data from the database
+    if (a[0] !== b[0]) return a[0].localeCompare(b[0]);
+    return parseInt(a[1]) - parseInt(b[1]) || a[1].localeCompare(b[1]);
 });
 
-            let uniqueLevels = new Set(); // To store levels for the "All" options later
-            let currentGroup = null;
-            let groupElement = null;
+let uniqueLevels = new Set(); 
+let currentGroup = null;
+let groupElement = null;
 
-            sortedRows.forEach(row => {
-                const levelVal = row[0] || "N/A";
-                const lessonVal = row[1] || "General";
-                uniqueLevels.add(levelVal);
-
-                if (levelVal !== currentGroup) {
-                    currentGroup = levelVal;
-                    groupElement = document.createElement('optgroup');
-                    groupElement.label = `Level ${levelVal}`;
-                    select.appendChild(groupElement);
-                }
-                const opt = document.createElement('option');
-                opt.value = `${levelVal}|${lessonVal}`;
-                opt.innerText = lessonVal.substring(3);
-                groupElement.appendChild(opt);
-            });
+// 2. Build the dropdown
+sortedRows.forEach(row => {
+    const levelVal = row[0]; // Define FIRST
+    const lessonVal = row[1]; // Define FIRST
+    uniqueLevels.add(levelVal); // Now use it
+    if (levelVal !== currentGroup) {
+        currentGroup = levelVal;
+        groupElement = document.createElement('optgroup');
+        groupElement.label = `Level ${levelVal}`;
+        select.appendChild(groupElement);
+    }
+    
+    const opt = document.createElement('option');
+    opt.value = `${levelVal}|${lessonVal}`;
+    // Removes the prefix (e.g., "01 ") from the lesson name for display
+    opt.innerText = lessonVal.substring(3); 
+    groupElement.appendChild(opt);
+});
 
             // ADD "ALL LEVEL" OPTIONS AT THE VERY BOTTOM
             const allGroup = document.createElement('optgroup');
