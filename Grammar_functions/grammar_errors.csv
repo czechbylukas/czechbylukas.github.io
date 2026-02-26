@@ -1,0 +1,5 @@
+Timestamp,Lemma,Word_ID,Person_Number,Error_Type
+2026-02-25 21:31,být,1,2S,Missing ty_present
+2026-02-25 21:33,být,1,2S,Missing ty_present
+2026-02-25 23:11,přečíst,394,1S,Missing ja_present
+2026-02-25 23:12,být,1,1S,Missing ja_future

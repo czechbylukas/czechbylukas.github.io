@@ -1,0 +1,85 @@
+import pandas as pd
+
+# Load the data
+words_df = pd.read_csv('Czech_Linguistic_Database - words.csv')
+overrides_df = pd.read_csv('Czech_Linguistic_Database - overrides.csv')
+
+def get_verb_overrides(verb_id, lemma):
+    """Retrieves override data for a specific verb by ID or Lemma."""
+    res = overrides_df[overrides_df['word_id'] == verb_id]
+    if res.empty:
+        res = overrides_df[overrides_df['form_key'] == lemma]
+    return res.iloc[0].to_dict() if not res.empty else None
+
+def create_present(verb_id):
+    word = words_df[words_df['id'] == verb_id].iloc[0]
+    lemma, pattern = word['lemma'], word['pattern_id']
+    is_irr, irr_type = word['is_irr'], word['irr_type']
+    ov = get_verb_overrides(verb_id, lemma)
+    
+    # Priority 1: Overrides for irregulars (Types 1, 3, 6)
+    if is_irr == 1 and (irr_type in [1.0, 3.0, 6.0] or ov):
+        forms = {p: ov.get(f'{k}_present') for p, k in zip(['1sg','2sg','3sg','1pl','2pl','3pl'], ['ja','ty','on','my','vy','oni'])}
+        if any(pd.notna(v) for v in forms.values()):
+            return {k: (v if pd.notna(v) else "...") for k, v in forms.items()}
+
+    # Priority 2: Pattern-based conjugation
+    suffix = " se" if " se" in lemma else " si" if " si" in lemma else ""
+    clean_inf = lemma.replace(suffix, "")
+    
+    patterns = {
+        'dělat':    (clean_inf[:-2], ['ám', 'áš', 'á', 'áme', 'áte', 'ají']),
+        'prosit':   (clean_inf[:-2], ['ím', 'íš', 'í', 'íme', 'íte', 'í']),
+        'sázet':    (clean_inf[:-2], ['ím', 'íš', 'í', 'íme', 'íte', 'ejí']),
+        'děkovat':  (clean_inf[:-4], ['uju', 'uješ', 'uje', 'ujeme', 'ujete', 'ujou']),
+        'nést':     ('nes' if clean_inf == 'nést' else clean_inf[:-2], ['u', 'eš', 'e', 'eme', 'ete', 'ou']),
+        'tisknout': (clean_inf[:-4] + 'n', ['u', 'eš', 'e', 'eme', 'ete', 'ou'])
+    }
+    
+    if pattern in patterns:
+        stem, endings = patterns[pattern]
+        return {p: f"{stem}{e}{suffix}" for p, e in zip(['1sg','2sg','3sg','1pl','2pl','3pl'], endings)}
+    
+    return "Unknown Pattern"
+
+def create_past(verb_id):
+    word = words_df[words_df['id'] == verb_id].iloc[0]
+    lemma, is_irr, irr_type = word['lemma'], word['is_irr'], word['irr_type']
+    ov = get_verb_overrides(verb_id, lemma)
+    
+    past_part = None
+    if is_irr == 1 and (irr_type in [1.0, 2.0, 5.0] or ov):
+        past_part = ov.get('past_participle') if ov else None
+    
+    if not past_part or pd.isna(past_part):
+        clean_inf = lemma.replace(" se", "").replace(" si", "")
+        past_part = clean_inf[:-4] + 'l' if clean_inf.endswith('nout') else clean_inf[:-1] + 'l'
+            
+    suffix = " se" if " se" in lemma else " si" if " si" in lemma else ""
+    plural_part = past_part[:-1] + 'li' if past_part.endswith('l') else past_part + 'i'
+    
+    return {
+        '1sg': f"{past_part} jsem{suffix}", '2sg': f"{past_part} jsi{suffix}", '3sg': f"{past_part}{suffix}",
+        '1pl': f"{plural_part} jsme{suffix}", '2pl': f"{plural_part} jste{suffix}", '3pl': f"{plural_part}{suffix}"
+    }
+
+def create_future(verb_id):
+    word = words_df[words_df['id'] == verb_id].iloc[0]
+    lemma, vid, is_irr, irr_type = word['lemma'], word['vid'], word['is_irr'], word['irr_type']
+    ov = get_verb_overrides(verb_id, lemma)
+    
+    # Priority 1: Overrides for irregulars (Types 1, 4, 7)
+    if is_irr == 1 and (irr_type in [1.0, 4.0, 7.0] or ov):
+        forms = {p: ov.get(f'{k}_future') for p, k in zip(['1sg','2sg','3sg','1pl','2pl','3pl'], ['ja','ty','on','my','vy','oni'])}
+        if any(pd.notna(v) for v in forms.values()):
+            return forms
+
+    # Priority 2: Perfective verbs use present forms as future
+    if vid == 'perfective':
+        return create_present(verb_id)
+    
+    # Priority 3: Imperfective verbs use 'budu' + infinitive
+    ref = " se" if " se" in lemma else " si" if " si" in lemma else ""
+    inf = lemma.replace(ref, "")
+    return {p: f"{b}{ref} {inf}" for p, b in zip(['1sg','2sg','3sg','1pl','2pl','3pl'], 
+                                                 ['budu','budeš','bude','budeme','budete','budou'])}

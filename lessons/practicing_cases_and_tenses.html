@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+    <meta charset="UTF-8">
+    <title>Czech Grammar Master | HáCZech Dashboard</title>
+    <style>
+        :root { --primary: #007bff; --success: #28a745; --warning: #ffc107; --dark: #333; }
+        body { font-family: 'Segoe UI', sans-serif; background: #f0f4f8; display: flex; flex-direction: column; align-items: center; min-height: 100vh; margin: 0; padding: 20px; }
+        
+        .container { background: white; padding: 40px; border-radius: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.1); width: 100%; max-width: 600px; text-align: center; }
+        header h1 { color: var(--primary); margin-bottom: 5px; }
+        .subtitle { color: #666; margin-bottom: 30px; font-size: 14px; }
+
+        .form-group { display: flex; flex-direction: column; gap: 15px; transition: all 0.3s ease; }
+        .row { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+        
+        select, input { padding: 14px; border: 2px solid #eee; border-radius: 10px; font-size: 16px; outline: none; transition: 0.2s; }
+        select:focus, input:focus { border-color: var(--primary); }
+
+        .btn-generate { background: var(--primary); color: white; border: none; padding: 16px; border-radius: 10px; font-size: 18px; font-weight: bold; cursor: pointer; margin-top: 10px; }
+        .btn-generate:hover { background: #0056b3; }
+        .btn-generate:disabled { background: #ccc; cursor: not-allowed; }
+
+        /* Result Section */
+        #result-card { display: none; margin-top: 30px; padding: 25px; border-radius: 15px; background: #f8f9fa; border-left: 6px solid var(--success); }
+        #result-text { font-size: 28px; font-weight: bold; color: var(--dark); display: block; margin-bottom: 10px; }
+        .badge { display: inline-block; padding: 5px 12px; border-radius: 5px; font-size: 12px; font-weight: bold; text-transform: uppercase; margin-right: 5px; background: #ddd; color: #555; }
+        .badge-warning { background: var(--warning); color: #000; }
+
+        .loading { display: none; margin: 10px 0; font-style: italic; color: var(--primary); }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <header>
+        <h1>HáCZech Engine</h1>
+        <p class="subtitle">Connected to Python Flask API (Port 5000)</p>
+    </header>
+
+    <div class="form-group">
+        <div class="row">
+            <select id="mode" onchange="toggleInputs()">
+                <option value="verb">Verb (Sloveso)</option>
+                <option value="noun">Noun (Podstatné jméno)</option>
+            </select>
+            <input type="text" id="word" placeholder="Enter word...">
+        </div>
+
+        <div id="verb-options" class="row">
+            <select id="tense" onchange="toggleGender()">
+                <option value="present">Present</option>
+                <option value="past">Past</option>
+                <option value="future">Future</option>
+            </select>
+            <select id="person">
+                <option value="1">1st Person</option>
+                <option value="2">2nd Person</option>
+                <option value="3">3rd Person</option>
+            </select>
+        </div>
+
+        <div id="noun-options" class="row" style="display:none;">
+            <select id="case">
+                <option value="1">1. Nominativ</option>
+                <option value="2">2. Genitiv</option>
+                <option value="3">3. Dativ</option>
+                <option value="4">4. Akuzativ</option>
+                <option value="6">6. Lokál</option>
+                <option value="7">7. Instrumentál</option>
+            </select>
+            <select id="number">
+                <option value="S">Singular</option>
+                <option value="P">Plural</option>
+            </select>
+        </div>
+
+        <div id="gender-row" style="display:none;">
+            <select id="gender" style="width:100%;">
+                <option value="M">Male Animate (Pán)</option>
+                <option value="Mi">Male Inanimate (Hrad)</option>
+                <option value="F">Female (Žena)</option>
+                <option value="N">Neuter (Město)</option>
+            </select>
+        </div>
+
+        <button class="btn-generate" id="submit-btn" onclick="callPythonAPI()">Generate Result →</button>
+        <div class="loading" id="loader">Processing in Python...</div>
+    </div>
+
+    <div id="result-card">
+        <span id="result-text"></span>
+        <div id="badges"></div>
+        <button onclick="resetUI()" style="margin-top:20px; background:none; border:none; color:var(--primary); cursor:pointer; text-decoration:underline;">Clear and try another</button>
+    </div>
+</div>
+
+<script>
+    // 1. UI Interaction Logic
+    function toggleInputs() {
+        const mode = document.getElementById('mode').value;
+        document.getElementById('verb-options').style.display = (mode === 'verb') ? 'grid' : 'none';
+        document.getElementById('noun-options').style.display = (mode === 'noun') ? 'grid' : 'none';
+        toggleGender(); // Check if gender should be visible
+    }
+
+    function toggleGender() {
+        const mode = document.getElementById('mode').value;
+        const tense = document.getElementById('tense').value;
+        // Gender is only usually needed for Past Tense in Czech verbs
+        document.getElementById('gender-row').style.display = (mode === 'verb' && tense === 'past') ? 'block' : 'none';
+    }
+
+    // 2. The API Bridge
+    async function callPythonAPI() {
+        const btn = document.getElementById('submit-btn');
+        const loader = document.getElementById('loader');
+        const word = document.getElementById('word').value.trim();
+
+        if (!word) {
+            alert("Please enter a word first.");
+            return;
+        }
+
+        // Disable UI
+        btn.disabled = true;
+        loader.style.display = 'block';
+        document.getElementById('result-card').style.display = 'none';
+
+        // Prepare Data (matches your Python app.py keys)
+        const payload = {
+            mode: document.getElementById('mode').value,
+            word: word,
+            tense: document.getElementById('tense').value,
+            person: document.getElementById('person').value,
+            gender: document.getElementById('gender').value,
+            case: document.getElementById('case').value,
+            number: document.getElementById('number').value
+        };
+
+        try {
+            const response = await fetch('http://127.0.0.1:5000/process', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(payload)
+            });
+
+            const data = await response.json();
+
+            if (data.error) {
+                alert("Python Error: " + data.error);
+            } else {
+                showResult(data.result, data.status);
+            }
+        } catch (err) {
+            console.error(err);
+            alert("Could not connect to Python Server. Is app.py running on port 5000?");
+        } finally {
+            btn.disabled = false;
+            loader.style.display = 'none';
+        }
+    }
+
+    function showResult(text, statusArray) {
+        const card = document.getElementById('result-card');
+        const textEl = document.getElementById('result-text');
+        const badgeEl = document.getElementById('badges');
+
+        textEl.innerText = text;
+        badgeEl.innerHTML = '';
+
+        statusArray.forEach(s => {
+            const span = document.createElement('span');
+            span.className = 'badge' + (s === 'UNVERIFIED' ? ' badge-warning' : '');
+            span.innerText = s;
+            badgeEl.appendChild(span);
+        });
+
+        card.style.display = 'block';
+    }
+
+    function resetUI() {
+        document.getElementById('result-card').style.display = 'none';
+        document.getElementById('word').value = '';
+        document.getElementById('word').focus();
+    }
+</script>
+
+</body>
+</html>
