@@ -418,9 +418,24 @@ window.toggleAuth = function() {
 };
 
 window.forgotPassword = function() {
-    const email = document.getElementById('auth-email').value;
-    if(!email) return alert("Enter email first.");
-    firebase.auth().sendPasswordResetEmail(email).then(()=>alert("Reset sent!")).catch(e=>alert(e.message));
+    const emailField = document.getElementById('auth-email');
+    const email = emailField ? emailField.value : '';
+    
+    if(!email) return alert("Please enter your email address first.");
+
+    // Visual feedback that something is happening
+    const originalText = "Forgot Password?";
+    console.log("Attempting password reset for:", email);
+
+    firebase.auth().sendPasswordResetEmail(email)
+        .then(() => {
+            alert("Success! If an account exists for " + email + ", a reset link has been sent. Please check your Spam folder.");
+        })
+        .catch((error) => {
+            console.error("Reset Error:", error.code, error.message);
+            // Common error: user-not-found
+            alert("Error: " + error.message);
+        });
 };
 
 window.signOutUser = function() { 
