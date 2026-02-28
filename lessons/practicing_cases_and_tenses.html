@@ -4,25 +4,32 @@
     <meta charset="UTF-8">
     <title>Czech Grammar Master | HáCZech Dashboard</title>
     <style>
-        :root { --primary: #007bff; --success: #28a745; --warning: #ffc107; --dark: #333; }
+        :root { --primary: #007bff; --success: #28a745; --warning: #ffc107; --danger: #dc3545; --dark: #333; }
         body { font-family: 'Segoe UI', sans-serif; background: #f0f4f8; display: flex; flex-direction: column; align-items: center; min-height: 100vh; margin: 0; padding: 20px; }
         
         .container { background: white; padding: 40px; border-radius: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.1); width: 100%; max-width: 600px; text-align: center; }
         header h1 { color: var(--primary); margin-bottom: 5px; }
         .subtitle { color: #666; margin-bottom: 30px; font-size: 14px; }
 
-        .form-group { display: flex; flex-direction: column; gap: 15px; transition: all 0.3s ease; }
+        .form-group { display: flex; flex-direction: column; gap: 15px; }
         .row { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+        .row-triple { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 10px; }
         
-        select, input { padding: 14px; border: 2px solid #eee; border-radius: 10px; font-size: 16px; outline: none; transition: 0.2s; }
+        select, input { padding: 14px; border: 2px solid #eee; border-radius: 10px; font-size: 16px; outline: none; transition: 0.2s; width: 100%; box-sizing: border-box; }
         select:focus, input:focus { border-color: var(--primary); }
 
-        .btn-generate { background: var(--primary); color: white; border: none; padding: 16px; border-radius: 10px; font-size: 18px; font-weight: bold; cursor: pointer; margin-top: 10px; }
-        .btn-generate:hover { background: #0056b3; }
-        .btn-generate:disabled { background: #ccc; cursor: not-allowed; }
+        .hidden-menu { display: none !important; }
 
-        /* Result Section */
-        #result-card { display: none; margin-top: 30px; padding: 25px; border-radius: 15px; background: #f8f9fa; border-left: 6px solid var(--success); }
+        .helper-box { background: #fff9e6; border: 1px dashed var(--warning); padding: 15px; border-radius: 10px; margin-top: 5px; text-align: left; }
+        .helper-box label { font-size: 13px; font-weight: bold; color: #555; display: block; margin-bottom: 8px; }
+
+        .warning-note { color: var(--danger); font-size: 13px; font-weight: bold; margin-top: 10px; display: none; }
+
+        .btn-generate { background: var(--primary); color: white; border: none; padding: 16px; border-radius: 10px; font-size: 18px; font-weight: bold; cursor: pointer; margin-top: 10px; width: 100%; }
+        .btn-generate:hover { background: #0056b3; }
+        .btn-generate:disabled { background: #ccc; }
+        
+        #result-card { display: none; margin-top: 30px; padding: 25px; border-radius: 15px; background: #f8f9fa; border-left: 6px solid var(--success); text-align: left; }
         #result-text { font-size: 28px; font-weight: bold; color: var(--dark); display: block; margin-bottom: 10px; }
         .badge { display: inline-block; padding: 5px 12px; border-radius: 5px; font-size: 12px; font-weight: bold; text-transform: uppercase; margin-right: 5px; background: #ddd; color: #555; }
         .badge-warning { background: var(--warning); color: #000; }
@@ -40,102 +47,147 @@
 
     <div class="form-group">
         <div class="row">
-            <select id="mode" onchange="toggleInputs()">
+            <select id="mode" onchange="handleModeChange()">
+                <option value="" disabled selected>Choose Category...</option>
                 <option value="verb">Verb (Sloveso)</option>
                 <option value="noun">Noun (Podstatné jméno)</option>
             </select>
-            <input type="text" id="word" placeholder="Enter word...">
+            <input type="text" id="word" placeholder="Enter word..." oninput="autoDetectPattern()">
         </div>
 
-        <div id="verb-options" class="row">
+        <div id="verb-options" class="row-triple hidden-menu">
             <select id="tense" onchange="toggleGender()">
                 <option value="present">Present</option>
                 <option value="past">Past</option>
                 <option value="future">Future</option>
             </select>
             <select id="person">
-                <option value="1">1st Person</option>
-                <option value="2">2nd Person</option>
-                <option value="3">3rd Person</option>
+                <option value="1">1. Person</option>
+                <option value="2">2. Person</option>
+                <option value="3">3. Person</option>
             </select>
-        </div>
-
-        <div id="noun-options" class="row" style="display:none;">
-            <select id="case">
-                <option value="1">1. Nominativ</option>
-                <option value="2">2. Genitiv</option>
-                <option value="3">3. Dativ</option>
-                <option value="4">4. Akuzativ</option>
-                <option value="6">6. Lokál</option>
-                <option value="7">7. Instrumentál</option>
-            </select>
-            <select id="number">
+            <select id="verb-number">
                 <option value="S">Singular</option>
                 <option value="P">Plural</option>
             </select>
         </div>
 
-        <div id="gender-row" style="display:none;">
-            <select id="gender" style="width:100%;">
-                <option value="M">Male Animate (Pán)</option>
-                <option value="Mi">Male Inanimate (Hrad)</option>
-                <option value="F">Female (Žena)</option>
-                <option value="N">Neuter (Město)</option>
+        <div id="noun-options" class="row hidden-menu">
+            <select id="case">
+                <option value="1">1. Nominativ</option>
+                <option value="2">2. Genitiv</option>
+                <option value="3">3. Dativ</option>
+                <option value="4">4. Akuzativ</option>
+                <option value="5">5. Vokativ</option>
+                <option value="6">6. Lokál</option>
+                <option value="7">7. Instrumentál</option>
+            </select>
+            <select id="noun-number">
+                <option value="S">Singular</option>
+                <option value="P">Plural</option>
             </select>
         </div>
 
-        <button class="btn-generate" id="submit-btn" onclick="callPythonAPI()">Generate Result →</button>
+        <div id="gender-row" class="hidden-menu">
+            <select id="gender">
+                <option value="M">Male Animate</option>
+                <option value="Mi">Male Inanimate</option>
+                <option value="F">Female</option>
+                <option value="N">Neuter</option>
+            </select>
+        </div>
+
+        <div id="noun-helper" class="helper-box hidden-menu">
+            <label>I do not know this word, please help me identify it:</label>
+            <div class="row">
+                <select id="is_animate">
+                    <option value="n">Inanimate (y/n)</option>
+                    <option value="y">Living/Animate</option>
+                </select>
+                <select id="is_soft">
+                    <option value="h">Hard Ending</option>
+                    <option value="s">Soft Ending</option>
+                </select>
+            </div>
+        </div>
+
+        <div id="unverified-warning" class="warning-note">⚠️ Note: Result may be incorrect as the pattern is unverified.</div>
+
+        <button type="button" class="btn-generate" id="submit-btn" onclick="callPythonAPI(event)">Generate Result →</button>
         <div class="loading" id="loader">Processing in Python...</div>
     </div>
 
     <div id="result-card">
         <span id="result-text"></span>
-        <div id="badges"></div>
-        <button onclick="resetUI()" style="margin-top:20px; background:none; border:none; color:var(--primary); cursor:pointer; text-decoration:underline;">Clear and try another</button>
+        <div id="badges" style="margin-bottom: 10px;"></div>
+        <button type="button" onclick="resetUI()" style="background:none; border:none; color:var(--primary); cursor:pointer; text-decoration:underline; padding:0;">Clear and try another</button>
     </div>
 </div>
 
 <script>
-    // 1. UI Interaction Logic
-    function toggleInputs() {
+    function handleModeChange() {
         const mode = document.getElementById('mode').value;
-        document.getElementById('verb-options').style.display = (mode === 'verb') ? 'grid' : 'none';
-        document.getElementById('noun-options').style.display = (mode === 'noun') ? 'grid' : 'none';
-        toggleGender(); // Check if gender should be visible
+        document.getElementById('verb-options').classList.toggle('hidden-menu', mode !== 'verb');
+        document.getElementById('noun-options').classList.toggle('hidden-menu', mode !== 'noun');
+        document.getElementById('noun-helper').classList.toggle('hidden-menu', mode !== 'noun');
+        document.getElementById('unverified-warning').style.display = 'none';
+        toggleGender();
     }
 
     function toggleGender() {
         const mode = document.getElementById('mode').value;
         const tense = document.getElementById('tense').value;
-        // Gender is only usually needed for Past Tense in Czech verbs
-        document.getElementById('gender-row').style.display = (mode === 'verb' && tense === 'past') ? 'block' : 'none';
+        const gRow = document.getElementById('gender-row');
+        gRow.classList.toggle('hidden-menu', !(mode === 'verb' && tense === 'past'));
     }
 
-    // 2. The API Bridge
-    async function callPythonAPI() {
-        const btn = document.getElementById('submit-btn');
-        const loader = document.getElementById('loader');
-        const word = document.getElementById('word').value.trim();
+    function autoDetectPattern() {
+        const word = document.getElementById('word').value.toLowerCase().trim();
+        if (!word) return;
+        const softCons = ['ž', 'š', 'č', 'ř', 'c', 'j', 'ď', 'ť', 'ň'];
+        const hardCons = ['h', 'k', 'r', 'd', 't', 'n'];
+        const lastChar = word.slice(-1);
 
-        if (!word) {
-            alert("Please enter a word first.");
+        if (softCons.includes(lastChar)) {
+            document.getElementById('is_soft').value = 's';
+        } else if (hardCons.includes(lastChar) || word.endsWith('ch')) {
+            document.getElementById('is_soft').value = 'h';
+        }
+    }
+
+    async function callPythonAPI(event) {
+        if (event) event.preventDefault();
+
+        const mode = document.getElementById('mode').value;
+        const word = document.getElementById('word').value.trim();
+        
+        if (!mode || !word) {
+            alert("Please select a category and enter a word.");
             return;
         }
 
-        // Disable UI
+        if (mode === 'noun') {
+            const proceed = confirm("I do not know this word yet. I will try to guess based on your help. Do you want to proceed?");
+            if (!proceed) return;
+            document.getElementById('unverified-warning').style.display = 'block';
+        }
+
+        const btn = document.getElementById('submit-btn');
+        const loader = document.getElementById('loader');
+        
         btn.disabled = true;
         loader.style.display = 'block';
-        document.getElementById('result-card').style.display = 'none';
 
-        // Prepare Data (matches your Python app.py keys)
         const payload = {
-            mode: document.getElementById('mode').value,
+            mode: mode,
             word: word,
             tense: document.getElementById('tense').value,
             person: document.getElementById('person').value,
             gender: document.getElementById('gender').value,
             case: document.getElementById('case').value,
-            number: document.getElementById('number').value
+            number: (mode === 'verb') ? document.getElementById('verb-number').value : document.getElementById('noun-number').value,
+            is_animate: document.getElementById('is_animate').value === 'y',
+            is_soft: document.getElementById('is_soft').value === 's'
         };
 
         try {
@@ -144,17 +196,21 @@
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(payload)
             });
+            
+            if (!response.ok) {
+                const textError = await response.text();
+                showResult("Python Engine Error", ["CRASHED"]);
+                return;
+            }
 
             const data = await response.json();
-
             if (data.error) {
-                alert("Python Error: " + data.error);
+                showResult("Word not processed", ["ERROR", data.error]);
             } else {
-                showResult(data.result, data.status);
+                showResult(data.result || "No result", data.status || []);
             }
         } catch (err) {
-            console.error(err);
-            alert("Could not connect to Python Server. Is app.py running on port 5000?");
+            showResult("Server Connection Failed", ["OFFLINE"]);
         } finally {
             btn.disabled = false;
             loader.style.display = 'none';
@@ -163,28 +219,29 @@
 
     function showResult(text, statusArray) {
         const card = document.getElementById('result-card');
-        const textEl = document.getElementById('result-text');
-        const badgeEl = document.getElementById('badges');
-
-        textEl.innerText = text;
-        badgeEl.innerHTML = '';
-
-        statusArray.forEach(s => {
-            const span = document.createElement('span');
-            span.className = 'badge' + (s === 'UNVERIFIED' ? ' badge-warning' : '');
-            span.innerText = s;
-            badgeEl.appendChild(span);
-        });
-
         card.style.display = 'block';
+        document.getElementById('result-text').innerText = text;
+        
+        const badges = document.getElementById('badges');
+        badges.innerHTML = ''; 
+        
+        const list = Array.isArray(statusArray) ? statusArray : [];
+        list.forEach(s => {
+            const span = document.createElement('span');
+            span.className = 'badge' + (s.includes('UNVERIFIED') || s.includes('ERROR') ? ' badge-warning' : '');
+            span.innerText = s;
+            badges.appendChild(span);
+        });
+        
+        card.scrollIntoView({ behavior: 'smooth' });
     }
 
     function resetUI() {
         document.getElementById('result-card').style.display = 'none';
         document.getElementById('word').value = '';
+        document.getElementById('unverified-warning').style.display = 'none';
         document.getElementById('word').focus();
     }
 </script>
-
 </body>
 </html>

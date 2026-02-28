@@ -101,24 +101,31 @@ authIcon.innerText = user ? '🚪' : '👤';
 
 
     // 2. The Logic Gate
+    // 2. The Logic Gate
     if (user) {
         if (window.isPremiumPage) {
-            // Check database for 'active' status on premium pages
-            const snapshot = await firebase.database().ref('users/' + user.uid + '/status').get();
-            const status = snapshot.val();
+            // --- SPEED BOOST: Check cache first ---
+            let status = sessionStorage.getItem('userStatus');
+
+            if (!status) {
+                console.log("Fetching status from Firebase...");
+                const snapshot = await firebase.database().ref('users/' + user.uid + '/status').get();
+                status = snapshot.val();
+                sessionStorage.setItem('userStatus', status); 
+            }
 
             if (status === 'paid') {
                 document.body.classList.add('logged-in');
                 if (authOverlay) authOverlay.style.display = 'none';
-                } else {
-                // Logged in but not approved by teacher
+            } else {
+                // Logged in but not approved (Pending or Unpaid)
                 document.body.classList.remove('logged-in');
                 if (authOverlay) {
                     authOverlay.style.display = 'flex';
                     
-                    // Show contact message and hide login fields
                     if (authTitle) authTitle.innerHTML = "Premium Access Required<br><span style='font-size: 0.9rem; font-weight: normal;'>Please contact: lukas@hackczech.com</span>";
                     
+                    // Hide login fields since they are already logged in, just unpaid
                     if (document.getElementById('auth-email')) document.getElementById('auth-email').style.display = 'none';
                     if (document.getElementById('auth-pass')) document.getElementById('auth-pass').style.display = 'none';
                     const mainBtn = authOverlay.querySelector('button:not(#close-x)');
@@ -154,35 +161,27 @@ authIcon.innerText = user ? '🚪' : '👤';
 
 // THIS IS THE CRITICAL CHANGE
 // --- ENFORCEMENT ---
+// --- NEW GLOBAL ENFORCEMENT ---
 document.addEventListener('DOMContentLoaded', function() {
-    // 1. Create the overlay in the background, but keep it hidden (display:none)
+    // 1. Prepare the overlay in the background
     ensureAuthOverlay();
 
     if (typeof firebase !== 'undefined') {
-        // 2. Listen for the user status. 
-        // This is the ONLY place that should decide to show the overlay.
-        firebase.auth().onAuthStateChanged(user => {
-            applyAccessControl(user);
-        });
-    }
+        // 2. This is the official Firebase "Observer"
+        firebase.auth().onAuthStateChanged(async (user) => {
+            
+            // 3. Run your access logic (Checking paid status, etc.)
+            await applyAccessControl(user);
 
-    // 3. Logic for FREE pages
-    if (!window.isLoginOnlyPage && !window.isPremiumPage) {
-        document.body.classList.add('logged-in');
-        const overlay = document.getElementById('auth-overlay');
-        if (overlay) overlay.style.display = 'none';
-    } 
-    else {
-        // 4. Logic for RESTRICTED pages
-        // Instead of showing it immediately, we wait 1.5 seconds.
-        // If Firebase hasn't logged the user in by then, we show the login box.
-        setTimeout(() => {
-            const user = firebase.auth().currentUser;
-            if (!user) {
-                const overlay = document.getElementById('auth-overlay');
-                if (overlay) overlay.style.display = 'flex';
+            // 4. Mark the body as checked so the CSS reveals the page
+            document.body.classList.add('auth-checked');
+            
+            // 5. Speed Boost: If user is logged in, start loading the DB early
+            if (user && typeof initDatabase === 'function') {
+                console.log("User verified, initializing database...");
+                initDatabase();
             }
-        }, 1500); // 1.5 second "grace period" for Firebase to wake up
+        });
     }
 });
 
@@ -439,10 +438,16 @@ window.forgotPassword = function() {
 };
 
 window.signOutUser = function() { 
-    // Remove the class immediately so the CSS shield hides the content
+    // 1. Clear the cache from EVERYWHERE
+    sessionStorage.removeItem('userStatus'); 
+    localStorage.removeItem('userStatus'); 
+    
+    // 2. Hide content immediately for visual security
     document.body.classList.remove('logged-in');
+    
+    // 3. Log out and refresh
     firebase.auth().signOut().then(() => {
-        window.location.reload();
+        window.location.href = 'https://www.hackczech.com'; // Send them home
     }); 
 };
 

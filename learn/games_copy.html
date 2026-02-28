@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Hry - GameZone | HáCZech</title>
+  
+  <style>body:not(.logged-in) .content-layout { display: none; }</style>
+  <script>window.isPremiumPage = true;</script>
+
+  <script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-auth-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-database-compat.js"></script>
+  <script src="../scripts-header.js"></script>
+
+  <link rel="stylesheet" href="../css/style.css">
+
+  <style>
+    /* 1. Layout & Controls */
+    #controls {
+      display: flex;
+      justify-content: center;
+      gap: 15px;
+      margin-top: 50px; 
+      margin-bottom: 20px;
+    }
+    
+    .game-grid-layout {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      justify-content: center;
+    }
+
+    #game-selector button {
+      padding: 10px 20px;
+      cursor: pointer;
+      border: 1px solid #2f52b5;
+      background: white;
+      border-radius: 5px;
+      transition: background 0.2s;
+    }
+
+    #game-selector button:hover { background: #f0f4ff; }
+    #game-selector button:active { background: #d9e3ff; }
+
+    /* 2. THE GAME BOX */
+    #game {
+      width: 100%;
+      max-width: 1000px;
+      min-height: 500px;
+      display: block; 
+      margin: 20px auto;
+      padding: 20px;
+      border: 2px solid #d9e3ff;
+      border-radius: 12px;
+      background-color: #ffffff;
+      overflow-y: auto;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+      box-sizing: border-box;
+    }
+
+    .placeholder-text {
+      text-align: center;
+      margin-top: 100px;
+      font-size: 1.2rem;
+      color: #666;
+    }
+
+    /* Game Expansion Styles */
+    .game-expanded { font-size: 1.5rem; }
+    .game-expanded button {
+      padding: 15px 30px !important;
+      font-size: 1.3rem !important;
+      margin: 10px;
+      width: auto;
+      min-width: 200px;
+    }
+    .game-expanded input[type="text"] {
+      font-size: 2rem;
+      padding: 10px;
+      width: 80%;
+      text-align: center;
+      border: 2px solid #2f52b5;
+      border-radius: 8px;
+    }
+
+    .home-link-small {
+      display: inline-block;
+      text-decoration: none;
+      color: #666;
+      border: 1px solid #ccc;
+      padding: 4px 10px;
+      border-radius: 4px;
+      font-size: 12px;
+      margin-bottom: 20px;
+    }
+
+    @media (max-width: 600px) {
+      #controls { flex-direction: column; }
+      .game-grid-layout {
+        display: grid; 
+        grid-template-columns: 1fr 1fr; 
+        gap: 8px;
+      }
+      #game-selector button { padding: 12px 5px; font-size: 13px; }
+      #game { min-height: 400px; padding: 10px; }
+    }
+  </style>
+</head>
+<body>
+
+<header><h1>Hry</h1></header>
+
+<div class="content-layout"> 
+  <div id="controls">
+    <select id="topic-select">
+      <option value="">Vyber téma (POS)</option>
+      </select>
+
+    <select id="level-select">
+      <option value="">Vyber úroveň</option>
+      </select>
+
+    <select id="lesson-select">
+      <option value="">Vyber lekci</option>
+    </select>
+  </div>
+
+  <hr>
+
+  <div id="game-selector" class="game-grid-layout" style="display:none">
+    <button data-game="flashcards">Flashcards</button>
+    <button data-game="mcq">Multiple Choice</button>
+    <button data-game="fillGap">Fill in the Gap</button>
+    <button data-game="hangman">Hangman</button>
+    <button data-game="orderWords">Order the Words</button>
+    </div>
+
+  <hr>
+
+  <div id="game">
+    <div class="placeholder-text">⬆️ Vyber téma a úroveň</div>
+  </div>
+
+  <div style="text-align: center; margin-top: 20px;">
+    <a href="/index.html" class="home-link-small">🏠 Home</a>
+  </div>
+</div>
+
+<div id="footer-placeholder"></div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/sql.js/1.6.2/sql-wasm.js"></script>
+
+<script type="module">
+  import { GameEngine } from './core/loader_copy.js';
+  import { gameMapping } from './core/gameMapping.js';
+
+  let db;
+  const engine = new GameEngine();
+
+  async function init() {
+    try {
+      const sqlPromise = initSqlJs({ locateFile: file => `https://cdnjs.cloudflare.com/ajax/libs/sql.js/1.6.2/${file}` });
+      const response = await fetch("../VocabSQL_database/czech_master.db"); 
+      const buf = await response.arrayBuffer();
+      const [SQL, data] = await Promise.all([sqlPromise, buf]);
+      db = new SQL.Database(new Uint8Array(data));
+      
+      populateInitialFilters();
+    } catch (err) {
+      console.error("DB Load Error:", err);
+    }
+  }
+
+  function populateInitialFilters() {
+    const topicSelect = document.getElementById('topic-select');
+    const levelSelect = document.getElementById('level-select');
+
+    // Get unique POS (Topics) and Levels
+    const topics = db.exec("SELECT DISTINCT pos FROM words WHERE pos IS NOT NULL");
+    const levels = db.exec("SELECT DISTINCT level FROM words WHERE level IS NOT NULL");
+
+    if (topics[0]) {
+      topics[0].values.forEach(row => {
+        topicSelect.innerHTML += `<option value="${row[0]}">${row[0]}</option>`;
+      });
+    }
+
+    if (levels[0]) {
+      levels[0].values.forEach(row => {
+        levelSelect.innerHTML += `<option value="${row[0]}">${row[0]}</option>`;
+      });
+    }
+
+    // Logic to show lessons once Topic + Level are picked
+    [topicSelect, levelSelect].forEach(el => el.addEventListener('change', updateLessons));
+  }
+
+  function updateLessons() {
+    const topic = document.getElementById('topic-select').value;
+    const level = document.getElementById('level-select').value;
+    const lessonSelect = document.getElementById('lesson-select');
+
+    if (topic && level) {
+      const res = db.exec(`SELECT DISTINCT lesson FROM words WHERE pos='${topic}' AND level='${level}'`);
+      lessonSelect.innerHTML = '<option value="">Vyber lekci</option>';
+      if (res[0]) {
+        res[0].values.forEach(row => {
+          lessonSelect.innerHTML += `<option value="${row[0]}">${row[0]}</option>`;
+        });
+      }
+    }
+    toggleGameSelector();
+  }
+
+  function toggleGameSelector() {
+    const topic = document.getElementById('topic-select').value;
+    const level = document.getElementById('level-select').value;
+    const lesson = document.getElementById('lesson-select').value;
+    const selector = document.getElementById('game-selector');
+
+    if (topic && level && lesson) {
+      selector.style.display = 'flex';
+      
+      // OPTIONAL: Filter buttons based on gameMapping.js
+      const buttons = selector.querySelectorAll('button');
+      const allowed = (gameMapping[topic] && gameMapping[topic][level]) || [];
+      buttons.forEach(btn => {
+        btn.style.display = allowed.includes(btn.dataset.game) ? 'block' : 'none';
+      });
+    } else {
+      selector.style.display = 'none';
+    }
+  }
+
+  // Handle Game Clicks
+  document.getElementById('game-selector').addEventListener('click', (e) => {
+    if (e.target.tagName === 'BUTTON') {
+      const gameType = e.target.dataset.game;
+      const topic = document.getElementById('topic-select').value;
+      const level = document.getElementById('level-select').value;
+      const lesson = document.getElementById('lesson-select').value;
+
+      // SQL Query that matches your POS logic
+      const query = `SELECT lemma, phrase, trans_en, image_path FROM words 
+                     WHERE pos='${topic}' AND level='${level}' AND lesson='${lesson}' 
+                     ORDER BY RANDOM() LIMIT 15`;
+      
+      const res = db.exec(query);
+      if (res[0]) {
+        const data = res[0].values.map(row => ({
+          czech: row[0], phrase: row[1], english: row[2], image: row[3]
+        }));
+
+        // Apply "Game Expanded" class for specific games (your original logic)
+        const gameContainer = document.getElementById('game');
+        if (['mcq', 'fillGap', 'hangman'].includes(gameType)) {
+          gameContainer.classList.add('game-expanded');
+        } else {
+          gameContainer.classList.remove('game-expanded');
+        }
+
+        engine.render(gameType, data, '#game');
+        gameContainer.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+    }
+  });
+
+  // Footer Loader
+  fetch("/footer.html")
+    .then(r => r.text())
+    .then(d => { document.getElementById("footer-placeholder").innerHTML = d; });
+
+  init();
+</script>
+
+</body>
+</html>

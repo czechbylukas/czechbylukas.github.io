@@ -148,7 +148,8 @@ function insertChar(char) {
             <img id="word-image" src="" style="max-height: 100%; border-radius: 8px; display: none;">
         </div>
         <div id="english-word" class="display-eng">
-    👈 select from the filters to start!
+    👈 select from the filters to start!<br>
+          A0 is a free tier.
 </div>
         <div id="success-msg"></div>
         <div id="typo-msg" class="typo-warning"></div>
@@ -417,7 +418,7 @@ function getRandomWord() {
     document.getElementById('reveal-next').style.display = 'none';
 
     // 2. Permission Check
-    const isFreeLesson = (level === 'A0' && lesson === '0 Užitečná slova');
+    const isFreeLesson = (level === 'A0' && (lesson === '00 Užitečná slova' || lesson === '00 Essentials'));
     const isUserPaid = (window.userStatus === 'paid');
 
     if (!isFreeLesson && !isUserPaid) {
