@@ -33,29 +33,23 @@ def create_past_tense(lemma, person, gender, number):
     conn = sqlite3.connect(db_path)
     cur = conn.cursor()
     
-    # After (The fix)
-    # After
     cur.execute("SELECT id, is_irr, irr_type, pos FROM words WHERE lemma = ?", (lemma_clean,))
     row = cur.fetchone()
 
     is_verified = True
-    l_participle = None # Placeholder
-    is_actually_irregular = False # <--- ADD THIS HERE
+    l_participle = None 
+    is_actually_irregular = False 
     
-    if row is None:
+    if row is None or row[3] != 'verb':
         is_verified = False
-        conn.close()
-    elif row[3] != 'verb': # Check if 'pos' column is 'verb'
-        is_verified = False
-        print(f"Note: '{lemma_clean}' found but is {row[3]}, not a verb.")
         conn.close()
     elif row[1] == 1:
-        # Only types 1, 2, and 5 use the overrides table for Past Tense
         irr_type = int(row[2]) if row[2] is not None else 0
         
+        # Types 1, 2, and 5 use the overrides table
         if irr_type in [1, 2, 5]:
+            is_actually_irregular = True
             word_id = row[0]
-            # Search by ID or the cleaned lemma name
             cur.execute("""
                 SELECT past_participle FROM overrides 
                 WHERE (word_id = ? OR form_key = ?) 
@@ -64,21 +58,25 @@ def create_past_tense(lemma, person, gender, number):
             
             over_row = cur.fetchone()
             if over_row and over_row[0]:
-                # If the override is "dal si", we only want "dal"
+                # 1. Get the base (e.g., "přišel" from "přišel si")
                 base_l = over_row[0].split(" ")[0] 
                 
-                # Now stem "dal" -> "da"
+                # 2. Extract Stem (e.g., "přišel" -> "přiše")
                 stem_l = base_l[:-1] if base_l.endswith('l') else base_l
                 
+                # --- NEW: FLEETING E LOGIC (The Š-Rule) ---
+                # If stem ends in 'še' (přiše, še, odeše) and it's NOT Masc Singular
+                if stem_l.endswith("še") and not (gender == 'M' and number == 'S'):
+                    stem_l = stem_l[:-1] # "přiše" -> "přiš"
+                # ------------------------------------------
+
                 suffixes = {
                     'S': {'M': 'l', 'Mi': 'l', 'F': 'la', 'N': 'lo'},
                     'P': {'M': 'li', 'Mi': 'ly', 'F': 'ly', 'N': 'la'}
                 }
                 l_participle = stem_l + suffixes[number][gender]
-        else:
-            # If type is 3, 4, etc., it stays None here and falls through to regular logic
-            print(f"Note: {lemma_clean} is Type {irr_type}, treating as regular for past.")
-    
+        
+        conn.close()
 
     # 3. Form the L-Participle (if not already set by overrides)
     if l_participle is None:

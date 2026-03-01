@@ -417,8 +417,9 @@ function renderStepUI(step) {
         showQuestion(); // This resets the question text
     } else if (step === 2) {
         answerDiv.innerText = day.charAt(0).toUpperCase() + day.slice(1);
-        let nextAux = g.startsWith('Pl') ? "jsme" : "jsem";
-        nextBtn.innerText = `Krok 2 -> ${nextAux}`;
+        // Correct logic for Plural Neutral (it uses __ in the sentence, but logic follows plural)
+        let nextAux = (g === 'PlN') ? "(__)" : (g.startsWith('Pl') ? "jsme" : "jsem");
+        nextBtn.innerText = `Krok 2 (+ ${nextAux})`;
     } else if (step === 3) {
         const aux = (g === 'PlN') ? '<span style="color:#999">__</span>' : (g.startsWith('Pl') ? "jsme" : "jsem");
         answerDiv.innerHTML = day.charAt(0).toUpperCase() + day.slice(1) + ` <span class="blue-bold">${aux}</span>`;
@@ -492,10 +493,11 @@ function syncToCloud(data) {
 
     // --- STEP 3: START LESSON ---
     window.startLesson = function() {
-        clearTimeout(window.syncTimer);
 // Missing update call here?
     const input = document.getElementById('verb-input');
     const val = input.value.trim().toLowerCase();
+
+    clearTimeout(window.syncTimer);
 
     // Clear any pending syncs and update liveInput to empty (cleaning up)
     clearTimeout(window.syncTimer);
@@ -510,30 +512,48 @@ function syncToCloud(data) {
     // 2. Database Checks
     if (db) {
         try {
-            const stmt = db.prepare("SELECT is_irr FROM words WHERE lemma = ? AND pos LIKE '%verb%' LIMIT 1");
+            const stmt = db.prepare("SELECT is_irr, irr_type, id FROM words WHERE lemma = ? AND pos LIKE '%verb%' LIMIT 1");
             stmt.bind([val]);
             
-            let exists = false;
+            let verbExists = false;
             let isIrregular = false;
+            let rowData = null; // Create a holder
 
             if (stmt.step()) {
-                exists = true;
-                const row = stmt.get();
-                isIrregular = (row[0] === 1);
+                verbExists = true;
+                rowData = stmt.get(); // Get the data
+                isIrregular = (rowData[0] === 1); // SUCCESS: uses rowData
             }
             stmt.free();
 
-            if (isIrregular) {
-                alert("This Verb may be irregular...");
-                return;
+            if (isIrregular && rowData) {
+                
+                const irrType = rowData[1]; // Correct index for irr_type
+                console.log(`[Debug] Verb "${val}" is irregular (Type: ${irrType}). Checking overrides...`);
+                
+                if ([1, 2, 5].includes(irrType)) {
+        const overStmt = db.prepare("SELECT past_participle FROM overrides WHERE form_key = ? LIMIT 1");
+        overStmt.bind([val]);
+        if (overStmt.step()) {
+            let fullPast = overStmt.get()[0].split(" ")[0]; 
+            window.currentVerbStem = fullPast.endsWith('l') ? fullPast.slice(0, -1) : fullPast;
+            console.log(`[Debug] Override found! Stem: ${window.currentVerbStem}`);
+        } else {
+                        console.warn(`[Debug] No override found for "${val}", using default logic.`);
+                        window.currentVerbStem = val.split(" ")[0].replace(/t$/, '');
+                    }
+                    overStmt.free();
+                }
+            } else {
+                window.currentVerbStem = val.split(" ")[0].replace(/t$/, '');
+                console.log(`[Debug] Regular verb. Stem: ${window.currentVerbStem}`);
             }
 
-            if (!exists) {
-                window.currentVerbVerified = false; 
+            window.currentVerbVerified = verbExists;
+            if (!verbExists) {
                 const proceed = confirm(`I do not know the verb "${val}". Proceed?`);
                 if (!proceed) return;
-            } else {
-                window.currentVerbVerified = true; 
+                window.currentVerbStem = val.split(" ")[0].replace(/t$/, '');
             }
         } catch (e) {
             console.error("Verification error:", e);
@@ -552,7 +572,7 @@ function syncToCloud(data) {
         lessonStarted: true, 
         liveInput: val, 
         currentStep: 1,
-        isVerified: window.currentVerbVerified,
+        isVerified: !!window.currentVerbVerified,
         dayIdx: window.dayIdx // <--- Add this to ensure they start on the same day
     });
 
@@ -576,12 +596,14 @@ function syncToCloud(data) {
     let aux;
     if (g === 'PlN') {
         aux = '<span style="color:#999">__</span>';
+    } else if (g.startsWith('Pl')) {
+        aux = "jste"; // Explicitly plural
     } else {
-        aux = g.startsWith('Pl') ? "jste" : "jsi";
+        aux = "jsi";  // Explicitly singular
     }
 
     document.getElementById('sentence-display').innerHTML = 
-        `Co <span class="blue-bold">${aux}</span> děla<span class="blue-bold">${end}</span> ${day}?`;
+    `Co <span class="blue-bold">${aux}</span> ${window.currentVerbStem}<span class="blue-bold">${end}</span> ${day}?`;
 
     document.getElementById('answer-display').innerText = "";
     document.getElementById('next-step-btn').innerText = "Odpovědět (Krok 1)";
@@ -595,9 +617,8 @@ function syncToCloud(data) {
     if (window.step === 1) {
         answerDiv.innerText = day.charAt(0).toUpperCase() + day.slice(1);
         const g = document.getElementById('gender-switch').value;
-        let nextAux = g.startsWith('Pl') ? "jsme" : "jsem";
-        if (g === 'PlN') nextAux = "jsme";
-        document.getElementById('next-step-btn').innerText = `Krok 2 -> ${nextAux}`;
+        let nextAux = (g === 'PlN') ? "(__)" : (g.startsWith('Pl') ? "jsme" : "jsem");
+        document.getElementById('next-step-btn').innerText = `Krok 2 (+ ${nextAux})`;
         window.step = 2;
         syncToCloud({ currentStep: 2 });
     }
@@ -605,22 +626,33 @@ function syncToCloud(data) {
         const g = document.getElementById('gender-switch').value;
         const aux = (g === 'PlN') ? '<span style="color:#999">__</span>' : (g.startsWith('Pl') ? "jsme" : "jsem");
         answerDiv.innerHTML += ` <span class="blue-bold">${aux}</span>`;
+        
+        document.getElementById('next-step-btn').innerText = "Krok 3 (past participle)";
         window.step = 3;
         syncToCloud({ currentStep: 3 });
     }
     else if (window.step === 3) {
         let parts = window.currentVerb.split(/\s+/);
-        let base = parts[0].replace(/t$/, '');
+        // Uses the database-corrected stem if available
+        let base = window.currentVerbStem;
         let reflex = parts.length > 1 ? parts[1] : "";
         const val = document.getElementById('gender-switch').value;
         const endings = { 'M': 'l', 'F': 'la', 'N': 'lo', 'Pl': 'li', 'PlFem': 'ly', 'PlN': 'la' };
         const end = endings[val] || 'l';
 
-        if (reflex !== "") {
-            answerDiv.innerHTML += ` <span class="blue-bold">${reflex}</span> ${base}<span class="blue-bold">${end}</span>.`;
-        } else {
-            answerDiv.innerHTML += ` ${base}<span class="blue-bold">${end}</span>.`;
+        // --- MAGIC Š LOGIC (FLEETING E) ---
+        let finalStem = base;
+        if (base.endsWith("še") && val !== 'M') {
+            finalStem = base.slice(0, -1); // "přiše" -> "přiš"
         }
+
+        // Use finalStem below instead of base
+        if (reflex !== "") {
+            answerDiv.innerHTML += ` <span class="blue-bold">${reflex}</span> ${finalStem}<span class="blue-bold">${end}</span>.`;
+        } else {
+            answerDiv.innerHTML += ` ${finalStem}<span class="blue-bold">${end}</span>.`;
+        }
+
         document.getElementById('next-step-btn').innerText = "Další sloveso";
         window.step = 4;
         syncToCloud({ currentStep: 4 });

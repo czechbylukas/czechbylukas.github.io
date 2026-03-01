@@ -1,0 +1,8 @@
+runtime: python310
+instance_class: F1
+# This tells Google: "Look inside lessons, then python, then app.py"
+entrypoint: gunicorn -b :$PORT lessons.python.app:app
+
+automatic_scaling:
+  max_instances: 1
+  min_instances: 0
