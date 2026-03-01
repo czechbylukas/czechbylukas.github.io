@@ -10,8 +10,6 @@
     <script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-database-compat.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/sql.js/1.6.2/sql-wasm.js"></script> <script src="../scripts-header.js"></script>
-    <script src="../lessons/collabo.js"></script>
-
 
     <link rel="stylesheet" href="../css/style.css">
     <link rel="stylesheet" href="../css/language-selector.css">
@@ -99,17 +97,17 @@
         <h3 style="margin-top:0;">Filters (Optional)</h3>
         
         <label>Lesson:</label>
-        <select id="level-select" class="sync" style="padding: 8px; width: 100%; margin-bottom: 15px; border-radius: 5px;" onchange="getRandomWord()">
+        <select id="level-select" style="padding: 8px; width: 100%; margin-bottom: 15px; border-radius: 5px;" onchange="getRandomWord()">
             <option disabled selected>Vyberte sadu...</option>
         </select>
 
         <label>Word Type:</label>
-        <select id="pos-select" class="sync" style="padding: 8px; width: 100%; margin-bottom: 15px; border-radius: 5px;" onchange="getRandomWord()">
+        <select id="pos-select" style="padding: 8px; width: 100%; margin-bottom: 15px; border-radius: 5px;" onchange="getRandomWord()">
             <option value="all">All Types</option>
         </select>
 
         <label>Category:</label>
-        <select id="category-select" class="sync" style="padding: 8px; width: 100%; margin-bottom: 15px; border-radius: 5px;" onchange="getRandomWord()">
+        <select id="category-select" style="padding: 8px; width: 100%; margin-bottom: 15px; border-radius: 5px;" onchange="getRandomWord()">
             <option value="all">All Categories</option>
         </select>
 
@@ -129,10 +127,6 @@ function insertChar(char) {
     const end = input.selectionEnd;
     input.setRangeText(char, start, end, 'end');
     input.focus();
-    // FORCE SYNC: Manually tell collabo to send the new text
-    if (typeof broadcast === 'function') {
-        broadcast({ "word-guess-box": input.value });
-    }
 }
     </script>
 </div>
@@ -153,21 +147,18 @@ function insertChar(char) {
         <div id="image-container">
             <img id="word-image" src="" style="max-height: 100%; border-radius: 8px; display: none;">
         </div>
-        <div id="english-word" class="sync display-eng">
+        <div id="english-word" class="display-eng">
     👈 select from the filters to start!<br>
           A0 is a free tier.
 </div>
-        <div id="success-msg" class="sync"></div>
-        <div id="typo-msg" class="typo-warning sync"></div>
+        <div id="success-msg"></div>
+        <div id="typo-msg" class="typo-warning"></div>
        
 <input type="text" style="position: absolute; opacity: 0; height: 0; width: 0; z-index: -1;" name="trap">
-<input type="text" id="word-guess-box" class="sync"
-       onkeydown="if(event.key==='Enter') evaluateTyping()" 
-       placeholder="Type in Czech..." 
-       autocomplete="off">
+<input type="text" id="word-guess-box" name="czech_tester_unique" placeholder="Type in Czech..." autocomplete="new-password" autocorrect="off" spellcheck="false" onkeydown="if(event.key==='Enter') evaluateTyping()">
 
 
-        <div id="czech-word" class="sync display-czech hidden"></div>
+        <div id="czech-word" class="display-czech hidden"></div>
         <div id="btn-container">
             <button class="test-btn" style="background:#27ae60;" onclick="updateWeight('yes')">UMÍM</button>
             <button class="test-btn" style="background:#e74c3c;" onclick="updateWeight('no')">NEUMÍM</button>
@@ -503,23 +494,11 @@ currentWord = {
         } else { 
             img.style.display = 'none'; 
         }
-        // Inside getRandomWord() where you added the broadcast
-if (typeof broadcast === 'function') {
-    broadcast({ 
-        "english-word": s[1], 
-        "word-image-src": s[2] || "",
-        "success-msg": "",      // Clear previous "Výborně!"
-        "typo-msg": "",         // Clear previous typos
-        "word-guess-box": "",    // Clear their typing box
-        "czech-word-hidden": true  // <--- Add this to reset the student's view
-    });
-}
     } else {
         document.getElementById('english-word').innerText = "No words found for this filter.";
     }
     document.getElementById('word-guess-box').focus();
 }
-
 
 
 
@@ -596,20 +575,8 @@ function showAnswerInUI() {
     if (currentWord.vidPair) display += ` / ${currentWord.vidPair}`;
     if (currentWord.synonym) display += ` (${currentWord.synonym})`;
     
-    // Update local UI
-    const czechEl = document.getElementById('czech-word');
-    czechEl.innerText = display;
-    czechEl.classList.remove('hidden');
-
-    // BROADCAST: This makes it show up on the other screen instantly
-if (typeof broadcast === 'function') {
-        broadcast({ 
-            "czech-word": display,
-            "czech-word-hidden": false, 
-            "success-msg": document.getElementById('success-msg').innerText,
-            "typo-msg": document.getElementById('typo-msg').innerText
-        });
-}
+    document.getElementById('czech-word').innerText = display;
+    document.getElementById('czech-word').classList.remove('hidden');
 }
 
 
@@ -694,21 +661,6 @@ function loadAdsSafely() {
         }
     } catch (e) { console.error("Ads blocked"); }
 }
-
-
-
-// Add this at the very bottom of your script
-// This listens for any change on dropdowns and sends it to the student
-document.querySelectorAll('select.sync').forEach(selector => {
-    selector.addEventListener('change', (e) => {
-        if (typeof broadcast === 'function') {
-            let data = {};
-            data[e.target.id] = e.target.value; 
-            broadcast(data);
-        }
-    });
-});
-
 
 
 initDatabase();
