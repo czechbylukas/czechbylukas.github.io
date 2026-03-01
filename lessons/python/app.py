@@ -19,8 +19,9 @@ app = Flask(__name__)
 CORS(app) # Allows your GitHub site to talk to this server
 
 def get_db_connection():
-    # Looks for the database in the root folder
-    db_path = os.path.join(root_dir, 'VocabSQL_database', 'czech_master.db')
+    # Since we moved it into the same folder for the cloud:
+    base_dir = os.path.dirname(os.path.abspath(__file__))
+    db_path = os.path.join(base_dir, 'czech_master.db') # Or the name of your file
     return sqlite3.connect(db_path)
 
 # --- 2. API LOGIKA ---
