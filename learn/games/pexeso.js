@@ -1,12 +1,34 @@
-// games/pexeso.js
 export function startPexesoGame(state) {
   const container = document.getElementById("game");
   container.innerHTML = "";
 
-  // Make pairs: CS + translation (English by default)
   const lang = state.language || "en";
-  const pairs = state.data.flatMap(w => [ {text:w.cs, pairId:w.cs}, {text:w[lang] || w.cs, pairId:w.cs} ]);
-  const shuffled = pairs.sort(() => Math.random() - 0.5);
+  const uniquePairs = [];
+  const seen = new Set();
+
+  // 1. Filter and Join logic
+  state.data.forEach(w => {
+    const main = w.cs.trim().toLowerCase();
+    const syn = (w.synonym || "").trim().toLowerCase();
+
+    // Only process if we haven't seen this meaning yet
+    if (!seen.has(main) && (!syn || !seen.has(syn))) {
+      // Create the joined Czech text
+      const joinedCs = (syn && syn !== "") ? `${w.cs} / ${w.synonym}` : w.cs;
+      const translation = w[lang] || w.en || w.cs;
+
+      // Add two separate objects: one Czech, one English, both sharing the same pairId
+      uniquePairs.push({ text: joinedCs, pairId: main });
+      uniquePairs.push({ text: translation, pairId: main });
+
+      // Mark both forms as seen
+      seen.add(main);
+      if (syn) seen.add(syn);
+    }
+  });
+
+  // 2. Use our filtered pairs
+  const shuffled = uniquePairs.sort(() => Math.random() - 0.5);
 
   container.innerHTML = `<h2>Pexeso (CS → ${lang.toUpperCase()})</h2><div id="pexeso-board" style="display:grid; grid-template-columns:repeat(auto-fill,minmax(100px,1fr)); gap:10px; max-width:600px; margin:auto;"></div><p id="result"></p>`;
 

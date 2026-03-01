@@ -89,7 +89,7 @@ function runGame(state, container, toggleFS) {
   const buttons = [];
   for (let i = 0; i < 3; i++) {
     const btn = document.createElement("button");
-    btn.style.cssText = `position: absolute; width: 120px; height: 50px; cursor: pointer; border: 2px solid #2196F3; border-radius: 10px; font-weight: bold; background: white; font-size: 1rem; box-shadow: 0 4px 0px #2196F3; transition: all 0.1s;`;
+    btn.style.cssText = `position: absolute; width: 120px; height: 50px; cursor: pointer; border: 2px solid #2196F3; border-radius: 10px; font-weight: bold; background: white; font-size: 1rem; box-shadow: 0 4px 0px #2196F3; transition: all 0.1s; z-index: 10;`;
     btnContainer.appendChild(btn);
     buttons.push(btn);
   }
@@ -103,18 +103,36 @@ function runGame(state, container, toggleFS) {
   }
 
   function getNextWord() {
+    // Check against cs lemma to determine if used
     const remaining = words.filter(w => !used.has(w.cs));
     return remaining.length ? remaining[Math.floor(Math.random() * remaining.length)] : null;
   }
 
   function assignButtons(wordObj) {
-    const correct = wordObj.cs;
+    const correctLemma = wordObj.cs;
+    const correctSynonym = wordObj.synonym || null;
+
+    // Pick one correct version to display on a button
+    const correctToDisplay = (correctSynonym && Math.random() > 0.5) ? correctSynonym : correctLemma;
+
     const wrongs = [];
     while (wrongs.length < 2) {
-      const rand = words[Math.floor(Math.random() * words.length)].cs;
-      if (rand !== correct && !wrongs.includes(rand)) wrongs.push(rand);
+      const randItem = words[Math.floor(Math.random() * words.length)];
+      const candCs = randItem.cs;
+      const candSyn = randItem.synonym || null;
+
+      // 1. Candidate must not be the correct lemma
+      // 2. Candidate must not be the correct synonym
+      const isCorrectLemma = normalize(candCs) === normalize(correctLemma);
+      const isCorrectSynonym = correctSynonym && normalize(candCs) === normalize(correctSynonym);
+      const isSynonymOfCorrect = candSyn && (normalize(candSyn) === normalize(correctLemma) || (correctSynonym && normalize(candSyn) === normalize(correctSynonym)));
+
+      if (!isCorrectLemma && !isCorrectSynonym && !isSynonymOfCorrect && !wrongs.includes(candCs)) {
+        wrongs.push(candCs);
+      }
     }
-    const options = [correct, ...wrongs].sort(() => Math.random() - 0.5);
+
+    const options = [correctToDisplay, ...wrongs].sort(() => Math.random() - 0.5);
 
     buttons.forEach((btn, i) => {
       btn.textContent = options[i];
@@ -123,17 +141,22 @@ function runGame(state, container, toggleFS) {
       btn.style.color = "black";
       btn.style.transform = "translateY(0)";
       btn.style.boxShadow = "0 4px 0px #2196F3";
-      btn.onclick = () => handleClick(btn, correct, wordObj[state.language] || wordObj.en);
+      btn.onclick = () => handleClick(btn, wordObj);
     });
   }
 
-  function handleClick(btn, correct, prompt) {
+  function handleClick(btn, wordObj) {
     if (!gameActive) return;
     buttons.forEach(b => (b.onclick = null));
     btn.style.transform = "translateY(4px)";
     btn.style.boxShadow = "none";
 
-    if (normalize(btn.dataset.word) === normalize(correct)) {
+    const selected = normalize(btn.dataset.word);
+    const correctLemma = normalize(wordObj.cs);
+    const correctSynonym = wordObj.synonym ? normalize(wordObj.synonym) : null;
+    const promptText = wordObj[state.language] || wordObj.en;
+
+    if (selected === correctLemma || (correctSynonym && selected === correctSynonym)) {
       btn.style.background = "#4CAF50";
       btn.style.color = "white";
       score++;
@@ -143,7 +166,9 @@ function runGame(state, container, toggleFS) {
       btn.style.color = "white";
       lives--;
       livesEl.textContent = lives;
-      addFeedback(`❌ <b>${prompt}</b> → <b>${correct}</b>`, true);
+      
+      const correction = correctSynonym ? `${wordObj.cs} / ${wordObj.synonym}` : wordObj.cs;
+      addFeedback(`❌ <b>${promptText}</b> → <b>${correction}</b>`, true);
 
       if (lives <= 0) {
         endGame("❌ Game Over");
@@ -151,7 +176,7 @@ function runGame(state, container, toggleFS) {
       }
     }
 
-    used.add(correct);
+    used.add(wordObj.cs);
     setTimeout(showNextWord, 500);
   }
 

@@ -1,180 +1,187 @@
+/**
+ * GameEngine - Handles data preparation and dynamic loading of game modules.
+ */
 export class GameEngine {
-    fetchData(db, level, lesson, gameType) {
-        let query = "";
-        // If it's a phrase-based game, prioritize rows with phrases
-        if (['fillGap', 'orderWords', 'sentenceBuilder'].includes(gameType)) {
-            query = `SELECT lemma, phrase, trans_en, image_path FROM words 
-                     WHERE level='${level}' AND lesson='${lesson}' 
-                     AND phrase IS NOT NULL AND phrase != '' 
-                     ORDER BY RANDOM() LIMIT 10`;
-        } else {
-            query = `SELECT lemma, trans_en, image_path FROM words 
-                     WHERE level='${level}' AND lesson='${lesson}' 
-                     ORDER BY RANDOM() LIMIT 10`;
-        }
-
+    /**
+     * fetchData is a helper if you want the engine to query the DB directly.
+     * Note: In your games.html, you are already doing this, but this is here for consistency.
+     */
+    fetchData(db, level, lesson, topic) {
+        // 1. Removed 'phrase' from query (it doesn't exist as a column)
+        const query = `SELECT lemma, trans_en, image_path, ext1, pos FROM words 
+                       WHERE level='${level}' AND lesson='${lesson}' AND pos='${topic}'
+                       ORDER BY RANDOM() LIMIT 20`;
+                       
         const res = db.exec(query);
         if (!res[0]) return [];
 
+        console.log("RAW SQL RESULT:", res[0].values[0]); 
+
         return res[0].values.map(row => ({
-            czech: row[0],
-            phrase: row[1] || "",
-            english: row[2],
-            image: row[3]
+            cs: row[0] || "",
+            en: row[1] || "",
+            image: row[2] || null,
+            ext1: row[3] || "",   // ext1 is row index 3
+            pos: row[4] || "",    // pos is row index 4
+            
+            phrase: row[3] || row[0] // Use ext1 (where the keywords/phrase usually live) or fallback to lemma
+          
         }));
     }
 
-    render(type, data, containerSelector) {
+    /**
+     * render - The main "switchboard" that launches games.
+     * Matches the logic of your old loader but wrapped in a class.
+     */
+    async render(gameType, data, containerSelector, language = 'en') {
         const container = document.querySelector(containerSelector);
-        if (!data || data.length === 0) {
-            container.innerHTML = "<div>No data found for this selection.</div>";
-            return;
-        }
-        container.innerHTML = ""; 
 
-        switch(type) {
-            case 'fillGap': this.startFillGap(data[0], container); break;
-            case 'mcq': this.startMCQ(data, container); break;
-            case 'orderWords': this.startOrderWords(data[0], container); break;
-            default: container.innerHTML = `Game "${type}" is coming soon!`;
-        }
-    }
+        // --- THE DATA TRANSFORMER ---
+        // This converts Database Words into Game Questions
+        // Inside async render(...) in loader_copy.js
+// --- THE DATA TRANSFORMER ---
+        // 1. FILTER: For 'fillGap' and 'writeAnswer', only keep rows where pos is 'Phrase'
+        // 1. Use the pre-linked data from games.html
+        const formattedQuestions = data.map((item, index) => {
+            
+            
+            
+            const targetVerb = item.cs;     // e.g. "dívat se"
+            const sentence = item.phrase;   // e.g. "Dívám se na nový film."
+            
+            // Clean root to find "Dívám" inside the sentence
+            const cleanVerb = targetVerb.replace(/\b(se|si)\b/g, '').trim();
+// If word is short (like "dát"), use only the 1st letter as root. 
+// If long, use the first 3 letters.
+            const root = cleanVerb.length > 3 ? cleanVerb.substring(0, 3) : cleanVerb.substring(0, 1);
+            const regex = new RegExp(`\\b${root}[a-zěščřžýáíéůú]*\\b`, 'gi');
+                        
+            let displayHtml = "";
+            let gapData = [];
 
-    // --- GAME: MULTIPLE CHOICE ---
-    startMCQ(data, container) {
-        const current = data[0];
-        // Get 3 random wrong answers from the rest of the data
-        let distractors = data.slice(1, 4).map(d => d.czech);
-        let choices = this.shuffle([current.czech, ...distractors]);
+            if (sentence && sentence !== targetVerb) {
+                const match = sentence.match(regex);
+                const surfaceWord = match ? match[0] : targetVerb;
+                
+                displayHtml = `
+                    <div style="font-size: 0.9rem; color: #666;">${item.phraseEn || item.en}</div>
+                    <div style="font-size: 1.4rem;">${sentence.replace(regex, "{{gap}}")}</div>`;
+                // UPDATE THIS LINE:
+                gapData = [{ 
+                    surface: surfaceWord, 
+                    lemma: targetVerb, 
+                    synonym: item.synonym || "" 
+                     }];
 
-        container.innerHTML = `
-            <div class="game-expanded">
-                <h3>Multiple Choice</h3>
-                <p style="font-size: 1.5rem;">How do you say: <b>${current.english}</b>?</p>
-                <div id="options-grid" style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
-                    ${choices.map(c => `<button class="game-btn" onclick="this.dispatchEvent(new CustomEvent('check', {detail: '${c}'}))">${c}</button>`).join('')}
-                </div>
-                <div id="feedback" style="margin-top: 20px; font-weight: bold;"></div>
-            </div>
-        `;
-
-        container.querySelectorAll('button').forEach(btn => {
-            btn.addEventListener('check', (e) => {
-                const feedback = container.querySelector('#feedback');
-                if (e.detail === current.czech) {
-                    feedback.innerText = "Correct! 🎉";
-                    feedback.style.color = "green";
-                } else {
-                    feedback.innerText = "Try again! ❌";
-                    feedback.style.color = "red";
-                }
-            });
-        });
-    }
-
-    // --- GAME: FILL IN THE GAP ---
-    startFillGap(item, container) {
-        const regex = new RegExp(item.czech, 'gi');
-        const displayPhrase = item.phrase.replace(regex, `____`);
-
-        container.innerHTML = `
-            <div class="game-expanded">
-                <h3>Fill in the Gap</h3>
-                <p><i>${item.english}</i></p>
-                <div style="font-size: 1.8rem; margin: 20px 0;">
-                    ${displayPhrase.replace('____', `<input type="text" id="gap-input" style="width: 200px; text-align: center;">`)}
-                </div>
-                <button id="check-btn" class="test-btn">Check</button>
-                <div id="feedback" style="margin-top: 20px;"></div>
-            </div>
-        `;
-
-        const input = container.querySelector('#gap-input');
-        container.querySelector('#check-btn').onclick = () => {
-            const feedback = container.querySelector('#feedback');
-            if (input.value.trim().toLowerCase() === item.czech.toLowerCase()) {
-                feedback.innerHTML = "<span style='color:green'>Excellent!</span>";
-            } else {
-                feedback.innerHTML = `<span style='color:red'>Not quite. Correct answer: ${item.czech}</span>`;
+        } else {
+                displayHtml = `<div style="font-size: 1.8rem;">${item.en}</div><div style="margin-top:10px;">{{gap}}</div>`;
+                // AND UPDATE THIS LINE:
+                gapData = [{ surface: targetVerb, lemma: targetVerb, synonym: item.synonym || "" }];
             }
-        };
-    }
 
 
+            console.log(`Word Object [${index}]:`, item, "Answer:", gapData[0].surface);
 
-    // --- GAME: ORDER THE WORDS ---
-    startOrderWords(item, container) {
-        // 1. Prepare the words
-        const originalPhrase = item.phrase.trim();
-        const wordsArray = originalPhrase.split(/\s+/); // Split by any whitespace
-        let shuffledWords = this.shuffle([...wordsArray]);
-        let userSequence = [];
 
-        container.innerHTML = `
-            <div class="game-expanded">
-                <h3>Order the Words</h3>
-                <p><i>${item.english}</i></p>
-                
-                <div id="sentence-builder-area" style="min-height: 60px; border-bottom: 2px dashed #ccc; margin: 20px 0; padding: 10px; font-size: 1.5rem;"></div>
-                
-                <div id="word-pool" style="display: flex; flex-wrap: wrap; gap: 10px; justify-content: center;">
-                    ${shuffledWords.map((word, index) => `<button class="game-btn word-chip" data-index="${index}">${word}</button>`).join('')}
-                </div>
-
-                <div style="margin-top: 30px;">
-                    <button id="reset-sentence" class="test-btn" style="background: #666;">Reset</button>
-                    <button id="check-sentence" class="test-btn">Check</button>
-                </div>
-                <div id="feedback" style="margin-top: 20px; font-weight: bold;"></div>
-            </div>
-        `;
-
-        const builderArea = container.querySelector('#sentence-builder-area');
-        const feedback = container.querySelector('#feedback');
-
-        // Handle clicking words in the pool
-        container.querySelectorAll('.word-chip').forEach(btn => {
-            btn.onclick = () => {
-                const word = btn.innerText;
-                userSequence.push(word);
-                
-                // Add to builder area
-                const span = document.createElement('span');
-                span.innerText = word + " ";
-                span.style.marginRight = "5px";
-                builderArea.appendChild(span);
-                
-                // Hide the button so it can't be clicked twice
-                btn.style.visibility = 'hidden';
+            return { 
+                ...item, 
+                text: displayHtml, 
+                gapDetails: gapData, 
+                cs: targetVerb, 
+                answers: [gapData[0].surface] 
             };
         });
 
-        // Reset Logic
-        container.querySelector('#reset-sentence').onclick = () => {
-            userSequence = [];
-            builderArea.innerHTML = "";
-            container.querySelectorAll('.word-chip').forEach(btn => btn.style.visibility = 'visible');
-            feedback.innerText = "";
+        const state = {
+            data: formattedQuestions,     // For the 'wrongOptions' pool
+            questions: formattedQuestions, // For the main loop
+            language: language
         };
 
-        // Check Logic
-        container.querySelector('#check-sentence').onclick = () => {
-            const userJoined = userSequence.join(' ').toLowerCase().replace(/[.?!]/g, "");
-            const originalJoined = originalPhrase.toLowerCase().replace(/[.?!]/g, "");
+        // 2. Clear the container and show loading
+        if (!data || data.length === 0) {
+            container.innerHTML = "<div>❌ No data found for this selection.</div>";
+            return;
+        }
+        container.innerHTML = "⏳ Načítám hru...";
 
-            if (userJoined === originalJoined) {
-                feedback.innerHTML = "<span style='color:green'>Perfectly assembled! 🎉</span>";
-            } else {
-                feedback.innerHTML = `<span style='color:red'>Not quite. Try: ${originalPhrase}</span>`;
+        try {
+            // 3. Dynamic Hand-off (The "Switchboard")
+            // This replaces your old loader's switch statement
+            switch (gameType) {
+                case "flashcards":
+                    const fc = await import("../games/flashcards.js");
+                    fc.startFlashcardsGame(state);
+                    break;
+
+                case "mcq":
+                    const mcq = await import("../games/mcq.js");
+                    mcq.startGame(state);
+                    break;
+
+                case "hangman":
+                    const hg = await import("../games/hangman.js");
+                    hg.startGame(state);
+                    break;
+
+                case "fillGap":
+                    const fg = await import("../games/fillGap.js");
+                    fg.startGame(state);
+                    break;
+
+                case "dragDrop":
+                    const dd = await import("../games/dragDrop.js");
+                    dd.startDragDropGame(state);
+                    break;
+
+                case "orderWords":
+                    const ow = await import("../games/orderWords.js");
+                    ow.startOrderWords(state);
+                    break;
+
+                case "sentenceBuilder":
+                    const sb = await import("../games/sentenceBuilder.js");
+                    sb.startSentenceBuilder(state);
+                    break;
+
+                case "memory":
+                    const mem = await import("../games/memory.js");
+                    mem.startMemoryGame(state);
+                    break;
+
+                case "pexeso":
+                    const pex = await import("../games/pexeso.js");
+                    pex.startPexesoGame(state);
+                    break;
+
+                case "match":
+                    const mat = await import("../games/match.js");
+                    mat.startMatchGame(state);
+                    break;
+
+                case "speedClick":
+                    const sc = await import("../games/speedClick.js");
+                    sc.startSpeedClick(state);
+                    break;
+
+                case "fallingWords":
+                    const fw = await import("../games/fallingWords.js");
+                    fw.startFallingWords(state);
+                    break;
+
+                case "writeAnswer":
+    const wa = await import("../games/writeAnswer.js");
+    wa.startWriteAnswerGame(state);
+    break;
+                    
+
+                default:
+                    container.innerHTML = `❌ Game "${gameType}" is not yet connected to the database engine.`;
+                    console.warn(`No case for ${gameType} in loader_copy.js`);
             }
-        };
-    }
-
-
-    
-
-    // Helper: Shuffle Array
-    shuffle(array) {
-        return array.sort(() => Math.random() - 0.5);
+        } catch (err) {
+            console.error("Critical Game Load Error:", err);
+            container.innerHTML = "❌ Error loading the game file. Check console for details.";
+        }
     }
 }

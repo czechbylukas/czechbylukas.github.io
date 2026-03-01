@@ -7,6 +7,7 @@ export function startFlashcardsGame(state) {
     return;
   }
 
+  
   const words = [...state.data].sort(() => Math.random() - 0.5); // Shuffle
   let index = 0;
   let showFront = true; // true = foreign language, false = Czech

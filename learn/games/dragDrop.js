@@ -1,95 +1,97 @@
+// games/dragDrop.js
 export function startDragDropGame(state) {
   const container = document.getElementById("game");
   container.innerHTML = "";
 
-  // Use state.data (words for the selected topic/level)
+  // 1. Validate data from state
   if (!state.data || state.data.length === 0) {
-    container.innerHTML = "❌ No data for this topic/level.";
+    container.innerHTML = "❌ Žádná data pro tuto lekci.";
     return;
   }
 
-  const words = state.data.map(w => w.cs); // use Czech words
-  const shuffledWords = [...words].sort(() => Math.random() - 0.5);
+  // 2. Define the "Winning Order" (Alphabetical by Czech word)
+  // We use localeCompare to handle Czech special characters (č, š, ž, etc.) correctly
+  const correctOrder = state.data
+    .map(w => w.cs)
+    .sort((a, b) => a.localeCompare('cs'));
+
+  // 3. Create the Shuffled starting list
+  const shuffledWords = [...correctOrder].sort(() => Math.random() - 0.5);
 
   container.innerHTML = `
-    <h2>Drag & Drop / Sorting</h2>
-    <p>Drag the words into the correct order:</p>
-    <div id="drag-container" style="display:flex;flex-direction:column;gap:10px;max-width:400px;margin:auto;"></div>
-    <button id="check-order" style="margin-top:20px;">Check Order</button>
-    <p id="result"></p>
+    <div style="text-align:center; max-width:500px; margin:auto;">
+      <h2>Seřaďte slova abecedně</h2>
+      <p style="color: #666;">Seřaďte slova od A do Z přetažením:</p>
+      
+      <div id="drag-container" style="display:flex; flex-direction:column; gap:8px; margin:20px 0;"></div>
+      
+      <button id="check-order" style="background: #2f52b5; color: white; padding: 12px 25px; border: none; border-radius: 8px; cursor: pointer; font-weight: bold; font-size: 1.1rem;">Zkontrolovat</button>
+      <p id="result" style="margin-top:20px; font-weight: bold; font-size: 1.2rem; min-height: 30px;"></p>
+    </div>
   `;
 
   const dragContainer = document.getElementById("drag-container");
   let dragSrcEl = null;
 
+  // 4. Create Draggable Elements
   shuffledWords.forEach(word => {
     const item = document.createElement("div");
     item.classList.add("draggable-item");
     item.textContent = word;
     item.draggable = true;
-    item.style.padding = "10px 15px";
-    item.style.background = "#4CAF50";
-    item.style.color = "#fff";
-    item.style.borderRadius = "8px";
-    item.style.cursor = "grab";
-    item.style.textAlign = "center";
     item.dataset.word = word;
+    
+    // Styling
+    item.style.cssText = "padding: 12px; background: #fff; color: #2c3e50; border: 2px solid #2f52b5; border-radius: 8px; cursor: grab; text-align: center; font-weight: 600; transition: background 0.2s;";
 
-    item.addEventListener("dragstart", dragStart);
-    item.addEventListener("dragover", dragOver);
-    item.addEventListener("drop", dropItem);
-    item.addEventListener("dragenter", dragEnter);
-    item.addEventListener("dragleave", dragLeave);
-    item.addEventListener("dragend", dragEnd);
+    // Drag Events
+    item.addEventListener("dragstart", function(e) {
+      dragSrcEl = this;
+      e.dataTransfer.effectAllowed = "move";
+      this.style.opacity = "0.4";
+      this.style.background = "#eef2ff";
+    });
+
+    item.addEventListener("dragover", (e) => e.preventDefault());
+
+    item.addEventListener("drop", function(e) {
+      e.stopPropagation();
+      if (dragSrcEl !== this) {
+        // Swap the text and data-word
+        const droppedWord = this.dataset.word;
+        const droppedText = this.textContent;
+
+        this.dataset.word = dragSrcEl.dataset.word;
+        this.textContent = dragSrcEl.textContent;
+
+        dragSrcEl.dataset.word = droppedWord;
+        dragSrcEl.textContent = droppedText;
+      }
+    });
+
+    item.addEventListener("dragend", function() {
+      this.style.opacity = "1";
+      this.style.background = "#fff";
+      // Clear borders from any other items
+      container.querySelectorAll(".draggable-item").forEach(i => i.style.border = "2px solid #2f52b5");
+    });
 
     dragContainer.appendChild(item);
   });
 
-  function dragStart(e) {
-    dragSrcEl = this;
-    e.dataTransfer.effectAllowed = "move";
-    e.dataTransfer.setData("text/plain", this.dataset.word);
-    this.style.opacity = "0.5";
-  }
-
-  function dragOver(e) {
-    e.preventDefault();
-    e.dataTransfer.dropEffect = "move";
-  }
-
-  function dragEnter() {
-    this.style.border = "2px dashed #000";
-  }
-
-  function dragLeave() {
-    this.style.border = "none";
-  }
-
-  function dropItem(e) {
-    e.stopPropagation();
-    if (dragSrcEl === this) return;
-
-    const tmpWord = this.dataset.word;
-    this.dataset.word = dragSrcEl.dataset.word;
-    dragSrcEl.dataset.word = tmpWord;
-
-    const tmpText = this.textContent;
-    this.textContent = dragSrcEl.textContent;
-    dragSrcEl.textContent = tmpText;
-
-    this.style.border = "none";
-  }
-
-  function dragEnd() {
-    this.style.opacity = "1";
-    dragContainer.querySelectorAll(".draggable-item").forEach(item => item.style.border = "none");
-  }
-
-  document.getElementById("check-order").addEventListener("click", () => {
+  // 5. Check Logic
+  document.getElementById("check-order").onclick = () => {
     const currentOrder = Array.from(dragContainer.children).map(c => c.dataset.word);
-    const correct = currentOrder.every((w, i) => w === words[i]);
-    document.getElementById("result").textContent = correct
-      ? "🎉 Perfect! The order is correct."
-      : "❌ Not correct yet. Try again!";
-  });
+    const isCorrect = currentOrder.every((w, i) => w === correctOrder[i]);
+    const resultEl = document.getElementById("result");
+
+    if (isCorrect) {
+      resultEl.textContent = "🎉 Výborně! Abeceda je správně.";
+      resultEl.style.color = "#27ae60";
+      // Optional: lock the game or move to next
+    } else {
+      resultEl.textContent = "❌ Ještě to není ono. Zkuste to znovu!";
+      resultEl.style.color = "#e74c3c";
+    }
+  };
 }

@@ -18,13 +18,23 @@ export function startGame(state) {
 
     const q = questions[currentIndex];
     const correct = q.answers[0];
+    const currentSynonym = q.synonym ? q.synonym : ""; // Get the synonym for the current question
 
     // Prepare wrong options
     let wrongOptions = [];
     if (state.data && state.data.length > 0) {
       wrongOptions = state.data
         .map(item => item.cs)
-        .filter(word => word !== correct);
+        .filter(word => {
+            const normalizedWord = normalize(word);
+            const normalizedCorrect = normalize(correct);
+            const normalizedSynonym = normalize(currentSynonym);
+
+            // 1. Exclude the correct answer
+            // 2. Exclude the synonym of the correct answer
+            return normalizedWord !== normalizedCorrect && 
+                   (normalizedSynonym === "" || normalizedWord !== normalizedSynonym);
+        });
     }
 
     // Pick up to 3 random wrong options
