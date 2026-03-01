@@ -32,6 +32,23 @@ def get_verbs():
         # This will now tell us if there's any other column mismatch
         return jsonify(["Error: " + str(e)])
 
+@app.route('/process', methods=['POST'])
+def process_word():
+    try:
+        data = request.json
+        word = data.get('word')
+        mode = data.get('mode')
+        
+        # For now, let's just return a success message to test the connection
+        # You can add your actual linguistic logic here later
+        return jsonify({
+            "result": f"Processing {word} as {mode}...",
+            "status": ["CONNECTED", "BETA"]
+        })
+    except Exception as e:
+        return jsonify({"error": str(e)}), 500
+
+
 @app.route('/save_to_google', methods=['POST', 'OPTIONS'])
 def save_to_google():
     if request.method == 'OPTIONS': return '', 200
