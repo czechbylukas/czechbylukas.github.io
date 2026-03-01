@@ -1,6 +1,6 @@
 import os
 import sqlite3
-from flask import Flask, jsonify, request
+from flask import Flask, jsonify, request, make_response
 from flask_cors import CORS
 
 # --- IMPORT YOUR GRAMMAR BRAINS ---
@@ -11,24 +11,27 @@ from Grammar_functions.noun_declension import declension_noun
 
 app = Flask(__name__)
 
-# Strong CORS policy
-CORS(app, resources={r"/*": {"origins": "*"}}, supports_credentials=True)
-
-base_dir = os.path.dirname(os.path.abspath(__file__))
+# 1. BULLETPROOF CORS: Allow all origins, all methods, and all headers
+CORS(app, resources={r"/*": {"origins": "*"}}, 
+     allow_headers=["Content-Type", "Authorization"],
+     methods=["GET", "POST", "OPTIONS"])
 
 @app.route('/process', methods=['POST', 'OPTIONS'])
 def process_word():
-    # 1. HANDLE THE HANDSHAKE (CORS FIX)
+    # 2. AGGRESSIVE OPTIONS HANDLING
     if request.method == 'OPTIONS':
-        response = app.make_default_options_response()
+        response = make_response()
         response.headers.add("Access-Control-Allow-Origin", "*")
-        response.headers.add("Access-Control-Allow-Headers", "Content-Type")
-        response.headers.add("Access-Control-Allow-Methods", "POST")
-        return response
+        response.headers.add("Access-Control-Allow-Headers", "*")
+        response.headers.add("Access-Control-Allow-Methods", "*")
+        return response, 200
 
-    # 2. HANDLE THE ACTUAL LOGIC
+    # 3. ACTUAL LOGIC
     try:
-        data = request.json
+        data = request.get_json()
+        if not data:
+            return jsonify({"error": "No JSON data received"}), 400
+            
         mode = data.get('mode') 
         word = data.get('word')
         tense = data.get('tense')
@@ -61,15 +64,15 @@ def process_word():
             result_text = res
             status_badges.append("VERIFIED" if ver else "UNVERIFIED")
 
-        # 3. ATTACH CORS HEADER TO THE SUCCESSFUL RESPONSE TOO
+        # 4. MANUALLY ATTACH HEADER TO JSON RESPONSE
         resp = jsonify({"result": result_text, "status": status_badges})
         resp.headers.add("Access-Control-Allow-Origin", "*")
         return resp
 
     except Exception as e:
-        error_resp = jsonify({"error": str(e)})
-        error_resp.headers.add("Access-Control-Allow-Origin", "*")
-        return error_resp, 500
+        err_resp = jsonify({"error": str(e)})
+        err_resp.headers.add("Access-Control-Allow-Origin", "*")
+        return err_resp, 500
 
 if __name__ == '__main__':
     app.run(debug=True, port=5000)
