@@ -11,22 +11,25 @@ from Grammar_functions.noun_declension import declension_noun
 
 app = Flask(__name__)
 
-# 1. BULLETPROOF CORS: Allow all origins, all methods, and all headers
-CORS(app, resources={r"/*": {"origins": "*"}}, 
-     allow_headers=["Content-Type", "Authorization"],
-     methods=["GET", "POST", "OPTIONS"])
+# 1. Apply CORS globally to all routes
+CORS(app, resources={r"/*": {"origins": "*"}})
+
+# Health Check Route (To see if server is even running)
+@app.route('/')
+def home():
+    return "HackCzech API is Running", 200
 
 @app.route('/process', methods=['POST', 'OPTIONS'])
 def process_word():
-    # 2. AGGRESSIVE OPTIONS HANDLING
+    # 2. Handshake handling for the Browser "Scout" (OPTIONS)
     if request.method == 'OPTIONS':
         response = make_response()
         response.headers.add("Access-Control-Allow-Origin", "*")
-        response.headers.add("Access-Control-Allow-Headers", "*")
-        response.headers.add("Access-Control-Allow-Methods", "*")
+        response.headers.add("Access-Control-Allow-Headers", "Content-Type, Authorization")
+        response.headers.add("Access-Control-Allow-Methods", "POST, OPTIONS")
         return response, 200
 
-    # 3. ACTUAL LOGIC
+    # 3. Main Grammar Logic
     try:
         data = request.get_json()
         if not data:
@@ -64,16 +67,18 @@ def process_word():
             result_text = res
             status_badges.append("VERIFIED" if ver else "UNVERIFIED")
 
-        # 4. MANUALLY ATTACH HEADER TO JSON RESPONSE
+        # 4. Successful Response with CORS header
         resp = jsonify({"result": result_text, "status": status_badges})
         resp.headers.add("Access-Control-Allow-Origin", "*")
         return resp
 
     except Exception as e:
-        # This ensures you see the REAL error in your browser console
+        # 5. Error Response with CORS header (So you see the real error in Console)
         error_resp = jsonify({"error": str(e)})
         error_resp.headers.add("Access-Control-Allow-Origin", "*")
         return error_resp, 500
 
 if __name__ == '__main__':
-    app.run(debug=True, port=5000)
+    # Cloud environments use the PORT env variable
+    port = int(os.environ.get('PORT', 5000))
+    app.run(host='0.0.0.0', port=port)
