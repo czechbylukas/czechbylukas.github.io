@@ -70,9 +70,10 @@ def process_word():
         return resp
 
     except Exception as e:
-        err_resp = jsonify({"error": str(e)})
-        err_resp.headers.add("Access-Control-Allow-Origin", "*")
-        return err_resp, 500
+        # This ensures you see the REAL error in your browser console
+        error_resp = jsonify({"error": str(e)})
+        error_resp.headers.add("Access-Control-Allow-Origin", "*")
+        return error_resp, 500
 
 if __name__ == '__main__':
     app.run(debug=True, port=5000)
