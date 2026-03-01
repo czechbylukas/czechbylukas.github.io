@@ -7,14 +7,12 @@ from google.oauth2 import service_account
 from googleapiclient.discovery import build
 
 # --- 1. SETTINGS & PATHS ---
-# In the cloud, this folder is the ROOT. No jumping up allowed!
 base_dir = os.path.dirname(os.path.abspath(__file__)) 
 
 app = Flask(__name__)
 CORS(app) 
 
 def get_db_connection():
-    # We use the base_dir defined above
     db_path = os.path.join(base_dir, 'czech_master.db')
     return sqlite3.connect(db_path)
 
@@ -25,11 +23,13 @@ def get_verbs():
     try:
         conn = get_db_connection()
         cursor = conn.cursor()
-        cursor.execute("SELECT word FROM words WHERE pos = 'verb'")
+        # FIXED: Changed 'word' to 'lemma' to match your database
+        cursor.execute("SELECT lemma FROM words WHERE pos = 'verb'")
         verbs = [row[0] for row in cursor.fetchall()]
         conn.close()
         return jsonify(verbs)
     except Exception as e:
+        # This will now tell us if there's any other column mismatch
         return jsonify(["Error: " + str(e)])
 
 @app.route('/save_to_google', methods=['POST', 'OPTIONS'])
@@ -41,7 +41,6 @@ def save_to_google():
     sentences = data.get('sentences')
     date_str = datetime.now().strftime("%d.%m.%Y")
     
-    # Credentials must be inside lessons/python/ folder
     SERVICE_ACCOUNT_FILE = os.path.join(base_dir, 'credentials.json')
 
     try:
@@ -60,5 +59,4 @@ def save_to_google():
         return jsonify({"status": "error", "error": str(e)}), 500
 
 if __name__ == '__main__':
-    # Local testing: http://127.0.0.1:5000
     app.run(debug=True, port=5000)
