@@ -1,6 +1,7 @@
 runtime: python310
 instance_class: F1
-# This tells Google: "Look inside lessons, then python, then app.py"
+
+# This is the "Key": it tells Google to look in the subfolder for the app
 entrypoint: gunicorn -b :$PORT lessons.python.app:app
 
 automatic_scaling:
