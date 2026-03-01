@@ -233,8 +233,8 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/sql.js/1.6.2/sql-wasm.js"></script>
 
 <script type="module">
-  import { GameEngine } from './core/loader_copy.js';
-import { gameMapping, globalExclusions } from './core/gameMapping_copy.js'; // Added globalExclusions
+  import { GameEngine } from './core/loader.js';
+import { gameMapping, globalExclusions } from './core/gameMapping.js'; // Added globalExclusions
 
   let db;
   const engine = new GameEngine();
