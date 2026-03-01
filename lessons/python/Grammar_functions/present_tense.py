@@ -29,49 +29,53 @@ def create_present_tense(lemma, person, gender, number):
     if not base_verb.endswith("t"):
         return "Not a verb", False, bool(is_reflexive), False
 
-    # 2. Database Connection
-    db_path = os.path.join("VocabSQL_database", "czech_master.db")
+    # 2. Database Connection (Dynamic Path)
+    current_dir = os.path.dirname(os.path.abspath(__file__))
+    db_path = os.path.abspath(os.path.join(current_dir, "..", "czech_master.db"))
+    
     conn = sqlite3.connect(db_path)
     cur = conn.cursor()
     
-    cur.execute("SELECT id, is_irr, irr_type, pos, pattern_id FROM words WHERE lemma = ?", (lemma_clean,))
-    row = cur.fetchone()
-
     present_form = None
     is_verified = False
     is_actually_irregular = False
 
-    if row and row[3] == 'verb':
-        is_verified = True
-        word_id, is_irr, irr_type, _, pattern_id = row
-        
-        # Safe type casting for SQLite
-        is_irr = int(float(is_irr)) if is_irr is not None else 0
-        irr_type = int(float(irr_type)) if irr_type is not None else 0
+    try:
+        # --- Indented logic starts here ---
+        cur.execute("SELECT id, is_irr, irr_type, pos, pattern_id FROM words WHERE lemma = ?", (lemma_clean,))
+        row = cur.fetchone()
 
-        # 3. PRIORITY: Irregular Logic
-        if is_irr == 1 and irr_type in [1, 3, 6]:
-            col_map = {'1S':'ja_present', '2S':'ty_present', '3S':'on_present', 
-                       '1P':'my_present', '2P':'vy_present', '3P':'oni_present'}
-            person_num = f"{person}{number}"
-            target_col = col_map.get(person_num)
-
-            cur.execute(f"SELECT {target_col} FROM overrides WHERE word_id = ?", (word_id,))
-            over_row = cur.fetchone()
+        if row and row[3] == 'verb':
+            is_verified = True
+            word_id, is_irr, irr_type, _, pattern_id = row
             
-            # Use string conversion to check for 'nan' or empty cells
-            val = str(over_row[0]).strip() if over_row and over_row[0] else ""
-            
-            if val and val.lower() != "nan":
-                present_form = val
-                is_actually_irregular = True
-            else:
-                # FIXED: Only sending 4 arguments now to match the function definition
-                log_error(lemma_clean, word_id, person_num, f"Missing {target_col}")
-                conn.close()
-                return f"ERROR: Data missing (logged in Grammar_functions/grammar_errors.csv)", True, bool(is_reflexive), True
+            is_irr = int(float(is_irr)) if is_irr is not None else 0
+            irr_type = int(float(irr_type)) if irr_type is not None else 0
 
-    conn.close()
+            # 3. PRIORITY: Irregular Logic
+            if is_irr == 1 and irr_type in [1, 3, 6]:
+                col_map = {'1S':'ja_present', '2S':'ty_present', '3S':'on_present', 
+                           '1P':'my_present', '2P':'vy_present', '3P':'oni_present'}
+                person_num = f"{person}{number}"
+                target_col = col_map.get(person_num)
+
+                cur.execute(f"SELECT {target_col} FROM overrides WHERE word_id = ?", (word_id,))
+                over_row = cur.fetchone()
+                
+                val = str(over_row[0]).strip() if over_row and over_row[0] else ""
+                
+                if val and val.lower() != "nan":
+                    present_form = val
+                    is_actually_irregular = True
+                else:
+                    log_error(lemma_clean, word_id, person_num, f"Missing {target_col}")
+                    # Note: We don't return inside the try/finally if we can help it
+                    # but since we must, we close the connection first
+                    conn.close()
+                    return "Data missing", True, bool(is_reflexive), True
+    finally:
+        # This is correctly aligned with 'try'
+        conn.close()
 
     # 4. FALLBACK: Regular Patterns
     if present_form is None:

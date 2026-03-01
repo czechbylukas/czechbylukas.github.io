@@ -11,18 +11,24 @@ def create_future_tense(lemma, person, gender, number):
     if not base_verb.endswith("t"):
         return "Not a verb", None, False, False
 
-    # 2. Database Lookup
-    db_path = os.path.join("VocabSQL_database", "czech_master.db")
+    # 2. Database Lookup (Dynamic Path)
+    current_dir = os.path.dirname(os.path.abspath(__file__))
+    db_path = os.path.abspath(os.path.join(current_dir, "..", "czech_master.db"))
+    
     conn = sqlite3.connect(db_path)
     cur = conn.cursor()
     
-    cur.execute("SELECT id, is_irr, irr_type, pos, vid, category FROM words WHERE lemma = ?", (lemma_clean,))
-    row = cur.fetchone()
+    try:
+        cur.execute("SELECT id, is_irr, irr_type, pos, vid, category FROM words WHERE lemma = ?", (lemma_clean,))
+        row = cur.fetchone()
 
-    if not row or row[3] != 'verb':
+        if not row or row[3] != 'verb':
+            return "Verb not found", None, False, False
+        
+        # ... (rest of your logic for word_id, is_irr, etc. goes here) ...
+
+    finally:
         conn.close()
-        return "Verb not found", None, False, False
-
     word_id, is_irr, irr_type, _, vid, category = row
     is_irr = int(float(is_irr)) if is_irr is not None else 0
     irr_type = int(float(irr_type)) if irr_type is not None else 0

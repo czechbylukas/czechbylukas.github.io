@@ -57,7 +57,10 @@ def declension_noun(lemma, case, number, is_animate=False, is_soft=False):
     case = int(case)
     number = number.upper()
     
-    db_path = os.path.join("VocabSQL_database", "czech_master.db")
+    # Dynamic Path (Fix for Google Cloud)
+    current_dir = os.path.dirname(os.path.abspath(__file__))
+    db_path = os.path.abspath(os.path.join(current_dir, "..", "czech_master.db"))
+    
     conn = sqlite3.connect(db_path)
     cur = conn.cursor()
     
@@ -65,9 +68,11 @@ def declension_noun(lemma, case, number, is_animate=False, is_soft=False):
     try:
         cur.execute("SELECT pattern_id, is_irr, irr_type FROM words WHERE lemma = ?", (lemma,))
         row = cur.fetchone()
-    except:
+    except Exception as e:
+        print(f"DB Error: {e}")
         row = None
-    conn.close()
+    finally:
+        conn.close()
 
     if not row:
         verified = False
