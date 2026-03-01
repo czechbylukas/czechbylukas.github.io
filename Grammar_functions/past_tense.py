@@ -32,52 +32,47 @@ def create_past_tense(lemma, person, gender, number):
     current_dir = os.path.dirname(os.path.abspath(__file__))
     db_path = os.path.join(current_dir, "..", "czech_master.db")
     conn = sqlite3.connect(db_path)
-    cur = conn.cursor()
     
-    cur.execute("SELECT id, is_irr, irr_type, pos FROM words WHERE lemma = ?", (lemma_clean,))
-    row = cur.fetchone()
+    try: # <--- Start the "Try" block
+        cur = conn.cursor()
+        cur.execute("SELECT id, is_irr, irr_type, pos FROM words WHERE lemma = ?", (lemma_clean,))
+        row = cur.fetchone()
 
-    is_verified = True
-    l_participle = None 
-    is_actually_irregular = False 
-    
-    if row is None or row[3] != 'verb':
-        is_verified = False
-        conn.close()
-    elif row[1] == 1:
-        irr_type = int(row[2]) if row[2] is not None else 0
+        is_verified = True
+        l_participle = None 
+        is_actually_irregular = False 
         
-        # Types 1, 2, and 5 use the overrides table
-        if irr_type in [1, 2, 5]:
-            is_actually_irregular = True
-            word_id = row[0]
-            cur.execute("""
-                SELECT past_participle FROM overrides 
-                WHERE (word_id = ? OR form_key = ?) 
-                AND past_participle IS NOT NULL
-            """, (word_id, lemma_clean))
+        if row is None or row[3] != 'verb':
+            is_verified = False
+            # REMOVED: conn.close() from here
+        elif row[1] == 1:
+            irr_type = int(row[2]) if row[2] is not None else 0
             
-            over_row = cur.fetchone()
-            if over_row and over_row[0]:
-                # 1. Get the base (e.g., "přišel" from "přišel si")
-                base_l = over_row[0].split(" ")[0] 
+            if irr_type in [1, 2, 5]:
+                is_actually_irregular = True
+                word_id = row[0]
+                cur.execute("""
+                    SELECT past_participle FROM overrides 
+                    WHERE (word_id = ? OR form_key = ?) 
+                    AND past_participle IS NOT NULL
+                """, (word_id, lemma_clean))
                 
-                # 2. Extract Stem (e.g., "přišel" -> "přiše")
-                stem_l = base_l[:-1] if base_l.endswith('l') else base_l
-                
-                # --- NEW: FLEETING E LOGIC (The Š-Rule) ---
-                # If stem ends in 'še' (přiše, še, odeše) and it's NOT Masc Singular
-                if stem_l.endswith("še") and not (gender == 'M' and number == 'S'):
-                    stem_l = stem_l[:-1] # "přiše" -> "přiš"
-                # ------------------------------------------
+                over_row = cur.fetchone()
+                if over_row and over_row[0]:
+                    base_l = over_row[0].split(" ")[0] 
+                    stem_l = base_l[:-1] if base_l.endswith('l') else base_l
+                    
+                    if stem_l.endswith("še") and not (gender == 'M' and number == 'S'):
+                        stem_l = stem_l[:-1]
 
-                suffixes = {
-                    'S': {'M': 'l', 'Mi': 'l', 'F': 'la', 'N': 'lo'},
-                    'P': {'M': 'li', 'Mi': 'ly', 'F': 'ly', 'N': 'la'}
-                }
-                l_participle = stem_l + suffixes[number][gender]
-        
-        conn.close()
+                    suffixes = {
+                        'S': {'M': 'l', 'Mi': 'l', 'F': 'la', 'N': 'lo'},
+                        'P': {'M': 'li', 'Mi': 'ly', 'F': 'ly', 'N': 'la'}
+                    }
+                    l_participle = stem_l + suffixes[number][gender]
+    
+    finally: # <--- Start the "Finally" block (Aligned with 'try')
+        conn.close() # <--- This code is now "bulletproof"
 
     # 3. Form the L-Participle (if not already set by overrides)
     if l_participle is None:
