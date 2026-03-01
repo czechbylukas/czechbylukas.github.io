@@ -1,5 +1,6 @@
 import sqlite3
 import os
+from unittest import result
 
 def guess_pattern(lemma, is_animate=False, is_soft=False):
     """Guesses pattern based on endings, animacy, and softness."""
@@ -76,7 +77,7 @@ def declension_noun(lemma, case, number, is_animate=False, is_soft=False):
     
     verified = True
     try:
-        cur.execute("SELECT pattern_id, is_irr, irr_type FROM words WHERE lemma = ?", (lemma,))
+        cur.execute("SELECT pattern_id, is_irr, irr_type FROM words WHERE lemma = ?", (lemma_clean,))
         row = cur.fetchone()
 
         # --- LOG 3: Result Check ---
@@ -152,4 +153,7 @@ def declension_noun(lemma, case, number, is_animate=False, is_soft=False):
         return f"{res1}, {res2}", verified
 
     result = apply_consonant_shift(lemma, stem, suf, pattern_id, case, number)
-    return result, verified
+    
+    debug_info = f"Word: {lemma_clean} | Pattern: {pattern_id} | Path: {db_path}"
+    return {"result": result, "verified": verified, "debug": debug_info}
+

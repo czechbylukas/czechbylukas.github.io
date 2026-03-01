@@ -63,9 +63,25 @@ def process_word():
             if irr: status_badges.append("IRREGULAR")
 
         elif mode == 'noun':
-            res, ver = declension_noun(word, case, number, is_animate, is_soft)
-            result_text = res
-            status_badges.append("VERIFIED" if ver else "UNVERIFIED")
+            # 1. Get the dictionary from your function
+            noun_data = declension_noun(word, case, number, is_animate, is_soft)
+            
+            # 2. Extract the pieces
+            result_text = noun_data['result']
+            is_ver = noun_data['verified']
+            debug_string = noun_data['debug']
+            
+            # 3. Add to status
+            status_badges.append("VERIFIED" if is_ver else "UNVERIFIED")
+            
+            # 4. SEND THE DEBUG INFO BACK (Crucial step!)
+            resp = jsonify({
+                "result": result_text, 
+                "status": status_badges,
+                "debug": debug_string  # This makes it appear in F12
+            })
+            resp.headers.add("Access-Control-Allow-Origin", "*")
+            return resp
 
         # 4. Successful Response with CORS header
         resp = jsonify({"result": result_text, "status": status_badges})
