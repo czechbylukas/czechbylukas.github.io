@@ -57,10 +57,20 @@ def declension_noun(lemma, case, number, is_animate=False, is_soft=False):
     case = int(case)
     number = number.upper()
     
+    
+    # --- LOG 1: What are we searching for? ---
+    lemma_clean = lemma.strip().lower()
+    print(f"DEBUG: Declining noun '{lemma}' -> Cleaned as '{lemma_clean}'")
+
     # Dynamic Path (Fix for Google Cloud)
     current_dir = os.path.dirname(os.path.abspath(__file__))
     db_path = os.path.abspath(os.path.join(current_dir, "..", "czech_master.db"))
     
+
+    # --- LOG 2: Path Check ---
+    print(f"DEBUG: Searching for DB at {db_path}")
+
+
     conn = sqlite3.connect(db_path)
     cur = conn.cursor()
     
@@ -68,6 +78,15 @@ def declension_noun(lemma, case, number, is_animate=False, is_soft=False):
     try:
         cur.execute("SELECT pattern_id, is_irr, irr_type FROM words WHERE lemma = ?", (lemma,))
         row = cur.fetchone()
+
+        # --- LOG 3: Result Check ---
+        if row:
+            print(f"DEBUG: Found '{lemma_clean}' in DB! Pattern: {row[0]}")
+        else:
+            print(f"DEBUG: '{lemma_clean}' NOT found in DB. Falling back to guess_pattern.")
+
+
+
     except Exception as e:
         print(f"DB Error: {e}")
         row = None
@@ -82,6 +101,10 @@ def declension_noun(lemma, case, number, is_animate=False, is_soft=False):
     else:
         # If found in DB, we use the pattern from the database
         pattern_id, is_irr, irr_type = row
+    
+    # --- LOG 4: Final Selection ---
+    print(f"DEBUG: Using pattern_id: {pattern_id} (Verified: {verified})")
+
 
     # 1. STEM & DROP-E
     stem = lemma[:-1] if lemma[-1] in ['o', 'a', 'e', 'í'] else lemma
