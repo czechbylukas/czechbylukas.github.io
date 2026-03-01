@@ -1,19 +1,7 @@
 import os
 import sqlite3
-from datetime import datetime
 from flask import Flask, jsonify, request
 from flask_cors import CORS
-from google.oauth2 import service_account
-from googleapiclient.discovery import build
-
-# --- 1. SETTINGS & PATHS ---
-# This folder is: /lessons/python
-base_dir = os.path.dirname(os.path.abspath(__file__)) 
-
-# This jumps UP two levels to reach the root (czechbylukas.github.io)
-# Level 1: python -> lessons
-# Level 2: lessons -> root
-root_dir = os.path.abspath(os.path.join(base_dir, "../.."))
 
 app = Flask(__name__)
 CORS(app) # Allows your GitHub site to talk to this server
