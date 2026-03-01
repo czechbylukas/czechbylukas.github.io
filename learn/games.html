@@ -4,44 +4,91 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Hry - GameZone | HáCZech</title>
-<style>body:not(.logged-in) .content-layout { display: none; }</style>
-<script>window.isPremiumPage = true;</script>
+  
+  <style>body:not(.logged-in) .content-layout { display: none; }</style>
+  <script>window.isPremiumPage = true;</script>
 
-<script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-app-compat.js"></script>
-<script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-auth-compat.js"></script>
-<script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-database-compat.js"></script>
-
-<script src="../scripts-header.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-auth-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-database-compat.js"></script>
+  <script src="../scripts-header.js"></script>
 
   <link rel="stylesheet" href="../css/style.css">
 
+  <link rel="stylesheet" href="../css/language-selector.css">
+
+
+
   <style>
     /* 1. Layout & Controls */
-    #controls {
+    /* Layout for Top Filters */
+#controls {
   display: flex;
-  justify-content: center; /* Centering the selectors */
-  gap: 15px;
-  margin-top: 50px; 
-  margin-bottom: 20px;
+  justify-content: center;
+  align-items: flex-end;
+  gap: 20px;
+  margin: 20px auto;
+  padding: 20px;
+  background: white;
+  border-radius: 12px;
+  border: 2px solid #2c3e50;
+  max-width: 1000px;
+  box-shadow: 0 4px 6px rgba(0,0,0,0.05);
 }
-    
-    .game-grid-layout {
-      display: flex;
+
+.filter-item { display: flex; flex-direction: column; flex: 1; }
+.filter-item label { font-weight: bold; font-size: 0.8rem; text-transform: uppercase; color: #7f8c8d; margin-bottom: 5px; }
+.filter-item select { padding: 10px; border-radius: 6px; border: 1px solid #dcdde1; background: #f9f9f9; cursor: pointer; }
+
+/* NEW Game Selector Grid */
+    #game-selector {
+      display: none; /* Controlled by JS */
       flex-wrap: wrap;
-      gap: 10px;
+      justify-content: center;
+      gap: 15px;
+      margin: 20px auto;
+      max-width: 1000px;
+      padding: 10px;
     }
 
     #game-selector button {
-      padding: 10px 20px;
+      flex: 1 1 calc(20% - 30px); /* 5 buttons per row on desktop */
+      min-width: 150px;
+      min-height: 60px;
+      background: #ffffff;
+      border: 2px solid #2f52b5;
+      color: #2f52b5;
+      padding: 12px;
+      border-radius: 10px;
+      font-weight: 700;
+      font-size: 0.95rem;
       cursor: pointer;
-      border: 1px solid #2f52b5;
-      background: white;
-      border-radius: 5px;
-      transition: background 0.2s;
+      transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
     }
 
-    #game-selector button:hover { background: #f0f4ff; }
-    #game-selector button:active { background: #d9e3ff; }
+    #game-selector button:hover {
+      background: #2f52b5;
+      color: white;
+      transform: translateY(-4px);
+      box-shadow: 0 6px 15px rgba(47, 82, 181, 0.3);
+    }
+
+    /* Mobile: Exactly 2 buttons per row */
+    @media (max-width: 600px) {
+      #game-selector {
+        grid-template-columns: 1fr 1fr;
+        gap: 8px;
+      }
+      #game-selector button {
+        font-size: 0.8rem;
+        min-height: 50px;
+      }
+    }
 
     /* 2. THE GAME BOX */
     #game {
@@ -66,56 +113,26 @@
       color: #666;
     }
 
-    /* 3. Footer & Small Home Link */
-    .support-note {
-      margin-top: 50px;
-      padding: 20px;
-      border-top: 1px solid #eee;
+    /* Game Expansion Styles */
+    .game-expanded { font-size: 1.5rem; }
+    .game-expanded button {
+      padding: 15px 30px !important;
+      font-size: 1.3rem !important;
+      margin: 10px;
+      width: auto;
+      min-width: 200px;
+    }
+    .game-expanded input[type="text"] {
+      font-size: 2rem;
+      padding: 10px;
+      width: 80%;
       text-align: center;
-      font-size: 0.9rem;
+      border: 2px solid #2f52b5;
+      border-radius: 8px;
     }
 
-    .home-link-small {
-      display: inline-block;
-      text-decoration: none;
-      color: #666;
-      border: 1px solid #ccc;
-      padding: 4px 10px;
-      border-radius: 4px;
-      font-size: 12px;
-      margin-bottom: 20px;
-    }
 
-/* Game Expansion Styles */
-.game-expanded {
-  font-size: 1.5rem;
-}
 
-.game-expanded button {
-  padding: 15px 30px !important;
-  font-size: 1.3rem !important;
-  margin: 10px;
-  width: auto;
-  min-width: 200px;
-}
-
-.game-expanded input[type="text"] {
-  font-size: 2rem;
-  padding: 10px;
-  width: 80%;
-  text-align: center;
-  border: 2px solid #2f52b5;
-  border-radius: 8px;
-}
-
-/* Hangman drawing size */
-.game-expanded canvas, 
-.game-expanded svg {
-  transform: scale(1.5);
-  margin: 40px 0;
-}
-
-    /* 4. Mobile Adjustments */
     @media (max-width: 600px) {
       #controls { flex-direction: column; }
       .game-grid-layout {
@@ -123,115 +140,339 @@
         grid-template-columns: 1fr 1fr; 
         gap: 8px;
       }
-      #game-selector button {
-        padding: 12px 5px;
-        font-size: 13px;
-      }
-      #game {
-        min-height: 400px;
-        padding: 10px;
-      }
-      h1 { font-size: 1.5rem; text-align: center; }
+      #game-selector button { padding: 12px 5px; font-size: 13px; }
+      #game { min-height: 400px; padding: 10px; }
     }
   </style>
 </head>
 <body>
 
-  <header>
-    <h1>Hry</h1>
-  </header>
+<header style="display: flex; align-items: center; justify-content: space-between; padding: 10px 20px; background: white; border-bottom: 2px solid #2c3e50;">
+    <div style="flex: 1; text-align: center;">
+        <h1 id="heading-welcome" style="margin: 0; font-size: 1.5rem;">GameZone</h1>
+    </div>
 
-<div class="content-layout"> <div id="controls">
-    <select id="topic">
-      <option value="">Vyber téma</option>
-      <option value="numbers">Čísla</option>
-      <option value="verbs">Časování sloves</option>
-      <option value="past_tense">Minulý čas</option>
-    </select>
+    <div style="flex: 1; display: flex; justify-content: flex-end; align-items: center; gap: 15px;">
+        <div class="lang-switcher">
+            <select id="ui-lang-select" onchange="localStorage.setItem('selectedLanguage', this.value); location.reload();" style="padding: 5px; border-radius: 5px; cursor: pointer;">
+                <option value="en">🇬🇧 English</option>
+                <option value="de">🇩🇪 Deutsch</option>
+                <option value="es">🇪🇸 Español</option>
+            </select>
+        </div>
+        <div id="auth-status-container" style="min-width: 40px; display: flex; justify-content: center;"></div>
+    </div>
+</header>
 
-    <select id="level">
-      <option value="">Vyber úroveň</option>
-      <option value="A1">A1</option>
-      <option value="A2">A2 - not yet ready :(... </option>
-    </select>
 
-    <select id="language" style="display:none;">
-      <option value="en" selected>English</option>
-    </select>
+<aside id="sidebar-placeholder"></aside>
+
+
+<div class="content-layout"> 
+  <div id="controls">
+    <div class="filter-item">
+      <label>Topic:</label>
+      <select id="topic-select"><option value="">Vyber téma (POS)</option></select>
+    </div>
+    <div class="filter-item">
+      <label>Level:</label>
+      <select id="level-select"><option value="">Vyber úroveň</option></select>
+    </div>
+    <div class="filter-item">
+      <label>Lesson:</label>
+      <select id="lesson-select"><option value="">Vyber lekci</option></select>
+    </div>
   </div>
 
-  <hr>
+  <main id="game-workspace">
+    <div id="game-selector" style="display:none;">
+      <button data-game="flashcards">Flashcards</button>
 
-  <div id="game-selector" class="game-grid-layout" style="display:none">
-    <button data-game="flashcards">Flashcards</button>
-    <button data-game="mcq">Multiple Choice</button>
-    <button data-game="fillGap">Fill in the Gap</button>
-    <button data-game="hangman">Hangman</button>
-    <button data-game="dragDrop">Drag & Drop</button>
-    <button data-game="memory">Memory</button>
-    <button data-game="pexeso">Pexeso</button>
-    <button data-game="match">Match Game</button>
-    <button data-game="writeAnswer">Write the Answer</button>
-    <button data-game="speedClick">Speed Click</button>
-    <button data-game="fallingWords">Falling Words</button>
-    <button data-game="orderWords">Order the Words</button>
-    <button data-game="sentenceBuilder">Sentence Builder</button>
-    <button data-game="guessNumber">Guess the Number</button>
-    <button data-game="whatDidYouHear">What Did You Hear?</button>
-  </div>
+      <button data-game="mcq">Multiple Choice</button>
 
-  <hr>
+      <button data-game="orderWords">Order Words</button>
 
-  <div id="game">
-    <div class="placeholder-text">⬆️ Vyber téma a úroveň</div>
-  </div>
+      <button data-game="hangman">Hangman</button>
 
-  <div id="ad-wrapper" style="text-align: center; margin: 20px 0; display: none;">
-    <ins class="adsbygoogle"
-         style="display:block"
-         data-ad-client="ca-pub-9067674021614925"
-         data-ad-slot="6031820485"
-         data-ad-format="auto"
-         data-full-width-responsive="true"></ins>
-  </div>
+      <button data-game="fillGap">Fill in the Gap</button>
 
-  <div style="text-align: center;">
-    <a href="/index.html" class="home-link-small">🏠 Home</a>
-  </div>
+      <button data-game="match">Match</button>
 
-</div> <div id="footer-placeholder"></div>
 
-<script>
-  // Load footer.html dynamically
-  fetch("/footer.html")
-    .then(response => response.text())
-    .then(data => {
-      document.getElementById("footer-placeholder").innerHTML = data;
-    })
-    .catch(error => console.error("Error loading footer:", error));
-</script>
+      <button data-game="dragDrop">Drag & Drop</button>
 
-<script type="module" src="./core/loader.js"></script>
+      <button data-game="memory">Memory</button>
 
-<script>
-  document.getElementById('game-selector').addEventListener('click', function(e) {
+      <button data-game="pexeso">Pexeso</button>
+
+
+      <button data-game="writeAnswer">Write Answer</button>
+
+      <button data-game="speedClick">Speed Click</button>
+
+      <button data-game="fallingWords">Falling Words</button>
+
+      <button data-game="sentenceBuilder">Sentence Builder</button>
+
+      <button data-game="guessNumber">Guess Number</button>
+
+      <button data-game="whatDidYouHear">Listening</button>
+
+    </div>
+
+    <div id="game">
+      <div class="placeholder-text">⬆️ Vyberte filtry nahoře pro spuštění her</div>
+    </div>
+
+
+  </main>
+</div>
+
+<div id="footer-placeholder"></div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/sql.js/1.6.2/sql-wasm.js"></script>
+
+<script type="module">
+  import { GameEngine } from './core/loader_copy.js';
+import { gameMapping, globalExclusions } from './core/gameMapping_copy.js'; // Added globalExclusions
+
+  let db;
+  const engine = new GameEngine();
+
+  async function init() {
+    try {
+      console.log("Starting DB Init..."); // LOG 1
+      const sqlPromise = initSqlJs({ locateFile: file => `https://cdnjs.cloudflare.com/ajax/libs/sql.js/1.6.2/${file}` });
+      const response = await fetch("../VocabSQL_database/czech_master.db"); 
+      
+      if (!response.ok) throw new Error("Database file not found at path!"); // LOG 2
+
+      const buf = await response.arrayBuffer();
+      const [SQL, data] = await Promise.all([sqlPromise, buf]);
+      db = new SQL.Database(new Uint8Array(data));
+      
+      console.log("DB Loaded Successfully!"); // LOG 3
+      populateInitialFilters();
+    } catch (err) {
+      console.error("CRITICAL ERROR:", err); // This will tell us the EXACT line that failed
+    }
+  }
+
+  function populateInitialFilters() {
+    const topicSelect = document.getElementById('topic-select');
+    const levelSelect = document.getElementById('level-select');
+    const lessonSelect = document.getElementById('lesson-select');
+
+    const topics = db.exec("SELECT DISTINCT pos FROM words WHERE pos IS NOT NULL");
+    const levels = db.exec("SELECT DISTINCT level FROM words WHERE level IS NOT NULL");
+
+    if (topics[0]) {
+      topics[0].values.forEach(row => {
+        topicSelect.innerHTML += `<option value="${row[0]}">${row[0]}</option>`;
+      });
+    }
+
+    if (levels[0]) {
+      levels[0].values.forEach(row => {
+        levelSelect.innerHTML += `<option value="${row[0]}">${row[0]}</option>`;
+      });
+    }
+
+    // Topic & Level refill the lesson list
+    [topicSelect, levelSelect].forEach(el => el.addEventListener('change', updateLessons));
+    
+    // Lesson choice ONLY checks if we can show buttons
+    lessonSelect.addEventListener('change', toggleGameSelector);
+  }
+
+  function updateLessons() {
+    const topic = document.getElementById('topic-select').value;
+    const level = document.getElementById('level-select').value;
+    const lessonSelect = document.getElementById('lesson-select');
+
+    // Only refill if we have both Topic and Level
+    if (topic && level) {
+      try {
+        const res = db.exec(`SELECT DISTINCT lesson FROM words WHERE pos='${topic}' AND level='${level}'`);
+        lessonSelect.innerHTML = '<option value="">Vyber lekci</option>';
+        if (res[0]) {
+          res[0].values.forEach(row => {
+            lessonSelect.innerHTML += `<option value="${row[0]}">${row[0]}</option>`;
+          });
+        }
+      } catch (e) {
+        console.error("Database query failed:", e);
+      }
+    }
+    // After refilling the list, we still run the check
+    toggleGameSelector();
+  }
+
+  function toggleGameSelector() {
+    const topic = document.getElementById('topic-select').value;
+    const level = document.getElementById('level-select').value;
+    const lesson = document.getElementById('lesson-select').value;
+    const selector = document.getElementById('game-selector');
+    
+    console.log("Selection status:", { topic, level, lesson }); // Test 3
+
+
+    
+
+    // Reset visibility if filters are incomplete
+    if (!topic || !level || !lesson) {
+        console.log("Filters incomplete, hiding buttons.");
+        selector.style.display = 'none';
+        return;
+    }
+
+    console.log("Filters complete! Showing buttons now.");
+    selector.style.display = 'flex';
+
+    // --- 1. CHECK GLOBAL EXCLUSIONS (with .toLowerCase() fix) ---
+    // We compare everything in lowercase so "Phrase" matches "phrase"
+    const isGlobalExcluded = globalExclusions.pos.some(p => p.toLowerCase() === topic.toLowerCase()) || 
+                             globalExclusions.lessons.includes(lesson);
+
+    if (globalExclusions.pos.includes(topic) || globalExclusions.lessons.includes(lesson)) {
+        selector.style.display = 'none';
+        console.log("Blocked by Global Exclusion rule.");
+        return;
+    
+    }
+
+    // --- 2. CHECK INDIVIDUAL GAME EXCLUSIONS ---
+    selector.style.display = 'flex';
+    const buttons = selector.querySelectorAll('button');
+
+    buttons.forEach(btn => {
+        const gameId = btn.dataset.game;
+        const config = gameMapping[gameId];
+
+        // If game is not defined in mapping, show it by default
+        if (!config || !config.exclude) {
+            btn.style.display = 'block';
+            return;
+        }
+
+        const isExcluded = config.exclude.pos?.includes(topic) || 
+                           config.exclude.lessons?.includes(lesson);
+
+        btn.style.display = isExcluded ? 'none' : 'block';
+    });
+  }
+
+
+
+
+// --- KEEP YOUR EXISTING FUNCTIONS (init, updateLessons, etc.) ABOVE THIS ---
+
+  // Handle Game Clicks
+  document.getElementById('game-selector').addEventListener('click', (e) => {
     if (e.target.tagName === 'BUTTON') {
-      const gameContainer = document.getElementById('game');
-      const gameType = e.target.getAttribute('data-game');
+      const gameType = e.target.dataset.game;
+      const topic = document.getElementById('topic-select').value;
+      const level = document.getElementById('level-select').value;
+      const lesson = document.getElementById('lesson-select').value;
 
-      const expandedGames = ['mcq', 'fillGap', 'hangman', 'writeAnswer'];
+      // Detect the current UI language (en, de, or es)
+      const currentLang = (localStorage.getItem("selectedLanguage") || "en").replace('cs', 'en');
+      const langCol = `trans_${currentLang}`;
 
-      if (expandedGames.includes(gameType)) {
-        gameContainer.classList.add('game-expanded');
-      } else {
-        gameContainer.classList.remove('game-expanded');
+
+      let whereClause = `pos='${topic}'`;
+      if (['fillGap', 'writeAnswer', 'sentenceBuilder'].includes(gameType)) {
+          whereClause = `(pos='${topic}' OR pos='Phrase')`;
       }
 
-      setTimeout(() => {
-        gameContainer.scrollIntoView({ behavior: 'smooth', block: 'start' });
-      }, 150);
+
+      // CORRECTED QUERY: Removed 'phrase' because it doesn't exist in your DB
+      // Add 'ext1' and 'phrase' to the end of your SELECT
+const query = `SELECT lemma, ${langCol}, image_path, ext1, pos, synonym FROM words 
+               WHERE ${whereClause} AND level='${level}' AND lesson='${lesson}' 
+               ORDER BY RANDOM() LIMIT 20`;
+      
+      const res = db.exec(query);
+      const gameContainer = document.getElementById('game');
+
+      const wordCount = (res[0] && res[0].values) ? res[0].values.length : 0;
+
+// GLOBAL MINIMUM CHECK
+if (wordCount < 5) {
+    gameContainer.innerHTML = `
+        <div class="placeholder-text" style="padding: 40px; border: 2px dashed #ccc;">
+            <h3 style="color: #e67e22;">⚠️ Málo slov pro tuto hru</h3>
+            <p>Tato kombinace (<b>${topic}</b> + <b>Lekce ${lesson}</b>) obsahuje pouze <b>${wordCount}</b> slov.</p>
+            <p>Vyberte prosím jiné téma nebo lekci, aby hra fungovala správně (vyžadováno alespoň 5).</p>
+        </div>`;
+    return;
+}
+
+     // Change the mapping block to this:
+const rawRows = res[0].values.map(row => ({
+    lemma: row[0], 
+    translation: row[1], 
+    image: row[2], 
+    ext1: row[3] || "", 
+    pos: row[4],
+    synonym: row[5] || "" // This is the missing piece!
+}));
+
+      const mainWords = rawRows.filter(item => item.pos === topic);
+      const allPhrases = rawRows.filter(item => item.pos === 'Phrase');
+
+      const data = mainWords.map((word, idx) => {
+          const match = allPhrases.find(p => p.ext1.toLowerCase().split(',').map(s => s.trim()).includes(word.lemma.toLowerCase()));
+          
+          // restored console debugging
+          console.log(`Mapping Word [${idx}]:`, word.lemma, "Found Sentence:", match ? match.lemma : "NONE");
+
+          const item = {
+    cs: word.lemma, 
+    en: word.translation, 
+    image: word.image, 
+    ext1: word.ext1, 
+    pos: word.pos,
+    synonym: word.synonym, // Add this line
+    phrase: match ? match.lemma : word.lemma,
+    phraseEn: match ? match.translation : word.translation
+};
+          item[currentLang] = word.translation;
+          return item;
+      });
+
+      console.log("FINAL DATA SENT TO ENGINE:", data);
+
+      if (['mcq', 'fillGap', 'hangman'].includes(gameType)) {
+          gameContainer.classList.add('game-expanded');
+      } else {
+          gameContainer.classList.remove('game-expanded');
+      }
+
+      engine.render(gameType, data, '#game', currentLang);
+      gameContainer.scrollIntoView({ behavior: 'smooth', block: 'start' });
     }
   });
+
+  // --- INITIALIZATION & COMPONENT LOADERS ---
+  init();
+
+  // Sidebar Loader
+  fetch("/sidebar/sidebar.html")
+    .then(r => r.text())
+    .then(d => { document.getElementById("sidebar-placeholder").innerHTML = d; })
+    .catch(err => console.error("Sidebar load failed:", err));
+
+  // Footer Loader
+  fetch("/footer.html")
+    .then(r => r.text())
+    .then(d => { document.getElementById("footer-placeholder").innerHTML = d; });
+
+  // Sync Language UI Dropdown
+  const savedLang = localStorage.getItem("selectedLanguage") || "en";
+  const langDropdown = document.getElementById('ui-lang-select');
+  if (langDropdown) langDropdown.value = (savedLang === 'cs') ? 'en' : savedLang;
+
 </script>
 
 </body>
