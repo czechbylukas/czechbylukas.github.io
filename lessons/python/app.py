@@ -10,24 +10,26 @@ from Grammar_functions.future_tense import create_future_tense
 from Grammar_functions.noun_declension import declension_noun
 
 app = Flask(__name__)
-CORS(app)
 
-# Important: Update the base_dir to help the functions find the DB
+# Strong CORS policy
+CORS(app, resources={r"/*": {"origins": "*"}}, supports_credentials=True)
+
 base_dir = os.path.dirname(os.path.abspath(__file__))
-
-def get_db_connection():
-    # Points to your symlinked database
-    db_path = os.path.join(base_dir, 'czech_master.db')
-    return sqlite3.connect(db_path)
 
 @app.route('/process', methods=['POST', 'OPTIONS'])
 def process_word():
+    # 1. HANDLE THE HANDSHAKE (CORS FIX)
     if request.method == 'OPTIONS':
-        return '', 200
+        response = app.make_default_options_response()
+        response.headers.add("Access-Control-Allow-Origin", "*")
+        response.headers.add("Access-Control-Allow-Headers", "Content-Type")
+        response.headers.add("Access-Control-Allow-Methods", "POST")
+        return response
 
+    # 2. HANDLE THE ACTUAL LOGIC
     try:
         data = request.json
-        mode = data.get('mode') # 'verb' or 'noun'
+        mode = data.get('mode') 
         word = data.get('word')
         tense = data.get('tense')
         person = data.get('person')
@@ -40,7 +42,6 @@ def process_word():
         result_text = ""
         status_badges = []
 
-        # --- VERB LOGIC ---
         if mode == 'verb':
             if tense == 'past':
                 res, ver, refl, irr = create_past_tense(word, person, gender, number)
@@ -48,26 +49,27 @@ def process_word():
                 res, ver, refl, irr = create_present_tense(word, person, gender, number)
             elif tense == 'future':
                 res, vid, ver, irr = create_future_tense(word, person, gender, number)
-                status_badges.append(vid) # Show Aspect (Perfective/Imperfective)
+                status_badges.append(vid)
             
             result_text = res
             if ver: status_badges.append("VERIFIED")
             else: status_badges.append("GUESSED")
             if irr: status_badges.append("IRREGULAR")
 
-        # --- NOUN LOGIC ---
         elif mode == 'noun':
             res, ver = declension_noun(word, case, number, is_animate, is_soft)
             result_text = res
             status_badges.append("VERIFIED" if ver else "UNVERIFIED")
 
-        return jsonify({
-            "result": result_text,
-            "status": status_badges
-        })
+        # 3. ATTACH CORS HEADER TO THE SUCCESSFUL RESPONSE TOO
+        resp = jsonify({"result": result_text, "status": status_badges})
+        resp.headers.add("Access-Control-Allow-Origin", "*")
+        return resp
 
     except Exception as e:
-        return jsonify({"error": str(e)}), 500
+        error_resp = jsonify({"error": str(e)})
+        error_resp.headers.add("Access-Control-Allow-Origin", "*")
+        return error_resp, 500
 
 if __name__ == '__main__':
     app.run(debug=True, port=5000)

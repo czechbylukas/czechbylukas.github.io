@@ -30,7 +30,8 @@ def create_past_tense(lemma, person, gender, number):
 
     # 2. Database Check
     current_dir = os.path.dirname(os.path.abspath(__file__))
-    db_path = os.path.join(current_dir, "..", "czech_master.db")    conn = sqlite3.connect(db_path)
+    db_path = os.path.join(current_dir, "..", "czech_master.db")
+    conn = sqlite3.connect(db_path)
     cur = conn.cursor()
     
     cur.execute("SELECT id, is_irr, irr_type, pos FROM words WHERE lemma = ?", (lemma_clean,))
