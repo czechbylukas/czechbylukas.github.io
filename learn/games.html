@@ -168,21 +168,23 @@
 <aside id="sidebar-placeholder"></aside>
 
 
-<div class="content-layout"> 
-  <div id="controls">
+<div id="controls">
     <div class="filter-item">
-      <label>Topic:</label>
-      <select id="topic-select"><option value="">Vyber téma (POS)</option></select>
+        <label>1. Vyber Lekci:</label>
+        <select id="lesson-select">
+            <option value="">Načítání lekcí...</option>
+        </select>
     </div>
+    
     <div class="filter-item">
-      <label>Level:</label>
-      <select id="level-select"><option value="">Vyber úroveň</option></select>
+        <label>2. Vyber Témata:</label>
+        <div id="topic-checkboxes" style="display: flex; gap: 10px; align-items: center;">
+            <label><input type="checkbox" id="all-topics" checked> Vše</label>
+            <label><input type="checkbox" class="pos-check" value="verb" checked> Verbs</label>
+            <label><input type="checkbox" class="pos-check" value="noun" checked> Nouns</label>
+        </div>
     </div>
-    <div class="filter-item">
-      <label>Lesson:</label>
-      <select id="lesson-select"><option value="">Vyber lekci</option></select>
-    </div>
-  </div>
+</div>
 
   <main id="game-workspace">
     <div id="game-selector" style="display:none;">
@@ -259,108 +261,86 @@ import { gameMapping, globalExclusions } from './core/gameMapping.js'; // Added 
   }
 
   function populateInitialFilters() {
-    const topicSelect = document.getElementById('topic-select');
-    const levelSelect = document.getElementById('level-select');
     const lessonSelect = document.getElementById('lesson-select');
+    const allCheck = document.getElementById('all-topics');
+    const posChecks = document.querySelectorAll('.pos-check');
 
-    const topics = db.exec("SELECT DISTINCT pos FROM words WHERE pos IS NOT NULL");
-    const levels = db.exec("SELECT DISTINCT level FROM words WHERE level IS NOT NULL");
-
-    if (topics[0]) {
-      topics[0].values.forEach(row => {
-        topicSelect.innerHTML += `<option value="${row[0]}">${row[0]}</option>`;
-      });
+    // 1. Fill Lessons immediately from DB
+    const res = db.exec("SELECT DISTINCT lesson FROM words WHERE lesson IS NOT NULL ORDER BY CAST(lesson AS UNSIGNED), lesson");
+    lessonSelect.innerHTML = '<option value="">Vyber lekci...</option>';
+    if (res[0]) {
+        res[0].values.forEach(row => {
+            lessonSelect.innerHTML += `<option value="${row[0]}">Lekce ${row[0]}</option>`;
+        });
     }
 
-    if (levels[0]) {
-      levels[0].values.forEach(row => {
-        levelSelect.innerHTML += `<option value="${row[0]}">${row[0]}</option>`;
-      });
-    }
+    // 2. "Select All" Logic
+    allCheck.addEventListener('change', () => {
+        posChecks.forEach(cb => cb.checked = allCheck.checked);
+        toggleGameSelector();
+    });
 
-    // Topic & Level refill the lesson list
-    [topicSelect, levelSelect].forEach(el => el.addEventListener('change', updateLessons));
-    
-    // Lesson choice ONLY checks if we can show buttons
+    // 3. Individual Checkbox Logic
+    posChecks.forEach(cb => {
+        cb.addEventListener('change', () => {
+            if (!cb.checked) allCheck.checked = false;
+            const allSelected = Array.from(posChecks).every(c => c.checked);
+            if (allSelected) allCheck.checked = true;
+            toggleGameSelector();
+        });
+    });
+
     lessonSelect.addEventListener('change', toggleGameSelector);
   }
 
-  function updateLessons() {
-    const topic = document.getElementById('topic-select').value;
-    const level = document.getElementById('level-select').value;
-    const lessonSelect = document.getElementById('lesson-select');
-
-    // Only refill if we have both Topic and Level
-    if (topic && level) {
-      try {
-        const res = db.exec(`SELECT DISTINCT lesson FROM words WHERE pos='${topic}' AND level='${level}'`);
-        lessonSelect.innerHTML = '<option value="">Vyber lekci</option>';
-        if (res[0]) {
-          res[0].values.forEach(row => {
-            lessonSelect.innerHTML += `<option value="${row[0]}">${row[0]}</option>`;
-          });
-        }
-      } catch (e) {
-        console.error("Database query failed:", e);
-      }
-    }
-    // After refilling the list, we still run the check
-    toggleGameSelector();
-  }
-
   function toggleGameSelector() {
-    const topic = document.getElementById('topic-select').value;
-    const level = document.getElementById('level-select').value;
     const lesson = document.getElementById('lesson-select').value;
     const selector = document.getElementById('game-selector');
     
-    console.log("Selection status:", { topic, level, lesson }); // Test 3
-
-
-    
-
-    // Reset visibility if filters are incomplete
-    if (!topic || !level || !lesson) {
-        console.log("Filters incomplete, hiding buttons.");
+    // 1. If no lesson, hide everything
+    if (!lesson) {
         selector.style.display = 'none';
+        document.getElementById('game').innerHTML = '<div class="placeholder-text">⬆️ Vyberte lekci pro spuštění her</div>';
         return;
     }
 
-    console.log("Filters complete! Showing buttons now.");
+    // 2. Get the currently checked topics (verbs, nouns, etc.)
+    const selectedPos = Array.from(document.querySelectorAll('.pos-check:checked')).map(cb => cb.value);
+
+    // 3. Show the selector
     selector.style.display = 'flex';
 
-    // --- 1. CHECK GLOBAL EXCLUSIONS (with .toLowerCase() fix) ---
-    // We compare everything in lowercase so "Phrase" matches "phrase"
-    const isGlobalExcluded = globalExclusions.pos.some(p => p.toLowerCase() === topic.toLowerCase()) || 
-                             globalExclusions.lessons.includes(lesson);
-
-    if (globalExclusions.pos.includes(topic) || globalExclusions.lessons.includes(lesson)) {
-        selector.style.display = 'none';
-        console.log("Blocked by Global Exclusion rule.");
-        return;
-    
-    }
-
-    // --- 2. CHECK INDIVIDUAL GAME EXCLUSIONS ---
-    selector.style.display = 'flex';
+    // 4. CHECK INDIVIDUAL GAME EXCLUSIONS
     const buttons = selector.querySelectorAll('button');
-
     buttons.forEach(btn => {
         const gameId = btn.dataset.game;
         const config = gameMapping[gameId];
 
-        // If game is not defined in mapping, show it by default
+        // If no config for this game, show it
         if (!config || !config.exclude) {
             btn.style.display = 'block';
             return;
         }
 
-        const isExcluded = config.exclude.pos?.includes(topic) || 
-                           config.exclude.lessons?.includes(lesson);
+        // Check if the lesson is excluded
+        const isLessonExcluded = config.exclude.lessons?.includes(lesson);
 
-        btn.style.display = isExcluded ? 'none' : 'block';
+        // Check if ANY of the currently selected topics are excluded for this game
+        // (e.g., if Verbs are excluded and Verbs is checked, hide the game)
+        const isPosExcluded = selectedPos.some(pos => config.exclude.pos?.includes(pos));
+
+        if (isLessonExcluded || isPosExcluded) {
+            btn.style.display = 'none';
+        } else {
+            btn.style.display = 'block';
+        }
     });
-  }
+}
+
+
+
+
+  
 
 
 
@@ -368,32 +348,37 @@ import { gameMapping, globalExclusions } from './core/gameMapping.js'; // Added 
 // --- KEEP YOUR EXISTING FUNCTIONS (init, updateLessons, etc.) ABOVE THIS ---
 
   // Handle Game Clicks
+  // Handle Game Clicks
   document.getElementById('game-selector').addEventListener('click', (e) => {
     if (e.target.tagName === 'BUTTON') {
       const gameType = e.target.dataset.game;
-      const topic = document.getElementById('topic-select').value;
-      const level = document.getElementById('level-select').value;
       const lesson = document.getElementById('lesson-select').value;
+      
+      // Get all checked values (e.g., ['verb', 'noun'])
+      const selectedPos = Array.from(document.querySelectorAll('.pos-check:checked')).map(cb => cb.value);
 
-      // Detect the current UI language (en, de, or es)
+      // Detect the current UI language
       const currentLang = (localStorage.getItem("selectedLanguage") || "en").replace('cs', 'en');
       const langCol = `trans_${currentLang}`;
 
-
-      let whereClause = `pos='${topic}'`;
-      if (['fillGap', 'writeAnswer', 'sentenceBuilder'].includes(gameType)) {
-          whereClause = `(pos='${topic}' OR pos='Phrase')`;
+      // 1. BUILD THE POS FILTER
+      let posFilter = "";
+      if (selectedPos.length > 0) {
+          // Creates: AND (pos IN ('verb','noun') OR pos='Phrase')
+          const formattedPos = selectedPos.map(p => `'${p}'`).join(',');
+          posFilter = `AND (pos IN (${formattedPos}) OR pos='Phrase')`; 
+      } else {
+          posFilter = `AND pos='NONE'`; 
       }
 
-
-      // CORRECTED QUERY: Removed 'phrase' because it doesn't exist in your DB
-      // Add 'ext1' and 'phrase' to the end of your SELECT
-const query = `SELECT lemma, ${langCol}, image_path, ext1, pos, synonym FROM words 
-               WHERE ${whereClause} AND level='${level}' AND lesson='${lesson}' 
-               ORDER BY RANDOM() LIMIT 20`;
+      // 2. THE NEW CLEAN QUERY
+      const query = `SELECT lemma, ${langCol}, image_path, ext1, pos, synonym FROM words 
+                     WHERE lesson='${lesson}' ${posFilter} 
+                     ORDER BY RANDOM() LIMIT 20`;
       
       const res = db.exec(query);
       const gameContainer = document.getElementById('game');
+      
 
       const wordCount = (res[0] && res[0].values) ? res[0].values.length : 0;
 
@@ -402,8 +387,8 @@ if (wordCount < 5) {
     gameContainer.innerHTML = `
         <div class="placeholder-text" style="padding: 40px; border: 2px dashed #ccc;">
             <h3 style="color: #e67e22;">⚠️ Málo slov pro tuto hru</h3>
-            <p>Tato kombinace (<b>${topic}</b> + <b>Lekce ${lesson}</b>) obsahuje pouze <b>${wordCount}</b> slov.</p>
-            <p>Vyberte prosím jiné téma nebo lekci, aby hra fungovala správně (vyžadováno alespoň 5).</p>
+            <p>Tato lekce obsahuje pouze <b>${wordCount}</b> vybraných slov.</p>
+            <p>Zkuste vybrat jinou lekci nebo přidat více témat (Verbs/Nouns).</p>
         </div>`;
     return;
 }
@@ -418,7 +403,8 @@ const rawRows = res[0].values.map(row => ({
     synonym: row[5] || "" // This is the missing piece!
 }));
 
-      const mainWords = rawRows.filter(item => item.pos === topic);
+      // This checks if the word's POS is inside your array of checked checkboxes
+      const mainWords = rawRows.filter(item => selectedPos.includes(item.pos.toLowerCase()));
       const allPhrases = rawRows.filter(item => item.pos === 'Phrase');
 
       const data = mainWords.map((word, idx) => {
