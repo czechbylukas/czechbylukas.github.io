@@ -19,13 +19,13 @@ const vocab = [
     german:  "sich anziehen"
   },
   {
-    czech:   "jít / chodit kam",
+    czech:   "chodit / jít kam",
     english: "to go (on foot) where to (once / repeatedly)",
     spanish: "ir a pie",
     german:  "gehen"
   },
   {
-    czech:   "jet / jezdit kam",
+    czech:   "jezdit / jet kam",
     english: "to go (by vehicle) where to (once / repeatedly)",
     spanish: "ir en vehículo",
     german:  "fahren"
