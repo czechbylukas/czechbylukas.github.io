@@ -535,8 +535,10 @@ function syncToCloud(data) {
         const overStmt = db.prepare("SELECT past_participle FROM overrides WHERE form_key = ? LIMIT 1");
         overStmt.bind([val]);
         if (overStmt.step()) {
-            let fullPast = overStmt.get()[0].split(" ")[0]; 
-            window.currentVerbStem = fullPast.endsWith('l') ? fullPast.slice(0, -1) : fullPast;
+            let row = overStmt.get();
+            let fullPast = (row && row[0]) ? row[0].split(" ")[0] : ""; 
+            window.currentVerbStem = (fullPast && fullPast.endsWith('l')) ? fullPast.slice(0, -1) : (fullPast || val.split(" ")[0].replace(/t$/, ''));
+
             console.log(`[Debug] Override found! Stem: ${window.currentVerbStem}`);
         } else {
                         console.warn(`[Debug] No override found for "${val}", using default logic.`);
@@ -602,8 +604,10 @@ function syncToCloud(data) {
         aux = "jsi";  // Explicitly singular
     }
 
-    document.getElementById('sentence-display').innerHTML = 
-    `Co <span class="blue-bold">${aux}</span> ${window.currentVerbStem}<span class="blue-bold">${end}</span> ${day}?`;
+    const questionStem = "děla"; // Always use "dělat" for the question
+        document.getElementById('sentence-display').innerHTML = 
+        `Co <span class="blue-bold">${aux}</span> ${questionStem}<span class="blue-bold">${end}</span> ${day}?`;
+
 
     document.getElementById('answer-display').innerText = "";
     document.getElementById('next-step-btn').innerText = "Odpovědět (Krok 1)";
@@ -641,8 +645,8 @@ function syncToCloud(data) {
         const end = endings[val] || 'l';
 
         // --- MAGIC Š LOGIC (FLEETING E) ---
-        let finalStem = base;
-        if (base.endsWith("še") && val !== 'M') {
+        let finalStem = base || "";
+            if (finalStem.endsWith("še") && val !== 'M') {
             finalStem = base.slice(0, -1); // "přiše" -> "přiš"
         }
 
