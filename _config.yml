@@ -1,1 +1,2 @@
-exclude: ["lessons/python/czech_master.db"]
+exclude:
+  - "lessons/python"
