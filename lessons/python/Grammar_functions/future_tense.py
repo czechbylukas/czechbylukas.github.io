@@ -3,15 +3,28 @@ import os
 from .present_tense import create_present_tense, log_error
 
 def create_future_tense(lemma, person, gender, number):
-    # 1. Cleaning & Reflexive Check
+    # 1. Cleaning
     is_reflexive = "se" if lemma.endswith(" se") else "si" if lemma.endswith(" si") else None
     lemma_clean = lemma.strip().lower()
     base_verb = lemma_clean.split(" ")[0] if is_reflexive else lemma_clean
+    person_num = f"{person}{number}" # e.g., '1S'
 
     if not base_verb.endswith("t"):
         return "Not a verb", None, False, False
 
-    # 2. Database Lookup (Dynamic Path)
+    # --- HARD OVERRIDES (Fixes 'jít' and 'udělat' regardless of DB) ---
+    if base_verb == "jít":
+        pres, _, _, _ = create_present_tense(lemma, person, gender, number)
+        # Manually transform 'jdu' -> 'půjdu', 'jdeš' -> 'půjdeš'
+        future_form = pres.replace("jd", "půjd")
+        return future_form, "Aspect: imperfective (Movement)", True, False
+
+    if base_verb == "udělat":
+        # Force 'udělat' to just use the present tense conjugation
+        return create_present_tense(lemma, person, gender, number)
+    # -----------------------------------------------------------------
+
+    # 2. Database Lookup
     current_dir = os.path.dirname(os.path.abspath(__file__))
     db_path = os.path.abspath(os.path.join(current_dir, "..", "czech_master.db"))
     
@@ -19,75 +32,47 @@ def create_future_tense(lemma, person, gender, number):
     cur = conn.cursor()
     
     try:
-        cur.execute("SELECT id, is_irr, irr_type, pos, vid, category FROM words WHERE lemma = ?", (lemma_clean,))
+        cur.execute("SELECT id, is_irr, irr_type, vid, category FROM words WHERE lemma = ?", (lemma_clean,))
         row = cur.fetchone()
 
-        if not row or row[3] != 'verb':
+        if not row:
+            conn.close()
             return "Verb not found", None, False, False
         
-        # ... (rest of your logic for word_id, is_irr, etc. goes here) ...
-
-    finally:
-        conn.close()
-    word_id, is_irr, irr_type, _, vid, category = row
-    is_irr = int(float(is_irr)) if is_irr is not None else 0
-    irr_type = int(float(irr_type)) if irr_type is not None else 0
-    
-    vid_info = f"Aspect: {vid}"
-    if category == "motion":
-        vid_info += " (Movement)"
-
-    person_num = f"{person}{number}"
-
-    # 3. PRIORITY: Irregular Future (Types 1, 4, 7)
-    # If the verb is irregular, we MUST find it in overrides. No guessing.
-    if is_irr == 1 and irr_type in [1, 4, 7]:
-        col_map = {'1S':'ja_future', '2S':'ty_future', '3S':'on_future', 
-                   '1P':'my_future', '2P':'vy_future', '3P':'oni_future'}
-        target_col = col_map.get(person_num)
-
-        cur.execute(f"SELECT {target_col} FROM overrides WHERE word_id = ?", (word_id,))
-        over_row = cur.fetchone()
-        val = str(over_row[0]).strip() if over_row and over_row[0] else ""
+        word_id, is_irr, irr_type, vid, category = row
+        vid_clean = str(vid).strip().lower()
         
-        if val and val.lower() != "nan":
-            conn.close()
-            return val, vid_info, True, True
-        else:
-            # LOG THE ERROR AND STOP
-            log_error(lemma_clean, word_id, person_num, f"Missing {target_col}")
-            conn.close()
-            return f"ERROR: Data missing (logged in log)", vid_info, True, True
-
-    conn.close()
-
-    # 4. REGULAR LOGIC (Only if not caught by irregular block)
-    
-    # A) PERFECTIVE: Use Present Tense logic (e.g., udělat -> udělám)
-    if vid == 'perfective':
-        future_form, _, _, _ = create_present_tense(lemma, person, gender, number)
-        return future_form, vid_info, True, False
-    
-    # B) MOVEMENT: po- + present form (e.g., jet -> pojedu)
-    elif vid == 'movement':
-        pres, _, _, _ = create_present_tense(lemma, person, gender, number)
-        if "ERROR" in pres: # Catch errors from present_tense.py
-            return pres, vid_info, True, True
+        # 3. IRREGULAR LOGIC (from overrides table)
+        if int(float(is_irr or 0)) == 1:
+            col_map = {'1S':'ja_future', '2S':'ty_future', '3S':'on_future', 
+                       '1P':'my_future', '2P':'vy_future', '3P':'oni_future'}
+            target_col = col_map.get(person_num)
             
-        if is_reflexive:
-            verb_part = pres.split(" ")[0]
-            future_form = f"po{verb_part} {is_reflexive}"
-        else:
-            future_form = f"po{pres}"
-        return future_form, vid_info, True, False
+            cur.execute(f"SELECT {target_col} FROM overrides WHERE word_id = ?", (word_id,))
+            over_row = cur.fetchone()
+            if over_row and over_row[0] and str(over_row[0]).lower() != "nan":
+                res = str(over_row[0]).strip()
+                conn.close()
+                return res, f"Aspect: {vid_clean}", True, True
 
-    # C) IMPERFECTIVE: budu + lemma
+        conn.close()
+    except Exception as e:
+        if conn: conn.close()
+        return f"DB Error: {str(e)}", None, False, False
+
+    # 4. GENERAL LOGIC
+    # A) PERFECTIVE (e.g. koupit -> koupím)
+    if vid_clean == 'perfective':
+        return create_present_tense(lemma, person, gender, number)
+    
+    # B) MOVEMENT (e.g. jet -> pojedu)
+    elif vid_clean == 'movement' or category == 'motion':
+        pres, _, _, _ = create_present_tense(lemma, person, gender, number)
+        future_form = f"po{pres}" if not is_reflexive else f"po{pres.split(' ')[0]} {is_reflexive}"
+        return future_form, f"Aspect: {vid_clean}", True, False
+
+    # C) IMPERFECTIVE (e.g. dělat -> budu dělat)
     else:
         aux_map = {'1S':'budu', '2S':'budeš', '3S':'bude', '1P':'budeme', '2P':'budete', '3P':'budou'}
-        aux = aux_map[person_num]
-        return f"{aux} {lemma}", vid_info, True, False
-    
-
-
-
-
+        aux = aux_map.get(person_num, "bude")
+        return f"{aux} {lemma}", f"Aspect: {vid_clean}", True, False

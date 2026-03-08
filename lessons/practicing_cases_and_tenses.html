@@ -139,7 +139,7 @@
         const tense = document.getElementById('tense').value;
         const gRow = document.getElementById('gender-row');
         // Only show gender for Past tense; Future usually uses "budu" + infinitive or is irregular like "půjdu"
-gRow.classList.toggle('hidden-menu', !(mode === 'verb' && tense === 'past'));
+gRow.classList.toggle('hidden-menu', !(mode === 'verb' && (tense === 'past' || tense === 'future')));
     }
 
     function autoDetectPattern() {
@@ -176,10 +176,20 @@ gRow.classList.toggle('hidden-menu', !(mode === 'verb' && tense === 'past'));
         btn.disabled = true;
         loader.style.display = 'block';
 
-        const payload = {
-            mode: mode,
-            word: word,
-            tense: mode === 'verb' ? (document.getElementById('tense').value || 'present') : null,
+        let selectedTense = mode === 'verb' ? (document.getElementById('tense').value || 'present') : null;
+        let processedWord = word;
+
+        // Logic for Irregular Future (jít -> půjdu)
+        // If your Python engine handles the prefix, we just ensure the tense is correct.
+        // If you want the frontend to tell Python it's an irregular future:
+        if (mode === 'verb' && selectedTense === 'future' && (word.toLowerCase() === 'jít')) {
+             // We keep the word as 'jít' but ensure Python knows it's the future irregular path
+        }
+
+        const payload = {
+            mode: mode,
+            word: processedWord,
+            tense: selectedTense,
             person: document.getElementById('person').value,
             gender: document.getElementById('gender').value,
             case: document.getElementById('case').value,
@@ -243,6 +253,13 @@ gRow.classList.toggle('hidden-menu', !(mode === 'verb' && tense === 'past'));
         document.getElementById('unverified-warning').style.display = 'none';
         document.getElementById('word').focus();
     }
+
+    document.getElementById('word').addEventListener('keydown', function(e) {
+        if (e.key === 'Enter') {
+            callPythonAPI(e);
+        }
+    });
+    
 </script>
 </body>
 </html>
