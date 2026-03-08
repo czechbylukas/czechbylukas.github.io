@@ -57,13 +57,15 @@
             <span id="verb-info-display" style="margin-left: 20px; font-size: 22px; color: #333;"></span>
         </div>
 
-        <div id="input-section" style="display: none;">
-            <p>Napiš infinitiv slovesa:</p>
-            <input type="text" id="verb-input" placeholder="např. dělat..." onkeyup="checkInputForButton()" 
-                   onkeypress="if(event.key === 'Enter' && !document.getElementById('start-btn').disabled) startLesson()">
-            
-            <div id="char-picker" style="margin-top: 15px;"></div>
-
+ <div id="input-section" style="display: none;">
+    <p>Napiš infinitiv slovesa:</p>
+    <input type="text" id="verb-input" 
+           placeholder="např. dělat..." 
+           onkeyup="checkInputForButton()" 
+           autocomplete="off" 
+           spellcheck="false">
+    
+    <div id="char-picker" style="margin-top: 15px;"></div>
             <br><br>
             <button id="start-btn" class="btn-main" onclick="startLesson()" disabled>
                 Začít lekci (Enter)
@@ -127,16 +129,41 @@
         
         currentVerb = val;
         currentVerbStem = val.split(" ")[0].replace(/t$/, ''); // Default stem
+        
+        // 1. Move the variable declaration OUTSIDE the try block
+        let verbExists = false; 
 
         // Database lookup for irregulars
         if (db) {
-            const stmt = db.prepare("SELECT past_participle FROM overrides WHERE form_key = ? LIMIT 1");
-            stmt.bind([val]);
-            if (stmt.step()) {
-                const fullPast = stmt.get()[0].split(" ")[0];
-                currentVerbStem = fullPast.endsWith('l') ? fullPast.slice(0, -1) : fullPast;
+            try {
+                const stmt = db.prepare("SELECT is_irr, irr_type FROM words WHERE lemma = ? AND pos LIKE '%verb%' LIMIT 1");
+                stmt.bind([val]);
+                
+                if (stmt.step()) {
+                    verbExists = true; // Now this updates the variable outside
+                    const row = stmt.get();
+                    if (row[0] === 1 && [1, 2, 5].includes(row[1])) {
+                        const overStmt = db.prepare("SELECT past_participle FROM overrides WHERE form_key = ? LIMIT 1");
+                        overStmt.bind([val]);
+                        if (overStmt.step()) {
+                            let fullPast = overStmt.get()[0].split(" ")[0];
+                            currentVerbStem = fullPast.endsWith('l') ? fullPast.slice(0, -1) : fullPast;
+                        }
+                        overStmt.free();
+                    }
+                }
+                stmt.free();
+            } catch (e) { 
+                console.error("DB Error:", e); 
             }
-            stmt.free();
+        }
+
+        // 2. Set the global verification flag (Now it can see verbExists!)
+        window.currentVerbVerified = verbExists;
+
+        if (!verbExists) {
+            const proceed = confirm(`I do not know the verb "${val}". Proceed?`);
+            if (!proceed) return;
         }
 
         document.getElementById('input-section').style.display = 'none';
@@ -165,6 +192,7 @@
         document.getElementById('next-step-btn').innerText = "Odpovědět (Krok 1)";
     }
 
+
     function nextStep() {
         const day = days[dayIdx];
         const g = document.getElementById('gender-switch').value;
@@ -189,7 +217,7 @@
             const endings = { 'M': 'l', 'F': 'la', 'N': 'lo', 'Pl': 'li', 'PlFem': 'ly', 'PlN': 'la' };
             const end = endings[g] || 'l';
 
-            let finalStem = currentVerbStem;
+            let finalStem = currentVerbStem || "";
             if (finalStem.endsWith("še") && g !== 'M') finalStem = finalStem.slice(0, -1);
 
             if (reflex !== "") {
@@ -201,8 +229,15 @@
             step = 4;
         } 
         else {
-            // Reset for next verb
-            document.getElementById('log-content').innerHTML += `<div>${answerDiv.innerHTML}</div>`;
+            // 1. Create the verification note if the verb wasn't in the DB
+            const note = (window.currentVerbVerified === false) 
+                ? `<br><small style="color:red; font-style:italic;">I do not know this verb, so I could not verify.</small>` 
+                : "";
+
+            // 2. Add to log (Only once!)
+            document.getElementById('log-content').innerHTML += `<div>${answerDiv.innerHTML}${note}</div>`;
+            
+            // 3. Reset for next verb
             dayIdx = (dayIdx + 1) % days.length;
             document.getElementById('lesson-section').style.display = 'none';
             document.getElementById('input-section').style.display = 'block';
@@ -232,6 +267,28 @@
     });
 
     initDatabase();
+
+
+    // Global Enter key listener
+document.addEventListener('keypress', function (e) {
+    if (e.key === 'Enter') {
+        const lessonSection = document.getElementById('lesson-section');
+        const startBtn = document.getElementById('start-btn');
+        const inputSection = document.getElementById('input-section');
+
+        // Case 1: If we are in the lesson, trigger the Next Step button
+        if (window.getComputedStyle(lessonSection).display !== 'none') {
+            nextStep();
+        } 
+        // Case 2: If we are at the start and the button is enabled, start the lesson
+        else if (window.getComputedStyle(inputSection).display !== 'none' && !startBtn.disabled) {
+            startLesson();
+        }
+    }
+});
+
+
+
 </script>
 
 </body>
