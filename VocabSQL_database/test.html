@@ -129,10 +129,8 @@ function insertChar(char) {
     const end = input.selectionEnd;
     input.setRangeText(char, start, end, 'end');
     input.focus();
-    // FORCE SYNC: Manually tell collabo to send the new text
-    if (typeof broadcast === 'function') {
-        broadcast({ "word-guess-box": input.value });
-    }
+    input.dispatchEvent(new Event('input', { bubbles: true }));
+
 }
     </script>
 </div>
@@ -503,17 +501,7 @@ currentWord = {
         } else { 
             img.style.display = 'none'; 
         }
-        // Inside getRandomWord() where you added the broadcast
-if (typeof broadcast === 'function') {
-    broadcast({ 
-        "english-word": s[1], 
-        "word-image-src": s[2] || "",
-        "success-msg": "",      // Clear previous "Výborně!"
-        "typo-msg": "",         // Clear previous typos
-        "word-guess-box": "",    // Clear their typing box
-        "czech-word-hidden": true  // <--- Add this to reset the student's view
-    });
-}
+
     } else {
         document.getElementById('english-word').innerText = "No words found for this filter.";
     }
@@ -601,15 +589,7 @@ function showAnswerInUI() {
     czechEl.innerText = display;
     czechEl.classList.remove('hidden');
 
-    // BROADCAST: This makes it show up on the other screen instantly
-if (typeof broadcast === 'function') {
-        broadcast({ 
-            "czech-word": display,
-            "czech-word-hidden": false, 
-            "success-msg": document.getElementById('success-msg').innerText,
-            "typo-msg": document.getElementById('typo-msg').innerText
-        });
-}
+
 }
 
 
@@ -697,17 +677,6 @@ function loadAdsSafely() {
 
 
 
-// Add this at the very bottom of your script
-// This listens for any change on dropdowns and sends it to the student
-document.querySelectorAll('select.sync').forEach(selector => {
-    selector.addEventListener('change', (e) => {
-        if (typeof broadcast === 'function') {
-            let data = {};
-            data[e.target.id] = e.target.value; 
-            broadcast(data);
-        }
-    });
-});
 
 
 
