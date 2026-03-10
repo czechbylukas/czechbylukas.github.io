@@ -455,7 +455,7 @@ if (posVal !== "all") {
     let lessonClause = (lesson === "ALL_LESSONS") ? "" : `AND lesson='${lesson}'`;
 
     // Change the SELECT to include 'vid_pair' (Column M)
-const query = `SELECT lemma, ${langColumn}, image_path, audio_path, synonym, vid_pair 
+const query = `SELECT lemma, ${langColumn}, image_path, audio_path, synonym, vid_pair, show_vid_pair 
                FROM words 
                WHERE level='${level}' ${lessonClause} ${filterClause}`;
 
@@ -484,7 +484,8 @@ currentWord = {
     img: s[2], 
     audio: s[3], 
     synonym: s[4],
-    vidPair: s[5] // This stores the value from Column M
+    vidPair: s[5],
+    showVid: s[6] 
 };
         
         document.getElementById('english-word').innerText = s[1];
@@ -580,7 +581,7 @@ function evaluateTyping() {
 // Helper to show the full answer (Lemma + Pair)
 function showAnswerInUI() {
     let display = currentWord.czech;
-    if (currentWord.vidPair) display += ` / ${currentWord.vidPair}`;
+    if (currentWord.vidPair && currentWord.showVid == 1) display += ` / ${currentWord.vidPair}`;
     if (currentWord.synonym) display += ` (${currentWord.synonym})`;
     
     // Update local UI
