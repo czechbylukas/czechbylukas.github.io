@@ -31,6 +31,11 @@ def create_future_tense(lemma, person, gender, number):
     conn = sqlite3.connect(db_path)
     cur = conn.cursor()
     
+    # ADD THESE 3 LINES:
+    is_verified = "UNVERIFIED"
+    is_actually_irregular = False
+    vid_clean = "unknown"
+    
     try:
         cur.execute("SELECT id, is_irr, irr_type, vid, category FROM words WHERE lemma = ?", (lemma_clean,))
         row = cur.fetchone() # Only call this ONCE.
@@ -40,7 +45,7 @@ def create_future_tense(lemma, person, gender, number):
             # Default to 'budu' logic instead of crashing or returning error
             aux_map = {'1S':'budu', '2S':'budeš', '3S':'bude', '1P':'budeme', '2P':'budete', '3P':'budou'}
             aux = aux_map.get(person_num, "bude")
-            return f"{aux} {lemma}", "Aspect: unknown", True, False
+            return f"{aux} {lemma}", "Aspect: unknown", "UNVERIFIED", False
 
         # Now 'row' actually has the data
         word_id, is_irr, irr_type, vid, category = row
@@ -57,7 +62,9 @@ def create_future_tense(lemma, person, gender, number):
             if over_row and over_row[0] and str(over_row[0]).lower() != "nan":
                 res = str(over_row[0]).strip()
                 conn.close()
+                # ENSURE THESE ARE True, True:
                 return res, f"Aspect: {vid_clean}", True, True
+
 
         conn.close()
     except Exception as e:
@@ -80,3 +87,4 @@ def create_future_tense(lemma, person, gender, number):
         aux_map = {'1S':'budu', '2S':'budeš', '3S':'bude', '1P':'budeme', '2P':'budete', '3P':'budou'}
         aux = aux_map.get(person_num, "bude")
         return f"{aux} {lemma}", f"Aspect: {vid_clean}", True, False
+    

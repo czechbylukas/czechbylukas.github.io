@@ -75,9 +75,11 @@ def declension_noun(lemma, case, number, is_animate=False, is_soft=False):
     conn = sqlite3.connect(db_path)
     cur = conn.cursor()
     
-    verified = True
+    verified = "UNVERIFIED" # Default to Yellow
+    is_actually_irregular = False # nouns can use this for special patterns
+
     try:
-        cur.execute("SELECT pattern_id, is_irr, irr_type FROM words WHERE lemma = ?", (lemma_clean,))
+        cur.execute("SELECT id, pattern_id, is_irr, irr_type FROM words WHERE lemma = ?", (lemma_clean,))
         row = cur.fetchone()
 
         # --- LOG 3: Result Check ---
@@ -95,20 +97,62 @@ def declension_noun(lemma, case, number, is_animate=False, is_soft=False):
         conn.close()
 
     if not row:
-        verified = False
-        # 2. Update this call to pass is_soft to the guess_pattern function
+        verified = "UNVERIFIED" # Stays Yellow
         pattern_id = guess_pattern(lemma, is_animate, is_soft)
         is_irr, irr_type = 0, 0
     else:
-        # If found in DB, we use the pattern from the database
-        pattern_id, is_irr, irr_type = row
+        verified = True # Turns Green
+        word_id, pattern_id, is_irr, irr_type = row
+        # If it's a special irr_type, you can mark it irregular here
+        if is_irr == 1:
+            is_actually_irregular = True
+
+
+    col_map = {
+        (1, 'S'): ['nominativ', 'nominativ_2', 'nominativ_3'],
+        (2, 'S'): ['genitiv', 'genitiv_2'],
+        (3, 'S'): ['dativ', 'dativ_2'],
+        (4, 'S'): ['akuzativ'],
+        (5, 'S'): ['vokativ', 'vokativ_2', 'vokativ_3'],
+        (6, 'S'): ['lokal', 'lokal_2', 'lokal_3'],
+        (7, 'S'): ['instumental'], 
+    }
+
     
     # --- LOG 4: Final Selection ---
     print(f"DEBUG: Using pattern_id: {pattern_id} (Verified: {verified})")
 
 
-    # 1. STEM & DROP-E
+    # 1. INITIAL STEM
     stem = lemma[:-1] if lemma[-1] in ['o', 'a', 'e', 'í'] else lemma
+
+    # --- NEW: IRREGULAR STEM OVERRIDE ---
+    if is_irr == 1:
+        target_cols = col_map.get((case, number), [])
+        if target_cols:
+            conn = sqlite3.connect(db_path)
+            cur = conn.cursor()
+            try:
+                # Fetch all potential columns for this case
+                query = f"SELECT {', '.join(target_cols)} FROM overrides WHERE word_id = ?"
+                cur.execute(query, (word_id,))
+                over_row = cur.fetchone()
+
+                if over_row:
+                    # Filter out None, empty strings, and "nan"
+                    valid_values = [str(val).strip() for val in over_row 
+                                    if val and str(val).lower() != 'nan' and str(val).strip() != ""]
+                    
+                    if valid_values:
+                        # If we found data, return it immediately (e.g., "nominativ, nominativ_2")
+                        result = ", ".join(valid_values)
+                        return result, True, False, True
+            except Exception as e:
+                print(f"Override Error: {e}")
+            finally:
+                conn.close()
+
+    # Apply the old Drop-E logic to the (potentially new) stem
     if is_irr == 1 and irr_type == 9 and stem.endswith('e'):
         stem = stem[:-1]
 
@@ -150,10 +194,12 @@ def declension_noun(lemma, case, number, is_animate=False, is_soft=False):
         parts = suf.split('/')
         res1 = apply_consonant_shift(lemma, stem, parts[0], pattern_id, case, number)
         res2 = apply_consonant_shift(lemma, stem, parts[1], pattern_id, case, number)
-        return f"{res1}, {res2}", verified
+        # Return all 4 values to keep main.py happy
+        return f"{res1}, {res2}", verified, False, is_actually_irregular
 
     result = apply_consonant_shift(lemma, stem, suf, pattern_id, case, number)
     
     debug_info = f"Word: {lemma_clean} | Pattern: {pattern_id} | Path: {db_path}"
-    return {"result": result, "verified": verified, "debug": debug_info}
+    # result_text, verified_status, is_reflexive (always False for nouns), is_irregular
+    return result, verified, False, is_actually_irregular
 

@@ -27,7 +27,8 @@ def create_present_tense(lemma, person, gender, number):
     base_verb = lemma_clean.split(" ")[0] if is_reflexive else lemma_clean
 
     if not base_verb.endswith("t"):
-        return "Not a verb", False, bool(is_reflexive), False
+        return "Not a verb", "UNVERIFIED", bool(is_reflexive), False
+
 
     # 2. Database Connection (Dynamic Path)
     current_dir = os.path.dirname(os.path.abspath(__file__))
@@ -36,24 +37,29 @@ def create_present_tense(lemma, person, gender, number):
     conn = sqlite3.connect(db_path)
     cur = conn.cursor()
     
+    # --- 1. INITIALIZE EVERYTHING AT THE TOP ---
     present_form = None
-    is_verified = False
+    is_verified = "UNVERIFIED"  # Default to 'Guilty' (Yellow badge)
     is_actually_irregular = False
-    pattern_id = None  # <--- ADD THIS
+    pattern_id = None
+    is_irr = 0      # Ensure this exists for regular verbs
+    irr_type = 0    # Ensure this exists for regular verbs
 
     try:
-        # --- Indented logic starts here ---
+        cur = conn.cursor()
         cur.execute("SELECT id, is_irr, irr_type, pos, pattern_id FROM words WHERE lemma = ?", (lemma_clean,))
         row = cur.fetchone()
 
+        # --- 2. THE STRICT VERIFICATION CHECK ---
         if row and row[3] == 'verb':
-            is_verified = True
-            word_id, is_irr, irr_type, _, pattern_id = row
+            is_verified = True  # Word is officially found in DB
+            word_id, db_is_irr, db_irr_type, _, pattern_id = row
             
-            is_irr = int(float(is_irr)) if is_irr is not None else 0
-            irr_type = int(float(irr_type)) if irr_type is not None else 0
+            # Clean numeric values from DB safely
+            is_irr = int(float(db_is_irr)) if db_is_irr is not None else 0
+            irr_type = int(float(db_irr_type)) if db_irr_type is not None else 0
 
-            # 3. PRIORITY: Irregular Logic
+            # --- 3. IRREGULAR LOGIC ---
             if is_irr == 1 and irr_type in [1, 3, 6]:
                 col_map = {'1S':'ja_present', '2S':'ty_present', '3S':'on_present', 
                            '1P':'my_present', '2P':'vy_present', '3P':'oni_present'}
@@ -69,13 +75,11 @@ def create_present_tense(lemma, person, gender, number):
                     present_form = val
                     is_actually_irregular = True
                 else:
+                    # Log it, but DON'T return. 
+                    # Let the code move to 'Step 4. FALLBACK' automatically.
                     log_error(lemma_clean, word_id, person_num, f"Missing {target_col}")
-                    # Note: We don't return inside the try/finally if we can help it
-                    # but since we must, we close the connection first
-                    conn.close()
-                    return "Data missing", True, bool(is_reflexive), True
+                    
     finally:
-        # This is correctly aligned with 'try'
         conn.close()
 
     # 4. FALLBACK: Regular Patterns

@@ -33,7 +33,7 @@ def create_past_tense(lemma, person, gender, number):
     db_path = os.path.join(current_dir, "..", "czech_master.db")
     conn = sqlite3.connect(db_path)
     
-    try: # <--- Start the "Try" block
+    try:
         cur = conn.cursor()
         cur.execute("SELECT id, is_irr, irr_type, pos FROM words WHERE lemma = ?", (lemma_clean,))
         row = cur.fetchone()
@@ -41,11 +41,12 @@ def create_past_tense(lemma, person, gender, number):
         is_verified = True
         l_participle = None 
         is_actually_irregular = False 
-        
+        irr_type = 0  # <--- ADD THIS LINE HERE!
+
         if row is None or row[3] != 'verb':
             is_verified = False
-            # REMOVED: conn.close() from here
         elif row[1] == 1:
+            # This only runs if the verb is marked irregular in the DB
             irr_type = int(row[2]) if row[2] is not None else 0
             
             if irr_type in [1, 2, 5]:
