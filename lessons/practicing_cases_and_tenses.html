@@ -57,8 +57,9 @@
 
         <div id="verb-options" class="row-triple hidden-menu">
             <select id="tense" onchange="toggleGender()">
-                <option value="present">Present</option>
                 <option value="past">Past</option>
+                <option value="present">Present</option>
+            
                 <option value="future">Future</option>
             </select>
             <select id="person">
@@ -125,141 +126,181 @@
 </div>
 
 <script>
-    function handleModeChange() {
-        const mode = document.getElementById('mode').value;
-        document.getElementById('verb-options').classList.toggle('hidden-menu', mode !== 'verb');
-        document.getElementById('noun-options').classList.toggle('hidden-menu', mode !== 'noun');
-        document.getElementById('noun-helper').classList.toggle('hidden-menu', mode !== 'noun');
-        document.getElementById('unverified-warning').style.display = 'none';
-        toggleGender();
+
+let typingTimer;
+let lastAlertedWord = ""; // Defined once at the top
+
+function autoDetectPattern() {
+    // Hide result card as soon as the user starts typing
+    document.getElementById('result-card').style.display = 'none';
+
+    const mode = document.getElementById('mode').value;
+    const word = document.getElementById('word').value.toLowerCase().trim();
+    if (!word) return;
+
+    // STEP 1: "Guess" the pattern (Hard/Soft) immediately like before
+    const softCons = ['ž', 'š', 'č', 'ř', 'c', 'j', 'ď', 'ť', 'ň'];
+    const hardCons = ['h', 'k', 'r', 'd', 't', 'n'];
+    const lastChar = word.slice(-1);
+
+    if (softCons.includes(lastChar)) {
+        document.getElementById('is_soft').value = 's';
+    } else if (hardCons.includes(lastChar) || word.endsWith('ch')) {
+        document.getElementById('is_soft').value = 'h';
     }
 
-    function toggleGender() {
-        const mode = document.getElementById('mode').value;
-        const tense = document.getElementById('tense').value;
-        const gRow = document.getElementById('gender-row');
-        // Only show gender for Past tense; Future usually uses "budu" + infinitive or is irregular like "půjdu"
-gRow.classList.toggle('hidden-menu', !(mode === 'verb' && (tense === 'past' || tense === 'future')));
+    // STEP 2: Check database in background to see if we need the popup/helper
+    clearTimeout(typingTimer);
+    if (mode === 'noun' && word.length > 2) {
+        typingTimer = setTimeout(() => preVerifyNoun(mode, word), 600);
     }
+}
 
-    function autoDetectPattern() {
-        const word = document.getElementById('word').value.toLowerCase().trim();
-        if (!word) return;
-        const softCons = ['ž', 'š', 'č', 'ř', 'c', 'j', 'ď', 'ť', 'ň'];
-        const hardCons = ['h', 'k', 'r', 'd', 't', 'n'];
-        const lastChar = word.slice(-1);
 
-        if (softCons.includes(lastChar)) {
-            document.getElementById('is_soft').value = 's';
-        } else if (hardCons.includes(lastChar) || word.endsWith('ch')) {
-            document.getElementById('is_soft').value = 'h';
-        }
-    }
-
-    async function callPythonAPI(event) {
-        if (event) event.preventDefault();
-
-        const mode = document.getElementById('mode').value;
-        const word = document.getElementById('word').value.trim();
-        
-        if (!mode || !word) {
-            alert("Please select a category and enter a word.");
-            return;
-        }
-
-        // Logic should only show warning if the API returns an 'unverified' status.
-        document.getElementById('unverified-warning').style.display = 'none';
-
-        const btn = document.getElementById('submit-btn');
-        const loader = document.getElementById('loader');
-        
-        btn.disabled = true;
-        loader.style.display = 'block';
-
-        let selectedTense = mode === 'verb' ? (document.getElementById('tense').value || 'present') : null;
-        let processedWord = word;
-
-        // Logic for Irregular Future (jít -> půjdu)
-        // If your Python engine handles the prefix, we just ensure the tense is correct.
-        // If you want the frontend to tell Python it's an irregular future:
-        if (mode === 'verb' && selectedTense === 'future' && (word.toLowerCase() === 'jít')) {
-             // We keep the word as 'jít' but ensure Python knows it's the future irregular path
-        }
-
-        const payload = {
-            mode: mode,
-            word: processedWord,
-            tense: selectedTense,
-            person: document.getElementById('person').value,
-            gender: document.getElementById('gender').value,
-            case: document.getElementById('case').value,
-            number: (mode === 'verb') ? document.getElementById('verb-number').value : document.getElementById('noun-number').value,
-            is_animate: document.getElementById('is_animate').value === 'y',
-            is_soft: document.getElementById('is_soft').value === 's'
-        };
-
-        try {
-            const response = await fetch('https://lessons-487913.ey.r.appspot.com/process', {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify(payload)
-});
-            
-            if (!response.ok) {
-                const textError = await response.text();
-                showResult("Python Engine Error", ["CRASHED"]);
-                return;
-            }
-
-            const data = await response.json();
-            if (data.error) {
-                showResult("Word not processed", ["ERROR", data.error]);
-            } else {
-                if (data.status && data.status.includes('UNVERIFIED')) {
-                    document.getElementById('unverified-warning').style.display = 'block';
-                }
-                showResult(data.result || "No result", data.status || []);
-            }
-        } catch (err) {
-            showResult("Server Connection Failed", ["OFFLINE"]);
-        } finally {
-            btn.disabled = false;
-            loader.style.display = 'none';
-        }
-    }
-
-    function showResult(text, statusArray) {
-        const card = document.getElementById('result-card');
-        card.style.display = 'block';
-        document.getElementById('result-text').innerText = text;
-        
-        const badges = document.getElementById('badges');
-        badges.innerHTML = ''; 
-        
-        const list = Array.isArray(statusArray) ? statusArray : [];
-        list.forEach(s => {
-            const span = document.createElement('span');
-            span.className = 'badge' + (s.includes('UNVERIFIED') || s.includes('ERROR') ? ' badge-warning' : '');
-            span.innerText = s;
-            badges.appendChild(span);
+async function preVerifyNoun(mode, word) {
+    try {
+        const response = await fetch('https://lessons-487913.ey.r.appspot.com/process', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ mode: mode, word: word, check_only: true }) 
         });
+        const data = await response.json();
         
-        card.scrollIntoView({ behavior: 'smooth' });
-    }
-
-    function resetUI() {
-        document.getElementById('result-card').style.display = 'none';
-        document.getElementById('word').value = '';
-        document.getElementById('unverified-warning').style.display = 'none';
-        document.getElementById('word').focus();
-    }
-
-    document.getElementById('word').addEventListener('keydown', function(e) {
-        if (e.key === 'Enter') {
-            callPythonAPI(e);
+        const isUnverified = !!(data.status && data.status.includes('UNVERIFIED'));
+        
+        // Show popup ONLY if unverified and we haven't alerted for this specific word yet
+        if (isUnverified && word !== lastAlertedWord) {
+            alert("I do not know this word and cannot verify it. Please check the helper box options.");
+            lastAlertedWord = word; 
         }
-    });
+
+        updateNounHelperVisibility(mode, word, isUnverified);
+    } catch (e) { 
+        console.log("Background check failed"); 
+    }
+}
+
+function updateNounHelperVisibility(mode, word, isUnverified = false) {
+    const helperBox = document.getElementById('noun-helper');
+    const softHardSelect = document.getElementById('is_soft');
+    const animateSelect = document.getElementById('is_animate');
+
+    if (mode === 'noun' && word.length > 0 && isUnverified) {
+        helperBox.classList.remove('hidden-menu');
+        const lastChar = word.slice(-1);
+        const consonants = ['b', 'c', 'č', 'd', 'ď', 'f', 'h', 'ch', 'j', 'k', 'l', 'm', 'n', 'ň', 'p', 'r', 'ř', 's', 'š', 't', 'ť', 'v', 'z', 'ž'];
+        const ambigConsonants = ['b', 'f', 'l', 'm', 'p', 's', 'v', 'z'];
+
+        animateSelect.style.display = (consonants.includes(lastChar) || word.endsWith('ch')) ? 'block' : 'none';
+        softHardSelect.style.display = ambigConsonants.includes(lastChar) ? 'block' : 'none';
+    } else {
+        helperBox.classList.add('hidden-menu');
+    }
+}
+
+function handleModeChange() {
+    const mode = document.getElementById('mode').value;
+    document.getElementById('verb-options').classList.toggle('hidden-menu', mode !== 'verb');
+    document.getElementById('noun-options').classList.toggle('hidden-menu', mode !== 'noun');
+    // Ensure this line is present to keep the guesser visible
+    document.getElementById('noun-helper').classList.toggle('hidden-menu', mode !== 'noun');
+    toggleGender();
+}
+
+function toggleGender() {
+    const mode = document.getElementById('mode').value;
+    const tense = document.getElementById('tense').value;
+    const gRow = document.getElementById('gender-row');
     
+    // Updated: Only show for past tense, hide for future/present
+    gRow.classList.toggle('hidden-menu', !(mode === 'verb' && tense === 'past'));
+}
+
+async function callPythonAPI(event) {
+    if (event) event.preventDefault();
+    const mode = document.getElementById('mode').value;
+    const word = document.getElementById('word').value.trim();
+    if (!mode || !word) return;
+
+    document.getElementById('unverified-warning').style.display = 'none';
+    const btn = document.getElementById('submit-btn');
+    const loader = document.getElementById('loader');
+    btn.disabled = true;
+    loader.style.display = 'block';
+
+    const payload = {
+        mode: mode,
+        word: word,
+        tense: mode === 'verb' ? (document.getElementById('tense').value || 'present') : null,
+        person: document.getElementById('person').value,
+        gender: document.getElementById('gender-row').classList.contains('hidden-menu') ? 'M' : document.getElementById('gender').value,
+        case: document.getElementById('case').value,
+        number: (mode === 'verb') ? document.getElementById('verb-number').value : document.getElementById('noun-number').value,
+        // ADD THIS: Tell the engine to "guess" if it's not in the DB
+        is_animate: document.getElementById('is_animate').value === 'y',
+        is_soft: document.getElementById('is_soft').value === 's'
+    };
+
+    try {
+        const response = await fetch('https://lessons-487913.ey.r.appspot.com/process', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(payload)
+        });
+        const data = await response.json();
+        if (data.status && data.status.includes('UNVERIFIED')) {
+            document.getElementById('unverified-warning').style.display = 'block';
+            updateNounHelperVisibility(mode, word, true);
+        }
+        showResult(data.result || "No result", data.status || []);
+    } catch (err) {
+        showResult("Server Connection Failed", ["OFFLINE"]);
+    } finally {
+        btn.disabled = false;
+        loader.style.display = 'none';
+    }
+}
+
+function showResult(text, statusArray) {
+    const card = document.getElementById('result-card');
+    card.style.display = 'block';
+    document.getElementById('result-text').innerText = text;
+    const badges = document.getElementById('badges');
+    badges.innerHTML = ''; 
+    statusArray.forEach(s => {
+        const span = document.createElement('span');
+        span.className = 'badge' + (s.includes('UNVERIFIED') ? ' badge-warning' : '');
+        span.innerText = s;
+        badges.appendChild(span);
+    });
+    card.scrollIntoView({ behavior: 'smooth' });
+}
+
+function resetUI() {
+    document.getElementById('result-card').style.display = 'none';
+    document.getElementById('word').value = '';
+    document.getElementById('unverified-warning').style.display = 'none';
+    
+    lastAlertedWord = ""; // Reset alert tracker
+    
+    updateNounHelperVisibility(document.getElementById('mode').value, '', false);
+    document.getElementById('word').focus();
+}
+
+document.getElementById('word').addEventListener('keydown', (e) => { if (e.key === 'Enter') callPythonAPI(e); });
+   
+   
+
+
+// Whenever any input or select changes, hide the previous result
+document.querySelectorAll('input, select').forEach(element => {
+    element.addEventListener('change', () => {
+        document.getElementById('result-card').style.display = 'none';
+    });
+});
+
+
+
 </script>
 </body>
 </html>

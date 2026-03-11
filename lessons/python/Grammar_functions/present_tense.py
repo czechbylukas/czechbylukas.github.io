@@ -39,6 +39,7 @@ def create_present_tense(lemma, person, gender, number):
     present_form = None
     is_verified = False
     is_actually_irregular = False
+    pattern_id = None  # <--- ADD THIS
 
     try:
         # --- Indented logic starts here ---
@@ -88,8 +89,8 @@ def create_present_tense(lemma, person, gender, number):
             'nést':    {'1S':'u',   '2S':'eš',  '3S':'e',   '1P':'eme',  '2P':'ete',  '3P':'ou'}
         }
         
-        cut_map = {'dělat': 2, 'prosit': 2, 'děkovat': 4, 'tisknout': 4, 'nést': 2}
-        active_p = pattern_id if pattern_id in patterns else 'dělat'
+        cut_map = {'dělat': 2, 'prosit': 2, 'sázet': 2, 'děkovat': 4, 'tisknout': 4, 'nést': 2}
+        active_p = pattern_id if (pattern_id and pattern_id in patterns) else 'dělat'
         
         stem = base_verb[:-cut_map.get(active_p, 2)]
         present_form = stem + patterns[active_p][f"{person}{number}"]

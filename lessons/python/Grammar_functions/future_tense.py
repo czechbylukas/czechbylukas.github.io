@@ -33,12 +33,16 @@ def create_future_tense(lemma, person, gender, number):
     
     try:
         cur.execute("SELECT id, is_irr, irr_type, vid, category FROM words WHERE lemma = ?", (lemma_clean,))
-        row = cur.fetchone()
+        row = cur.fetchone() # Only call this ONCE.
 
         if not row:
             conn.close()
-            return "Verb not found", None, False, False
-        
+            # Default to 'budu' logic instead of crashing or returning error
+            aux_map = {'1S':'budu', '2S':'budeš', '3S':'bude', '1P':'budeme', '2P':'budete', '3P':'budou'}
+            aux = aux_map.get(person_num, "bude")
+            return f"{aux} {lemma}", "Aspect: unknown", True, False
+
+        # Now 'row' actually has the data
         word_id, is_irr, irr_type, vid, category = row
         vid_clean = str(vid).strip().lower()
         
