@@ -4,7 +4,10 @@ export function startGame(state) {
   const container = document.getElementById("game");
   container.innerHTML = "";
 
-  const questions = [...state.questions].sort(() => Math.random() - 0.5);
+  const questions = Array.isArray(state) ? [...state] : [...(state.questions || [])];
+  if (questions.length === 0) return; // Safety check
+  questions.sort(() => Math.random() - 0.5);
+
   let currentIndex = 0;
   let score = 0;
   const total = questions.length;
@@ -17,34 +20,41 @@ export function startGame(state) {
     }
 
     const q = questions[currentIndex];
-    let html = q.text;
     
-    // 1. Create the inputs using gapDetails (stores surface + lemma)
+    // 1. Define the 'html' variable clearly at the top
+    let questionText = String(q.text || q.phrase || "{{gap}}");
+
+    // Force a gap if none exists
+    if (!questionText.includes('{{gap}}')) {
+        questionText = `{{gap}}`;
+    }
+    
     let gIndex = 0;
-    html = html.replace(/{{gap}}/g, () => {
-      const detail = q.gapDetails[gIndex] || { surface: "", lemma: "", synonym: "" };
+    // 2. Perform the replacement on 'questionText'
+    const finalHtml = questionText.replace(/{{gap}}/g, () => {
+      const detail = (q.gapDetails && q.gapDetails[gIndex]) ? q.gapDetails[gIndex] : { surface: q.cs, lemma: q.cs, synonym: "" };
       const input = `<input class="gap" 
-                            data-surface="${detail.surface}" 
-                            data-lemma="${detail.lemma}" 
-                            data-synonym="${detail.synonym}" 
+                            data-surface="${detail.surface || ''}" 
+                            data-lemma="${detail.lemma || ''}" 
+                            data-synonym="${detail.synonym || ''}" 
                             data-index="${gIndex}" 
                             autocomplete="off">`;
       gIndex++;
       return input;
     });
 
-    // 2. Add a UI toggle for Strict Mode
+    // 3. Use 'finalHtml' here
     container.innerHTML = `
       <div style="margin-bottom: 15px; background: #f4f4f4; padding: 10px; border-radius: 8px;">
         <label style="cursor: pointer; display: flex; align-items: center; gap: 10px;">
           <input type="checkbox" id="strictMode"> 
-          <span> Strict Mode <strong>I know how to decline and conjugate</strong></span>
+          <span> Strict Mode (Exact form only)</span>
         </label>
       </div>
-      <p>${html}</p>
+      <p style="font-size: 1.4rem; line-height: 2;">${finalHtml}</p>
       <button id="check">Kontrola</button>
       <p id="feedback"></p>
-      <p>Question ${currentIndex + 1} / ${total}</p>
+      <p>Otázka ${currentIndex + 1} / ${total}</p>
     `;
 
     const checkBtn = document.getElementById("check");

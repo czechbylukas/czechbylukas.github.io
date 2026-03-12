@@ -236,7 +236,8 @@
 
 <script type="module">
   import { GameEngine } from './core/loader.js';
-import { gameMapping, globalExclusions } from './core/gameMapping.js'; // Added globalExclusions
+  import { cleanForUI } from './core/utils.js'; // <--- ADD THIS LINE
+  import { gameMapping, globalExclusions } from './core/gameMapping.js';
 
   let db;
   const engine = new GameEngine();
@@ -348,12 +349,12 @@ import { gameMapping, globalExclusions } from './core/gameMapping.js'; // Added 
 // --- KEEP YOUR EXISTING FUNCTIONS (init, updateLessons, etc.) ABOVE THIS ---
 
   // Handle Game Clicks
-  // Handle Game Clicks
   document.getElementById('game-selector').addEventListener('click', (e) => {
     if (e.target.tagName === 'BUTTON') {
       const gameType = e.target.dataset.game;
       const lesson = document.getElementById('lesson-select').value;
-      
+      console.log("1. Button Clicked:", gameType, "Lesson:", lesson);
+
       // Get all checked values (e.g., ['verb', 'noun'])
       const selectedPos = Array.from(document.querySelectorAll('.pos-check:checked')).map(cb => cb.value);
 
@@ -362,6 +363,7 @@ import { gameMapping, globalExclusions } from './core/gameMapping.js'; // Added 
       const langCol = `trans_${currentLang}`;
 
       // 1. BUILD THE POS FILTER
+      console.log("2. Running Query for POS:", selectedPos);
       let posFilter = "";
       if (selectedPos.length > 0) {
           // Creates: AND (pos IN ('verb','noun') OR pos='Phrase')
@@ -378,7 +380,8 @@ import { gameMapping, globalExclusions } from './core/gameMapping.js'; // Added 
       
       const res = db.exec(query);
       const gameContainer = document.getElementById('game');
-      
+      console.error("3. DATABASE RETURNED NO DATA for this lesson/filter!");
+
 
       const wordCount = (res[0] && res[0].values) ? res[0].values.length : 0;
 
@@ -407,22 +410,59 @@ const rawRows = res[0].values.map(row => ({
       const mainWords = rawRows.filter(item => selectedPos.includes(item.pos.toLowerCase()));
       const allPhrases = rawRows.filter(item => item.pos === 'Phrase');
 
+      console.log("4. Split data:", { mainWords: mainWords.length, phrases: allPhrases.length });
+      
       const data = mainWords.map((word, idx) => {
-          const match = allPhrases.find(p => p.ext1.toLowerCase().split(',').map(s => s.trim()).includes(word.lemma.toLowerCase()));
+          // 1. Find the matching sentence
+          const lemmaClean = (word.lemma || "").trim().toLowerCase();
+          const match = allPhrases.find(p => {
+              if (!p.ext1) return false;
+              return p.ext1.toLowerCase().split(',').map(s => s.trim()).includes(lemmaClean);
+          });
           
-          // restored console debugging
-          console.log(`Mapping Word [${idx}]:`, word.lemma, "Found Sentence:", match ? match.lemma : "NONE");
+          let originalSentence = match ? match.lemma : word.lemma;
+          let gapText = originalSentence;
+          
+          if (gameType === 'fillGap') {
+    try {
+        // 1. Normalize both to NFC and Lowercase immediately
+        const lemmaClean = word.lemma.toLowerCase().normalize("NFC").trim();
+        const sentenceClean = originalSentence.toLowerCase().normalize("NFC").trim();
+
+        // 2. Escape the lemma
+        const escapedLemma = lemmaClean.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+        
+        // 3. Use 'giu' - the 'u' is critical for Unicode like Ú and Č
+        const regex = new RegExp(escapedLemma, 'giu');
+        
+        if (regex.test(sentenceClean)) {
+            // Replace in the cleaned sentence
+            gapText = sentenceClean.replace(regex, '{{gap}}');
+        } else {
+            // Fallback: If it's "Úhoř" and sentence is "Dám si úhoře", 
+            // the regex "úhoř" SHOULD match the start of "úhoře"
+            // If it fails, we force the gap
+            gapText = '{{gap}}'; 
+        }
+    } catch (e) {
+        console.error("Regex error:", e);
+        gapText = '{{gap}}';
+    }
+}
 
           const item = {
-    cs: word.lemma, 
-    en: word.translation, 
-    image: word.image, 
-    ext1: word.ext1, 
-    pos: word.pos,
-    synonym: word.synonym, // Add this line
-    phrase: match ? match.lemma : word.lemma,
-    phraseEn: match ? match.translation : word.translation
-};
+              cs: word.lemma, 
+              en: word.translation, 
+              image: word.image, 
+              ext1: word.ext1, 
+              pos: word.pos,
+              synonym: word.synonym || "",
+              text: gapText || '{{gap}}', 
+              phrase: originalSentence,
+              phraseEn: match ? match.translation : word.translation,
+              gapDetails: [{ surface: word.lemma, lemma: word.lemma, synonym: word.synonym || "" }]
+          };
+          
           item[currentLang] = word.translation;
           return item;
       });

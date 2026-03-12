@@ -39,7 +39,7 @@ def create_present_tense(lemma, person, gender, number):
     
     # --- 1. INITIALIZE EVERYTHING AT THE TOP ---
     present_form = None
-    is_verified = "UNVERIFIED"  # Default to 'Guilty' (Yellow badge)
+    is_verified = False  # Default to 'Guilty' (Yellow badge)
     is_actually_irregular = False
     pattern_id = None
     is_irr = 0      # Ensure this exists for regular verbs
@@ -94,7 +94,15 @@ def create_present_tense(lemma, person, gender, number):
         }
         
         cut_map = {'dělat': 2, 'prosit': 2, 'sázet': 2, 'děkovat': 4, 'tisknout': 4, 'nést': 2}
-        active_p = pattern_id if (pattern_id and pattern_id in patterns) else 'dělat'
+        if pattern_id and str(pattern_id) in patterns:
+            active_p = str(pattern_id)
+        else:
+            # Guessing logic based on lemma ending
+            if base_verb.endswith("ovat"): active_p = 'děkovat'
+            elif base_verb.endswith("nout"): active_p = 'tisknout'
+            elif base_verb.endswith("at"): active_p = 'dělat'
+            elif any(base_verb.endswith(s) for s in ["it", "ít", "et", "ět"]): active_p = 'prosit'
+            else: active_p = 'nést'
         
         stem = base_verb[:-cut_map.get(active_p, 2)]
         present_form = stem + patterns[active_p][f"{person}{number}"]

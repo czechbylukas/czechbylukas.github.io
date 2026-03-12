@@ -63,7 +63,7 @@ def create_past_tense(lemma, person, gender, number):
                     base_l = over_row[0].split(" ")[0] 
                     stem_l = base_l[:-1] if base_l.endswith('l') else base_l
                     
-                    if stem_l.endswith("še") and not (gender == 'M' and number == 'S'):
+                    if stem_l.endswith("še") and not (gender in ['M', 'Mi'] and number == 'S'):
                         stem_l = stem_l[:-1]
 
                     suffixes = {
@@ -74,7 +74,24 @@ def create_past_tense(lemma, person, gender, number):
     
     finally: # <--- Start the "Finally" block (Aligned with 'try')
         conn.close() # <--- This code is now "bulletproof"
-
+    # --- IRREGULAR STEM LOGIC (e.g., jít -> šel) ---
+    if l_participle is None:
+        # Check for jít and its variants (přijít, odejít, atd.)
+        if base_verb == "jít" or base_verb.endswith("jít"):
+            is_actually_irregular = True
+            prefix = base_verb[:-3] if base_verb.endswith("jít") and base_verb != "jít" else ""
+            
+            # jít stems: Masculine 'še', others 'š'
+            if number == 'S' and gender in ['M', 'Mi']:
+                l_participle = prefix + "šel"
+            else:
+                # Suffixes for non-masculine singular: š + la, lo, li, ly
+                past_suffixes = {
+                    'S': {'F': 'la', 'N': 'lo'},
+                    'P': {'M': 'li', 'Mi': 'ly', 'F': 'ly', 'N': 'la'}
+                }
+                l_participle = prefix + "š" + past_suffixes[number][gender]
+                
     # 3. Form the L-Participle (if not already set by overrides)
     if l_participle is None:
         stem = base_verb[:-1] # Remove 't'
@@ -109,4 +126,5 @@ def create_past_tense(lemma, person, gender, number):
         if is_reflexive:
             parts.append(is_reflexive)
 
+# We use base_verb as the "pattern" so the badge shows the infinitive
     return " ".join(parts), is_verified, bool(is_reflexive), is_actually_irregular

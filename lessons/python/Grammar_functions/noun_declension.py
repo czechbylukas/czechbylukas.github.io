@@ -15,12 +15,15 @@ def guess_pattern(lemma, is_animate=False, is_soft=False):
     # Feminine
     if last == 'a':
         return 'žena'
-    if last == 'e':
+    if last in ['e', 'ě']:
         return 'růže'
     
     # Masculine (Consonants)
     if is_soft:
         return 'muž' if is_animate else 'stroj'
+    
+    if lemma.lower().endswith('um'):
+        return 'město'
     
     return 'pán' if is_animate else 'hrad'
 
@@ -50,7 +53,16 @@ def apply_consonant_shift(lemma, stem, suffix, pattern_id, case, number):
         if lemma.endswith('ch'): return stem + 'ši'
         if lemma.endswith('r'): return stem + 'ři'
 
-    return stem + suffix
+    # Final check to prevent 'rě' - always convert to 'ře'
+    final_form = stem + suffix
+    if final_form.endswith('rě'):
+        return final_form[:-2] + 'ře'
+    
+    # 2. Safety: lě -> le (Czech usually uses 'le' after 'l')
+    if final_form.endswith('lě'):
+        final_form = final_form[:-2] + 'le'
+
+    return final_form
 
 
 # 1. Update the signature to include is_soft=False
@@ -124,7 +136,10 @@ def declension_noun(lemma, case, number, is_animate=False, is_soft=False):
 
 
     # 1. INITIAL STEM
-    stem = lemma[:-1] if lemma[-1] in ['o', 'a', 'e', 'í'] else lemma
+    if lemma.lower().endswith('um'):
+        stem = lemma[:-2]
+    else:
+        stem = lemma[:-1] if lemma[-1] in ['o', 'a', 'e','ě', 'í'] else lemma
 
     # --- NEW: IRREGULAR STEM OVERRIDE ---
     if is_irr == 1:
@@ -146,7 +161,7 @@ def declension_noun(lemma, case, number, is_animate=False, is_soft=False):
                     if valid_values:
                         # If we found data, return it immediately (e.g., "nominativ, nominativ_2")
                         result = ", ".join(valid_values)
-                        return result, True, False, True
+                        return result, True, False, True, pattern_id
             except Exception as e:
                 print(f"Override Error: {e}")
             finally:
@@ -188,18 +203,26 @@ def declension_noun(lemma, case, number, is_animate=False, is_soft=False):
     }
 
     p_data = suffixes.get(pattern_id, suffixes['hrad'])
-    suf = p_data[number].get(case, '')
+    
+    # Special logic for -um nouns (Centrum)
+    # Special logic for -um nouns (Centrum)
+    if lemma.lower().endswith('um') and number == 'S':
+        if case in [1, 4, 5]: 
+            return lemma, verified, False, is_actually_irregular, pattern_id
+        suf = 'u' if case == 6 else p_data[number].get(case, '')
+    else:
+        suf = p_data[number].get(case, '')
 
     if '/' in suf:
         parts = suf.split('/')
         res1 = apply_consonant_shift(lemma, stem, parts[0], pattern_id, case, number)
         res2 = apply_consonant_shift(lemma, stem, parts[1], pattern_id, case, number)
         # Return all 4 values to keep main.py happy
-        return f"{res1}, {res2}", verified, False, is_actually_irregular
+        return f"{res1}, {res2}", verified, False, is_actually_irregular, pattern_id
+
 
     result = apply_consonant_shift(lemma, stem, suf, pattern_id, case, number)
     
-    debug_info = f"Word: {lemma_clean} | Pattern: {pattern_id} | Path: {db_path}"
-    # result_text, verified_status, is_reflexive (always False for nouns), is_irregular
-    return result, verified, False, is_actually_irregular
+    # result_text with pattern badge, verified_status, is_reflexive, is_irregular
+    return result, verified, False, is_actually_irregular, pattern_id
 

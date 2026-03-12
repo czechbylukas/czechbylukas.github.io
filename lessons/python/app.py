@@ -48,8 +48,8 @@ def process_word():
         result_text = ""
         status_badges = []
         
-        # Initialize default values to avoid errors if a mode doesn't match
-        res, ver, refl, irr = "", False, False, False
+        # Initialize default values (Add 'pattern' here)
+        res, ver, refl, irr, pattern = "", False, False, False, None 
 
         # --- 3. Main Grammar Logic ---
         if mode == 'verb':
@@ -58,13 +58,18 @@ def process_word():
             elif tense == 'present':
                 res, ver, refl, irr = create_present_tense(word, person, gender, number)
             elif tense == 'future':
+                # Future tense has 'vid' instead of 'refl' usually
                 res, vid, ver, irr = create_future_tense(word, person, gender, number)
                 status_badges.append(vid)
             result_text = res
 
         elif mode == 'noun':
-            res, ver, refl, irr = declension_noun(word, case, number, is_animate, is_soft)
+            # Receive 5 values now!
+            res, ver, refl, irr, pattern = declension_noun(word, case, number, is_animate, is_soft)
             result_text = res
+            # Add the pattern name to the badges list
+            if pattern:
+                status_badges.append(pattern)
 
         elif mode == 'adjective':
             res, ver, refl, irr = declension_adjective(word, case, number, gender)
@@ -75,12 +80,20 @@ def process_word():
             res, ver, refl, irr = declension_pronoun_number(word, case, number, gender, mode)
             result_text = res
 
-        # --- UNIVERSAL BADGE LOGIC ---
+        # --- UNIVERSAL BADGE LOGIC ---        
+        # 1. Verification Logic
+        found_unverified_string = "UNVERIFIED" in status_badges
+        
         if ver is True:
-            status_badges.append(True)
+            # Only add the "VERIFIED" (True) badge if we haven't already flagged it as UNVERIFIED
+            if not found_unverified_string:
+                status_badges.append(True)
         else:
-            status_badges.append("UNVERIFIED")
+            # If ver is False and we haven't added the label yet, add it now
+            if not found_unverified_string:
+                status_badges.append("UNVERIFIED")
 
+        # 2. Irregularity Logic
         if irr is True:
             status_badges.append("IRREGULAR")
 

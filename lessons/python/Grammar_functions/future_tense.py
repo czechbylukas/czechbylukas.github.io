@@ -42,10 +42,10 @@ def create_future_tense(lemma, person, gender, number):
 
         if not row:
             conn.close()
-            # Default to 'budu' logic instead of crashing or returning error
             aux_map = {'1S':'budu', '2S':'budeš', '3S':'bude', '1P':'budeme', '2P':'budete', '3P':'budou'}
             aux = aux_map.get(person_num, "bude")
-            return f"{aux} {lemma}", "Aspect: unknown", "UNVERIFIED", False
+            # Change the second value to "Unknown" so it doesn't trigger the "UNVERIFIED" logic twice
+            return f"{aux} {lemma}", "Aspect: unknown", False, False
 
         # Now 'row' actually has the data
         word_id, is_irr, irr_type, vid, category = row
@@ -74,7 +74,8 @@ def create_future_tense(lemma, person, gender, number):
     # 4. GENERAL LOGIC
     # A) PERFECTIVE (e.g. koupit -> koupím)
     if vid_clean == 'perfective':
-        return create_present_tense(lemma, person, gender, number)
+        res, ver, refl, irr = create_present_tense(lemma, person, gender, number)
+        return res, f"Aspect: {vid_clean}", ver, irr  # Pass 'ver' back to app.py!
     
     # B) MOVEMENT (e.g. jet -> pojedu)
     elif vid_clean == 'movement' or category == 'motion':
