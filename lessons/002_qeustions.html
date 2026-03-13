@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tool Teacher | Past Tense Practice</title>
+    <title>Tool Teacher | Past Tense + Question Practice</title>
     
     <script>window.isLoginOnlyPage = true;</script>
     
@@ -18,30 +18,27 @@
     <script src="../scripts-header.js"></script>
 
     <style>
-        /* Tool-specific styling */
         .main-layout { display: flex; flex-direction: column; align-items: center; padding: 20px; flex: 1; }
-        #student-view { width: 100%; max-width: 800px; text-align: center; }
+        #student-view { width: 100%; max-width: 900px; text-align: center; }
         #input-section, #lesson-section { 
             background: white; padding: 40px; border-radius: 15px; 
             box-shadow: 0 4px 15px rgba(0,0,0,0.1); margin-bottom: 20px; 
         }
         #verb-input { padding: 15px; font-size: 24px; border: 2px solid #2f52b5; border-radius: 8px; width: 300px; outline: none; }
-        #sentence-display { font-size: 32px; margin-bottom: 20px; color: #333; min-height: 50px; }
-        #answer-display { font-size: 36px; color: #28a745; margin-bottom: 40px; min-height: 60px; font-weight: bold; }
+        #sentence-display { font-size: 28px; margin-bottom: 20px; color: #333; min-height: 50px; }
+        
+        /* Layout for Step 4+ to keep Q and A on one line */
+        .qa-container { display: flex; flex-wrap: wrap; justify-content: center; align-items: baseline; gap: 15px; margin-bottom: 40px; }
+        #question-part { font-size: 22px; color: #666; }
+        #answer-display { font-size: 38px; color: #28a745; font-weight: bold; min-height: 60px; }
+
         .blue-bold { color: #2f52b5 !important; font-weight: bold !important; }
         .btn-main { padding: 15px 30px; font-size: 20px; cursor: pointer; background: #2f52b5; color: white; border: none; border-radius: 8px; transition: 0.2s; font-weight: bold; }
         .btn-main:disabled { background: #ccc !important; cursor: not-allowed !important; opacity: 0.7; }
         .gender-box { background: #eef4ff; padding: 15px; border-radius: 10px; border: 1px solid #2f52b5; margin-bottom: 20px; display: inline-block; }
         .char-btn { display: inline-block; min-width: 35px; padding: 10px; background: #eee; border: 1px solid #ccc; border-radius: 5px; cursor: pointer; margin: 2px; font-weight: bold; }
-        #history-log { width: 100%; max-width: 600px; margin: 30px auto; text-align: left; background: white; padding: 15px; border-radius: 10px; border: 2px solid #d9e3ff; }
-        
-        /* Auth Overlay styling */
+        #history-log { width: 100%; max-width: 700px; margin: 30px auto; text-align: left; background: white; padding: 15px; border-radius: 10px; border: 2px solid #d9e3ff; }
         #auth-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.8); display: none; justify-content: center; align-items: center; z-index: 2000; }
-        
-        /* Ensure Language Selector layout is respected */
-        #language-selector-container { display: flex; align-items: center; gap: 8px; }
-        .lang-flag { width: 25px; height: auto; cursor: pointer; border-radius: 3px; border: 1px solid transparent; transition: 0.2s; }
-        .lang-flag:hover { transform: scale(1.1); border-color: #2f52b5; }
     </style>
 </head>
 <body class="home">
@@ -57,21 +54,15 @@
 </div>
 
 <header style="display: flex; align-items: center; justify-content: space-between; padding: 10px 20px; background: white; border-bottom: 2px solid #2f52b5; min-height: 60px;">
-    
     <div style="flex: 1;"></div> 
-
     <div style="flex: 2; text-align: center;">
-        <h1 style="margin: 0; font-size: 1.4rem; color: #2f52b5; white-space: nowrap;">Past Tense Practice</h1>
+        <h1 style="margin: 0; font-size: 1.4rem; color: #2f52b5; white-space: nowrap;">Past Tense + Question Practice</h1>
     </div>
-
     <div style="flex: 1; display: flex; justify-content: flex-end; align-items: center; gap: 12px;">
-        <div id="language-selector-container" style="display: flex; align-items: center; gap: 5px;"></div>
-        <div id="auth-status-container" style="display: flex; align-items: center;"></div>
+        <div id="language-selector-container"></div>
+        <div id="auth-status-container"></div>
     </div>
-
 </header>
-
-<aside id="sidebar-placeholder"></aside>
 
 <main class="main-layout">
     <div id="student-view">
@@ -90,21 +81,23 @@
         </div>
 
         <div id="input-section" style="display: none;">
-    <div id="translation-prompt" style="font-size: 24px; color: #2f52b5; font-weight: bold; margin-bottom: 15px; min-height: 30px;"></div>
-    
-    <p>Napiš infinitiv slovesa (nebo zkus náhodné):</p>
-    <div style="display: flex; gap: 10px; justify-content: center; align-items: center; margin-bottom: 15px;">
-        <input type="text" id="verb-input" placeholder="např. dělat..." onkeyup="checkInputForButton()" autocomplete="off" spellcheck="false">
-        <button class="btn-main" style="padding: 10px; background: #28a745;" onclick="getRandomVerbFromDB()">🎲</button>
-    </div>
-    <div id="char-picker" style="margin-top: 15px;"></div>
-    <br>
-    <button id="start-btn" class="btn-main" onclick="startLesson()" disabled>Začít lekci (Enter)</button>
-</div>
+            <div id="translation-prompt" style="font-size: 24px; color: #2f52b5; font-weight: bold; margin-bottom: 15px; min-height: 30px;"></div>
+            <p>Napiš infinitiv slovesa (nebo zkus náhodné):</p>
+            <div style="display: flex; gap: 10px; justify-content: center; align-items: center; margin-bottom: 15px;">
+                <input type="text" id="verb-input" placeholder="např. dělat..." onkeyup="checkInputForButton()" autocomplete="off" spellcheck="false">
+                <button class="btn-main" style="padding: 10px; background: #28a745;" onclick="getRandomVerbFromDB()">🎲</button>
+            </div>
+            <div id="char-picker" style="margin-top: 15px;"></div>
+            <br>
+            <button id="start-btn" class="btn-main" onclick="startLesson()" disabled>Začít lekci (Enter)</button>
+        </div>
 
         <div id="lesson-section" style="display:none;">
             <div id="sentence-display"></div>
-            <div id="answer-display"></div>
+            <div class="qa-container">
+                <div id="question-part"></div>
+                <div id="answer-display"></div>
+            </div>
             <button id="next-step-btn" class="btn-main" onclick="nextStep()">Odpovědět (Krok 1)</button>
         </div>
 
@@ -115,8 +108,6 @@
     </div>
 </main>
 
-<div id="footer-placeholder"></div>
-
 <script>
     let db = null;
     let currentVerb = "";
@@ -124,7 +115,39 @@
     let step = 0;
     let dayIdx = 0;
     let lastGender = ""; 
-    let targetTranslationLemma = ""; // Global target for translation
+    let validAnswers = [];
+    let currentQuestionWord = { cz: "", en: "", answer: "", boldPart: "" };
+
+    const questionMap = {
+        "kdy": { ans: "v deset hodin", bold: "in" }, 
+        "kdo": { ans: "kamarád", bold: "d" },
+        "kde": { ans: "v parku", bold: "u" }, 
+        "proč": { ans: ", protože jsem chtěl", bold: "chtěl" },
+        "v kolik": { ans: "v jednu hodinu", bold: "u" }, 
+        "kolik": { ans: "pět", bold: "ět" },
+        "který": { ans: "dobrý", bold: "ý" }, 
+        "jaký": { ans: "dobrý", bold: "ý" },
+        "co": { ans: "pizzu", bold: "u" }, 
+        "odkud": { ans: "z Prahy", bold: "y" },
+        "odkdy": { ans: "od středy", bold: "y" }, 
+        "dokdy": { ans: "do pátku", bold: "ku" },
+        "jak často": { ans: "každý den", bold: "en" }, 
+        "čí": { ans: "bratra Lukáše", bold: "e" },
+        "jak": { ans: "autem", bold: "em" }, 
+        "kam": { ans: "do kina", bold: "a" },
+        "jak dlouho": { ans: "jednu hodinu", bold: "nu" }, 
+        "bez koho": { ans: "bez kamaráda", bold: "da" },
+        "pro koho": { ans: "pro tátu", bold: "tu" }, 
+        "ke komu": { ans: "k doktorovi", bold: "vi" },
+        "o kom": { ans: "o kamarádovi", bold: "vi" }, 
+        "s kým": { ans: "s kamarádem", bold: "em" },
+        "bez čeho": { ans: "bez cukru", bold: "ru" }, 
+        "pro co": { ans: "pro pivo", bold: "vo" },
+        "k čemu": { ans: "k jídlu", bold: "lu" }, 
+        "o čem": { ans: "o škole", bold: "le" },
+        "čím": { ans: "kartou", bold: "ou" }
+    };
+
     const days = ["v neděli", "v pondělí", "v úterý", "ve středu", "ve čtvrtek", "v pátek", "v sobotu", "o víkendu", "minulý týden", "minulý rok", "loni"];
 
     async function initDatabase() {
@@ -158,95 +181,44 @@
         btn.disabled = !isValidVerb(input.value);
     }
 
-    let validAnswers = []; // Store all acceptable Czech translations here
-
-async function getRandomVerbFromDB() {
-    if (!db) return;
-    const lang = localStorage.getItem("selectedLanguage") || "en";
-    const langCol = "trans_" + (lang === "cs" ? "en" : lang);
-    
-    try {
-        // Updated query: 
-        // 1. pos = 'verb' ensures we aren't getting partial matches.
-        // 2. lemma LIKE '%t' ensures it's a Czech infinitive.
-        const query = `SELECT lemma, synonym, vid_pair, ${langCol}, pos 
-                       FROM words 
-                       WHERE (pos = 'verb' OR pos LIKE 'verb,%' OR pos LIKE '%,verb') 
-                       AND level = 'A1' 
-                       AND lemma LIKE '%t'
-                       ORDER BY RANDOM() LIMIT 1`;
-                       
-        const res = db.exec(query);
-        
-        if (res[0]) {
-            const [lemma, synonym, vid_pair, translation, pos] = res[0].values[0];
-            
-            // LOG TO CONSOLE
-            console.log("--- New Verb Generated ---");
-            console.log("Lemma:", lemma);
-            console.log("Synonyms:", synonym);
-            console.log("Vid Pair:", vid_pair);
-            console.log("Translation:", translation);
-            console.log("POS Tag:", pos);
-            
-            validAnswers = [];
-            if (lemma) validAnswers.push(lemma.toLowerCase().trim());
-            
-            if (synonym) {
-                synonym.split(',').forEach(s => {
-                    let cleaned = s.toLowerCase().trim();
-                    if (cleaned) validAnswers.push(cleaned);
-                });
+    async function getRandomVerbFromDB() {
+        if (!db) return;
+        const lang = localStorage.getItem("selectedLanguage") || "en";
+        const langCol = "trans_" + (lang === "cs" ? "en" : lang);
+        try {
+            const query = `SELECT lemma, synonym, vid_pair, ${langCol} FROM words WHERE (pos LIKE '%verb%') AND level = 'A1' AND lemma LIKE '%t' ORDER BY RANDOM() LIMIT 1`;
+            const res = db.exec(query);
+            if (res[0]) {
+                const [lemma, synonym, vid_pair, translation] = res[0].values[0];
+                console.log("--- Verb:", lemma, "| Trans:", translation);
+                validAnswers = [lemma.toLowerCase().trim()];
+                if (synonym) synonym.split(',').forEach(s => validAnswers.push(s.toLowerCase().trim()));
+                document.getElementById('translation-prompt').innerText = `Přelož: ${translation}`;
+                const input = document.getElementById('verb-input');
+                input.value = ""; input.focus();
+                checkInputForButton();
             }
-            
-            if (vid_pair) {
-                vid_pair.split(/[,/]/).forEach(v => {
-                    let cleaned = v.toLowerCase().trim();
-                    if (cleaned) validAnswers.push(cleaned);
-                });
-            }
-
-            console.log("All accepted answers:", validAnswers);
-
-            document.getElementById('translation-prompt').innerText = `Přelož: ${translation}`;
-            const input = document.getElementById('verb-input');
-            input.value = "";
-            input.focus();
-            checkInputForButton();
-        }
-    } catch (e) { console.error("Random verb error:", e); }
-}
-
-    async function startLesson() {
-    const input = document.getElementById('verb-input');
-    let val = input.value.trim().toLowerCase();
-    
-    // If we have a list of valid answers (from the dice), check against it
-    if (validAnswers.length > 0) {
-        if (!validAnswers.includes(val)) {
-            alert(`Špatně. Příklady správných odpovědí: ${validAnswers.join(", ")}`);
-            return;
-        }
+        } catch (e) { console.error(e); }
     }
 
-    if (!isValidVerb(val)) return;
-    
-    // Reset for next time
-    document.getElementById('translation-prompt').innerText = "";
-    validAnswers = []; 
+    async function startLesson() {
+        const input = document.getElementById('verb-input');
+        let val = input.value.trim().toLowerCase();
+        if (validAnswers.length > 0 && !validAnswers.includes(val)) {
+            alert(`Špatně. Příklady: ${validAnswers.join(", ")}`); return;
+        }
+        if (!isValidVerb(val)) return;
 
-    currentVerb = val;
-    // ... rest of your existing logic for currentVerbStem and Database overrides ...
-    currentVerbStem = val.split(" ")[0].replace(/t$/, ''); 
-    
-    // (Keep your existing database check for irregulars here)
-    let verbExists = false; 
-    if (db) {
-        try {
-            const stmt = db.prepare("SELECT is_irr, irr_type FROM words WHERE lemma = ? AND pos LIKE '%verb%' LIMIT 1");
+        document.getElementById('translation-prompt').innerText = "";
+        validAnswers = [];
+        currentVerb = val;
+        currentVerbStem = val.split(" ")[0].replace(/t$/, ''); 
+
+        // Handle Irregulars logic
+        if (db) {
+            const stmt = db.prepare("SELECT is_irr, irr_type FROM words WHERE lemma = ? LIMIT 1");
             stmt.bind([val]);
             if (stmt.step()) {
-                verbExists = true; 
                 const row = stmt.get();
                 if (row[0] === 1 && [1, 2, 5].includes(row[1])) {
                     const overStmt = db.prepare("SELECT past_participle FROM overrides WHERE form_key = ? LIMIT 1");
@@ -259,35 +231,44 @@ async function getRandomVerbFromDB() {
                 }
             }
             stmt.free();
-        } catch (e) { console.error(e); }
+
+            // Pick Question
+            const keys = Object.keys(questionMap);
+            const randomKey = keys[Math.floor(Math.random() * keys.length)];
+            const mapping = questionMap[randomKey];
+            let enTrans = "question";
+            const qStmt = db.prepare("SELECT trans_en FROM words WHERE lemma = ? AND lesson = '02 Tázací slova' LIMIT 1");
+            qStmt.bind([randomKey]);
+            if (qStmt.step()) enTrans = qStmt.get()[0];
+            qStmt.free();
+            currentQuestionWord = { cz: randomKey, en: enTrans, answer: mapping.ans, boldPart: mapping.bold };
+        }
+
+        document.getElementById('input-section').style.display = 'none';
+        document.getElementById('lesson-section').style.display = 'block';
+        document.getElementById('verb-info-display').innerHTML = " | " + val.replace(/t(\s|$)/, '<b style="color:red">t</b>$1');
+        document.getElementById('question-part').innerHTML = "";
+        showQuestion();
     }
-
-    window.currentVerbVerified = verbExists;
-    if (!verbExists && !confirm(`Sloveso "${val}" neznám. Chceš přesto pokračovat?`)) return;
-
-    document.getElementById('input-section').style.display = 'none';
-    document.getElementById('lesson-section').style.display = 'block';
-    document.getElementById('verb-info-display').innerHTML = " | " + val.replace(/t(\s|$)/, '<b style="color:red">t</b>$1');
-    showQuestion();
-}
 
     function showQuestion() {
         step = 1;
         const day = days[dayIdx];
         const g = document.getElementById('gender-switch').value;
         const endings = { 'M': 'l', 'F': 'la', 'N': 'lo', 'Pl': 'li', 'PlFem': 'ly', 'PlN': 'la' };
-        let aux = (g === 'PlN') ? '<span style="color:#999">__</span>' : (g.startsWith('Pl') ? "jste" : "jsi");
-        
-        document.getElementById('sentence-display').innerHTML = `Co <span class="blue-bold">${aux}</span> děla<span class="blue-bold">${endings[g]||'l'}</span> ${day}?`;
+        let aux = (g === 'PlN') ? '___' : (g.startsWith('Pl') ? "jste" : "jsi");
+        document.getElementById('sentence-display').innerHTML = `Co <span class="blue-bold">${aux}</span> děla<span class="blue-bold">${endings[g]}</span> ${day}?`;
         document.getElementById('answer-display').innerText = "";
         document.getElementById('next-step-btn').innerText = "Odpovědět (Krok 1)";
     }
 
     function nextStep() {
         const g = document.getElementById('gender-switch').value;
+        const qPart = document.getElementById('question-part');
         const answerDiv = document.getElementById('answer-display');
         const nextBtn = document.getElementById('next-step-btn');
         const day = days[dayIdx];
+        const endings = { 'M': 'l', 'F': 'la', 'N': 'lo', 'Pl': 'li', 'PlFem': 'ly', 'PlN': 'la' };
 
         if (step === 1) {
             answerDiv.innerText = day.charAt(0).toUpperCase() + day.slice(1);
@@ -296,7 +277,7 @@ async function getRandomVerbFromDB() {
             step = 2;
         } 
         else if (step === 2) {
-            const aux = (g === 'PlN') ? '<span style="color:#999">__</span>' : (g.startsWith('Pl') ? "jsme" : "jsem");
+            let aux = (g === 'PlN') ? '<span style="color:#999">__</span>' : (g.startsWith('Pl') ? "jsme" : "jsem");
             answerDiv.innerHTML += ` <span class="blue-bold">${aux}</span>`;
             nextBtn.innerText = "Krok 3 (příčestí)";
             step = 3;
@@ -304,35 +285,54 @@ async function getRandomVerbFromDB() {
         else if (step === 3) {
             let parts = currentVerb.split(/\s+/);
             let reflex = parts.length > 1 ? parts[1] : "";
-            const endings = { 'M': 'l', 'F': 'la', 'N': 'lo', 'Pl': 'li', 'PlFem': 'ly', 'PlN': 'la' };
-            let finalStem = currentVerbStem;
-            if (finalStem.endsWith("še") && g !== 'M') finalStem = finalStem.slice(0, -1);
-            answerDiv.innerHTML += reflex ? ` <span class="blue-bold">${reflex}</span> ${finalStem}<span class="blue-bold">${endings[g]}</span>.` : ` ${finalStem}<span class="blue-bold">${endings[g]}</span>.`;
-            nextBtn.innerText = "Další sloveso";
+            answerDiv.innerHTML += reflex ? ` <span class="blue-bold">${reflex}</span> ${currentVerbStem}<span class="blue-bold">${endings[g]}</span>.` : ` ${currentVerbStem}<span class="blue-bold">${endings[g]}</span>.`;
+            nextBtn.innerText = `Otázka: ${currentQuestionWord.cz} (${currentQuestionWord.en})`;
             step = 4;
         } 
+        else if (step === 4) {
+            let auxQ = (g === 'PlN') ? '' : (g.startsWith('Pl') ? "jste" : "jsi");
+            let parts = currentVerb.split(/\s+/);
+            let reflex = parts.length > 1 ? parts[1] : "";
+            // Move question to the side
+            qPart.innerHTML = `${currentQuestionWord.cz.charAt(0).toUpperCase() + currentQuestionWord.cz.slice(1)} ${auxQ} ${reflex} ${currentVerbStem}${endings[g]} ${day}? &nbsp; →`;
+            answerDiv.innerHTML = day.charAt(0).toUpperCase() + day.slice(1);
+            nextBtn.innerText = "Krok 6 (pomocné sloveso)";
+            step = 5;
+        }
+        else if (step === 5) {
+            let aux = (g === 'PlN') ? '<span style="color:#999">__</span>' : (g.startsWith('Pl') ? "jsme" : "jsem");
+            answerDiv.innerHTML += ` <span class="blue-bold">${aux}</span>`;
+            nextBtn.innerText = "Krok 7 (příčestí)";
+            step = 6;
+        }
+        else if (step === 6) {
+            let parts = currentVerb.split(/\s+/);
+            let reflex = parts.length > 1 ? parts[1] : "";
+            answerDiv.innerHTML += reflex ? ` <span class="blue-bold">${reflex}</span> ${currentVerbStem}<span class="blue-bold">${endings[g]}</span>` : ` ${currentVerbStem}<span class="blue-bold">${endings[g]}</span>`;
+            nextBtn.innerText = "Krok 8 (odpověď)";
+            step = 7;
+        }
+        else if (step === 7) {
+            const ans = currentQuestionWord.answer;
+            const bold = currentQuestionWord.boldPart;
+            const formattedAns = bold ? ans.replace(bold, `<span class="blue-bold">${bold}</span>`) : ans;
+            answerDiv.innerHTML += ` ${formattedAns}.`;
+            nextBtn.innerText = "Další sloveso";
+            step = 8;
+        }
         else {
-            const note = !window.currentVerbVerified ? `<small style="color:red;">(Verb not verified)</small>` : "";
-            document.getElementById('log-content').innerHTML += `<div>${answerDiv.innerHTML}${note}</div>`;
+            document.getElementById('log-content').innerHTML += `<div>${qPart.innerText} ${answerDiv.innerHTML}</div>`;
             dayIdx = (dayIdx + 1) % days.length;
             document.getElementById('lesson-section').style.display = 'none';
             document.getElementById('input-section').style.display = 'block';
-            
-            
             const inputField = document.getElementById('verb-input');
             inputField.value = "";
             document.getElementById('verb-info-display').innerHTML = "";
-            
-            // FIXED: Focus the cursor on the input field immediately
-            setTimeout(() => {
-                inputField.focus();
-            }, 10);
-            
+            setTimeout(() => inputField.focus(), 10);
             step = 0; 
         }
     }
 
-    // Character picker logic
     const chars = ['ž','š','č','ř','ď','ť','ň','ě','á','é','í','ý','ó','ú','ů'];
     const picker = document.getElementById('char-picker');
     chars.forEach(char => {
@@ -357,11 +357,5 @@ async function getRandomVerbFromDB() {
 
     initDatabase();
 </script>
-
-
-<script src="../js/translations.js"></script>
-<script src="../js/language-selector.js"></script>
-
-
 </body>
 </html>

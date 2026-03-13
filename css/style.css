@@ -393,4 +393,53 @@ iframe[id^="google_ads_iframe"] {
 
 
 
+/* ============================================================
+   9. LESSON PAGE LAYOUT (Practice Tools)
+   ============================================================ */
+.lesson-container {
+    max-width: 800px;
+    margin: 20px auto;
+    padding: 20px;
+    text-align: center;
+}
 
+.lesson-card {
+    background: white;
+    padding: 40px;
+    border-radius: 15px;
+    box-shadow: 0 4px 15px rgba(47, 82, 181, 0.1);
+    border: 2px solid #d9e3ff;
+    margin-bottom: 20px;
+}
+
+#verb-input {
+    padding: 15px;
+    font-size: 24px;
+    border: 2px solid #2f52b5;
+    border-radius: 8px;
+    width: 300px;
+    outline: none;
+    text-align: center;
+}
+
+#answer-display {
+    font-size: 2.5rem;
+    color: #27ae60;
+    margin: 20px 0;
+    font-weight: bold;
+    min-height: 60px;
+}
+
+.blue-bold {
+    color: #2f52b5 !important;
+    font-weight: bold !important;
+}
+
+.gender-box {
+    background: #d9e3ff;
+    padding: 15px;
+    border-radius: 10px;
+    border: 1px solid #2f52b5;
+    margin-bottom: 20px;
+    display: inline-block;
+}

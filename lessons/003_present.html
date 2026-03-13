@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tool Teacher | Past to Present Practice</title>
+    
+    <script>window.isLoginOnlyPage = true;</script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-database-compat.js"></script>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/language-selector.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/sql.js/1.6.2/sql-wasm.js"></script>
+    <script src="../scripts-header.js"></script>
+
+    <style>
+        .main-layout { display: flex; flex-direction: column; align-items: center; padding: 20px; flex: 1; }
+        #student-view { width: 100%; max-width: 900px; text-align: center; }
+        #input-section, #lesson-section { 
+            background: white; padding: 40px; border-radius: 15px; 
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1); margin-bottom: 20px; 
+        }
+        #verb-input { padding: 15px; font-size: 24px; border: 2px solid #2f52b5; border-radius: 8px; width: 300px; outline: none; }
+        #sentence-display { font-size: 28px; margin-bottom: 20px; color: #333; min-height: 50px; }
+        .qa-container { display: flex; flex-wrap: wrap; justify-content: center; align-items: baseline; gap: 15px; margin-bottom: 40px; }
+        #question-part { font-size: 22px; color: #666; }
+        #answer-display { font-size: 38px; color: #28a745; font-weight: bold; min-height: 60px; }
+        .blue-bold { color: #2f52b5 !important; font-weight: bold !important; }
+        .grey-text { color: #aaa !important; font-weight: normal !important; }
+        .btn-main { padding: 15px 30px; font-size: 20px; cursor: pointer; background: #2f52b5; color: white; border: none; border-radius: 8px; font-weight: bold; }
+        .btn-main:disabled { background: #ccc !important; opacity: 0.7; }
+        .gender-box { background: #eef4ff; padding: 15px; border-radius: 10px; border: 1px solid #2f52b5; margin-bottom: 20px; display: inline-block; }
+        .char-btn { display: inline-block; min-width: 35px; padding: 10px; background: #eee; border: 1px solid #ccc; border-radius: 5px; cursor: pointer; margin: 2px; font-weight: bold; }
+        #history-log { width: 100%; max-width: 800px; margin: 30px auto; text-align: left; background: white; padding: 15px; border-radius: 10px; border: 2px solid #d9e3ff; }
+    </style>
+</head>
+<body class="home">
+
+<main class="main-layout">
+    <div id="student-view">
+        <div class="gender-box">
+            <label style="font-weight: bold; margin-right: 10px;">Jsem (Osoba):</label>
+            <select id="gender-switch" onchange="handleGenderChange()" style="padding: 10px; font-size: 18px; border-radius: 8px; border: 2px solid #2f52b5;">
+                <option value="" disabled selected>Vyber...</option>
+                <option value="M">Muž (L) / Já</option>
+                <option value="F">Žena (LA) / Já</option>
+                <option value="Pl">Množné (LI) / My</option>
+            </select>
+            <span id="verb-info-display" style="margin-left: 20px; font-size: 22px; color: #333;"></span>
+        </div>
+
+        <div id="input-section" style="display: none;">
+            <div id="translation-prompt" style="font-size: 24px; color: #2f52b5; font-weight: bold; margin-bottom: 15px;"></div>
+            <p>Napiš infinitiv slovesa:</p>
+            <div style="display: flex; gap: 10px; justify-content: center; align-items: center; margin-bottom: 15px;">
+                <input type="text" id="verb-input" onkeyup="checkInputForButton()" autocomplete="off">
+                <button class="btn-main" style="padding: 10px; background: #28a745;" onclick="getRandomVerbFromDB()">🎲</button>
+            </div>
+            <div id="char-picker"></div>
+            <br>
+            <button id="start-btn" class="btn-main" onclick="startLesson()" disabled>Začít lekci (Enter)</button>
+        </div>
+
+        <div id="lesson-section" style="display:none;">
+            <div id="sentence-display"></div>
+            <div class="qa-container">
+                <div id="question-part"></div>
+                <div id="answer-display"></div>
+            </div>
+            <button id="next-step-btn" class="btn-main" onclick="nextStep()">Odpovědět (Krok 1)</button>
+        </div>
+
+        <div id="history-log">
+            <h3 style="color: #2f52b5; margin-top: 0;">Historie lekce:</h3>
+            <div id="log-content"></div>
+        </div>
+    </div>
+</main>
+
+<script>
+    let db = null;
+    let currentVerb = "";
+    let currentVerbStem = "";
+    let step = 0;
+    let dayIdx = 0;
+    let validAnswers = [];
+    let currentPattern = "";
+    let currentQuestionWord = {};
+    const days = ["v pondělí", "v úterý", "ve středu", "ve čtvrtek", "v pátek", "v sobotu", "v neděli"];
+
+    const questionMap = {
+        "kdy": { ans: "v deset hodin", bold: "in" },
+        "kde": { ans: "v parku", bold: "u" },
+        "co": { ans: "pizzu", bold: "u" },
+        "kam": { ans: "do kina", bold: "a" }
+    };
+
+    const presentEndings = {
+        "dělat": { "M":"ám", "F":"ám", "Pl":"áme", grey: false },
+        "prosit": { "M":"ím", "F":"ím", "Pl":"íme", grey: false },
+        "děkovat": { "M":"uju", "F":"uju", "Pl":"ujeme", grey: false },
+        "tisknout": { "M":"nu", "F":"nu", "Pl":"neme", grey: true },
+        "nést": { "M":"u", "F":"u", "Pl":"eme", grey: true }
+    };
+
+    async function initDatabase() {
+        const sqlPromise = initSqlJs({ locateFile: f => `https://cdnjs.cloudflare.com/ajax/libs/sql.js/1.6.2/${f}` });
+        const dataPromise = fetch('../VocabSQL_database/czech_master.db').then(res => res.arrayBuffer());
+        const [SQL, buf] = await Promise.all([sqlPromise, dataPromise]);
+        db = new SQL.Database(new Uint8Array(buf));
+    }
+
+    function handleGenderChange() {
+        document.getElementById('input-section').style.display = 'block';
+        document.getElementById('verb-input').focus();
+    }
+
+    function checkInputForButton() {
+        const input = document.getElementById('verb-input');
+        document.getElementById('start-btn').disabled = !input.value.trim().endsWith('t');
+    }
+
+    async function getRandomVerbFromDB() {
+        if (!db) return;
+        const query = `SELECT lemma, trans_en, pattern_id FROM words 
+                       WHERE level = 'A1' AND pos LIKE '%verb%' 
+                       AND pattern_id IN ('dělat', 'prosit', 'děkovat', 'pracovat', 'tisknout', 'nést')
+                       ORDER BY RANDOM() LIMIT 1`;
+        const res = db.exec(query);
+        if (res[0]) {
+            const [lemma, trans, patt] = res[0].values[0];
+            currentPattern = (patt === 'pracovat') ? 'děkovat' : patt;
+            validAnswers = [lemma.toLowerCase().trim()];
+            document.getElementById('translation-prompt').innerText = `Přelož: ${trans} (${currentPattern})`;
+            document.getElementById('verb-input').value = "";
+            checkInputForButton();
+        }
+    }
+
+    function startLesson() {
+        const input = document.getElementById('verb-input');
+        let val = input.value.trim().toLowerCase();
+        if (validAnswers.length > 0 && !validAnswers.includes(val)) {
+            alert(`Špatně. Příklady: ${validAnswers.join(", ")}`); return;
+        }
+        currentVerb = val;
+        currentVerbStem = val.replace(/ovat$|at$|it$|nout$|t$/, '');
+        
+        const keys = Object.keys(questionMap);
+        const randomKey = keys[Math.floor(Math.random() * keys.length)];
+        currentQuestionWord = { cz: randomKey, ...questionMap[randomKey] };
+
+        document.getElementById('input-section').style.display = 'none';
+        document.getElementById('lesson-section').style.display = 'block';
+        document.getElementById('verb-info-display').innerHTML = " | " + val;
+        step = 1;
+        showPastQuestion();
+    }
+
+    function showPastQuestion() {
+        const day = days[dayIdx];
+        const g = document.getElementById('gender-switch').value;
+        const endings = { 'M': 'l', 'F': 'la', 'Pl': 'li' };
+        let aux = (g === 'Pl') ? "jste" : "jsi";
+        document.getElementById('sentence-display').innerHTML = `Co <span class="blue-bold">${aux}</span> děla<span class="blue-bold">${endings[g]}</span> ${day}?`;
+        document.getElementById('answer-display').innerText = "";
+        document.getElementById('next-step-btn').innerText = "Odpovědět (Minulost)";
+    }
+
+    function nextStep() {
+        const g = document.getElementById('gender-switch').value;
+        const qPart = document.getElementById('question-part');
+        const answerDiv = document.getElementById('answer-display');
+        const nextBtn = document.getElementById('next-step-btn');
+        const day = days[dayIdx];
+        const endings = { 'M': 'l', 'F': 'la', 'Pl': 'li' };
+
+        // --- PAST TENSE PHASE (Steps 1-8) ---
+        if (step === 1) {
+            answerDiv.innerText = day.charAt(0).toUpperCase() + day.slice(1);
+            nextBtn.innerText = "Krok 2 (+ pomocné)"; step = 2;
+        } 
+        else if (step === 2) {
+            answerDiv.innerHTML += ` <span class="blue-bold">${g==='Pl'?'jsme':'jsem'}</span>`;
+            nextBtn.innerText = "Krok 3 (příčestí)"; step = 3;
+        } 
+        else if (step === 3) {
+            let pastStem = currentVerb.replace(/t$/, ''); // simplified for logic
+            answerDiv.innerHTML += ` ${pastStem}<span class="blue-bold">${endings[g]}</span>.`;
+            nextBtn.innerText = `Otázka: ${currentQuestionWord.cz}`; step = 4;
+        } 
+        else if (step === 4) {
+            let pastStem = currentVerb.replace(/t$/, '');
+            qPart.innerHTML = `${currentQuestionWord.cz.toUpperCase()} ${g==='Pl'?'jste':'jsi'} ${pastStem}${endings[g]} ${day}? →`;
+            answerDiv.innerHTML = day.charAt(0).toUpperCase() + day.slice(1);
+            nextBtn.innerText = "Odpověď (komplet)"; step = 5;
+        }
+        else if (step === 5) {
+            let pastStem = currentVerb.replace(/t$/, '');
+            let boldedAns = currentQuestionWord.answer.replace(currentQuestionWord.bold, `<span class="blue-bold">${currentQuestionWord.bold}</span>`);
+            answerDiv.innerHTML += ` <span class="blue-bold">${g==='Pl'?'jsme':'jsem'}</span> ${pastStem}${endings[g]} ${boldedAns}.`;
+            nextBtn.innerText = "Zapsat a převést do PŘÍTOMNOSTI"; step = 6;
+        }
+        // --- TRANSITION TO PRESENT ---
+        else if (step === 6) {
+            document.getElementById('log-content').innerHTML += `<div style="color: #666; font-size: 0.9em;">PAST: ${answerDiv.innerText}</div>`;
+            
+            // Setup Present Question
+            document.getElementById('sentence-display').innerHTML = `A co <span class="blue-bold">děláš</span> teď (obvykle)?`;
+            qPart.innerHTML = "";
+            answerDiv.innerHTML = "Teď...";
+            nextBtn.innerText = "Odpovědět (PŘÍTOMNOST)";
+            step = 7;
+        }
+        else if (step === 7) {
+            const suffix = presentEndings[currentPattern][g];
+            const isGrey = presentEndings[currentPattern].grey;
+            const classSpec = isGrey ? 'grey-text' : 'blue-bold';
+            
+            answerDiv.innerHTML = `Teď <span class="${classSpec}">${currentVerbStem}${suffix}</span>`;
+            nextBtn.innerText = "Přidat informaci";
+            step = 8;
+        }
+        else if (step === 8) {
+            let boldedAns = currentQuestionWord.answer.replace(currentQuestionWord.bold, `<span class="blue-bold">${currentQuestionWord.bold}</span>`);
+            answerDiv.innerHTML += ` ${boldedAns}.`;
+            nextBtn.innerText = "Další sloveso";
+            step = 9;
+        }
+        else {
+            document.getElementById('log-content').innerHTML += `<div style="border-bottom: 1px solid #eee; padding-bottom: 5px;">PRES: ${answerDiv.innerText}</div>`;
+            dayIdx = (dayIdx + 1) % days.length;
+            resetUI();
+        }
+    }
+
+    function resetUI() {
+        document.getElementById('lesson-section').style.display = 'none';
+        document.getElementById('input-section').style.display = 'block';
+        document.getElementById('verb-input').value = "";
+        document.getElementById('verb-info-display').innerHTML = "";
+        step = 0;
+    }
+
+    const chars = ['ž','š','č','ř','ď','ť','ň','ě','á','é','í','ý','ó','ú','ů'];
+    const picker = document.getElementById('char-picker');
+    chars.forEach(char => {
+        let btn = document.createElement('span');
+        btn.className = 'char-btn'; btn.innerText = char;
+        btn.onclick = () => {
+            const input = document.getElementById('verb-input');
+            input.setRangeText(char, input.selectionStart, input.selectionEnd, 'end');
+            input.focus();
+            checkInputForButton();
+        };
+        picker.appendChild(btn);
+    });
+
+    initDatabase();
+</script>
+</body>
+</html>
