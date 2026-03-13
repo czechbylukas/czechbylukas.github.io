@@ -133,7 +133,7 @@
         "dokdy": { ans: "do pátku", bold: "ku" },
         "jak často": { ans: "každý den", bold: "en" }, 
         "čí": { ans: "bratra Lukáše", bold: "e" },
-        "jak": { ans: "autem", bold: "em" }, 
+        "jak": { ans: "dobře", bold: "em" }, 
         "kam": { ans: "do kina", bold: "a" },
         "jak dlouho": { ans: "jednu hodinu", bold: "nu" }, 
         "bez koho": { ans: "bez kamaráda", bold: "da" },
@@ -192,7 +192,8 @@
                 const [lemma, synonym, vid_pair, translation] = res[0].values[0];
                 console.log("--- Verb:", lemma, "| Trans:", translation);
                 validAnswers = [lemma.toLowerCase().trim()];
-                if (synonym) synonym.split(',').forEach(s => validAnswers.push(s.toLowerCase().trim()));
+                if (synonym) synonym.split(',').forEach(s => { let c = s.toLowerCase().trim(); if(c) validAnswers.push(c); });
+                if (vid_pair) vid_pair.split(/[,/]/).forEach(v => { let c = v.toLowerCase().trim(); if(c) validAnswers.push(c); });
                 document.getElementById('translation-prompt').innerText = `Přelož: ${translation}`;
                 const input = document.getElementById('verb-input');
                 input.value = ""; input.focus();
@@ -202,11 +203,22 @@
     }
 
     async function startLesson() {
-        const input = document.getElementById('verb-input');
-        let val = input.value.trim().toLowerCase();
-        if (validAnswers.length > 0 && !validAnswers.includes(val)) {
-            alert(`Špatně. Příklady: ${validAnswers.join(", ")}`); return;
-        }
+        const input = document.getElementById('verb-input');
+        let val = input.value.trim().toLowerCase();
+
+        if (db && validAnswers.length === 0) {
+            const check = db.exec(`SELECT lemma, synonym, vid_pair FROM words WHERE lemma='${val}' OR synonym LIKE '%${val}%' OR vid_pair LIKE '%${val}%' LIMIT 1`);
+            if (check[0]) {
+                const [l, s, v] = check[0].values[0];
+                validAnswers = [l.toLowerCase().trim()];
+                if (s) s.split(',').forEach(i => validAnswers.push(i.toLowerCase().trim()));
+                if (v) v.split(/[,/]/).forEach(i => validAnswers.push(i.toLowerCase().trim()));
+            }
+        }
+
+        if (validAnswers.length > 0 && !validAnswers.includes(val)) {
+            alert(`Špatně. Příklady: ${validAnswers.join(", ")}`); return;
+        }
         if (!isValidVerb(val)) return;
 
         document.getElementById('translation-prompt').innerText = "";
