@@ -18,28 +18,16 @@ export const gameMapping = {
     "flashcards": { exclude: { pos: [], lessons: [] } },
     "mcq": { exclude: { pos: [], lessons: [] } },
     "fillGap": { exclude: { pos: [], lessons: [] } },
-    "hangman": { exclude: { pos: [], lessons: [] } },
-    "orderWords": { exclude: { pos: [], lessons: [] } },
-    "dragDrop": { 
-    exclude: { 
-        pos: [
-            "verb", "noun", "adjective", "adj", 
-            "pronoun", "adverb", "prefix", 
-            "prepostition", "preposition", "Phrase"
-        ], 
-        lessons: [] 
-    } 
-},
-
-    "memory": { exclude: { pos: [], lessons: [] } },
-    "pexeso": { exclude: { pos: [], lessons: [] } },
+    "hangman": { exclude: { pos: ["verb", "noun", "adjective", "adj", "pronoun", "adverb", "prefix", "prepostition", "preposition", "Phrase", "number"], lessons: [] } },
+    "orderWords": { exclude: { pos: ["verb", "noun", "adjective", "adj", "pronoun", "adverb", "prefix", "prepostition", "preposition", "Phrase", "number"], lessons: [] } },
+    "dragDrop": { exclude: { pos: ["verb", "noun", "adjective", "adj", "pronoun", "adverb", "prefix", "prepostition", "preposition", "Phrase", "number"], lessons: [] } },
+    "memory": { exclude: { pos: ["verb", "noun", "adjective", "adj", "pronoun", "adverb", "prefix", "prepostition", "preposition", "Phrase", "number"], lessons: [] } },
+    "pexeso": { exclude: { pos: ["verb", "noun", "adjective", "adj", "pronoun", "adverb", "prefix", "prepostition", "preposition", "Phrase", "number"], lessons: [] } },
     "match": { exclude: { pos: [], lessons: [] } },
     "writeAnswer": { exclude: { pos: [], lessons: [] } },
     "speedClick": { exclude: { pos: [], lessons: [] } },
-    "fallingWords": { exclude: { pos: [], lessons: [] } },
-    "sentenceBuilder": { exclude: { pos: ["verb", "noun", "adjective", "adj", 
-            "pronoun", "adverb", "prefix", 
-            "prepostition", "preposition", "Phrase", "number"], lessons: [] } },
+    "fallingWords": { exclude: { pos: ["verb", "noun", "adjective", "adj", "pronoun", "adverb", "prefix", "prepostition", "preposition", "Phrase", "number"], lessons: [] } },
+    "sentenceBuilder": { exclude: { pos: ["verb", "noun", "adjective", "adj", "pronoun", "adverb", "prefix", "prepostition", "preposition", "Phrase", "number"], lessons: [] } },
     
     // Example: Restricted games (like math or specific audio games)
     "guessNumber": { 
