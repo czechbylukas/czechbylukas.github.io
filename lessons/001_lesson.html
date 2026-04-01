@@ -34,7 +34,8 @@
         .gender-box { background: #eef4ff; padding: 15px; border-radius: 10px; border: 1px solid #2f52b5; margin-bottom: 20px; display: inline-block; }
         .char-btn { display: inline-block; min-width: 35px; padding: 10px; background: #eee; border: 1px solid #ccc; border-radius: 5px; cursor: pointer; margin: 2px; font-weight: bold; }
         #history-log { width: 100%; max-width: 600px; margin: 30px auto; text-align: left; background: white; padding: 15px; border-radius: 10px; border: 2px solid #d9e3ff; }
-        
+        .badge-irr { background: #ff9f43; color: white; font-size: 10px; padding: 2px 6px; border-radius: 4px; margin-left: 8px; vertical-align: middle; text-transform: uppercase; font-weight: bold; }
+
         /* Auth Overlay styling */
         #auth-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.8); display: none; justify-content: center; align-items: center; z-index: 2000; }
         
@@ -125,6 +126,8 @@
     let dayIdx = 0;
     let lastGender = ""; 
     let targetTranslationLemma = ""; // Global target for translation
+    let isCurrentlyIrregular = false; // Tracks if the current verb used an override
+
     const days = ["v neděli", "v pondělí", "v úterý", "ve středu", "ve čtvrtek", "v pátek", "v sobotu", "o víkendu", "minulý týden", "minulý rok", "loni"];
 
     async function initDatabase() {
@@ -252,8 +255,11 @@ async function getRandomVerbFromDB() {
                     const overStmt = db.prepare("SELECT past_participle FROM overrides WHERE form_key = ? LIMIT 1");
                     overStmt.bind([val]);
                     if (overStmt.step()) {
+                        isCurrentlyIrregular = true;
                         let fullPast = overStmt.get()[0].split(" ")[0];
                         currentVerbStem = fullPast.endsWith('l') ? fullPast.slice(0, -1) : fullPast;
+                    } else {
+                        isCurrentlyIrregular = false;
                     }
                     overStmt.free();
                 }
@@ -313,7 +319,9 @@ async function getRandomVerbFromDB() {
         } 
         else {
             const note = !window.currentVerbVerified ? `<small style="color:red;">(Verb not verified)</small>` : "";
-            document.getElementById('log-content').innerHTML += `<div>${answerDiv.innerHTML}${note}</div>`;
+            const irrBadge = isCurrentlyIrregular ? `<span class="badge-irr">Irregular</span>` : "";
+            document.getElementById('log-content').innerHTML += `<div>${answerDiv.innerHTML}${note}${irrBadge}</div>`;
+            isCurrentlyIrregular = false; // Reset for next verb
             dayIdx = (dayIdx + 1) % days.length;
             document.getElementById('lesson-section').style.display = 'none';
             document.getElementById('input-section').style.display = 'block';
