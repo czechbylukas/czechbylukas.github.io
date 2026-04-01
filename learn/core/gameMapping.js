@@ -24,7 +24,7 @@ export const gameMapping = {
     "memory": { exclude: { pos: ["verb", "noun", "adjective", "adj", "pronoun", "adverb", "prefix", "prepostition", "preposition", "Phrase", "number"], lessons: [] } },
     "pexeso": { exclude: { pos: ["verb", "noun", "adjective", "adj", "pronoun", "adverb", "prefix", "prepostition", "preposition", "Phrase", "number"], lessons: [] } },
     "match": { exclude: { pos: [], lessons: [] } },
-    "writeAnswer": { exclude: { pos: [], lessons: [] } },
+    "writeAnswer": { exclude: { pos: ["verb", "noun", "adjective", "adj", "pronoun", "adverb", "prefix", "prepostition", "preposition", "Phrase", "number"], lessons: [] } },
     "speedClick": { exclude: { pos: [], lessons: [] } },
     "fallingWords": { exclude: { pos: ["verb", "noun", "adjective", "adj", "pronoun", "adverb", "prefix", "prepostition", "preposition", "Phrase", "number"], lessons: [] } },
     "sentenceBuilder": { exclude: { pos: ["verb", "noun", "adjective", "adj", "pronoun", "adverb", "prefix", "prepostition", "preposition", "Phrase", "number"], lessons: [] } },

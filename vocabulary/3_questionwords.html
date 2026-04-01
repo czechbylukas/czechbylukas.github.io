@@ -128,7 +128,7 @@
     tbody.innerHTML = "";
     const fragment = document.createDocumentFragment();
 
-    const query = "SELECT lemma, trans_en, trans_de, trans_es FROM words WHERE level = 'A1' AND lesson = '02 Tázací slova'";
+    const query = "SELECT lemma, trans_en, trans_de, trans_es FROM words WHERE level = 'A1' AND lesson = '002 Tázací slova'";
 
     try {
       const results = db.exec(query);
