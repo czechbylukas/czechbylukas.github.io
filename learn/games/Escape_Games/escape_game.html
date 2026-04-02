@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+    <meta charset="UTF-8">
+    <title>Lovec a princezna Deklinace</title>
+    <style>
+        body { font-family: sans-serif; background: #1a1a1a; color: white; display: flex; justify-content: center; padding: 20px; }
+        #game-container { max-width: 600px; background: #2a2a2a; padding: 30px; border-radius: 10px; box-shadow: 0 0 20px rgba(0,0,0,0.5); }
+        .monster-img { width: 100%; border-radius: 5px; margin-bottom: 15px; border: 2px solid #444; }
+        .stats { color: #ff9800; font-weight: bold; margin-bottom: 20px; padding: 10px; border-bottom: 1px solid #444; }
+        button { display: block; width: 100%; padding: 12px; margin: 10px 0; background: #4CAF50; color: white; border: none; border-radius: 5px; cursor: pointer; font-size: 16px; }
+        button:hover { background: #45a049; }
+        .hint { font-style: italic; color: #8bc34a; margin-bottom: 15px; }
+        .error { color: #f44336; }
+    </style>
+</head>
+<body>
+
+<div id="game-container">
+    <div id="stats" class="stats">Zdraví: V pořádku | Lokace: Začátek lesa</div>
+    <div id="scene">
+        <h1>Lovec a princezna Deklinace</h1>
+        <p>Jsi statečný lovec. Tvá milovaná princezna Deklinace byla unesena zlou čarodějnicí Gramatikou. Musíš projít lesem a porazit 7 monster pomocí pádů.</p>
+        <button onclick="startLevel(1)">Vstoupit do lesa</button>
+    </div>
+</div>
+
+<script>
+    let currentHealth = "V pořádku";
+    let hasFailedOnce = false;
+    let failedMonsterIndex = null;
+
+    const monsters = [
+        { 
+            name: "Jednoočko", 
+            pad: "1. pád (Kdo? Co?)", 
+            hint: "Sova Slovnice volá: 'To je KDO/CO!'", 
+            question: "Na cestě leží předmět. Co to je?",
+            options: ["A) Meč", "B) Mečem", "C) Meče"],
+            correct: 0,
+            injury: "vypíchnuté oko "
+        },
+        { 
+            name: "Dvouhlavý Haf", 
+            pad: "2. pád (Koho? Čeho?)", 
+            hint: "Sova Slovnice radí: 'Uteč BEZ koho/čeho!'", 
+            question: "Haf je bez...",
+            options: ["A) Kosta", "B) Kosti", "C) Kostem"],
+            correct: 1,
+            injury: "ukousnutá ruka "
+        }
+        // Zde lze doplnit další monstra 3-7 dle tvého seznamu 
+    ];
+
+    function startLevel(index) {
+        if (index > monsters.length) {
+            winGame();
+            return;
+        }
+        
+        let m = monsters[index - 1];
+        let statsDiv = document.getElementById('stats');
+        statsDiv.innerText = `Zdraví: ${currentHealth} | Monstrum: ${m.name} (${m.pad})`;
+
+        let html = `
+            <h2>${m.name}</h2>
+            <p class="hint">${m.hint}</p>
+            <p><strong>Otázka:</strong> ${m.question}</p>
+        `;
+
+        m.options.forEach((opt, i) => {
+            html += `<button onclick="checkAnswer(${index-1}, ${i})">${opt}</button>`;
+        });
+
+        document.getElementById('scene').innerHTML = html;
+    }
+
+    function checkAnswer(mIndex, answerIndex) {
+        let m = monsters[mIndex];
+        if (answerIndex === m.correct) {
+            alert("Správně! Monstrum je poraženo.");
+            startLevel(mIndex + 2);
+        } else {
+            handleFailure(mIndex);
+        }
+    }
+
+    function handleFailure(mIndex) {
+        let m = monsters[mIndex];
+        if (!hasFailedOnce) {
+            hasFailedOnce = true;
+            failedMonsterIndex = mIndex;
+            currentHealth = m.injury;
+            alert(`Chyba! ${m.name} tě zranil. Máš: ${m.injury}. Můžeš ale pokračovat dál.`);
+            startLevel(mIndex + 2);
+        } else {
+            alert(`Druhá chyba u ${m.name}! To jsi nepřežil. Hra se restartuje.`);
+            location.reload();
+        }
+    }
+
+    function winGame() {
+        if (hasFailedOnce) {
+            document.getElementById('scene').innerHTML = `
+                <h1>Téměř vítězství!</h1>
+                <p>Porazil jsi Saně, ale jsi zraněný (${currentHealth}). Musíš se vrátit k monstru, které tě zranilo, a obhájit vítězství! </p>
+                <button onclick="location.reload()">Zkusit znovu od začátku</button>
+            `;
+        } else {
+            document.getElementById('scene').innerHTML = `
+                <h1>SLÁVA!</h1>
+                <p>Zachránil jsi princeznu Deklinaci bez jediného škrábnutí! </p>
+                <button onclick="location.reload()">Hrát znovu</button>
+            `;
+        }
+    }
+</script>
+
+</body>
+</html>
