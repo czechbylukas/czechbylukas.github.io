@@ -20,7 +20,7 @@ def log_error(lemma, word_id, person_num, error_type):
             writer.writerow(headers)
         writer.writerow([timestamp, lemma, word_id, person_num, error_type])
 
-def create_present_tense(lemma, person, gender, number):
+def create_present_tense(lemma, person, gender, number, tense="present"):
     # 1. Cleaning & Reflexive Check
     is_reflexive = "se" if lemma.endswith(" se") else "si" if lemma.endswith(" si") else None
     lemma_clean = lemma.strip().lower()
@@ -41,6 +41,7 @@ def create_present_tense(lemma, person, gender, number):
     present_form = None
     is_verified = False  # Default to 'Guilty' (Yellow badge)
     is_actually_irregular = False
+    is_perfective = False
     pattern_id = None
     is_irr = 0      # Ensure this exists for regular verbs
     irr_type = 0    # Ensure this exists for regular verbs
@@ -56,9 +57,15 @@ def create_present_tense(lemma, person, gender, number):
             # Unpack the 6 columns (vid is the last one)
             word_id, db_is_irr, db_irr_type, _, pattern_id, vid = row
             
-            # --- PERFECTIVE CHECK ---
-            if vid == 'perfective':
-                return f"The verb '{lemma}' is perfective (dokonavé). It has no present tense; these forms express the future.", is_verified, bool(is_reflexive), False
+            # 2. PERFECTIVE LOGIC 
+            # We don't return early anymore; we just identify it
+            is_perfective = (vid == 'perfective')
+            
+            # If user wants PRESENT but verb is perfective, block it and return early
+            if is_perfective and tense == "present":
+                return f"The verb '{lemma}' is perfective and has no present form.", is_verified, bool(is_reflexive), False
+            
+
             # Clean numeric values from DB safely
             is_irr = int(float(db_is_irr)) if db_is_irr is not None else 0
             irr_type = int(float(db_irr_type)) if db_irr_type is not None else 0
@@ -113,5 +120,6 @@ def create_present_tense(lemma, person, gender, number):
 
     if is_reflexive:
         present_form = f"{present_form} {is_reflexive}"
+
 
     return present_form, is_verified, bool(is_reflexive), is_actually_irregular
