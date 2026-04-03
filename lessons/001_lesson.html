@@ -240,7 +240,12 @@ async function getRandomVerbFromDB() {
 
     currentVerb = val;
     // ... rest of your existing logic for currentVerbStem and Database overrides ...
-    currentVerbStem = val.split(" ")[0].replace(/t$/, ''); 
+    let baseVerb = val.split(" ")[0];
+    if (baseVerb.endsWith("nout")) {
+        currentVerbStem = baseVerb.slice(0, -4);
+    } else {
+        currentVerbStem = baseVerb.replace(/t$/, '');
+    } 
     
     // (Keep your existing database check for irregulars here)
     let verbExists = false; 
