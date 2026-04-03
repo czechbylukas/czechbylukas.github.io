@@ -76,6 +76,7 @@ def create_past_tense(lemma, person, gender, number):
         conn.close() # <--- This code is now "bulletproof"
     # --- IRREGULAR STEM LOGIC (e.g., jít -> šel) ---
     if l_participle is None:
+        
         # Check for jít and its variants (přijít, odejít, atd.)
         if base_verb == "jít" or base_verb.endswith("jít"):
             is_actually_irregular = True
@@ -94,7 +95,12 @@ def create_past_tense(lemma, person, gender, number):
                 
     # 3. Form the L-Participle (if not already set by overrides)
     if l_participle is None:
-        stem = base_verb[:-1] # Remove 't'
+        # Special handling for -nout verbs to ensure the 'nu' remains in the stem
+        if base_verb.endswith("nout"):
+            stem = base_verb[:-1] 
+        else:
+            stem = base_verb[:-1] # Remove 't'
+            
         suffixes = {
             'S': {'M': 'l', 'Mi': 'l', 'F': 'la', 'N': 'lo'},
             'P': {'M': 'li', 'Mi': 'ly', 'F': 'ly', 'N': 'la'}

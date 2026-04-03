@@ -67,7 +67,7 @@
                 <option value="2">2. Person</option>
                 <option value="3">3. Person</option>
             </select>
-            <select id="verb-number">
+            <select id="verb-number" onchange="updatePersonLabels()">
                 <option value="S">Singular</option>
                 <option value="P">Plural</option>
             </select>
@@ -199,12 +199,14 @@ function updateNounHelperVisibility(mode, word, isUnverified = false) {
 
 function handleModeChange() {
     const mode = document.getElementById('mode').value;
+    document.getElementById('word').value = ''; // Clear the input field
     document.getElementById('verb-options').classList.toggle('hidden-menu', mode !== 'verb');
     document.getElementById('noun-options').classList.toggle('hidden-menu', mode !== 'noun');
     // Ensure helper only shows for nouns and hide when switching modes
     const word = document.getElementById('word').value;
     updateNounHelperVisibility(mode, word);
     toggleGender();
+    updatePersonLabels();
 }
 
 function toggleGender() {
@@ -329,6 +331,22 @@ document.querySelectorAll('input, select').forEach(element => {
         document.getElementById('result-card').style.display = 'none';
     });
 });
+
+
+
+
+function updatePersonLabels() {
+    const isPlural = document.getElementById('verb-number').value === 'P';
+    const personSelect = document.getElementById('person');
+    const labels = isPlural 
+        ? ["1. Person (my)", "2. Person (vy)", "3. Person (oni/ony/ona)"] 
+        : ["1. Person (já)", "2. Person (ty)", "3. Person (on/ona/ono)"];
+
+    Array.from(personSelect.options).forEach((opt, i) => {
+        opt.text = labels[i];
+    });
+}
+
 
 
 

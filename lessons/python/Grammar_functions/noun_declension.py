@@ -141,25 +141,46 @@ def declension_noun(lemma, case, number, is_animate=False, is_soft=False):
     else:
         stem = lemma[:-1] if lemma[-1] in ['o', 'a', 'e','ě', 'í'] else lemma
 
-    # --- NEW: IRREGULAR STEM OVERRIDE ---
+    # --- NEW: IRREGULAR STEM OVERRIDE (Updated for Singular & Plural) ---
     if is_irr == 1:
-        target_cols = col_map.get((case, number), [])
+        # Define mapping based on Singular (S) or Plural (P)
+        if number == 'S':
+            mapping = {
+                1: ['nominativ', 'nominativ_2', 'nominativ_3'],
+                2: ['genitiv', 'genitiv_2'],
+                3: ['dativ', 'dativ_2'],
+                4: ['akuzativ'],
+                5: ['vokativ', 'vokativ_2', 'vokativ_3'],
+                6: ['lokal', 'lokal_2', 'lokal_3'],
+                7: ['instumental']
+            }
+        else: # number == 'P'
+            mapping = {
+                1: ['nominativ_plural', 'nominativ_plural2', 'nominativ_plural3'],
+                2: ['genitiv_plural'],
+                3: ['dativ_plural'],
+                4: ['akuzativ_plural'],
+                5: ['vokativ_plural', 'vokativ_plural2', 'vokativ_plural3'],
+                6: ['lokativ_plural', 'lokativ_plural2', 'lokativ_plural3'],
+                7: ['instrumenatl_plural']
+            }
+
+        target_cols = mapping.get(case, [])
+
         if target_cols:
             conn = sqlite3.connect(db_path)
             cur = conn.cursor()
             try:
-                # Fetch all potential columns for this case
+                # Select only the columns relevant to the current Case and Number
                 query = f"SELECT {', '.join(target_cols)} FROM overrides WHERE word_id = ?"
                 cur.execute(query, (word_id,))
                 over_row = cur.fetchone()
 
                 if over_row:
-                    # Filter out None, empty strings, and "nan"
                     valid_values = [str(val).strip() for val in over_row 
                                     if val and str(val).lower() != 'nan' and str(val).strip() != ""]
                     
                     if valid_values:
-                        # If we found data, return it immediately (e.g., "nominativ, nominativ_2")
                         result = ", ".join(valid_values)
                         return result, True, False, True, pattern_id
             except Exception as e:
@@ -167,9 +188,17 @@ def declension_noun(lemma, case, number, is_animate=False, is_soft=False):
             finally:
                 conn.close()
 
-    # Apply the old Drop-E logic to the (potentially new) stem
-    if is_irr == 1 and irr_type == 9 and stem.endswith('e'):
-        stem = stem[:-1]
+   # --- NEW: MOVABLE E LOGIC (e.g., pes -> ps-, zámek -> zámk-) ---
+    # Works for both Verified (is_irr=1) and Guessed (is_irr=0) words
+    if irr_type == 9 and not (case == 1 and number == 'S'):
+        # Find the last occurrence of 'e' or 'ě'
+        last_e_idx = max(stem.rfind('e'), stem.rfind('ě'))
+        
+        # If 'e' exists and is not the very first letter (e.g., 'erb' stays 'erb')
+        if last_e_idx > 0:
+            # Create a new stem by removing that specific 'e'
+            stem = stem[:last_e_idx] + stem[last_e_idx+1:]
+            print(f"DEBUG: Movable E removed. New stem: {stem}")
 
     # 2. SUFFIXES
     suffixes = {
@@ -185,7 +214,7 @@ def declension_noun(lemma, case, number, is_animate=False, is_soft=False):
         'píseň': {'S': {1:'', 2:'ě', 3:'i', 4:'', 5:'i', 6:'i', 7:'í'}, 'P': {1:'ě', 2:'í', 3:'ím', 4:'ě', 5:'ě', 6:'ích', 7:'ěmi'}},
         'kost': {'S': {1:'', 2:'i', 3:'i', 4:'', 5:'i', 6:'i', 7:'í'}, 'P': {1:'i', 2:'í', 3:'em', 4:'i', 5:'i', 6:'ech', 7:'mi'}},
         # MASCULINE ANIMATED
-        'pán': {'S': {1:'', 2:'a', 3:'ovi/u', 4:'a', 5:'e/i', 6:'ovi/u', 7:'em'}, 'P': {1:'i/ové', 2:'ů', 3:'ům', 4:'y', 5:'i/ové', 6:'ech', 7:'y'}},
+        'pán': {'S': {1:'', 2:'a', 3:'ovi/u', 4:'a', 5:'e', 6:'ovi/u', 7:'em'}, 'P': {1:'i/ové', 2:'ů', 3:'ům', 4:'y', 5:'i/ové', 6:'ech', 7:'y'}},
         'hoch': {'S': {1:'', 2:'a', 3:'ovi/u', 4:'a', 5:'u', 6:'ovi/u', 7:'em'}, 'P': {1:'i/ové', 2:'ů', 3:'ům', 4:'y', 5:'i/ové', 6:'ích', 7:'y'}},
         'občan': {'S': {1:'', 2:'a', 3:'ovi/u', 4:'a', 5:'e', 6:'ovi/u', 7:'em'}, 'P': {1:'é/i', 2:'ů', 3:'ům', 4:'y', 5:'é/i', 6:'ech', 7:'y'}},
         'muž': {'S': {1:'', 2:'e', 3:'ovi/i', 4:'e', 5:'i', 6:'ovi/i', 7:'em'}, 'P': {1:'i/ové', 2:'ů', 3:'ům', 4:'e', 5:'i/ové', 6:'ích', 7:'i'}},

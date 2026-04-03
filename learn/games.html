@@ -348,127 +348,78 @@
 
 // --- KEEP YOUR EXISTING FUNCTIONS (init, updateLessons, etc.) ABOVE THIS ---
 
-  // Handle Game Clicks
+// Handle Game Clicks
   document.getElementById('game-selector').addEventListener('click', (e) => {
     if (e.target.tagName === 'BUTTON') {
       const gameType = e.target.dataset.game;
       const lesson = document.getElementById('lesson-select').value;
-      console.log("1. Button Clicked:", gameType, "Lesson:", lesson);
-
-      // Get all checked values (e.g., ['verb', 'noun'])
-      const selectedPos = Array.from(document.querySelectorAll('.pos-check:checked')).map(cb => cb.value);
-
-      // Detect the current UI language
+      
       const currentLang = (localStorage.getItem("selectedLanguage") || "en").replace('cs', 'en');
       const langCol = `trans_${currentLang}`;
 
-      // 1. BUILD THE POS FILTER
-      console.log("2. Running Query for POS:", selectedPos);
-      let posFilter = "";
-      if (selectedPos.length > 0) {
-          // Creates: AND (pos IN ('verb','noun') OR pos='Phrase')
-          const formattedPos = selectedPos.map(p => `'${p}'`).join(',');
-          posFilter = `AND (pos IN (${formattedPos}) OR pos='Phrase')`; 
-      } else {
-          posFilter = `AND pos='NONE'`; 
-      }
-
-      // 2. THE NEW CLEAN QUERY
-      const query = `SELECT lemma, ${langCol}, image_path, ext1, pos, synonym FROM words 
-                     WHERE lesson='${lesson}' ${posFilter} 
-                     ORDER BY RANDOM() LIMIT 20`;
+      // 1. SIMPLEST SQL POSSIBLE: Get every single row for this lesson
+      const query = `SELECT lemma, ${langCol}, image_path, ext1, pos, synonym 
+                     FROM words 
+                     WHERE lesson='${lesson}'`;
       
       const res = db.exec(query);
       const gameContainer = document.getElementById('game');
-      console.error("3. DATABASE RETURNED NO DATA for this lesson/filter!");
 
+      if (!res[0] || !res[0].values.length) {
+          console.error("❌ DB is empty for lesson:", lesson);
+          return;
+      }
 
-      const wordCount = (res[0] && res[0].values) ? res[0].values.length : 0;
+      // 2. CONVERT DB ROWS TO CLEAN OBJECTS
+      const allRows = res[0].values.map(row => ({
+          lemma: row[0] || "",
+          translation: row[1] || "",
+          image: row[2] || "",
+          ext1: row[3] || "",
+          pos: (row[4] || "").toLowerCase().trim(), // Normalize POS to lowercase
+          synonym: row[5] || ""
+      }));
 
-// GLOBAL MINIMUM CHECK
-if (wordCount < 5) {
-    gameContainer.innerHTML = `
-        <div class="placeholder-text" style="padding: 40px; border: 2px dashed #ccc;">
-            <h3 style="color: #e67e22;">⚠️ Málo slov pro tuto hru</h3>
-            <p>Tato lekce obsahuje pouze <b>${wordCount}</b> vybraných slov.</p>
-            <p>Zkuste vybrat jinou lekci nebo přidat více témat (Verbs/Nouns).</p>
-        </div>`;
-    return;
-}
-
-     // Change the mapping block to this:
-const rawRows = res[0].values.map(row => ({
-    lemma: row[0], 
-    translation: row[1], 
-    image: row[2], 
-    ext1: row[3] || "", 
-    pos: row[4],
-    synonym: row[5] || "" // This is the missing piece!
-}));
-
-      // This checks if the word's POS is inside your array of checked checkboxes
-      const mainWords = rawRows.filter(item => selectedPos.includes(item.pos.toLowerCase()));
-      const allPhrases = rawRows.filter(item => item.pos === 'Phrase');
-
-      console.log("4. Split data:", { mainWords: mainWords.length, phrases: allPhrases.length });
+      // 3. SEPARATE DATA
+      const isAllChecked = document.getElementById('all-topics').checked; // <--- ADD THIS
       
-      const data = mainWords.map((word, idx) => {
-          // 1. Find the matching sentence
-          const lemmaClean = (word.lemma || "").trim().toLowerCase();
-          const match = allPhrases.find(p => {
-              if (!p.ext1) return false;
-              return p.ext1.toLowerCase().split(',').map(s => s.trim()).includes(lemmaClean);
-          });
-          
-          let originalSentence = match ? match.lemma : word.lemma;
-          let gapText = originalSentence;
-          
-          if (gameType === 'fillGap') {
-    try {
-        // 1. Normalize both to NFC and Lowercase immediately
-        const lemmaClean = word.lemma.toLowerCase().normalize("NFC").trim();
-        const sentenceClean = originalSentence.toLowerCase().normalize("NFC").trim();
+      const selectedPos = Array.from(document.querySelectorAll('.pos-check:checked'))
+                               .map(cb => cb.value.toLowerCase());
+      
+      // Updated targetWords logic:
+      const targetWords = allRows.filter(row => {
+          if (isAllChecked) return true; // If "Vše" is checked, ignore categories
+          return selectedPos.includes(row.pos);
+      });
+      
+      const phraseLibrary = allRows.filter(row => row.pos === 'phrase');
 
-        // 2. Escape the lemma
-        const escapedLemma = lemmaClean.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
-        
-        // 3. Use 'giu' - the 'u' is critical for Unicode like Ú and Č
-        const regex = new RegExp(escapedLemma, 'giu');
-        
-        if (regex.test(sentenceClean)) {
-            // Replace in the cleaned sentence
-            gapText = sentenceClean.replace(regex, '{{gap}}');
-        } else {
-            // Fallback: If it's "Úhoř" and sentence is "Dám si úhoře", 
-            // the regex "úhoř" SHOULD match the start of "úhoře"
-            // If it fails, we force the gap
-            gapText = '{{gap}}'; 
-        }
-    } catch (e) {
-        console.error("Regex error:", e);
-        gapText = '{{gap}}';
-    }
-}
+      console.log(`Vše: ${isAllChecked} | Targets: ${targetWords.length}`);
 
-          const item = {
-              cs: word.lemma, 
+      if (targetWords.length === 0) {
+          gameContainer.innerHTML = '<div class="placeholder-text">⚠️ Žádná slova neodpovídají vybraným filtrům.</div>';
+          return;
+      }
+
+      // 4. MAP TO ENGINE FORMAT
+      // 4. MAP TO ENGINE FORMAT (Simplified)
+      const data = targetWords.map(word => {
+          // We strictly use {{gap}} as the text now.
+          // The game will simply show a gap where the word should be.
+          return {
+              cs: word.lemma.trim(), 
               en: word.translation, 
               image: word.image, 
-              ext1: word.ext1, 
               pos: word.pos,
               synonym: word.synonym || "",
-              text: gapText || '{{gap}}', 
-              phrase: originalSentence,
-              phraseEn: match ? match.translation : word.translation,
-              gapDetails: [{ surface: word.lemma, lemma: word.lemma, synonym: word.synonym || "" }]
+              text: "{{gap}}", // Force the gap every time
+              phrase: word.lemma, // Use the word itself as the "phrase"
+              phraseEn: word.translation,
+              [currentLang]: word.translation
           };
-          
-          item[currentLang] = word.translation;
-          return item;
       });
 
-      console.log("FINAL DATA SENT TO ENGINE:", data);
-
+      // 5. RENDER
       if (['mcq', 'fillGap', 'hangman'].includes(gameType)) {
           gameContainer.classList.add('game-expanded');
       } else {
