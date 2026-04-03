@@ -231,27 +231,42 @@ def declension_noun(lemma, case, number, is_animate=False, is_soft=False):
         'stroj': {'S': {1:'', 2:'e', 3:'i', 4:'', 5:'i', 6:'i', 7:'em'}, 'P': {1:'e', 2:'ů', 3:'ím', 4:'e', 5:'e', 6:'ích', 7:'i'}}
     }
 
-    p_data = suffixes.get(pattern_id, suffixes['hrad'])
-    
-    # Special logic for -um nouns (Centrum)
-    # Special logic for -um nouns (Centrum)
-    if lemma.lower().endswith('um') and number == 'S':
-        if case in [1, 4, 5]: 
-            return lemma, verified, False, is_actually_irregular, pattern_id
-        suf = 'u' if case == 6 else p_data[number].get(case, '')
-    else:
-        suf = p_data[number].get(case, '')
+   
 
-    if '/' in suf:
-        parts = suf.split('/')
-        res1 = apply_consonant_shift(lemma, stem, parts[0], pattern_id, case, number)
-        res2 = apply_consonant_shift(lemma, stem, parts[1], pattern_id, case, number)
-        # Return all 4 values to keep main.py happy
-        return f"{res1}, {res2}", verified, False, is_actually_irregular, pattern_id
-
-
-    result = apply_consonant_shift(lemma, stem, suf, pattern_id, case, number)
     
     # result_text with pattern badge, verified_status, is_reflexive, is_irregular
-    return result, verified, False, is_actually_irregular, pattern_id
+    # --- 3. APPLY SUFFIX & CONSONANT SHIFTS ---
+    p_data = suffixes.get(pattern_id, suffixes['hrad'])
+    
+    if lemma.lower().endswith('um') and number == 'S':
+        if case in [1, 4, 5]: 
+            result = lemma
+        else:
+            suf = 'u' if case == 6 else p_data[number].get(case, '')
+            result = apply_consonant_shift(lemma, stem, suf, pattern_id, case, number)
+    else:
+        suf = p_data[number].get(case, '')
+        if '/' in suf:
+            parts = suf.split('/')
+            res1 = apply_consonant_shift(lemma, stem, parts[0], pattern_id, case, number)
+            res2 = apply_consonant_shift(lemma, stem, parts[1], pattern_id, case, number)
+            result = f"{res1}, {res2}"
+        else:
+            result = apply_consonant_shift(lemma, stem, suf, pattern_id, case, number)
 
+    # --- 4. ADD PREPOSITIONS ---
+    prepositions = {1: "", 2: "bez", 3: "k", 4: "pro", 5: "voláme:", 6: "o", 7: "s"}
+    prep = prepositions.get(case, "")
+    if prep and result:
+        if "," in result:
+            result = ", ".join([f"{prep} {r.strip()}" for r in result.split(",")])
+        else:
+            result = f"{prep} {result}"
+
+    # --- 5. UNIFIED RETURN (Crucial to prevent 500 error) ---
+    status_badges = [verified]
+    status_badges.append("Singular" if number == 'S' else "Plural")
+    if is_actually_irregular: status_badges.append("Irregular")
+    status_badges.append(pattern_id)
+
+    return result, status_badges, False, is_actually_irregular, pattern_id

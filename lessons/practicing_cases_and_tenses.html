@@ -285,27 +285,38 @@ function showResult(text, statusArray) {
     card.style.display = 'block';
     document.getElementById('result-text').innerText = text;
     
-    const badges = document.getElementById('badges');
-    badges.innerHTML = ''; 
+    const badgesContainer = document.getElementById('badges');
+    badgesContainer.innerHTML = ''; 
 
-    // Use a Set to remove duplicate strings like "UNVERIFIED"
-    const uniqueStatuses = [...new Set(statusArray)];
+    // Remove duplicates and empty values
+    const uniqueStatuses = [...new Set(statusArray)].filter(s => s !== null && s !== "");
 
     uniqueStatuses.forEach(s => {
         const span = document.createElement('span');
+        span.className = 'badge';
+
         if (s === true) { 
-            span.className = 'badge';
             span.style.background = 'var(--success)';
             span.style.color = 'white';
             span.innerText = "VERIFIED";
         } else if (s === "UNVERIFIED") {
             span.className = 'badge badge-warning';
             span.innerText = "GUESSED";
-        } else if (s) { // Only add if the string isn't empty
-            span.className = 'badge';
+        } else if (s === "Irregular") {
+            span.style.background = 'var(--danger)';
+            span.style.color = 'white';
+            span.innerText = "IRREGULAR";
+        } else if (s === "Singular" || s === "Plural") {
+            span.style.background = '#e9ecef';
+            span.style.color = '#495057';
             span.innerText = s;
+        } else {
+            // This is the Pattern ID
+            span.style.background = 'var(--primary)';
+            span.style.color = 'white';
+            span.innerText = "Pattern: " + s;
         }
-        badges.appendChild(span);
+        badgesContainer.appendChild(span);
     });
 }
 
