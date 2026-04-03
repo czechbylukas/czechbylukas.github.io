@@ -2,58 +2,164 @@
 <html lang="cs">
 <head>
     <meta charset="UTF-8">
-    <title>Czech Grammar Master | HáCZech Dashboard</title>
-    <style>
-        :root { --primary: #007bff; --success: #28a745; --warning: #ffc107; --danger: #dc3545; --dark: #333; }
-        body { font-family: 'Segoe UI', sans-serif; background: #f0f4f8; display: flex; flex-direction: column; align-items: center; min-height: 100vh; margin: 0; padding: 20px; }
-        
-        .container { background: white; padding: 40px; border-radius: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.1); width: 100%; max-width: 600px; text-align: center; }
-        header h1 { color: var(--primary); margin-bottom: 5px; }
-        .subtitle { color: #666; margin-bottom: 30px; font-size: 14px; }
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-database-compat.js"></script>
+    
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/language-selector.css">
+    
+    <script src="../scripts-header.js"></script>
+    
+    <title>Grammar Engine | HáCZech</title>
 
-        .form-group { display: flex; flex-direction: column; gap: 15px; }
-        .row { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
-        .row-triple { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 10px; }
+    <style>
+        :root { 
+            --primary: #2c3e50; 
+            --success: #27ae60; 
+            --warning: #f39c12; 
+            --danger: #e74c3c;
+            --border: #edf2f7;
+        }
         
-        select, input { padding: 14px; border: 2px solid #eee; border-radius: 10px; font-size: 16px; outline: none; transition: 0.2s; width: 100%; box-sizing: border-box; }
-        select:focus, input:focus { border-color: var(--primary); }
+        body { background: #f8fafc; font-family: sans-serif; margin: 0; }
+
+        .container { 
+            background: white; 
+            padding: 30px; 
+            border-radius: 20px; 
+            box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+            border: 1px solid #ddd;
+            width: 95%; 
+            max-width: 550px; 
+            margin: 40px auto; 
+            text-align: center;
+        }
+        
+        .subtitle { color: #94a3b8; margin-bottom: 25px; font-size: 13px; text-transform: uppercase; letter-spacing: 1px; }
+
+        /* Restored: Your Preferred Input Rows */
+        .row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 15px; }
+        .row-triple { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 10px; margin-bottom: 15px; }
+        
+        select, input { 
+            padding: 12px 14px; 
+            border: 2px solid var(--border); 
+            border-radius: 10px; 
+            font-size: 15px; 
+            background: #f8fafc;
+            outline: none;
+            transition: 0.2s;
+            width: 100%;
+            box-sizing: border-box;
+        }
+        select:focus, input:focus { border-color: var(--primary); background: #fff; }
 
         .hidden-menu { display: none !important; }
-
-        .helper-box { background: #fff9e6; border: 1px dashed var(--warning); padding: 15px; border-radius: 10px; margin-top: 5px; text-align: left; }
-        .helper-box label { font-size: 13px; font-weight: bold; color: #555; display: block; margin-bottom: 8px; }
-
-        .warning-note { color: var(--danger); font-size: 13px; font-weight: bold; margin-top: 10px; display: none; }
-
-        .btn-generate { background: var(--primary); color: white; border: none; padding: 16px; border-radius: 10px; font-size: 18px; font-weight: bold; cursor: pointer; margin-top: 10px; width: 100%; }
-        .btn-generate:hover { background: #0056b3; }
-        .btn-generate:disabled { background: #ccc; }
         
-        #result-card { display: none; margin-top: 30px; padding: 25px; border-radius: 15px; background: #f8f9fa; border-left: 6px solid var(--success); text-align: left; }
-        #result-text { font-size: 28px; font-weight: bold; color: var(--dark); display: block; margin-bottom: 10px; }
-        .badge { display: inline-block; padding: 5px 12px; border-radius: 5px; font-size: 12px; font-weight: bold; text-transform: uppercase; margin-right: 5px; background: #ddd; color: #555; }
-        .badge-warning { background: var(--warning); color: #000; }
+        /* The "Winner" Result Card */
+        #result-card { 
+            display: none; 
+            margin-top: 30px; 
+            padding: 45px 20px; 
+            border-radius: 16px; 
+            background: #ffffff; 
+            border: 2px solid var(--success);
+            box-shadow: 0 15px 35px rgba(39, 174, 96, 0.1);
+            text-align: center; 
+            animation: slideIn 0.3s ease-out;
+        }
 
-        .loading { display: none; margin: 10px 0; font-style: italic; color: var(--primary); }
+        #result-text { 
+            display: block;
+            font-size: 52px; /* Massive & Clear */
+            font-weight: 900;
+            color: var(--primary);
+            margin-bottom: 15px;
+            letter-spacing: -1.5px;
+        }
+
+        .badge-container { display: flex; flex-wrap: wrap; justify-content: center; gap: 6px; margin-bottom: 20px; }
+        .badge { display: inline-block; padding: 6px 12px; border-radius: 6px; font-size: 11px; font-weight: bold; text-transform: uppercase; background: #eee; color: #666; }
+        
+        .btn-generate { 
+            background: var(--primary); 
+            color: white; 
+            border: none; 
+            padding: 16px; 
+            border-radius: 12px; 
+            font-size: 17px; 
+            font-weight: bold; 
+            cursor: pointer; 
+            width: 100%; 
+            transition: 0.2s;
+            margin-top: 10px;
+        }
+        .btn-generate:hover { opacity: 0.9; transform: translateY(-1px); }
+
+        .btn-clear { 
+            background: none; 
+            border: none; 
+            color: #94a3b8; 
+            text-decoration: underline; 
+            cursor: pointer; 
+            font-size: 13px; 
+            margin-top: 10px; 
+        }
+
+        /* Helper & Warning */
+        .helper-box { background: #fff9e6; border: 1px dashed var(--warning); padding: 15px; border-radius: 12px; margin: 15px 0; text-align: left; }
+        .warning-note { color: var(--danger); font-size: 13px; font-weight: bold; margin-bottom: 10px; display: none; }
+        .loading { display: none; margin: 15px 0; font-style: italic; color: var(--primary); }
+
+        @keyframes slideIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
     </style>
 </head>
-<body>
 
-<div class="container">
-    <header>
-        <h1>HáCZech Engine</h1>
+<body class="home">
+
+<header style="display: flex; align-items: center; justify-content: space-between; padding: 10px 20px; background: white; border-bottom: 2px solid #2c3e50;">
+    <div style="flex: 1; display: flex; align-items: center;" id="logo-placeholder"></div>
+
+    <div style="flex: 1; text-align: center;">
+        <h1>Grammar Engine</h1>
+    </div>
+
+    <div style="flex: 1; display: flex; justify-content: flex-end; align-items: center;">
+        <div id="auth-status-container"></div>
+    </div>
+</header>
+
+<aside id="sidebar-placeholder"></aside>
+
+<main style="padding: 20px;">
+    <div class="container">
         <p class="subtitle">Connected to Google Cloud Engine</p>
-    </header>
 
-    <div class="form-group">
-        <div class="row">
-            <select id="mode" onchange="handleModeChange()">
-                <option value="" disabled selected>Choose Category...</option>
-                <option value="verb">Verb (Sloveso)</option>
-                <option value="noun">Noun (Podstatné jméno)</option>
-            </select>
-            <input type="text" id="word" placeholder="Enter word..." oninput="autoDetectPattern()">
-        </div>
+
+    <div class="row">
+    <input type="text" style="display:none;" aria-hidden="true">
+    
+    <select id="mode" onchange="handleModeChange()">
+        <option value="" disabled selected>Choose Category...</option>
+        <option value="verb">Verb (Sloveso)</option>
+        <option value="noun">Noun (Podstatné jméno)</option>
+    </select>
+
+    <input type="text" 
+           id="grammar_query" 
+           name="q_no_autofill"
+           placeholder="Enter word..." 
+           oninput="autoDetectPattern()" 
+           autocomplete="one-time-code"
+           spellcheck="false"
+           role="presentation">
+</div>
 
         <div id="verb-options" class="row-triple hidden-menu">
             <select id="tense" onchange="toggleGender()">
@@ -121,11 +227,22 @@
     <div id="result-card">
         <span id="result-text"></span>
         <div id="badges" style="margin-bottom: 10px;"></div>
-        <button type="button" onclick="resetUI()" style="background:none; border:none; color:var(--primary); cursor:pointer; text-decoration:underline; padding:0;">Clear and try another</button>
+        <button type="button" onclick="resetUI()">Clear</button>
     </div>
-</div>
+</div> </main> <div id="enable-app-guide"></div>
+<div id="footer-placeholder"></div>
 
 <script>
+    // ADD THIS: Load the sidebar and footer first
+    fetch("/sidebar/sidebar.html").then(r => r.text()).then(d => { 
+        document.getElementById("sidebar-placeholder").innerHTML = d; 
+    });
+
+    fetch("../footer.html").then(r => r.text()).then(d => { 
+        document.getElementById("footer-placeholder").innerHTML = d; 
+        const guide = document.getElementById('global-app-guide');
+        if (guide) guide.style.display = 'block';
+    });
 
 let typingTimer;
 let lastAlertedWord = ""; // Defined once at the top
@@ -135,7 +252,7 @@ function autoDetectPattern() {
     document.getElementById('result-card').style.display = 'none';
 
     const mode = document.getElementById('mode').value;
-    const word = document.getElementById('word').value.toLowerCase().trim();
+    const word = document.getElementById('grammar_query').value.toLowerCase().trim();
     if (!word) return;
 
     // STEP 1: "Guess" the pattern (Hard/Soft) immediately like before
@@ -199,11 +316,11 @@ function updateNounHelperVisibility(mode, word, isUnverified = false) {
 
 function handleModeChange() {
     const mode = document.getElementById('mode').value;
-    document.getElementById('word').value = ''; // Clear the input field
+    document.getElementById('grammar_query').value = ''; // Clear the input field
     document.getElementById('verb-options').classList.toggle('hidden-menu', mode !== 'verb');
     document.getElementById('noun-options').classList.toggle('hidden-menu', mode !== 'noun');
     // Ensure helper only shows for nouns and hide when switching modes
-    const word = document.getElementById('word').value;
+    const word = document.getElementById('grammar_query').value;
     updateNounHelperVisibility(mode, word);
     toggleGender();
     updatePersonLabels();
@@ -221,7 +338,7 @@ function toggleGender() {
 async function callPythonAPI(event) {
     if (event) event.preventDefault();
     const mode = document.getElementById('mode').value;
-    const word = document.getElementById('word').value.trim();
+    const word = document.getElementById('grammar_query').value.trim();
 
     // POP-UP CHECK: If helper box is visible, the word is unknown. Ask user.
     const isUnknown = !document.getElementById('noun-helper').classList.contains('hidden-menu');
@@ -322,16 +439,16 @@ function showResult(text, statusArray) {
 
 function resetUI() {
     document.getElementById('result-card').style.display = 'none';
-    document.getElementById('word').value = '';
+    document.getElementById('grammar_query').value = '';
     document.getElementById('unverified-warning').style.display = 'none';
     
     lastAlertedWord = ""; // Reset alert tracker
     
     updateNounHelperVisibility(document.getElementById('mode').value, '', false);
-    document.getElementById('word').focus();
+    document.getElementById('grammar_query').focus();
 }
 
-document.getElementById('word').addEventListener('keydown', (e) => { if (e.key === 'Enter') callPythonAPI(e); });
+document.getElementById('grammar_query').addEventListener('keydown', (e) => { if (e.key === 'Enter') callPythonAPI(e); });
    
    
 

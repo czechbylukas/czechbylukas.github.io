@@ -3,7 +3,11 @@
 
   <div id="footer-text">
 
-
+    <div id="global-app-guide" style="display: none; text-align: center; margin-bottom: 20px; padding: 10px; border-bottom: 1px solid #eee;">
+    <p style="font-size: 13px; color: #888; margin-bottom: 8px;">📲 Add HáCZech to your home screen:</p>
+    <a href="https://www.youtube.com/watch?v=9bO1X3HJj9I" target="_blank" style="margin-right: 15px; color: #007bff; font-weight: bold; text-decoration: none; font-size: 13px;">iPhone Guide</a>
+    <a href="https://www.youtube.com/watch?v=ImfF5l_bBzw" target="_blank" style="color: #28a745; font-weight: bold; text-decoration: none; font-size: 13px;">Android Guide</a>
+</div>
 
     ❤️ I build this site myself to help people learn Czech.  
     If you’d like to support my work, <a id="footer-link" href="/support.html">click here</a> or <a id="footer-link" href="https://calendly.com/ucitellukas/">book a lesson</a>.
@@ -22,4 +26,12 @@
          data-ad-format="auto"
          data-full-width-responsive="true"></ins>
   </div>
+
+  <script>
+  // This auto-activates the guide if the page "asks" for it
+  if (document.getElementById('enable-app-guide') || window.showAppGuide === true) {
+      document.getElementById('global-app-guide').style.display = 'block';
+  }
+</script>
+
 </footer>
