@@ -269,4 +269,5 @@ def declension_noun(lemma, case, number, is_animate=False, is_soft=False):
     if is_actually_irregular: status_badges.append("Irregular")
     status_badges.append(pattern_id)
 
-    return result, status_badges, False, is_actually_irregular, pattern_id
+    # Returns: result string, verified (bool), reflexive (bool), irregular (bool), pattern (str)
+    return result, (verified is True), False, is_actually_irregular, pattern_id

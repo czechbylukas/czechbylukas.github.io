@@ -39,9 +39,10 @@ def process_word():
         word = data.get('word')
         tense = data.get('tense')
         person = data.get('person')
-        number = data.get('number')
+        
         gender = data.get('gender')
         case = data.get('case')
+        number = data.get('number')
         is_animate = data.get('is_animate', False)
         is_soft = data.get('is_soft', False)
 
@@ -81,21 +82,20 @@ def process_word():
             result_text = res
 
         # --- UNIVERSAL BADGE LOGIC ---        
-        # 1. Verification Logic
-        found_unverified_string = "UNVERIFIED" in status_badges
-        
+        # 1. Verification (Green/Yellow)
         if ver is True:
-            # Only add the "VERIFIED" (True) badge if we haven't already flagged it as UNVERIFIED
-            if not found_unverified_string:
-                status_badges.append(True)
+            status_badges.append(True)        # JS will turn this Green (VERIFIED)
         else:
-            # If ver is False and we haven't added the label yet, add it now
-            if not found_unverified_string:
-                status_badges.append("UNVERIFIED")
+            status_badges.append("UNVERIFIED") # JS will turn this Yellow (GUESSED)
 
-        # 2. Irregularity Logic
+        # 2. Irregularity (Red)
         if irr is True:
-            status_badges.append("IRREGULAR")
+            status_badges.append("Irregular")
+
+        # 3. Number Badge
+        if number:
+            status_badges.append("Singular" if number == 'S' else "Plural")
+            
 
         # --- 4. SUCCESSFUL RESPONSE ---
         resp = jsonify({"result": result_text, "status": status_badges})
