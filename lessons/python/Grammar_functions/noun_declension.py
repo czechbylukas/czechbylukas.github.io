@@ -179,10 +179,13 @@ def declension_noun(lemma, case, number, is_animate=False, is_soft=False):
                 if over_row:
                     valid_values = [str(val).strip() for val in over_row 
                                     if val and str(val).lower() != 'nan' and str(val).strip() != ""]
-                    
                     if valid_values:
-                        result = ", ".join(valid_values)
-                        return result, True, False, True, pattern_id
+                     # Store the result but DON'T return yet
+                         result_override = ", ".join(valid_values)
+                         is_actually_irregular = True
+                    
+            
+            
             except Exception as e:
                 print(f"Override Error: {e}")
             finally:
@@ -234,25 +237,29 @@ def declension_noun(lemma, case, number, is_animate=False, is_soft=False):
    
 
     
-    # result_text with pattern badge, verified_status, is_reflexive, is_irregular
-    # --- 3. APPLY SUFFIX & CONSONANT SHIFTS ---
-    p_data = suffixes.get(pattern_id, suffixes['hrad'])
-    
-    if lemma.lower().endswith('um') and number == 'S':
-        if case in [1, 4, 5]: 
-            result = lemma
-        else:
-            suf = 'u' if case == 6 else p_data[number].get(case, '')
-            result = apply_consonant_shift(lemma, stem, suf, pattern_id, case, number)
+    # --- 3. APPLY SUFFIX ---
+     # Only run this if we DID NOT find an override result above
+    if 'result_override' in locals():
+        result = result_override
     else:
-        suf = p_data[number].get(case, '')
-        if '/' in suf:
-            parts = suf.split('/')
-            res1 = apply_consonant_shift(lemma, stem, parts[0], pattern_id, case, number)
-            res2 = apply_consonant_shift(lemma, stem, parts[1], pattern_id, case, number)
-            result = f"{res1}, {res2}"
+        p_data = suffixes.get(pattern_id, suffixes['hrad'])
+    
+        if lemma.lower().endswith('um') and number == 'S':
+
+            if case in [1, 4, 5]: 
+                result = lemma
+            else:
+                suf = 'u' if case == 6 else p_data[number].get(case, '')
+                result = apply_consonant_shift(lemma, stem, suf, pattern_id, case, number)
         else:
-            result = apply_consonant_shift(lemma, stem, suf, pattern_id, case, number)
+            suf = p_data[number].get(case, '')
+            if '/' in suf:
+                parts = suf.split('/')
+                res1 = apply_consonant_shift(lemma, stem, parts[0], pattern_id, case, number)
+                res2 = apply_consonant_shift(lemma, stem, parts[1], pattern_id, case, number)
+                result = f"{res1}, {res2}"
+            else:
+                result = apply_consonant_shift(lemma, stem, suf, pattern_id, case, number)
 
     # --- 4. ADD PREPOSITIONS ---
     prepositions = {1: "", 2: "bez", 3: "k", 4: "pro", 5: "voláme:", 6: "o", 7: "s"}

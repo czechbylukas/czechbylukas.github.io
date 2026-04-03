@@ -357,42 +357,36 @@ document.addEventListener("DOMContentLoaded", function() {
     const header = document.querySelector('header');
     
     if (header) {
-        const logoImg = document.createElement('img');
+        // 1. Create a Link Wrapper (This enables the "Open in new tab" right-click menu)
+        const logoLink = document.createElement('a');
+        logoLink.href = window.location.origin;
+        logoLink.id = 'dynamic-main-logo-link';
         
+        logoLink.style.cssText = `
+            position: absolute;
+            left: 20px;
+            top: 50%;
+            transform: translateY(-50%);
+            z-index: 100;
+            display: flex;
+            align-items: center;
+        `;
+
+        // 2. Create the Image
+        const logoImg = document.createElement('img');
         logoImg.src = '/images/hackczech-logo.png'; 
         logoImg.id = 'dynamic-main-logo';
         logoImg.title = "Go to Home";
         
         logoImg.style.cssText = `
-            position: absolute;
-            left: 20px;
-            top: 50%;
-            transform: translateY(-50%);
             width: 100px;
             height: auto;
             cursor: pointer;
-            z-index: 100;
-            pointer-events: auto;
         `;
 
-        // 1. Handle standard Left-Click
-        logoImg.addEventListener('click', function(e) {
-            // e.button === 0 is the left mouse button
-            if (e.button === 0) {
-                window.location.href = window.location.origin;
-            }
-        });
-
-        // 2. Handle Middle-Click (Scroll wheel)
-        logoImg.addEventListener('auxclick', function(e) {
-            // e.button === 1 is the middle mouse button
-            if (e.button === 1) {
-                window.open(window.location.origin, '_blank');
-                e.preventDefault(); // Prevents the autoscroll icon from appearing
-            }
-        });
-
-        header.prepend(logoImg);
+        // Put the image inside the link, then the link inside the header
+        logoLink.appendChild(logoImg);
+        header.prepend(logoLink);
     }
 });
 

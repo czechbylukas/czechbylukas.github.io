@@ -60,18 +60,30 @@
         </header>
 
         <div class="controls">
-            <input type="text" id="user-search" class="search-bar" placeholder="Search by name or email..." onkeyup="processUsers()">
-            <select id="filter-status" class="filter-select" onchange="processUsers()">
-                <option value="all">All Status</option>
-                <option value="paid">Paid Only</option>
-                <option value="pending">Pending Only</option>
-            </select>
-    
-    
-            <div style="display:flex; align-items:center; gap:5px; background:#f1f1f1; padding:5px 10px; border-radius:8px; border:1px solid #ccc;">
+    <input type="text" 
+           id="main-search-filter" 
+           name="random_search_field"
+           class="search-bar" 
+           placeholder="Search students..." 
+           onfocus="this.removeAttribute('readonly');" 
+           onkeyup="processUsers()" 
+           readonly 
+           autocomplete="off">
+
+    <select id="filter-status" class="filter-select" onchange="processUsers()">
+        <option value="all">All Status</option>
+        <option value="paid">Paid Only</option>
+        <option value="pending">Pending Only</option>
+    </select>
+
+    <div style="display:flex; align-items:center; gap:5px; background:#f1f1f1; padding:5px 10px; border-radius:8px; border:1px solid #ccc;">
         <label for="filter-time" style="font-size:0.8rem; font-weight:bold;">Min. Minutes:</label>
-        <input type="number" id="filter-time" class="filter-select" style="width:70px;" value="0" min="0" oninput="processUsers()">
+        <input type="number" id="filter-time" class="filter-select" 
+               style="width:70px;" value="0" min="0" 
+               oninput="processUsers()" 
+               autocomplete="off">
     </div>
+</div>
 
 
         </div>
@@ -167,8 +179,12 @@
 
     
     function processUsers() {
-        const searchTerm = document.getElementById('user-search').value.toLowerCase();
-        const filterVal = document.getElementById('filter-status').value;
+    // Update this line to match the new ID
+    const searchTerm = document.getElementById('main-search-filter').value.toLowerCase();
+    
+    const filterVal = document.getElementById('filter-status').value;
+    
+        
         // Get the actual number from the input
         const minMinutes = parseFloat(document.getElementById('filter-time').value) || 0; 
         
