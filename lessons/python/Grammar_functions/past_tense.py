@@ -95,11 +95,13 @@ def create_past_tense(lemma, person, gender, number):
                 
     # 3. Form the L-Participle (if not already set by overrides)
     if l_participle is None:
-        # Special handling for -nout verbs to ensure the 'nu' remains in the stem
-        if base_verb.endswith("nout"):
-            stem = base_verb[:-4] 
+        if base_verb.endswith("mout"):
+            stem = base_verb[:-4] + "mu"
+            is_actually_irregular = True 
+        elif base_verb.endswith("nout"):
+            stem = base_verb[:-1] 
         else:
-            stem = base_verb[:-1] # Remove 't'
+            stem = base_verb[:-1] 
             
         suffixes = {
             'S': {'M': 'l', 'Mi': 'l', 'F': 'la', 'N': 'lo'},

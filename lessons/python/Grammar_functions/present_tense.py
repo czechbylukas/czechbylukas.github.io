@@ -47,14 +47,18 @@ def create_present_tense(lemma, person, gender, number):
 
     try:
         cur = conn.cursor()
-        cur.execute("SELECT id, is_irr, irr_type, pos, pattern_id FROM words WHERE lemma = ?", (lemma_clean,))
+        cur.execute("SELECT id, is_irr, irr_type, pos, pattern_id, vid FROM words WHERE lemma = ?", (lemma_clean,))
         row = cur.fetchone()
 
         # --- 2. THE STRICT VERIFICATION CHECK ---
         if row and row[3] == 'verb':
-            is_verified = True  # Word is officially found in DB
-            word_id, db_is_irr, db_irr_type, _, pattern_id = row
+            is_verified = True
+            # Unpack the 6 columns (vid is the last one)
+            word_id, db_is_irr, db_irr_type, _, pattern_id, vid = row
             
+            # --- PERFECTIVE CHECK ---
+            if vid == 'perfective':
+                return f"The verb '{lemma}' is perfective (dokonavé). It has no present tense; these forms express the future.", is_verified, bool(is_reflexive), False
             # Clean numeric values from DB safely
             is_irr = int(float(db_is_irr)) if db_is_irr is not None else 0
             irr_type = int(float(db_irr_type)) if db_irr_type is not None else 0
