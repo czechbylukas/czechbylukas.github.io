@@ -1,6 +1,6 @@
 // --- GLOBAL FIREBASE CONFIG ---
 const firebaseConfig = {
-    apiKey: "AIzaSyAGCKtAQkj9bsrSpJ1IQWLAm_PA20vTluM",
+    apiKey: "AIzaSyDvZOaC5tYjw6pOQ5YBmjNqSwLvYjb5-g4",
     authDomain: "vocabsql-database.firebaseapp.com",
     databaseURL: "https://vocabsql-database-default-rtdb.europe-west1.firebasedatabase.app",
     projectId: "vocabsql-database",
