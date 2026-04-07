@@ -423,8 +423,8 @@ function getRandomWord() {
     document.getElementById('btn-container').style.display = 'flex';
     document.getElementById('reveal-next').style.display = 'none';
 
-    // 2. Permission Check
-    const isFreeLesson = (level === 'A0' && (lesson === '00 Užitečná slova' || lesson === '00 Essentials'));
+    // 2. Permission Check -> switched off. now all is free, but logged in
+    /*const isFreeLesson = (level === 'A0' && (lesson === '00 Užitečná slova' || lesson === '00 Essentials'));
     const isUserPaid = (window.userStatus === 'paid');
 
     if (!isFreeLesson && !isUserPaid) {
@@ -436,6 +436,22 @@ function getRandomWord() {
         }
         return; 
     }
+        */
+
+// 2. Permission Check -> Logged in users get everything for free
+const user = auth.currentUser;
+
+if (!user) {
+    // If NOT logged in, show the login overlay
+    document.getElementById('auth-overlay').style.display = 'flex';
+    document.getElementById('auth-title').innerText = "Please log in to use the Study Tool";
+    return; 
+}
+
+// Treat every logged-in user as a "paid" user for the sake of logic
+const isUserPaid = true;
+
+
 
     // 3. Build Query
     const posVal = document.getElementById('pos-select').value;
