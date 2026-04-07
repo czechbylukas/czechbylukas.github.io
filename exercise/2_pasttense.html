@@ -22,6 +22,7 @@
     <link rel="stylesheet" href="../css/style.css">
     <link rel="stylesheet" href="../css/practice.css">
     <link rel="stylesheet" href="../css/language-selector.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/sql.js/1.8.0/sql-wasm.js"></script>
 </head>
 
 <body class="vocab-page">
@@ -71,23 +72,31 @@
         .catch(error => console.error("Error loading footer:", error));
 </script>
 
-<script type="module">
-    import { vocab } from "../data/2_pasttense.js";
+<script>
+    async function initDatabase() {
+        try {
+            const sqlPromise = initSqlJs({ locateFile: file => `https://cdnjs.cloudflare.com/ajax/libs/sql.js/1.8.0/${file}` });
+            const dataPromise = fetch("../VocabSQL_database/czech_master.db").then(res => res.arrayBuffer());
+            const [SQL, buf] = await Promise.all([sqlPromise, dataPromise]);
+            const db = new SQL.Database(new Uint8Array(buf));
 
-    // Filter ONLY blocks 1 and 2 as requested
-    const filtered = vocab.filter(item => item.block === 1 || item.block === 2 || item.block === 3);
+            const query = "SELECT lemma, trans_en, trans_de, trans_es FROM words WHERE level = 'A1' AND lesson = '001 Minulý čas'";
+            const results = db.exec(query);
 
-    // Map to the format practice.js expects (global window.vocab)
-    window.vocab = filtered.map(item => ({
-        czech: item.czech,
-        english: item.english,
-        spanish: item.spanish,
-        german: item.german
-    }));
+            if (results.length > 0) {
+                window.vocab = results[0].values.map(row => ({
+                    czech: row[0],
+                    english: row[1],
+                    german: row[2],
+                    spanish: row[3]
+                }));
+            }
 
-    // Trigger game logic once data is ready
-    if (typeof initPractice === "function") initPractice();
-    else if (typeof renderCard === "function") renderCard();
+            if (typeof initPractice === "function") initPractice();
+            else if (typeof renderCard === "function") renderCard();
+        } catch (err) { console.error("Database error:", err); }
+    }
+    initDatabase();
 </script>
 
 <script src="../js/translations.js"></script>

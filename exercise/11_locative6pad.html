@@ -25,6 +25,7 @@
   <link rel="stylesheet" href="../css/style.css">
   <link rel="stylesheet" href="../css/practice.css">
   <link rel="stylesheet" href="../css/language-selector.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/sql.js/1.8.0/sql-wasm.js"></script>
 </head>
 
 <body class="vocab-page">
@@ -83,8 +84,34 @@
 
 
 
-<!-- Vocabulary data -->
-<script src="../data/11_locative6pad.js"></script>
+<script>
+  async function initDatabase() {
+    try {
+      const sqlPromise = initSqlJs({ locateFile: file => `https://cdnjs.cloudflare.com/ajax/libs/sql.js/1.8.0/${file}` });
+      const dataPromise = fetch("../VocabSQL_database/czech_master.db").then(res => res.arrayBuffer());
+      const [SQL, buf] = await Promise.all([sqlPromise, dataPromise]);
+      const db = new SQL.Database(new Uint8Array(buf));
+
+      // Updated query for Locative Case
+      const query = "SELECT lemma, trans_en, trans_de, trans_es FROM words WHERE level = 'A1' AND lesson = '010 Lokál / 6. pád'";
+      const results = db.exec(query);
+
+      if (results.length > 0) {
+        window.vocab = results[0].values.map(row => ({
+          czech: row[0],
+          english: row[1],
+          german: row[2],
+          spanish: row[3]
+        }));
+      }
+
+      // Trigger the practice logic
+      if (typeof initPractice === "function") initPractice();
+      else if (typeof renderCard === "function") renderCard();
+    } catch (err) { console.error("Database error:", err); }
+  }
+  initDatabase();
+</script>
 
 <!-- Translations -->
 <script src="../js/translations.js"></script>
