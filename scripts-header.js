@@ -41,7 +41,7 @@ async function applyAccessControl(user) {
     let authIcon = document.getElementById('auth-icon'); // Added 'let' here
 
     // 1. Logic to show/hide the overlay container
-    if (!user || window.isLoginOnlyPage || window.isPremiumPage) {
+    if (window.isLoginOnlyPage || window.isPremiumPage) {
         ensureAuthOverlay();
     }
 
@@ -461,6 +461,7 @@ window.handleAuth = async function() {
             });
             alert("Account created. Please ask Lukas for premium approval.");
         } else {
+            await firebase.auth().setPersistence(firebase.auth.Auth.Persistence.LOCAL);
             await firebase.auth().signInWithEmailAndPassword(email, pass);
         }
     } catch (e) { alert(e.message); }
