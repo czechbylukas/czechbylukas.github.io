@@ -94,6 +94,9 @@
 
 
 <main style="display: flex; flex-wrap: wrap; justify-content: center; gap: 20px; padding: 20px;">
+    
+    
+
     <aside id="study-filters" style="width: 250px; background: rgba(255,255,255,0.9); padding: 20px; border-radius: 12px; border: 2px solid #2c3e50; height: fit-content;">
         <h3 style="margin-top:0;">Filters (Optional)</h3>
         
@@ -107,11 +110,10 @@
             <option value="all">All Types</option>
         </select>
 
-        <label>Category:</label>
-        <select id="category-select" class="sync" style="padding: 8px; width: 100%; margin-bottom: 15px; border-radius: 5px;" onchange="getRandomWord()">
-            <option value="all">All Categories</option>
-        </select>
-
+<div style="margin-top: 15px; display: flex; align-items: center; gap: 8px;">
+    <input type="checkbox" id="audio-toggle" checked style="width: 18px; height: 18px; cursor: pointer;">
+    <label for="audio-toggle" style="cursor: pointer; font-weight: bold; color: #2c3e50;">Přehrát zvuk (Audio)</label>
+</div>
 
 
 <div id="char-picker" style="margin-top: 10px; display: flex; flex-wrap: wrap; gap: 8px; color: #2c3e50;">
@@ -121,16 +123,7 @@
         });
 
 
-// ADD THIS TO THE BOTTOM OF YOUR SCRIPT SECTION
-function insertChar(char) {
-    const input = document.getElementById('word-guess-box');
-    const start = input.selectionStart;
-    const end = input.selectionEnd;
-    input.setRangeText(char, start, end, 'end');
-    input.focus();
-    input.dispatchEvent(new Event('input', { bubbles: true }));
 
-}
     </script>
 </div>
 
@@ -370,19 +363,53 @@ sortedRows.forEach(row => {
             posSelect.innerHTML = optionsHtml;
         }
 
-// --- DYNAMICALLY LOAD CATEGORY (COLUMN K) ---
-        const catRes = db.exec("SELECT DISTINCT category FROM words WHERE category IS NOT NULL AND category != '' AND category != 'TBD' ORDER BY category ASC");
-        if(catRes[0]) {
-            const catSelect = document.getElementById('category-select');
-            catRes[0].values.sort().forEach(row => {
-                catSelect.innerHTML += `<option value="${row[0]}">${row[0]}</option>`;
-            });
-        }
 
     } catch (err) { 
         console.error("Database Error:", err); 
     }
 }
+
+
+
+
+function speakCzech(text, callback) {
+    const isAudioOn = document.getElementById('audio-toggle').checked;
+
+    // If audio is OFF or speech is not supported, just skip to the next step
+    if (!isAudioOn || !window.speechSynthesis) {
+        if (callback) callback();
+        return;
+    }
+
+    if (!text.includes('/')) {
+        const utterance = new SpeechSynthesisUtterance(text);
+        utterance.lang = 'cs-CZ';
+        utterance.rate = 0.9;
+        if (callback) utterance.onend = callback;
+        window.speechSynthesis.cancel();
+        window.speechSynthesis.speak(utterance);
+        return;
+    }
+
+    const mascText = text.replace(/\/([a-zA-ZžščřďťňěáéíýóúůŽŠČŘĎŤŇĚÁÉÍÝÓÚŮ]+)/g, "");
+    const femText = text.replace(/\//g, "");
+
+    const msgMasc = new SpeechSynthesisUtterance(mascText);
+    msgMasc.lang = 'cs-CZ';
+    msgMasc.rate = 0.9;
+
+    const msgFem = new SpeechSynthesisUtterance(femText);
+    msgFem.lang = 'cs-CZ';
+    msgFem.rate = 0.9;
+
+    if (callback) msgFem.onend = callback;
+
+    window.speechSynthesis.cancel();
+    window.speechSynthesis.speak(msgMasc);
+    window.speechSynthesis.speak(msgFem);
+}
+
+
 
 
 
@@ -455,7 +482,6 @@ const isUserPaid = true;
 
     // 3. Build Query
     const posVal = document.getElementById('pos-select').value;
-    const catVal = document.getElementById('category-select').value;
     let filterClause = "";
     
     // Replace your current posVal logic with this:
@@ -467,7 +493,6 @@ if (posVal !== "all") {
     }
 }
 
-    if (catVal !== "all") filterClause += ` AND category = '${catVal}'`;
     let lessonClause = (lesson === "ALL_LESSONS") ? "" : `AND lesson='${lesson}'`;
 
     // Change the SELECT to include 'vid_pair' (Column M)
@@ -506,6 +531,9 @@ currentWord = {
         
         document.getElementById('english-word').innerText = s[1];
         
+
+
+
         // Show synonym if it exists
         const displayWord = currentWord.synonym ? `${s[0]} / ${s[4]}` : s[0];
         document.getElementById('czech-word').innerText = displayWord;
@@ -576,6 +604,7 @@ function evaluateTyping() {
 
     if (isCorrect) {
         document.getElementById('success-msg').innerText = "Výborně!";
+        speakCzech(currentWord.czech); // Play audio on success
         showAnswerInUI();
         adjustWeight(-1);
         setTimeout(getRandomWord, 1200);
@@ -613,10 +642,25 @@ function showAnswerInUI() {
 
 
    function showAnswer(penalty) {
-    showAnswerInUI(); // Uses the new helper above
+    showAnswerInUI(); 
     document.getElementById('btn-container').style.display = 'none';
-    document.getElementById('reveal-next').style.display = 'block';
-    if(currentWord.audio) new Audio(currentWord.audio).play().catch(()=>{});
+    const nextBtn = document.getElementById('reveal-next');
+    nextBtn.style.display = 'none';
+
+    const isAudioOn = document.getElementById('audio-toggle').checked;
+
+    // If there is an MP3 file AND audio is ON
+    if(currentWord.audio && isAudioOn) {
+        let audio = new Audio(currentWord.audio);
+        audio.onended = () => { nextBtn.style.display = 'block'; };
+        audio.play().catch(() => { nextBtn.style.display = 'block'; });
+    } 
+    // If no MP3 or audio is OFF, use the speakCzech logic (which now handles the OFF toggle)
+    else {
+        speakCzech(currentWord.czech, () => {
+            nextBtn.style.display = 'block';
+        });
+    }
     adjustWeight(penalty);
 }
 
@@ -627,18 +671,22 @@ function updateWeight(choice) {
     const hasTyped = inputField.value.trim().length > 0;
 
     if (choice === 'yes') {
-        // If they clicked "UMÍM" but actually typed something
         if (hasTyped) {
-            evaluateTyping(); // This will check if their typing is correct
+            evaluateTyping(); 
         } else {
-            // Standard "I knew it" behavior (empty box)
             document.getElementById('success-msg').innerText = "Správně!";
             showAnswerInUI();
             adjustWeight(-1);
-            setTimeout(getRandomWord, 1200);
+
+            // Hide the buttons immediately so they can't double-click
+            document.getElementById('btn-container').style.display = 'none';
+
+            // Speak, then trigger the new word only when finished
+            speakCzech(currentWord.czech, () => {
+                setTimeout(getRandomWord, 500); // 0.5s pause after speaking for comfort
+            });
         }
     } else {
-        // choice === 'no'
         recordMistake(currentWord.czech);
         showAnswer(1);
     }
@@ -709,6 +757,16 @@ function loadAdsSafely() {
 
 
 
+// ADD THIS TO THE BOTTOM OF YOUR SCRIPT SECTION
+function insertChar(char) {
+    const input = document.getElementById('word-guess-box');
+    const start = input.selectionStart;
+    const end = input.selectionEnd;
+    input.setRangeText(char, start, end, 'end');
+    input.focus();
+    input.dispatchEvent(new Event('input', { bubbles: true }));
+
+}
 
 
 
