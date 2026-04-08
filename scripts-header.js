@@ -257,13 +257,15 @@ script.src = 'https://www.googletagmanager.com/gtag/js?id=G-1BCW5XQ0X5';
 document.head.appendChild(script);
 
 gtag('js', new Date());
-(function() {
+
+// Wrap the config in an event listener so it waits for the title to exist
+document.addEventListener("DOMContentLoaded", function() {
     const gaLang = (localStorage.getItem("selectedLanguage") || "en").toLowerCase();
     gtag('config', 'G-1BCW5XQ0X5', {
         'language_code': gaLang,
-        'page_title': '[' + gaLang.toUpperCase() + '] ' + document.title
+        'page_title': '[' + gaLang.toUpperCase() + '] ' + (document.title || "Untitled Page")
     });
-})();
+});
 
 // 3. COOKIE BANNER LOGIC
 document.addEventListener("DOMContentLoaded", function() {
