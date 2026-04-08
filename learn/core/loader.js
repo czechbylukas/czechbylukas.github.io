@@ -159,6 +159,11 @@ export class GameEngine {
                     mat.startMatchGame(state);
                     break;
 
+                case "whatDidYouHear":
+                    const wdyh = await import("../games/whatDidYouHear.js");
+                    wdyh.startWhatDidYouHear(state);
+                    break;  
+
                 case "speedClick":
                     const sc = await import("../games/speedClick.js");
                     sc.startSpeedClick(state);

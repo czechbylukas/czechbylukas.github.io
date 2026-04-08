@@ -25,7 +25,8 @@ export const gameMapping = {
     "pexeso": { exclude: { pos: ["verb", "noun", "adjective", "adj", "pronoun", "adverb", "prefix", "prepostition", "preposition", "Phrase", "number"], lessons: [] } },
     "match": { exclude: { pos: [], lessons: [] } },
     "writeAnswer": { exclude: { pos: ["verb", "noun", "adjective", "adj", "pronoun", "adverb", "prefix", "prepostition", "preposition", "Phrase", "number"], lessons: [] } },
-    "speedClick": { exclude: { pos: [], lessons: [] } },
+    "whatDidYouHear": { exclude: { pos: [], lessons: [] } },
+    "speedClick": { exclude: { pos: [], lessons: [] } },
     "fallingWords": { exclude: { pos: ["verb", "noun", "adjective", "adj", "pronoun", "adverb", "prefix", "prepostition", "preposition", "Phrase", "number"], lessons: [] } },
     "sentenceBuilder": { exclude: { pos: ["verb", "noun", "adjective", "adj", "pronoun", "adverb", "prefix", "prepostition", "preposition", "Phrase", "number"], lessons: [] } },
     
@@ -36,14 +37,8 @@ export const gameMapping = {
             "pronoun", "adverb", "prefix", 
             "prepostition", "preposition", "Phrase", "number"], // Hide for non-number topics
             lessons: [] 
-        } 
-    },
-    "whatDidYouHear": { 
-        exclude: { 
-            pos: ["verb", "noun", "adjective", "adj", 
-            "pronoun", "adverb", "prefix", 
-            "prepostition", "preposition", "Phrase", "number"], 
-            lessons: ["Basic Vocabulary 1"] // Hide if audio isn't ready for this lesson
+
+
         } 
     }
 };
