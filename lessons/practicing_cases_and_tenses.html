@@ -174,6 +174,11 @@
     </script>
 </div>
 
+    <div style="margin: 15px 0; display: flex; align-items: center; justify-content: center; gap: 8px;">
+    <input type="checkbox" id="audio-toggle" checked style="width: 18px; height: 18px; cursor: pointer;">
+    <label for="audio-toggle" style="cursor: pointer; font-weight: bold; color: #2c3e50;">Přehrát zvuk (Audio)</label>
+</div>
+
         <div id="verb-options" class="row-triple hidden-menu">
             <select id="tense" onchange="toggleGender()">
                 <option value="past">Past</option>
@@ -238,7 +243,7 @@
     </div>
 
     <div id="result-card">
-        <span id="result-text"></span>
+        <span id="result-text" onclick="speakCzech(this.innerText)" style="cursor: pointer;" title="Click to replay"></span>
         <div id="badges" style="margin-bottom: 10px;"></div>
         <button type="button" onclick="resetUI()">Clear</button>
     </div>
@@ -259,6 +264,8 @@
 
 let typingTimer;
 let lastAlertedWord = ""; // Defined once at the top
+
+
 
 function autoDetectPattern() {
     // Hide result card as soon as the user starts typing
@@ -411,6 +418,8 @@ async function callPythonAPI(event) {
 }
 
 function showResult(text, statusArray) {
+    speakCzech(text);
+
     const card = document.getElementById('result-card');
     card.style.display = 'block';
     document.getElementById('result-text').innerText = text;
@@ -509,6 +518,18 @@ function insertChar(char) {
 }
 
 
+
+
+function speakCzech(text) {
+    const isAudioOn = document.getElementById('audio-toggle').checked;
+    if (!isAudioOn || !window.speechSynthesis) return;
+
+    const utterance = new SpeechSynthesisUtterance(text);
+    utterance.lang = 'cs-CZ';
+    utterance.rate = 0.9;
+    window.speechSynthesis.cancel(); // Stops any current speech
+    window.speechSynthesis.speak(utterance);
+}
 
 
 </script>

@@ -35,7 +35,7 @@
         .char-btn { display: inline-block; min-width: 35px; padding: 10px; background: #eee; border: 1px solid #ccc; border-radius: 5px; cursor: pointer; margin: 2px; font-weight: bold; }
         #history-log { width: 100%; max-width: 600px; margin: 30px auto; text-align: left; background: white; padding: 15px; border-radius: 10px; border: 2px solid #d9e3ff; }
         .badge-irr { background: #ff9f43; color: white; font-size: 10px; padding: 2px 6px; border-radius: 4px; margin-left: 8px; vertical-align: middle; text-transform: uppercase; font-weight: bold; }
-
+        
         /* Auth Overlay styling */
         #auth-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.8); display: none; justify-content: center; align-items: center; z-index: 2000; }
         
@@ -76,16 +76,23 @@
 
 <main class="main-layout">
     <div id="student-view">
+
+        <div style="margin-bottom: 15px; display: flex; align-items: center; justify-content: center; gap: 8px;">
+    <input type="checkbox" id="audio-toggle" checked style="width: 18px; height: 18px; cursor: pointer;">
+    <label for="audio-toggle" style="cursor: pointer; font-weight: bold; color: #2f52b5;">Přehrát zvuk (Audio)</label>
+</div>
+
+
         <div class="gender-box">
             <label style="font-weight: bold; margin-right: 10px;">Jsem:</label>
             <select id="gender-switch" onchange="handleGenderChange()" style="padding: 10px; font-size: 18px; border-radius: 8px; border: 2px solid #2f52b5;">
                 <option value="" disabled selected>Vyber...</option>
                 <option value="M">Muž (L)</option>
                 <option value="F">Žena (LA)</option>
-                <option value="N">Střední (LO)</option>
-                <option value="Pl">Množné, M (LI)</option>
-                <option value="PlFem">Množné, Ž (LY)</option>
-                <option value="PlN">Množné, S (LA)</option>
+                <option value="N" style="color: #888;">Střední (LO)</option>
+                <option value="Pl">Množné - Mužský, životný (LI)</option>
+                <option value="PlFem" style="color: #888;">Množné - Ženský + Mužský, neživotné (LY)</option>
+                <option value="PlN" style="color: #888;">Množné - Střední (LA)</option>
             </select>
             <span id="verb-info-display" style="margin-left: 20px; font-size: 22px; color: #333;"></span>
         </div>
@@ -105,7 +112,7 @@
 
         <div id="lesson-section" style="display:none;">
             <div id="sentence-display"></div>
-            <div id="answer-display"></div>
+            <div id="answer-display" onclick="speakCzech(this.innerText)" style="cursor: pointer;" title="Klikni pro zopakování"></div>
             <button id="next-step-btn" class="btn-main" onclick="nextStep()">Odpovědět (Krok 1)</button>
         </div>
 
@@ -343,6 +350,11 @@ async function getRandomVerbFromDB() {
             let finalStem = currentVerbStem;
             if (finalStem.endsWith("še") && g !== 'M') finalStem = finalStem.slice(0, -1);
             answerDiv.innerHTML += reflex ? ` <span class="blue-bold">${reflex}</span> ${finalStem}<span class="blue-bold">${endings[g]}</span>.` : ` ${finalStem}<span class="blue-bold">${endings[g]}</span>.`;
+            
+            speakCzech(answerDiv.innerText);
+
+            nextBtn.innerText = "Další sloveso";
+            
             nextBtn.innerText = "Další sloveso";
             step = 4;
         } 
@@ -393,6 +405,23 @@ async function getRandomVerbFromDB() {
     });
 
     initDatabase();
+
+
+
+function speakCzech(text) {
+    const isAudioOn = document.getElementById('audio-toggle').checked;
+    if (!isAudioOn || !window.speechSynthesis) return;
+
+    const utterance = new SpeechSynthesisUtterance(text);
+    utterance.lang = 'cs-CZ';
+    utterance.rate = 0.9;
+    window.speechSynthesis.cancel(); // Stops any current speech
+    window.speechSynthesis.speak(utterance);
+}
+
+
+
+
 </script>
 
 
