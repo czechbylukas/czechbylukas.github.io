@@ -1,3 +1,10 @@
+
+// Disable Google Translate Auto-Popup
+const metaNoTranslate = document.createElement('meta');
+metaNoTranslate.name = "google";
+metaNoTranslate.content = "notranslate";
+document.head.appendChild(metaNoTranslate);
+
 // --- GLOBAL FIREBASE CONFIG ---
 const firebaseConfig = {
     apiKey: "AIzaSyDvZOaC5tYjw6pOQ5YBmjNqSwLvYjb5-g4",
