@@ -23,18 +23,26 @@ export function startGame(state) {
     // Prepare wrong options
     let wrongOptions = [];
     if (state.data && state.data.length > 0) {
-      wrongOptions = state.data
+      const normalizedCorrect = normalize(correct);
+      const normalizedSynonym = normalize(currentSynonym);
+      const correctWordCount = correct.split(" ").length;
+
+      // 1. Filter out exact matches (answers/synonyms)
+      const pool = state.data
         .map(item => item.cs)
         .filter(word => {
-            const normalizedWord = normalize(word);
-            const normalizedCorrect = normalize(correct);
-            const normalizedSynonym = normalize(currentSynonym);
-
-            // 1. Exclude the correct answer
-            // 2. Exclude the synonym of the correct answer
-            return normalizedWord !== normalizedCorrect && 
-                   (normalizedSynonym === "" || normalizedWord !== normalizedSynonym);
+          const n = normalize(word);
+          return n !== normalizedCorrect && (normalizedSynonym === "" || n !== normalizedSynonym);
         });
+
+      // 2. Prioritize similar length (e.g., sentences with sentences)
+      wrongOptions = pool.filter(word => Math.abs(word.split(" ").length - correctWordCount) <= 2);
+
+      // 3. Fallback: If not enough similar options, add anything else from the pool
+      if (wrongOptions.length < 3) {
+        const remaining = pool.filter(word => !wrongOptions.includes(word));
+        wrongOptions = [...wrongOptions, ...remaining];
+      }
     }
 
     // Pick up to 3 random wrong options
