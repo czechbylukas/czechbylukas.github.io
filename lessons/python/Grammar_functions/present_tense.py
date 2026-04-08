@@ -2,6 +2,7 @@ import sqlite3
 import os
 import csv
 from datetime import datetime
+from .prefix_function import is_likely_perfective
 
 def log_error(lemma, word_id, person_num, error_type):
     """Appends a report to grammar_errors.csv inside the Grammar_functions folder."""
@@ -12,6 +13,7 @@ def log_error(lemma, word_id, person_num, error_type):
     file_exists = os.path.isfile(log_file)
     timestamp = datetime.now().strftime("%Y-%m-%d %H:%M")
     
+
     headers = ['Timestamp', 'Lemma', 'Word_ID', 'Person_Number', 'Error_Type']
     
     with open(log_file, 'a', newline='', encoding='utf-8') as f:
@@ -54,41 +56,42 @@ def create_present_tense(lemma, person, gender, number, tense="present"):
         # --- 2. THE STRICT VERIFICATION CHECK ---
         if row and row[3] == 'verb':
             is_verified = True
-            # Unpack the 6 columns (vid is the last one)
+            # Unpack the columns
             word_id, db_is_irr, db_irr_type, _, pattern_id, vid = row
-            
-            # 2. PERFECTIVE LOGIC 
-            # We don't return early anymore; we just identify it
             is_perfective = (vid == 'perfective')
-            
-            # If user wants PRESENT but verb is perfective, block it and return early
-            if is_perfective and tense == "present":
-                return f"The verb '{lemma}' is perfective and has no present form.", is_verified, bool(is_reflexive), False
-            
-
-            # Clean numeric values from DB safely
+            # Clean numeric values ONLY if found in DB
             is_irr = int(float(db_is_irr)) if db_is_irr is not None else 0
             irr_type = int(float(db_irr_type)) if db_irr_type is not None else 0
+        else:
+            # Word not in DB: use prefix guessing logic
+            is_verified = False
+            is_perfective = is_likely_perfective(lemma_clean)
+            is_irr = 0
+            irr_type = 0
 
-            # --- 3. IRREGULAR LOGIC ---
-            if is_irr == 1 and irr_type in [1, 3, 6]:
-                col_map = {'1S':'ja_present', '2S':'ty_present', '3S':'on_present', 
-                           '1P':'my_present', '2P':'vy_present', '3P':'oni_present'}
-                person_num = f"{person}{number}"
-                target_col = col_map.get(person_num)
+        # If user wants PRESENT but verb is perfective (found or guessed), block it
+        if is_perfective and tense == "present":
+            return f"The verb '{lemma}' is perfective and has no present form.", is_verified, bool(is_reflexive), False
+            
+        # --- 3. IRREGULAR LOGIC ---
+        if is_irr == 1 and irr_type in [1, 3, 6]:
+            col_map = {'1S':'ja_present', '2S':'ty_present', '3S':'on_present', 
+                        '1P':'my_present', '2P':'vy_present', '3P':'oni_present'}
+            person_num = f"{person}{number}"
+            target_col = col_map.get(person_num)
 
-                cur.execute(f"SELECT {target_col} FROM overrides WHERE word_id = ?", (word_id,))
-                over_row = cur.fetchone()
-                
-                val = str(over_row[0]).strip() if over_row and over_row[0] else ""
-                
-                if val and val.lower() != "nan":
-                    present_form = val
-                    is_actually_irregular = True
-                else:
-                    # Log it, but DON'T return. 
-                    # Let the code move to 'Step 4. FALLBACK' automatically.
-                    log_error(lemma_clean, word_id, person_num, f"Missing {target_col}")
+            cur.execute(f"SELECT {target_col} FROM overrides WHERE word_id = ?", (word_id,))
+            over_row = cur.fetchone()
+            
+            val = str(over_row[0]).strip() if over_row and over_row[0] else ""
+            
+            if val and val.lower() != "nan":
+                present_form = val
+                is_actually_irregular = True
+            else:
+                # Log it, but DON'T return. 
+                # Let the code move to 'Step 4. FALLBACK' automatically.
+                log_error(lemma_clean, word_id, person_num, f"Missing {target_col}")
                     
     finally:
         conn.close()

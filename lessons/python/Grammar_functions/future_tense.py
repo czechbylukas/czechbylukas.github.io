@@ -1,6 +1,8 @@
 import sqlite3
 import os
 from .present_tense import create_present_tense, log_error
+from .prefix_function import is_likely_perfective
+
 
 def create_future_tense(lemma, person, gender, number):
     # 1. Cleaning
@@ -12,16 +14,13 @@ def create_future_tense(lemma, person, gender, number):
     if not base_verb.endswith("t"):
         return "Not a verb", None, False, False
 
-    # --- HARD OVERRIDES (Fixes 'jít' and 'udělat' regardless of DB) ---
+    # --- HARD OVERRIDES (Fixes 'jít' regardless of DB) ---
     if base_verb == "jít":
         pres, _, _, _ = create_present_tense(lemma, person, gender, number)
         # Manually transform 'jdu' -> 'půjdu', 'jdeš' -> 'půjdeš'
         future_form = pres.replace("jd", "půjd")
         return future_form, "Aspect: imperfective (Movement)", True, False
 
-    if base_verb == "udělat":
-        # Force 'udělat' to just use the present tense conjugation
-        return create_present_tense(lemma, person, gender, number)
     # -----------------------------------------------------------------
 
     # 2. Database Lookup
@@ -41,29 +40,36 @@ def create_future_tense(lemma, person, gender, number):
         row = cur.fetchone() # Only call this ONCE.
 
         if not row:
-            conn.close()
-            aux_map = {'1S':'budu', '2S':'budeš', '3S':'bude', '1P':'budeme', '2P':'budete', '3P':'budou'}
-            aux = aux_map.get(person_num, "bude")
-            # Change the second value to "Unknown" so it doesn't trigger the "UNVERIFIED" logic twice
-            return f"{aux} {lemma}", "Aspect: unknown", False, False
+            # Word not in DB: use prefix logic to decide aspect
+            if is_likely_perfective(base_verb):
+                vid_clean = 'perfective'
+                category = None
+            else:
+                # If not a known perfective prefix, use standard "budu" logic
 
-        # Now 'row' actually has the data
-        word_id, is_irr, irr_type, vid, category = row
-        vid_clean = str(vid).strip().lower()
-        
-        # 3. IRREGULAR LOGIC (from overrides table)
-        if int(float(is_irr or 0)) == 1:
-            col_map = {'1S':'ja_future', '2S':'ty_future', '3S':'on_future', 
-                       '1P':'my_future', '2P':'vy_future', '3P':'oni_future'}
-            target_col = col_map.get(person_num)
-            
-            cur.execute(f"SELECT {target_col} FROM overrides WHERE word_id = ?", (word_id,))
-            over_row = cur.fetchone()
-            if over_row and over_row[0] and str(over_row[0]).lower() != "nan":
-                res = str(over_row[0]).strip()
                 conn.close()
-                # ENSURE THESE ARE True, True:
-                return res, f"Aspect: {vid_clean}", True, True
+                aux_map = {'1S':'budu', '2S':'budeš', '3S':'bude', '1P':'budeme', '2P':'budete', '3P':'budou'}
+                aux = aux_map.get(person_num, "bude")
+                # Change the second value to "Unknown" so it doesn't trigger the "UNVERIFIED" logic twice
+                return f"{aux} {lemma}", "Aspect: unknown", False, False
+        else:
+            # Now 'row' actually has the data
+            word_id, is_irr, irr_type, vid, category = row
+            vid_clean = str(vid).strip().lower()
+            
+            # 3. IRREGULAR LOGIC (from overrides table)
+            if int(float(is_irr or 0)) == 1:
+                col_map = {'1S':'ja_future', '2S':'ty_future', '3S':'on_future', 
+                        '1P':'my_future', '2P':'vy_future', '3P':'oni_future'}
+                target_col = col_map.get(person_num)
+                
+                cur.execute(f"SELECT {target_col} FROM overrides WHERE word_id = ?", (word_id,))
+                over_row = cur.fetchone()
+                if over_row and over_row[0] and str(over_row[0]).lower() != "nan":
+                    res = str(over_row[0]).strip()
+                    conn.close()
+                    # ENSURE THESE ARE True, True:
+                    return res, f"Aspect: {vid_clean}", True, True
 
 
         conn.close()
@@ -74,8 +80,10 @@ def create_future_tense(lemma, person, gender, number):
     # 4. GENERAL LOGIC
     # A) PERFECTIVE (e.g. koupit -> koupím)
     if vid_clean == 'perfective':
-        res, ver, refl, irr = create_present_tense(lemma, person, gender, number)
-        return res, f"Aspect: {vid_clean}", ver, irr  # Pass 'ver' back to app.py!
+        # We tell create_present_tense that we are doing "future" work
+        # This prevents the "The verb is perfective..." error message.
+        res, ver, refl, irr = create_present_tense(lemma, person, gender, number, tense="future")
+        return res, f"Aspect: {vid_clean}", ver, irr
     
     # B) MOVEMENT (e.g. jet -> pojedu)
     elif vid_clean == 'movement' or category == 'motion':

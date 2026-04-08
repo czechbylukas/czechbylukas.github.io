@@ -119,6 +119,30 @@
 <div id="footer-placeholder"></div>
 
 <script>
+    // 1. FETCH THE SIDEBAR
+fetch("/sidebar/sidebar.html")
+    .then(response => response.text())
+    .then(data => {
+        document.getElementById("sidebar-placeholder").innerHTML = data;
+    })
+    .catch(err => console.error("Sidebar failed to load:", err));
+
+// 2. FETCH THE FOOTER
+fetch("../footer.html")
+    .then(r => r.text())
+    .then(d => { 
+        document.getElementById("footer-placeholder").innerHTML = d; 
+
+        // Direct target: turn on the guide inside the fetched footer
+        const guide = document.getElementById('global-app-guide');
+        if (guide) {
+            guide.style.display = 'block';
+        }
+    })
+    .catch(err => console.error("Footer load failed", err));
+
+
+
     let db = null;
     let currentVerb = "";
     let currentVerbStem = "";
@@ -303,13 +327,13 @@ async function getRandomVerbFromDB() {
         if (step === 1) {
             answerDiv.innerText = day.charAt(0).toUpperCase() + day.slice(1);
             let nextAux = (g === 'PlN') ? "(__)" : (g.startsWith('Pl') ? "jsme" : "jsem");
-            nextBtn.innerText = `Krok 2 (+ ${nextAux})`;
+            nextBtn.innerText = `Krok 2 (+ modální sloveso)`;
             step = 2;
         } 
         else if (step === 2) {
             const aux = (g === 'PlN') ? '<span style="color:#999">__</span>' : (g.startsWith('Pl') ? "jsme" : "jsem");
             answerDiv.innerHTML += ` <span class="blue-bold">${aux}</span>`;
-            nextBtn.innerText = "Krok 3 (příčestí)";
+            nextBtn.innerText = "Krok 3 (příčestí minulé)";
             step = 3;
         } 
         else if (step === 3) {
@@ -372,8 +396,6 @@ async function getRandomVerbFromDB() {
 </script>
 
 
-<script src="../js/translations.js"></script>
-<script src="../js/language-selector.js"></script>
 
 
 </body>

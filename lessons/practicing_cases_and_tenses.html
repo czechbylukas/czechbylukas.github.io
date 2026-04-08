@@ -161,6 +161,19 @@
            role="presentation">
 </div>
 
+<div id="char-picker" style="margin: -5px 0 15px 0; display: flex; flex-wrap: wrap; gap: 5px; justify-content: center;">
+    <script>
+        ['ž','š','č','ř','ď','ť','ň','ě','á','é','í','ý','ó','ú','ů'].forEach(char => {
+            document.write(`
+                <span onclick="insertChar('${char}')" 
+                      style="cursor:pointer; padding: 4px 8px; background: #fff; border-radius: 6px; 
+                             font-weight: bold; border: 1px solid var(--border); font-size: 14px; color: var(--primary);">
+                    ${char}
+                </span>`);
+        });
+    </script>
+</div>
+
         <div id="verb-options" class="row-triple hidden-menu">
             <select id="tense" onchange="toggleGender()">
                 <option value="past">Past</option>
@@ -473,6 +486,26 @@ function updatePersonLabels() {
     Array.from(personSelect.options).forEach((opt, i) => {
         opt.text = labels[i];
     });
+}
+
+
+
+
+
+// Function to insert special characters into the grammar query input
+function insertChar(char) {
+    const input = document.getElementById('grammar_query');
+    const start = input.selectionStart;
+    const end = input.selectionEnd;
+    
+    // Insert character at cursor position
+    input.setRangeText(char, start, end, 'end');
+    
+    // Return focus to the input
+    input.focus();
+    
+    // Trigger the input event so autoDetectPattern() runs
+    input.dispatchEvent(new Event('input', { bubbles: true }));
 }
 
 
