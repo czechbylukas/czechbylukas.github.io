@@ -84,18 +84,19 @@
 
 
         <div class="gender-box">
-            <label style="font-weight: bold; margin-right: 10px;">Jsem:</label>
-            <select id="gender-switch" onchange="handleGenderChange()" style="padding: 10px; font-size: 18px; border-radius: 8px; border: 2px solid #2f52b5;">
-                <option value="" disabled selected>Vyber...</option>
-                <option value="M">Muž (L)</option>
-                <option value="F">Žena (LA)</option>
-                <option value="N" style="color: #888;">Střední (LO)</option>
-                <option value="Pl">Množné - Mužský, životný (LI)</option>
-                <option value="PlFem" style="color: #888;">Množné - Ženský + Mužský, neživotné (LY)</option>
-                <option value="PlN" style="color: #888;">Množné - Střední (LA)</option>
-            </select>
-            <span id="verb-info-display" style="margin-left: 20px; font-size: 22px; color: #333;"></span>
-        </div>
+    <label style="font-weight: bold; margin-right: 10px;">Jsem:</label>
+    <select id="gender-switch" onchange="handleGenderChange()" 
+            style="padding: 10px; font-size: 18px; border-radius: 8px; border: 2px solid #2f52b5; max-width: 300px; text-overflow: ellipsis;">
+        <option value="" disabled selected>Vyber...</option>
+        <option value="M">Muž (L)</option>
+        <option value="F">Žena (LA)</option>
+        <option value="N" style="color: #888; font-size: 12px;">Střední (LO) - not required for beginners</option>
+        <option value="Pl">Množné - Mužský, životný (LI)</option>
+        <option value="PlFem" style="color: #888; font-size: 12px;">Množné - Ženský + Mužský, neživ. (LY) - not required for beginners</option>
+        <option value="PlN" style="color: #888; font-size: 12px;">Množné - Střední (LA) - not required for beginners</option>
+    </select>
+    <span id="verb-info-display" style="margin-left: 20px; font-size: 22px; color: #333;"></span>
+</div>
 
         <div id="input-section" style="display: none;">
     <div id="translation-prompt" style="font-size: 24px; color: #2f52b5; font-weight: bold; margin-bottom: 15px; min-height: 30px;"></div>
