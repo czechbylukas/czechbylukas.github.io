@@ -5,19 +5,24 @@
     <title>Lovec a princezna Deklinace</title>
     <style>
         body { font-family: sans-serif; background: #1a1a1a; color: white; display: flex; justify-content: center; padding: 20px; }
-        #game-container { max-width: 600px; background: #2a2a2a; padding: 30px; border-radius: 10px; box-shadow: 0 0 20px rgba(0,0,0,0.5); }
-        .monster-img { width: 100%; border-radius: 5px; margin-bottom: 15px; border: 2px solid #444; }
-        .stats { color: #ff9800; font-weight: bold; margin-bottom: 20px; padding: 10px; border-bottom: 1px solid #444; }
-        button { display: block; width: 100%; padding: 12px; margin: 10px 0; background: #4CAF50; color: white; border: none; border-radius: 5px; cursor: pointer; font-size: 16px; }
-        button:hover { background: #45a049; }
-        .hint { font-style: italic; color: #8bc34a; margin-bottom: 15px; }
-        .error { color: #f44336; }
+        #game-container { max-width: 650px; background: #2a2a2a; padding: 30px; border-radius: 10px; box-shadow: 0 0 20px rgba(0,0,0,0.5); text-align: center; }
+        .monster-img { width: 100%; max-height: 350px; object-fit: contain; border-radius: 5px; margin-bottom: 15px; border: 2px solid #2f52b5; background: #000; }
+        .stats { color: #ff9800; font-weight: bold; margin-bottom: 20px; padding: 10px; border-bottom: 1px solid #444; display: flex; justify-content: space-between; }
+        button { display: block; width: 100%; padding: 12px; margin: 10px 0; background: #2f52b5; color: white; border: none; border-radius: 5px; cursor: pointer; font-size: 16px; font-weight: bold; }
+        button:hover { background: #4facfe; color: black; }
+        button:disabled { background: #444; cursor: not-allowed; }
+        .hint { font-style: italic; color: #8bc34a; margin-bottom: 15px; padding: 10px; background: #1e1e1e; border-radius: 5px; border-left: 4px solid #8bc34a; }
+        h2 { color: #4facfe; margin: 10px 0; }
+        .loader { font-style: italic; color: #aaa; margin: 20px; }
     </style>
 </head>
 <body>
 
 <div id="game-container">
-    <div id="stats" class="stats">Zdraví: V pořádku | Lokace: Začátek lesa</div>
+    <div id="stats" class="stats">
+        <span id="health-display">Zdraví: V pořádku</span>
+        <span id="level-display">Lokace: Začátek</span>
+    </div>
     <div id="scene">
         <h1>Lovec a princezna Deklinace</h1>
         <p>Jsi statečný lovec. Tvá milovaná princezna Deklinace byla unesena zlou čarodějnicí Gramatikou. Musíš projít lesem a porazit 7 monster pomocí pádů.</p>
@@ -28,91 +33,157 @@
 <script>
     let currentHealth = "V pořádku";
     let hasFailedOnce = false;
-    let failedMonsterIndex = null;
+    const API_URL = 'https://lessons-487913.ey.r.appspot.com/process';
+    const imgPath = "Temny_Les_Sklonovani/Images/";
 
     const monsters = [
-        { 
-            name: "Jednoočko", 
-            pad: "1. pád (Kdo? Co?)", 
-            hint: "Sova Slovnice volá: 'To je KDO/CO!'", 
-            question: "Na cestě leží předmět. Co to je?",
-            options: ["A) Meč", "B) Mečem", "C) Meče"],
-            correct: 0,
-            injury: "vypíchnuté oko "
-        },
-        { 
-            name: "Dvouhlavý Haf", 
-            pad: "2. pád (Koho? Čeho?)", 
-            hint: "Sova Slovnice radí: 'Uteč BEZ koho/čeho!'", 
-            question: "Haf je bez...",
-            options: ["A) Kosta", "B) Kosti", "C) Kostem"],
-            correct: 1,
-            injury: "ukousnutá ruka "
-        }
-        // Zde lze doplnit další monstra 3-7 dle tvého seznamu 
+        { name: "Jednoočko", img: "Jednoocko.png", padNum: "1", padName: "1. pád (Nominativ)", hint: "Sova Slovnice volá: 'To je KDO/CO!'", injury: "vypíchnuté oko" },
+        { name: "Dvouhlavý Haf", img: "Dvouhlavy_Haf.png", padNum: "2", padName: "2. pád (Genitiv)", hint: "Sova Slovnice radí: 'Uteč BEZ koho/čeho!'", injury: "ukousnutá ruka" },
+        { name: "Tříruký Obr", img: "Triruky_Obr.png", padNum: "3", padName: "3. pád (Dativ)", hint: "Sova radí: 'Musíš mu něco dát. KOMU/ČEMU?'", injury: "zlomená ruka" },
+        { name: "Čtyřnohý Běs", img: "Ctyrnohy_Bes.png", padNum: "4", padName: "4. pád (Akuzativ)", hint: "Sova křičí: 'Vidím KOHO/CO!'", injury: "ukousnutá noha" },
+        { name: "Pětiústý Křikloun", img: "Petiusty_Krikloun.png", padNum: "5", padName: "5. pád (Vokativ)", hint: "Sova radí: 'Okřikni ho! HALÓ!'", injury: "prasklý ušní bubínek" },
+        { name: "Šestiprstý Stín", img: "Sestiprsty_Stin.png", padNum: "6", padName: "6. pád (Lokál)", hint: "Sova radí: 'Mluv o KOM/ČEM.'", injury: "useknuté prsty" },
+        { name: "Sedmihlavá Saň", img: "Sedmihlava_San.png", padNum: "7", padName: "7. pád (Instrumentál)", hint: "Sova dává poslední radu: 'Jdi s mečem! S KÝM/ČÍM?'", injury: "smrt" }
     ];
 
-    function startLevel(index) {
-        if (index > monsters.length) {
+    // Pomocná funkce pro odstranění předložky (vždy vezme jen poslední slovo)
+    function stripPreposition(text) {
+        if (!text) return "";
+        const parts = text.trim().split(/\s+/);
+        return parts[parts.length - 1];
+    }
+
+    async function fetchFromPython(word, pad) {
+        const response = await fetch(API_URL, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+                mode: 'noun',
+                word: word,
+                case: pad.toString(),
+                number: 'S'
+            })
+        });
+        const data = await response.json();
+        return stripPreposition(data.result);
+    }
+
+    async function getRandomA1Word() {
+        const backupA1 = ["hrad", "žena", "město", "muž", "stroj", "moře", "pán", "kniha", "stůl", "škola"];
+        try {
+            const response = await fetch(API_URL, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ mode: 'noun', word: '', check_only: true, level: 'A1' })
+            });
+            const data = await response.json();
+            return data.word || backupA1[Math.floor(Math.random() * backupA1.length)];
+        } catch (e) {
+            return backupA1[Math.floor(Math.random() * backupA1.length)];
+        }
+    }
+
+    async function startLevel(levelNum) {
+        if (levelNum > monsters.length) {
             winGame();
             return;
         }
         
-        let m = monsters[index - 1];
-        let statsDiv = document.getElementById('stats');
-        statsDiv.innerText = `Zdraví: ${currentHealth} | Monstrum: ${m.name} (${m.pad})`;
+        const m = monsters[levelNum - 1];
+        const scene = document.getElementById('scene');
+        scene.innerHTML = `<div class="loader">Hledám slovo pro monstrum ${m.name}...</div>`;
+        
+        const word = await getRandomA1Word();
+        
+        try {
+            // Získáme správný tvar
+            const correctForm = await fetchFromPython(word, m.padNum);
+            
+            // Vygenerujeme unikátní špatné tvary
+            let wrongOptions = new Set();
+            let pádPokusy = ["1", "2", "3", "4", "5", "6", "7"];
+            // Odstraníme aktuální pád z pokusů o špatné odpovědi
+            pádPokusy = pádPokusy.filter(p => p !== m.padNum);
+            // Zamícháme pokusy
+            pádPokusy.sort(() => Math.random() - 0.5);
 
-        let html = `
-            <h2>${m.name}</h2>
-            <p class="hint">${m.hint}</p>
-            <p><strong>Otázka:</strong> ${m.question}</p>
-        `;
+            for (let p of pádPokusy) {
+                if (wrongOptions.size >= 2) break;
+                let form = await fetchFromPython(word, p);
+                // Přidáme jen pokud se tvar neshoduje se správným ani s již přidaným špatným
+                if (form !== correctForm && !wrongOptions.has(form)) {
+                    wrongOptions.add(form);
+                }
+            }
 
-        m.options.forEach((opt, i) => {
-            html += `<button onclick="checkAnswer(${index-1}, ${i})">${opt}</button>`;
-        });
+            // Pokud bychom nenašli dostatek unikátních tvarů (u některých vzorů), 
+            // přidáme náhodnou koncovku jako nouzovku
+            while (wrongOptions.size < 2) {
+                wrongOptions.add(word + "e"); 
+            }
 
-        document.getElementById('scene').innerHTML = html;
-    }
+            const options = [
+                { text: correctForm, isCorrect: true },
+                ...Array.from(wrongOptions).map(txt => ({ text: txt, isCorrect: false }))
+            ].sort(() => Math.random() - 0.5);
 
-    function checkAnswer(mIndex, answerIndex) {
-        let m = monsters[mIndex];
-        if (answerIndex === m.correct) {
-            alert("Správně! Monstrum je poraženo.");
-            startLevel(mIndex + 2);
-        } else {
-            handleFailure(mIndex);
+            document.getElementById('health-display').innerText = `Zdraví: ${currentHealth}`;
+            document.getElementById('level-display').innerText = `Monstrum: ${m.name}`;
+
+            let html = `
+                <img src="${imgPath}${m.img}" class="monster-img" alt="${m.name}" onerror="this.src='${imgPath}Temny_les_uvod.jpg'">
+                <h2>${m.name}</h2>
+                <div class="hint">${m.hint}</div>
+                <p><strong>Doplň správný tvar slova "${word.toUpperCase()}" pro ${m.padName}:</strong></p>
+            `;
+
+            options.forEach(opt => {
+                html += `<button onclick="checkAnswer(${levelNum}, ${opt.isCorrect})">${opt.text}</button>`;
+            });
+
+            scene.innerHTML = html;
+
+        } catch (err) {
+            scene.innerHTML = `<p style="color:red">Chyba při generování otázky.</p>
+                               <button onclick="startLevel(${levelNum})">Zkusit znovu</button>`;
         }
     }
 
-    function handleFailure(mIndex) {
-        let m = monsters[mIndex];
-        if (!hasFailedOnce) {
-            hasFailedOnce = true;
-            failedMonsterIndex = mIndex;
-            currentHealth = m.injury;
-            alert(`Chyba! ${m.name} tě zranil. Máš: ${m.injury}. Můžeš ale pokračovat dál.`);
-            startLevel(mIndex + 2);
+    function checkAnswer(levelNum, isCorrect) {
+        if (isCorrect) {
+            alert("Správně! Monstrum ustupuje.");
+            startLevel(levelNum + 1);
         } else {
-            alert(`Druhá chyba u ${m.name}! To jsi nepřežil. Hra se restartuje.`);
+            handleFailure(levelNum);
+        }
+    }
+
+    function handleFailure(levelNum) {
+        let m = monsters[levelNum - 1];
+        if (!hasFailedOnce) {
+            if (m.name === "Sedmihlavá Saň") {
+                alert("Saň tě dostala! Hra končí.");
+                location.reload();
+                return;
+            }
+            hasFailedOnce = true;
+            currentHealth = m.injury;
+            alert(`Chyba! ${m.name} tě zasáhl. Tvé zranění: ${m.injury}.`);
+            startLevel(levelNum + 1);
+        } else {
+            alert(`Druhá chyba! Tohle jsi nepřežil.`);
             location.reload();
         }
     }
 
     function winGame() {
-        if (hasFailedOnce) {
-            document.getElementById('scene').innerHTML = `
-                <h1>Téměř vítězství!</h1>
-                <p>Porazil jsi Saně, ale jsi zraněný (${currentHealth}). Musíš se vrátit k monstru, které tě zranilo, a obhájit vítězství! </p>
-                <button onclick="location.reload()">Zkusit znovu od začátku</button>
-            `;
-        } else {
-            document.getElementById('scene').innerHTML = `
-                <h1>SLÁVA!</h1>
-                <p>Zachránil jsi princeznu Deklinaci bez jediného škrábnutí! </p>
-                <button onclick="location.reload()">Hrát znovu</button>
-            `;
-        }
+        let scene = document.getElementById('scene');
+        scene.innerHTML = `
+            <img src="${imgPath}Princezna_Deklinace.png" class="monster-img" alt="Princezna" onerror="this.style.display='none'">
+            <h1>VÍTĚZSTVÍ!</h1>
+            <p>${hasFailedOnce ? "Zachránil jsi princeznu, ale jsi vážně zraněn!" : "Dokonalé vítězství! Princezna je volná a ty jsi v pořádku."}</p>
+            <button onclick="location.reload()">Hrát znovu</button>
+        `;
     }
 </script>
 
