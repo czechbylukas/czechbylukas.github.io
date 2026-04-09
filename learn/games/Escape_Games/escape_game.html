@@ -106,8 +106,7 @@
 
         .choice-btn:hover { background: var(--secondary); color: black; transform: scale(1.01); }
         .loader { font-size: 1.2em; color: var(--secondary); margin: 40px; }
-        
-        strong { color: #ffeb3b; } /* Zvýraznění gramatiky */
+        strong { color: #ffeb3b; }
     </style>
 </head>
 <body>
@@ -197,10 +196,20 @@
         }
     ];
 
-    function stripPreposition(text) {
-        if (!text) return "";
-        let words = text.trim().split(/\s+/);
-        return words[words.length - 1].replace(/[.,!]/g, "");
+    // Rozšířený seznam pro očištění tlačítek (předložky + pomocná slova 5. pádu)
+    const excludedWords = ["o", "v", "na", "u", "za", "před", "pod", "nad", "mezi", "s", "se", "k", "ke", "od", "do", "z", "ze", "pro", "při", "po", "kolem", "bez", "kvůli", "proti", "naproti", "díky", "blízko", "uprostřed", "vedle", "místo", "podle", "kromě", "skrz", "ve", "včetně", "voláme", "oslovujeme", "haló", "hej"];
+
+    function cleanResult(text) {
+        if (!text) return [];
+        let rawForms = text.split(/[/,]/);
+        let forms = rawForms.map(s => {
+            let clean = s.trim().toLowerCase().replace(/[.,!:]/g, "");
+            let words = clean.split(/\s+/);
+            // Odfiltruje předložky i slova jako "voláme"
+            let filteredWords = words.filter(w => !excludedWords.includes(w));
+            return filteredWords.join(" ");
+        });
+        return [...new Set(forms.filter(f => f.length > 0))];
     }
 
     async function getWordForms(word, targetPad) {
@@ -212,21 +221,32 @@
                     body: JSON.stringify({ mode: 'noun', word: word, case: p.toString(), number: 'S' })
                 });
                 const data = await res.json();
-                return stripPreposition(data.result);
-            } catch (e) { return word; }
+                return cleanResult(data.result);
+            } catch (e) { return [word.toLowerCase()]; }
         };
-        const correct = await fetchForm(targetPad);
+
+        const correctForms = await fetchForm(targetPad);
+        const displayCorrect = correctForms[Math.floor(Math.random() * correctForms.length)];
+
         let wrongs = new Set();
-        let pady = ["1", "2", "3", "4", "5", "6", "7"].filter(p => p !== targetPad.toString()).sort(() => Math.random() - 0.5);
-        for (let p of pady) {
+        let otherPady = ["1", "2", "3", "4", "5", "6", "7"].filter(p => p !== targetPad.toString()).sort(() => Math.random() - 0.5);
+        
+        for (let p of otherPady) {
             if (wrongs.size >= 2) break;
-            let f = await fetchForm(p);
-            if (f.toLowerCase() !== correct.toLowerCase() && !wrongs.has(f)) wrongs.add(f);
+            let forms = await fetchForm(p);
+            forms.forEach(f => {
+                if (!correctForms.includes(f) && wrongs.size < 2) {
+                    wrongs.add(f);
+                }
+            });
         }
-        return { correct, options: [correct, ...Array.from(wrongs)].sort(() => Math.random() - 0.5) };
+
+        const options = [displayCorrect, ...Array.from(wrongs)].sort(() => Math.random() - 0.5);
+        return { correctForms, options };
     }
 
     async function getRandomA1Word() {
+        const fallbackWords = ["hrad", "stůl", "žena", "moře", "pán", "kost", "město", "auto", "kluk", "škola"];
         try {
             const res = await fetch(API_URL, {
                 method: 'POST',
@@ -234,8 +254,10 @@
                 body: JSON.stringify({ mode: 'noun', word: '', check_only: true, level: 'A1' })
             });
             const data = await res.json();
-            return data.word || "hrad";
-        } catch { return "hrad"; }
+            return data.word || fallbackWords[Math.floor(Math.random() * fallbackWords.length)];
+        } catch { 
+            return fallbackWords[Math.floor(Math.random() * fallbackWords.length)]; 
+        }
     }
 
     async function startLevel(levelNum) {
@@ -244,8 +266,9 @@
         const m = monsters[levelNum - 1];
         const scene = document.getElementById('scene');
         scene.innerHTML = `<div class="loader">Sova Slovnice tě vede k monstru ${m.name}...</div>`;
+        
         const word = await getRandomA1Word();
-        const { correct, options } = await getWordForms(word, m.pad);
+        const { correctForms, options } = await getWordForms(word, m.pad);
         
         document.getElementById('health-txt').innerText = `Zdraví: ${currentHealth}`;
         document.getElementById('location-txt').innerText = `Monstrum: ${m.name}`;
@@ -263,11 +286,15 @@
             <p>Doplň správný tvar slova <strong>${word.toUpperCase()}</strong>:</p>
             <div id="btn-container"></div>
         `;
+
         options.forEach(opt => {
             const b = document.createElement('button');
             b.className = "choice-btn";
             b.innerText = opt;
-            b.onclick = () => handleAnswer(opt === correct);
+            b.onclick = () => {
+                const isCorrect = correctForms.includes(opt.toLowerCase());
+                handleAnswer(isCorrect);
+            };
             document.getElementById('btn-container').appendChild(b);
         });
     }
@@ -276,7 +303,6 @@
         const m = monsters[currentLevel - 1];
         const scene = document.getElementById('scene');
         if (isCorrect) {
-            // Tlačítko TAHÁK s obrázkem sovy
             let grammarHtml = m.grammarLink ? `
                 <div style="margin-top: 20px; border-top: 1px dashed #555; padding-top: 15px; overflow: hidden;">
                     <img src="${IMG_PATH}Moudra_sova_Slovnice.png" style="width: 70px; float: left; margin-right: 15px; border-radius: 10px;" onerror="this.style.display='none'">
@@ -286,7 +312,6 @@
                     </a>
                 </div>` : "";
             
-            // Zvýraznění textu (hvězdičky -> tučné)
             let formattedWinMsg = m.winMsg.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
 
             scene.innerHTML = `
