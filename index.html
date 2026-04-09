@@ -9,7 +9,7 @@
     
 
 
-<script defer src="https://www.gstatic.com/firebasejs/9.6.10/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-auth-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-database-compat.js"></script>
 
@@ -17,7 +17,9 @@
 
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="css/language-selector.css">
-    <script defer src="/scripts-header.js"></script>
+
+    <script src="/scripts-header.js"></script>
+
 </head>
 <body class="home">
 <header>
@@ -64,28 +66,23 @@
             .catch(error => console.error("Error loading footer:", error));
     </script>
 
-    <script defer src="js/translations.js"></script>
-    <script defer src="js/language-selector.js"></script>
+    <script src="js/translations.js"></script>
+    <script src="js/language-selector.js"></script>
 
 
 
     
 
 <script>
-
-
-
-// Add this as a tool for the buttons to use
+// 1. Unified function for click support
 function addMultiClickSupport(elementId, url) {
     const btn = document.getElementById(elementId);
     if (!btn) return;
 
-    // Left click
     btn.addEventListener('click', (e) => {
         if (e.button === 0) window.location.href = url;
     });
 
-    // Middle click
     btn.addEventListener('auxclick', (e) => {
         if (e.button === 1) {
             window.open(url, '_blank');
@@ -94,24 +91,33 @@ function addMultiClickSupport(elementId, url) {
     });
 }
 
-
-
-    // Check for Admin access to show the Teacher Console button
-
-firebase.auth().onAuthStateChanged(user => {
-    const adminBtn = document.getElementById('admin-console-btn');
-    const toolBtn = document.getElementById('teacher-tool-btn');
-    
-    if (user && user.email === 'lukas@hackczech.com') {
-    if(adminBtn) {
-        adminBtn.style.display = 'block';
-        addMultiClickSupport('admin-console-btn', '/reports/index.html');
+// 2. Wait for everything to be ready before checking Admin status
+window.addEventListener('load', function() {
+    if (typeof firebase !== 'undefined') {
+        firebase.auth().onAuthStateChanged(user => {
+            // These IDs must match your HTML exactly!
+            const adminBtn = document.getElementById('admin-console-btn');
+            const toolBtn = document.getElementById('teacher-tool-btn');
+            
+            if (user && user.email === 'lukas@hackczech.com') {
+                console.log("Admin detected: Showing buttons.");
+                
+                if(adminBtn) {
+                    adminBtn.style.display = 'block';
+                    addMultiClickSupport('admin-console-btn', '/reports/index.html');
+                }
+                
+                if(toolBtn) {
+                    toolBtn.style.display = 'block';
+                    addMultiClickSupport('teacher-tool-btn', '/lessons/001_lesson.html');
+                }
+            } else {
+                console.log("Not an admin or not logged in.");
+            }
+        });
+    } else {
+        console.error("Firebase failed to load. Check your internet or script tags.");
     }
-    if(toolBtn) {
-        toolBtn.style.display = 'block';
-        addMultiClickSupport('teacher-tool-btn', '/lessons/001_lesson.html');
-    }
-}
 });
 </script>
 </body>

@@ -65,6 +65,15 @@ async function applyAccessControl(user) {
         authIcon.id = 'auth-icon';
         authIcon.style = "cursor:pointer; font-size:24px; display:inline-block; margin-left:15px; vertical-align:middle; line-height:1;";
         
+        const target = document.getElementById('auth-status-container') || 
+                       document.getElementById('language-selector-container') || 
+                       document.querySelector('header') ||
+                       document.body; // Fallback to body if header is missing
+
+        target.appendChild(authIcon);
+    }
+
+
         const rightGroup = document.getElementById('auth-status-container') || 
                            document.getElementById('language-selector-container') || 
                            document.getElementById('header-right-group');
@@ -72,14 +81,11 @@ async function applyAccessControl(user) {
 
         if (rightGroup) { rightGroup.appendChild(authIcon); } 
         else if (header) { header.appendChild(authIcon); }
-    }
 
 
+    authIcon.innerText = user ? '🚪' : '👤'; 
+    // (because the function ended above, it doesn't know what authIcon is anymore)
 
-
-
-    
-authIcon.innerText = user ? '🚪' : '👤';
     authIcon.onclick = (e) => {
         e.stopPropagation();
         if (user) { 
@@ -157,11 +163,15 @@ authIcon.innerText = user ? '🚪' : '👤';
         if ((window.isLoginOnlyPage || window.isPremiumPage) && authOverlay) {
             authOverlay.style.display = 'flex';
             const closeBtn = document.getElementById('close-x');
-            if (closeBtn) closeBtn.style.display = 'block'; 
+            if (closeBtn) {
+                closeBtn.style.display = 'block';
+                // THIS IS THE IMPORTANT ADDITION:
+                closeBtn.onclick = () => window.location.href = 'https://www.hackczech.com';
+            }
         }
     }
 
-    const adminBtn = document.getElementById('admin-trigger');
+    const adminBtn = document.getElementById('admin-console-btn'); // CORRECT ID
     if (adminBtn) adminBtn.style.display = (user && user.email === 'lukas@hackczech.com') ? 'block' : 'none';
 }
 
@@ -176,7 +186,7 @@ document.addEventListener('DOMContentLoaded', function() {
     if (typeof firebase !== 'undefined') {
         // 2. This is the official Firebase "Observer"
         firebase.auth().onAuthStateChanged(async (user) => {
-            
+            ensureAuthOverlay();
             // 3. Run your access logic (Checking paid status, etc.)
             await applyAccessControl(user);
 
@@ -258,12 +268,12 @@ document.head.appendChild(script);
 
 gtag('js', new Date());
 
-// Wrap the config in an event listener so it waits for the title to exist
+// FIX: Wait for the DOM to load so document.title isn't empty
 document.addEventListener("DOMContentLoaded", function() {
     const gaLang = (localStorage.getItem("selectedLanguage") || "en").toLowerCase();
     gtag('config', 'G-1BCW5XQ0X5', {
         'language_code': gaLang,
-        'page_title': '[' + gaLang.toUpperCase() + '] ' + (document.title || "Untitled Page")
+        'page_title': '[' + gaLang.toUpperCase() + '] ' + (document.title || "HáCZech")
     });
 });
 
