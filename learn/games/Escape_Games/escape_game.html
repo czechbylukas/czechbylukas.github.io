@@ -2,190 +2,331 @@
 <html lang="cs">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Lovec a princezna Deklinace</title>
     <style>
-        body { font-family: sans-serif; background: #1a1a1a; color: white; display: flex; justify-content: center; padding: 20px; }
-        #game-container { max-width: 650px; background: #2a2a2a; padding: 30px; border-radius: 10px; box-shadow: 0 0 20px rgba(0,0,0,0.5); text-align: center; }
-        .monster-img { width: 100%; max-height: 350px; object-fit: contain; border-radius: 5px; margin-bottom: 15px; border: 2px solid #2f52b5; background: #000; }
-        .stats { color: #ff9800; font-weight: bold; margin-bottom: 20px; padding: 10px; border-bottom: 1px solid #444; display: flex; justify-content: space-between; }
-        button { display: block; width: 100%; padding: 12px; margin: 10px 0; background: #2f52b5; color: white; border: none; border-radius: 5px; cursor: pointer; font-size: 16px; font-weight: bold; }
-        button:hover { background: #4facfe; color: black; }
-        button:disabled { background: #444; cursor: not-allowed; }
-        .hint { font-style: italic; color: #8bc34a; margin-bottom: 15px; padding: 10px; background: #1e1e1e; border-radius: 5px; border-left: 4px solid #8bc34a; }
-        h2 { color: #4facfe; margin: 10px 0; }
-        .loader { font-style: italic; color: #aaa; margin: 20px; }
+        :root {
+            --primary: #2f52b5;
+            --secondary: #4facfe;
+            --accent: #8bc34a;
+            --danger: #ff5252;
+            --panel-bg: rgba(20, 20, 20, 0.95);
+        }
+
+        body { 
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; 
+            background: #000 url('Temny_Les_Sklonovani/Images/Temny_les_sklonovani.png') no-repeat center center fixed; 
+            background-size: cover;
+            color: white; 
+            display: flex; 
+            justify-content: center; 
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+        }
+
+        #game-container { 
+            width: 100%;
+            max-width: 800px; 
+            background: var(--panel-bg); 
+            padding: 30px; 
+            border-radius: 20px; 
+            box-shadow: 0 0 50px rgba(0,0,0,0.9); 
+            border: 1px solid #444;
+            text-align: center;
+            backdrop-filter: blur(10px);
+        }
+
+        .monster-img { 
+            width: 100%; 
+            max-height: 300px; 
+            object-fit: contain; 
+            border-radius: 10px; 
+            margin-bottom: 20px; 
+            border: 2px solid var(--primary);
+            background: #000;
+        }
+
+        .stats-bar { 
+            display: flex; 
+            justify-content: space-between;
+            background: rgba(0,0,0,0.7);
+            padding: 12px 20px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            color: #ff9800;
+            font-weight: bold;
+        }
+
+        .owl-dialog {
+            display: flex;
+            align-items: center;
+            background: rgba(47, 82, 181, 0.2);
+            padding: 20px;
+            border-radius: 15px;
+            margin: 20px 0;
+            border-left: 6px solid var(--accent);
+            text-align: left;
+        }
+
+        .owl-img {
+            width: 85px;
+            height: 85px;
+            margin-right: 20px;
+            border-radius: 50%;
+            border: 2px solid var(--accent);
+            background: #111;
+        }
+
+        .status-box {
+            padding: 25px;
+            border-radius: 15px;
+            margin-top: 20px;
+            text-align: left;
+            line-height: 1.7;
+            background: rgba(255,255,255,0.05);
+            border: 1px solid #555;
+        }
+
+        .choice-btn { 
+            display: block; 
+            width: 100%; 
+            padding: 15px; 
+            margin: 10px 0; 
+            background: linear-gradient(135deg, #1a3a8a, var(--primary));
+            color: white; 
+            border: 1px solid #4facfe; 
+            border-radius: 10px; 
+            cursor: pointer; 
+            font-size: 18px; 
+            font-weight: bold;
+            transition: 0.2s;
+            text-decoration: none;
+        }
+
+        .choice-btn:hover { background: var(--secondary); color: black; transform: scale(1.01); }
+        .loader { font-size: 1.2em; color: var(--secondary); margin: 40px; }
+        
+        strong { color: #ffeb3b; } /* Zvýraznění gramatiky */
     </style>
 </head>
 <body>
 
 <div id="game-container">
-    <div id="stats" class="stats">
-        <span id="health-display">Zdraví: V pořádku</span>
-        <span id="level-display">Lokace: Začátek</span>
-    </div>
-    <div id="scene">
-        <h1>Lovec a princezna Deklinace</h1>
-        <p>Jsi statečný lovec. Tvá milovaná princezna Deklinace byla unesena zlou čarodějnicí Gramatikou. Musíš projít lesem a porazit 7 monster pomocí pádů.</p>
-        <button onclick="startLevel(1)">Vstoupit do lesa</button>
+    <div id="game-ui">
+        <div class="stats-bar">
+            <span id="health-txt">Zdraví: V pořádku</span>
+            <span id="location-txt">Lokace: Brána do lesa</span>
+        </div>
+        <div id="scene">
+            <img src="Temny_Les_Sklonovani/Images/Temny_les_uvod.jpg" class="monster-img" alt="Úvod">
+            <h1>Lovec a princezna Deklinace</h1>
+            <p style="text-align: left; line-height: 1.6;">
+                Za sedmero horami a sedmero řekami žil byl statečný lovec, který byl zamilovaný do princezny. 
+                Ale stará zlá čarodějnice zvaná <strong>Gramatika</strong> začarovala princeznu, a tak princezna musí od té doby žít v temném lese skloňování.
+                Moudrá sova <strong>Slovnice</strong> ti ukáže cestu, ale neumíš soví jazyk, proto ti dá nápovědy. 
+                Musíš porazit příšery, abys princeznu zachránil!
+            </p>
+            <p style="color: var(--secondary); font-style: italic;">Úvod A1: Miluješ princeznu. Musíš jít k princezně. Na cestě budou otázky.</p>
+            <button class="choice-btn" onclick="startLevel(1)">Vstoupit do temného lesa</button>
+        </div>
     </div>
 </div>
 
 <script>
-    let currentHealth = "V pořádku";
-    let hasFailedOnce = false;
     const API_URL = 'https://lessons-487913.ey.r.appspot.com/process';
-    const imgPath = "Temny_Les_Sklonovani/Images/";
+    const IMG_PATH = "Temny_Les_Sklonovani/Images/";
+    
+    let currentHealth = "V pořádku";
+    let currentLevel = 1;
 
     const monsters = [
-        { name: "Jednoočko", img: "Jednoocko.png", padNum: "1", padName: "1. pád (Nominativ)", hint: "Sova Slovnice volá: 'To je KDO/CO!'", injury: "vypíchnuté oko" },
-        { name: "Dvouhlavý Haf", img: "Dvouhlavy_Haf.png", padNum: "2", padName: "2. pád (Genitiv)", hint: "Sova Slovnice radí: 'Uteč BEZ koho/čeho!'", injury: "ukousnutá ruka" },
-        { name: "Tříruký Obr", img: "Triruky_Obr.png", padNum: "3", padName: "3. pád (Dativ)", hint: "Sova radí: 'Musíš mu něco dát. KOMU/ČEMU?'", injury: "zlomená ruka" },
-        { name: "Čtyřnohý Běs", img: "Ctyrnohy_Bes.png", padNum: "4", padName: "4. pád (Akuzativ)", hint: "Sova křičí: 'Vidím KOHO/CO!'", injury: "ukousnutá noha" },
-        { name: "Pětiústý Křikloun", img: "Petiusty_Krikloun.png", padNum: "5", padName: "5. pád (Vokativ)", hint: "Sova radí: 'Okřikni ho! HALÓ!'", injury: "prasklý ušní bubínek" },
-        { name: "Šestiprstý Stín", img: "Sestiprsty_Stin.png", padNum: "6", padName: "6. pád (Lokál)", hint: "Sova radí: 'Mluv o KOM/ČEM.'", injury: "useknuté prsty" },
-        { name: "Sedmihlavá Saň", img: "Sedmihlava_San.png", padNum: "7", padName: "7. pád (Instrumentál)", hint: "Sova dává poslední radu: 'Jdi s mečem! S KÝM/ČÍM?'", injury: "smrt" }
+        { 
+            name: "Jednoočko", img: "Jednoocko.png", pad: "1", 
+            owlAsk: "Kdo je to? Co to je?",
+            hint: "Stačí říct: „To je KDO/CO.“ (Základní tvar).",
+            winMsg: `Skvěle! Porazil jsi Jednoočko. Moudrá sova tě pošle dál **do** dom**u** **u** řek**y** **blízko** hrad**u** čarodějnice. **Během** cest**y** musíš projít **kolem** pol**e** kukuřice. Musíš jít **bez** mobil**u**. **Místo** mobil**u** musíš jít **podle** rad**y** **od** sov**y**. **Kromě** dom**u** Hafa je **uprostřed** zahrad**y** **vedle** řek**y** také loď. Musíš vylákat Hafa **z** dom**u**.`,
+            grammarLink: `https://www.hackczech.com/Overviews/2_2_p%C3%A1d.png`,
+            injury: "Jednoočko začne žárlit a vypíchne ti oko! Můžeš pokračovat s jedním okem, ale dej si pozor na další příšery." 
+        },
+        { 
+            name: "Dvouhlavý Haf", img: "Dvouhlavy_Haf.png", pad: "2", 
+            owlAsk: "Koho? Čeho?",
+            hint: "Musíš mu sebrat kost. „Kousek KOHO/ČEHO?“ (bez psa).",
+            winMsg: `Skvěle! Porazil jsi Dvouhlavého Hafa. Moudrá sova tě pošle dál, ale **kvůli** bouřc**e** je silný vítr. Musíš jít **proti** větr**u**. Když dorazíš **k** jezer**u** musíš ho přejít. **Díky** most**u** zůstaneš suchý. Jakmile přejdeš most, ocitneš se **naproti** skál**e**. Řekni skále: „otevři se a ukaž mi/Lovci kde se skrývá obr“.`,
+            grammarLink: `https://www.hackczech.com/Overviews/5_3_p%C3%A1d.png`,
+            injury: "Haf zaútočí a ukousne ti ruku!" 
+        },
+        { 
+            name: "Tříruký Obr", img: "Triruky_Obr.png", pad: "3", 
+            owlAsk: "Komu? Čemu?",
+            hint: "Dám to KOMU/ČEMU? (k obrovi).",
+            winMsg: `Moudrá sova tě pošle dál **za** řek**u** **přes** vysokou hor**u**. Musíš tam najít Čtyřnohého Běsa. Nejprve musíš jít jednu hodinu **mezi** hor**u** a řek**u** **pro** novou map**u** a následně hledat tajnou cestu. Jdeš **na** dlouhý most a vidíš tmavou jeskyni. Měl bys **před** vchod dát ostrý meč **pod** velký kámen. **Za** jednu hodinu musíš projít **skrz** tajnou brán**u**. Podívej se **nad** brán**u**. Uvidíš tam Čtyřnohého Běsa.`,
+            grammarLink: `https://www.hackczech.com/Overviews/3_4_p%C3%A1d.png`,
+            injury: "Prohrál jsi! Tříruký obr ti zlomil ruku." 
+        },
+        { 
+            name: "Čtyřnohý Běs", img: "Ctyrnohy_Bes.png", pad: "4", 
+            owlAsk: "Koho? Co?",
+            hint: "Vidím KOHO/CO? (běsa).",
+            winMsg: `Moudrá sova tě pošle dál. Viléme, Hynku, Jamilo! Sova volá tvé kamarády na pomoc. Sova tě varuje: „Lovče, dej si pozor!“`,
+            injury: "Prohra! Běs ti ukousnul nohu." 
+        },
+        { 
+            name: "Pětiústý Křikloun", img: "Petiusty_Krikloun.png", pad: "5", 
+            owlAsk: "Oslovujeme, voláme!",
+            hint: "HALÓ, MONSTRUM!",
+            winMsg: `Moudrá sova mluví **o** starém strom**ě** a když **po** jednom kilometr**u** ten starý strom **na** cest**ě** spatříš, uslyšíš jak zpívají ptáčci. **Při** zpěv**u** se ti ukáže nová cesta. **V** les**e** najdeš hrad, **ve** kterém je vězněná princezna.`,
+            grammarLink: `https://www.hackczech.com/Overviews/6_6_p%C3%A1d.png`,
+            injury: "Prohrál jsi! Pětiústý Křikloun zařval tak hlasitě, že ti praskly ušní bubínky!" 
+        },
+        { 
+            name: "Šestiprstý Stín", img: "Sestiprsty_Stin.png", pad: "6", 
+            owlAsk: "O kom? O čem?",
+            hint: "Mluvím o KOM/ČEM? (o stínu).",
+            winMsg: `Moudrá sova tě bude na posledním kroku provádět. Vstup **s** moudrou sov**ou** **do** hrad**u**. Bojuj **mezi** vstup**em** a východ**em** **s** poslední příšer**ou**. **Za** hrad**em** je hora. **Nad** hor**ou** najdeš draka. Musíš vylézt **na** hor**u**, ale schovej se **pod** strom**em**. **Před** drak**em** se zachráníš **pomocí** meč**e**. **Mečem** musíš posekat strom.`,
+            grammarLink: `https://www.hackczech.com/Overviews/4_7_p%C3%A1d.png`,
+            injury: "Šestiprstý stín ti usekne prsty!" 
+        },
+        { 
+            name: "Sedmihlavá Saň", img: "Sedmihlava_San.png", pad: "7", 
+            owlAsk: "Kým? Čím?",
+            hint: "S KÝM/ČÍM? (s mečem).",
+            winMsg: "Skvělé! Porazil jsi všech 7 gramatických příšer!",
+            injury: "Sedmihlavá saň ti ukousla hlavu!" 
+        }
     ];
 
-    // Pomocná funkce pro odstranění předložky (vždy vezme jen poslední slovo)
     function stripPreposition(text) {
         if (!text) return "";
-        const parts = text.trim().split(/\s+/);
-        return parts[parts.length - 1];
+        let words = text.trim().split(/\s+/);
+        return words[words.length - 1].replace(/[.,!]/g, "");
     }
 
-    async function fetchFromPython(word, pad) {
-        const response = await fetch(API_URL, {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({
-                mode: 'noun',
-                word: word,
-                case: pad.toString(),
-                number: 'S'
-            })
-        });
-        const data = await response.json();
-        return stripPreposition(data.result);
+    async function getWordForms(word, targetPad) {
+        const fetchForm = async (p) => {
+            try {
+                const res = await fetch(API_URL, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ mode: 'noun', word: word, case: p.toString(), number: 'S' })
+                });
+                const data = await res.json();
+                return stripPreposition(data.result);
+            } catch (e) { return word; }
+        };
+        const correct = await fetchForm(targetPad);
+        let wrongs = new Set();
+        let pady = ["1", "2", "3", "4", "5", "6", "7"].filter(p => p !== targetPad.toString()).sort(() => Math.random() - 0.5);
+        for (let p of pady) {
+            if (wrongs.size >= 2) break;
+            let f = await fetchForm(p);
+            if (f.toLowerCase() !== correct.toLowerCase() && !wrongs.has(f)) wrongs.add(f);
+        }
+        return { correct, options: [correct, ...Array.from(wrongs)].sort(() => Math.random() - 0.5) };
     }
 
     async function getRandomA1Word() {
-        const backupA1 = ["hrad", "žena", "město", "muž", "stroj", "moře", "pán", "kniha", "stůl", "škola"];
         try {
-            const response = await fetch(API_URL, {
+            const res = await fetch(API_URL, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ mode: 'noun', word: '', check_only: true, level: 'A1' })
             });
-            const data = await response.json();
-            return data.word || backupA1[Math.floor(Math.random() * backupA1.length)];
-        } catch (e) {
-            return backupA1[Math.floor(Math.random() * backupA1.length)];
-        }
+            const data = await res.json();
+            return data.word || "hrad";
+        } catch { return "hrad"; }
     }
 
     async function startLevel(levelNum) {
-        if (levelNum > monsters.length) {
-            winGame();
-            return;
-        }
-        
+        currentLevel = levelNum;
+        if (levelNum > monsters.length) { winGame(); return; }
         const m = monsters[levelNum - 1];
         const scene = document.getElementById('scene');
-        scene.innerHTML = `<div class="loader">Hledám slovo pro monstrum ${m.name}...</div>`;
-        
+        scene.innerHTML = `<div class="loader">Sova Slovnice tě vede k monstru ${m.name}...</div>`;
         const word = await getRandomA1Word();
+        const { correct, options } = await getWordForms(word, m.pad);
         
-        try {
-            // Získáme správný tvar
-            const correctForm = await fetchFromPython(word, m.padNum);
-            
-            // Vygenerujeme unikátní špatné tvary
-            let wrongOptions = new Set();
-            let pádPokusy = ["1", "2", "3", "4", "5", "6", "7"];
-            // Odstraníme aktuální pád z pokusů o špatné odpovědi
-            pádPokusy = pádPokusy.filter(p => p !== m.padNum);
-            // Zamícháme pokusy
-            pádPokusy.sort(() => Math.random() - 0.5);
-
-            for (let p of pádPokusy) {
-                if (wrongOptions.size >= 2) break;
-                let form = await fetchFromPython(word, p);
-                // Přidáme jen pokud se tvar neshoduje se správným ani s již přidaným špatným
-                if (form !== correctForm && !wrongOptions.has(form)) {
-                    wrongOptions.add(form);
-                }
-            }
-
-            // Pokud bychom nenašli dostatek unikátních tvarů (u některých vzorů), 
-            // přidáme náhodnou koncovku jako nouzovku
-            while (wrongOptions.size < 2) {
-                wrongOptions.add(word + "e"); 
-            }
-
-            const options = [
-                { text: correctForm, isCorrect: true },
-                ...Array.from(wrongOptions).map(txt => ({ text: txt, isCorrect: false }))
-            ].sort(() => Math.random() - 0.5);
-
-            document.getElementById('health-display').innerText = `Zdraví: ${currentHealth}`;
-            document.getElementById('level-display').innerText = `Monstrum: ${m.name}`;
-
-            let html = `
-                <img src="${imgPath}${m.img}" class="monster-img" alt="${m.name}" onerror="this.src='${imgPath}Temny_les_uvod.jpg'">
-                <h2>${m.name}</h2>
-                <div class="hint">${m.hint}</div>
-                <p><strong>Doplň správný tvar slova "${word.toUpperCase()}" pro ${m.padName}:</strong></p>
-            `;
-
-            options.forEach(opt => {
-                html += `<button onclick="checkAnswer(${levelNum}, ${opt.isCorrect})">${opt.text}</button>`;
-            });
-
-            scene.innerHTML = html;
-
-        } catch (err) {
-            scene.innerHTML = `<p style="color:red">Chyba při generování otázky.</p>
-                               <button onclick="startLevel(${levelNum})">Zkusit znovu</button>`;
-        }
+        document.getElementById('health-txt').innerText = `Zdraví: ${currentHealth}`;
+        document.getElementById('location-txt').innerText = `Monstrum: ${m.name}`;
+        
+        scene.innerHTML = `
+            <img src="${IMG_PATH}${m.img}" class="monster-img" alt="${m.name}" onerror="this.src='${IMG_PATH}Temny_les_uvod.jpg'">
+            <div class="owl-dialog">
+                <img src="${IMG_PATH}Moudra_sova_Slovnice.png" class="owl-img" alt="Sova" onerror="this.src='https://cdn-icons-png.flaticon.com/512/3503/3503831.png'">
+                <div class="owl-speech">
+                    <p><strong>Moudrá sova Slovnice se ptá:</strong></p>
+                    <p>"${m.owlAsk}"</p>
+                    <p style="color: #8bc34a; font-size: 0.85em; margin-top:5px;">Nápověda (hint): ${m.hint}</p>
+                </div>
+            </div>
+            <p>Doplň správný tvar slova <strong>${word.toUpperCase()}</strong>:</p>
+            <div id="btn-container"></div>
+        `;
+        options.forEach(opt => {
+            const b = document.createElement('button');
+            b.className = "choice-btn";
+            b.innerText = opt;
+            b.onclick = () => handleAnswer(opt === correct);
+            document.getElementById('btn-container').appendChild(b);
+        });
     }
 
-    function checkAnswer(levelNum, isCorrect) {
+    function handleAnswer(isCorrect) {
+        const m = monsters[currentLevel - 1];
+        const scene = document.getElementById('scene');
         if (isCorrect) {
-            alert("Správně! Monstrum ustupuje.");
-            startLevel(levelNum + 1);
+            // Tlačítko TAHÁK s obrázkem sovy
+            let grammarHtml = m.grammarLink ? `
+                <div style="margin-top: 20px; border-top: 1px dashed #555; padding-top: 15px; overflow: hidden;">
+                    <img src="${IMG_PATH}Moudra_sova_Slovnice.png" style="width: 70px; float: left; margin-right: 15px; border-radius: 10px;" onerror="this.style.display='none'">
+                    <p style="font-size: 0.9em; font-style: italic; color: #ccc; margin-bottom: 10px;">Sova Slovnice ti nese studijní materiál:</p>
+                    <a href="${m.grammarLink}" target="_blank" class="choice-btn" style="background: #2c3e50; font-size: 15px; display: inline-block; width: auto; padding: 12px 25px; margin: 0;">
+                        📄 Tahák (přehled pádů)
+                    </a>
+                </div>` : "";
+            
+            // Zvýraznění textu (hvězdičky -> tučné)
+            let formattedWinMsg = m.winMsg.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
+
+            scene.innerHTML = `
+                <div class="status-box" style="border-left: 5px solid var(--accent);">
+                    <h2 style="color: var(--accent);">Vítězství!</h2>
+                    <p>${formattedWinMsg}</p>
+                    ${grammarHtml}
+                </div>
+                <div style="clear: both; margin-bottom: 20px;"></div>
+                <button class="choice-btn" onclick="startLevel(currentLevel + 1)">Pokračovat hlouběji do lesa</button>
+            `;
         } else {
-            handleFailure(levelNum);
+            gameOver(m.injury);
         }
     }
 
-    function handleFailure(levelNum) {
-        let m = monsters[levelNum - 1];
-        if (!hasFailedOnce) {
-            if (m.name === "Sedmihlavá Saň") {
-                alert("Saň tě dostala! Hra končí.");
-                location.reload();
-                return;
-            }
-            hasFailedOnce = true;
-            currentHealth = m.injury;
-            alert(`Chyba! ${m.name} tě zasáhl. Tvé zranění: ${m.injury}.`);
-            startLevel(levelNum + 1);
-        } else {
-            alert(`Druhá chyba! Tohle jsi nepřežil.`);
-            location.reload();
-        }
+    function gameOver(msg) {
+        document.getElementById('scene').innerHTML = `
+            <div class="status-box" style="border-left: 5px solid var(--danger);">
+                <h1 style="color: var(--danger);">KONEC CESTY</h1>
+                <p>${msg}</p>
+                <p>Tvůj příběh zde končí...</p>
+            </div>
+            <button class="choice-btn" onclick="location.reload()">Zkusit znovu od začátku</button>
+        `;
     }
 
     function winGame() {
-        let scene = document.getElementById('scene');
-        scene.innerHTML = `
-            <img src="${imgPath}Princezna_Deklinace.png" class="monster-img" alt="Princezna" onerror="this.style.display='none'">
-            <h1>VÍTĚZSTVÍ!</h1>
-            <p>${hasFailedOnce ? "Zachránil jsi princeznu, ale jsi vážně zraněn!" : "Dokonalé vítězství! Princezna je volná a ty jsi v pořádku."}</p>
-            <button onclick="location.reload()">Hrát znovu</button>
+        document.getElementById('scene').innerHTML = `
+            <img src="${IMG_PATH}Princezna_Deklinace.png" class="monster-img" alt="Princezna" onerror="this.src='https://cdn-icons-png.flaticon.com/512/3233/3233497.png'">
+            <h1>SLÁVA A LÁSKA!</h1>
+            <div class="status-box">
+                <p>Porazil jsi všech 7 příšer! Princezna <strong>Deklinace</strong> ti děkuje:</p>
+                <p style="font-style: italic; font-size: 1.3em; color: #ff4081; text-align: center; margin-top: 20px;">
+                    „Zachránče můj! Snila jsem o tobě dlouho. Chci se s tebou oženit.“ ❤️🇨🇿
+                </p>
+            </div>
+            <button class="choice-btn" onclick="location.reload()">Hrát znovu</button>
         `;
     }
 </script>
-
 </body>
 </html>
