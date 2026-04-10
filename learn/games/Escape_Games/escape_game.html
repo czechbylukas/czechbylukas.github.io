@@ -589,6 +589,7 @@
 
     let dbInstance = null;
 
+
     async function getRandomA1Word() {
     try {
         if (!dbInstance) {
@@ -596,7 +597,7 @@
                 locateFile: file => `https://cdnjs.cloudflare.com/ajax/libs/sql.js/1.6.2/${file}`
             });
             
-            const dbPath = '../../../lessons/python/czech_master.db';
+            const dbPath = '/VocabSQL_database/czech_master.db';
             const res = await fetch(dbPath);
             if (!res.ok) throw new Error("Could not find database file.");
             
