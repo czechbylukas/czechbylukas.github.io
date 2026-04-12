@@ -99,9 +99,13 @@ def create_past_tense(lemma, person, gender, number):
             stem = base_verb[:-4] + "mu"
             is_actually_irregular = True 
         elif base_verb.endswith("nout"):
-            stem = base_verb[:-1] 
+            # If the letter before -nout is a vowel, keep the -nu-
+            if base_verb[-5] in "aeiyou":
+                stem = base_verb[:-3] + "u" # minout -> minu
+            else:
+                stem = base_verb[:-4] # obléknout -> oblékl, tisknout -> tiskl
         else:
-            stem = base_verb[:-1] 
+            stem = base_verb[:-1]
             
         suffixes = {
             'S': {'M': 'l', 'Mi': 'l', 'F': 'la', 'N': 'lo'},

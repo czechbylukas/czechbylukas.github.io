@@ -21,7 +21,8 @@
         .test-box { background: rgba(255, 255, 255, 0.9); border-radius: 12px; padding: 20px; margin: 20px auto; text-align: center; border: 2px solid #2c3e50; width: 90%; max-width: 500px; min-height: 500px; position: relative; display: flex; flex-direction: column; justify-content: space-between; }
         #image-container { height: 200px; display: flex; justify-content: center; align-items: center; margin-bottom: 10px; }
         .display-eng { font-size: 1.5rem; color: #555; transition: all 0.3s ease; }
-        .display-czech { font-size: 2.2rem; font-weight: bold; color: #d32f2f; margin: 10px 0; min-height: 50px; word-wrap: break-word; }
+        .display-czech { font-size: 2.2rem; font-weight: bold; color: #d32f2f; margin: 10px 0; min-height: 50px; word-wrap: break-word; cursor: pointer; }
+        .display-czech:active { transform: scale(0.98); }
         .no-image-text { font-size: 3rem; color: #2c3e50; font-weight: bold; margin-top: -100px; }
         .no-image-czech { font-size: 3.5rem; }
         #btn-container, #reveal-next { margin-top: auto; padding-top: 20px; display: flex; justify-content: center; }
@@ -157,7 +158,7 @@
        autocomplete="off">
 
 
-        <div id="czech-word" class="sync display-czech hidden"></div>
+        <div id="czech-word" class="sync display-czech hidden" onclick="replayAudio()"></div>
         <div id="btn-container">
             <button class="test-btn" style="background:#27ae60;" onclick="updateWeight('yes')">UMÍM</button>
             <button class="test-btn" style="background:#e74c3c;" onclick="updateWeight('no')">NEUMÍM</button>
@@ -813,7 +814,17 @@ function loadAdsSafely() {
     } catch (e) { console.error("Ads blocked"); }
 }
 
-
+function replayAudio() {
+    if (currentWord && currentWord.czech) {
+        // This reuse existing audio logic
+        const isAudioOn = document.getElementById('audio-toggle').checked;
+        if (currentWord.audio && isAudioOn) {
+            new Audio(currentWord.audio).play();
+        } else {
+            speakCzech(currentWord.czech);
+        }
+    }
+}
 
 // ADD THIS TO THE BOTTOM OF YOUR SCRIPT SECTION
 function insertChar(char) {

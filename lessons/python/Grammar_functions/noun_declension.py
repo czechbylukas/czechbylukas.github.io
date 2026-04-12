@@ -208,6 +208,14 @@ def declension_noun(lemma, case, number, is_animate=False, is_soft=False):
     movable_suffixes = ('ek', 'el', 'er', 'ec', 'eš', 'en', 'ok', 'ak', 'es')
     is_movable_type = lemma_clean.endswith(movable_suffixes)
 
+
+    # SAFETY VALVE: If the word is VERIFIED in the DB and marked as NOT irregular (is_irr=0),
+    # then it's a word like 'majitel' or 'večer'—the vowel is stable. 
+    # We only auto-remove if it's UNVERIFIED or specifically marked as irr_type 9.
+    
+    is_verified_regular = (verified is True and is_irr == 0)
+
+
     # Vowels stay in Nominative Sg (1) and Inanimate Accusative Sg (4)
     is_nom_sg = (case == 1 and number == 'S')
     is_inanimate_acc_sg = (case == 4 and number == 'S' and not is_animate)
