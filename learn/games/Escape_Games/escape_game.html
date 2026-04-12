@@ -183,6 +183,23 @@
         .loader { font-size: 1.1em; color: var(--secondary); margin: 30px; }
         strong { color: #ffeb3b; }
         p.main-desc { font-size: 0.9em; line-height: 1.4; margin: 10px 0; text-align: left; }
+    
+
+    /* Animation to make the found cheat sheet pop! */
+.owl-gift {
+    animation: pulse-border 2s infinite;
+    background: #1e2a38 !important;
+    border: 1px solid var(--accent) !important;
+}
+
+@keyframes pulse-border {
+    0% { box-shadow: 0 0 0 0 rgba(139, 195, 74, 0.7); }
+    70% { box-shadow: 0 0 0 10px rgba(139, 195, 74, 0); }
+    100% { box-shadow: 0 0 0 0 rgba(139, 195, 74, 0); }
+}
+
+
+    
     </style>
 </head>
 <body>
@@ -413,7 +430,9 @@
     
     try {
         // 1. Get the random word directly from czech_master.db (Column C='noun', Column D='A1')
-        const word = await getRandomA1Word();
+        const wordData = await getRandomA1Word();
+        const word = wordData.cz;
+        const wordEn = wordData.en;
 
         // 2. Critical check: If DB returns nothing, stop and show error (No fallbacks!)
         if (!word) {
@@ -427,6 +446,8 @@
 
         // 3. Send that specific word to your Python API to get declension forms
         const { correctForms, options } = await getWordForms(word, m.pad);
+        
+
         
         // 4. Update UI labels
         updateUI();
@@ -445,7 +466,22 @@
                     <p style="color: #8bc34a; font-size: 0.8em;">${wt('hintLabel')}: <span class="tr-text" onmouseover="showT('${m.hint.en.replace(/'/g, "\\'")}')" onmouseout="hideT()">${m.hint.cs}</span></p>
                 </div>
             </div>
-            <p style="margin: 5px 0; font-size: 0.95em;">${wt('prompt')} <strong>${word.toUpperCase()}</strong>:</p>
+            <p style="margin: 10px 0; font-size: 1em; display: flex; align-items: center; justify-content: center; gap: 10px;">
+                <span style="background: var(--accent); color: black; padding: 2px 8px; border-radius: 5px; font-weight: bold; font-size: 0.9em;">
+                    ${m.pad}. pád
+                </span>
+                
+                <span>${wt('prompt')}</span>
+                
+                <strong class="tr-text" 
+                        onmouseover="showT('${wordEn.replace(/'/g, "\\'")}')" 
+                        onmouseout="hideT()" 
+                        style="color: #ffeb3b; cursor: help; border-bottom: 2px dashed #ffeb3b; font-size: 1.2em;">
+                    ${word.toUpperCase()}
+                </strong>:
+            </p>
+
+
             <div id="btn-container"></div>
         `;
 
@@ -518,9 +554,17 @@
                 <div class="status-box" style="border-left: 5px solid var(--accent);">
                     <h2 style="color: var(--accent); margin-top:0; font-size: 1.3em;">${wt('victory')}</h2>
                     <p style="margin: 5px 0;"><span class="tr-text" onmouseover="showT('${m.winMsg.en.replace(/'/g, "\\'")}')" onmouseout="hideT()">${m.winMsg.cs}</span></p>
+                ${m.grammarLink ? `<div style="margin-top: 10px; border-top: 1px dashed #555; padding-top: 10px; display: flex; align-items: center; gap: 15px;">
+                    <img src="${IMG_PATH}Moudra_sova_Slovnice.png" style="width: 40px; height: 40px; border-radius: 50%; border: 1px solid var(--accent);">
+                    <div>
+                        <p style="font-size: 0.85em; font-style: italic; color: #ccc; margin: 0;">${wt('sovaNote')}</p>
+                        <a href="${m.grammarLink}" target="_blank" class="choice-btn" style="background: #2c3e50; font-size: 13px; width: auto; display: inline-block; padding: 5px 10px; margin-top: 5px;">📄 ${wt('cheatSheet')}</a>
+                    </div>
+                </div>` : ""}
                 </div>
-                <button class="choice-btn" onclick="startLevel(currentLevel + 1)">${wt('continue')}</button>
-            `;
+            <button class="choice-btn" onclick="startLevel(currentLevel + 1)">${wt('continue')}</button>
+        `;
+        
         } else {
             // LOSS LOGIC
             // Check for DEATH (Second loss OR Revenge loss)
@@ -628,8 +672,15 @@
             if (wordIndex === -1) wordIndex = 0; // Fallback to first column
 
             const pickedWord = row[wordIndex];
-            console.log("Picked Word:", pickedWord);
-            return pickedWord; 
+            // Najdeme index pro překlad (trans_en)
+            let enIndex = cols.findIndex(c => c.toLowerCase() === 'trans_en');
+            const translation = enIndex !== -1 ? row[enIndex] : "???";
+
+            console.log("Picked Word:", pickedWord, "Translation:", translation);
+
+            // Vracíme objekt s oběma hodnotami
+            return { cz: pickedWord, en: translation };
+            
         } else {
             console.error("No results found for A1 nouns.");
             return null;
@@ -690,6 +741,23 @@
             options: options.sort(() => Math.random() - 0.5) 
         };
     }
+
+    async function getWordFormsWithTranslation(word, targetPad) {
+    let translation = "Czech word";
+    try {
+        const resTr = await fetch(API_URL, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ mode: 'dictionary', word: word })
+        });
+        const dataTr = await resTr.json();
+        translation = dataTr.result ? (dataTr.result.split('=')[1] || dataTr.result) : "translation";
+    } catch (e) { translation = "translation"; }
+
+    const { correctForms, options } = await getWordForms(word, targetPad);
+    return { word, correctForms, options, translation: translation.trim() };
+}
+
 
     showIntro();
 </script>

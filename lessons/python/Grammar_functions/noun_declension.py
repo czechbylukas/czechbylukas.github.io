@@ -33,8 +33,8 @@ def apply_consonant_shift(lemma, stem, suffix, pattern_id, case, number):
     if number == 'S' and case in [3, 6]:
         if pattern_id in ['žena', 'předseda', 'husita', 'ulice']:
             if lemma.endswith('ka'): return stem[:-1] + 'ce'
+            if lemma.endswith('cha'): return stem[:-2] + 'še'
             if lemma.endswith('ha'): return stem[:-1] + 'ze'
-            if lemma.endswith('cha'): return stem[:-1] + 'še'
             if lemma.endswith('ra'): return stem[:-1] + 'ře'
             if lemma.endswith('ga'): return stem[:-1] + 'ze'
         
@@ -42,19 +42,31 @@ def apply_consonant_shift(lemma, stem, suffix, pattern_id, case, number):
             if lemma.endswith('r'): return stem + 'ře'
 
     # 5th Case Singular (Vocative) - special check for guessed words like 'hoch'
-    if number == 'S' and case == 5 and pattern_id == 'pán':
-        if lemma.endswith(('k', 'h', 'ch')):
+    if number == 'S' and case == 5 and pattern_id in ['pán', 'hrad', 'hoch', 'zámek']:
+        if lemma.lower().endswith(('k', 'h', 'ch')):
             return stem + 'u'
 
     # 1st Case Plural (Nominative) for Masculine Animated
     if number == 'P' and case == 1 and pattern_id == 'pán':
-        if lemma.endswith('k'): return stem + 'ci'
-        if lemma.endswith('h'): return stem + 'zi'
-        if lemma.endswith('ch'): return stem + 'ši'
-        if lemma.endswith('r'): return stem + 'ři'
+        if lemma.endswith('k'): return stem[:-1] + 'ci'
+        if lemma.endswith('ch'): return stem[:-2] + 'ši'
+        if lemma.endswith('h'): return stem[:-1] + 'zi'
+        if lemma.endswith('r'): return stem[:-1] + 'ři'
 
-    # Final check to prevent 'rě' - always convert to 'ře'
+    # 6th Case Plural (Locative) for Masculine Hard
+    if number == 'P' and case == 6 and pattern_id in ['pán', 'hrad', 'hoch', 'zámek']:
+        if lemma.endswith('k'): return stem[:-1] + 'cích'
+        if lemma.endswith('ch'): return stem[:-2] + 'ších'
+        if lemma.endswith('h'): return stem[:-1] + 'zích'
+        if lemma.endswith('r'): return stem[:-1] + 'řích'
+
+    # Final check to prevent 'rě' -> 'ře' and block invalid velar + ě
     final_form = stem + suffix
+    
+    # NEW: If word ends in k/h/ch and suffix is ě, force it to 'u'
+    if lemma.lower().endswith(('k', 'h', 'ch')) and suffix in ['ě', 'e/ě', 'u/ě']:
+        return stem + 'u'
+
     if final_form.endswith('rě'):
         return final_form[:-2] + 'ře'
     
@@ -191,17 +203,32 @@ def declension_noun(lemma, case, number, is_animate=False, is_soft=False):
             finally:
                 conn.close()
 
-   # --- NEW: MOVABLE E LOGIC (e.g., pes -> ps-, zámek -> zámk-) ---
-    # Works for both Verified (is_irr=1) and Guessed (is_irr=0) words
-    if irr_type == 9 and not (case == 1 and number == 'S'):
-        # Find the last occurrence of 'e' or 'ě'
-        last_e_idx = max(stem.rfind('e'), stem.rfind('ě'))
+   # --- COMPREHENSIVE MOVABLE VOWEL LOGIC (Based on IJP) ---
+    # Patterns: -ek, -el, -er, -ec, -eš, -en, -ok, -ak, -es
+    movable_suffixes = ('ek', 'el', 'er', 'ec', 'eš', 'en', 'ok', 'ak', 'es')
+    is_movable_type = lemma_clean.endswith(movable_suffixes)
+
+    # Vowels stay in Nominative Sg (1) and Inanimate Accusative Sg (4)
+    is_nom_sg = (case == 1 and number == 'S')
+    is_inanimate_acc_sg = (case == 4 and number == 'S' and not is_animate)
+
+    if (irr_type == 9 or is_movable_type) and not is_nom_sg and not is_inanimate_acc_sg:
+        # Find the last vowel in the stem to remove it
+        # rfind finds the vowel closest to the end of the word
+        idx_e  = stem.rfind('e')
+        idx_ee = stem.rfind('ě')
+        idx_o  = stem.rfind('o')
+        idx_a  = stem.rfind('a')
         
-        # If 'e' exists and is not the very first letter (e.g., 'erb' stays 'erb')
-        if last_e_idx > 0:
-            # Create a new stem by removing that specific 'e'
-            stem = stem[:last_e_idx] + stem[last_e_idx+1:]
-            print(f"DEBUG: Movable E removed. New stem: {stem}")
+        last_v_idx = max(idx_e, idx_ee, idx_o, idx_a)
+        
+        # Only remove if:
+        # 1. A vowel was found (index > -1)
+        # 2. It's not the first letter (e.g., 'erb' stays 'erb')
+        # 3. It's in the final part of the word (within last 3 chars)
+        if last_v_idx > 0 and last_v_idx >= len(stem) - 3:
+            stem = stem[:last_v_idx] + stem[last_v_idx+1:]
+            print(f"DEBUG: Movable vowel '{stem[last_v_idx:last_v_idx]}' removed. New stem: {stem}")
 
     # 2. SUFFIXES
     suffixes = {
@@ -218,7 +245,7 @@ def declension_noun(lemma, case, number, is_animate=False, is_soft=False):
         'kost': {'S': {1:'', 2:'i', 3:'i', 4:'', 5:'i', 6:'i', 7:'í'}, 'P': {1:'i', 2:'í', 3:'em', 4:'i', 5:'i', 6:'ech', 7:'mi'}},
         # MASCULINE ANIMATED
         'pán': {'S': {1:'', 2:'a', 3:'ovi/u', 4:'a', 5:'e', 6:'ovi/u', 7:'em'}, 'P': {1:'i/ové', 2:'ů', 3:'ům', 4:'y', 5:'i/ové', 6:'ech', 7:'y'}},
-        'hoch': {'S': {1:'', 2:'a', 3:'ovi/u', 4:'a', 5:'u', 6:'ovi/u', 7:'em'}, 'P': {1:'i/ové', 2:'ů', 3:'ům', 4:'y', 5:'i/ové', 6:'ích', 7:'y'}},
+        'hoch': {'S': {1:'', 2:'a', 3:'ovi/u', 4:'a', 5:'u', 6:'ovi/u', 7:'em'}, 'P': {1:'i/ové', 2:'ů', 3:'ům', 4:'y', 5:'i/ové', 6:'-2ších', 7:'y'}},
         'občan': {'S': {1:'', 2:'a', 3:'ovi/u', 4:'a', 5:'e', 6:'ovi/u', 7:'em'}, 'P': {1:'é/i', 2:'ů', 3:'ům', 4:'y', 5:'é/i', 6:'ech', 7:'y'}},
         'muž': {'S': {1:'', 2:'e', 3:'ovi/i', 4:'e', 5:'i', 6:'ovi/i', 7:'em'}, 'P': {1:'i/ové', 2:'ů', 3:'ům', 4:'e', 5:'i/ové', 6:'ích', 7:'i'}},
         'otec': {'S': {1:'', 2:'e', 3:'ovi/i', 4:'e', 5:'e', 6:'ovi/i', 7:'em'}, 'P': {1:'i/ové', 2:'ů', 3:'ům', 4:'e', 5:'i/ové', 6:'ích', 7:'i'}},
@@ -229,8 +256,8 @@ def declension_noun(lemma, case, number, is_animate=False, is_soft=False):
         # MASCULINE INANIMATED
         'hrad': {'S': {1:'', 2:'u', 3:'u', 4:'', 5:'e', 6:'u/ě', 7:'em'}, 'P': {1:'y', 2:'ů', 3:'ům', 4:'y', 5:'y', 6:'ech', 7:'y'}},
         'les': {'S': {1:'', 2:'a', 3:'u', 4:'', 5:'e', 6:'e/u', 7:'em'}, 'P': {1:'y', 2:'ů', 3:'ům', 4:'y', 5:'y', 6:'ích', 7:'y'}},
-        'kalich': {'S': {1:'', 2:'u', 3:'u', 4:'', 5:'u', 6:'u', 7:'em'}, 'P': {1:'y', 2:'ů', 3:'ům', 4:'y', 5:'y', 6:'cích', 7:'y'}},
-        'zámek': {'S': {1:'', 2:'u', 3:'u', 4:'', 5:'u', 6:'u/ě', 7:'em'}, 'P': {1:'y', 2:'ů', 3:'ům', 4:'y', 5:'y', 6:'ech', 7:'y'}},
+        'kalich': {'S': {1:'', 2:'u', 3:'u', 4:'', 5:'u', 6:'u', 7:'em'}, 'P': {1:'y', 2:'ů', 3:'ům', 4:'y', 5:'y', 6:'-2ších', 7:'y'}},
+        'zámek': {'S': {1:'', 2:'u', 3:'u', 4:'', 5:'u', 6:'u', 7:'em'}, 'P': {1:'y', 2:'ů', 3:'ům', 4:'y', 5:'y', 6:'-2cích', 7:'y'}},
         'stroj': {'S': {1:'', 2:'e', 3:'i', 4:'', 5:'i', 6:'i', 7:'em'}, 'P': {1:'e', 2:'ů', 3:'ím', 4:'e', 5:'e', 6:'ích', 7:'i'}}
     }
 
@@ -255,9 +282,14 @@ def declension_noun(lemma, case, number, is_animate=False, is_soft=False):
             suf = p_data[number].get(case, '')
             if '/' in suf:
                 parts = suf.split('/')
-                res1 = apply_consonant_shift(lemma, stem, parts[0], pattern_id, case, number)
-                res2 = apply_consonant_shift(lemma, stem, parts[1], pattern_id, case, number)
-                result = f"{res1}, {res2}"
+                # Use a set to collect unique results
+                unique_results = []
+                for p in parts:
+                    res = apply_consonant_shift(lemma, stem, p, pattern_id, case, number)
+                    if res not in unique_results:
+                        unique_results.append(res)
+                
+                result = ", ".join(unique_results)
             else:
                 result = apply_consonant_shift(lemma, stem, suf, pattern_id, case, number)
 
