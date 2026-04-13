@@ -524,20 +524,27 @@ function speakCzech(text) {
     const isAudioOn = document.getElementById('audio-toggle').checked;
     if (!isAudioOn || !window.speechSynthesis) return;
 
-    // 1. Find the Czech voice object
-    const voices = window.speechSynthesis.getVoices();
-    const czechVoice = voices.find(v => v.lang === 'cs-CZ' || v.lang === 'cs_CZ');
-
     const utterance = new SpeechSynthesisUtterance(text);
     
-    // 2. FORCE the voice object if found
+    // 1. Get all available system voices
+    const voices = window.speechSynthesis.getVoices();
+    
+    // 2. Find a voice that matches 'cs' (Czech)
+    // We look for 'cs-CZ' first, then any 'cs'
+    const czechVoice = voices.find(v => v.lang === 'cs-CZ') || 
+                       voices.find(v => v.lang.toLowerCase().includes('cs'));
+
     if (czechVoice) {
         utterance.voice = czechVoice;
+    } else {
+        // 3. Fallback: If no Czech voice object is found, we tell the 
+        // browser to try its best with the language tag anyway.
+        utterance.lang = 'cs-CZ';
     }
-    
-    utterance.lang = 'cs-CZ';
+
     utterance.rate = 0.9;
 
+    // Stop any current speech before starting new one
     window.speechSynthesis.cancel(); 
     window.speechSynthesis.speak(utterance);
 }
