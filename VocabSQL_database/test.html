@@ -417,38 +417,43 @@ async function fetchWikiImage(query) {
 function speakCzech(text, callback) {
     const isAudioOn = document.getElementById('audio-toggle').checked;
 
-    // If audio is OFF or speech is not supported, just skip to the next step
     if (!isAudioOn || !window.speechSynthesis) {
         if (callback) callback();
         return;
     }
 
+    // 1. Find the Czech voice
+    const voices = window.speechSynthesis.getVoices();
+    const czechVoice = voices.find(v => v.lang === 'cs-CZ' || v.lang === 'cs_CZ');
+
+    window.speechSynthesis.cancel(); 
+
     if (!text.includes('/')) {
         const utterance = new SpeechSynthesisUtterance(text);
+        if (czechVoice) utterance.voice = czechVoice; // FORCE SINGLE WORD
         utterance.lang = 'cs-CZ';
         utterance.rate = 0.9;
         if (callback) utterance.onend = callback;
-        window.speechSynthesis.cancel();
         window.speechSynthesis.speak(utterance);
-        return;
+    } else {
+        const mascText = text.replace(/\/([a-zA-ZžščřďťňěáéíýóúůŽŠČŘĎŤŇĚÁÉÍÝÓÚŮ]+)/g, "");
+        const femText = text.replace(/\//g, "");
+
+        const msgMasc = new SpeechSynthesisUtterance(mascText);
+        if (czechVoice) msgMasc.voice = czechVoice; // FORCE MASCULINE
+        msgMasc.lang = 'cs-CZ';
+        msgMasc.rate = 0.9;
+
+        const msgFem = new SpeechSynthesisUtterance(femText);
+        if (czechVoice) msgFem.voice = czechVoice; // FORCE FEMININE
+        msgFem.lang = 'cs-CZ';
+        msgFem.rate = 0.9;
+
+        if (callback) msgFem.onend = callback;
+
+        window.speechSynthesis.speak(msgMasc);
+        window.speechSynthesis.speak(msgFem);
     }
-
-    const mascText = text.replace(/\/([a-zA-ZžščřďťňěáéíýóúůŽŠČŘĎŤŇĚÁÉÍÝÓÚŮ]+)/g, "");
-    const femText = text.replace(/\//g, "");
-
-    const msgMasc = new SpeechSynthesisUtterance(mascText);
-    msgMasc.lang = 'cs-CZ';
-    msgMasc.rate = 0.9;
-
-    const msgFem = new SpeechSynthesisUtterance(femText);
-    msgFem.lang = 'cs-CZ';
-    msgFem.rate = 0.9;
-
-    if (callback) msgFem.onend = callback;
-
-    window.speechSynthesis.cancel();
-    window.speechSynthesis.speak(msgMasc);
-    window.speechSynthesis.speak(msgFem);
 }
 
 
@@ -840,6 +845,14 @@ function insertChar(char) {
 
 
 initDatabase();
+
+
+// This ensures voices are loaded immediately on page load
+window.speechSynthesis.getVoices();
+if (speechSynthesis.onvoiceschanged !== undefined) {
+    speechSynthesis.onvoiceschanged = () => speechSynthesis.getVoices();
+}
+
 
 </script>
 </body>

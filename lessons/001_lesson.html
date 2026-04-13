@@ -413,15 +413,32 @@ function speakCzech(text) {
     const isAudioOn = document.getElementById('audio-toggle').checked;
     if (!isAudioOn || !window.speechSynthesis) return;
 
+    // 1. Get the list of voices
+    const voices = window.speechSynthesis.getVoices();
+    
+    // 2. Find a Czech-specific voice
+    const czechVoice = voices.find(v => v.lang === 'cs-CZ' || v.lang === 'cs_CZ');
+
     const utterance = new SpeechSynthesisUtterance(text);
+    
+    // 3. Force the Czech voice object if it exists
+    if (czechVoice) {
+        utterance.voice = czechVoice;
+    }
+
     utterance.lang = 'cs-CZ';
     utterance.rate = 0.9;
-    window.speechSynthesis.cancel(); // Stops any current speech
+
+    window.speechSynthesis.cancel(); // Stop any overlapping speech
     window.speechSynthesis.speak(utterance);
 }
 
 
-
+// This forces the browser to load voices immediately on page load
+window.speechSynthesis.getVoices();
+if (speechSynthesis.onvoiceschanged !== undefined) {
+    speechSynthesis.onvoiceschanged = () => speechSynthesis.getVoices();
+}
 
 </script>
 
