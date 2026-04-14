@@ -21,14 +21,8 @@ CORS(app, resources={r"/*": {"origins": "*"}})
 def home():
     return "HackCzech API is Running", 200
 
-@app.route('/process', methods=['POST', 'OPTIONS'])
+@app.route('/process', methods=['POST'])
 def process_word():
-    if request.method == 'OPTIONS':
-        response = make_response()
-        response.headers.add("Access-Control-Allow-Origin", "*")
-        response.headers.add("Access-Control-Allow-Headers", "Content-Type, Authorization")
-        response.headers.add("Access-Control-Allow-Methods", "POST, OPTIONS")
-        return response, 200
 
     try:
         data = request.get_json()
@@ -65,10 +59,17 @@ def process_word():
             result_text = res
 
         elif mode == 'noun':
-            # Receive 5 values now!
+            # 1. Call the function (returns the word and the verification status)
             res, ver, refl, irr, pattern = declension_noun(word, case, number, is_animate, is_soft)
             result_text = res
-            # Add the pattern name to the badges list
+            
+            # 2. Add the Verification Badge (True = Green, "UNVERIFIED" = Yellow)
+            if ver is True:
+                status_badges.append(True)
+            else:
+                status_badges.append("UNVERIFIED")
+
+            # 3. Add the Pattern Badge (e.g., "hrad")
             if pattern:
                 status_badges.append(pattern)
 
@@ -97,15 +98,13 @@ def process_word():
             status_badges.append("Singular" if number == 'S' else "Plural")
             
 
-        # --- 4. SUCCESSFUL RESPONSE ---
-        resp = jsonify({"result": result_text, "status": status_badges})
-        resp.headers.add("Access-Control-Allow-Origin", "*")
-        return resp
+        # 4. CLEAN RETURN
+        # Notice: No more manual "Access-Control-Allow-Origin" lines here!
+        return jsonify({"result": result_text, "status": status_badges})
 
     except Exception as e:
-        error_resp = jsonify({"error": str(e)})
-        error_resp.headers.add("Access-Control-Allow-Origin", "*")
-        return error_resp, 500
+        print(f"CRITICAL ERROR: {str(e)}")
+        return jsonify({"error": "Internal Server Error"}), 500
 
 if __name__ == '__main__':
     port = int(os.environ.get('PORT', 5000))

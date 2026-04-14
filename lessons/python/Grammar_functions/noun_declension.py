@@ -1,6 +1,10 @@
 import sqlite3
 import os
-from unittest import result
+import requests            # New: For Wikislovník
+import urllib.parse       # New: For Czech URL encoding
+from bs4 import BeautifulSoup # New: For parsing the website
+import gspread             # New: For Google Sheets
+from oauth2client.service_account import ServiceAccountCredentials # New: For Auth
 
 def guess_pattern(lemma, is_animate=False, is_soft=False):
     """Guesses pattern based on endings, animacy, and softness."""
@@ -75,6 +79,82 @@ def apply_consonant_shift(lemma, stem, suffix, pattern_id, case, number):
         final_form = final_form[:-2] + 'le'
 
     return final_form
+
+
+
+def get_wiktionary_forms(lemma):
+    """Fetches forms from Wikislovník with a Browser identity."""
+    url = f"https://cs.wiktionary.org/wiki/{urllib.parse.quote(lemma)}"
+    
+    # This tells Wikislovník "I am a normal Chrome browser," not a bot.
+    headers = {
+        'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36'
+    }
+
+    try:
+        # Increase timeout slightly to 1.5 just in case the server is slow
+        response = requests.get(url, timeout=1.5, headers=headers)
+        
+        if response.status_code != 200: 
+            print(f"Wiktionary blocked us or word not found: {response.status_code}")
+            return None
+            
+        soup = BeautifulSoup(response.content, 'html.parser')
+        
+        # Look for the specific Czech inflection table
+        table = soup.find('table', {'class': 'inflection-table'})
+        if not table: 
+            return None
+            
+        forms = {}
+        rows = table.find_all('tr')[1:]
+        for i, row in enumerate(rows):
+            cells = row.find_all('td')
+            if len(cells) >= 2:
+                # Clean the text: remove footnotes like [1] and extra spaces
+                sg = cells[0].get_text(strip=True).split(',')[0].split('[')[0]
+                pl = cells[1].get_text(strip=True).split(',')[0].split('[')[0]
+                forms[(i + 1, 'S')] = sg
+                forms[(i + 1, 'P')] = pl
+        return forms
+
+    except Exception as e: 
+        print(f"Wiktionary Error: {e}")
+        return None
+
+
+
+
+
+
+def log_mismatch_to_gsheet(lemma, case, number, my_val, wiki_val):
+    """Logs errors to Google Sheet now that we have the setup!"""
+    try:
+        # Define the scope
+        scope = ["https://spreadsheets.google.com/feeds", "https://www.googleapis.com/auth/drive"]
+        
+        # This looks for the file you downloaded in Step 2
+        current_dir = os.path.dirname(os.path.abspath(__file__))
+        key_path = os.path.join(current_dir, "..", "service_account.json")
+        
+        creds = ServiceAccountCredentials.from_json_keyfile_name(key_path, scope)
+        client = gspread.authorize(creds)
+        
+        # This opens the sheet you named in Step 1
+        sheet = client.open("Czech_Declension_Log").sheet1
+        
+        # This adds the data!
+        sheet.append_row([lemma, f"{case}. pád", number, my_val, wiki_val])
+        print(f"Successfully logged mismatch for {lemma}")
+
+    except Exception as e:
+        # If the file is missing or name is wrong, we see it here
+        print(f"Logging to Sheet failed: {e}")
+
+
+
+
+
 
 
 # 1. Update the signature to include is_soft=False
@@ -205,7 +285,7 @@ def declension_noun(lemma, case, number, is_animate=False, is_soft=False):
 
    # --- COMPREHENSIVE MOVABLE VOWEL LOGIC (Based on IJP) ---
     # Patterns: -ek, -el, -er, -ec, -eš, -en, -ok, -ak, -es
-    movable_suffixes = ('ek', 'el', 'er', 'ec', 'eš', 'en', 'ok', 'ak', 'es')
+    movable_suffixes = ('ek', 'ec','es')
     is_movable_type = lemma_clean.endswith(movable_suffixes)
 
 
@@ -288,6 +368,9 @@ def declension_noun(lemma, case, number, is_animate=False, is_soft=False):
                 result = apply_consonant_shift(lemma, stem, suf, pattern_id, case, number)
         else:
             suf = p_data[number].get(case, '')
+            if lemma.endswith('ě'):
+                if suf == 'e': suf = 'ě'
+                elif suf == 'emi': suf = 'ěmi'
             if '/' in suf:
                 parts = suf.split('/')
                 # Use a set to collect unique results
@@ -309,6 +392,32 @@ def declension_noun(lemma, case, number, is_animate=False, is_soft=False):
             result = ", ".join([f"{prep} {r.strip()}" for r in result.split(",")])
         else:
             result = f"{prep} {result}"
+
+
+
+
+
+    # Inside declension_noun, right before the return:
+    try:
+        # Get just the word, removing the preposition (the part after the space)
+        my_word_only = result.split(' ')[-1] if ' ' in result else result
+        
+        wiki_data = get_wiktionary_forms(lemma)
+        if wiki_data:
+            wiki_form = wiki_data.get((case, number))
+            if wiki_form:
+                # If they match, we turn verification to True!
+                if my_word_only == wiki_form:
+                    verified = True
+                else:
+                    # If they don't match, log it and keep verified as UNVERIFIED
+                    log_mismatch_to_gsheet(lemma, case, number, my_word_only, wiki_form)
+    except Exception as e:
+        print(f"Verification step failed: {e}")
+
+
+
+
 
     # --- 5. UNIFIED RETURN (Crucial to prevent 500 error) ---
     status_badges = [verified]
