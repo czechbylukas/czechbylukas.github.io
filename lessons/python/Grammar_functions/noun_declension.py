@@ -83,43 +83,38 @@ def apply_consonant_shift(lemma, stem, suffix, pattern_id, case, number):
 
 
 def get_wiktionary_forms(lemma):
-    """Fetches forms from Wikislovník with a Browser identity."""
     url = f"https://cs.wiktionary.org/wiki/{urllib.parse.quote(lemma)}"
-    
-    # This tells Wikislovník "I am a normal Chrome browser," not a bot.
-    headers = {
-        'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36'
-    }
-
+    headers = {'User-Agent': 'Mozilla/5.0'}
     try:
-        # Increase timeout slightly to 1.5 just in case the server is slow
-        response = requests.get(url, timeout=1.5, headers=headers)
-        
-        if response.status_code != 200: 
-            print(f"Wiktionary blocked us or word not found: {response.status_code}")
-            return None
+        response = requests.get(url, timeout=2.0, headers=headers)
+        if response.status_code != 200: return None
             
         soup = BeautifulSoup(response.content, 'html.parser')
         
-        # Look for the specific Czech inflection table
+        # 1. Find the table with the class 'inflection-table'
         table = soup.find('table', {'class': 'inflection-table'})
-        if not table: 
-            return None
+        if not table: return None
             
         forms = {}
-        rows = table.find_all('tr')[1:]
-        for i, row in enumerate(rows):
+        # 2. Iterate through rows. Wiktionary rows follow the 7 cases in order.
+        rows = table.find_all('tr')
+        
+        case_counter = 1
+        for row in rows:
             cells = row.find_all('td')
+            # A valid row has at least 2 cells (Singular and Plural)
             if len(cells) >= 2:
-                # Clean the text: remove footnotes like [1] and extra spaces
-                sg = cells[0].get_text(strip=True).split(',')[0].split('[')[0]
-                pl = cells[1].get_text(strip=True).split(',')[0].split('[')[0]
-                forms[(i + 1, 'S')] = sg
-                forms[(i + 1, 'P')] = pl
+                # 3. Clean the text (remove footnotes like [1] or alternative forms after commas)
+                sg = cells[0].get_text(strip=True).split(',')[0].split('[')[0].replace('\xad', '')
+                pl = cells[1].get_text(strip=True).split(',')[0].split('[')[0].replace('\xad', '')
+                
+                forms[(case_counter, 'S')] = sg
+                forms[(case_counter, 'P')] = pl
+                case_counter += 1
+                
         return forms
-
-    except Exception as e: 
-        print(f"Wiktionary Error: {e}")
+    except Exception as e:
+        print(f"Scraper Error: {e}")
         return None
 
 
@@ -396,24 +391,32 @@ def declension_noun(lemma, case, number, is_animate=False, is_soft=False):
 
 
 
-
-    # Inside declension_noun, right before the return:
+    # --- WIKTIONARY VERIFICATION ---
     try:
-        # Get just the word, removing the preposition (the part after the space)
+        # 1. Get our result without the preposition for comparison
+        # (e.g., "bez babky" -> "babky")
         my_word_only = result.split(' ')[-1] if ' ' in result else result
         
+        # 2. Fetch the "Truth" from Wiktionary
         wiki_data = get_wiktionary_forms(lemma)
+        
         if wiki_data:
-            wiki_form = wiki_data.get((case, number))
-            if wiki_form:
-                # If they match, we turn verification to True!
-                if my_word_only == wiki_form:
+            wiki_val = wiki_data.get((case, number))
+            
+            if wiki_val:
+                print(f"DEBUG: Comparing '{my_word_only}' to Wiki's '{wiki_val}'")
+                
+                # 3. The Comparison
+                if my_word_only.lower().strip() == wiki_val.lower().strip():
                     verified = True
+                    print(f"DEBUG WIKI: MATCH SUCCESS for {lemma}!")
                 else:
-                    # If they don't match, log it and keep verified as UNVERIFIED
-                    log_mismatch_to_gsheet(lemma, case, number, my_word_only, wiki_form)
+                    # If it exists but doesn't match, log it to your spreadsheet!
+                    log_mismatch_to_gsheet(lemma, case, number, my_word_only, wiki_val)
+            else:
+                print("DEBUG: Wiki found the page, but not that specific case/number.")
     except Exception as e:
-        print(f"Verification step failed: {e}")
+        print(f"Verification process failed: {e}")
 
 
 
