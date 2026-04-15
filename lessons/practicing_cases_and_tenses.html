@@ -625,13 +625,18 @@ async function verifyWithWiktionary(word, myResult, caseValue, numberValue) {
         preposition = parts.join(" ") + " "; 
     }
 
-    try {
-        // Switch to a more open proxy format
-        const proxyUrl = "https://api.allorigins.win/get?url=" + encodeURIComponent(`https://cs.wiktionary.org/wiki/${word}`);
-        const response = await fetch(proxyUrl);
-        const html = await response.text();
-        const doc = new DOMParser().parseFromString(html, "text/html");
+    // Using a different proxy that handles HTTPS origins better
+    const targetUrl = `https://cs.wiktionary.org/wiki/${encodeURIComponent(word)}`;
+    const proxyUrl = `https://api.allorigins.win/get?url=${encodeURIComponent(targetUrl)}`;
 
+    try {
+        const response = await fetch(proxyUrl);
+        if (!response.ok) throw new Error("Proxy response not ok");
+        
+        const data = await response.json();
+        const html = data.contents; // This is the actual HTML string from Wiktionary
+
+        const doc = new DOMParser().parseFromString(html, "text/html");
         const tables = doc.querySelectorAll('table');
         let matchFound = false;
 
@@ -643,44 +648,36 @@ async function verifyWithWiktionary(word, myResult, caseValue, numberValue) {
                 if (row.innerText.toLowerCase().includes(targetCase)) {
                     const cells = row.querySelectorAll('td');
                     if (cells.length >= 2) {
-                    // 1. Get the raw text (e.g., "psovi / psu" or "psovi, psu")
-                    const rawWikiValue = cells[targetNumIdx].innerText.trim();
-                    console.log("Raw Wiki Value found:", rawWikiValue);
-                    
-                    // 2. Split by comma OR slash, then clean up each word
-                    // This regex [,/] splits on either character
-                    const wikiOptions = rawWikiValue.split(/[,/]/).map(s => s.trim().split(' ')[0].toLowerCase());
-                    
-                    // 3. Attach the preposition to EACH word individually
-                    // Result: "k psovi / k psu"
-                    const fullWikiString = wikiOptions.map(opt => `${preposition}${opt}`).join(' / ');
-                    
-                    matchFound = true;
-                    warningElement.style.display = 'none';
-                    console.log("Match Found! Verified string:", fullWikiString);
+                        const rawWikiValue = cells[targetNumIdx].innerText.trim();
+                        console.log("Wiki match found:", rawWikiValue);
+                        
+                        // Handle multiple options (comma or slash)
+                        const wikiOptions = rawWikiValue.split(/[,/]/).map(s => s.trim().split(' ')[0].toLowerCase());
+                        const fullWikiString = wikiOptions.map(opt => `${preposition}${opt}`).join(' / ');
+                        
+                        matchFound = true;
+                        warningElement.style.display = 'none';
 
-                    const wBadge = document.createElement('span');
-                    wBadge.className = 'badge-w';
-                    wBadge.innerText = 'W';
-                    badgesContainer.prepend(wBadge);
+                        const wBadge = document.createElement('span');
+                        wBadge.className = 'badge-w';
+                        wBadge.innerText = 'W';
+                        badgesContainer.prepend(wBadge);
 
-                    // 4. Compare: We check if the result from your code is found in the list of wiki options
-                    const isCorrect = wikiOptions.includes(cleanedAppResult.toLowerCase());
-
-                    if (!isCorrect) {
-                        console.log("Mismatch detected. Swapping", cleanedAppResult, "for", fullWikiString);
-                        resultTextElement.innerText = fullWikiString;
-                        logMismatchToSheet(word, targetCase, numberValue, cleanedAppResult, rawWikiValue);
-                        speakCzech(fullWikiString);
+                        // If user's result isn't in the list of valid wiki options, swap it
+                        if (!wikiOptions.includes(cleanedAppResult.toLowerCase())) {
+                            console.log("Updating UI with Wiki result:", fullWikiString);
+                            resultTextElement.innerText = fullWikiString;
+                            logMismatchToSheet(word, targetCase, numberValue, cleanedAppResult, rawWikiValue);
+                            speakCzech(fullWikiString);
+                        }
+                        break;
                     }
-                    break;
-                }
                 }
             }
         }
 
         if (!matchFound) {
-            console.warn("Word exists on Wiki, but specific case table was not found.");
+            console.warn("Table row for case not found on Wiktionary.");
             warningElement.style.display = 'block';
         }
 
