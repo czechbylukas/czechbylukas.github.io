@@ -1,34 +1,64 @@
 <!DOCTYPE html>
-<html>
+<html lang="cs">
 <head>
-    <title>Wiki Tester</title>
+    <meta charset="UTF-8">
+    <title>Wiki Scraper (Direct)</title>
+    <style>
+        body { font-family: sans-serif; padding: 20px; line-height: 1.6; }
+        #result { font-weight: bold; color: #2c3e50; font-size: 1.2em; }
+        .loading { color: #7f8c8d; }
+    </style>
 </head>
 <body>
     <h2>Check 2. pád (Genitive)</h2>
-    <input type="text" id="wordInput" placeholder="Enter noun (e.g. dům)">
-    <button onclick="checkWiki()">Check Wiktislovník</button>
-    
-    <div style="margin-top: 20px;">
-        <strong>Result from Wiki:</strong> <span id="output">...</span>
+    <input type="text" id="word" placeholder="Zadejte slovo (např. dům)">
+    <button onclick="getWikiData()">Scrape Wiktislovník</button>
+
+    <div style="margin-top:20px;">
+        Genitiv (Singulár): <span id="result">-</span>
     </div>
 
     <script>
-        async function checkWiki() {
-            const word = document.getElementById('wordInput').value;
-            const output = document.getElementById('output');
-            output.innerText = "Searching...";
+        async function getWikiData() {
+            const word = document.getElementById('word').value;
+            const display = document.getElementById('result');
+            display.innerText = "Hledám...";
+            display.className = "loading";
+
+            // We use the 'allorigins' proxy to bypass CORS security
+            const proxy = "https://api.allorigins.win/get?url=";
+            const target = `https://cs.wiktionary.org/wiki/${encodeURIComponent(word)}`;
 
             try {
-                // Change this URL to your App Engine URL if you deploy it!
-                const response = await fetch('http://127.0.0.1:5001/test', {
-                    method: 'POST',
-                    headers: {'Content-Type': 'application/json'},
-                    body: JSON.stringify({word: word})
-                });
+                const response = await fetch(proxy + encodeURIComponent(target));
                 const data = await response.json();
-                output.innerText = data.genitive;
+                
+                // data.contents is the full HTML of the Wiktionary page
+                const parser = new DOMParser();
+                const doc = parser.parseFromString(data.contents, 'text/html');
+                
+                // Find the table
+                const table = doc.querySelector('.inflection-table');
+                
+                if (table) {
+                    // In Czech Wiktionary tables, rows are:
+                    // Nom, Gen, Dat, Acc, Voc, Loc, Ins
+                    // We want row 2 (index 1) if we count from the first data row
+                    const rows = Array.from(table.querySelectorAll('tr')).filter(tr => tr.querySelector('td'));
+                    
+                    if (rows.length >= 2) {
+                        const genitive = rows[1].querySelector('td').innerText;
+                        // Clean up footnotes like [1]
+                        display.innerText = genitive.split('[')[0].split(',')[0].trim();
+                        display.className = "";
+                    } else {
+                        display.innerText = "Tabulka nalezena, ale chybí 2. pád.";
+                    }
+                } else {
+                    display.innerText = "Slovo nenalezeno nebo nemá tabulku skloňování.";
+                }
             } catch (err) {
-                output.innerText = "Failed to connect to Python: " + err;
+                display.innerText = "Chyba při spojení s proxy: " + err;
             }
         }
     </script>
