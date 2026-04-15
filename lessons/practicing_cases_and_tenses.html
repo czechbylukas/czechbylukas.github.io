@@ -641,32 +641,49 @@ async function verifyWithWiktionary(word, myResult, caseValue, numberValue) {
     let html = null;
 
     for (let config of proxyConfigs) {
+    try {
+        console.log(`Trying proxy: ${config.url}`);
+        const controller = new AbortController();
+
+        const timeoutId = setTimeout(() => {
+            console.warn(`Timeout on ${config.type} proxy`);
+            controller.abort();
+        }, 8000);
+
+        let response;
         try {
-            console.log(`Trying proxy: ${config.url}`);
-            const controller = new AbortController();
-            const timeoutId = setTimeout(() => controller.abort(), 30010); // 3 sec limit
-
-            const response = await fetch(config.url, { signal: controller.signal });
+            response = await fetch(config.url, { signal: controller.signal });
+        } finally {
             clearTimeout(timeoutId);
-
-            if (!response.ok) continue;
-
-            if (config.type === 'json') {
-                const data = await response.json();
-                html = data.contents;
-            } else {
-                html = await response.text();
-            }
-
-            if (html && html.length > 500) {
-                console.log("Success with proxy type:", config.type);
-                break; 
-            }
-        } catch (err) {
-            console.warn(`Proxy failed (${config.type}):`, err.message);
-            // Loop continues to next proxy automatically
         }
+
+        // PUT IT HERE
+        if (response.status === 403) {
+            console.warn(`403 blocked by ${config.type} proxy`);
+            continue;
+        }
+
+        if (!response.ok) {
+            console.warn(`Request failed: ${response.status}`);
+            continue;
+        }
+
+        if (config.type === 'json') {
+            const data = await response.json();
+            html = data.contents;
+        } else {
+            html = await response.text();
+        }
+
+        if (html && html.length > 500) {
+            console.log("Success with proxy type:", config.type);
+            break;
+        }
+
+    } catch (err) {
+        console.warn(`Proxy failed (${config.type}):`, err.message);
     }
+}
 
     if (!html) {
         warningElement.style.display = 'block';
