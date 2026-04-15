@@ -83,38 +83,45 @@ def apply_consonant_shift(lemma, stem, suffix, pattern_id, case, number):
 
 
 def get_wiktionary_forms(lemma):
+    if not lemma: return None
     url = f"https://cs.wiktionary.org/wiki/{urllib.parse.quote(lemma)}"
-    headers = {'User-Agent': 'Mozilla/5.0'}
+    headers = {'User-Agent': 'HackCzech-Bot/1.0'} # Better to identify your app
     try:
-        response = requests.get(url, timeout=2.0, headers=headers)
+        response = requests.get(url, timeout=3.0, headers=headers)
         if response.status_code != 200: return None
-            
-        soup = BeautifulSoup(response.content, 'html.parser')
         
-        # 1. Find the table with the class 'inflection-table'
+        soup = BeautifulSoup(response.content, 'html.parser')
+        # Specific search for the declension table
         table = soup.find('table', {'class': 'inflection-table'})
+        
+        # If no table, don't crash, just return None
         if not table: return None
             
         forms = {}
-        # 2. Iterate through rows. Wiktionary rows follow the 7 cases in order.
-        rows = table.find_all('tr')
+        case_map = {
+            "nominativ": 1, "genitiv": 2, "dativ": 3, 
+            "akuzativ": 4, "vokativ": 5, "lokál": 6, "instrumentál": 7
+        }
         
-        case_counter = 1
-        for row in rows:
-            cells = row.find_all('td')
-            # A valid row has at least 2 cells (Singular and Plural)
-            if len(cells) >= 2:
-                # 3. Clean the text (remove footnotes like [1] or alternative forms after commas)
-                sg = cells[0].get_text(strip=True).split(',')[0].split('[')[0].replace('\xad', '')
-                pl = cells[1].get_text(strip=True).split(',')[0].split('[')[0].replace('\xad', '')
-                
-                forms[(case_counter, 'S')] = sg
-                forms[(case_counter, 'P')] = pl
-                case_counter += 1
-                
+        for row in table.find_all('tr'):
+            th = row.find('th')
+            tds = row.find_all('td')
+            if th and len(tds) >= 2:
+                label = th.get_text(strip=True).lower()
+                # Check if this row is one of our 7 cases
+                if any(c_name in label for c_name in case_map):
+                    # Extract the case number
+                    case_num = next(num for name, num in case_map.items() if name in label)
+                    
+                    # Clean data: remove [1], remove text after comma
+                    sg = tds[0].get_text(strip=True).split(',')[0].split('[')[0].replace('\xad', '')
+                    pl = tds[1].get_text(strip=True).split(',')[0].split('[')[0].replace('\xad', '')
+                    
+                    forms[(case_num, 'S')] = sg
+                    forms[(case_num, 'P')] = pl
         return forms
     except Exception as e:
-        print(f"Scraper Error: {e}")
+        print(f"Scraper error: {e}")
         return None
 
 
@@ -391,32 +398,33 @@ def declension_noun(lemma, case, number, is_animate=False, is_soft=False):
 
 
 
+
     # --- WIKTIONARY VERIFICATION ---
     try:
-        # 1. Get our result without the preposition for comparison
-        # (e.g., "bez babky" -> "babky")
-        my_word_only = result.split(' ')[-1] if ' ' in result else result
+        # Force result to string to prevent split() crashes
+        res_str = str(result)
+        my_word_only = res_str.split(' ')[-1] if ' ' in res_str else res_str
         
-        # 2. Fetch the "Truth" from Wiktionary
         wiki_data = get_wiktionary_forms(lemma)
-        
-        if wiki_data:
-            wiki_val = wiki_data.get((case, number))
+        if wiki_data and (case, number) in wiki_data:
+            wiki_val = wiki_data[(case, number)]
             
-            if wiki_val:
-                print(f"DEBUG: Comparing '{my_word_only}' to Wiki's '{wiki_val}'")
-                
-                # 3. The Comparison
-                if my_word_only.lower().strip() == wiki_val.lower().strip():
-                    verified = True
-                    print(f"DEBUG WIKI: MATCH SUCCESS for {lemma}!")
-                else:
-                    # If it exists but doesn't match, log it to your spreadsheet!
-                    log_mismatch_to_gsheet(lemma, case, number, my_word_only, wiki_val)
+            if my_word_only.lower().strip() == wiki_val.lower().strip():
+                verified = True
             else:
-                print("DEBUG: Wiki found the page, but not that specific case/number.")
+                # Log mismatch but don't let it crash the return
+                try:
+                    log_mismatch_to_gsheet(lemma, case, number, my_word_only, wiki_val)
+                except: pass 
+                
+                # Correction logic
+                if ' ' in res_str:
+                    result = f"{res_str.split(' ')[0]} {wiki_val}"
+                else:
+                    result = wiki_val
+                verified = True
     except Exception as e:
-        print(f"Verification process failed: {e}")
+        print(f"Wiki check bypassed due to error: {e}")
 
 
 
