@@ -108,6 +108,14 @@
             font-size: 13px; 
             margin-top: 10px; 
         }
+        #unverified-warning {
+            color: var(--danger);
+            font-size: 13px;
+            font-weight: bold;
+            margin-bottom: 10px;
+            display: none; /* Keep it hidden by default */
+        }
+
 
         /* Helper & Warning */
         .helper-box { background: #fff9e6; border: 1px dashed var(--warning); padding: 15px; border-radius: 12px; margin: 15px 0; text-align: left; }
@@ -118,6 +126,37 @@
             from { opacity: 0; transform: translateY(10px); }
             to { opacity: 1; transform: translateY(0); }
         }
+
+        /* Small circular W badge */
+        .badge-w {
+            background: #27ae60;
+            color: white;
+            padding: 2px 7px;
+            border-radius: 50%;
+            font-size: 11px;
+            font-weight: bold;
+            cursor: help;
+            display: inline-block;
+            margin-right: 5px; /* Space between W and other badges */
+            vertical-align: middle;
+        }
+
+        .wiki-error {
+            display: block;
+            width: 100%;
+            font-size: 14px;
+            color: #e74c3c;
+            margin-top: 10px;
+            padding-top: 8px;
+            border-top: 1px dashed #ddd;
+            font-weight: bold;
+        } 
+
+
+
+
+
+
     </style>
 </head>
 
@@ -360,14 +399,11 @@ async function callPythonAPI(event) {
     const mode = document.getElementById('mode').value;
     const word = document.getElementById('grammar_query').value.trim();
 
-    // POP-UP CHECK: If helper box is visible, the word is unknown. Ask user.
-    const isUnknown = !document.getElementById('noun-helper').classList.contains('hidden-menu');
-    if (isUnknown) {
-        const proceed = confirm("Word not found in database. Continue with a grammar guess?");
-        if (!proceed) return; // Stops the function if they click 'Cancel'
-    }
+    console.log("--- Starting API Call ---");
+    console.log("Word:", word, "Mode:", mode);
 
     document.getElementById('unverified-warning').style.display = 'none';
+
     const btn = document.getElementById('submit-btn');
     const loader = document.getElementById('loader');
     btn.disabled = true;
@@ -381,35 +417,29 @@ async function callPythonAPI(event) {
         gender: document.getElementById('gender-row').classList.contains('hidden-menu') ? 'M' : document.getElementById('gender').value,
         case: document.getElementById('case').value,
         number: (mode === 'verb') ? document.getElementById('verb-number').value : document.getElementById('noun-number').value,
-        // ADD THIS: Tell the engine to "guess" if it's not in the DB
         is_animate: document.getElementById('is_animate').value === 'y',
         is_soft: document.getElementById('is_soft').value === 's'
     };
 
     try {
-        console.log("--- REQUEST ---");
-        console.log("Word:", word, "Mode:", mode);
-
         const response = await fetch('https://lessons-487913.ey.r.appspot.com/process', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(payload)
         });
         const data = await response.json();
-        console.log("--- RESPONSE FROM PYTHON ---");
-        console.log(data); // This will show you the [result, status, reflexive, irregular] list
+        
+        console.log("Python Data Received:", data);
 
-        // Remove the annoying alert. Just show the warning text on the screen.
-        if (data.status && (JSON.stringify(data.status).includes('UNVERIFIED'))) {
-        document.getElementById('unverified-warning').style.display = 'block';
-    
-    // Only show the helper box if it's a Noun
-    if (mode === 'noun') {
-        updateNounHelperVisibility(mode, word, true);
-    }
-}
         showResult(data.result || "No result", data.status || []);
+
+        if (mode === 'noun' && data.result) {
+            const caseVal = document.getElementById('case').value;
+            const numVal = document.getElementById('noun-number').value;
+            verifyWithWiktionary(word, data.result, caseVal, numVal);
+        }
     } catch (err) {
+        console.error("API Error:", err);
         showResult("Server Connection Failed", ["OFFLINE"]);
     } finally {
         btn.disabled = false;
@@ -463,7 +493,10 @@ function resetUI() {
     document.getElementById('result-card').style.display = 'none';
     document.getElementById('grammar_query').value = '';
     document.getElementById('unverified-warning').style.display = 'none';
-    
+
+    // ADD THIS: Reset the text color to the default primary color
+    document.getElementById('result-text').style.color = 'var(--primary)';
+
     lastAlertedWord = ""; // Reset alert tracker
     
     updateNounHelperVisibility(document.getElementById('mode').value, '', false);
@@ -555,6 +588,108 @@ window.speechSynthesis.getVoices();
 if (speechSynthesis.onvoiceschanged !== undefined) {
     speechSynthesis.onvoiceschanged = () => speechSynthesis.getVoices();
 }
+
+
+
+
+
+const GOOGLE_SHEET_URL = "https://script.google.com/macros/s/AKfycby99XOwLtQNlEl5--UQ9KsQWzuM8pKvgdQT1AbrxcPBz4rE5P2eBa3ACY_KuT8T9ImI/exec";
+
+async function logMismatchToSheet(word, caseLabel, number, myApp, wiki) {
+    fetch(GOOGLE_SHEET_URL, {
+        method: "POST",
+        mode: "no-cors",
+        body: JSON.stringify({ word, case: caseLabel, number, myApp, wiki })
+    }).catch(e => console.log("Logging failed", e));
+}
+
+async function verifyWithWiktionary(word, myResult, caseValue, numberValue) {
+    console.log("--- Starting Wiktionary Verification ---");
+    const badgesContainer = document.getElementById('badges');
+    const resultTextElement = document.getElementById('result-text');
+    const warningElement = document.getElementById('unverified-warning');
+    
+    const existingW = badgesContainer.querySelector('.badge-w');
+    if (existingW) existingW.remove();
+
+    const caseMap = { "1": "nominativ", "2": "genitiv", "3": "dativ", "4": "akuzativ", "5": "vokativ", "6": "lokál", "7": "instrumentál" };
+    const targetCase = caseMap[caseValue];
+    const targetNumIdx = numberValue === "S" ? 0 : 1;
+
+    let preposition = "";
+    let cleanedAppResult = myResult.trim();
+    if (cleanedAppResult.includes(" ")) {
+        const parts = cleanedAppResult.split(" ");
+        cleanedAppResult = parts.pop(); 
+        preposition = parts.join(" ") + " "; 
+    }
+
+    try {
+        const proxyUrl = "https://corsproxy.io/?" + encodeURIComponent(`https://cs.wiktionary.org/wiki/${word}`);
+        const response = await fetch(proxyUrl);
+        const html = await response.text();
+        const doc = new DOMParser().parseFromString(html, "text/html");
+
+        const tables = doc.querySelectorAll('table');
+        let matchFound = false;
+
+        for (let t of tables) {
+            if (matchFound) break;
+            const rows = Array.from(t.querySelectorAll('tr'));
+            
+            for (let row of rows) {
+                if (row.innerText.toLowerCase().includes(targetCase)) {
+                    const cells = row.querySelectorAll('td');
+                    if (cells.length >= 2) {
+                    // 1. Get the raw text (e.g., "psovi / psu" or "psovi, psu")
+                    const rawWikiValue = cells[targetNumIdx].innerText.trim();
+                    console.log("Raw Wiki Value found:", rawWikiValue);
+                    
+                    // 2. Split by comma OR slash, then clean up each word
+                    // This regex [,/] splits on either character
+                    const wikiOptions = rawWikiValue.split(/[,/]/).map(s => s.trim().split(' ')[0].toLowerCase());
+                    
+                    // 3. Attach the preposition to EACH word individually
+                    // Result: "k psovi / k psu"
+                    const fullWikiString = wikiOptions.map(opt => `${preposition}${opt}`).join(' / ');
+                    
+                    matchFound = true;
+                    warningElement.style.display = 'none';
+                    console.log("Match Found! Verified string:", fullWikiString);
+
+                    const wBadge = document.createElement('span');
+                    wBadge.className = 'badge-w';
+                    wBadge.innerText = 'W';
+                    badgesContainer.prepend(wBadge);
+
+                    // 4. Compare: We check if the result from your code is found in the list of wiki options
+                    const isCorrect = wikiOptions.includes(cleanedAppResult.toLowerCase());
+
+                    if (!isCorrect) {
+                        console.log("Mismatch detected. Swapping", cleanedAppResult, "for", fullWikiString);
+                        resultTextElement.innerText = fullWikiString;
+                        logMismatchToSheet(word, targetCase, numberValue, cleanedAppResult, rawWikiValue);
+                        speakCzech(fullWikiString);
+                    }
+                    break;
+                }
+                }
+            }
+        }
+
+        if (!matchFound) {
+            console.warn("Word exists on Wiki, but specific case table was not found.");
+            warningElement.style.display = 'block';
+        }
+
+    } catch (e) { 
+        console.error("Wiktionary Fetch Failed:", e);
+        warningElement.style.display = 'block'; 
+    }
+}
+
+
+
 
 
 </script>
