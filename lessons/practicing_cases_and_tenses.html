@@ -625,7 +625,8 @@ async function verifyWithWiktionary(word, myResult, caseValue, numberValue) {
     }
 
     try {
-        const proxyUrl = "https://corsproxy.io/?" + encodeURIComponent(`https://cs.wiktionary.org/wiki/${word}`);
+        // Switch to a more open proxy format
+        const proxyUrl = "https://api.allorigins.win/get?url=" + encodeURIComponent(`https://cs.wiktionary.org/wiki/${word}`);
         const response = await fetch(proxyUrl);
         const html = await response.text();
         const doc = new DOMParser().parseFromString(html, "text/html");
