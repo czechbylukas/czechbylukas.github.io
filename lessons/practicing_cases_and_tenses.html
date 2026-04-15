@@ -610,6 +610,7 @@ async function verifyWithWiktionary(word, myResult, caseValue, numberValue) {
     const resultTextElement = document.getElementById('result-text');
     const warningElement = document.getElementById('unverified-warning');
     
+    // Cleanup old badge
     const existingW = badgesContainer.querySelector('.badge-w');
     if (existingW) existingW.remove();
 
@@ -625,18 +626,18 @@ async function verifyWithWiktionary(word, myResult, caseValue, numberValue) {
         preposition = parts.join(" ") + " "; 
     }
 
-    // Using a different proxy that handles HTTPS origins better
-    const targetUrl = `https://cs.wiktionary.org/wiki/${encodeURIComponent(word)}`;
-    const proxyUrl = `https://api.allorigins.win/get?url=${encodeURIComponent(targetUrl)}`;
+    // NEW PROXY STRATEGY: Using corsproxy.io with a cache-buster timestamp
+    // This avoids the QUIC protocol error by forcing a standard HTTPS fetch
+    const wikiUrl = `https://cs.wiktionary.org/wiki/${encodeURIComponent(word)}`;
+    const proxyUrl = `https://corsproxy.io/?${encodeURIComponent(wikiUrl)}&cachebust=${Date.now()}`;
 
     try {
         const response = await fetch(proxyUrl);
-        if (!response.ok) throw new Error("Proxy response not ok");
+        if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
         
-        const data = await response.json();
-        const html = data.contents; // This is the actual HTML string from Wiktionary
-
+        const html = await response.text();
         const doc = new DOMParser().parseFromString(html, "text/html");
+
         const tables = doc.querySelectorAll('table');
         let matchFound = false;
 
@@ -683,6 +684,7 @@ async function verifyWithWiktionary(word, myResult, caseValue, numberValue) {
 
     } catch (e) { 
         console.error("Wiktionary Fetch Failed:", e);
+        // If it still fails, the warning is shown
         warningElement.style.display = 'block'; 
     }
 }
