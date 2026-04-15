@@ -644,7 +644,7 @@ async function verifyWithWiktionary(word, myResult, caseValue, numberValue) {
         try {
             console.log(`Trying proxy: ${config.url}`);
             const controller = new AbortController();
-            const timeoutId = setTimeout(() => controller.abort(), 3000); // 3 sec limit
+            const timeoutId = setTimeout(() => controller.abort(), 30010); // 3 sec limit
 
             const response = await fetch(config.url, { signal: controller.signal });
             clearTimeout(timeoutId);
