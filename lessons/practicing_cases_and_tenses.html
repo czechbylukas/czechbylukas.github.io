@@ -609,14 +609,12 @@ async function logMismatchToSheet(word, caseLabel, number, myApp, wiki) {
 
 
 
-
 async function verifyWithWiktionary(word, myResult, caseValue, numberValue) {
     console.log("--- Starting Wiktionary Verification ---");
     const badgesContainer = document.getElementById('badges');
     const resultTextElement = document.getElementById('result-text');
     const warningElement = document.getElementById('unverified-warning');
     
-    // Clean old state
     const existingW = badgesContainer.querySelector('.badge-w');
     if (existingW) existingW.remove();
 
@@ -632,23 +630,50 @@ async function verifyWithWiktionary(word, myResult, caseValue, numberValue) {
         preposition = parts.join(" ") + " "; 
     }
 
-    // Direct proxy link - much faster than AllOrigins
     const targetUrl = `https://cs.wiktionary.org/wiki/${encodeURIComponent(word)}`;
-    const proxyUrl = `https://corsproxy.io/?${encodeURIComponent(targetUrl)}`;
+    
+    // Define our two proxy strategies
+    const proxyConfigs = [
+        { url: `https://corsproxy.io/?${encodeURIComponent(targetUrl)}`, type: 'direct' },
+        { url: `https://api.allorigins.win/get?url=${encodeURIComponent(targetUrl)}`, type: 'json' }
+    ];
+
+    let html = null;
+
+    for (let config of proxyConfigs) {
+        try {
+            console.log(`Trying proxy: ${config.url}`);
+            const controller = new AbortController();
+            const timeoutId = setTimeout(() => controller.abort(), 3000); // 3 sec limit
+
+            const response = await fetch(config.url, { signal: controller.signal });
+            clearTimeout(timeoutId);
+
+            if (!response.ok) continue;
+
+            if (config.type === 'json') {
+                const data = await response.json();
+                html = data.contents;
+            } else {
+                html = await response.text();
+            }
+
+            if (html && html.length > 500) {
+                console.log("Success with proxy type:", config.type);
+                break; 
+            }
+        } catch (err) {
+            console.warn(`Proxy failed (${config.type}):`, err.message);
+            // Loop continues to next proxy automatically
+        }
+    }
+
+    if (!html) {
+        warningElement.style.display = 'block';
+        return;
+    }
 
     try {
-        // Set a shorter, aggressive timeout
-        const controller = new AbortController();
-        const timeoutId = setTimeout(() => controller.abort(), 2500);
-
-        const response = await fetch(proxyUrl, { signal: controller.signal });
-        clearTimeout(timeoutId);
-
-        if (!response.ok) throw new Error("Proxy offline");
-        
-        const html = await response.text();
-        if (!html || html.length < 1000) throw new Error("Empty Response");
-
         const doc = new DOMParser().parseFromString(html, "text/html");
         const tables = doc.querySelectorAll('table');
         let matchFound = false;
@@ -658,14 +683,10 @@ async function verifyWithWiktionary(word, myResult, caseValue, numberValue) {
             const rows = t.querySelectorAll('tr');
             
             for (let row of rows) {
-                const text = row.innerText.toLowerCase();
-                if (text.includes(targetCase)) {
+                if (row.innerText.toLowerCase().includes(targetCase)) {
                     const cells = row.querySelectorAll('td');
                     if (cells.length >= 2) {
                         const rawWikiValue = cells[targetNumIdx].innerText.trim();
-                        console.log("Wiki Match:", rawWikiValue);
-                        
-                        // Handle slash/comma and take the first word of each option
                         const wikiOptions = rawWikiValue.split(/[,/]/).map(s => s.trim().split(' ')[0].toLowerCase());
                         const fullWikiString = wikiOptions.map(opt => `${preposition}${opt}`).join(' / ');
                         
@@ -677,9 +698,10 @@ async function verifyWithWiktionary(word, myResult, caseValue, numberValue) {
                         wBadge.innerText = 'W';
                         badgesContainer.prepend(wBadge);
 
-                        // If user result is wrong, swap it
                         if (!wikiOptions.includes(cleanedAppResult.toLowerCase())) {
                             resultTextElement.innerText = fullWikiString;
+                            // Optionally change color to show it was corrected
+                            resultTextElement.style.color = '#27ae60'; 
                             logMismatchToSheet(word, targetCase, numberValue, cleanedAppResult, rawWikiValue);
                             speakCzech(fullWikiString);
                         }
@@ -688,15 +710,12 @@ async function verifyWithWiktionary(word, myResult, caseValue, numberValue) {
                 }
             }
         }
-
         if (!matchFound) warningElement.style.display = 'block';
-
-    } catch (e) { 
-        console.error("Wiki Speed Error:", e.name === 'AbortError' ? "Timeout" : e.message);
-        warningElement.style.display = 'block'; 
+    } catch (e) {
+        console.error("Parsing failed", e);
+        warningElement.style.display = 'block';
     }
 }
-
 
 
 
