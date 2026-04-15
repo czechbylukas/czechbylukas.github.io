@@ -593,7 +593,6 @@ if (speechSynthesis.onvoiceschanged !== undefined) {
 
 
 
-
 const GOOGLE_SHEET_URL = "https://script.google.com/macros/s/AKfycby99XOwLtQNlEl5--UQ9KsQWzuM8pKvgdQT1AbrxcPBz4rE5P2eBa3ACY_KuT8T9ImI/exec";
 
 async function logMismatchToSheet(word, caseLabel, number, myApp, wiki) {
@@ -604,13 +603,20 @@ async function logMismatchToSheet(word, caseLabel, number, myApp, wiki) {
     }).catch(e => console.log("Logging failed", e));
 }
 
+
+
+
+
+
+
+
 async function verifyWithWiktionary(word, myResult, caseValue, numberValue) {
     console.log("--- Starting Wiktionary Verification ---");
     const badgesContainer = document.getElementById('badges');
     const resultTextElement = document.getElementById('result-text');
     const warningElement = document.getElementById('unverified-warning');
     
-    // 1. Cleanup old W badge
+    // Clean old state
     const existingW = badgesContainer.querySelector('.badge-w');
     if (existingW) existingW.remove();
 
@@ -626,34 +632,40 @@ async function verifyWithWiktionary(word, myResult, caseValue, numberValue) {
         preposition = parts.join(" ") + " "; 
     }
 
-    // Use AllOrigins - It is the most reliable for hosted domains
-    const wikiUrl = `https://cs.wiktionary.org/wiki/${encodeURIComponent(word)}`;
-    const proxyUrl = `https://api.allorigins.win/get?url=${encodeURIComponent(wikiUrl)}`;
+    // Direct proxy link - much faster than AllOrigins
+    const targetUrl = `https://cs.wiktionary.org/wiki/${encodeURIComponent(word)}`;
+    const proxyUrl = `https://corsproxy.io/?${encodeURIComponent(targetUrl)}`;
 
     try {
-        const response = await fetch(proxyUrl);
-        if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
+        // Set a shorter, aggressive timeout
+        const controller = new AbortController();
+        const timeoutId = setTimeout(() => controller.abort(), 2500);
+
+        const response = await fetch(proxyUrl, { signal: controller.signal });
+        clearTimeout(timeoutId);
+
+        if (!response.ok) throw new Error("Proxy offline");
         
-        // CRITICAL: AllOrigins returns JSON, not raw text
-        const data = await response.json();
-        const html = data.contents; 
-        
+        const html = await response.text();
+        if (!html || html.length < 1000) throw new Error("Empty Response");
+
         const doc = new DOMParser().parseFromString(html, "text/html");
         const tables = doc.querySelectorAll('table');
         let matchFound = false;
 
         for (let t of tables) {
             if (matchFound) break;
-            const rows = Array.from(t.querySelectorAll('tr'));
+            const rows = t.querySelectorAll('tr');
             
             for (let row of rows) {
-                if (row.innerText.toLowerCase().includes(targetCase)) {
+                const text = row.innerText.toLowerCase();
+                if (text.includes(targetCase)) {
                     const cells = row.querySelectorAll('td');
                     if (cells.length >= 2) {
                         const rawWikiValue = cells[targetNumIdx].innerText.trim();
-                        console.log("Wiki match found:", rawWikiValue);
+                        console.log("Wiki Match:", rawWikiValue);
                         
-                        // Split by comma or slash
+                        // Handle slash/comma and take the first word of each option
                         const wikiOptions = rawWikiValue.split(/[,/]/).map(s => s.trim().split(' ')[0].toLowerCase());
                         const fullWikiString = wikiOptions.map(opt => `${preposition}${opt}`).join(' / ');
                         
@@ -665,9 +677,8 @@ async function verifyWithWiktionary(word, myResult, caseValue, numberValue) {
                         wBadge.innerText = 'W';
                         badgesContainer.prepend(wBadge);
 
-                        // Compare and swap if needed
+                        // If user result is wrong, swap it
                         if (!wikiOptions.includes(cleanedAppResult.toLowerCase())) {
-                            console.log("Swapping UI with Wiki:", fullWikiString);
                             resultTextElement.innerText = fullWikiString;
                             logMismatchToSheet(word, targetCase, numberValue, cleanedAppResult, rawWikiValue);
                             speakCzech(fullWikiString);
@@ -678,13 +689,10 @@ async function verifyWithWiktionary(word, myResult, caseValue, numberValue) {
             }
         }
 
-        if (!matchFound) {
-            console.warn("Wiktionary page loaded but declension table not found.");
-            warningElement.style.display = 'block';
-        }
+        if (!matchFound) warningElement.style.display = 'block';
 
     } catch (e) { 
-        console.error("Wiktionary Fetch Failed:", e);
+        console.error("Wiki Speed Error:", e.name === 'AbortError' ? "Timeout" : e.message);
         warningElement.style.display = 'block'; 
     }
 }
