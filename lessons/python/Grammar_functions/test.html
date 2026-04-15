@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Wiki Tester</title>
+</head>
+<body>
+    <h2>Check 2. pád (Genitive)</h2>
+    <input type="text" id="wordInput" placeholder="Enter noun (e.g. dům)">
+    <button onclick="checkWiki()">Check Wiktislovník</button>
+    
+    <div style="margin-top: 20px;">
+        <strong>Result from Wiki:</strong> <span id="output">...</span>
+    </div>
+
+    <script>
+        async function checkWiki() {
+            const word = document.getElementById('wordInput').value;
+            const output = document.getElementById('output');
+            output.innerText = "Searching...";
+
+            try {
+                // Change this URL to your App Engine URL if you deploy it!
+                const response = await fetch('http://127.0.0.1:5001/test', {
+                    method: 'POST',
+                    headers: {'Content-Type': 'application/json'},
+                    body: JSON.stringify({word: word})
+                });
+                const data = await response.json();
+                output.innerText = data.genitive;
+            } catch (err) {
+                output.innerText = "Failed to connect to Python: " + err;
+            }
+        }
+    </script>
+</body>
+</html>
