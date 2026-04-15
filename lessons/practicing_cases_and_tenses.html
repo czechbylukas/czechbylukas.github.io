@@ -610,7 +610,7 @@ async function verifyWithWiktionary(word, myResult, caseValue, numberValue) {
     const resultTextElement = document.getElementById('result-text');
     const warningElement = document.getElementById('unverified-warning');
     
-    // Cleanup old badge
+    // 1. Cleanup old W badge
     const existingW = badgesContainer.querySelector('.badge-w');
     if (existingW) existingW.remove();
 
@@ -626,18 +626,19 @@ async function verifyWithWiktionary(word, myResult, caseValue, numberValue) {
         preposition = parts.join(" ") + " "; 
     }
 
-    // NEW PROXY STRATEGY: Using corsproxy.io with a cache-buster timestamp
-    // This avoids the QUIC protocol error by forcing a standard HTTPS fetch
+    // Use AllOrigins - It is the most reliable for hosted domains
     const wikiUrl = `https://cs.wiktionary.org/wiki/${encodeURIComponent(word)}`;
-    const proxyUrl = `https://corsproxy.io/?${encodeURIComponent(wikiUrl)}&cachebust=${Date.now()}`;
+    const proxyUrl = `https://api.allorigins.win/get?url=${encodeURIComponent(wikiUrl)}`;
 
     try {
         const response = await fetch(proxyUrl);
         if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
         
-        const html = await response.text();
+        // CRITICAL: AllOrigins returns JSON, not raw text
+        const data = await response.json();
+        const html = data.contents; 
+        
         const doc = new DOMParser().parseFromString(html, "text/html");
-
         const tables = doc.querySelectorAll('table');
         let matchFound = false;
 
@@ -652,7 +653,7 @@ async function verifyWithWiktionary(word, myResult, caseValue, numberValue) {
                         const rawWikiValue = cells[targetNumIdx].innerText.trim();
                         console.log("Wiki match found:", rawWikiValue);
                         
-                        // Handle multiple options (comma or slash)
+                        // Split by comma or slash
                         const wikiOptions = rawWikiValue.split(/[,/]/).map(s => s.trim().split(' ')[0].toLowerCase());
                         const fullWikiString = wikiOptions.map(opt => `${preposition}${opt}`).join(' / ');
                         
@@ -664,9 +665,9 @@ async function verifyWithWiktionary(word, myResult, caseValue, numberValue) {
                         wBadge.innerText = 'W';
                         badgesContainer.prepend(wBadge);
 
-                        // If user's result isn't in the list of valid wiki options, swap it
+                        // Compare and swap if needed
                         if (!wikiOptions.includes(cleanedAppResult.toLowerCase())) {
-                            console.log("Updating UI with Wiki result:", fullWikiString);
+                            console.log("Swapping UI with Wiki:", fullWikiString);
                             resultTextElement.innerText = fullWikiString;
                             logMismatchToSheet(word, targetCase, numberValue, cleanedAppResult, rawWikiValue);
                             speakCzech(fullWikiString);
@@ -678,13 +679,12 @@ async function verifyWithWiktionary(word, myResult, caseValue, numberValue) {
         }
 
         if (!matchFound) {
-            console.warn("Table row for case not found on Wiktionary.");
+            console.warn("Wiktionary page loaded but declension table not found.");
             warningElement.style.display = 'block';
         }
 
     } catch (e) { 
         console.error("Wiktionary Fetch Failed:", e);
-        // If it still fails, the warning is shown
         warningElement.style.display = 'block'; 
     }
 }
