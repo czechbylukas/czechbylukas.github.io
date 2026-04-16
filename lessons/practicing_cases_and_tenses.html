@@ -684,25 +684,37 @@ async function verifyWithWiktionary(word, myResult, caseValue, numberValue) {
         const caseRow = wikiData.find(item => item.case === targetCaseLabel);
 
         if (caseRow) {
-            let wikiVersion = (numberValue === "S") ? caseRow.singular : caseRow.plural;
+            let wikiRaw = (numberValue === "S") ? caseRow.singular : caseRow.plural;
             
-            // --- VOCALIZATION LOGIC ---
-            let prefix = "";
-            const firstLetter = wikiVersion.charAt(0).toLowerCase();
+            // --- HANDLE SLASHES (psovi/psu) ---
+            // Split by slash, trim whitespace, and process each variant
+            const variants = wikiRaw.split('/').map(v => v.trim());
+            
+            const processedVariants = variants.map(variant => {
+                let prefix = "";
+                const firstLetter = variant.charAt(0).toLowerCase();
 
-            if (caseValue === "2") {
-                prefix = "bez "; // Changed from z/ze to match your engine's "bez"
-            } else if (caseValue === "3") {
-                prefix = (firstLetter === 'k' || firstLetter === 'g') ? "ke " : "k ";
-            } else if (caseValue === "4") {
-                prefix = "pro ";
-            } else if (caseValue === "6") {
-                prefix = "o ";   // Changed to stay as "o" to match your engine
-            } else if (caseValue === "7") {
-                prefix = (firstLetter === 's' || firstLetter === 'z' || firstLetter === 'š' || firstLetter === 'ž' || firstLetter === 'c') ? "se " : "s ";
+                if (caseValue === "2") {
+                    prefix = "bez ";
+                } else if (caseValue === "3") {
+                    prefix = (firstLetter === 'k' || firstLetter === 'g') ? "ke " : "k ";
+                } else if (caseValue === "4") {
+                    prefix = "pro ";
+                } else if (caseValue === "6") {
+                    prefix = "o ";
+                } else if (caseValue === "7") {
+                    prefix = (['s', 'z', 'š', 'ž', 'c'].includes(firstLetter)) ? "se " : "s ";
+                }
+                return prefix + variant;
+            });
+
+            const finalWikiResult = processedVariants.join(", "); // Result: "k psovi, k psu"
+
+            // --- LOG MISMATCH TO GOOGLE SHEETS ---
+            // We compare the first variant (without prefix) to your Python result
+            if (variants[0] !== myResult) {
+                logMismatchToSheet(word, targetCaseLabel, numberValue, myResult, variants[0]);
             }
-
-            const finalWikiResult = prefix + wikiVersion;
 
             // Add W badge
             const wBadge = document.createElement('span');
@@ -718,6 +730,9 @@ async function verifyWithWiktionary(word, myResult, caseValue, numberValue) {
         console.warn("Cloud Verification failed:", err.message);
     }
 }
+
+
+
 
 
 
