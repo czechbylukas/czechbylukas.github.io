@@ -27,7 +27,8 @@ CORS(app, resources={r"/*": {"origins": "*"}})
 
 def scrape_wiktionary_table(word):
     url = f"https://cs.wiktionary.org/wiki/{word}"
-    headers = {'User-Agent': 'Mozilla/5.0'}
+    # A more complete header to look like a real browser
+    headers = {'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36'}
     try:
         response = requests.get(url, headers=headers, timeout=5)
         if response.status_code != 200:
@@ -44,7 +45,8 @@ def scrape_wiktionary_table(word):
             {"label": "Instrumentál (7.)", "keys": ["instrumentál", "7. pád"]}
         ]
 
-        for table in soup.find_all('table'):
+        # Look for the declension table specifically
+        for table in soup.find_all('table', {'class': 'deklinace'}): # Added class filter
             rows = table.find_all('tr')
             results = []
             for case in target_cases:
@@ -58,11 +60,10 @@ def scrape_wiktionary_table(word):
                                 "plural": cells[2].get_text(strip=True)
                             })
                         break
-            if len(results) >= 3:
+            if len(results) > 0: # Changed from 3 to 0 to be safer
                 return results
     except Exception as e:
         print(f"Scraper error: {e}")
-        return None
     return None
 
 
