@@ -610,15 +610,16 @@ async function logMismatchToSheet(word, caseLabel, number, myApp, wiki) {
 
 
 async function verifyWithWiktionary(word, myResult, caseValue, numberValue) {
+    console.log("--- Starting NEW Google Cloud Verification ---");
     const badgesContainer = document.getElementById('badges');
     const resultTextElement = document.getElementById('result-text');
     const warningElement = document.getElementById('unverified-warning');
-
-    // Remove old W badge if it exists
+    
+    // 1. Remove old W badge
     const existingW = badgesContainer.querySelector('.badge-w');
     if (existingW) existingW.remove();
 
-    // Map your numeric cases to the labels your Python scraper uses
+    // 2. Map the case numbers to the labels your Python script uses
     const caseMap = { 
         "1": "Nominativ (1.)", "2": "Genitiv (2.)", "3": "Dativ (3.)", 
         "4": "Akuzativ (4.)", "5": "Vokativ (5.)", "6": "Lokál (6.)", 
@@ -627,35 +628,39 @@ async function verifyWithWiktionary(word, myResult, caseValue, numberValue) {
     const targetCaseLabel = caseMap[caseValue];
 
     try {
-        // CALL YOUR OWN API INSTEAD OF PROXIES
+        // 3. Call your NEW Google Cloud endpoint (No more proxies!)
         const response = await fetch(`https://lessons-487913.ey.r.appspot.com/scrape_declension?word=${encodeURIComponent(word)}`);
         
-        if (!response.ok) throw new Error("Not found");
+        if (!response.ok) throw new Error("Wiki table not found");
 
-        const wikiData = await response.json();
+        const wikiData = await response.json(); // This is the list of cases from Python
         
-        // Find the specific case row in the returned list
+        // 4. Find the correct row (e.g., "Genitiv (2.)")
         const caseRow = wikiData.find(item => item.case === targetCaseLabel);
 
         if (caseRow) {
-            const wikiVersion = numberValue === "S" ? caseRow.singular : caseRow.plural;
+            const wikiVersion = (numberValue === "S") ? caseRow.singular : caseRow.plural;
             
-            // Add the 'W' badge
+            // Add the 'W' badge to show it worked!
             const wBadge = document.createElement('span');
             wBadge.className = 'badge-w';
             wBadge.innerText = 'W';
             badgesContainer.prepend(wBadge);
 
-            // If the Wiki version is different from your algorithm, update the text
-            if (myResult.toLowerCase() !== wikiVersion.toLowerCase()) {
-                resultTextElement.innerText = wikiVersion;
-                resultTextElement.style.color = '#27ae60'; // Green to show it's verified
+            // 5. Clean up the comparison (remove prepositions like 'bez' if necessary)
+            let cleanedAppResult = myResult.split(' ').pop().toLowerCase();
+            let cleanedWikiResult = wikiVersion.toLowerCase();
+
+            if (cleanedAppResult !== cleanedWikiResult) {
+                // If Wiki is different, show the Wiki version
+                resultTextElement.innerText = wikiVersion; 
+                resultTextElement.style.color = '#27ae60'; 
                 speakCzech(wikiVersion);
             }
             warningElement.style.display = 'none';
         }
     } catch (err) {
-        console.log("Wiktionary check failed or word not found.");
+        console.warn("Cloud Verification failed:", err.message);
         warningElement.style.display = 'block';
     }
 }
