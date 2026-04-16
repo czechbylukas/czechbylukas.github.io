@@ -196,6 +196,7 @@
            placeholder="Enter word..." 
            oninput="autoDetectPattern()" 
            autocomplete="one-time-code"
+           autocapitalize="none"
            spellcheck="false"
            role="presentation">
 </div>
@@ -417,12 +418,14 @@ async function callPythonAPI(event) {
     const mode = document.getElementById('mode').value;
     const word = document.getElementById('grammar_query').value.trim();
 
-    // --- 1. RESET EVERYTHING FOR THE NEW WORD ---
+    // RESET EVERYTHING FOR THE NEW WORD
     document.getElementById('unverified-warning').style.display = 'none';
-    document.getElementById('result-text').innerText = ""; 
+    const resultText = document.getElementById('result-text');
+    resultText.innerText = ""; 
+    resultText.style.color = 'var(--primary)'; // Ensure it's never green or red from a previous search
+    
     document.getElementById('badges').innerHTML = "";      
     document.getElementById('result-card').style.display = 'none'; 
-    // Force the helper box to hide every time you click Generate
     document.getElementById('noun-helper').classList.add('hidden-menu');
 
     const btn = document.getElementById('submit-btn');
@@ -661,61 +664,60 @@ async function logMismatchToSheet(word, caseLabel, number, myApp, wiki) {
 
 
 async function verifyWithWiktionary(word, myResult, caseValue, numberValue) {
-    console.log("--- Starting NEW Google Cloud Verification ---");
     const badgesContainer = document.getElementById('badges');
     const resultTextElement = document.getElementById('result-text');
     const warningElement = document.getElementById('unverified-warning');
     
-    // 1. Remove old W badge
-    const existingW = badgesContainer.querySelector('.badge-w');
-    if (existingW) existingW.remove();
-
-    // 2. Map the case numbers to the labels your Python script uses
     const caseMap = { 
         "1": "Nominativ (1.)", "2": "Genitiv (2.)", "3": "Dativ (3.)", 
         "4": "Akuzativ (4.)", "5": "Vokativ (5.)", "6": "Lokál (6.)", 
         "7": "Instrumentál (7.)" 
     };
+
     const targetCaseLabel = caseMap[caseValue];
 
     try {
-        // 3. Call your NEW Google Cloud endpoint (No more proxies!)
         const response = await fetch(`https://lessons-487913.ey.r.appspot.com/scrape_declension?word=${encodeURIComponent(word)}`);
-        
         if (!response.ok) throw new Error("Wiki table not found");
 
-        const wikiData = await response.json(); // This is the list of cases from Python
-        
-        // 4. Find the correct row (e.g., "Genitiv (2.)")
+        const wikiData = await response.json(); 
         const caseRow = wikiData.find(item => item.case === targetCaseLabel);
 
         if (caseRow) {
-            const wikiVersion = (numberValue === "S") ? caseRow.singular : caseRow.plural;
+            let wikiVersion = (numberValue === "S") ? caseRow.singular : caseRow.plural;
             
-            // Add the 'W' badge to show it worked!
+            // --- VOCALIZATION LOGIC ---
+            let prefix = "";
+            const firstLetter = wikiVersion.charAt(0).toLowerCase();
+
+            if (caseValue === "2") {
+                prefix = "bez "; // Changed from z/ze to match your engine's "bez"
+            } else if (caseValue === "3") {
+                prefix = (firstLetter === 'k' || firstLetter === 'g') ? "ke " : "k ";
+            } else if (caseValue === "4") {
+                prefix = "pro ";
+            } else if (caseValue === "6") {
+                prefix = "o ";   // Changed to stay as "o" to match your engine
+            } else if (caseValue === "7") {
+                prefix = (firstLetter === 's' || firstLetter === 'z' || firstLetter === 'š' || firstLetter === 'ž' || firstLetter === 'c') ? "se " : "s ";
+            }
+
+            const finalWikiResult = prefix + wikiVersion;
+
+            // Add W badge
             const wBadge = document.createElement('span');
             wBadge.className = 'badge-w';
             wBadge.innerText = 'W';
-            badgesContainer.prepend(wBadge);
+            badgesContainer.appendChild(wBadge);
 
-            // 5. Clean up the comparison (remove prepositions like 'bez' if necessary)
-            let cleanedAppResult = myResult.split(' ').pop().toLowerCase();
-            let cleanedWikiResult = wikiVersion.toLowerCase();
-
-            if (cleanedAppResult !== cleanedWikiResult) {
-                // If Wiki is different, show the Wiki version
-                resultTextElement.innerText = wikiVersion; 
-                resultTextElement.style.color = '#27ae60'; 
-                speakCzech(wikiVersion);
-            }
+            // Update UI
+            resultTextElement.innerText = finalWikiResult; 
             warningElement.style.display = 'none';
         }
     } catch (err) {
         console.warn("Cloud Verification failed:", err.message);
-        warningElement.style.display = 'block';
     }
 }
-
 
 
 
