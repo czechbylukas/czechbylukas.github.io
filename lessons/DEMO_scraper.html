@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+    <meta charset="UTF-8">
+    <title>Czech Declension Finder</title>
+    <style>
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; padding: 40px; background-color: #f8f9fa; }
+        .container { max-width: 600px; margin: auto; background: white; padding: 25px; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); }
+        h2 { color: #333; text-align: center; margin-bottom: 25px; }
+        .search-box { display: flex; gap: 10px; margin-bottom: 20px; }
+        input { flex: 1; padding: 12px; border: 2px solid #ddd; border-radius: 6px; font-size: 16px; outline: none; }
+        input:focus { border-color: #007bff; }
+        button { padding: 12px 25px; background: #007bff; color: white; border: none; border-radius: 6px; cursor: pointer; font-weight: bold; transition: background 0.2s; }
+        button:hover { background: #0056b3; }
+        
+        table { width: 100%; border-collapse: collapse; margin-top: 20px; display: none; }
+        th, td { border: 1px solid #dee2e6; padding: 12px; text-align: left; }
+        th { background-color: #f1f3f5; color: #495057; font-weight: 600; }
+        tr:nth-child(even) { background-color: #fdfdfe; }
+        .case-name { font-weight: bold; color: #007bff; width: 35%; background-color: #f8f9fa; }
+        
+        #status { text-align: center; margin-top: 15px; color: #666; font-style: italic; min-height: 20px; }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h2>Czech Declension</h2>
+    <div class="search-box">
+        <input type="text" id="wordInput" placeholder="Zadejte podstatné jméno (např. pes)..." onkeyup="if(event.key==='Enter') fetchAllForms()">
+        <button onclick="fetchAllForms()">Hledat</button>
+    </div>
+    
+    <div id="status"></div>
+
+    <table id="resultTable">
+        <thead>
+            <tr>
+                <th>Pád</th>
+                <th>Jednotné</th>
+                <th>Množné</th>
+            </tr>
+        </thead>
+        <tbody id="tableBody"></tbody>
+    </table>
+</div>
+
+<script>
+async function fetchAllForms() {
+    const word = document.getElementById('wordInput').value.trim();
+    const status = document.getElementById('status');
+    const table = document.getElementById('resultTable');
+    const tbody = document.getElementById('tableBody');
+    
+    if(!word) return;
+
+    status.innerText = "Hledám na Wikislovníku...";
+    table.style.display = "none";
+    tbody.innerHTML = "";
+
+    // This calls your updated Python app.py
+    const targetUrl = `http://127.0.0.1:5000/scrape_declension?word=${encodeURIComponent(word)}`;
+
+    try {
+        const response = await fetch(targetUrl);
+        if (!response.ok) throw new Error("Not found");
+        
+        const data = await response.json();
+        
+        let tempBody = "";
+        data.forEach(item => {
+            tempBody += `
+                <tr>
+                    <td class="case-name">${item.case}</td>
+                    <td>${item.singular}</td>
+                    <td>${item.plural}</td>
+                </tr>
+            `;
+        });
+
+        tbody.innerHTML = tempBody;
+        status.innerText = "";
+        table.style.display = "table";
+
+    } catch (err) {
+        status.innerText = "Slovo nebo tabulka nebyla nalezena.";
+        console.error("Fetch failure:", err);
+    }
+}
+</script>
+
+</body>
+</html>

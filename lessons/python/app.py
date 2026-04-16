@@ -1,3 +1,5 @@
+import requests # Add this
+from bs4 import BeautifulSoup # Add this
 import os
 import sqlite3
 from flask import Flask, jsonify, request, make_response
@@ -16,6 +18,69 @@ from Grammar_functions.declension_pronoun_number import declension_pronoun_numbe
 app = Flask(__name__)
 
 CORS(app, resources={r"/*": {"origins": "*"}})
+
+
+
+
+
+
+
+def scrape_wiktionary_table(word):
+    url = f"https://cs.wiktionary.org/wiki/{word}"
+    headers = {'User-Agent': 'Mozilla/5.0'}
+    try:
+        response = requests.get(url, headers=headers, timeout=5)
+        if response.status_code != 200:
+            return None
+        
+        soup = BeautifulSoup(response.text, 'html.parser')
+        target_cases = [
+            {"label": "Nominativ (1.)", "keys": ["nominativ", "1. pád"]},
+            {"label": "Genitiv (2.)", "keys": ["genitiv", "2. pád"]},
+            {"label": "Dativ (3.)", "keys": ["dativ", "3. pád"]},
+            {"label": "Akuzativ (4.)", "keys": ["akuzativ", "4. pád"]},
+            {"label": "Vokativ (5.)", "keys": ["vokativ", "5. pád"]},
+            {"label": "Lokál (6.)", "keys": ["lokál", "6. pád"]},
+            {"label": "Instrumentál (7.)", "keys": ["instrumentál", "7. pád"]}
+        ]
+
+        for table in soup.find_all('table'):
+            rows = table.find_all('tr')
+            results = []
+            for case in target_cases:
+                for row in rows:
+                    cells = row.find_all(['th', 'td'])
+                    if cells and any(k in cells[0].get_text().lower() for k in case["keys"]):
+                        if len(cells) >= 3:
+                            results.append({
+                                "case": case["label"],
+                                "singular": cells[1].get_text(strip=True),
+                                "plural": cells[2].get_text(strip=True)
+                            })
+                        break
+            if len(results) >= 3:
+                return results
+    except Exception as e:
+        print(f"Scraper error: {e}")
+        return None
+    return None
+
+
+
+
+
+@app.route('/scrape_declension', methods=['GET'])
+def get_external_declension():
+    word = request.args.get('word')
+    if not word:
+        return jsonify({"error": "No word provided"}), 400
+    
+    data = scrape_wiktionary_table(word)
+    if data:
+        return jsonify(data)
+    return jsonify({"error": "Table not found on Wiktionary"}), 404
+
+
 
 @app.route('/')
 def home():
