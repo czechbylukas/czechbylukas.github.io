@@ -97,12 +97,6 @@ def process_word():
             
         mode = data.get('mode') 
         word = data.get('word')
-        if data.get('check_only'):
-            # Just check if the word exists in your local database logic
-            # You can customize this based on how declension_noun works
-            res, ver, refl, irr, pattern = declension_noun(word, "1", "S", False, False)
-            status = "VERIFIED" if ver is True else "UNVERIFIED"
-            return jsonify({"status": status})
         tense = data.get('tense')
         person = data.get('person')
         

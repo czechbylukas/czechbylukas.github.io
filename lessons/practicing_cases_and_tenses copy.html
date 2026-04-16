@@ -399,13 +399,15 @@ async function callPythonAPI(event) {
     const mode = document.getElementById('mode').value;
     const word = document.getElementById('grammar_query').value.trim();
 
+    console.log("--- Starting API Call ---");
+    console.log("Word:", word, "Mode:", mode);
+
+    document.getElementById('unverified-warning').style.display = 'none';
+
     const btn = document.getElementById('submit-btn');
     const loader = document.getElementById('loader');
-    const resultTextElement = document.getElementById('result-text');
-    
     btn.disabled = true;
     loader.style.display = 'block';
-    resultTextElement.style.color = 'var(--primary)'; // Reset color to black/blue
 
     const payload = {
         mode: mode,
@@ -427,16 +429,17 @@ async function callPythonAPI(event) {
         });
         const data = await response.json();
         
-        // --- IMPROVEMENT: WAIT FOR WIKI BEFORE SHOWING ---
-        let finalResult = data.result;
-        if (mode === 'noun' && data.result) {
-            // We 'await' here so the screen doesn't flicker twice
-            finalResult = await verifyWithWiktionary(word, data.result, payload.case, payload.number);
-        }
+        console.log("Python Data Received:", data);
 
-        showResult(finalResult, data.status || []);
-        
+        showResult(data.result || "No result", data.status || []);
+
+        if (mode === 'noun' && data.result) {
+            const caseVal = document.getElementById('case').value;
+            const numVal = document.getElementById('noun-number').value;
+            verifyWithWiktionary(word, data.result, caseVal, numVal);
+        }
     } catch (err) {
+        console.error("API Error:", err);
         showResult("Server Connection Failed", ["OFFLINE"]);
     } finally {
         btn.disabled = false;
@@ -606,59 +609,60 @@ async function logMismatchToSheet(word, caseLabel, number, myApp, wiki) {
 
 
 
-async function verifyWithWiktionary(word, myAppResult, caseValue, numberValue) {
+async function verifyWithWiktionary(word, myResult, caseValue, numberValue) {
+    console.log("--- Starting NEW Google Cloud Verification ---");
     const badgesContainer = document.getElementById('badges');
     const resultTextElement = document.getElementById('result-text');
+    const warningElement = document.getElementById('unverified-warning');
     
+    // 1. Remove old W badge
     const existingW = badgesContainer.querySelector('.badge-w');
     if (existingW) existingW.remove();
 
-    const caseMap = { "1": "Nominativ (1.)", "2": "Genitiv (2.)", "3": "Dativ (3.)", "4": "Akuzativ (4.)", "5": "Vokativ (5.)", "6": "Lokál (6.)", "7": "Instrumentál (7.)" };
+    // 2. Map the case numbers to the labels your Python script uses
+    const caseMap = { 
+        "1": "Nominativ (1.)", "2": "Genitiv (2.)", "3": "Dativ (3.)", 
+        "4": "Akuzativ (4.)", "5": "Vokativ (5.)", "6": "Lokál (6.)", 
+        "7": "Instrumentál (7.)" 
+    };
     const targetCaseLabel = caseMap[caseValue];
 
-    // Detect preposition (if myAppResult is "bez psa", prep is "bez ")
-    let preposition = "";
-    let parts = myAppResult.trim().split(" ");
-    if (parts.length > 1) {
-        let actualWord = parts.pop();
-        preposition = parts.join(" ") + " ";
-    }
-
     try {
+        // 3. Call your NEW Google Cloud endpoint (No more proxies!)
         const response = await fetch(`https://lessons-487913.ey.r.appspot.com/scrape_declension?word=${encodeURIComponent(word)}`);
-        if (!response.ok) return myAppResult;
+        
+        if (!response.ok) throw new Error("Wiki table not found");
 
-        const wikiData = await response.json();
+        const wikiData = await response.json(); // This is the list of cases from Python
+        
+        // 4. Find the correct row (e.g., "Genitiv (2.)")
         const caseRow = wikiData.find(item => item.case === targetCaseLabel);
 
         if (caseRow) {
-            let wikiWord = (numberValue === "S") ? caseRow.singular : caseRow.plural;
+            const wikiVersion = (numberValue === "S") ? caseRow.singular : caseRow.plural;
             
-            // Clean up slashes (psovi/psu -> psovi, psu)
-            wikiWord = wikiWord.replace(/\//g, ", ");
-            
-            const fullWikiResult = preposition + wikiWord;
-
-            // Add Badge
+            // Add the 'W' badge to show it worked!
             const wBadge = document.createElement('span');
             wBadge.className = 'badge-w';
             wBadge.innerText = 'W';
             badgesContainer.prepend(wBadge);
 
-            // Turn Green
-            resultTextElement.style.color = '#27ae60';
+            // 5. Clean up the comparison (remove prepositions like 'bez' if necessary)
+            let cleanedAppResult = myResult.split(' ').pop().toLowerCase();
+            let cleanedWikiResult = wikiVersion.toLowerCase();
 
-            // Log if different
-            if (myAppResult.toLowerCase() !== fullWikiResult.toLowerCase()) {
-                logMismatchToSheet(word, targetCaseLabel, numberValue, myAppResult, fullWikiResult);
+            if (cleanedAppResult !== cleanedWikiResult) {
+                // If Wiki is different, show the Wiki version
+                resultTextElement.innerText = wikiVersion; 
+                resultTextElement.style.color = '#27ae60'; 
+                speakCzech(wikiVersion);
             }
-
-            return fullWikiResult;
+            warningElement.style.display = 'none';
         }
     } catch (err) {
-        console.log("Wiki check failed");
+        console.warn("Cloud Verification failed:", err.message);
+        warningElement.style.display = 'block';
     }
-    return myAppResult; // Return original if wiki fails
 }
 
 
