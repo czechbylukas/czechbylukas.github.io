@@ -222,13 +222,14 @@ function loadAdSense() {
     }
 
     // 2. Load the script if it's not already there
-    if (!document.querySelector('script[src*="pagead2"]')) {
-        var adsenseScript = document.createElement('script');
-        adsenseScript.async = true;
-        adsenseScript.src = 'https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9067674021614925';
-        adsenseScript.crossOrigin = 'anonymous';
-        document.head.appendChild(adsenseScript);
-    }
+    if (!document.querySelector('script[src*="pagead2"]')) {
+        var adsenseScript = document.createElement('script');
+        adsenseScript.async = true;
+        // adsenseScript.src = 'https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9067674021614925';
+        adsenseScript.src = 'https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js';
+        adsenseScript.crossOrigin = 'anonymous';
+        document.head.appendChild(adsenseScript);
+    }
 }
 
 // 1. RUN IMMEDIATELY FOR EVERYONE (unless it's the dashboard)
