@@ -222,14 +222,14 @@ function loadAdSense() {
     }
 
     // 2. Load the script if it's not already there
-    if (!document.querySelector('script[src*="pagead2"]')) {
-        var adsenseScript = document.createElement('script');
-        adsenseScript.async = true;
-        // adsenseScript.src = 'https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9067674021614925';
-        adsenseScript.src = 'https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js';
-        adsenseScript.crossOrigin = 'anonymous';
-        document.head.appendChild(adsenseScript);
-    }
+    if (!document.querySelector('script[src*="pagead2"]')) {
+        var adsenseScript = document.createElement('script');
+        adsenseScript.async = true;
+        // adsenseScript.src = 'https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9067674021614925';
+        adsenseScript.src = 'https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js';
+        adsenseScript.crossOrigin = 'anonymous';
+        document.head.appendChild(adsenseScript);
+    }
 }
 
 // 1. RUN IMMEDIATELY FOR EVERYONE (unless it's the dashboard)
@@ -323,14 +323,14 @@ const btnAccept = isCzech ? "Přijmout" : "Accept";
         loadAdSense(); 
 
         // NEW: This triggers any ad placeholders already on the page
-        // Trigger ads even if footer/sidebar are still loading
-        let checkAds = setInterval(() => {
-            const ads = document.querySelectorAll('ins.adsbygoogle:not([data-adsbygoogle-status="done"])');
-            if (ads.length > 0) {
-                // ads.forEach(() => (window.adsbygoogle = window.adsbygoogle || []).push({}));
-                clearInterval(checkAds);
-            }
-        }, 500);
+        // Trigger ads even if footer/sidebar are still loading
+        let checkAds = setInterval(() => {
+            const ads = document.querySelectorAll('ins.adsbygoogle:not([data-adsbygoogle-status="done"])');
+            if (ads.length > 0) {
+                // ads.forEach(() => (window.adsbygoogle = window.adsbygoogle || []).push({}));
+                clearInterval(checkAds);
+            }
+        }, 500);
         setTimeout(() => clearInterval(checkAds), 5000); // Stop looking after 5s
 
         banner.style.display = "none";
@@ -494,13 +494,13 @@ if (localStorage.getItem("cookieConsent") && window.canShowAds !== false) {
     let checkAdsReturning = setInterval(() => {
         const ads = document.querySelectorAll('ins.adsbygoogle:not([data-adsbygoogle-status="done"])');
         if (ads.length > 0) {
-            const isNPA = localStorage.getItem("cookieConsent") === "denied";
-            ads.forEach(() => {
-                // if (isNPA) (window.adsbygoogle = window.adsbygoogle || []).requestNonPersonalizedAds = 1;
-                // (window.adsbygoogle = window.adsbygoogle || []).push({});
-            });
-            clearInterval(checkAdsReturning);
-        }
+            const isNPA = localStorage.getItem("cookieConsent") === "denied";
+            ads.forEach(() => {
+                // if (isNPA) (window.adsbygoogle = window.adsbygoogle || []).requestNonPersonalizedAds = 1;
+                // (window.adsbygoogle = window.adsbygoogle || []).push({});
+            });
+            clearInterval(checkAdsReturning);
+        }
     }, 500);
     setTimeout(() => clearInterval(checkAdsReturning), 5000);
 }

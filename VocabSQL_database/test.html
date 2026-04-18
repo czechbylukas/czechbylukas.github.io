@@ -716,14 +716,13 @@ function showAnswerInUI() {
     // If there is an MP3 file AND audio is ON
     if(currentWord.audio && isAudioOn) {
         let audio = new Audio(currentWord.audio);
-        audio.onended = () => { nextBtn.style.display = 'block'; };
-        audio.play().catch(() => { nextBtn.style.display = 'block'; });
-    } 
+        nextBtn.style.display = 'block'; 
+        audio.play().catch(e => console.log("Audio play blocked"));
+    }
     // If no MP3 or audio is OFF, use the speakCzech logic (which now handles the OFF toggle)
     else {
-        speakCzech(currentWord.czech, () => {
-            nextBtn.style.display = 'block';
-        });
+        nextBtn.style.display = 'block';
+        speakCzech(currentWord.czech);
     }
     adjustWeight(penalty);
 }
@@ -745,10 +744,9 @@ function updateWeight(choice) {
             // Hide the buttons immediately so they can't double-click
             document.getElementById('btn-container').style.display = 'none';
 
-            // Speak, then trigger the new word only when finished
-            speakCzech(currentWord.czech, () => {
-                setTimeout(getRandomWord, 500); // 0.5s pause after speaking for comfort
-            });
+            // Speak, and trigger the new word after a short delay regardless of audio completion
+            speakCzech(currentWord.czech);
+            setTimeout(getRandomWord, 2000);
         }
     } else {
         recordMistake(currentWord.czech);
