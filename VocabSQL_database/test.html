@@ -423,15 +423,20 @@ function speakCzech(text, callback) {
     }
 
     // 1. Find the Czech voice
+    // 1. Find the Czech voice
     const voices = window.speechSynthesis.getVoices();
-    const czechVoice = voices.find(v => v.lang === 'cs-CZ' || v.lang === 'cs_CZ');
+    const czechVoice = voices.find(v => v.lang.startsWith('cs'));
+
+    if (!czechVoice && voices.length > 0) {
+        alert("Czech voice not found. Please install Czech language for Speech in your browser/system settings for audio to work correctly.");
+    }
 
     window.speechSynthesis.cancel(); 
 
     if (!text.includes('/')) {
         const utterance = new SpeechSynthesisUtterance(text);
-        if (czechVoice) utterance.voice = czechVoice; // FORCE SINGLE WORD
         utterance.lang = 'cs-CZ';
+        if (czechVoice) utterance.voice = czechVoice;
         utterance.rate = 0.9;
         if (callback) utterance.onend = callback;
         window.speechSynthesis.speak(utterance);
@@ -440,13 +445,13 @@ function speakCzech(text, callback) {
         const femText = text.replace(/\//g, "");
 
         const msgMasc = new SpeechSynthesisUtterance(mascText);
-        if (czechVoice) msgMasc.voice = czechVoice; // FORCE MASCULINE
         msgMasc.lang = 'cs-CZ';
+        if (czechVoice) msgMasc.voice = czechVoice;
         msgMasc.rate = 0.9;
 
         const msgFem = new SpeechSynthesisUtterance(femText);
-        if (czechVoice) msgFem.voice = czechVoice; // FORCE FEMININE
         msgFem.lang = 'cs-CZ';
+        if (czechVoice) msgFem.voice = czechVoice;
         msgFem.rate = 0.9;
 
         if (callback) msgFem.onend = callback;

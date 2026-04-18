@@ -473,7 +473,7 @@ async function callPythonAPI(event) {
 
         // Only show warning/helper if Wiki failed AND Python is guessing
         if (isPythonUnverified && !wBadgeFound) {
-            alert("Word not found in database or Wiktionary! Using grammar rules to guess.");
+            alert("Word not found in database! Using grammar rules to guess.");
             // Call your existing helper visibility function with 'true' to show it
             updateNounHelperVisibility(mode, word, true);
         }
