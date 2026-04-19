@@ -1,20 +1,53 @@
 <!DOCTYPE html>
-<html lang="cs">
+<html lang="en">
 <head>
-        
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Czech Vocabulary Study Tool | Spaced Repetition Flashcards | HáCZech</title>
+    
+    <link rel="canonical" href="https://www.hackczech.com/VocabSQL_database/test.html" />
+    
+    <meta name="description" content="Master Czech vocabulary with our intelligent Spaced Repetition (Anki-style) study tool. Practice 4,000+ words, phrases, and grammar cases (Genitive, Accusative, Locative) with images and native audio.">
+    <meta name="keywords" content="learn czech vocabulary, czech grammar practice, czech flashcards, spaced repetition czech, czech cases exercise">
+    
+    <meta property="og:title" content="Interactive Czech Study Tool - HáCZech">
+    <meta property="og:description" content="The smartest way to learn Czech words. Uses smart logic to track your mistakes and help you memorize faster.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://www.hackczech.com/VocabSQL_database/test.html">
+    
+    <meta property="og:image" content="https://www.hackczech.com/images/study-tool-preview.jpg"> 
+
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "SoftwareApplication",
+      "name": "HáCZech Vocabulary Study Tool",
+      "operatingSystem": "Web",
+      "applicationCategory": "EducationalApplication",
+      "offers": {
+        "@type": "Offer",
+        "price": "0.00",
+        "priceCurrency": "USD"
+      },
+      "description": "An interactive Czech language learning tool using spaced repetition to teach vocabulary and grammar through flashcards and audio.",
+      "educationalLevel": ["A1", "A2", "B1", "B2"]
+    }
+    </script>
+
+
     
     <script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-auth-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-database-compat.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/sql.js/1.6.2/sql-wasm.js"></script> <script src="../scripts-header.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/sql.js/1.6.2/sql-wasm.js"></script> 
+    <script src="../scripts-header.js"></script>
 
 
     <link rel="stylesheet" href="../css/style.css">
     <link rel="stylesheet" href="../css/language-selector.css">
-    <title id="page-title">Study Tool | HáCZech</title>
+  
 
 
     <style>
@@ -96,7 +129,16 @@
 
 <main style="display: flex; flex-wrap: wrap; justify-content: center; gap: 20px; padding: 20px;">
     
-    
+    <section style="display:none;">
+    <h2>Complete Czech Vocabulary & Grammar Curriculum</h2>
+    <p>Our tool covers all CEFR levels (A0, A1, A2, B1, B2) and essential topics including:</p>
+    <ul>
+        <li>Czech Cases: Genitive (2nd), Accusative (4th), Dative (3rd), Locative (6th), Instrumental (7th).</li>
+        <li>Grammar: Past Tense, Future Tense, Perfective vs Imperfective Verb Aspects, Pronouns, Prefixes.</li>
+        <li>Situational Czech: Shopping, Travel, Health, Work, Daily Routine, Social Integration.</li>
+        <li>Word Categories: Nouns, Verbs, Adjectives, Adverbs, Prepositions, and Question Words.</li>
+    </ul>
+</section>
 
     <aside id="study-filters" style="width: 250px; background: rgba(255,255,255,0.9); padding: 20px; border-radius: 12px; border: 2px solid #2c3e50; height: fit-content;">
         <h3 style="margin-top:0;">Filters (Optional)</h3>

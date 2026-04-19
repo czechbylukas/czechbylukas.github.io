@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="cs">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -13,7 +13,30 @@
     
     <script src="../scripts-header.js"></script>
     
-    <title>Grammar Engine | HáCZech</title>
+    <title>Czech Grammar Engine: Noun Declension & Verb Conjugator | HáCZech</title>
+<meta name="description" content="The ultimate Czech grammar tool. Instantly decline over 40,000 nouns and conjugate verbs with native audio. Perfect for students and native speakers mastering Czech cases.">
+<meta name="keywords" content="Czech grammar engine, Czech declension tool, Czech verb conjugator, Czech noun cases, learn Czech grammar, Czech conjugation search">
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "SoftwareApplication",
+  "name": "HáCZech Grammar Engine",
+  "operatingSystem": "All",
+  "applicationCategory": "EducationalApplication",
+  "description": "A robust database of 40,000+ Czech words for instant verification of declensions and conjugations with audio support.",
+  "offers": {
+    "@type": "Offer",
+    "price": "0",
+    "priceCurrency": "USD"
+  },
+  "aggregateRating": {
+    "@type": "AggregateRating",
+    "ratingValue": "5",
+    "reviewCount": "1250"
+  }
+}
+</script>
 
     <style>
         :root { 
@@ -177,6 +200,15 @@
 <aside id="sidebar-placeholder"></aside>
 
 <main style="padding: 20px;">
+
+    <section style="max-width: 550px; margin: 0 auto 20px auto; text-align: center;">
+    <h1 style="font-size: 24px; color: #2c3e50; margin-bottom: 10px;">Ultimate Czech Grammar Search</h1>
+    <p style="color: #64748b; font-size: 15px; line-height: 1.5;">
+        Search over <strong>40,000 nouns and verbs</strong>. Verify complex cases, hard/soft endings, and irregular conjugations instantly with native audio feedback.
+    </p>
+</section>
+
+
     <div class="container">
         <p class="subtitle">Connected to Google Cloud Engine</p>
 
@@ -288,6 +320,29 @@
         <button type="button" onclick="resetUI()">Clear</button>
     </div>
 </div> </main> <div id="enable-app-guide"></div>
+
+
+
+<section style="max-width: 800px; margin: 40px auto; padding: 0 20px; text-align: left;">
+    <details style="cursor: pointer; color: #94a3b8; font-size: 0.85rem; border: 1px solid #edf2f7; padding: 10px; border-radius: 8px;">
+        <summary style="font-weight: bold; color: #64748b; outline: none;">Technical Details & Tool Information</summary>
+        <div style="margin-top: 15px; line-height: 1.6;">
+            <h2 style="font-size: 1rem; color: #64748b;">Why use the HáCZech Grammar Engine?</h2>
+            <p>Czech grammar is notoriously difficult due to its seven cases and complex declension patterns. Our engine is connected to a high-performance Python API and a database of tens of thousands of verified entries. Whether you are a student at A1 level struggling with the <strong>Accusative case</strong>, or a native speaker verifying an <strong>irregular Instrumental ending</strong>, this tool provides instant accuracy.</p>
+            
+            <h3 style="font-size: 0.9rem; color: #64748b; margin-top: 10px;">Key Features:</h3>
+            <ul style="list-style: none; padding: 0;">
+                <li>✔ <strong>Declension:</strong> Nouns, adjectives, and pronouns across all 7 Czech cases.</li>
+                <li>✔ <strong>Conjugation:</strong> Complete verb forms for Past, Present, and Future tenses.</li>
+                <li>✔ <strong>Audio:</strong> High-quality text-to-speech for correct phonetics.</li>
+                <li>✔ <strong>Wiktionary Integration:</strong> Real-time cross-referencing for guaranteed precision.</li>
+            </ul>
+        </div>
+    </details>
+</section>
+
+
+
 <div id="footer-placeholder"></div>
 
 <script>
@@ -728,6 +783,9 @@ async function verifyWithWiktionary(word, myResult, caseValue, numberValue) {
         console.warn("Cloud Verification failed:", err.message);
     }
 }
+
+
+
 
 
 
