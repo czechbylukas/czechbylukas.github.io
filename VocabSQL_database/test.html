@@ -8,11 +8,11 @@
     
     <link rel="canonical" href="https://www.hackczech.com/VocabSQL_database/test.html" />
     
-    <meta name="description" content="Master Czech vocabulary with our intelligent Spaced Repetition (Anki-style) study tool. Practice 4,000+ words, phrases, and grammar cases (Genitive, Accusative, Locative) with images and native audio.">
+    <meta name="description" content="Master Czech vocabulary with my intelligent Spaced Repetition (Anki-style) study tool. Practice 4,000+ words, phrases, and grammar cases (Genitive, Accusative, Locative) with images and native audio.">
     <meta name="keywords" content="learn czech vocabulary, czech grammar practice, czech flashcards, spaced repetition czech, czech cases exercise">
     
     <meta property="og:title" content="Interactive Czech Study Tool - HáCZech">
-    <meta property="og:description" content="The smartest way to learn Czech words. Uses smart logic to track your mistakes and help you memorize faster.">
+    <meta property="og:description" content="The smartest way to learn Czech words. Uses smart logic and spaced repetition (SRS) to track your mistakes and help you memorize faster.">
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://www.hackczech.com/VocabSQL_database/test.html">
     
@@ -127,18 +127,18 @@
 
 
 
-<main style="display: flex; flex-wrap: wrap; justify-content: center; gap: 20px; padding: 20px;">
+
     
-    <section style="display:none;">
-    <h2>Complete Czech Vocabulary & Grammar Curriculum</h2>
-    <p>Our tool covers all CEFR levels (A0, A1, A2, B1, B2) and essential topics including:</p>
-    <ul>
-        <li>Czech Cases: Genitive (2nd), Accusative (4th), Dative (3rd), Locative (6th), Instrumental (7th).</li>
-        <li>Grammar: Past Tense, Future Tense, Perfective vs Imperfective Verb Aspects, Pronouns, Prefixes.</li>
-        <li>Situational Czech: Shopping, Travel, Health, Work, Daily Routine, Social Integration.</li>
-        <li>Word Categories: Nouns, Verbs, Adjectives, Adverbs, Prepositions, and Question Words.</li>
-    </ul>
+    
+    <section style="max-width: 550px; margin: 20px auto; text-align: center; padding: 0 15px; width: 100%;">
+    <h1 style="font-size: 24px; color: #2c3e50; margin-bottom: 10px;">Smart Czech Vocabulary Study Tool</h1>
+    <p style="color: #64748b; font-size: 15px; line-height: 1.5;">
+        Master essential Czech vocabulary. Use smart logic to track your progress and practice with images and native audio.
+    </p>
 </section>
+
+<main style="display: flex; flex-wrap: wrap; justify-content: center; gap: 20px; padding: 20px;">
+
 
     <aside id="study-filters" style="width: 250px; background: rgba(255,255,255,0.9); padding: 20px; border-radius: 12px; border: 2px solid #2c3e50; height: fit-content;">
         <h3 style="margin-top:0;">Filters (Optional)</h3>
@@ -207,7 +207,7 @@
         </div>
         <button id="reveal-next" class="test-btn" style="display:none; width:80%; margin: 0 auto;" onclick="getRandomWord()">NEXT WORD</button>
     </div>
-
+</main>
 <nav style="display: flex; flex-direction: column; align-items: center; justify-content: center; width: 100%; margin-top: 20px; gap: 10px;">
 
 
@@ -215,7 +215,6 @@
        style="text-decoration:none; color: #2c3e50; font-weight: bold; font-size: 1rem; margin: 0 !important; display: block; text-align: center;">🏠 Main Page</a>
 </nav>
 
-</main>
 
 
 
@@ -232,6 +231,23 @@
 </div>
 
 
+<section style="max-width: 800px; margin: 40px auto; padding: 0 20px; text-align: left; width: 100%;">
+    <details style="cursor: pointer; color: #94a3b8; font-size: 0.85rem; border: 1px solid #edf2f7; padding: 10px; border-radius: 8px;">
+        <summary style="font-weight: bold; color: #64748b; outline: none;">Technical Details & Tool Information</summary>
+        <div style="margin-top: 15px; line-height: 1.6;">
+            <h2 style="font-size: 1rem; color: #64748b;">Why use the HáCZech Study Tool?</h2>
+            <p>My vocabulary engine focuses on <strong>active recall (spaced repetition)</strong>. By tracking your "Umím" and "Neumím" responses, the tool identifies which words you struggle with and increases their frequency. This ensures you spend your time effectively on new or difficult words rather than repeating what you already know.</p>
+            
+            <h3 style="font-size: 0.9rem; color: #64748b; margin-top: 10px;">Key Features:</h3>
+            <ul style="list-style: none; padding: 0;">
+                <li>✔ <strong>Personalized Logic:</strong> The database prioritizes words based on your personal mistakes.</li>
+                <li>✔ <strong>Multimedia Support:</strong> Many entries include native audio and visual aids to help with memorization.</li>
+                <li>✔ <strong>Focused Practice:</strong> Filter by specific lessons or word types (nouns, verbs, etc.) to target your study session.</li>
+                <li>✔ <strong>Foundational Curriculum:</strong> Extensive coverage of vocabulary mainly for levels A0, A1, and A2.</li>
+            </ul>
+        </div>
+    </details>
+</section>
 
 
 <div id="footer-placeholder"></div>
@@ -820,6 +836,8 @@ fetch("/sidebar/sidebar.html")
         document.getElementById("sidebar-placeholder").innerHTML = d; 
     })
     .catch(err => console.error("Sidebar load failed", err));
+
+
 
 // 2. FETCH THE FOOTER (Exact copy of Study Tool logic)
 fetch("../footer.html")
