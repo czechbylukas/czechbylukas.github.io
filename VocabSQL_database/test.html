@@ -784,12 +784,6 @@ fetch("../footer.html")
     .then(r => r.text())
     .then(d => { 
         document.getElementById("footer-placeholder").innerHTML = d; 
-
-        // Trigger the App Guide visibility exactly like the Study Tool
-        const guide = document.getElementById('global-app-guide');
-        if (guide) {
-            guide.style.display = 'block';
-        }
     })
     .catch(err => console.error("Footer load failed", err));
 

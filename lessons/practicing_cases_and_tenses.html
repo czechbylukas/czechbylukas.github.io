@@ -298,8 +298,6 @@
 
     fetch("../footer.html").then(r => r.text()).then(d => { 
         document.getElementById("footer-placeholder").innerHTML = d; 
-        const guide = document.getElementById('global-app-guide');
-        if (guide) guide.style.display = 'block';
     });
 
 let typingTimer;

@@ -4,10 +4,32 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     
-    <meta name="description" content="Master Czech with HáCZech! Explore our free learning tools, interactive apps, vocabulary databases, and grammar worksheets created by Lukas.">    
-    <title>Learn Czech Fast: Games, Vocabulary & Grammar | HackCzech</title>
-    <meta name="description" content="Master the Czech language with HackCzech! Free Czech vocabulary lists, grammar engines for cases, an interactive escape game, and fun learning games like flashcards and matching.">
+    <title>Learn Czech Fast: Grammar Engine, Vocabulary Games & Spaced Repetition | HáCZech</title>
+    
+    <meta name="description" content="The ultimate all-in-one tool to learn Czech. Features a 40,000+ word Grammar Engine, Spaced Repetition (ANKI-style) study tools, interactive Escape Games, and vocabulary practice in English, German, and Spanish. From A1 to B2 level.">
 
+    <meta name="keywords" content="learn czech online, czech grammar engine, czech declension tool, czech vocabulary games, czech spaced repetition, czech escape game, practice czech cases">
+
+    <meta property="og:title" content="HáCZech: Everything you need to master Czech">
+    <meta property="og:description" content="Flashcards, Grammar Engines, Escape Games, and more. Support for EN, DE, ES learners.">
+    <meta property="og:image" content="images/bulletin/temny_les_gramatiky.png">
+
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebApplication",
+      "name": "HáCZech",
+      "url": "https://www.hackczech.com",
+      "description": "Comprehensive Czech language learning platform featuring grammar declension engines and interactive games.",
+      "applicationCategory": "EducationalApplication",
+      "operatingSystem": "All",
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "USD"
+      }
+    }
+    </script>
     
 
 
@@ -24,7 +46,12 @@
 
 </head>
 <body class="home">
+    <h1 style="display:none;">Learn Czech Language Online - Free Grammar and Vocabulary Tools</h1>
 <header>
+
+    
+
+
     <h1 id="heading-welcome">Welcome in HáCzech</h1>
     
     <button id="admin-console-btn" style="display:none; background:#f39c12; color:white; border:none; padding:8px 15px; border-radius:5px; cursor:pointer; font-weight:bold; position:absolute; right:120px; top:50%; transform:translateY(-50%); z-index:100;">Admin Console</button>
@@ -108,30 +135,41 @@
             </a>
         </div>
     </div>
+
+
+
+
+
+
+
+
+
+
+
+<section class="seo-content-section" style="max-width: 800px; margin: 40px auto; padding: 20px; color: #555; font-size: 0.9rem; line-height: 1.6; border-top: 1px solid #eee;">
+    <h2>Master the Czech Language with HáCZech</h2>
+    <p>Whether you are starting at <strong>A1 level</strong> or progressing toward <strong>B2</strong>, HáCZech offers a robust suite of tools designed to make the Czech language accessible. My <a href="https://www.hackczech.com/lessons/practicing_cases_and_tenses.html" style="color: #27ae60; font-weight: bold; text-decoration: none;">Czech Grammar Engine</a> features a database of over 40,000 nouns and verbs, allowing you to verify <strong>declensions and conjugations</strong> instantly with native audio support.</p>
+    
+    <h3>Vocabulary Lists & Spaced Repetition</h3>
+    <p>Move beyond simple memorization. Use my <a href="https://www.hackczech.com/VocabSQL_database/test.html" style="color: #27ae60; font-weight: bold; text-decoration: none;">Spaced Repetition Study Tool</a> (similar to ANKI) to retain words efficiently with picture and audio support. For quick practice, explore my <a href="https://www.hackczech.com/vocabulary/index.html" style="color: #27ae60; text-decoration: underline;">Vocabulary Lists</a> or use <a href="https://www.hackczech.com/exercise/index.html" style="color: #27ae60; text-decoration: underline;">Plain Flashcards</a> for rapid review.</p>
+    
+    <h3>Interactive Games & Proficiency Tests</h3>
+    <p>Practice vocabulary in the <a href="https://www.hackczech.com/learn/games.html" style="color: #27ae60; font-weight: bold; text-decoration: none;">Games Section</a> through five levels of difficulty: from matching games and multiple-choice quizzes to strict spelling and listening exercises. To track your progress, take one of my <a href="https://www.hackczech.com/tests/index.html" style="color: #27ae60; text-decoration: underline;">Czech Proficiency Tests</a>. Materials are fully supported in English, German, and Spanish.</p>
+    
+    <h3>Gamified Learning</h3>
+<p>Test your knowledge of the <strong>7 Czech cases</strong> in my immersive <a href="https://www.hackczech.com/learn/games/Escape_Games/escape_game.html" style="color: #27ae60; font-weight: bold; text-decoration: none;">Czech Escape Game</a>. Save the princess by solving grammar puzzles! It is a fun, visual way to master one of the hardest parts of the language.</p>
+</section>
+
+
     </div>
 
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-</main>
     </div> 
+
+
+    
 
 <div id="footer-placeholder"></div>
 
@@ -144,6 +182,8 @@
                 document.getElementById("sidebar-placeholder").innerHTML = data;
             })
             .catch(error => console.error("Error loading sidebar:", error));
+
+
 
 
         // Load footer.html
