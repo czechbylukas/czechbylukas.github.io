@@ -59,6 +59,11 @@
     const savedLang = localStorage.getItem("selectedLanguage");
     const currentPath = window.location.pathname;
 
+    // 1. If no language is set, default this page to English
+    if (!savedLang) {
+      localStorage.setItem("selectedLanguage", "en");
+    }
+
     // Only redirect if the user is on the root index.html
     if (currentPath === "/" || currentPath.endsWith("index.html")) {
       if (savedLang === "es") {
