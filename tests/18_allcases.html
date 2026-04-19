@@ -40,10 +40,7 @@
                  background: white;">
   </iframe>
 
-  <div class="big-buttons">
-    <a id="btn-vocab" href="../vocabulary/18_allcases.html"></a>
-    <a id="btn-practice" href="../exercise/18_allcases.html"></a>
-  </div>
+
 
   <div class="small-buttons">
     <a id="btn-home" href="../index.html"></a>
@@ -87,8 +84,7 @@ const pageTitlePart = document.title.split('|')[1]?.trim() || "Test";
 document.getElementById("heading-test-instructions").textContent = translations["heading-test-instructions"] || "";
 
   // Buttons
-  document.getElementById("btn-vocab").textContent = translations.buttons?.vocabulary || "📘 Vocabulary";
-  document.getElementById("btn-practice").textContent = translations.buttons?.practice || "🧠 Practice";
+
   document.getElementById("btn-home").textContent = translations.buttons?.home || "🏠 Home";
   document.getElementById("btn-all-tests").textContent = translations.buttons?.testList || "📝 All Tests";
 }
