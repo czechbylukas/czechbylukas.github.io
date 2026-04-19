@@ -44,6 +44,31 @@
 
     <script src="/scripts-header.js"></script>
 
+
+
+
+
+<script>
+  // Run this only on the main landing page
+  (function() {
+    const savedLang = localStorage.getItem("selectedLanguage");
+    const currentPath = window.location.pathname;
+
+    // Only redirect if the user is on the root index.html
+    if (currentPath === "/" || currentPath.endsWith("index.html")) {
+      if (savedLang === "es") {
+        window.location.href = "/aprender-checo.html";
+      } else if (savedLang === "de") {
+        window.location.href = "/tschechisch-lernen.html";
+      }
+    }
+  })();
+</script>
+
+
+
+
+
 </head>
 <body class="home">
     <h1 style="display:none;">Learn Czech Language Online - Free Grammar and Vocabulary Tools</h1>

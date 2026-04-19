@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <title>Aprender Checo Rápido: Gramática, Juegos y Repetición Espaciada | HáCZech</title>
+    
+    <meta name="description" content="La herramienta definitiva para aprender checo. Motor de gramática con 40.000 palabras, herramientas de estudio estilo ANKI, juegos interactivos y práctica de vocabulario en español.">
+    <meta name="keywords" content="aprender checo online, gramática checa, motor de gramática, vocabulario checo, juegos para aprender checo, casos checos">
+
+    <link rel="alternate" hreflang="en" href="https://www.hackczech.com/index.html" />
+    <link rel="alternate" hreflang="es" href="https://www.hackczech.com/aprender-checo.html" />
+    <link rel="alternate" hreflang="de" href="https://www.hackczech.com/tschechisch-lernen.html" />
+    <link rel="alternate" hreflang="x-default" href="https://www.hackczech.com/index.html" />
+
+    <meta property="og:title" content="HáCZech: Todo lo que necesitas para dominar el checo">
+    <meta property="og:description" content="Flashcards, motores de gramática, juegos de escape y más. Soporte para estudiantes de español.">
+    <meta property="og:image" content="images/bulletin/temny_les_gramatiky.png">
+
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebApplication",
+      "name": "HáCZech",
+      "url": "https://www.hackczech.com/aprender-checo.html",
+      "description": "Plataforma integral de aprendizaje del idioma checo con motores de declinación gramatical y juegos.",
+      "applicationCategory": "EducationalApplication",
+      "operatingSystem": "All",
+      "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" }
+    }
+    </script>
+
+    <script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-database-compat.js"></script>
+
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/language-selector.css">
+    <script src="/scripts-header.js"></script>
+
+    <script>
+      // Force Spanish for this session
+      localStorage.setItem("selectedLanguage", "es");
+    </script>
+</head>
+<body class="home">
+    <h1 style="display:none;">Aprender Checo Online - Herramientas Gratuitas de Gramática y Vocabulario</h1>
+<header>
+    <h1 id="heading-welcome">Bienvenido a HáCZech</h1>
+    <button id="admin-console-btn" style="display:none; background:#f39c12; color:white; border:none; padding:8px 15px; border-radius:5px; cursor:pointer; font-weight:bold; position:absolute; right:120px; top:50%; transform:translateY(-50%); z-index:100;">Admin Console</button>
+    <div id="language-selector-container"></div>
+</header>
+
+    <aside id="sidebar-placeholder"></aside>
+
+    <div class="main-wrapper">
+        <div class="content-layout"> 
+            <div style="max-width: 400px; margin: 40px auto; background: #f4e7d3; border: 10px solid #5d4037; box-shadow: 0 10px 30px rgba(0,0,0,0.3); padding: 20px; position: relative; font-family: 'Segoe UI', sans-serif; text-align: center;">
+                <h2 style="margin: 0 0 15px 0; color: #5d4037; font-size: 1.1rem; text-transform: uppercase; letter-spacing: 1px; font-weight: 800;">
+                    📌 Noticias y Anuncios
+                </h2>
+                <div style="width: 16px; height: 16px; background: #e74c3c; border-radius: 50%; position: absolute; top: 45px; left: 50%; transform: translateX(-50%); box-shadow: 0 2px 4px rgba(0,0,0,0.3); z-index: 10;"></div>
+                <div style="background: white; padding: 20px 15px 15px 15px; border-radius: 2px; box-shadow: 2px 2px 10px rgba(0,0,0,0.1); transform: rotate(-1.5deg);">
+                    <div style="width: 75%; margin: 10px auto 15px auto; border: 1px solid #eee; padding: 2px;">
+                        <img src="images/bulletin/temny_les_gramatiky.png" alt="Juego de Gramática Checa" style="width: 100%; height: auto; display: block;">
+                    </div>
+                    <p style="margin: 0 0 12px 0; color: #333; font-weight: bold; font-size: 1rem; line-height: 1.3;">
+                        ⚔️ 7 Casos. 7 Monstruos. <br> Un Amor.
+                    </p>
+                    <a href="learn/games/Escape_Games/escape_game.html" style="display: block; background: #27ae60; color: white; padding: 10px; text-decoration: none; border-radius: 4px; font-weight: bold; text-transform: uppercase; font-size: 0.85rem;" onmouseover="this.style.background='#2ecc71'" onmouseout="this.style.background='#27ae60'">
+                        Jugar Escape Game →
+                    </a>
+                </div>
+            </div>
+
+            <section class="seo-content-section" style="max-width: 800px; margin: 40px auto; padding: 20px; color: #555; font-size: 0.9rem; line-height: 1.6; border-top: 1px solid #eee;">
+                <h2>Domina el idioma checo con HáCZech</h2>
+                <p>Ya sea que estés empezando en el nivel <strong>A1</strong> o progresando hacia el <strong>B2</strong>, HáCZech ofrece un conjunto de herramientas diseñadas para hacer accesible el checo. Mi <a href="https://www.hackczech.com/lessons/practicing_cases_and_tenses.html" style="color: #27ae60; font-weight: bold; text-decoration: none;">Motor de Gramática Checa</a> cuenta con una base de datos de más de 40.000 sustantivos y verbos, lo que te permite verificar <strong>declinaciones y conjugaciones</strong> al instante con audio nativo.</p>
+                
+                <h3>Listas de Vocabulario y Repetición Espaciada</h3>
+                <p>Ve más allá de la simple memorización. Utiliza mi <a href="https://www.hackczech.com/VocabSQL_database/test.html" style="color: #27ae60; font-weight: bold; text-decoration: none;">Herramienta de Estudio de Repetición Espaciada</a> (similar a ANKI) para retener palabras eficientemente con soporte de imagen y audio.</p>
+                
+                <h3>Juegos Interactivos y Pruebas de Nivel</h3>
+                <p>Practica vocabulario en la <a href="https://www.hackczech.com/learn/games.html" style="color: #27ae60; font-weight: bold; text-decoration: none;">Sección de Juegos</a>. Para seguir tu progreso, realiza una de mis <a href="https://www.hackczech.com/tests/index.html" style="color: #27ae60; text-decoration: underline;">Pruebas de Competencia en Checo</a>. Los materiales están totalmente disponibles en español.</p>
+            </section>
+        </div>
+    </div> 
+
+    <div id="footer-placeholder"></div>
+
+    <script>
+        // Load the Spanish sidebar
+        fetch("/sidebar/sidebar-es.html")
+            .then(res => res.status === 404 ? fetch("/sidebar/sidebar.html") : res)
+            .then(response => response.text())
+            .then(data => { document.getElementById("sidebar-placeholder").innerHTML = data; });
+
+        fetch("/footer.html")
+            .then(response => response.text())
+            .then(data => { document.getElementById("footer-placeholder").innerHTML = data; });
+    </script>
+    <script src="js/translations.js"></script>
+    <script src="js/language-selector.js"></script>
+</body>
+</html>
