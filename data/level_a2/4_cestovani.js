@@ -58,7 +58,7 @@ const vocab = [
     czech:   "prohlížení památek",
     english: "sightseeing",
     spanish: "turismo",
-    german:  "Besichtigung"
+    german:  "Besichtigung des Sehenswürdigkeiten"
   },
   {
     czech:   "služební cesta",
@@ -118,7 +118,7 @@ const vocab = [
     czech:   "zavazadlo, kufr",
     english: "luggage, baggage",
     spanish: "equipaje",
-    german:  "Gepäck"
+    german:  "Gepäck, Koffer"
   },
   {
     czech:   "mapa",
