@@ -3,7 +3,43 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tool Teacher | Past Tense Practice</title>
+
+
+    <title>Czech Past Tense Practice Tool | HáCZech Grammar Simulator</title>
+
+
+    <meta name="description" content="Master Czech past tense with our interactive sentence generator. Practice verb conjugation, auxiliary verbs (jsem, jsi), and gender-specific endings with native audio support.">
+    <meta name="accessibility" content="audioDescription, highContrast">
+    
+    
+    <meta name="keywords" content="Czech past tense, Czech grammar practice, learn Czech verbs, Czech conjugation exercise, HáCZech, Czech language learning">
+    <link rel="canonical" href="https://www.hackczech.com/lessons/past-tense-practice.html">
+
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://www.hackczech.com/lessons/past-tense-practice.html">
+    <meta property="og:title" content="Interactive Czech Past Tense Practice | HáCZech">
+    <meta property="og:description" content="A step-by-step tool to master Czech past tense. Choose your gender, pick a verb, and build full sentences with native pronunciation.">
+    <meta property="og:image" content="https://www.hackczech.com/images/past-tense-preview.jpg">
+
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Czech Past Tense Practice Tool">
+    <meta name="twitter:description" content="Master Czech verb conjugation with our interactive past tense simulator.">
+
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "LearningResource",
+      "name": "Czech Past Tense Practice Tool",
+      "description": "An interactive tool for practicing Czech past tense sentence construction including auxiliary verbs and past participles.",
+      "learningResourceType": "Exercise",
+      "educationalLevel": "Beginner (A1-A2)",
+      "inLanguage": "cs",
+      "author": {
+        "@type": "Organization",
+        "name": "HáCZech"
+      }
+    }
+    </script>
     
     <script>window.isLoginOnlyPage = true;</script>
     
@@ -84,9 +120,10 @@
 
 
         <div class="gender-box">
+    <label for="gender-switch" class="sr-only" style="display:none;">Select Gender</label>
+    
     <label style="font-weight: bold; margin-right: 10px;">Jsem:</label>
-    <select id="gender-switch" onchange="handleGenderChange()" 
-            style="padding: 10px; font-size: 18px; border-radius: 8px; border: 2px solid #2f52b5; max-width: 300px; text-overflow: ellipsis;">
+    <select id="gender-switch" onchange="handleGenderChange()" ...>
         <option value="" disabled selected>Vyber...</option>
         <option value="M">Muž (L)</option>
         <option value="F">Žena (LA)</option>
@@ -122,6 +159,36 @@
             <div id="log-content"></div>
         </div>
     </div>
+
+
+
+
+
+    <section style="max-width: 800px; margin: 40px auto; padding: 0 20px; text-align: left;">
+    <details style="cursor: pointer; color: #94a3b8; font-size: 0.85rem; border: 1px solid #edf2f7; padding: 10px; border-radius: 8px;">
+        <summary style="font-weight: bold; color: #64748b; outline: none;">How to practice Czech Past Tense Grammar</summary>
+        <div style="margin-top: 15px; line-height: 1.6;">
+            <p>
+                The Czech past tense (<em>minulý čas</em>) is constructed from two primary components: the auxiliary verb (<strong>jsem, jsi, jsme, jste</strong>) and the past participle (the verb form ending in <strong>-l, -la, -lo, -li, -ly</strong>). 
+                This tool automates the construction of these sentences.
+            </p>
+            
+            <ol style="margin-left: 15px;">
+                <li>✔ <strong>Select Gender:</strong> This is critical for determining the correct <em>-l</em> vs <em>-la</em> endings for the past participle.</li>
+                <li>✔ <strong>Enter Verb:</strong> Input a Czech infinitive (e.g., <em>dělat</em>) or click the randomizer 🎲.</li>
+                <li>✔ <strong>Step-by-Step Build:</strong> Build the sentence from subject to final participle, hearing native audio feedback at each stage.</li>
+            </ol>
+            <p>
+                For complete study modules, explore our <a href="../vocabulary/index.html">Czech Vocabulary Lists</a> or practice with our <a href="/VocabSQL_database/test.html">Spaced Repetition Study Tool</a>.
+            </p>
+        </div>
+    </details>
+</section>
+
+
+
+
+
 </main>
 
 <div id="footer-placeholder"></div>
