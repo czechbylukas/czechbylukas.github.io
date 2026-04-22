@@ -123,7 +123,9 @@
     <label for="gender-switch" class="sr-only" style="display:none;">Select Gender</label>
     
     <label style="font-weight: bold; margin-right: 10px;">Jsem:</label>
-    <select id="gender-switch" onchange="handleGenderChange()" ...>
+    <select id="gender-switch" onchange="handleGenderChange()"
+                        style="padding: 10px; font-size: 18px; border-radius: 8px; border: 2px solid #2f52b5; max-width: 300px; text-overflow: ellipsis;">
+
         <option value="" disabled selected>Vyber...</option>
         <option value="M">Muž (L)</option>
         <option value="F">Žena (LA)</option>
@@ -134,6 +136,7 @@
     </select>
     <span id="verb-info-display" style="margin-left: 20px; font-size: 22px; color: #333;"></span>
 </div>
+
 
         <div id="input-section" style="display: none;">
     <div id="translation-prompt" style="font-size: 24px; color: #2f52b5; font-weight: bold; margin-bottom: 15px; min-height: 30px;"></div>
@@ -174,12 +177,12 @@
             </p>
             
             <ol style="margin-left: 15px;">
-                <li>✔ <strong>Select Gender:</strong> This is critical for determining the correct <em>-l</em> vs <em>-la</em> endings for the past participle.</li>
+                <li>✔ <strong>Select Gender:</strong> This is critical for determining the correct <em>-l</em> vs <em>-la</em> vs <em>-lo</em> vs <em>-li</em> vs <em>-ly</em> endings for the past participle.</li>
                 <li>✔ <strong>Enter Verb:</strong> Input a Czech infinitive (e.g., <em>dělat</em>) or click the randomizer 🎲.</li>
                 <li>✔ <strong>Step-by-Step Build:</strong> Build the sentence from subject to final participle, hearing native audio feedback at each stage.</li>
             </ol>
             <p>
-                For complete study modules, explore our <a href="../vocabulary/index.html">Czech Vocabulary Lists</a> or practice with our <a href="/VocabSQL_database/test.html">Spaced Repetition Study Tool</a>.
+                For complete study modules, explore <a href="../vocabulary/index.html">Czech Vocabulary Lists</a> or practice with my <a href="/VocabSQL_database/test.html">Spaced Repetition Study Tool</a>.
             </p>
         </div>
     </details>
