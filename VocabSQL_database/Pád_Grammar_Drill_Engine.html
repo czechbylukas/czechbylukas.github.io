@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+    <meta charset="UTF-8">
+    <title>Drill: 2. pád | HáCZech</title>
+    <style>
+        :root { --primary: #2f52b5; --success: #27ae60; --error: #e74c3c; }
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background: #f0f2f5; padding: 20px; }
+        
+        #drill-container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: white;
+            padding: 40px;
+            border-radius: 15px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+            text-align: center;
+        }
+
+        .step-indicator { color: #94a3b8; font-weight: bold; margin-bottom: 10px; text-transform: uppercase; letter-spacing: 1px; }
+        .word-display { font-size: 2.5rem; font-weight: 800; color: var(--primary); margin: 20px 0; }
+        .sentence-context { font-size: 1.5rem; margin: 30px 0; min-height: 1.6em; }
+        
+        .options-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-top: 20px; }
+        
+        button.drill-btn {
+            padding: 15px;
+            font-size: 1.1rem;
+            border: 2px solid #ddd;
+            background: white;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        button.drill-btn:hover { border-color: var(--primary); color: var(--primary); background: #f8faff; }
+        
+        input[type="text"] {
+            font-size: 1.5rem;
+            padding: 10px;
+            border: 2px solid var(--primary);
+            border-radius: 8px;
+            text-align: center;
+            width: 80%;
+        }
+
+        .feedback { margin-top: 20px; font-weight: bold; height: 20px; }
+        .correct { color: var(--success); }
+        .wrong { color: var(--error); }
+        
+        .hidden { display: none; }
+    </style>
+</head>
+<body>
+
+<div id="drill-container">
+    <div id="game-ui">
+        <div class="step-indicator" id="step-label">Krok 1: Určení rodu</div>
+        <div class="word-display" id="target-word">Kočka</div>
+        <div id="hint-text" style="color: #666; margin-bottom: 10px;">(Cat)</div>
+
+        <div id="interaction-area">
+            <div id="step1" class="step-content">
+                <div class="options-grid">
+                    <button class="drill-btn" onclick="checkStep(1, 'f')">Feminine</button>
+                    <button class="drill-btn" onclick="checkStep(1, 'mi')">Masc. Inanimate</button>
+                    <button class="drill-btn" onclick="checkStep(1, 'ma')">Masc. Animate</button>
+                    <button class="drill-btn" onclick="checkStep(1, 'n')">Neuter</button>
+                </div>
+            </div>
+
+            <div id="step2" class="step-content hidden">
+                <p>Jaký typ skloňování použijeme?</p>
+                <div class="options-grid">
+                    <button class="drill-btn" onclick="checkStep(2, 'hard')">Tvrdé (Hard)</button>
+                    <button class="drill-btn" onclick="checkStep(2, 'soft')">Měkké (Soft)</button>
+                </div>
+            </div>
+
+            <div id="step3-4" class="step-content hidden">
+                <div class="sentence-context" id="sentence-box">
+                    Bez <span id="gap-placeholder">_______</span>.
+                </div>
+                <input type="text" id="answer-input" placeholder="Napiš správný tvar..." autocomplete="off">
+                <br><br>
+                <button class="drill-btn" style="background: var(--primary); color: white;" onclick="checkFinal()">Ověřit</button>
+            </div>
+        </div>
+
+        <div id="feedback" class="feedback"></div>
+    </div>
+</div>
+
+<script>
+    // --- DATA CONFIGURATION ---
+    const genitiveTemplates = {
+        "animal": ["Vidím stopu {{gap}}.", "Bojím se {{gap}}.", "Fotka mého {{gap}}."],
+        "object": ["Jdu tam bez {{gap}}.", "Kousek {{gap}} leží na zemi.", "Vzal si to od {{gap}}."],
+        "place": ["Vycházím z {{gap}}.", "Poblíž {{gap}} je park.", "Do {{gap}} nepůjdu."]
+    };
+
+    // This would eventually come from your SQL DB
+    const mockWord = {
+        lemma: "Kočka",
+        translation: "Cat",
+        gender: "f",
+        type: "hard", // e.g., Model 'Žena'
+        genitive: "kočky",
+        category: "animal"
+    };
+
+    let currentStep = 1;
+    let activeWord = mockWord;
+
+    function initDrill() {
+        // In reality, fetch a random word from DB here
+        document.getElementById('target-word').innerText = activeWord.lemma;
+        document.getElementById('hint-text').innerText = `(${activeWord.translation})`;
+    }
+
+    function checkStep(step, value) {
+        const feedback = document.getElementById('feedback');
+        
+        if (step === 1) {
+            if (value === activeWord.gender) {
+                showSuccess("Správně! Nyní vyber typ souhlásky.");
+                currentStep = 2;
+                transitionToStep(2);
+            } else {
+                showError("Špatně, zkus to znovu.");
+            }
+        } 
+        else if (step === 2) {
+            if (value === activeWord.type) {
+                showSuccess("Skvěle! Teď doplň větu.");
+                currentStep = 3;
+                setupSentence();
+                transitionToStep(3);
+            } else {
+                showError("Pozor na vzor (tvrdý vs. měkký).");
+            }
+        }
+    }
+
+    function setupSentence() {
+        const templates = genitiveTemplates[activeWord.category] || genitiveTemplates["object"];
+        const randomTemplate = templates[Math.floor(Math.random() * templates.length)];
+        const html = randomTemplate.replace("{{gap}}", `<span id="gap-placeholder">_______</span>`);
+        
+        document.getElementById('sentence-box').innerHTML = html;
+        document.getElementById('step-label').innerText = "Krok 3: Doplň větu (2. pád)";
+    }
+
+    function checkFinal() {
+        const userAnsw = document.getElementById('answer-input').value.trim().toLowerCase();
+        if (userAnsw === activeWord.genitive.toLowerCase()) {
+            document.getElementById('gap-placeholder').innerText = activeWord.genitive;
+            document.getElementById('gap-placeholder').style.color = "var(--success)";
+            showSuccess("Výborně! Celý úkol splněn.");
+            setTimeout(() => location.reload(), 2000); // Load next word
+        } else {
+            showError("Téměř... zkus opravit koncovku.");
+        }
+    }
+
+    function transitionToStep(step) {
+        document.querySelectorAll('.step-content').forEach(el => el.classList.add('hidden'));
+        if (step === 1) document.getElementById('step1').classList.remove('hidden');
+        if (step === 2) {
+            document.getElementById('step2').classList.remove('hidden');
+            document.getElementById('step-label').innerText = "Krok 2: Typ skloňování";
+        }
+        if (step === 3) {
+            document.getElementById('step3-4').classList.remove('hidden');
+            document.getElementById('answer-input').focus();
+        }
+    }
+
+    function showSuccess(msg) {
+        const f = document.getElementById('feedback');
+        f.innerText = msg;
+        f.className = "feedback correct";
+    }
+
+    function showError(msg) {
+        const f = document.getElementById('feedback');
+        f.innerText = msg;
+        f.className = "feedback wrong";
+    }
+
+    initDrill();
+</script>
+
+</body>
+</html>

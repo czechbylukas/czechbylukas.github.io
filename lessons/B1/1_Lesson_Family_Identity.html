@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>B1+ Family Masterclass | HáCZech</title>
+    <style>
+        :root { --primary: #5d4037; --secondary: #27ae60; --bg: #fdfaf5; }
+        body { font-family: 'Segoe UI', sans-serif; background: #eee; margin: 0; padding: 20px; color: #333; }
+        .app-container { max-width: 1100px; margin: 0 auto; background: white; border-radius: 15px; box-shadow: 0 10px 30px rgba(0,0,0,0.2); overflow: hidden; }
+        
+        /* Header */
+        .header { background: var(--primary); color: white; padding: 30px; text-align: center; }
+        .header h1 { margin: 0; font-size: 2rem; text-transform: uppercase; letter-spacing: 2px; }
+        
+        /* Form Sections */
+        .form-section { padding: 30px; border-bottom: 1px solid #eee; }
+        .form-section h2 { color: var(--primary); border-left: 5px solid var(--secondary); padding-left: 15px; margin-bottom: 25px; }
+        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 20px; }
+        
+        .input-box { display: flex; flex-direction: column; }
+        .input-box label { font-size: 0.85rem; font-weight: bold; margin-bottom: 5px; color: #666; }
+        .input-box input, .input-box select { padding: 12px; border: 1px solid #ddd; border-radius: 6px; font-size: 1rem; }
+        .input-box input:focus { border-color: var(--secondary); outline: none; box-shadow: 0 0 5px rgba(39,174,96,0.2); }
+
+        /* Buttons */
+        .btn-wrap { padding: 40px; text-align: center; background: #f9f9f9; }
+        .generate-btn { background: var(--secondary); color: white; padding: 18px 50px; border: none; border-radius: 50px; font-size: 1.2rem; font-weight: bold; cursor: pointer; transition: 0.3s; }
+        .generate-btn:hover { background: #219150; transform: translateY(-2px); }
+
+        /* Output Area */
+        #outputArea { display: none; padding: 40px; background: var(--bg); animation: fadeIn 0.8s; }
+        .essay-paper { background: white; padding: 40px; border: 1px solid #d3c4b1; border-radius: 5px; line-height: 1.8; font-size: 1.1rem; box-shadow: 5px 5px 0px #d3c4b1; }
+        .essay-paper strong { color: var(--secondary); border-bottom: 1px dashed #ccc; }
+
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+        @media print { .no-print { display: none; } .essay-paper { border: none; box-shadow: none; } }
+    </style>
+</head>
+<body>
+
+<div class="app-container">
+    <div class="header no-print">
+        <h1>Komplexní profil identity (B1+)</h1>
+        <p>Vyplňte všechna pole pro generování pokročilého textu o vaší rodině.</p>
+    </div>
+
+    <form id="profileForm" class="no-print">
+        <div class="form-section">
+            <h2>1. Osobní identita a tituly</h2>
+            <div class="grid">
+                <div class="input-box"><label>Titul</label>
+                    <select id="titul"><option value="">Žádný</option><option>Bc.</option><option>Mgr.</option><option>Ing.</option><option>MUDr.</option><option>JUDr.</option></select>
+                </div>
+                <div class="input-box"><label>Křestní jméno</label><input type="text" id="krestni" required></div>
+                <div class="input-box"><label>Příjmení</label><input type="text" id="prijmeni" required></div>
+                <div class="input-box"><label>Rodné příjmení (u žen)</label><input type="text" id="rodne_prijmeni"></div>
+                <div class="input-box"><label>Datum narození</label><input type="date" id="datum_nar"></div>
+                <div class="input-box"><label>Místo narození</label><input type="text" id="misto_nar"></div>
+                <div class="input-box"><label>Státní občanství</label><input type="text" id="obcanstvi" placeholder="např. Ukrajinec/Ukrajinka"></div>
+            </div>
+        </div>
+
+        <div class="form-section">
+            <h2>2. Bydliště a kontakt</h2>
+            <div class="grid">
+                <div class="input-box"><label>Ulice a číslo popisné</label><input type="text" id="ulice"></div>
+                <div class="input-box"><label>Obec (Město)</label><input type="text" id="obec"></div>
+                <div class="input-box"><label>PSČ</label><input type="text" id="psc"></div>
+                <div class="input-box"><label>Typ pobytu</label>
+                    <select id="pobyt"><option>trvalý</option><option>přechodný</option></select>
+                </div>
+                <div class="input-box"><label>E-mail (se zavináčem)</label><input type="email" id="email"></div>
+            </div>
+        </div>
+
+        <div class="form-section">
+            <h2>3. Rodinný stav a víra</h2>
+            <div class="grid">
+                <div class="input-box"><label>Rodinný stav</label>
+                    <select id="stav">
+                        <option value="svobodný/á">svobodný/á</option>
+                        <option value="ženatý/vdaná">ženatý/vdaná</option>
+                        <option value="rozvedený/á">rozvedený/á</option>
+                        <option value="vdovec/vdova">vdovec/vdova</option>
+                    </select>
+                </div>
+                <div class="input-box"><label>Vyznání (Náboženství)</label>
+                    <input type="text" id="vira" placeholder="např. katolík, ateista">
+                </div>
+                <div class="input-box"><label>Partner/ka (Jméno)</label><input type="text" id="partner_jmeno"></div>
+            </div>
+        </div>
+
+        <div class="form-section">
+            <h2>4. Širší příbuzenstvo (Advanced)</h2>
+            <div class="grid">
+                <div class="input-box"><label>Otec (Jméno a profese)</label><input type="text" id="otec_info"></div>
+                <div class="input-box"><label>Matka (Jméno za svobodna)</label><input type="text" id="matka_info"></div>
+                <div class="input-box"><label>Sourozenec (Typ a jméno)</label><input type="text" id="sourozenec"></div>
+                <div class="input-box"><label>Snacha / Zeť</label><input type="text" id="snacha_zet" placeholder="Jméno"></div>
+                <div class="input-box"><label>Švagr / Švagrová</label><input type="text" id="svagr" placeholder="Jméno"></div>
+                <div class="input-box"><label>Sestřenice / Bratranec</label><input type="text" id="bratranec" placeholder="Jméno"></div>
+                <div class="input-box"><label>Tchán / Tchyně</label><input type="text" id="tchan" placeholder="Jméno"></div>
+            </div>
+        </div>
+
+        <div class="form-section">
+            <h2>5. Popis postavy a povahy</h2>
+            <div class="grid">
+                <div class="input-box"><label>Postava (vzhled)</label><input type="text" id="vzhled" placeholder="např. štíhlý, vysoký"></div>
+                <div class="input-box"><label>Vlasy/Oči</label><input type="text" id="vlasy_oci" placeholder="např. hnědé oči, krátké vlasy"></div>
+                <div class="input-box"><label>Povahové rysy</label><input type="text" id="povaha" placeholder="např. pracovitý, ale nervózní"></div>
+            </div>
+        </div>
+
+        <div class="btn-wrap no-print">
+            <button type="button" class="generate-btn" onclick="generateEssay()">VYGENEROVAT POKROČILÝ TEXT</button>
+        </div>
+    </form>
+
+    <div id="outputArea">
+        <h2 style="color: var(--primary); text-align: center;">Můj rodinný a osobní profil</h2>
+        <div class="essay-paper" id="essayContent"></div>
+        
+        <div style="margin-top: 30px; text-align: center;" class="no-print">
+            <button onclick="window.print()" style="padding: 10px 20px; cursor: pointer;">Vytisknout PDF k prezentaci</button>
+            <button onclick="location.reload()" style="padding: 10px 20px; cursor: pointer; margin-left: 10px;">Změnit údaje</button>
+        </div>
+    </div>
+</div>
+
+<script>
+function generateEssay() {
+    const v = (id) => document.getElementById(id).value || "__________";
+    
+    // Gramatická logika
+    const titul = v('titul');
+    const jmeno = v('krestni');
+    const prijmeni = v('prijmeni');
+    const obec = v('obec');
+    const stav = v('stav');
+    
+    let text = `
+        Dovolte mi, abych se představil/a. Jmenuji se <strong>${titul} ${jmeno} ${prijmeni}</strong>. 
+        Narodil/a jsem se v <strong>${v('misto_nar')}</strong>, ale mé současné <strong>bydliště</strong> se nachází v obci <strong>${obec}</strong>, 
+        konkrétně v ulici <strong>${v('ulice')}</strong>. Mám zde nahlášený <strong>${v('pobyt')} pobyt</strong>. 
+        Moje <strong>státní občanství</strong> je <strong>${v('obcanstvi')}</strong> a mé <strong>rodné číslo</strong> je pro mě důležitým osobním údajem. 
+        Pokud jde o mou identitu, jsem <strong>${v('vira')}</strong> a v životě se snažím být především <strong>${v('povaha')}</strong>.
+        <br><br>
+        Co se týče mého <strong>rodinného stavu</strong>, jsem momentálně <strong>${stav}</strong>. 
+        Žiji s <strong>${v('partner_jmeno')}</strong>, se kterým/kterou tvoříme pár. 
+        Moje rodina je pro mě základem. Můj otec, <strong>${v('otec_info')}</strong>, mě vždy učil pracovitosti. 
+        Moje matka se <strong>za svobodna jmenovala ${v('matka_info')}</strong>. 
+        V naší rodině máme velmi zajímavé vztahy – mojí <strong>snachou/zetěm</strong> je <strong>${v('snacha_zet')}</strong> 
+        a mým <strong>švagrem</strong> se stal <strong>${v('svagr')}</strong> po <strong>svatbě</strong> mého sourozence.
+        <br><br>
+        Moje širší příbuzenstvo zahrnuje i <strong>tchána a tchyni</strong> (<strong>${v('tchan')}</strong>), se kterými vycházím velmi dobře. 
+        Často se vídám se svou <strong>sestřenicí/bratrancem</strong> jménem <strong>${v('bratranec')}</strong>. 
+        Bohužel, v naší rodině došlo i k smutným událostem, jako je <strong>úmrtí</strong> některých <strong>příbuzných</strong> nebo <strong>rozvod</strong>, 
+        ale přesto držíme při sobě jako <strong>věřící</strong> lidé.
+        <br><br>
+        Pokud mě potkáte, poznáte mě podle toho, že jsem <strong>${v('vzhled')}</strong> postavy, mám <strong>${v('vlasy_oci')}</strong>. 
+        Někdy nosím <strong>brýle</strong> a lidé o mně říkají, že jsem <strong>sympatický</strong> člověk. 
+        V případě potřeby mě můžete kontaktovat na <strong>e-mailové adrese</strong> <strong>${v('email')}</strong>, 
+        kterou kontroluji každý den.
+    `;
+
+    document.getElementById('essayContent').innerHTML = text;
+    document.getElementById('profileForm').style.display = 'none';
+    document.getElementById('outputArea').style.display = 'block';
+    window.scrollTo(0,0);
+}
+</script>
+
+</body>
+</html>
