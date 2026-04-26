@@ -514,11 +514,17 @@ async function callPythonAPI(event) {
         let finalWordToShow = data.result || "No result";
 
         // --- 2. WIKTIONARY CHECK ---
-        if (mode === 'noun' && data.result) {
+        if (data.result) {
             const caseVal = document.getElementById('case').value;
-            const numVal = document.getElementById('noun-number').value;
+            const numVal = (mode === 'verb') ? document.getElementById('verb-number').value : document.getElementById('noun-number').value;
+            
+            // New verb-specific values
+            const tenseVal = document.getElementById('tense').value;
+            const personVal = document.getElementById('person').value;
+            const genderVal = document.getElementById('gender').value;
 
-            await verifyWithWiktionary(word, data.result, caseVal, numVal);
+            // Pass all parameters to verification
+            await verifyWithWiktionary(word, data.result, caseVal, numVal, mode, tenseVal, personVal, genderVal);
             
             const wikiUpdatedText = document.getElementById('result-text').innerText;
             if (wikiUpdatedText && wikiUpdatedText !== "") {
@@ -722,66 +728,67 @@ async function logMismatchToSheet(word, caseLabel, number, myApp, wiki) {
 
 
 
-async function verifyWithWiktionary(word, myResult, caseValue, numberValue) {
+async function verifyWithWiktionary(word, myResult, caseValue, numberValue, mode, tense, person, gender) {
     const badgesContainer = document.getElementById('badges');
     const resultTextElement = document.getElementById('result-text');
     const warningElement = document.getElementById('unverified-warning');
     
-    const caseMap = { 
-        "1": "Nominativ (1.)", "2": "Genitiv (2.)", "3": "Dativ (3.)", 
-        "4": "Akuzativ (4.)", "5": "Vokativ (5.)", "6": "Lokál (6.)", 
-        "7": "Instrumentál (7.)" 
-    };
-
-    const targetCaseLabel = caseMap[caseValue];
+    const endpoint = (mode === 'verb') 
+        ? `scrape_conjugation?word=${encodeURIComponent(word)}&tense=${tense}&person=${person}&number=${numberValue}&gender=${gender}`
+        : `scrape_declension?word=${encodeURIComponent(word)}`;
 
     try {
-        const response = await fetch(`https://lessons-487913.ey.r.appspot.com/scrape_declension?word=${encodeURIComponent(word)}`);
-        if (!response.ok) throw new Error("Wiki table not found");
-
+        const response = await fetch(`https://lessons-487913.ey.r.appspot.com/${endpoint}`);
+        if (!response.ok) throw new Error("Wiki data not found");
         const wikiData = await response.json(); 
-        const caseRow = wikiData.find(item => item.case === targetCaseLabel);
 
-        if (caseRow) {
-            let wikiRaw = (numberValue === "S") ? caseRow.singular : caseRow.plural;
+        let finalWikiResult = "";
+        let wikiBaseWord = ""; // For logging comparison
+        let logLabel = "";     // For the Google Sheet 'Case' column
+
+        if (mode === 'verb') {
+            if (wikiData.result) {
+                finalWikiResult = wikiData.result;
+                wikiBaseWord = wikiData.result; // Verbs usually don't have prefixes like nouns
+                logLabel = `${tense} ${person}.${numberValue}`;
+            }
+        } else {
+            const caseMap = { "1":"Nominativ (1.)", "2":"Genitiv (2.)", "3":"Dativ (3.)", "4":"Akuzativ (4.)", "5":"Vokativ (5.)", "6":"Lokál (6.)", "7":"Instrumentál (7.)" };
+            logLabel = caseMap[caseValue];
+            const caseRow = wikiData.find(item => item.case === logLabel);
             
-            // --- HANDLE SLASHES (psovi/psu) ---
-            // Split by slash, trim whitespace, and process each variant
-            const variants = wikiRaw.split('/').map(v => v.trim());
-            
-            const processedVariants = variants.map(variant => {
-                let prefix = "";
-                const firstLetter = variant.charAt(0).toLowerCase();
+            if (caseRow) {
+                let wikiRaw = (numberValue === "S") ? caseRow.singular : caseRow.plural;
+                const variants = wikiRaw.split('/').map(v => v.trim());
+                wikiBaseWord = variants[0]; // The raw word for logging
 
-                if (caseValue === "2") {
-                    prefix = "bez ";
-                } else if (caseValue === "3") {
-                    prefix = (firstLetter === 'k' || firstLetter === 'g') ? "ke " : "k ";
-                } else if (caseValue === "4") {
-                    prefix = "pro ";
-                } else if (caseValue === "6") {
-                    prefix = "o ";
-                } else if (caseValue === "7") {
-                    prefix = (['s', 'z', 'š', 'ž', 'c'].includes(firstLetter)) ? "se " : "s ";
-                }
-                return prefix + variant;
-            });
+                const processedVariants = variants.map(variant => {
+                    let prefix = "";
+                    const firstLetter = variant.charAt(0).toLowerCase();
+                    if (caseValue === "2") prefix = "bez ";
+                    else if (caseValue === "3") prefix = (firstLetter === 'k' || firstLetter === 'g') ? "ke " : "k ";
+                    else if (caseValue === "4") prefix = "pro ";
+                    else if (caseValue === "5") prefix = "voláme: ";
+                    else if (caseValue === "6") prefix = "o ";
+                    else if (caseValue === "7") prefix = (['s', 'z', 'š', 'ž', 'c', 'ps'].includes(firstLetter)) ? "se " : "s ";
+                    return prefix + variant;
+                });
+                finalWikiResult = processedVariants.join(", ");
+            }
+        }
 
-            const finalWikiResult = processedVariants.join(", "); // Result: "k psovi, k psu"
-
+        if (finalWikiResult) {
             // --- LOG MISMATCH TO GOOGLE SHEETS ---
-            // We compare the first variant (without prefix) to your Python result
-            if (variants[0] !== myResult) {
-                logMismatchToSheet(word, targetCaseLabel, numberValue, myResult, variants[0]);
+            // If Python result differs from Wiktionary's first variant, log it!
+            if (wikiBaseWord !== myResult) {
+                logMismatchToSheet(word, logLabel, numberValue, myResult, wikiBaseWord);
             }
 
-            // Add W badge
+            // Add W badge and Update UI
             const wBadge = document.createElement('span');
             wBadge.className = 'badge-w';
             wBadge.innerText = 'W';
             badgesContainer.appendChild(wBadge);
-
-            // Update UI
             resultTextElement.innerText = finalWikiResult; 
             warningElement.style.display = 'none';
         }
