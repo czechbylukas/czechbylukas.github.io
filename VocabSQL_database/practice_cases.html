@@ -87,7 +87,7 @@ const targetCases = [
 
 async function fetchWikiForms(word) {
     document.getElementById('main-submit').disabled = true;
-    document.getElementById('status-msg').innerText = `Hledám tvary pro: ${word}...`;
+    document.getElementById('status-msg').innerText = `Hledám tvary pro příklad`;
     
     const proxyUrl = "https://corsproxy.io/?https://cs.wiktionary.org/wiki/" + encodeURIComponent(word);
     try {
