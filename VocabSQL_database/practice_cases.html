@@ -51,13 +51,21 @@
     </div>
 
     <div id="gender-area" class="btn-grid hidden">
-        <button class="gender-btn btn-masc-anim" onclick="checkGender('masc_anim')">MASC. ANIMATE<span>pán / muž / soudce</span></button>
+        <button class="gender-btn btn-masc-anim" onclick="checkGender('masc_anim')">MASC. ANIMATE<span>pán / muž / předseda/ soudce</span></button>
         <button class="gender-btn btn-masc-inan" onclick="checkGender('masc_inan')">MASC. INANIMATE<span>hrad / stroj</span></button>
-        <button class="gender-btn btn-fem" onclick="checkGender('fem')">FEMININE<span>žena / růže / píseň</span></button>
-        <button class="gender-btn btn-neu" onclick="checkGender('neut')">NEUTER<span>město / moře / kuře</span></button>
+        <button class="gender-btn btn-fem" onclick="checkGender('fem')">FEMININE<span>žena / růže / píseň / kost</span></button>
+        <button class="gender-btn btn-neu" onclick="checkGender('neut')">NEUTER<span>město / moře / kuře / stavení</span></button>
     </div>
 
     <button id="main-submit" onclick="handleLogic()" disabled>Načítání dat...</button>
+    
+    
+    <div id="lifeline-area" class="hidden" style="margin-top: 15px; background: #fdf2f2; padding: 10px; border-radius: 10px;">
+    <p style="font-size: 0.9rem; margin-bottom: 5px;">Potřebujete nápovědu?</p>
+    <button onclick="revealAnswer()" style="background: #e67e22; color: white; border: none; padding: 5px 15px; border-radius: 5px; cursor: pointer;">Ukázat odpověď</button>
+    <button onclick="nextWord()" style="background: #7f8c8d; color: white; border: none; padding: 5px 15px; border-radius: 5px; cursor: pointer; margin-left: 5px;">Přeskočit slovo</button>
+</div>
+    
     <div id="feedback" class="feedback"></div>
 </div>
 
@@ -202,32 +210,51 @@ function showLevel4() {
     document.getElementById('target-display').innerText = currentWord.cz;
 }
 
+let attempts = 0;
+
 function handleLogic() {
     const val = document.getElementById('user-input').value.trim().toLowerCase();
     let correct = false;
 
     if (currentLevel === 1) correct = (val === currentWord.cz.toLowerCase());
-    else if (currentLevel === 3) correct = wikiForms[currentCaseObj.id].sg.includes(val);
+    else if (currentLevel === 3) {
+        if (!wikiForms || !wikiForms[currentCaseObj.id]) correct = false;
+        else correct = wikiForms[currentCaseObj.id].sg.includes(val);
+    }
     else if (currentLevel === 4) correct = (val === currentWord.lvl4Answer.toLowerCase());
 
     if (correct) {
-        showFeedback("✓ Správně!", "var(--success)");
-        currentLevel++;
-        setTimeout(() => {
-            if (currentLevel === 2) showLevel2();
-            else if (currentLevel === 3) showLevel3();
-            else if (currentLevel === 4) showLevel4();
-            else nextWord();
-        }, 800);
+        processCorrect();
     } else {
-        showFeedback("✕ Zkuste to znovu", "var(--accent)");
+        attempts++;
+        showFeedback(`✕ Zkuste to znovu (${attempts}/3)`, "var(--accent)");
+        if (attempts >= 3) {
+            showLifeline();
+        }
     }
+}   
+
+
+
+
+function processCorrect() {
+    showFeedback("✓ Výborně!", "var(--success)");
+    attempts = 0;
+    hideLifeline();
+    currentLevel++;
+    setTimeout(() => {
+        if (currentLevel === 2) showLevel2();
+        else if (currentLevel === 3) showLevel3();
+        else if (currentLevel === 4) showLevel4();
+        else nextWord();
+    }, 800);
 }
+
+
+
 
 function checkGender(choice) {
     const pattern = currentWord.pattern.toLowerCase().trim();
-    
-    // Map your patterns to the button choices
     const mapping = {
         'masc_anim': ['pán', 'muž', 'předseda', 'soudce'],
         'masc_inan': ['hrad', 'stroj'],
@@ -235,21 +262,12 @@ function checkGender(choice) {
         'neut': ['město', 'moře', 'kuře', 'stavení']
     };
 
-    const allowedPatterns = mapping[choice];
-    const isCorrect = allowedPatterns.includes(pattern);
-
-    console.log("--- GENDER/PATTERN CHECK ---");
-    console.log("Button Category Clicked:", choice);
-    console.log("Word Pattern in DB:", pattern);
-    console.log("Is it a match?", isCorrect);
-
-    if (isCorrect) {
-        showFeedback("✓ Správně!", "var(--success)");
-        currentLevel++;
-        setTimeout(showLevel3, 800);
+    if (mapping[choice] && mapping[choice].includes(pattern)) {
+        processCorrect();
     } else {
-        // This will tell you exactly what pattern the game was looking for
-        showFeedback(`Špatně! Vzor pro toto slovo je "${pattern}".`, "var(--accent)");
+        attempts++;
+        showFeedback(`✕ Špatný rod! (${attempts}/3)`, "var(--accent)");
+        if (attempts >= 3) showLifeline();
     }
 }
 
@@ -259,6 +277,31 @@ function showFeedback(text, color) {
     f.innerText = text;
     f.style.color = color;
 }
+
+
+
+
+function showLifeline() {
+    document.getElementById('lifeline-area').classList.remove('hidden');
+}
+
+function hideLifeline() {
+    document.getElementById('lifeline-area').classList.add('hidden');
+}
+
+function revealAnswer() {
+    let answer = "";
+    if (currentLevel === 1) answer = currentWord.cz;
+    else if (currentLevel === 2) answer = `Vzor: ${currentWord.pattern}`;
+    else if (currentLevel === 3) answer = wikiForms[currentCaseObj.id].sg.join(" / ");
+    else if (currentLevel === 4) answer = currentWord.lvl4Answer;
+    
+    alert("Správná odpověď je: " + answer);
+}
+
+
+
+
 
 function updateUI(level, prompt, display, mode) {
     document.getElementById('level-indicator').innerText = level;
