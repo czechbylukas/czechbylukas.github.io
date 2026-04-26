@@ -1,226 +1,279 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="cs">
 <head>
     <meta charset="UTF-8">
-    <title>Czech Master Pro - Wiktionary Edition</title>
+    <title>Czech Master Pro</title>
     <style>
         :root { 
-            --primary: #2c3e50; --accent: #d32f2f; --bg: #f4f7f6; --success: #27ae60; --warning: #f39c12; 
-            --m-ani: #bbdefb; --m-ani-t: #0d47a1; --m-ina: #e3f2fd; --m-ina-t: #1565c0;
-            --f: #fce4ec; --f-t: #c2185b; --n: #e8f5e9; --n-t: #1b5e20;
+            --primary: #2c3e50; --accent: #d32f2f; --bg: #f4f7f6; --success: #27ae60;
+            --m-ani: #2196f3; --m-ina: #64b5f6; --fem: #ec407a; --neu: #66bb6a;
         }
         body { font-family: 'Segoe UI', sans-serif; background: var(--bg); display: flex; justify-content: center; padding: 20px; }
-        .game-card { background: white; width: 100%; max-width: 600px; padding: 30px; border-radius: 15px; box-shadow: 0 10px 30px rgba(0,0,0,0.1); text-align: center; border-top: 8px solid var(--primary); }
-        .level-tag { background: #eee; padding: 6px 15px; border-radius: 20px; font-size: 0.9rem; font-weight: bold; color: var(--primary); margin-bottom: 20px; display: inline-block; }
-        .word-box { font-size: 2.5rem; font-weight: bold; color: var(--accent); margin: 15px 0; }
+        .game-card { background: white; width: 100%; max-width: 600px; padding: 30px; border-radius: 20px; box-shadow: 0 15px 35px rgba(0,0,0,0.1); text-align: center; border-top: 10px solid var(--primary); }
+        .level-tag { background: #eee; padding: 8px 20px; border-radius: 25px; font-size: 0.9rem; font-weight: 800; color: var(--primary); margin-bottom: 20px; display: inline-block; }
+        .word-box { font-size: 2.8rem; font-weight: bold; color: var(--accent); margin: 20px 0; min-height: 70px; display: flex; align-items: center; justify-content: center; }
+        .case-highlight { font-size: 1.8rem; display: block; color: var(--primary); font-weight: 800; margin: 10px 0; text-transform: uppercase; }
+        .sentence-box { background: #fffde6; padding: 25px; border: 2px dashed #ffe58f; border-radius: 12px; margin: 20px 0; font-size: 1.4rem; }
         
-        /* BIG CASE TEXT FIX */
-        .case-highlight { font-size: 2.2rem; display: block; color: var(--primary); font-weight: 800; margin: 10px 0; text-transform: uppercase; letter-spacing: 2px; }
+        input { width: 85%; padding: 18px; font-size: 1.3rem; border: 2px solid #ddd; border-radius: 12px; outline: none; text-align: center; }
+        input:focus { border-color: var(--primary); }
+
+        /* Modernized Gender Buttons */
+        .btn-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin: 20px 0; }
+        .gender-btn { padding: 20px; border: none; border-radius: 12px; color: white; cursor: pointer; font-size: 1.1rem; font-weight: bold; transition: 0.2s; }
+        .gender-btn:active { transform: scale(0.95); }
+        .gender-btn span { display: block; font-size: 0.75rem; font-weight: normal; opacity: 0.9; margin-top: 5px; }
         
-        .sentence-box { background: #fffbe6; padding: 20px; border: 2px dashed #ffe58f; border-radius: 10px; margin: 20px 0; font-size: 1.3rem; color: #333; }
-        input { width: 80%; padding: 15px; font-size: 1.2rem; border: 2px solid #ddd; border-radius: 8px; outline: none; }
-        .btn-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin: 15px 0; }
-        button { padding: 15px; border: none; border-radius: 8px; background: var(--primary); color: white; cursor: pointer; font-size: 1.1rem; font-weight: bold; }
-        .btn-gender span { display: block; font-size: 0.75rem; font-weight: normal; opacity: 0.9; margin-top: 4px; }
-        .m-ani { background: var(--m-ani) !important; color: var(--m-ani-t) !important; }
-        .m-ina { background: var(--m-ina) !important; color: var(--m-ina-t) !important; }
-        .fem { background: var(--f) !important; color: var(--f-t) !important; }
-        .neu { background: var(--n) !important; color: var(--n-t) !important; }
-        .feedback { min-height: 35px; margin-top: 15px; font-weight: bold; font-size: 1.1rem; }
+        .btn-masc-anim { background-color: var(--m-ani); }
+        .btn-masc-inan { background-color: var(--m-ina); }
+        .btn-fem { background-color: var(--fem); }
+        .btn-neu { background-color: var(--neu); }
+
+        #main-submit { margin-top: 25px; width: 95%; padding: 18px; background: var(--primary); color: white; border: none; border-radius: 12px; font-size: 1.2rem; cursor: pointer; }
+        #main-submit:disabled { background: #ccc; cursor: not-allowed; }
+        .feedback { min-height: 40px; margin-top: 20px; font-weight: bold; font-size: 1.2rem; }
         .hidden { display: none !important; }
-        .loading-shield { font-style: italic; color: #999; margin-bottom: 10px; }
+        #status-msg { font-size: 0.8rem; color: #999; margin-bottom: 10px; }
     </style>
 </head>
 <body>
 
 <div class="game-card">
     <div id="level-indicator" class="level-tag">LEVEL 1</div>
+    <div id="status-msg">Načítám...</div>
     <div id="prompt" style="color: #666;">...</div>
     <div id="target-display" class="word-box">---</div>
-    <div id="loading" class="loading-shield hidden">Fetching live forms from Wiktionary...</div>
+    
     <div id="sentence-container" class="sentence-box hidden"></div>
 
     <div id="input-area">
-        <input type="text" id="user-input" placeholder="Type answer..." autocomplete="off">
+        <input type="text" id="user-input" placeholder="Napište odpověď..." autocomplete="off">
     </div>
 
     <div id="gender-area" class="btn-grid hidden">
-        <button class="btn-gender m-ani" onclick="checkGender('pán')">Masc. (Ani)<span>pán / muž</span></button>
-        <button class="btn-gender m-ina" onclick="checkGender('hrad')">Masc. (Ina)<span>hrad / stroj</span></button>
-        <button class="btn-gender fem" onclick="checkGender('žena')">Feminine<span>žena / růže</span></button>
-        <button class="btn-gender neu" onclick="checkGender('město')">Neuter<span>město / moře</span></button>
+        <button class="gender-btn btn-masc-anim" onclick="checkGender('masc_anim')">MASC. ANIMATE<span>pán / muž / soudce</span></button>
+        <button class="gender-btn btn-masc-inan" onclick="checkGender('masc_inan')">MASC. INANIMATE<span>hrad / stroj</span></button>
+        <button class="gender-btn btn-fem" onclick="checkGender('fem')">FEMININE<span>žena / růže / píseň</span></button>
+        <button class="gender-btn btn-neu" onclick="checkGender('neut')">NEUTER<span>město / moře / kuře</span></button>
     </div>
 
-    <button id="main-submit" style="margin-top: 20px; width: 85%;" onclick="handleLogic()">Submit Answer</button>
+    <button id="main-submit" onclick="handleLogic()" disabled>Načítání dat...</button>
     <div id="feedback" class="feedback"></div>
 </div>
 
+<script src="nouns.js"></script>
 <script src="sentences.js"></script>
+
 <script>
-// Logic to map internal case names to Wiktionary table indices
-const caseMap = {
-    "Genitiv": 1, "Dativ": 2, "Akuzativ": 3, "Vokativ": 4, "Lokál": 5, "Instrumentál": 6
-};
-
-const rawData = `kouč,muž,coach
-stůl,hrad,table
-pes,pán,dog
-škola,žena,school
-auto,město,car`; // Add your 300 words here
-
-const vocabulary = rawData.split('\n').map(line => {
-    const parts = line.split(',');
-    return { cz: parts[0], pattern: parts[1], en: parts[2] };
-});
-
 let currentWord = {};
 let currentLevel = 1;
 let wikiForms = null;
-let currentCaseName = "";
-let attempts = 0;
+let currentCaseObj = null;
+
+// ENTER key support
+document.addEventListener('keydown', (e) => {
+    if (e.key === 'Enter' && !document.getElementById('input-area').classList.contains('hidden')) {
+        handleLogic();
+    }
+});
+
+const targetCases = [
+    { label: "Genitiv (2.)", id: "Genitiv" },
+    { label: "Dativ (3.)", id: "Dativ" },
+    { label: "Akuzativ (4.)", id: "Akuzativ" },
+    { label: "Lokál (6.)", id: "Lokál" },
+    { label: "Instrumentál (7.)", id: "Instrumentál" }
+];
 
 async function fetchWikiForms(word) {
-    document.getElementById('loading').classList.remove('hidden');
+    document.getElementById('main-submit').disabled = true;
+    document.getElementById('status-msg').innerText = `Hledám tvary pro: ${word}...`;
+    
+    const proxyUrl = "https://corsproxy.io/?https://cs.wiktionary.org/wiki/" + encodeURIComponent(word);
     try {
-        const response = await fetch(`https://en.wiktionary.org/api/rest_v1/page/html/${encodeURIComponent(word)}`);
-        const html = await response.text();
-        const parser = new DOMParser();
-        const doc = parser.parseFromString(html, "text/html");
-        
-        // Find the Czech declension table
-        const table = doc.querySelector('.inflection-table-res'); 
-        const rows = table.querySelectorAll('tr');
-        
+        const response = await fetch(proxyUrl);
+        const text = await response.text();
+        const doc = new DOMParser().parseFromString(text, "text/html");
+        const tables = doc.querySelectorAll('table');
+
         let forms = {};
-        // Scrape Singular forms (usually in the second column)
-        Object.keys(caseMap).forEach(key => {
-            const rowIndex = caseMap[key] + 1; // skipping header
-            const cell = rows[rowIndex].querySelectorAll('td')[0];
-            // Split by comma in case of multiple forms like "kouči, koučovi"
-            forms[key] = cell.innerText.trim().split(/,\s+/).map(s => s.toLowerCase());
-        });
-        
-        wikiForms = forms;
-        console.log("Wiktionary Data Loaded:", wikiForms);
+        let found = false;
+
+        for (let t of tables) {
+            const rows = Array.from(t.querySelectorAll('tr'));
+            let matchCount = 0;
+            let tempForms = {};
+
+            // Parsing logic for Wiktionary table
+            [ {id:"Nominativ", k:"nominativ"}, {id:"Genitiv", k:"genitiv"}, {id:"Dativ", k:"dativ"}, 
+              {id:"Akuzativ", k:"akuzativ"}, {id:"Lokál", k:"lokál"}, {id:"Instrumentál", k:"instrumentál"} ].forEach(c => {
+                const row = rows.find(r => r.innerText.toLowerCase().includes(c.k));
+                if (row) {
+                    const tds = row.querySelectorAll('td');
+                    if (tds.length >= 2) {
+                        tempForms[c.id] = {
+                            sg: tds[0].innerText.replace(/\(.*\)/g, "").trim().toLowerCase().split(/[,/]\s*/).map(s => s.trim()),
+                            pl: tds[1].innerText.replace(/\(.*\)/g, "").trim().toLowerCase().split(/[,/]\s*/).map(s => s.trim())
+                        };
+                        matchCount++;
+                    }
+                }
+            });
+
+            if (matchCount >= 4) { forms = tempForms; found = true; break; }
+        }
+
+        if (found) {
+            wikiForms = forms;
+            console.clear();
+            console.log(`%c SLOVO: ${word.toUpperCase()} `, "background: #2c3e50; color: white; padding: 5px; font-weight: bold;");
+            const tableData = {};
+            for(let key in wikiForms) {
+                tableData[key] = { Singular: wikiForms[key].sg.join(", "), Plural: wikiForms[key].pl.join(", ") };
+            }
+            console.table(tableData);
+            document.getElementById('status-msg').innerText = "Wiki načtena.";
+            document.getElementById('main-submit').disabled = false;
+        } else { throw new Error(); }
     } catch (e) {
-        console.error("Wiki error, using fallback logic");
-        wikiForms = null; 
+        document.getElementById('status-msg').innerText = "Slovo nenalezeno na Wiki, zkouším jiné...";
+        setTimeout(nextWord, 500);
     }
-    document.getElementById('loading').classList.add('hidden');
 }
 
-async function nextWord() {
-    currentWord = vocabulary[Math.floor(Math.random() * vocabulary.length)];
-    await fetchWikiForms(currentWord.cz);
+function nextWord() {
+    if (typeof fullDatabase === 'undefined') return;
+    currentWord = fullDatabase[Math.floor(Math.random() * fullDatabase.length)];
     currentLevel = 1;
-    attempts = 0;
+    document.getElementById('sentence-container').classList.add('hidden');
+    fetchWikiForms(currentWord.cz);
     showLevel1();
 }
 
 function showLevel1() {
-    updateUI("LEVEL 1", `Translate to Czech:`, currentWord.en, 'input');
+    updateUI("LEVEL 1", "Přeložte do češtiny:", currentWord.en, 'input');
 }
 
 function showLevel2() {
-    updateUI("LEVEL 2", "Select the pattern:", currentWord.cz, 'gender');
+    updateUI("LEVEL 2", "Určete rod podstatného jména:", currentWord.cz, 'gender');
 }
 
 function showLevel3() {
-    const keys = Object.keys(caseMap);
-    currentCaseName = keys[Math.floor(Math.random() * keys.length)];
-    // MAKE THE CASE TEXT BIG
-    const bigPrompt = `<span class="case-highlight">${currentCaseName}</span>`;
-    updateUI("LEVEL 3", bigPrompt, currentWord.cz, 'input');
+    const possible = targetCases; 
+    currentCaseObj = possible[Math.floor(Math.random() * possible.length)];
+    
+    // LOGGING THE ANSWERS
+    if (wikiForms && wikiForms[currentCaseObj.id]) {
+        console.log(`--- STEP 3 CHEAT SHEET ---`);
+        console.log(`Target Case: ${currentCaseObj.label}`);
+        console.log(`Accepted Answers:`, wikiForms[currentCaseObj.id].sg);
+    }
+
+    updateUI("LEVEL 3", `Napište tvar pro: <span class="case-highlight">${currentCaseObj.label}</span>`, currentWord.cz, 'input');
 }
 
 function showLevel4() {
-    // Only pull from sentences.js
-    const options = (typeof sentenceDb !== 'undefined') ? sentenceDb.filter(s => s.word === currentWord.cz) : [];
-    const activeS = options[Math.floor(Math.random() * options.length)];
+    let sentence = null;
     
-    updateUI("LEVEL 4", "Complete the context sentence:", "", 'input');
+    if (typeof sentenceDb !== 'undefined') {
+        // We look for "lemma" instead of "word" to match your JS file
+        const matches = sentenceDb.filter(s => 
+            s.lemma && s.lemma.trim().toLowerCase() === currentWord.cz.trim().toLowerCase()
+        );
+        
+        if (matches.length > 0) {
+            sentence = matches[Math.floor(Math.random() * matches.length)];
+        }
+    }
+
     const sc = document.getElementById('sentence-container');
-    sc.innerText = activeS ? activeS.text : "Sentences for this word not found in JS file.";
+    if (sentence) {
+        // We use .sentence and .answer to match your JS file
+        sc.innerText = sentence.sentence; 
+        currentWord.lvl4Answer = sentence.answer;
+        console.log("STEP 4 ANSWER EXPECTED:", currentWord.lvl4Answer);
+    } else {
+        sc.innerText = `Věta pro "${currentWord.cz}" nebyla nalezena v databázi.`;
+        currentWord.lvl4Answer = currentWord.cz;
+    }
+
+    updateUI("LEVEL 4", "Doplňte správný tvar do věty:", "", 'input');
     sc.classList.remove('hidden');
     document.getElementById('target-display').innerText = currentWord.cz;
-    currentWord.lvl4Answer = activeS ? activeS.correctForm : "";
 }
 
 function handleLogic() {
     const val = document.getElementById('user-input').value.trim().toLowerCase();
     let correct = false;
-    let expectedText = "";
 
-    if (currentLevel === 1) {
-        correct = (val === currentWord.cz.toLowerCase());
-        expectedText = currentWord.cz;
-    } else if (currentLevel === 3) {
-        if (wikiForms && wikiForms[currentCaseName]) {
-            correct = wikiForms[currentCaseName].includes(val);
-            expectedText = wikiForms[currentCaseName].join(" / ");
-        } else { correct = true; } // Safety skip
-    } else if (currentLevel === 4) {
-        correct = (val === currentWord.lvl4Answer.toLowerCase());
-        expectedText = currentWord.lvl4Answer;
-    }
+    if (currentLevel === 1) correct = (val === currentWord.cz.toLowerCase());
+    else if (currentLevel === 3) correct = wikiForms[currentCaseObj.id].sg.includes(val);
+    else if (currentLevel === 4) correct = (val === currentWord.lvl4Answer.toLowerCase());
 
-    if (correct) win();
-    else {
-        attempts++;
-        if (attempts >= 3) {
-            lose(`Wrong! Answer: ${expectedText.toUpperCase()}`);
-            setTimeout(win, 2000);
-        } else {
-            lose(`Try again! (${3-attempts} left)`);
-        }
+    if (correct) {
+        showFeedback("✓ Správně!", "var(--success)");
+        currentLevel++;
+        setTimeout(() => {
+            if (currentLevel === 2) showLevel2();
+            else if (currentLevel === 3) showLevel3();
+            else if (currentLevel === 4) showLevel4();
+            else nextWord();
+        }, 800);
+    } else {
+        showFeedback("✕ Zkuste to znovu", "var(--accent)");
     }
 }
 
 function checkGender(choice) {
-    // Basic mapping for the 4 buttons
-    const map = { 'muž':'pán', 'stroj':'hrad', 'píseň':'žena', 'kost':'žena', 'růže':'žena', 'moře':'město', 'stavení':'město', 'kuře':'město', 'předseda':'pán' };
-    const target = map[currentWord.pattern] || currentWord.pattern;
-    if (choice === target) win();
-    else {
-        attempts++;
-        if (attempts >= 3) { lose(`It is ${currentWord.pattern}`); setTimeout(win, 2000); }
-        else lose("Wrong pattern!");
+    const pattern = currentWord.pattern.toLowerCase().trim();
+    
+    // Map your patterns to the button choices
+    const mapping = {
+        'masc_anim': ['pán', 'muž', 'předseda', 'soudce'],
+        'masc_inan': ['hrad', 'stroj'],
+        'fem': ['žena', 'růže', 'píseň', 'kost'],
+        'neut': ['město', 'moře', 'kuře', 'stavení']
+    };
+
+    const allowedPatterns = mapping[choice];
+    const isCorrect = allowedPatterns.includes(pattern);
+
+    console.log("--- GENDER/PATTERN CHECK ---");
+    console.log("Button Category Clicked:", choice);
+    console.log("Word Pattern in DB:", pattern);
+    console.log("Is it a match?", isCorrect);
+
+    if (isCorrect) {
+        showFeedback("✓ Správně!", "var(--success)");
+        currentLevel++;
+        setTimeout(showLevel3, 800);
+    } else {
+        // This will tell you exactly what pattern the game was looking for
+        showFeedback(`Špatně! Vzor pro toto slovo je "${pattern}".`, "var(--accent)");
     }
 }
 
-function win() {
-    const fb = document.getElementById('feedback');
-    fb.innerText = "✓ Correct!"; fb.style.color = "var(--success)";
-    currentLevel++; attempts = 0;
-    setTimeout(() => {
-        fb.innerText = "";
-        document.getElementById('user-input').value = "";
-        document.getElementById('sentence-container').classList.add('hidden');
-        if (currentLevel === 2) showLevel2();
-        else if (currentLevel === 3) showLevel3();
-        else if (currentLevel === 4) showLevel4();
-        else nextWord();
-    }, 1000);
-}
 
-function lose(msg) {
-    const fb = document.getElementById('feedback');
-    fb.innerText = msg;
-    fb.style.color = (attempts >= 3) ? "var(--accent)" : "var(--warning)";
+function showFeedback(text, color) {
+    const f = document.getElementById('feedback');
+    f.innerText = text;
+    f.style.color = color;
 }
 
 function updateUI(level, prompt, display, mode) {
     document.getElementById('level-indicator').innerText = level;
-    document.getElementById('prompt').innerHTML = prompt; // Using innerHTML for big text
+    document.getElementById('prompt').innerHTML = prompt;
     document.getElementById('target-display').innerText = display;
+    document.getElementById('feedback').innerText = "";
     document.getElementById('input-area').classList.toggle('hidden', mode !== 'input');
     document.getElementById('main-submit').classList.toggle('hidden', mode !== 'input');
     document.getElementById('gender-area').classList.toggle('hidden', mode !== 'gender');
+    const input = document.getElementById('user-input');
+    input.value = "";
+    if (mode === 'input') input.focus();
 }
 
-document.getElementById('user-input').addEventListener('keypress', (e) => { if (e.key === 'Enter') handleLogic(); });
-
-nextWord();
+window.onload = nextWord;
 </script>
 </body>
 </html>

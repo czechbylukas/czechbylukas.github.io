@@ -1,7 +1,7 @@
 //# Kompletní databáze 300 cvičení pro Czech by Lukas
 //# cases: 2-genitiv, 3-dativ, 4-akuzativ, 5-vokativ, 6-lokál, 7-instrumentál
 
-practice_database = [
+const sentenceDb = [
     //# --- ZÁKLADNÍ VZORY (A0 Essentials) ---
     {"en": "person", "lemma": "člověk", "gender": "masc_anim (pán)", "case": 2, "sentence": "Potkal jsem jednoho __________.", "answer": "člověka"},
     {"en": "sir / Mr.", "lemma": "pán", "gender": "masc_anim (pán)", "case": 3, "sentence": "Pomůžu tamtomu __________.", "answer": "pánovi"},
@@ -519,4 +519,4 @@ practice_database = [
     {"en": "health", "lemma": "zdraví", "gender": "neutr (stavení)", "case": 2, "sentence": "Přeju hodně __________.", "answer": "zdraví"},
     {"en": "happiness / luck", "lemma": "štěstí", "gender": "neutr (stavení)", "case": 4, "sentence": "Přeju hodně __________.", "answer": "štěstí"},
     {"en": "love", "lemma": "láska", "gender": "fem (žena)", "case": 7, "sentence": "Mluvím o __________.", "answer": "lásce"},
-]
+];
