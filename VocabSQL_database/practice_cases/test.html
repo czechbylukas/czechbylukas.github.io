@@ -59,12 +59,11 @@
 
     <button id="main-submit" onclick="handleLogic()" disabled>Načítání dat...</button>
     
-    
     <div id="lifeline-area" class="hidden" style="margin-top: 15px; background: #fdf2f2; padding: 10px; border-radius: 10px;">
-    <p style="font-size: 0.9rem; margin-bottom: 5px;">Potřebujete nápovědu?</p>
-    <button onclick="revealAnswer()" style="background: #e67e22; color: white; border: none; padding: 5px 15px; border-radius: 5px; cursor: pointer;">Ukázat odpověď</button>
-    <button onclick="nextWord()" style="background: #7f8c8d; color: white; border: none; padding: 5px 15px; border-radius: 5px; cursor: pointer; margin-left: 5px;">Přeskočit slovo</button>
-</div>
+        <p style="font-size: 0.9rem; margin-bottom: 5px;">Potřebujete nápovědu?</p>
+        <button onclick="revealAnswer()" style="background: #e67e22; color: white; border: none; padding: 5px 15px; border-radius: 5px; cursor: pointer;">Ukázat odpověď</button>
+        <button onclick="nextWord()" style="background: #7f8c8d; color: white; border: none; padding: 5px 15px; border-radius: 5px; cursor: pointer; margin-left: 5px;">Přeskočit slovo</button>
+    </div>
     
     <div id="feedback" class="feedback"></div>
 </div>
@@ -78,7 +77,6 @@ let currentLevel = 1;
 let wikiForms = null;
 let currentCaseObj = null;
 
-// ENTER key support
 document.addEventListener('keydown', (e) => {
     if (e.key === 'Enter' && !document.getElementById('input-area').classList.contains('hidden')) {
         handleLogic();
@@ -93,61 +91,119 @@ const targetCases = [
     { label: "Instrumentál (7.)", id: "Instrumentál" }
 ];
 
+
+
+
+
+
+
+
+
+
+
+
+
 async function fetchWikiForms(word) {
     document.getElementById('main-submit').disabled = true;
-    document.getElementById('status-msg').innerText = `Hledám tvary pro příklad`;
+    document.getElementById('status-msg').innerText = `Hledám: ${word}`;
     
     const proxyUrl = "https://corsproxy.io/?https://cs.wiktionary.org/wiki/" + encodeURIComponent(word);
+    
     try {
         const response = await fetch(proxyUrl);
+        if (!response.ok) throw new Error("Network response was not ok");
+        
         const text = await response.text();
         const doc = new DOMParser().parseFromString(text, "text/html");
-        const tables = doc.querySelectorAll('table');
+        
+        // Find all tables that look like declension tables
+        const allTables = Array.from(doc.querySelectorAll('table'));
+        const table = allTables.find(t => {
+            const txt = t.innerText.toLowerCase();
+            // Must have at least these three to be a real declension table
+            return txt.includes('nominativ') && txt.includes('genitiv') && txt.includes('akuzativ');
+        });
 
-        let forms = {};
-        let found = false;
-
-        for (let t of tables) {
-            const rows = Array.from(t.querySelectorAll('tr'));
-            let matchCount = 0;
-            let tempForms = {};
-
-            // Parsing logic for Wiktionary table
-            [ {id:"Nominativ", k:"nominativ"}, {id:"Genitiv", k:"genitiv"}, {id:"Dativ", k:"dativ"}, 
-              {id:"Akuzativ", k:"akuzativ"}, {id:"Lokál", k:"lokál"}, {id:"Instrumentál", k:"instrumentál"} ].forEach(c => {
-                const row = rows.find(r => r.innerText.toLowerCase().includes(c.k));
-                if (row) {
-                    const tds = row.querySelectorAll('td');
-                    if (tds.length >= 2) {
-                        tempForms[c.id] = {
-                            sg: tds[0].innerText.replace(/\(.*\)/g, "").trim().toLowerCase().split(/[,/]\s*/).map(s => s.trim()),
-                            pl: tds[1].innerText.replace(/\(.*\)/g, "").trim().toLowerCase().split(/[,/]\s*/).map(s => s.trim())
-                        };
-                        matchCount++;
-                    }
-                }
-            });
-
-            if (matchCount >= 4) { forms = tempForms; found = true; break; }
+        if (!table) {
+            console.warn("Table content not matched for:", word);
+            throw new Error("Table not found");
         }
 
-        if (found) {
-            wikiForms = forms;
-            console.clear();
-            console.log(`%c SLOVO: ${word.toUpperCase()} `, "background: #2c3e50; color: white; padding: 5px; font-weight: bold;");
-            const tableData = {};
-            for(let key in wikiForms) {
-                tableData[key] = { Singular: wikiForms[key].sg.join(", "), Plural: wikiForms[key].pl.join(", ") };
+        let forms = {};
+        const caseMap = [
+            { id: "Nominativ", k: "nominativ" },
+            { id: "Genitiv", k: "genitiv" },
+            { id: "Dativ", k: "dativ" },
+            { id: "Akuzativ", k: "akuzativ" },
+            { id: "Lokál", k: "lokál" },
+            { id: "Instrumentál", k: "instrumentál" }
+        ];
+
+        const rows = Array.from(table.querySelectorAll('tr'));
+        let matchCount = 0;
+
+        caseMap.forEach(c => {
+            const row = rows.find(r => {
+                const header = r.querySelector('th');
+                return header && header.innerText.toLowerCase().includes(c.k);
+            });
+
+            if (row) {
+                const tds = row.querySelectorAll('td');
+                if (tds.length >= 1) {
+                    // Logic: Clean text, remove soft hyphens, brackets, and extra options
+                    const clean = (el) => {
+                        if(!el) return "";
+                        return el.innerText.split(',')[0].split('[')[0].replace(/\u00AD/g, '').trim().toLowerCase();
+                    };
+                    
+                    forms[c.id] = {
+                        sg: [clean(tds[0])],
+                        pl: tds[1] ? [clean(tds[1])] : [clean(tds[0])] // Fallback if plural column missing
+                    };
+                    matchCount++;
+                }
             }
-            console.table(tableData);
-            document.getElementById('status-msg').innerText = "Wiki načtena.";
+        });
+
+        if (matchCount >= 4) {
+            wikiForms = forms;
+            
+            // --- FIXED CONSOLE OUTPUT ---
+            console.clear();
+            console.log(`%c ✅ SLOVO: ${word.toUpperCase()} `, "background: #27ae60; color: white; padding: 5px; font-weight: bold;");
+            
+            const printableTable = {};
+            for (let caseId in wikiForms) {
+                printableTable[caseId] = {
+                    Singular: wikiForms[caseId].sg[0],
+                    Plural: wikiForms[caseId].pl[0]
+                };
+            }
+            console.table(printableTable);
+            // ----------------------------
+
+            document.getElementById('status-msg').innerText = "Databáze načtena.";
             document.getElementById('main-submit').disabled = false;
-        } else { throw new Error(); }
+        } else { 
+            throw new Error("Table found but cases not extracted"); 
+        }
+
     } catch (e) {
-        document.getElementById('status-msg').innerText = "Slovo nenalezeno na Wiki, zkouším jiné...";
-        setTimeout(nextWord, 500);
+        console.error("Scraper Error:", e);
+        document.getElementById('status-msg').innerText = "Hledám další slovo...";
+        // Slightly longer delay to avoid rapid-fire "rotation"
+        setTimeout(nextWord, 800);
     }
 }
+
+
+
+
+
+
+
+
 
 function nextWord() {
     if (typeof fullDatabase === 'undefined') return;
@@ -170,7 +226,6 @@ function showLevel3() {
     const possible = targetCases; 
     currentCaseObj = possible[Math.floor(Math.random() * possible.length)];
     
-    // LOGGING THE ANSWERS
     if (wikiForms && wikiForms[currentCaseObj.id]) {
         console.log(`--- STEP 3 CHEAT SHEET ---`);
         console.log(`Target Case: ${currentCaseObj.label}`);
@@ -182,13 +237,10 @@ function showLevel3() {
 
 function showLevel4() {
     let sentence = null;
-    
     if (typeof sentenceDb !== 'undefined') {
-        // We look for "lemma" instead of "word" to match your JS file
         const matches = sentenceDb.filter(s => 
             s.lemma && s.lemma.trim().toLowerCase() === currentWord.cz.trim().toLowerCase()
         );
-        
         if (matches.length > 0) {
             sentence = matches[Math.floor(Math.random() * matches.length)];
         }
@@ -196,7 +248,6 @@ function showLevel4() {
 
     const sc = document.getElementById('sentence-container');
     if (sentence) {
-        // We use .sentence and .answer to match your JS file
         sc.innerText = sentence.sentence; 
         currentWord.lvl4Answer = sentence.answer;
         console.log("STEP 4 ANSWER EXPECTED:", currentWord.lvl4Answer);
@@ -228,14 +279,9 @@ function handleLogic() {
     } else {
         attempts++;
         showFeedback(`✕ Zkuste to znovu (${attempts}/3)`, "var(--accent)");
-        if (attempts >= 3) {
-            showLifeline();
-        }
+        if (attempts >= 3) showLifeline();
     }
-}   
-
-
-
+} 
 
 function processCorrect() {
     showFeedback("✓ Výborně!", "var(--success)");
@@ -249,9 +295,6 @@ function processCorrect() {
         else nextWord();
     }, 800);
 }
-
-
-
 
 function checkGender(choice) {
     const pattern = currentWord.pattern.toLowerCase().trim();
@@ -271,15 +314,11 @@ function checkGender(choice) {
     }
 }
 
-
 function showFeedback(text, color) {
     const f = document.getElementById('feedback');
     f.innerText = text;
     f.style.color = color;
 }
-
-
-
 
 function showLifeline() {
     document.getElementById('lifeline-area').classList.remove('hidden');
@@ -295,13 +334,8 @@ function revealAnswer() {
     else if (currentLevel === 2) answer = `Vzor: ${currentWord.pattern}`;
     else if (currentLevel === 3) answer = wikiForms[currentCaseObj.id].sg.join(" / ");
     else if (currentLevel === 4) answer = currentWord.lvl4Answer;
-    
     alert("Správná odpověď je: " + answer);
 }
-
-
-
-
 
 function updateUI(level, prompt, display, mode) {
     document.getElementById('level-indicator').innerText = level;
