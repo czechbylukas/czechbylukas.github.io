@@ -91,43 +91,31 @@ const targetCases = [
     { label: "Instrumentál (7.)", id: "Instrumentál" }
 ];
 
-
-
-
-
-
-
-
-
-
-
-
-
 async function fetchWikiForms(word) {
-    document.getElementById('main-submit').disabled = true;
-    document.getElementById('status-msg').innerText = `Hledám: ${word}`;
+    const submitBtn = document.getElementById('main-submit');
+    const statusMsg = document.getElementById('status-msg');
     
-    const proxyUrl = "https://corsproxy.io/?https://cs.wiktionary.org/wiki/" + encodeURIComponent(word);
+    submitBtn.disabled = true;
+    statusMsg.innerText = `Hledám: ${word}...`;
+    
+    // Using AllOrigins proxy to bypass the 403 Forbidden error
+    const proxyUrl = `https://api.allorigins.win/get?url=${encodeURIComponent("https://cs.wiktionary.org/wiki/" + word)}`;
     
     try {
         const response = await fetch(proxyUrl);
         if (!response.ok) throw new Error("Network response was not ok");
         
-        const text = await response.text();
-        const doc = new DOMParser().parseFromString(text, "text/html");
+        const data = await response.json();
+        const html = data.contents; // AllOrigins wraps the site in a 'contents' field
+        const doc = new DOMParser().parseFromString(html, "text/html");
         
-        // Find all tables that look like declension tables
         const allTables = Array.from(doc.querySelectorAll('table'));
         const table = allTables.find(t => {
             const txt = t.innerText.toLowerCase();
-            // Must have at least these three to be a real declension table
-            return txt.includes('nominativ') && txt.includes('genitiv') && txt.includes('akuzativ');
+            return txt.includes('nominativ') && txt.includes('genitiv');
         });
 
-        if (!table) {
-            console.warn("Table content not matched for:", word);
-            throw new Error("Table not found");
-        }
+        if (!table) throw new Error("Table not found");
 
         let forms = {};
         const caseMap = [
@@ -151,7 +139,6 @@ async function fetchWikiForms(word) {
             if (row) {
                 const tds = row.querySelectorAll('td');
                 if (tds.length >= 1) {
-                    // Logic: Clean text, remove soft hyphens, brackets, and extra options
                     const clean = (el) => {
                         if(!el) return "";
                         return el.innerText.split(',')[0].split('[')[0].replace(/\u00AD/g, '').trim().toLowerCase();
@@ -159,7 +146,7 @@ async function fetchWikiForms(word) {
                     
                     forms[c.id] = {
                         sg: [clean(tds[0])],
-                        pl: tds[1] ? [clean(tds[1])] : [clean(tds[0])] // Fallback if plural column missing
+                        pl: tds[1] ? [clean(tds[1])] : [clean(tds[0])]
                     };
                     matchCount++;
                 }
@@ -169,31 +156,27 @@ async function fetchWikiForms(word) {
         if (matchCount >= 4) {
             wikiForms = forms;
             
-            // --- FIXED CONSOLE OUTPUT ---
+            // Clean Console Table Output
             console.clear();
-            console.log(`%c ✅ SLOVO: ${word.toUpperCase()} `, "background: #27ae60; color: white; padding: 5px; font-weight: bold;");
-            
-            const printableTable = {};
-            for (let caseId in wikiForms) {
-                printableTable[caseId] = {
-                    Singular: wikiForms[caseId].sg[0],
-                    Plural: wikiForms[caseId].pl[0]
-                };
+            console.log(`%c ✅ DATA NAČTENA: ${word.toUpperCase()} `, "background: #27ae60; color: white; padding: 5px; font-weight: bold;");
+            const printable = {};
+            for (let id in wikiForms) {
+                printable[id] = { Jednotné: wikiForms[id].sg[0], Množné: wikiForms[id].pl[0] };
             }
-            console.table(printableTable);
-            // ----------------------------
+            console.table(printable);
 
-            document.getElementById('status-msg').innerText = "Databáze načtena.";
-            document.getElementById('main-submit').disabled = false;
+            statusMsg.innerText = "Data připravena.";
+            submitBtn.disabled = false;
+            submitBtn.innerText = "Odeslat";
         } else { 
-            throw new Error("Table found but cases not extracted"); 
+            throw new Error("Incomplete data"); 
         }
 
     } catch (e) {
         console.error("Scraper Error:", e);
-        document.getElementById('status-msg').innerText = "Hledám další slovo...";
-        // Slightly longer delay to avoid rapid-fire "rotation"
-        setTimeout(nextWord, 800);
+        statusMsg.innerText = "Chyba připojení, zkouším jiné slovo...";
+        // Wait 2 seconds before trying again to avoid being banned by the proxy
+        setTimeout(nextWord, 2000);
     }
 }
 
