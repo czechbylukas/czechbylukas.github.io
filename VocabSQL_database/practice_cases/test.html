@@ -91,92 +91,32 @@ const targetCases = [
     { label: "Instrumentál (7.)", id: "Instrumentál" }
 ];
 
+
+
+
+
+
 async function fetchWikiForms(word) {
     const submitBtn = document.getElementById('main-submit');
     const statusMsg = document.getElementById('status-msg');
-    
     submitBtn.disabled = true;
-    statusMsg.innerText = `Hledám: ${word}...`;
-    
-    // Using AllOrigins proxy to bypass the 403 Forbidden error
-    const proxyUrl = `https://api.allorigins.win/get?url=${encodeURIComponent("https://cs.wiktionary.org/wiki/" + word)}`;
+    statusMsg.innerText = `Ověřuji slovo`;
     
     try {
-        const response = await fetch(proxyUrl);
-        if (!response.ok) throw new Error("Network response was not ok");
-        
-        const data = await response.json();
-        const html = data.contents; // AllOrigins wraps the site in a 'contents' field
-        const doc = new DOMParser().parseFromString(html, "text/html");
-        
-        const allTables = Array.from(doc.querySelectorAll('table'));
-        const table = allTables.find(t => {
-            const txt = t.innerText.toLowerCase();
-            return txt.includes('nominativ') && txt.includes('genitiv');
+        const response = await fetch('https://lessons-487913.ey.r.appspot.com/process', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ mode: 'noun', word: word, case: "1", number: "S" })
         });
 
-        if (!table) throw new Error("Table not found");
-
-        let forms = {};
-        const caseMap = [
-            { id: "Nominativ", k: "nominativ" },
-            { id: "Genitiv", k: "genitiv" },
-            { id: "Dativ", k: "dativ" },
-            { id: "Akuzativ", k: "akuzativ" },
-            { id: "Lokál", k: "lokál" },
-            { id: "Instrumentál", k: "instrumentál" }
-        ];
-
-        const rows = Array.from(table.querySelectorAll('tr'));
-        let matchCount = 0;
-
-        caseMap.forEach(c => {
-            const row = rows.find(r => {
-                const header = r.querySelector('th');
-                return header && header.innerText.toLowerCase().includes(c.k);
-            });
-
-            if (row) {
-                const tds = row.querySelectorAll('td');
-                if (tds.length >= 1) {
-                    const clean = (el) => {
-                        if(!el) return "";
-                        return el.innerText.split(',')[0].split('[')[0].replace(/\u00AD/g, '').trim().toLowerCase();
-                    };
-                    
-                    forms[c.id] = {
-                        sg: [clean(tds[0])],
-                        pl: tds[1] ? [clean(tds[1])] : [clean(tds[0])]
-                    };
-                    matchCount++;
-                }
-            }
-        });
-
-        if (matchCount >= 4) {
-            wikiForms = forms;
-            
-            // Clean Console Table Output
-            console.clear();
-            console.log(`%c ✅ DATA NAČTENA: ${word.toUpperCase()} `, "background: #27ae60; color: white; padding: 5px; font-weight: bold;");
-            const printable = {};
-            for (let id in wikiForms) {
-                printable[id] = { Jednotné: wikiForms[id].sg[0], Množné: wikiForms[id].pl[0] };
-            }
-            console.table(printable);
-
-            statusMsg.innerText = "Data připravena.";
+        if (response.ok) {
+            wikiForms = { "Nominativ": { sg: [word] } };
+            statusMsg.innerText = "Slovo připraveno!";
             submitBtn.disabled = false;
-            submitBtn.innerText = "Odeslat";
-        } else { 
-            throw new Error("Incomplete data"); 
-        }
-
+        } else { throw new Error(); }
     } catch (e) {
-        console.error("Scraper Error:", e);
-        statusMsg.innerText = "Chyba připojení, zkouším jiné slovo...";
-        // Wait 2 seconds before trying again to avoid being banned by the proxy
-        setTimeout(nextWord, 2000);
+        statusMsg.innerText = "Chyba, zkouším jiné...";
+        setTimeout(nextWord, 500);
     }
 }
 
@@ -205,17 +145,48 @@ function showLevel2() {
     updateUI("LEVEL 2", "Určete rod podstatného jména:", currentWord.cz, 'gender');
 }
 
-function showLevel3() {
-    const possible = targetCases; 
-    currentCaseObj = possible[Math.floor(Math.random() * possible.length)];
+async function showLevel3() {
+    const submitBtn = document.getElementById('main-submit');
+    currentCaseObj = targetCases[Math.floor(Math.random() * targetCases.length)];
+    const caseMap = { "Genitiv": "2", "Dativ": "3", "Akuzativ": "4", "Lokál": "6", "Instrumentál": "7" };
     
-    if (wikiForms && wikiForms[currentCaseObj.id]) {
-        console.log(`--- STEP 3 CHEAT SHEET ---`);
-        console.log(`Target Case: ${currentCaseObj.label}`);
-        console.log(`Accepted Answers:`, wikiForms[currentCaseObj.id].sg);
-    }
+    updateUI("LEVEL 3", `Načítám z Wiki...`, "...", 'input');
+    submitBtn.disabled = true;
 
-    updateUI("LEVEL 3", `Napište tvar pro: <span class="case-highlight">${currentCaseObj.label}</span>`, currentWord.cz, 'input');
+    try {
+        const response = await fetch('https://lessons-487913.ey.r.appspot.com/process', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+                mode: 'noun',
+                word: currentWord.cz,
+                case: caseMap[currentCaseObj.id],
+                number: "S"
+            })
+        });
+
+        const data = await response.json();
+        
+        if (data.result) {
+            // THE TRICK: 
+            // Your Python code returns "preposition + word".
+            // We split by space and take the LAST word. 
+            // This bypasses the "ponožkyě" error because the scraper result 
+            // overwrites the calculated result in your Python's "Correction Logic" section.
+            
+            let parts = data.result.split(' ');
+            let finalWord = parts[parts.length - 1].replace(',', '').trim().toLowerCase();
+
+            wikiForms[currentCaseObj.id] = { sg: [finalWord] };
+            
+            console.log(`🎯 TARGET ACQUIRED: ${finalWord}`);
+            updateUI("LEVEL 3", `Napište tvar pro: <span class="case-highlight">${currentCaseObj.label}</span>`, currentWord.cz, 'input');
+            submitBtn.disabled = false;
+        }
+    } catch (e) {
+        console.error("Fetch failed:", e);
+        nextWord();
+    }
 }
 
 function showLevel4() {

@@ -100,7 +100,7 @@ const fullDatabase = [
     {cz:"brambory",pattern:"hrad",en:"potatoes"},{cz:"restaurace",pattern:"růže",en:"restaurant"},
     {cz:"salát",pattern:"hrad",en:"salad"},{cz:"omáčka",pattern:"žena",en:"sauce"},
     {cz:"kyselé zelí",pattern:"stavení",en:"sauerkraut"},{cz:"příloha",pattern:"žena",en:"side dish"},
-    {cz:"polévka",pattern:"žena",en:"soup"},{cz:"propitné",pattern:"(adj)",en:"tip (in restaurant)"},
+    {cz:"polévka",pattern:"žena",en:"soup"},{cz:"spropitné",pattern:"(adj)",en:"tip (in restaurant)"},
     {cz:"zelenina",pattern:"žena",en:"vegetables"},{cz:"víno",pattern:"město",en:"wine"},
     {cz:"servírka",pattern:"žena",en:"waitress"},{cz:"číšník",pattern:"pán",en:"waiter"},
     {cz:"kuchař",pattern:"muž",en:"chef"},{cz:"kavárna",pattern:"žena",en:"cafe"},
