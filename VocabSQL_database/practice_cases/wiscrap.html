@@ -54,7 +54,6 @@ async function fetchAllForms() {
     
     if(!word) return;
 
-    // Background Logging (F12)
     console.clear();
     console.log(`%c Initializing search for: ${word} `, "background: #28a745; color: white; font-weight: bold;");
     
@@ -62,16 +61,19 @@ async function fetchAllForms() {
     table.style.display = "none";
     tbody.innerHTML = "";
 
-    const targetUrl = `https://cs.wiktionary.org/wiki/${word}`;
-    const proxyUrl = "https://corsproxy.io/?" + encodeURIComponent(targetUrl);
+    // We use allorigins.win as it's currently more stable for Wiktionary
+    const targetUrl = `https://cs.wiktionary.org/wiki/${encodeURIComponent(word)}`;
+    const proxyUrl = `https://api.allorigins.win/get?url=${encodeURIComponent(targetUrl)}`;
 
     try {
         const response = await fetch(proxyUrl);
-        console.log("Connection status:", response.status);
         
         if (!response.ok) throw new Error(`HTTP Error: ${response.status}`);
         
-        const text = await response.text();
+        const result = await response.json();
+        // AllOrigins wraps the HTML in a 'contents' property
+        const text = result.contents; 
+        
         const parser = new DOMParser();
         const doc = parser.parseFromString(text, "text/html");
 
@@ -85,20 +87,18 @@ async function fetchAllForms() {
             { label: "Instrumentál (7.)", keys: ["instrumentál", "7. pád"] }
         ];
 
-        const allTables = doc.querySelectorAll('table');
-        console.log(`HTML parsed. Tables found: ${allTables.length}`);
-
+        const allTables = doc.querySelectorAll('table.declension, table.inflection-table, table');
         let dataFound = false;
 
         for (let [index, t] of allTables.entries()) {
             const rows = Array.from(t.querySelectorAll('tr'));
-            let matchCount = 0;
             let tempBody = "";
+            let matchCount = 0;
 
             targetCases.forEach(c => {
                 const row = rows.find(r => {
-                    const firstCell = r.querySelector('th, td')?.innerText.toLowerCase() || "";
-                    return c.keys.some(k => firstCell.includes(k));
+                    const cells = Array.from(r.querySelectorAll('th, td'));
+                    return cells.some(cell => c.keys.some(k => cell.innerText.toLowerCase().includes(k)));
                 });
 
                 if (row) {
@@ -116,9 +116,7 @@ async function fetchAllForms() {
                 }
             });
 
-            // If we found at least 3 cases, it's likely the correct declension table
             if (matchCount >= 3) {
-                console.log(`%c Table match found at index ${index} `, "color: #007bff; font-weight: bold;");
                 tbody.innerHTML = tempBody;
                 dataFound = true;
                 break; 
@@ -126,15 +124,14 @@ async function fetchAllForms() {
         }
 
         if (dataFound) {
-            status.innerText = ""; // Clear status on success
+            status.innerText = "";
             table.style.display = "table";
         } else {
             status.innerText = "Slovo nebo tabulka nebyla nalezena.";
-            console.warn("Could not find a table containing Czech case labels.");
         }
 
     } catch (err) {
-        status.innerText = "Chyba sítě nebo spojení.";
+        status.innerText = "Chyba sítě: Proxy server pravděpodobně blokuje požadavek.";
         console.error("Fetch failure:", err);
     }
 }
