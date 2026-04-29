@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Czech Case Practice</title>
+    <style>
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background: #f0f2f5; display: flex; justify-content: center; padding: 50px 20px; }
+        .card { background: white; padding: 30px; border-radius: 20px; box-shadow: 0 10px 25px rgba(0,0,0,0.1); width: 100%; max-width: 450px; text-align: center; }
+        input { width: 100%; padding: 12px; margin: 15px 0; border: 2px solid #edf2f7; border-radius: 10px; font-size: 16px; box-sizing: border-box; outline: none; transition: 0.2s; }
+        input:focus { border-color: #2c3e50; }
+        button { background: #2c3e50; color: white; border: none; padding: 14px 28px; border-radius: 10px; cursor: pointer; font-weight: bold; width: 100%; font-size: 16px; }
+        button:disabled { background: #cbd5e1; cursor: not-allowed; }
+        .step { display: none; margin-top: 25px; border-top: 2px dashed #edf2f7; padding-top: 20px; animation: fadeIn 0.5s; }
+        .feedback { margin-top: 15px; font-weight: bold; font-size: 18px; }
+        .correct { color: #27ae60; }
+        .wrong { color: #e74c3c; }
+        .loading-text { color: #94a3b8; font-style: italic; font-size: 14px; margin-top: 10px; display: none; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+    </style>
+</head>
+<body>
+
+<div class="card">
+    <div id="step1">
+        <p style="text-transform: uppercase; color: #94a3b8; font-size: 12px; letter-spacing: 1px;">Step 1: Vocabulary</p>
+        <h2 id="target-english" style="margin: 10px 0; color: #2c3e50;">...</h2>
+        <input type="text" id="translation-input" placeholder="Enter Czech translation..." autocomplete="off">
+        <button id="btn-verify" onclick="verifyTranslation()">Check Translation</button>
+        <div id="loader" class="loading-text">Connecting to Python API...</div>
+    </div>
+
+    <div id="grammar-step" class="step">
+        <p style="text-transform: uppercase; color: #94a3b8; font-size: 12px; letter-spacing: 1px;">Step 2: Declension</p>
+        <p id="challenge-prompt" style="font-weight: 600; color: #2c3e50; font-size: 18px;"></p>
+        <input type="text" id="grammar-input" placeholder="Type the correct form..." autocomplete="off">
+        <button onclick="checkGrammar()">Verify Form</button>
+        <div id="feedback" class="feedback"></div>
+        <button onclick="location.reload()" style="margin-top: 20px; background: none; color: #94a3b8; text-decoration: underline; font-size: 13px;">Try another word</button>
+    </div>
+</div>
+
+<script>
+    const dictionary = {
+        "woman": "žena",
+        "pig": "prase",
+        "grandma": "babka",
+        "husite": "husita",
+        "man": "muž"
+    };
+
+    let currentEnglish = "";
+    let currentCzech = "";
+    let wikiTable = [];
+    let selectedChallenge = null;
+
+    function init() {
+        const keys = Object.keys(dictionary);
+        currentEnglish = keys[Math.floor(Math.random() * keys.length)];
+        document.getElementById('target-english').innerText = `How do you say "${currentEnglish}"?`;
+    }
+
+    async function verifyTranslation() {
+        const input = document.getElementById('translation-input').value.trim().toLowerCase();
+        const correctCzech = dictionary[currentEnglish];
+
+        if (input === correctCzech) {
+            currentCzech = correctCzech;
+            document.getElementById('btn-verify').disabled = true;
+            document.getElementById('loader').style.display = 'block';
+            await fetchWikiForms(currentCzech);
+        } else {
+            alert(`Not quite! The correct translation for ${currentEnglish} is ${correctCzech}.`);
+        }
+    }
+
+    async function fetchWikiForms(word) {
+        // Ensure the URL matches exactly what your backend expects
+        // Based on your original code, the endpoint is scrape_declension
+        const url = `https://lessons-487913.ey.r.appspot.com/scrape_declension?word=${encodeURIComponent(word)}`;
+        
+        try {
+            const response = await fetch(url);
+            
+            if (!response.ok) {
+                throw new Error(`Server responded with ${response.status}`);
+            }
+            
+            wikiTable = await response.json();
+            
+            console.log(`%c Successfully fetched ${word} `, 'background: #27ae60; color: white; font-weight: bold;');
+            console.table(wikiTable); // Shows the whole table in the console
+
+            setupGrammarChallenge();
+        } catch (err) {
+            console.error("Fetch Error:", err);
+            alert("API Error: Make sure your Python backend is running and the endpoint /scrape_declension exists.");
+            document.getElementById('btn-verify').disabled = false;
+        } finally {
+            document.getElementById('loader').style.display = 'none';
+        }
+    }
+
+    function setupGrammarChallenge() {
+        // Filter out Nominative (Case 1) so it's not the same as the translation
+        const challenges = wikiTable.filter(row => !row.case.includes("1."));
+        selectedChallenge = challenges[Math.floor(Math.random() * challenges.length)];
+
+        document.getElementById('challenge-prompt').innerText = 
+            `What is the "${selectedChallenge.case}" singular?`;
+        
+        document.getElementById('grammar-step').style.display = 'block';
+        document.getElementById('grammar-input').focus();
+    }
+
+    function checkGrammar() {
+        const input = document.getElementById('grammar-input').value.trim().toLowerCase();
+        const feedback = document.getElementById('feedback');
+        
+        // Handle multiple valid forms (e.g., 'muži/mužovi')
+        const correctAnswers = selectedChallenge.singular.toLowerCase().split('/').map(s => s.trim());
+
+        if (correctAnswers.includes(input)) {
+            feedback.innerText = "Výborně! Correct.";
+            feedback.className = "feedback correct";
+        } else {
+            feedback.innerText = `Incorrect. The form is: ${selectedChallenge.singular}`;
+            feedback.className = "feedback wrong";
+        }
+    }
+
+    // Allow 'Enter' key to submit
+    document.addEventListener('keypress', function (e) {
+        if (e.key === 'Enter') {
+            if (document.getElementById('grammar-step').style.display === 'block') {
+                checkGrammar();
+            } else {
+                verifyTranslation();
+            }
+        }
+    });
+
+    init();
+</script>
+
+</body>
+</html>
