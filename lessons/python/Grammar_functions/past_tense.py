@@ -267,5 +267,5 @@ def create_past_tense(lemma, person, gender, number):
         print(f"Verb Wiki check bypassed: {e}")
         is_verified = False
 
-    # ADDED wiki_val here at the end!
-    return result_str, is_verified, bool(is_reflexive), is_actually_irregular, wiki_val
+    # BACK TO ORIGINAL 4 VALUES - THIS FIXES NOUNS IMMEDIATELY!
+    return result_str, is_verified, bool(is_reflexive), is_actually_irregular
