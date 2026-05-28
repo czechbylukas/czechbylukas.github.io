@@ -83,6 +83,59 @@ def get_external_declension():
 
 
 
+
+@app.route('/scrape_conjugation', methods=['GET'])
+def scrape_conjugation():
+    """Exposes verb engines to frontend validation calls with detailed terminal print logging."""
+    word = request.args.get('word', '').strip()
+    tense = request.args.get('tense', '').strip()
+    person = request.args.get('person', '1')
+    number = request.args.get('number', 'S')
+    gender = request.args.get('gender', 'M')
+
+    if not word:
+        return jsonify({"error": "No word provided"}), 400
+
+    try:
+        if tense == 'past':
+            res_str, is_ver, refl, irr = create_past_tense(word, person, gender, number)
+        elif tense == 'present':
+            res_str, is_ver, refl, irr = create_present_tense(word, person, gender, number)
+        elif tense == 'future':
+            res_str, vid, is_ver, irr = create_future_tense(word, person, gender, number)
+            refl = "se" in word or "si" in word
+        else:
+            return jsonify({"error": f"Invalid tense parameter: {tense}"}), 400
+
+        # --- TERMINAL LOGGING FOR CLEARANCE ---
+        print("\n" + "="*50)
+        print(f"VERB VERIFICATION LOG FOR: '{word}' ({tense.upper()})")
+        print(f"Parameters: Person={person}, Number={number}, Gender={gender}")
+        print("-"*50)
+        print(f"-> MY BACKEND RESULT:  '{res_str}'")
+        print(f"-> WAS IT IRREGULAR?:  {irr}")
+        
+        # If your script fetched from Wiktionary, let's peek at what it evaluated
+        # (This helps catch if the verification interceptor altered the final string)
+        print(f"-> FINAL API RETURN:  '{res_str}' (Verified status: {is_ver})")
+        print("="*50 + "\n")
+
+        return jsonify({
+            "form": res_str,
+            "verified": is_ver,
+            "reflexive": refl,
+            "irregular": irr
+        })
+
+    except Exception as e:
+        print("\n" + "!"*50)
+        print(f"CRITICAL ROUTE ERROR IN SCRAPE_CONJUGATION: {e}")
+        print("!"*50 + "\n")
+        return jsonify({"error": str(e)}), 500
+    
+
+
+
 @app.route('/')
 def home():
     return "HackCzech API is Running", 200

@@ -1,8 +1,66 @@
 import sqlite3
 import os
 import csv
+import requests          # New
+import urllib.parse       # New
+from bs4 import BeautifulSoup # New
+import gspread            # New
+from oauth2client.service_account import ServiceAccountCredentials # New
 from datetime import datetime
 from .prefix_function import is_likely_perfective
+
+
+
+
+def get_wiktionary_verb_present(lemma, person, number):
+    """Scrapes present tense conjugation tables from Wiktionary."""
+    if not lemma: return None
+    url = f"https://cs.wiktionary.org/wiki/{urllib.parse.quote(lemma)}"
+    headers = {'User-Agent': 'HackCzech-Bot/1.0'}
+    try:
+        response = requests.get(url, timeout=3.0, headers=headers)
+        if response.status_code != 200: return None
+        soup = BeautifulSoup(response.content, 'html.parser')
+        table = soup.find('table', {'class': 'inflection-table'})
+        if not table: return None
+        
+        # Maps coordinates to rows inside typical Wiktionary layout
+        # Row indicators: 1. osoba (Singular/Plural)
+        person_idx = int(person) - 1 # 0 for 1st person, 1 for 2nd, etc.
+        col_idx = 0 if number == 'S' else 1
+        
+        rows = [row for row in table.find_all('tr') if "osoba" in row.get_text().lower()]
+        if len(rows) >= 3:
+            tds = rows[person_idx].find_all('td')
+            if len(tds) >= 2:
+                return tds[col_idx].get_text(strip=True).split(',')[0].split('[')[0].replace('\xad', '')
+        return None
+    except:
+        return None
+
+def log_verb_mismatch_to_gsheet(lemma, tense, form_key, gender, my_val, wiki_val):
+    """Logs verb errors explicitly to the 'verbs' worksheet tab."""
+    try:
+        import datetime
+        scope = ["https://spreadsheets.google.com/feeds", "https://www.googleapis.com/auth/drive"]
+        current_dir = os.path.dirname(os.path.abspath(__file__))
+        key_path = os.path.join(current_dir, "..", "service_account.json")
+        creds = ServiceAccountCredentials.from_json_keyfile_name(key_path, scope)
+        client = gspread.authorize(creds)
+        
+        # CHANGED: Targets the "verbs" tab inside your spreadsheet file
+        sheet = client.open("Czech_Declension_Log").worksheet("verbs")
+        
+        timestamp = datetime.datetime.now().strftime("%Y-%m-%d %H:%M")
+        
+        # CHANGED: Appends rows containing unified verb data structure
+        sheet.append_row([lemma, tense, form_key, gender or "N/A", my_val, wiki_val, timestamp])
+    except Exception as e:
+        print(f"Logging to Verb Sheet failed: {e}")
+
+
+
+
 
 def log_error(lemma, word_id, person_num, error_type):
     """Appends a report to grammar_errors.csv inside the Grammar_functions folder."""
@@ -121,8 +179,25 @@ def create_present_tense(lemma, person, gender, number, tense="present"):
         stem = base_verb[:-cut_map.get(active_p, 2)]
         present_form = stem + patterns[active_p][f"{person}{number}"]
 
-    if is_reflexive:
-        present_form = f"{present_form} {is_reflexive}"
-
+    # --- WIKTIONARY VERIFICATION ---
+    try:
+        # Strip reflexive particle away momentarily to compare bases accurately
+        my_base_only = present_form.split(' ')[0] if is_reflexive else present_form
+        
+        wiki_val = get_wiktionary_verb_present(lemma, person, number)
+        if wiki_val and wiki_val.strip():
+            wiki_val = wiki_val.strip().lower()
+            if my_base_only.lower().strip() != wiki_val:
+                person_num = f"{person}{number}"
+                log_verb_mismatch_to_gsheet(lemma, "Přítomný čas", person_num, None, my_base_only, wiki_val)
+                
+                # Overwrite presentation string with verified Wiktionary token
+                if is_reflexive:
+                    present_form = f"{wiki_val} {is_reflexive}"
+                else:
+                    present_form = wiki_val
+                is_verified = True
+    except Exception as e:
+        print(f"Present Verb Wiki check bypassed: {e}")
 
     return present_form, is_verified, bool(is_reflexive), is_actually_irregular

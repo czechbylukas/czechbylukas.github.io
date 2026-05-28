@@ -496,7 +496,7 @@ async function callPythonAPI(event) {
         mode: mode, word: word,
         tense: mode === 'verb' ? (document.getElementById('tense').value || 'present') : null,
         person: document.getElementById('person').value,
-        gender: document.getElementById('gender-row').classList.contains('hidden-menu') ? 'M' : document.getElementById('gender').value,
+        gender: (mode === 'verb' && document.getElementById('tense').value === 'past') ? document.getElementById('gender').value : '',
         case: document.getElementById('case').value,
         number: (mode === 'verb') ? document.getElementById('verb-number').value : document.getElementById('noun-number').value,
         is_animate: document.getElementById('is_animate').value === 'y',
@@ -515,7 +515,7 @@ async function callPythonAPI(event) {
 
         // --- 2. WIKTIONARY CHECK ---
         if (data.result) {
-            const caseVal = document.getElementById('case').value;
+            const caseVal = (mode === 'noun') ? document.getElementById('case').value : null;
             const numVal = (mode === 'verb') ? document.getElementById('verb-number').value : document.getElementById('noun-number').value;
             
             // New verb-specific values
@@ -739,17 +739,43 @@ async function verifyWithWiktionary(word, myResult, caseValue, numberValue, mode
 
     try {
         const response = await fetch(`https://lessons-487913.ey.r.appspot.com/${endpoint}`);
-        if (!response.ok) throw new Error("Wiki data not found");
+        if (!response.ok) throw new Error("Wiki connection failed");
+        
         const wikiData = await response.json(); 
 
+        console.log("Input Word:", lemma);
+        console.log("Mode Selected: verb");
+        console.log("My Backend Engine Computed:", data.form);
+        console.log("Raw Payload from Server:", data);
+
+        // 🔴 ADD THIS EXACT LINE BELOW LINE 750:
+        console.log("➔ 🔍 EXACT VALUE EXTRACTED FROM WIKTIONARY:", data.wiki_extracted_value);
+
+        if (!data.verified) {
+            console.error("❌ Wiktionary Parsing Failure: The scraper could not extract data...");
+        }
+
+        // --- FIX HERE: Detect when the python scraper fails and serves an unverified guess ---
+        if (mode === 'verb' && wikiData && wikiData.verified === false) {
+            console.error(`❌ Wiktionary Parsing Failure: The scraper could not extract data for "${word}" and returned an unverified algorithmic guess.`);
+            
+            // Inject a clean error message inside your UI card
+            const errorSpan = document.createElement('span');
+            errorSpan.className = 'wiki-error';
+            errorSpan.innerText = "⚠️ Word could not be verified on Wiktionary.";
+            badgesContainer.appendChild(errorSpan);
+            
+            return; // Exit out safely so it doesn't try to use or log the bad data
+        }
+
         let finalWikiResult = "";
-        let wikiBaseWord = ""; // For logging comparison
-        let logLabel = "";     // For the Google Sheet 'Case' column
+        let wikiBaseWord = ""; 
+        let logLabel = "";     
 
         if (mode === 'verb') {
-            if (wikiData.result) {
-                finalWikiResult = wikiData.result;
-                wikiBaseWord = wikiData.result; // Verbs usually don't have prefixes like nouns
+            if (wikiData && wikiData.form) {
+                finalWikiResult = wikiData.form;
+                wikiBaseWord = wikiData.form; 
                 logLabel = `${tense} ${person}.${numberValue}`;
             }
         } else {
@@ -760,7 +786,7 @@ async function verifyWithWiktionary(word, myResult, caseValue, numberValue, mode
             if (caseRow) {
                 let wikiRaw = (numberValue === "S") ? caseRow.singular : caseRow.plural;
                 const variants = wikiRaw.split('/').map(v => v.trim());
-                wikiBaseWord = variants[0]; // The raw word for logging
+                wikiBaseWord = variants[0]; 
 
                 const processedVariants = variants.map(variant => {
                     let prefix = "";
@@ -778,13 +804,10 @@ async function verifyWithWiktionary(word, myResult, caseValue, numberValue, mode
         }
 
         if (finalWikiResult) {
-            // --- LOG MISMATCH TO GOOGLE SHEETS ---
-            // If Python result differs from Wiktionary's first variant, log it!
             if (wikiBaseWord !== myResult) {
                 logMismatchToSheet(word, logLabel, numberValue, myResult, wikiBaseWord);
             }
 
-            // Add W badge and Update UI
             const wBadge = document.createElement('span');
             wBadge.className = 'badge-w';
             wBadge.innerText = 'W';
