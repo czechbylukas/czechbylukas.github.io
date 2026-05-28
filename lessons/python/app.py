@@ -121,10 +121,11 @@ def scrape_conjugation():
         print("="*50 + "\n")
 
         return jsonify({
-            "form": res_str,
-            "verified": is_ver,
-            "reflexive": refl,
-            "irregular": irr
+            "form": form,
+            "verified": verified,
+            "reflexive": reflexive,
+            "irregular": irregular,
+            "wiki_extracted_value": wiki_raw_result  # <-- Sending this to your frontend!
         })
 
     except Exception as e:
