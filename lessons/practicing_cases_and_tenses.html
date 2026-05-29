@@ -513,6 +513,10 @@ async function callPythonAPI(event) {
         
         let finalWordToShow = data.result || "No result";
 
+        // --- 1. DISPLAY INITIAL RESULT CARD FIRST ---
+        // This ensures the badge container is built in the DOM
+        showResult(finalWordToShow, data.status || []);
+
         // --- 2. WIKTIONARY CHECK ---
         if (data.result) {
             const caseVal = (mode === 'noun') ? document.getElementById('case').value : null;

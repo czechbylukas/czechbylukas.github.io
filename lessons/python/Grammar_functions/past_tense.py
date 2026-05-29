@@ -11,9 +11,7 @@ from oauth2client.service_account import ServiceAccountCredentials # New: For Au
 
 
 def get_wiktionary_verb_past(lemma, gender, number):
-
     debug_log = []
-
     debug_log.append(f"STARTING SCRAPER FOR: {lemma}")
 
     if not lemma:
@@ -21,123 +19,112 @@ def get_wiktionary_verb_past(lemma, gender, number):
         return None, debug_log
 
     url = f"https://cs.wiktionary.org/wiki/{urllib.parse.quote(lemma.strip())}"
-
     debug_log.append(f"URL: {url}")
 
     try:
-
         headers = {
-            "User-Agent": "Mozilla/5.0",
-            "Accept": "text/html,application/xhtml+xml",
+            "User-Agent": "CzechDeclensionBot/1.0 (contact: your_email@example.com) Python-requests",
+            "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8",
             "Accept-Language": "cs-CZ,cs;q=0.9,en;q=0.8",
             "Referer": "https://cs.wiktionary.org/"
         }
 
-        response = requests.get(
-            url,
-            headers=headers,
-            timeout=10
-        )
-
+        response = requests.get(url, headers=headers, timeout=10)
         print("FINAL URL:", response.url)
-              
         debug_log.append(f"STATUS CODE: {response.status_code}")
 
         if response.status_code != 200:
             return None, debug_log
 
         soup = BeautifulSoup(response.text, "html.parser")
-
         debug_log.append("PAGE LOADED")
 
-        participle_header = None
-
+        participle_table = None
+        
+        # Look for headers containing either "příčestí" or "časování"
         for tag in soup.find_all(["h2", "h3", "h4"]):
-
-            txt = tag.get_text(" ", strip=True)
-
+            txt = tag.get_text(" ", strip=True).lower()
             debug_log.append(f"HEADER FOUND: {txt}")
-
-            if "příčestí" in txt.lower():
-
-                participle_header = tag
-
-                debug_log.append("FOUND PŘÍČESTÍ HEADER")
-
-                break
-
-        if not participle_header:
-
-            debug_log.append("NO PŘÍČESTÍ HEADER FOUND")
-
-            return None, debug_log
-
-        participle_table = participle_header.find_next("table")
+            
+            if "příčestí" in txt or "časování" in txt:
+                # 🟢 FIX: Look through ALL upcoming tables under this section header, not just the first one!
+                current_element = tag
+                while True:
+                    current_element = current_element.find_next(["table", "h2", "h3", "h4"])
+                    
+                    # If we hit a new section header before finding our table, stop looking in this section
+                    if not current_element or current_element.name in ["h2", "h3", "h4"]:
+                        break
+                        
+                    if current_element.name == "table":
+                        table_text = current_element.get_text().lower()
+                        if "činné" in table_text:
+                            participle_table = current_element
+                            debug_log.append(f"FOUND MATCHING TABLE UNDER HEADER: {txt}")
+                            break
+                
+                # If we found the correct participle table, exit the header loop
+                if participle_table:
+                    break
 
         if not participle_table:
-
-            debug_log.append("NO TABLE AFTER PŘÍČESTÍ")
-
+            debug_log.append("NO MATCHING VERB PARTICIPLE TABLE FOUND ON PAGE")
             return None, debug_log
 
         debug_log.append("FOUND TABLE AFTER PŘÍČESTÍ")
-
         rows = participle_table.find_all("tr")
-
         debug_log.append(f"TOTAL ROWS: {len(rows)}")
 
         for row in rows:
-
             cells = row.find_all(["th", "td"])
-
             cleaned = [
                 re.sub(r"\[.*?\]", "", c.get_text(" ", strip=True)).strip()
                 for c in cells
             ]
 
-            debug_log.append(f"ROW: {cleaned}")
-
-            cleaned_lower = [c.lower() for c in cleaned]
-
-            if not cleaned_lower:
+            if not cleaned:
                 continue
 
-            if cleaned_lower[0] != "činné":
+            debug_log.append(f"ROW: {cleaned}")
+            cleaned_lower = [c.lower() for c in cleaned]
+
+            # 🟢 FIXED: Check if 'činné' is ANYWHERE inside the first cell (handles irregular formats)
+            if "činné" not in cleaned_lower[0]:
                 continue
 
             debug_log.append("FOUND ČINNÉ ROW")
 
+            # 🟢 FIXED: Handle different column counts safely
+            # Wide tables have separate columns for anim/inanim, narrow tables combine them
             if number == "S":
-
                 if gender in ["M", "Mi"]:
-                    debug_log.append(f"RETURNING: {cleaned[1]}")
                     return cleaned[1], debug_log
-
                 elif gender == "F":
                     return cleaned[2], debug_log
-
                 elif gender == "N":
                     return cleaned[3], debug_log
 
             elif number == "P":
-
-                if gender == "M":
-                    return cleaned[4], debug_log
-
-                elif gender in ["Mi", "F"]:
-                    return cleaned[5], debug_log
-
-                elif gender == "N":
-                    return cleaned[6], debug_log
+                # Safe fallback mapping depending on how many columns Wiktionary rendered
+                if len(cleaned) >= 7: 
+                    if gender == "M":
+                        return cleaned[4], debug_log
+                    elif gender in ["Mi", "F"]:
+                        return cleaned[5], debug_log
+                    elif gender == "N":
+                        return cleaned[6], debug_log
+                else:
+                    # Narrow tables fallback layout
+                    if gender in ["M", "Mi", "F"]:
+                        return cleaned[4] if len(cleaned) > 4 else cleaned[-1], debug_log
+                    elif gender == "N":
+                        return cleaned[-1], debug_log
 
         debug_log.append("NO ČINNÉ ROW FOUND")
-
         return None, debug_log
 
     except Exception as e:
-
         debug_log.append(f"SCRAPER ERROR: {e}")
-
         return None, debug_log
 
 
@@ -223,22 +210,16 @@ def create_past_tense(lemma, person, gender, number):
         irr_type = 0  # <--- ADD THIS LINE HERE!
 
         if row is None or row[3] != 'verb':
-
             print(f"DEBUG: '{base_verb}' NOT FOUND IN DATABASE")
             is_verified = False
-
         else:
-
             print(f"DEBUG: FOUND '{base_verb}' IN DATABASE")
-            is_verified = False
+            is_verified = True  # FIX: Set to True when word exists in DB
 
             # irregular handling
             if row[1] == 1:
-
                 irr_type = int(row[2]) if row[2] is not None else 0
-
                 if irr_type in [1, 2, 5]:
-
                     is_actually_irregular = True
                     word_id = row[0]
 
@@ -249,11 +230,8 @@ def create_past_tense(lemma, person, gender, number):
                     """, (word_id, lemma_clean))
 
                     over_row = cur.fetchone()
-
                     if over_row and over_row[0]:
-
                         base_l = over_row[0].split(" ")[0]
-
                         stem_l = base_l[:-1] if base_l.endswith('l') else base_l
 
                         if stem_l.endswith("še") and not (gender in ['M', 'Mi'] and number == 'S'):
@@ -263,7 +241,6 @@ def create_past_tense(lemma, person, gender, number):
                             'S': {'M': 'l', 'Mi': 'l', 'F': 'la', 'N': 'lo'},
                             'P': {'M': 'li', 'Mi': 'ly', 'F': 'ly', 'N': 'la'}
                         }
-
                         l_participle = stem_l + suffixes[number][gender]
     
     finally: # <--- Start the "Finally" block (Aligned with 'try')
@@ -337,25 +314,21 @@ def create_past_tense(lemma, person, gender, number):
     
     # --- WIKTIONARY VERIFICATION ---
     try:
-
         my_word_only = result_str.split(' ')[0].lower().strip()
-
         wiki_val, wiki_debug = get_wiktionary_verb_past(base_verb, gender, number)
 
-        wiki_failed = wiki_val is None
-
-        if wiki_failed:
+        if wiki_val is None:
             is_verified = False
-
-        if wiki_val:
+        else:
             wiki_val_clean = wiki_val.strip().lower()
             my_word_only = result_str.split(' ')[0].lower().strip()
 
             if my_word_only == wiki_val_clean:
+                # The guess matched Wiktionary perfectly!
                 is_verified = True
             else:
-                is_verified = False
-
+                # The guess was wrong (e.g., pomocl vs pomohl), log it and fix it!
+                is_verified = True  # 🟢 Set to True because we are fixing it with a real verified Wiki word!
                 form_label = f"Past {gender} {number}"
 
                 log_verb_mismatch_to_gsheet(
@@ -367,16 +340,12 @@ def create_past_tense(lemma, person, gender, number):
                     wiki_val
                 )
 
-                # Replace broken form with verified one
-            if wiki_val and wiki_val_clean == my_word_only:
+                # 🟢 FORCE the correct Wiktionary word into our final result string
                 parts[0] = wiki_val
                 result_str = " ".join(parts)
 
     except Exception as e:
-
         print(f"Verb Wiki check bypassed: {e}")
-
         is_verified = False
 
-    # BACK TO ORIGINAL 4 VALUES - THIS FIXES NOUNS IMMEDIATELY!
     return result_str, is_verified, bool(is_reflexive), is_actually_irregular, wiki_val, wiki_debug
