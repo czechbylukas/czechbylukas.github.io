@@ -1,5 +1,5 @@
-import requests # Add this
-from bs4 import BeautifulSoup # Add this
+import requests
+from bs4 import BeautifulSoup
 import os
 import sqlite3
 from flask import Flask, jsonify, request, make_response
@@ -10,24 +10,15 @@ from Grammar_functions.past_tense import create_past_tense
 from Grammar_functions.present_tense import create_present_tense
 from Grammar_functions.future_tense import create_future_tense
 from Grammar_functions.noun_declension import declension_noun
-# Check if this path matches your folder exactly:
 from Grammar_functions.adjective_declension import declension_adjective
 from Grammar_functions.declension_pronoun_number import declension_pronoun_number
-
 
 app = Flask(__name__)
 
 CORS(app, resources={r"/*": {"origins": "*"}})
 
-
-
-
-
-
-
 def scrape_wiktionary_table(word):
     url = f"https://cs.wiktionary.org/wiki/{word}"
-    # A more complete header to look like a real browser
     headers = {'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36'}
     try:
         response = requests.get(url, headers=headers, timeout=5)
@@ -45,8 +36,7 @@ def scrape_wiktionary_table(word):
             {"label": "Instrumentál (7.)", "keys": ["instrumentál", "7. pád"]}
         ]
 
-        # Look for the declension table specifically
-        for table in soup.find_all('table', {'class': 'deklinace'}): # Added class filter
+        for table in soup.find_all('table', {'class': 'deklinace'}):
             rows = table.find_all('tr')
             results = []
             for case in target_cases:
@@ -60,15 +50,11 @@ def scrape_wiktionary_table(word):
                                 "plural": cells[2].get_text(strip=True)
                             })
                         break
-            if len(results) > 0: # Changed from 3 to 0 to be safer
+            if len(results) > 0:
                 return results
     except Exception as e:
         print(f"Scraper error: {e}")
     return None
-
-
-
-
 
 @app.route('/scrape_declension', methods=['GET'])
 def get_external_declension():
@@ -80,9 +66,6 @@ def get_external_declension():
     if data:
         return jsonify(data)
     return jsonify({"error": "Table not found on Wiktionary"}), 404
-
-
-
 
 @app.route('/scrape_conjugation', methods=['GET'])
 def scrape_conjugation():
@@ -98,7 +81,7 @@ def scrape_conjugation():
 
     try:
         if tense == 'past':
-            res_str, is_ver, refl, irr = create_past_tense(word, person, gender, number)
+            res_str, is_ver, refl, irr, wiki_val, wiki_debug = create_past_tense(word, person, gender, number)
         elif tense == 'present':
             res_str, is_ver, refl, irr = create_present_tense(word, person, gender, number)
         elif tense == 'future':
@@ -107,24 +90,23 @@ def scrape_conjugation():
         else:
             return jsonify({"error": f"Invalid tense parameter: {tense}"}), 400
 
-        # --- TERMINAL LOGGING FOR CLEARANCE ---
         print("\n" + "="*50)
         print(f"VERB VERIFICATION LOG FOR: '{word}' ({tense.upper()})")
         print(f"Parameters: Person={person}, Number={number}, Gender={gender}")
         print("-"*50)
         print(f"-> MY BACKEND RESULT:  '{res_str}'")
         print(f"-> WAS IT IRREGULAR?:  {irr}")
-        
-        # If your script fetched from Wiktionary, let's peek at what it evaluated
-        # (This helps catch if the verification interceptor altered the final string)
         print(f"-> FINAL API RETURN:  '{res_str}' (Verified status: {is_ver})")
         print("="*50 + "\n")
 
+        # Added 'wiki_debug_extracted' so that your JavaScript verification logic works correctly
         return jsonify({
             "form": res_str,
             "verified": is_ver,
             "reflexive": refl,
-            "irregular": irr
+            "irregular": irr,
+            "wiki_debug_extracted": wiki_val,
+            "wiki_debug_log": wiki_debug
         })
 
     except Exception as e:
@@ -132,9 +114,6 @@ def scrape_conjugation():
         print(f"CRITICAL ROUTE ERROR IN SCRAPE_CONJUGATION: {e}")
         print("!"*50 + "\n")
         return jsonify({"error": str(e)}), 500
-    
-
-
 
 @app.route('/')
 def home():
@@ -142,7 +121,6 @@ def home():
 
 @app.route('/process', methods=['POST'])
 def process_word():
-
     try:
         data = request.get_json()
         if not data:
@@ -150,15 +128,14 @@ def process_word():
             
         mode = data.get('mode') 
         word = data.get('word')
+        
         if data.get('check_only'):
-            # Just check if the word exists in your local database logic
-            # You can customize this based on how declension_noun works
             res, ver, refl, irr, pattern = declension_noun(word, "1", "S", False, False)
             status = "VERIFIED" if ver is True else "UNVERIFIED"
             return jsonify({"status": status})
+            
         tense = data.get('tense')
         person = data.get('person')
-        
         gender = data.get('gender')
         case = data.get('case')
         number = data.get('number')
@@ -168,33 +145,27 @@ def process_word():
         result_text = ""
         status_badges = []
         
-        # Initialize default values (Add 'pattern' here)
+        wiki_val = None
+        
         res, ver, refl, irr, pattern = "", False, False, False, None 
 
-        # --- 3. Main Grammar Logic ---
+        # --- Main Grammar Logic ---
         if mode == 'verb':
             if tense == 'past':
-                res, ver, refl, irr = create_past_tense(word, person, gender, number)
+                res, ver, refl, irr, wiki_val, wiki_debug = create_past_tense(word, person, gender, number)
             elif tense == 'present':
                 res, ver, refl, irr = create_present_tense(word, person, gender, number)
             elif tense == 'future':
-                # Future tense has 'vid' instead of 'refl' usually
                 res, vid, ver, irr = create_future_tense(word, person, gender, number)
                 status_badges.append(vid)
             result_text = res
 
         elif mode == 'noun':
-            # 1. Call the function (returns the word and the verification status)
             res, ver, refl, irr, pattern = declension_noun(word, case, number, is_animate, is_soft)
             result_text = res
             
-            # 2. Add the Verification Badge (True = Green, "UNVERIFIED" = Yellow)
-            if ver is True:
-                status_badges.append(True)
-            else:
-                status_badges.append("UNVERIFIED")
-
-            # 3. Add the Pattern Badge (e.g., "hrad")
+            # FIXED: Removed duplicate badge appends here. 
+            # They are handled cleanly by the universal generator below.
             if pattern:
                 status_badges.append(pattern)
 
@@ -203,16 +174,15 @@ def process_word():
             result_text = res
 
         elif mode in ['pronoun', 'number']:
-            # Call our new combined logic
             res, ver, refl, irr = declension_pronoun_number(word, case, number, gender, mode)
             result_text = res
 
         # --- UNIVERSAL BADGE LOGIC ---        
-        # 1. Verification (Green/Yellow)
+        # 1. Verification (True -> Green "VERIFIED" / False -> Yellow "GUESSED")
         if ver is True:
-            status_badges.append(True)        # JS will turn this Green (VERIFIED)
+            status_badges.append(True)
         else:
-            status_badges.append("UNVERIFIED") # JS will turn this Yellow (GUESSED)
+            status_badges.append("UNVERIFIED")
 
         # 2. Irregularity (Red)
         if irr is True:
@@ -222,9 +192,6 @@ def process_word():
         if number:
             status_badges.append("Singular" if number == 'S' else "Plural")
             
-
-        # 4. CLEAN RETURN
-        # Notice: No more manual "Access-Control-Allow-Origin" lines here!
         return jsonify({"result": result_text, "status": status_badges})
 
     except Exception as e:

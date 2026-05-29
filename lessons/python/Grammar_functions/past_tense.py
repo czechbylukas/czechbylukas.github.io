@@ -10,64 +10,136 @@ from oauth2client.service_account import ServiceAccountCredentials # New: For Au
 
 
 
-
 def get_wiktionary_verb_past(lemma, gender, number):
-    """Scrapes the exact past tense forms from the Příčestí table on Wiktionary generically."""
+
+    debug_log = []
+
+    debug_log.append(f"STARTING SCRAPER FOR: {lemma}")
+
     if not lemma:
-        return None
+        debug_log.append("NO LEMMA PROVIDED")
+        return None, debug_log
 
     url = f"https://cs.wiktionary.org/wiki/{urllib.parse.quote(lemma.strip())}"
-    headers = {'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64)'}
-    
+
+    debug_log.append(f"URL: {url}")
+
     try:
-        response = requests.get(url, headers=headers, timeout=5)
+
+        headers = {
+            "User-Agent": "Mozilla/5.0",
+            "Accept": "text/html,application/xhtml+xml",
+            "Accept-Language": "cs-CZ,cs;q=0.9,en;q=0.8",
+            "Referer": "https://cs.wiktionary.org/"
+        }
+
+        response = requests.get(
+            url,
+            headers=headers,
+            timeout=10
+        )
+
+        print("FINAL URL:", response.url)
+              
+        debug_log.append(f"STATUS CODE: {response.status_code}")
+
         if response.status_code != 200:
-            return None
-            
-        soup = BeautifulSoup(response.text, 'html.parser')
-        
-        for row in soup.find_all('tr'):
-            cells = [c.get_text().strip().lower() for c in row.find_all(['td', 'th'])]
-            
-            # Find the active past tense row containing 'činné'
-            if cells and any("činné" in cell for cell in cells):
-                
-                # Strip out the row headers generically
-                forms = [f for f in cells if "činné" not in f and "příčestí" not in f]
-                
-                if len(forms) >= 6:
-                    raw_val = None
-                    if number == 'S':
-                        if gender in ['M', 'Mi']: raw_val = forms[0]
-                        if gender == 'F':         raw_val = forms[1]
-                        if gender == 'N':         raw_val = forms[2]
-                    elif number == 'P':
-                        if gender == 'M':         raw_val = forms[3]
-                        if gender in ['Mi', 'F']: raw_val = forms[4]
-                        if gender == 'N':         raw_val = forms[5]
-                    
-                    if raw_val:
-                        # Clean out bracketed footnotes [1] and parenthetical remarks generically
-                        clean_raw = re.sub(r'\[.*?\]', '', raw_val)
-                        clean_raw = re.sub(r'\(.*?\)', '', clean_raw)
-                        
-                        # Split by comma, clean whitespace, and re-join with a clean slash separator
-                        variants = [v.strip() for v in clean_raw.split(',') if v.strip()]
-                        clean_val = " / ".join(variants)
-                        
-                        # Universal Terminal Log
-                        print("\n" + "="*50)
-                        print(f"WIKTIONARY TARGET FOUND FOR: {lemma}")
-                        print(f"Raw Scraper Text:  '{raw_val}'")
-                        print(f"Cleaned Variants:  '{clean_val}'")
-                        print("="*50 + "\n")
-                        
-                        return clean_val
-                        
+            return None, debug_log
+
+        soup = BeautifulSoup(response.text, "html.parser")
+
+        debug_log.append("PAGE LOADED")
+
+        participle_header = None
+
+        for tag in soup.find_all(["h2", "h3", "h4"]):
+
+            txt = tag.get_text(" ", strip=True)
+
+            debug_log.append(f"HEADER FOUND: {txt}")
+
+            if "příčestí" in txt.lower():
+
+                participle_header = tag
+
+                debug_log.append("FOUND PŘÍČESTÍ HEADER")
+
+                break
+
+        if not participle_header:
+
+            debug_log.append("NO PŘÍČESTÍ HEADER FOUND")
+
+            return None, debug_log
+
+        participle_table = participle_header.find_next("table")
+
+        if not participle_table:
+
+            debug_log.append("NO TABLE AFTER PŘÍČESTÍ")
+
+            return None, debug_log
+
+        debug_log.append("FOUND TABLE AFTER PŘÍČESTÍ")
+
+        rows = participle_table.find_all("tr")
+
+        debug_log.append(f"TOTAL ROWS: {len(rows)}")
+
+        for row in rows:
+
+            cells = row.find_all(["th", "td"])
+
+            cleaned = [
+                re.sub(r"\[.*?\]", "", c.get_text(" ", strip=True)).strip()
+                for c in cells
+            ]
+
+            debug_log.append(f"ROW: {cleaned}")
+
+            cleaned_lower = [c.lower() for c in cleaned]
+
+            if not cleaned_lower:
+                continue
+
+            if cleaned_lower[0] != "činné":
+                continue
+
+            debug_log.append("FOUND ČINNÉ ROW")
+
+            if number == "S":
+
+                if gender in ["M", "Mi"]:
+                    debug_log.append(f"RETURNING: {cleaned[1]}")
+                    return cleaned[1], debug_log
+
+                elif gender == "F":
+                    return cleaned[2], debug_log
+
+                elif gender == "N":
+                    return cleaned[3], debug_log
+
+            elif number == "P":
+
+                if gender == "M":
+                    return cleaned[4], debug_log
+
+                elif gender in ["Mi", "F"]:
+                    return cleaned[5], debug_log
+
+                elif gender == "N":
+                    return cleaned[6], debug_log
+
+        debug_log.append("NO ČINNÉ ROW FOUND")
+
+        return None, debug_log
+
     except Exception as e:
-        print(f"Scraper error parsing Příčestí table: {e}")
-        
-    return None
+
+        debug_log.append(f"SCRAPER ERROR: {e}")
+
+        return None, debug_log
+
 
 
 
@@ -126,7 +198,14 @@ def create_past_tense(lemma, person, gender, number):
         base_verb = lemma_clean
 
     if not base_verb.endswith("t"):
-        return "Verb not known (doesn't end in 't')", False, bool(is_reflexive), False
+        return (
+                "Verb not known (doesn't end in 't')",
+                False,
+                bool(is_reflexive),
+                False,
+                None,
+                ["INVALID VERB ENDING"]
+         )
 
     # 2. Database Check
     current_dir = os.path.dirname(os.path.abspath(__file__))
@@ -135,42 +214,57 @@ def create_past_tense(lemma, person, gender, number):
     
     try:
         cur = conn.cursor()
-        cur.execute("SELECT id, is_irr, irr_type, pos FROM words WHERE lemma = ?", (lemma_clean,))
+        cur.execute("SELECT id, is_irr, irr_type, pos FROM words WHERE lemma = ?", (base_verb,))
         row = cur.fetchone()
 
-        is_verified = True
+        is_verified = False
         l_participle = None 
         is_actually_irregular = False 
         irr_type = 0  # <--- ADD THIS LINE HERE!
 
         if row is None or row[3] != 'verb':
-            is_verified = False
-        elif row[1] == 1:
-            # This only runs if the verb is marked irregular in the DB
-            irr_type = int(row[2]) if row[2] is not None else 0
-            
-            if irr_type in [1, 2, 5]:
-                is_actually_irregular = True
-                word_id = row[0]
-                cur.execute("""
-                    SELECT past_participle FROM overrides 
-                    WHERE (word_id = ? OR form_key = ?) 
-                    AND past_participle IS NOT NULL
-                """, (word_id, lemma_clean))
-                
-                over_row = cur.fetchone()
-                if over_row and over_row[0]:
-                    base_l = over_row[0].split(" ")[0] 
-                    stem_l = base_l[:-1] if base_l.endswith('l') else base_l
-                    
-                    if stem_l.endswith("še") and not (gender in ['M', 'Mi'] and number == 'S'):
-                        stem_l = stem_l[:-1]
 
-                    suffixes = {
-                        'S': {'M': 'l', 'Mi': 'l', 'F': 'la', 'N': 'lo'},
-                        'P': {'M': 'li', 'Mi': 'ly', 'F': 'ly', 'N': 'la'}
-                    }
-                    l_participle = stem_l + suffixes[number][gender]
+            print(f"DEBUG: '{base_verb}' NOT FOUND IN DATABASE")
+            is_verified = False
+
+        else:
+
+            print(f"DEBUG: FOUND '{base_verb}' IN DATABASE")
+            is_verified = False
+
+            # irregular handling
+            if row[1] == 1:
+
+                irr_type = int(row[2]) if row[2] is not None else 0
+
+                if irr_type in [1, 2, 5]:
+
+                    is_actually_irregular = True
+                    word_id = row[0]
+
+                    cur.execute("""
+                        SELECT past_participle FROM overrides 
+                        WHERE (word_id = ? OR form_key = ?) 
+                        AND past_participle IS NOT NULL
+                    """, (word_id, lemma_clean))
+
+                    over_row = cur.fetchone()
+
+                    if over_row and over_row[0]:
+
+                        base_l = over_row[0].split(" ")[0]
+
+                        stem_l = base_l[:-1] if base_l.endswith('l') else base_l
+
+                        if stem_l.endswith("še") and not (gender in ['M', 'Mi'] and number == 'S'):
+                            stem_l = stem_l[:-1]
+
+                        suffixes = {
+                            'S': {'M': 'l', 'Mi': 'l', 'F': 'la', 'N': 'lo'},
+                            'P': {'M': 'li', 'Mi': 'ly', 'F': 'ly', 'N': 'la'}
+                        }
+
+                        l_participle = stem_l + suffixes[number][gender]
     
     finally: # <--- Start the "Finally" block (Aligned with 'try')
         conn.close() # <--- This code is now "bulletproof"
@@ -243,29 +337,46 @@ def create_past_tense(lemma, person, gender, number):
     
     # --- WIKTIONARY VERIFICATION ---
     try:
-        # Get your engine's single word guess (e.g., 'pomocl' or 'vyjmul')
-        my_word_only = result_str.split(' ')[0].lower().strip() 
-        
-        wiki_val = get_wiktionary_verb_past(lemma, gender, number)
-        if wiki_val and wiki_val.strip():
+
+        my_word_only = result_str.split(' ')[0].lower().strip()
+
+        wiki_val, wiki_debug = get_wiktionary_verb_past(base_verb, gender, number)
+
+        wiki_failed = wiki_val is None
+
+        if wiki_failed:
+            is_verified = False
+
+        if wiki_val:
             wiki_val_clean = wiki_val.strip().lower()
-            
-            # If Wiktionary returned anything, it exists on the page -> mark verified
-            is_verified = True
-            
-            # GENERAL CHECK: Is our engine's guess found inside the Wiktionary string?
-            if my_word_only not in wiki_val_clean:
-                # If it doesn't match at all (e.g., 'pomocl' is not in 'pomohl')
+            my_word_only = result_str.split(' ')[0].lower().strip()
+
+            if my_word_only == wiki_val_clean:
+                is_verified = True
+            else:
+                is_verified = False
+
                 form_label = f"Past {gender} {number}"
-                log_verb_mismatch_to_gsheet(lemma, "Minulý čas", form_label, gender, my_word_only, wiki_val)
-                
-                # Overwrite with the verified string form directly
+
+                log_verb_mismatch_to_gsheet(
+                    lemma,
+                    "Minulý čas",
+                    form_label,
+                    gender,
+                    my_word_only,
+                    wiki_val
+                )
+
+                # Replace broken form with verified one
+            if wiki_val and wiki_val_clean == my_word_only:
                 parts[0] = wiki_val
                 result_str = " ".join(parts)
-                
+
     except Exception as e:
+
         print(f"Verb Wiki check bypassed: {e}")
+
         is_verified = False
 
     # BACK TO ORIGINAL 4 VALUES - THIS FIXES NOUNS IMMEDIATELY!
-    return result_str, is_verified, bool(is_reflexive), is_actually_irregular
+    return result_str, is_verified, bool(is_reflexive), is_actually_irregular, wiki_val, wiki_debug

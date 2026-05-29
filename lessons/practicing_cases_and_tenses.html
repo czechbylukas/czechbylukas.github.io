@@ -741,23 +741,21 @@ async function verifyWithWiktionary(word, myResult, caseValue, numberValue, mode
         const response = await fetch(`https://lessons-487913.ey.r.appspot.com/${endpoint}`);
         if (!response.ok) throw new Error("Wiki connection failed");
         
+        // 🟢 FIX 1: This is your local JSON variable name!
         const wikiData = await response.json(); 
 
-        console.log("Input Word:", lemma);
-        console.log("Mode Selected: verb");
-        console.log("My Backend Engine Computed:", data.form);
-        console.log("Raw Payload from Server:", data);
+        console.log("Input Word:", word);
+        console.log("Mode Selected:", mode);
+        console.log("Raw Payload from Server:", wikiData);
 
-        // 🔴 ADD THIS EXACT LINE BELOW LINE 750:
-        console.log("➔ 🔍 EXACT VALUE EXTRACTED FROM WIKTIONARY:", data.wiki_extracted_value);
-
-        if (!data.verified) {
-            console.error("❌ Wiktionary Parsing Failure: The scraper could not extract data...");
+        // 🟢 FIX 2: Safely check for the custom debugging key if you added it to your python payload
+        if (wikiData.wiki_debug_extracted) {
+            console.log("➔ 🔍 EXACT VALUE EXTRACTED FROM WIKTIONARY:", wikiData.wiki_debug_extracted);
         }
 
-        // --- FIX HERE: Detect when the python scraper fails and serves an unverified guess ---
+        // --- FIX 3: Detect when the python scraper fails and serves an unverified guess ---
         if (mode === 'verb' && wikiData && wikiData.verified === false) {
-            console.error(`❌ Wiktionary Parsing Failure: The scraper could not extract data for "${word}" and returned an unverified algorithmic guess.`);
+            console.error(`❌ Wiktionary Parsing Failure: The scraper could not extract data for "${word}"`);
             
             // Inject a clean error message inside your UI card
             const errorSpan = document.createElement('span');
@@ -765,7 +763,7 @@ async function verifyWithWiktionary(word, myResult, caseValue, numberValue, mode
             errorSpan.innerText = "⚠️ Word could not be verified on Wiktionary.";
             badgesContainer.appendChild(errorSpan);
             
-            return; // Exit out safely so it doesn't try to use or log the bad data
+            return; // Exit out safely
         }
 
         let finalWikiResult = "";
@@ -804,7 +802,12 @@ async function verifyWithWiktionary(word, myResult, caseValue, numberValue, mode
         }
 
         if (finalWikiResult) {
-            if (wikiBaseWord !== myResult) {
+            // Clean both strings to lowercase and trim spaces to ensure accurate comparison
+            const cleanMyResult = myResult.toLowerCase().trim();
+            const cleanWikiBase = wikiBaseWord.toLowerCase().trim();
+
+            // Check if your engine's result contains or ends with the Wiktionary base word
+            if (!cleanMyResult.endsWith(cleanWikiBase) && !cleanMyResult.includes(cleanWikiBase)) {
                 logMismatchToSheet(word, logLabel, numberValue, myResult, wikiBaseWord);
             }
 
