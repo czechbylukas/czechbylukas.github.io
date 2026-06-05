@@ -251,5 +251,296 @@ const vocab = [
     english: "to paint (what)",
     spanish: "pintar (qué)",
     german:  "malen (was)"
-  }
+  },
+
+,
+{
+  czech:   "fotbal",
+  english: "football",
+  spanish: "fútbol",
+  german:  "Fußball"
+},
+{
+  czech:   "hokej",
+  english: "ice hockey",
+  spanish: "hockey sobre hielo",
+  german:  "Eishockey"
+},
+{
+  czech:   "tenis",
+  english: "tennis",
+  spanish: "tenis",
+  german:  "Tennis"
+},
+{
+  czech:   "volejbal",
+  english: "volleyball",
+  spanish: "voleibol",
+  german:  "Volleyball"
+},
+{
+  czech:   "basketbal",
+  english: "basketball",
+  spanish: "baloncesto",
+  german:  "Basketball"
+},
+{
+  czech:   "lyžování",
+  english: "skiing",
+  spanish: "esquí",
+  german:  "Skifahren"
+},
+{
+  czech:   "plavání",
+  english: "swimming",
+  spanish: "natación",
+  german:  "Schwimmen"
+},
+{
+  czech:   "aerobik",
+  english: "aerobics",
+  spanish: "aeróbic",
+  german:  "Aerobic"
+},
+{
+  czech:   "atletika",
+  english: "athletics",
+  spanish: "atletismo",
+  german:  "Leichtathletik"
+},
+{
+  czech:   "gymnastika",
+  english: "gymnastics",
+  spanish: "gimnasia",
+  german:  "Gymnastik"
+},
+{
+  czech:   "cyklistika",
+  english: "cycling",
+  spanish: "ciclismo",
+  german:  "Radsport"
+},
+{
+  czech:   "fotbalista",
+  english: "football player",
+  spanish: "futbolista",
+  german:  "Fußballspieler"
+},
+{
+  czech:   "hokejista",
+  english: "hockey player",
+  spanish: "jugador de hockey",
+  german:  "Eishockeyspieler"
+},
+{
+  czech:   "sportovec/sportovkyně",
+  english: "sportsman/sportswoman, athlete",
+  spanish: "deportista",
+  german:  "Sportler/Sportlerin"
+},
+{
+  czech:   "hrát/zahrát si + akuzativ",
+  english: "to play (what)",
+  spanish: "jugar (qué)",
+  german:  "spielen (was)"
+},
+{
+  czech:   "dělat + sport",
+  english: "to do (what sport)",
+  spanish: "practicar (qué deporte)",
+  german:  "Sport machen"
+},
+{
+  czech:   "plavat/zaplavat si kde",
+  english: "to swim (where)",
+  spanish: "nadar (dónde)",
+  german:  "schwimmen (wo)"
+},
+{
+  czech:   "bruslit/zabruslit si kde",
+  english: "to skate (where)",
+  spanish: "patinar (dónde)",
+  german:  "Schlittschuh laufen (wo)"
+},
+{
+  czech:   "běhat kde",
+  english: "to jog/run (where)",
+  spanish: "correr (dónde)",
+  german:  "laufen/joggen (wo)"
+},
+{
+  czech:   "cvičit/zacvičit si kde",
+  english: "to train (where)",
+  spanish: "entrenar (dónde)",
+  german:  "trainieren (wo)"
+},
+{
+  czech:   "závod",
+  english: "race",
+  spanish: "carrera",
+  german:  "Rennen"
+},
+{
+  czech:   "soutěž",
+  english: "contest/competition",
+  spanish: "concurso, competición",
+  german:  "Wettbewerb"
+},
+{
+  czech:   "vyhrávat/vyhrát + nad + instrumentál",
+  english: "to win against (whom)",
+  spanish: "ganar contra (quién)",
+  german:  "gegen jemanden gewinnen"
+},
+{
+  czech:   "prohrávat/prohrát + s + instrumentál",
+  english: "to lose with (whom)",
+  spanish: "perder contra (quién)",
+  german:  "gegen jemanden verlieren"
+},
+{
+  czech:   "hřiště",
+  english: "playground, pitch",
+  spanish: "campo, patio de juegos",
+  german:  "Spielplatz, Spielfeld"
+},
+{
+  czech:   "stadion",
+  english: "stadium",
+  spanish: "estadio",
+  german:  "Stadion"
+},
+{
+  czech:   "tělocvična",
+  english: "gym",
+  spanish: "gimnasio",
+  german:  "Turnhalle"
+},
+{
+  czech:   "fitness/posilovna",
+  english: "fitness studio",
+  spanish: "gimnasio",
+  german:  "Fitnessstudio"
+},
+{
+  czech:   "bazén",
+  english: "swimming pool",
+  spanish: "piscina",
+  german:  "Schwimmbad"
+},
+{
+  czech:   "míč/balon",
+  english: "ball",
+  spanish: "pelota, balón",
+  german:  "Ball"
+},
+{
+  czech:   "kolo",
+  english: "bicycle, wheel, round",
+  spanish: "bicicleta, rueda, ronda",
+  german:  "Fahrrad, Rad, Runde"
+},
+{
+  czech:   "kino",
+  english: "cinema",
+  spanish: "cine",
+  german:  "Kino"
+},
+{
+  czech:   "divadlo",
+  english: "theatre",
+  spanish: "teatro",
+  german:  "Theater"
+},
+{
+  czech:   "muzeum",
+  english: "museum",
+  spanish: "museo",
+  german:  "Museum"
+},
+{
+  czech:   "galerie",
+  english: "gallery",
+  spanish: "galería",
+  german:  "Galerie"
+},
+{
+  czech:   "kulturní dům",
+  english: "house of culture",
+  spanish: "casa de cultura",
+  german:  "Kulturhaus"
+},
+{
+  czech:   "dávat",
+  english: "to give, to put, to broadcast",
+  spanish: "dar, poner, emitir",
+  german:  "geben, legen, senden"
+},
+{
+  czech:   "hrát",
+  english: "to play",
+  spanish: "jugar, actuar",
+  german:  "spielen"
+},
+{
+  czech:   "být otevřeno × zavřeno",
+  english: "to be opened × closed",
+  spanish: "estar abierto × cerrado",
+  german:  "geöffnet × geschlossen sein"
+},
+{
+  czech:   "film",
+  english: "movie",
+  spanish: "película",
+  german:  "Film"
+},
+{
+  czech:   "hra",
+  english: "a play, a game",
+  spanish: "obra, juego",
+  german:  "Spiel, Theaterstück"
+},
+{
+  czech:   "výstava",
+  english: "exhibition",
+  spanish: "exposición",
+  german:  "Ausstellung"
+},
+{
+  czech:   "chodit/jít kam",
+  english: "to go regularly/once (where to)",
+  spanish: "ir regularmente/una vez a",
+  german:  "gehen (regelmäßig/einmal wohin)"
+},
+{
+  czech:   "pokladna",
+  english: "ticket office, cash desk, register",
+  spanish: "taquilla, caja",
+  german:  "Kasse"
+},
+{
+  czech:   "vstupenka/lístek",
+  english: "(entrance) ticket",
+  spanish: "entrada, billete",
+  german:  "Eintrittskarte"
+},
+{
+  czech:   "kniha",
+  english: "book",
+  spanish: "libro",
+  german:  "Buch"
+},
+{
+  czech:   "číst/přečíst + akuzativ",
+  english: "to read (what)",
+  spanish: "leer (qué)",
+  german:  "lesen (was)"
+},
+{
+  czech:   "hudba",
+  english: "music",
+  spanish: "música",
+  german:  "Musik"
+}
+
 ];
