@@ -481,7 +481,7 @@ async function callPythonAPI(event) {
     document.getElementById('unverified-warning').style.display = 'none';
     const resultText = document.getElementById('result-text');
     resultText.innerText = ""; 
-    resultText.style.color = 'var(--primary)'; // Ensure it's never green or red from a previous search
+    resultText.style.color = 'var(--primary)';
     
     document.getElementById('badges').innerHTML = "";      
     document.getElementById('result-card').style.display = 'none'; 
@@ -514,47 +514,30 @@ async function callPythonAPI(event) {
         let finalWordToShow = data.result || "No result";
 
         // --- 1. DISPLAY INITIAL RESULT CARD FIRST ---
-        // This ensures the badge container is built in the DOM
         showResult(finalWordToShow, data.status || []);
 
         // --- 2. WIKTIONARY CHECK ---
         if (data.result) {
             const caseVal = (mode === 'noun') ? document.getElementById('case').value : null;
             const numVal = (mode === 'verb') ? document.getElementById('verb-number').value : document.getElementById('noun-number').value;
-            
-            // New verb-specific values
             const tenseVal = document.getElementById('tense').value;
             const personVal = document.getElementById('person').value;
             const genderVal = document.getElementById('gender').value;
 
-            // Pass all parameters to verification
             await verifyWithWiktionary(word, data.result, caseVal, numVal, mode, tenseVal, personVal, genderVal);
-            
-            const wikiUpdatedText = document.getElementById('result-text').innerText;
-            if (wikiUpdatedText && wikiUpdatedText !== "") {
-                finalWordToShow = wikiUpdatedText;
-            }
         }
 
         // --- 3. FINAL VALIDATION ---
         const wBadgeFound = !!document.getElementById('badges').querySelector('.badge-w');
         const isPythonUnverified = data.status && data.status.includes('UNVERIFIED');
 
-        // Only show warning/helper if Wiki failed AND Python is guessing
         if (isPythonUnverified && !wBadgeFound) {
             alert("Word not found in database! Using grammar rules to guess.");
-            // Call your existing helper visibility function with 'true' to show it
             updateNounHelperVisibility(mode, word, true);
         }
 
-        const newWBadge = document.getElementById('badges').querySelector('.badge-w');
-        showResult(finalWordToShow, data.status || []);
-
-        if (newWBadge) {
-            document.getElementById('badges').prepend(newWBadge);
-        }
-
     } catch (err) {
+        console.error(err);
         showResult("Server Connection Failed", ["OFFLINE"]);
     } finally {
         btn.disabled = false;
