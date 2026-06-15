@@ -15,61 +15,7 @@
       "s kým",
       "bez čeho",
       "s čím"
-    ],
-    "custom_answers": {
-      "kdy": {
-        "ans": "v deset hodin",
-        "bold": "in"
-      },
-      "kde": {
-        "ans": "v parku",
-        "bold": "u"
-      },
-      "proč": {
-        "ans": ", protože jsem chtěl",
-        "bold": "chtěl"
-      },
-      "v kolik": {
-        "ans": "v jednu hodinu",
-        "bold": "u"
-      },
-      "odkdy": {
-        "ans": "od středy",
-        "bold": "y"
-      },
-      "dokdy": {
-        "ans": "do pátku",
-        "bold": "ku"
-      },
-      "jak": {
-        "ans": "dobře",
-        "bold": "em"
-      },
-      "jak dlouho": {
-        "ans": "jednu hodinu",
-        "bold": "nu"
-      },
-      "bez koho": {
-        "ans": "bez kamaráda",
-        "bold": "da"
-      },
-      "pro koho": {
-        "ans": "pro tátu",
-        "bold": "tu"
-      },
-      "s kým": {
-        "ans": "s kamarádem",
-        "bold": "em"
-      },
-      "bez čeho": {
-        "ans": "bez cukru",
-        "bold": "ru"
-      },
-      "s čím": {
-        "ans": "se solí",
-        "bold": "í"
-      }
-    }
+    ]
   },
   "mluvit": {
     "approved": true,
