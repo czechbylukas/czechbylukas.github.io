@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -81,7 +80,6 @@
         #admin-panel { text-align: left; border: 3px dashed #dc3545; display: none; }
         .admin-toggle { background: #f8f9fa; padding: 10px; margin-bottom: 15px; border-radius: 8px; border: 1px dashed #ccc; display: inline-block; }
         
-        /* ADRESOVATELNÝ AKORDION PRO UKÁZKU A EDITACI ODPOVĚDÍ */
         .admin-vertical-list { display: flex; flex-direction: column; gap: 12px; margin-top: 15px; }
         .admin-question-row { background: #f9f9f9; border: 1px solid #ddd; border-radius: 8px; padding: 10px; }
         .admin-row-header { display: flex; align-items: center; justify-content: space-between; cursor: pointer; user-select: none; }
@@ -89,9 +87,12 @@
         .admin-header-left input[type="checkbox"] { width: 18px; height: 18px; cursor: pointer; }
         .admin-dropdown-content { display: none; margin-top: 10px; padding-top: 10px; border-top: 1px solid #eee; }
         .admin-options-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 8px; }
-        .option-edit-box { background: #fff; border: 1px solid #ccc; padding: 6px; border-radius: 4px; display: flex; flex-direction: column; gap: 4px; }
-        .option-edit-box label { font-size: 11px; color: #666; font-weight: bold; }
-        .option-edit-box input { padding: 4px; font-size: 13px; border: 1px solid #ccc; border-radius: 3px; }
+        
+        .option-edit-box { background: #fff; border: 1px solid #ccc; padding: 8px; border-radius: 4px; display: flex; flex-direction: column; gap: 4px; position: relative; }
+        .option-edit-box.disabled-opt { background: #ffebeb; border-color: #ff9999; opacity: 0.7; }
+        .option-edit-box label { font-size: 11px; color: #666; font-weight: bold; display: flex; align-items: center; justify-content: space-between; }
+        .option-edit-box input { padding: 4px; font-size: 13px; border: 1px solid #ccc; border-radius: 3px; width: 100%; box-sizing: border-box; }
+        .opt-enable-check { cursor: pointer; width: 14px; height: 14px; margin: 0; }
 
         .qa-container { display: flex; flex-wrap: wrap; justify-content: center; align-items: baseline; gap: 15px; margin-bottom: 20px; }
         #question-part { font-size: 22px; color: #666; }
@@ -223,7 +224,6 @@
     let verbMappings = {};
     let currentQuestionWord = { cz: "", en: "", answer: "", boldPart: "" };
 
-    // Kompletní natvrdo uložená data s možnostmi
     const questionMap = {
         "kdy": { en: "when", options: [
             { ans: "v deset hod", bold: "in" }, { ans: "v jednu hodi", bold: "nu" }, { ans: "odpoled", bold: "ne" }, { ans: "več", bold: "er" }, { ans: "rá", bold: "no" }, { ans: "v n", bold: "oci" }, { ans: "před poledn", bold: "em" }
@@ -268,7 +268,7 @@
             { ans: "pro tá", bold: "tu" }, { ans: "pro dce", bold: "ru" }, { ans: "pro sy", bold: "na" }, { ans: "pro mamin", bold: "ku" }, { ans: "pro kamará", bold: "da" }, { ans: "pro sestr", bold: "u" }, { ans: "pro dě", bold: "ti" }
         ]},
         "s kým": { en: "with whom", options: [
-            { ans: "s mamin", bold: "kou" }, { ans: "se sy", bold: "nem" }, { ans: "s dce", bold: "rou" }, { ans: "s kamará", bold: "dem" }, { ans: "s příte", bold: "lem" }, { ans: "s brat", bold: "rem" }, { ans: "se sest", bold: "rou" }
+            { ans: "s mamin", bold: "kou" }, { ans: "se sy", bold: "nem" }, { ans: "s dce", merge: true, bold: "rou" }, { ans: "s kamará", bold: "dem" }, { ans: "s příte", bold: "lem" }, { ans: "s brat", bold: "rem" }, { ans: "se sest", bold: "rou" }
         ]}, 
         "bez čeho": { en: "without what", options: [
             { ans: "bez cuk", bold: "ru" }, { ans: "bez rý", bold: "že" }, { ans: "bez vo", bold: "dy" }, { ans: "bez au", bold: "ta" }, { ans: "bez počíta", bold: "če" }, { ans: "bez mlé", bold: "ka" }, { ans: "bez peně", bold: "z" }
@@ -283,7 +283,7 @@
             { ans: "au", bold: "tem" }, { ans: "jach", bold: "tou" }, { ans: "autobu", bold: "sem" }, { ans: "přístro", bold: "jem" }, { ans: "vla", bold: "kem" }, { ans: "met", bold: "rem" }, { ans: "ko", bold: "lem" }
         ]},
         "s čím": { en: "with what", options: [
-            { ans: "se so", bold: "lí" }, { ans: "s rý", bold: "ží" }, { ans: "s cuk", bold: "rem" }, { ans: "s pra", bold: "cí" }, { ans: "s ká", bold: "vou" }, { ans: "s chle", bold: "bem" }, { ans: "s mas", merge: true, bold: "em" }
+            { ans: "se so", bold: "lí" }, { ans: "s rý", bold: "ží" }, { ans: "s cuk", bold: "rem" }, { ans: "s pra", bold: "cí" }, { ans: "s ká", bold: "vou" }, { ans: "s chle", bold: "bem" }, { ans: "s mas", bold: "em" }
         ]},
         "díky čemu": { en: "thanks to what", options: [
             { ans: "díky vol", bold: "nu" }, { ans: "díky posilov", bold: "ně" }, { ans: "díky galer", bold: "ii" }, { ans: "díky víken", bold: "du" }, { ans: "díky počíta", bold: "či" }, { ans: "díky náho", bold: "dě" }, { ans: "díky pomo", bold: "ci" }
@@ -328,7 +328,6 @@
         updateVerbBadge();
     }
 
-    // GENEROVÁNÍ VERTIKÁLNÍHO SEZNAMU ACCORDIONŮ S TEXTOVÝMI INPUTY PRO KAŽDOU MOŽNOST
     function buildAdminGridUI() {
         const container = document.getElementById('admin-questions-list');
         container.innerHTML = "";
@@ -341,8 +340,11 @@
             let optionsHtml = "";
             for (let i = 0; i < 7; i++) {
                 optionsHtml += `
-                    <div class="option-edit-box">
-                        <label>Varianta ${i + 1}:</label>
+                    <div class="option-edit-box" id="box-opt-${key}-${i}">
+                        <label>
+                            <span>Varianta ${i + 1}:</span>
+                            <input type="checkbox" class="opt-enable-check" id="check-opt-${key}-${i}" checked onchange="updateBoxStyle('${key}', ${i})">
+                        </label>
                         <input type="text" id="input-ans-${key}-${i}" placeholder="Základ textu">
                         <input type="text" id="input-bold-${key}-${i}" placeholder="Zvýrazněný konec (bold)">
                     </div>
@@ -367,6 +369,16 @@
         });
     }
 
+    function updateBoxStyle(key, i) {
+        const check = document.getElementById(`check-opt-${key}-${i}`);
+        const box = document.getElementById(`box-opt-${key}-${i}`);
+        if(check.checked) {
+            box.classList.remove('disabled-opt');
+        } else {
+            box.classList.add('disabled-opt');
+        }
+    }
+
     function toggleAccordion(key) {
         const wrapper = document.getElementById(`row-wrapper-${key}`);
         const content = document.getElementById(`dropdown-${key}`);
@@ -389,26 +401,29 @@
         Object.keys(questionMap).forEach(key => {
             const check = document.getElementById(`admin-q-${key}`);
             
-            // 1. Nastavení zaškrtnutí boxu (povoleno/zakázáno)
             if (config.allowed_questions) {
                 check.checked = config.allowed_questions.includes(key);
             } else {
                 check.checked = true; 
             }
 
-            // 2. Naplnění textových polí (pokud existuje custom, dáme custom, jinak default z questionMap)
             for (let i = 0; i < 7; i++) {
                 const ansInput = document.getElementById(`input-ans-${key}-${i}`);
                 const boldInput = document.getElementById(`input-bold-${key}-${i}`);
+                const optCheck = document.getElementById(`check-opt-${key}-${i}`);
                 
                 if (config.custom_answers && config.custom_answers[key] && config.custom_answers[key][i]) {
-                    ansInput.value = config.custom_answers[key][i].ans || "";
-                    boldInput.value = config.custom_answers[key][i].bold || "";
+                    const savedOpt = config.custom_answers[key][i];
+                    ansInput.value = savedOpt.ans || "";
+                    boldInput.value = savedOpt.bold || "";
+                    optCheck.checked = (savedOpt.enabled !== false); 
                 } else {
                     const defOpt = questionMap[key].options[i];
                     ansInput.value = defOpt.ans;
                     boldInput.value = defOpt.bold;
+                    optCheck.checked = true;
                 }
+                updateBoxStyle(key, i);
             }
         });
     }
@@ -424,43 +439,40 @@
                 allowed_questions.push(key);
             }
 
-            // Načteme hodnoty ze všech 7 políček
             let hasChanges = false;
             let questionArray = [];
 
             for (let i = 0; i < 7; i++) {
                 const ansVal = document.getElementById(`input-ans-${key}-${i}`).value.trim();
                 const boldVal = document.getElementById(`input-bold-${key}-${i}`).value.trim();
+                const isEnabled = document.getElementById(`check-opt-${key}-${i}`).checked;
                 const defOpt = questionMap[key].options[i];
 
-                questionArray.push({ ans: ansVal, bold: boldVal });
+                questionArray.push({ ans: ansVal, bold: boldVal, enabled: isEnabled });
 
-                if (ansVal !== defOpt.ans || boldVal !== defOpt.bold) {
-                    hasChanges = true; // Zjistíme, jestli se liší od defaultu
+                if (ansVal !== defOpt.ans || boldVal !== defOpt.bold || isEnabled === false) {
+                    hasChanges = true; 
                 }
             }
 
-            // Pokud učitel cokoliv změnil, uložíme celou sadu 7 možností pro danou otázku pod toto sloveso
             if (hasChanges) {
                 custom_answers[key] = questionArray;
             }
         });
 
-        // Uložíme čistě do objektu stávajícího slovesa
         verbMappings[currentVerb] = {
             approved: true,
             allowed_questions: allowed_questions,
             custom_answers: Object.keys(custom_answers).length > 0 ? custom_answers : undefined
         };
 
-        // Vyčistíme případné prázdné vlastnosti
         if (!verbMappings[currentVerb].custom_answers) {
             delete verbMappings[currentVerb].custom_answers;
         }
 
         localStorage.setItem('local_verb_mappings', JSON.stringify(verbMappings));
         updateVerbBadge();
-        alert(`Uloženo! Konfigurace a přepsané odpovědi pro sloveso "${currentVerb}" byly uloženy.`);
+        alert(`Uloženo! Konfigurace, přepsané i vypnuté odpovědi pro sloveso "${currentVerb}" uloženy.`);
     }
 
     function updateVerbBadge() {
@@ -526,7 +538,7 @@
                     const dynamicList = approvedVerbs.map(v => `'${v.replace(/'/g, "''")}'`).join(",");
                     query += ` AND lemma IN (${dynamicList})`;
                 } else {
-                    document.getElementById('translation-prompt').innerText = "Žádná schválená slovesa v konfiguraci.";
+                    document.getElementById('translation-prompt').innerText = "Žrádná schválená slovesa v konfiguraci.";
                     return;
                 }
             }
@@ -598,25 +610,36 @@
                 }
                 stmt.free();
                 
-                // Určení povolených otázek ze slovesa
                 let allowedKeys = Object.keys(questionMap);
                 let activeConfig = verbMappings[val];
                 if (activeConfig && activeConfig.allowed_questions && activeConfig.allowed_questions.length > 0) {
                     allowedKeys = activeConfig.allowed_questions;
                 }
                 
-                // Výběr náhodné otázky a indexu možnosti (0-6)
                 const randomKey = allowedKeys[Math.floor(Math.random() * allowedKeys.length)];
-                const optionIndex = Math.floor(Math.random() * 7);
                 
-                let selectedOption;
+                // NAČTENÍ A DYNAMICKÝ FILTR AKTIVNÍCH MOŽNOSTÍ (OPTIONS)
+                let activeOptions = [];
                 
-                // KONTROLA PRIORIT: Má sloveso přepsané custom_answers? Pokud ano, vezmi je, jinak jdi do defaultu
-                if (activeConfig && activeConfig.custom_answers && activeConfig.custom_answers[randomKey] && activeConfig.custom_answers[randomKey][optionIndex]) {
-                    selectedOption = activeConfig.custom_answers[randomKey][optionIndex];
+                if (activeConfig && activeConfig.custom_answers && activeConfig.custom_answers[randomKey]) {
+                    // Projdeme uložené nastavení z JSONu a vezmeme jen ty s enabled !== false
+                    activeConfig.custom_answers[randomKey].forEach(opt => {
+                        if (opt.enabled !== false) {
+                            activeOptions.push(opt);
+                        }
+                    });
                 } else {
-                    selectedOption = questionMap[randomKey].options[optionIndex];
+                    // Pokud nemá sloveso žádné změny, automaticky jsou povoleny všechny výchozí možnosti
+                    activeOptions = [...questionMap[randomKey].options];
                 }
+
+                // Bezpečnostní pojistka: kdyby učitel odškrtal úplně všechno, fallbackneme na kompletní default
+                if (activeOptions.length === 0) {
+                    activeOptions = [...questionMap[randomKey].options];
+                }
+
+                // Vylosujeme náhodný prvek pouze z aktivních (zaškrtnutých) možností
+                let selectedOption = activeOptions[Math.floor(Math.random() * activeOptions.length)];
                 
                 currentQuestionWord = { 
                     cz: randomKey, 
