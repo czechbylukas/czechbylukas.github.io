@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -52,7 +53,7 @@
 
     <style>
         .main-layout { display: flex; flex-direction: column; align-items: center; padding: 20px; flex: 1; }
-        #student-view { width: 100%; max-width: 800px; text-align: center; }
+        #student-view { width: 100%; max-width: 1100px; text-align: center; }
         #input-section, #lesson-section, #admin-panel { 
             background: white; padding: 40px; border-radius: 15px; 
             box-shadow: 0 4px 15px rgba(0,0,0,0.1); margin-bottom: 20px; 
@@ -80,17 +81,22 @@
         #admin-panel { text-align: left; border: 3px dashed #dc3545; display: none; }
         .admin-toggle { background: #f8f9fa; padding: 10px; margin-bottom: 15px; border-radius: 8px; border: 1px dashed #ccc; display: inline-block; }
         
-        /* Updated layout for 5 full options display */
-        .q-grid { display: grid; grid-template-columns: 1fr; gap: 20px; margin-top: 15px; }
-        .q-item { padding: 15px; border: 1px solid #ddd; border-radius: 8px; background: #fafafa; display: flex; flex-direction: column; }
-        .q-item-header { display: flex; align-items: center; gap: 10px; font-size: 16px; font-weight: bold; margin-bottom: 10px; border-bottom: 1px solid #eee; padding-bottom: 5px; }
-        .options-row-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 10px; }
-        .option-box { background: #fff; padding: 6px; border: 1px solid #e0e0e0; border-radius: 5px; }
-        .option-box span { font-size: 11px; color: #666; font-weight: bold; display: block; margin-bottom: 4px; }
-        .option-box input[type="text"] { width: 95%; padding: 4px; font-size: 12px; border: 1px solid #ccc; border-radius: 4px; margin-bottom: 4px; display: block; }
+        /* ADRESOVATELNÝ AKORDION PRO UKÁZKU A EDITACI ODPOVĚDÍ */
+        .admin-vertical-list { display: flex; flex-direction: column; gap: 12px; margin-top: 15px; }
+        .admin-question-row { background: #f9f9f9; border: 1px solid #ddd; border-radius: 8px; padding: 10px; }
+        .admin-row-header { display: flex; align-items: center; justify-content: space-between; cursor: pointer; user-select: none; }
+        .admin-header-left { display: flex; align-items: center; gap: 10px; font-size: 16px; }
+        .admin-header-left input[type="checkbox"] { width: 18px; height: 18px; cursor: pointer; }
+        .admin-dropdown-content { display: none; margin-top: 10px; padding-top: 10px; border-top: 1px solid #eee; }
+        .admin-options-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 8px; }
+        .option-edit-box { background: #fff; border: 1px solid #ccc; padding: 6px; border-radius: 4px; display: flex; flex-direction: column; gap: 4px; }
+        .option-edit-box label { font-size: 11px; color: #666; font-weight: bold; }
+        .option-edit-box input { padding: 4px; font-size: 13px; border: 1px solid #ccc; border-radius: 3px; }
 
         .qa-container { display: flex; flex-wrap: wrap; justify-content: center; align-items: baseline; gap: 15px; margin-bottom: 20px; }
         #question-part { font-size: 22px; color: #666; }
+        .toggle-arrow { font-size: 12px; color: #2f52b5; transition: 0.2s; }
+        .open .toggle-arrow { transform: rotate(180deg); }
     </style>
 </head>
 <body class="home">
@@ -143,7 +149,7 @@
                 <option value="M">Muž (L)</option>
                 <option value="F">Žena (LA)</option>
                 <option value="N" style="color: #888; font-size: 12px;">Střední (LO)</option>
-                <option value="Pl">Množné - Mužský, životný (LI)</option>
+                <option value="Pl" style="color: #2f52b5; font-weight: bold;">Množné - Mužský, životný (LI)</option>
                 <option value="PlFem" style="color: #888; font-size: 12px;">Množné - Ženský + Mužský, neživ. (LY)</option>
                 <option value="PlN" style="color: #888; font-size: 12px;">Množné - Střední (LA)</option>
             </select>
@@ -174,10 +180,10 @@
 
         <div id="admin-panel">
             <h3 style="color: #dc3545; margin-top: 0; display: flex; justify-content: space-between; align-items: center;">
-                <span>🛠️ Nastavení otázek: <span id="admin-verb-title" class="blue-bold">-</span></span>
-                <button class="btn-main" style="font-size: 14px; padding: 6px 12px; background: #28a745;" onclick="saveLocalMapping()">Uložit pro toto sloveso</button>
+                <span>🛠️ Nastavení otázek pro sloveso: <span id="admin-verb-title" class="blue-bold">-</span></span>
+                <button class="btn-main" style="font-size: 14px; padding: 6px 12px; background: #28a745;" onclick="saveLocalMapping()">Uložit nastavení slovesa</button>
             </h3>
-            <div id="admin-questions-grid" class="q-grid"></div>
+            <div id="admin-questions-list" class="admin-vertical-list"></div>
         </div>
 
         <div id="history-log">
@@ -217,70 +223,70 @@
     let verbMappings = {};
     let currentQuestionWord = { cz: "", en: "", answer: "", boldPart: "" };
 
-    // Expanded default question structures containing all required fields
+    // Kompletní natvrdo uložená data s možnostmi
     const questionMap = {
         "kdy": { en: "when", options: [
-            { ans: "v deset hodin", bold: "v" }, { ans: "v jednu hodinu", bold: "u" }, { ans: "odpoledne", bold: "ne" }, { ans: "večer", bold: "er" }, { ans: "ráno", bold: "no" }
+            { ans: "v deset hod", bold: "in" }, { ans: "v jednu hodi", bold: "nu" }, { ans: "odpoled", bold: "ne" }, { ans: "več", bold: "er" }, { ans: "rá", bold: "no" }, { ans: "v n", bold: "oci" }, { ans: "před poledn", bold: "em" }
         ]}, 
         "kdo": { en: "who", options: [
-            { ans: "maminka", bold: "ka" }, { ans: "tatínek", bold: "ek" }, { ans: "kamarád", bold: "ád" }, { ans: "kamarádka", bold: "ka" }, { ans: "soused", bold: "ed" }
+            { ans: "mamin", bold: "ka" }, { ans: "tatín", bold: "ek" }, { ans: "kamar", bold: "ád" }, { ans: "kamarád", bold: "ka" }, { ans: "sous", bold: "ed" }, { ans: "manžel", bold: "ka" }, { ans: "profes", bold: "or" }
         ]},
         "kde": { en: "where", options: [
-            { ans: "v parku", bold: "ku" }, { ans: "v koupelně", bold: "ně" }, { ans: "v ložnici", bold: "ci" }, { ans: "v bytě", bold: "tě" }, { ans: "v pokoji", bold: "ji" }
+            { ans: "v park", bold: "u" }, { ans: "v koupel", bold: "ně" }, { ans: "v ložni", bold: "ci" }, { ans: "v by", bold: "tě" }, { ans: "v poko", bold: "ji" }, { ans: "v kuchyn", bold: "i" }, { ans: "v prá", bold: "ci" }
         ]}, 
         "proč": { en: "why", options: [
-            { ans: ", protože jsem chtěl", bold: "chtěl" }, { ans: ", protože byl čas", bold: "čas" }, { ans: ", protože jsem měl volno", bold: "volno" }, { ans: ", protože to bylo nutné", bold: "nutné" }, { ans: ", protože byla zima", bold: "zima" }
+            { ans: ", protože jsem cht", bold: "ěl" }, { ans: ", protože byl č", bold: "as" }, { ans: ", protože jsem měl vol", bold: "no" }, { ans: ", protože to bylo nut", bold: "né" }, { ans: ", protože byla zi", bold: "ma" }, { ans: ", protože jsem mus", bold: "el" }, { ans: ", protože prše", bold: "lo" }
         ]},
         "v kolik": { en: "at what time", options: [
-            { ans: "v jednu hodinu", bold: "u" }, { ans: "ve dvě hodiny", bold: "ny" }, { ans: "v pět hodin", bold: "in" }, { ans: "v poledne", bold: "ne" }, { ans: "v půl jedné", bold: "né" }
+            { ans: "v jednu hodi", bold: "nu" }, { ans: "ve dvě hodi", bold: "ny" }, { ans: "v pět hod", bold: "in" }, { ans: "v poled", bold: "ne" }, { ans: "v půl jed", bold: "né" }, { ans: "v osum hod", bold: "in" }, { ans: "o půln", bold: "oci" }
         ]},
         "odkdy": { en: "since when", options: [
-            { ans: "od středy", bold: "dy" }, { ans: "od rána", bold: "na" }, { ans: "od víkendu", bold: "du" }, { ans: "od pondělí", bold: "lí" }, { ans: "od včerejška", bold: "ka" }
+            { ans: "od stř", bold: "edy" }, { ans: "od rá", bold: "na" }, { ans: "od víken", bold: "du" }, { ans: "od pondě", bold: "lí" }, { ans: "od včerejš", bold: "ka" }, { ans: "od loňs", bold: "ka" }, { ans: "od břez", bold: "na" }
         ]},
         "dokdy": { en: "until when", options: [
-            { ans: "do pátku", bold: "ku" }, { ans: "do večera", bold: "ra" }, { ans: "do pondělí", bold: "lí" }, { ans: "do konce týdne", bold: "ne" }, { ans: "do noci", bold: "ci" }
+            { ans: "do pát", bold: "ku" }, { ans: "do veče", bold: "ra" }, { ans: "do pondě", bold: "lí" }, { ans: "do konce týd", bold: "ne" }, { ans: "do no", bold: "ci" }, { ans: "do zítř", bold: "ka" }, { ans: "do konce ro", bold: "ku" }
         ]},
         "jak": { en: "how", options: [
-            { ans: "dobře", bold: "ře" }, { ans: "špatně", bold: "ně" }, { ans: "pomalu", bold: "lu" }, { ans: "rychle", bold: "le" }, { ans: "skvěle", bold: "le" }
+            { ans: "dob", bold: "ře" }, { ans: "špat", bold: "ně" }, { ans: "poma", bold: "lu" }, { ans: "rych", bold: "le" }, { ans: "skvě", bold: "le" }, { ans: "vese", bold: "le" }, { ans: "těž", bold: "ce" }
         ]},
         "jak dlouho": { en: "how long", options: [
-            { ans: "jednu hodinu", bold: "nu" }, { ans: "celý den", bold: "en" }, { ans: "dva dny", bold: "dny" }, { ans: "chvíli", bold: "li" }, { ans: "pět minut", bold: "nut" }
+            { ans: "jednu hodi", bold: "nu" }, { ans: "celý d", bold: "en" }, { ans: "dva dn", bold: "y" }, { ans: "chví", bold: "li" }, { ans: "pět min", bold: "ut" }, { ans: "celý týd", bold: "en" }, { ans: "tři měsí", bold: "ce" }
         ]},
         "co": { en: "what", options: [
-            { ans: "pivo", bold: "vo" }, { ans: "vodu", bold: "du" }, { ans: "rýži", bold: "ži" }, { ans: "cukr", bold: "kr" }, { ans: "lososa", bold: "sa" }
+            { ans: "pi", bold: "vo" }, { ans: "vo", bold: "du" }, { ans: "rý", bold: "ži" }, { ans: "cu", bold: "kr" }, { ans: "loso", bold: "sa" }, { ans: "ká", bold: "vu" }, { ans: "kníž", bold: "ku" }
         ]}, 
         "odkud": { en: "where from", options: [
-            { ans: "z Česka", bold: "ka" }, { ans: "z Ameriky", bold: "ky" }, { ans: "z Itálie", bold: "ie" }, { ans: "z Madridu", bold: "du" }, { ans: "z Bangladéše", bold: "še" }
+            { ans: "z Česk", bold: "a" }, { ans: "z Amerik", bold: "y" }, { ans: "z Itál", bold: "ie" }, { ans: "z Madrid", bold: "u" }, { ans: "z Bangladéš", bold: "e" }, { ans: "z Portugals", bold: "ka" }, { ans: "z Němec", bold: "ka" }
         ]},
         "od koho": { en: "from whom", options: [
-            { ans: "od kamaráda", bold: "da" }, { ans: "od přítele", bold: "le" }, { ans: "od tatínka", bold: "ka" }, { ans: "od dcery", bold: "ry" }, { ans: "od souseda", bold: "da" }
+            { ans: "od kamará", bold: "da" }, { ans: "od příte", bold: "le" }, { ans: "od tatín", bold: "ka" }, { ans: "od dce", bold: "ry" }, { ans: "od souse", bold: "da" }, { ans: "od mamin", bold: "ky" }, { ans: "od šé", bold: "fa" }
         ]},
         "bez koho": { en: "without whom", options: [
-            { ans: "bez kamaráda", bold: "da" }, { ans: "bez přítele", bold: "le" }, { ans: "bez dcery", bold: "ry" }, { ans: "bez maminky", bold: "ky" }, { ans: "bez syna", bold: "na" }
+            { ans: "bez kamará", bold: "da" }, { ans: "bez příte", bold: "le" }, { ans: "bez dce", bold: "ry" }, { ans: "bez mamin", bold: "ky" }, { ans: "bez sy", bold: "na" }, { ans: "bez brat", bold: "ra" }, { ans: "bez sestr", bold: "y" }
         ]},
         "pro koho": { en: "for whom", options: [
-            { ans: "pro tátu", bold: "tu" }, { ans: "pro dceru", bold: "ru" }, { ans: "pro syna", bold: "na" }, { ans: "pro maminku", bold: "ku" }, { ans: "pro kamaráda", bold: "da" }
+            { ans: "pro tá", bold: "tu" }, { ans: "pro dce", bold: "ru" }, { ans: "pro sy", bold: "na" }, { ans: "pro mamin", bold: "ku" }, { ans: "pro kamará", bold: "da" }, { ans: "pro sestr", bold: "u" }, { ans: "pro dě", bold: "ti" }
         ]},
         "s kým": { en: "with whom", options: [
-            { ans: "s maminkou", bold: "ou" }, { ans: "se synem", bold: "em" }, { ans: "s dcerou", bold: "ou" }, { ans: "s kamarádem", bold: "em" }, { ans: "s přítelem", bold: "em" }
+            { ans: "s mamin", bold: "kou" }, { ans: "se sy", bold: "nem" }, { ans: "s dce", bold: "rou" }, { ans: "s kamará", bold: "dem" }, { ans: "s příte", bold: "lem" }, { ans: "s brat", bold: "rem" }, { ans: "se sest", bold: "rou" }
         ]}, 
         "bez čeho": { en: "without what", options: [
-            { ans: "bez cukru", bold: "ru" }, { ans: "bez rýže", bold: "že" }, { ans: "bez vody", bold: "dy" }, { ans: "bez auta", bold: "ta" }, { ans: "bez počítače", bold: "če" }
+            { ans: "bez cuk", bold: "ru" }, { ans: "bez rý", bold: "že" }, { ans: "bez vo", bold: "dy" }, { ans: "bez au", bold: "ta" }, { ans: "bez počíta", bold: "če" }, { ans: "bez mlé", bold: "ka" }, { ans: "bez peně", bold: "z" }
         ]},
         "o kom": { en: "about whom", options: [
-            { ans: "o sousedovi", bold: "vi" }, { ans: "o majitelovi", bold: "vi" }, { ans: "o trenérovi", bold: "vi" }, { ans: "o koučovi", bold: "vi" }, { ans: "o tátovi", bold: "vi" }
+            { ans: "o sousedo", bold: "vi" }, { ans: "o majitelo", bold: "vi" }, { ans: "o trénéro", bold: "vi" }, { ans: "o koučo", bold: "vi" }, { ans: "o táto", bold: "vi" }, { ans: "o mamin", bold: "ce" }, { ans: "o sestr", bold: "e" }
         ]}, 
         "o čem": { en: "what about", options: [
-            { ans: "v okně", bold: "ně" }, { ans: "v koupelně", bold: "ně" }, { ans: "v ložnici", bold: "ci" }, { ans: "v bytě", bold: "tě" }, { ans: "v pokoji", bold: "ji" }
+            { ans: "o prac", bold: "i" }, { ans: "o ško", bold: "le" }, { ans: "o fil", bold: "mu" }, { ans: "o sport", bold: "u" }, { ans: "o au", bold: "tě" }, { ans: "o život", bold: "ě" }, { ans: "o plán", bold: "ech" }
         ]},
         "čím": { en: "by/with what", options: [
-            { ans: "autem", bold: "em" }, { ans: "jachtou", bold: "ou" }, { ans: "autobusem", bold: "em" }, { ans: "přístrojem", bold: "em" }, { ans: "vlakem", bold: "em" }
+            { ans: "au", bold: "tem" }, { ans: "jach", bold: "tou" }, { ans: "autobu", bold: "sem" }, { ans: "přístro", bold: "jem" }, { ans: "vla", bold: "kem" }, { ans: "met", bold: "rem" }, { ans: "ko", bold: "lem" }
         ]},
         "s čím": { en: "with what", options: [
-            { ans: "se solí", bold: "lí" }, { ans: "s rýží", bold: "ží" }, { ans: "s cukrem", bold: "em" }, { ans: "s prací", bold: "cí" }, { ans: "s kávou", bold: "ou" }
+            { ans: "se so", bold: "lí" }, { ans: "s rý", bold: "ží" }, { ans: "s cuk", bold: "rem" }, { ans: "s pra", bold: "cí" }, { ans: "s ká", bold: "vou" }, { ans: "s chle", bold: "bem" }, { ans: "s mas", merge: true, bold: "em" }
         ]},
         "díky čemu": { en: "thanks to what", options: [
-            { ans: "díky volnu", bold: "nu" }, { ans: "díky posilovně", bold: "ně" }, { ans: "díky galerii", bold: "ii" }, { ans: "díky víkendu", bold: "du" }, { ans: "díky počítači", bold: "či" }
+            { ans: "díky vol", bold: "nu" }, { ans: "díky posilov", bold: "ně" }, { ans: "díky galer", bold: "ii" }, { ans: "díky víken", bold: "du" }, { ans: "díky počíta", bold: "či" }, { ans: "díky náho", bold: "dě" }, { ans: "díky pomo", bold: "ci" }
         ]}
     };
 
@@ -322,36 +328,55 @@
         updateVerbBadge();
     }
 
-    // Refactored to generate grid containing 5 inputs per question item
+    // GENEROVÁNÍ VERTIKÁLNÍHO SEZNAMU ACCORDIONŮ S TEXTOVÝMI INPUTY PRO KAŽDOU MOŽNOST
     function buildAdminGridUI() {
-        const container = document.getElementById('admin-questions-grid');
+        const container = document.getElementById('admin-questions-list');
         container.innerHTML = "";
+        
         Object.keys(questionMap).forEach(key => {
-            const item = document.createElement('div');
-            item.className = 'q-item';
+            const row = document.createElement('div');
+            row.className = 'admin-question-row';
+            row.id = `row-wrapper-${key}`;
             
-            let rowHTML = `
-                <div class="q-item-header">
-                    <input type="checkbox" id="admin-q-${key}">
-                    <span>${key} <small style="color:#777; font-weight:normal;">(${questionMap[key].en})</small></span>
-                </div>
-                <div class="options-row-grid">
-            `;
-            
-            for(let i = 0; i < 5; i++) {
-                const defaultOpt = questionMap[key].options[i] || { ans: "", bold: "" };
-                rowHTML += `
-                    <div class="option-box">
-                        <span>Opce ${i+1}</span>
-                        <input type="text" id="admin-ans-${key}-${i}" placeholder="Odpověď" value="${defaultOpt.ans}">
-                        <input type="text" id="admin-bold-${key}-${i}" placeholder="Bold" value="${defaultOpt.bold}">
+            let optionsHtml = "";
+            for (let i = 0; i < 7; i++) {
+                optionsHtml += `
+                    <div class="option-edit-box">
+                        <label>Varianta ${i + 1}:</label>
+                        <input type="text" id="input-ans-${key}-${i}" placeholder="Základ textu">
+                        <input type="text" id="input-bold-${key}-${i}" placeholder="Zvýrazněný konec (bold)">
                     </div>
                 `;
             }
-            rowHTML += `</div>`;
-            item.innerHTML = rowHTML;
-            container.appendChild(item);
+
+            row.innerHTML = `
+                <div class="admin-row-header" onclick="toggleAccordion('${key}')">
+                    <div class="admin-header-left" onclick="event.stopPropagation()">
+                        <input type="checkbox" id="admin-q-${key}" checked>
+                        <strong>${key}</strong> <span style="color:#777; font-size:14px;">(${questionMap[key].en})</span>
+                    </div>
+                    <span class="toggle-arrow">▼</span>
+                </div>
+                <div class="admin-dropdown-content" id="dropdown-${key}">
+                    <div class="admin-options-grid">
+                        ${optionsHtml}
+                    </div>
+                </div>
+            `;
+            container.appendChild(row);
         });
+    }
+
+    function toggleAccordion(key) {
+        const wrapper = document.getElementById(`row-wrapper-${key}`);
+        const content = document.getElementById(`dropdown-${key}`);
+        if (content.style.display === "block") {
+            content.style.display = "none";
+            wrapper.classList.remove("open");
+        } else {
+            content.style.display = "block";
+            wrapper.classList.add("open");
+        }
     }
 
     function showAdminControlsForVerb(verb) {
@@ -359,28 +384,30 @@
         document.getElementById('admin-panel').style.display = 'block';
         document.getElementById('admin-verb-title').innerText = verb;
         
-        const config = verbMappings[verb] || { allowed_questions: [], custom_answers: {} };
+        const config = verbMappings[verb] || {};
         
         Object.keys(questionMap).forEach(key => {
             const check = document.getElementById(`admin-q-${key}`);
-            const isAllowed = config.allowed_questions && config.allowed_questions.includes(key);
-            check.checked = isAllowed;
             
-            for(let i = 0; i < 5; i++) {
-                const ansInput = document.getElementById(`admin-ans-${key}-${i}`);
-                const boldInput = document.getElementById(`admin-bold-${key}-${i}`);
+            // 1. Nastavení zaškrtnutí boxu (povoleno/zakázáno)
+            if (config.allowed_questions) {
+                check.checked = config.allowed_questions.includes(key);
+            } else {
+                check.checked = true; 
+            }
+
+            // 2. Naplnění textových polí (pokud existuje custom, dáme custom, jinak default z questionMap)
+            for (let i = 0; i < 7; i++) {
+                const ansInput = document.getElementById(`input-ans-${key}-${i}`);
+                const boldInput = document.getElementById(`input-bold-${key}-${i}`);
                 
-                if (isAllowed && config.custom_answers?.[key]?.options?.[i]) {
-                    ansInput.value = config.custom_answers[key].options[i].ans;
-                    boldInput.value = config.custom_answers[key].options[i].bold;
-                } else if (isAllowed && i === 0 && config.custom_answers?.[key]?.ans) {
-                    // Legacy single-string layout fallback fix
-                    ansInput.value = config.custom_answers[key].ans;
-                    boldInput.value = config.custom_answers[key].bold;
+                if (config.custom_answers && config.custom_answers[key] && config.custom_answers[key][i]) {
+                    ansInput.value = config.custom_answers[key][i].ans || "";
+                    boldInput.value = config.custom_answers[key][i].bold || "";
                 } else {
-                    const fallback = questionMap[key].options[i] || { ans: "", bold: "" };
-                    ansInput.value = fallback.ans;
-                    boldInput.value = fallback.bold;
+                    const defOpt = questionMap[key].options[i];
+                    ansInput.value = defOpt.ans;
+                    boldInput.value = defOpt.bold;
                 }
             }
         });
@@ -395,27 +422,45 @@
             const check = document.getElementById(`admin-q-${key}`);
             if (check.checked) {
                 allowed_questions.push(key);
-                
-                let optionsArr = [];
-                for(let i = 0; i < 5; i++) {
-                    optionsArr.push({
-                        ans: document.getElementById(`admin-ans-${key}-${i}`).value,
-                        bold: document.getElementById(`admin-bold-${key}-${i}`).value
-                    });
+            }
+
+            // Načteme hodnoty ze všech 7 políček
+            let hasChanges = false;
+            let questionArray = [];
+
+            for (let i = 0; i < 7; i++) {
+                const ansVal = document.getElementById(`input-ans-${key}-${i}`).value.trim();
+                const boldVal = document.getElementById(`input-bold-${key}-${i}`).value.trim();
+                const defOpt = questionMap[key].options[i];
+
+                questionArray.push({ ans: ansVal, bold: boldVal });
+
+                if (ansVal !== defOpt.ans || boldVal !== defOpt.bold) {
+                    hasChanges = true; // Zjistíme, jestli se liší od defaultu
                 }
-                custom_answers[key] = { options: optionsArr };
+            }
+
+            // Pokud učitel cokoliv změnil, uložíme celou sadu 7 možností pro danou otázku pod toto sloveso
+            if (hasChanges) {
+                custom_answers[key] = questionArray;
             }
         });
 
+        // Uložíme čistě do objektu stávajícího slovesa
         verbMappings[currentVerb] = {
             approved: true,
             allowed_questions: allowed_questions,
-            custom_answers: custom_answers
+            custom_answers: Object.keys(custom_answers).length > 0 ? custom_answers : undefined
         };
+
+        // Vyčistíme případné prázdné vlastnosti
+        if (!verbMappings[currentVerb].custom_answers) {
+            delete verbMappings[currentVerb].custom_answers;
+        }
 
         localStorage.setItem('local_verb_mappings', JSON.stringify(verbMappings));
         updateVerbBadge();
-        alert(`Uloženo lokálně do mezipaměti pro "${currentVerb}"!`);
+        alert(`Uloženo! Konfigurace a přepsané odpovědi pro sloveso "${currentVerb}" byly uloženy.`);
     }
 
     function updateVerbBadge() {
@@ -499,7 +544,7 @@
 
                 document.getElementById('translation-prompt').innerText = `Přelož: ${translation}`;
                 const input = document.getElementById('verb-input');
-                input.value = "";
+                input.value = lemma; 
                 input.focus();
                 checkInputForButton();
             }
@@ -533,13 +578,12 @@
             currentVerbStem = baseVerb.replace(/t$/, '');
         } 
         
-        let verbExists = false; 
+        isCurrentlyIrregular = false;
         if (db) {
             try {
                 const stmt = db.prepare("SELECT is_irr, irr_type FROM words WHERE lemma = ? AND pos LIKE '%verb%' LIMIT 1");
                 stmt.bind([val]);
                 if (stmt.step()) {
-                    verbExists = true; 
                     const row = stmt.get();
                     if (row[0] === 1 && [1, 2, 5].includes(row[1])) {
                         const overStmt = db.prepare("SELECT past_participle FROM overrides WHERE form_key = ? LIMIT 1");
@@ -554,51 +598,40 @@
                 }
                 stmt.free();
                 
+                // Určení povolených otázek ze slovesa
                 let allowedKeys = Object.keys(questionMap);
                 let activeConfig = verbMappings[val];
                 if (activeConfig && activeConfig.allowed_questions && activeConfig.allowed_questions.length > 0) {
                     allowedKeys = activeConfig.allowed_questions;
                 }
                 
+                // Výběr náhodné otázky a indexu možnosti (0-6)
                 const randomKey = allowedKeys[Math.floor(Math.random() * allowedKeys.length)];
-                const baseQuestionData = questionMap[randomKey];
-                const optionIndex = Math.floor(Math.random() * 5);
+                const optionIndex = Math.floor(Math.random() * 7);
                 
-                let finalAns = "";
-                let finalBold = "";
-
-                // Enhanced structural detection fallback protection loops
-                if (activeConfig?.custom_answers?.[randomKey]?.options?.[optionIndex]) {
-                    finalAns = activeConfig.custom_answers[randomKey].options[optionIndex].ans;
-                    finalBold = activeConfig.custom_answers[randomKey].options[optionIndex].bold;
-                } else if (activeConfig?.custom_answers?.[randomKey]?.ans) {
-                    finalAns = activeConfig.custom_answers[randomKey].ans;
-                    finalBold = activeConfig.custom_answers[randomKey].bold;
+                let selectedOption;
+                
+                // KONTROLA PRIORIT: Má sloveso přepsané custom_answers? Pokud ano, vezmi je, jinak jdi do defaultu
+                if (activeConfig && activeConfig.custom_answers && activeConfig.custom_answers[randomKey] && activeConfig.custom_answers[randomKey][optionIndex]) {
+                    selectedOption = activeConfig.custom_answers[randomKey][optionIndex];
                 } else {
-                    finalAns = baseQuestionData.options[optionIndex].ans;
-                    finalBold = baseQuestionData.options[optionIndex].bold;
+                    selectedOption = questionMap[randomKey].options[optionIndex];
                 }
                 
-                let enTrans = baseQuestionData.en;
-                const qStmt = db.prepare("SELECT trans_en FROM words WHERE lemma = ? AND lesson = '02 Tázací slova' LIMIT 1");
-                qStmt.bind([randomKey]);
-                if (qStmt.step()) enTrans = qStmt.get()[0];
-                qStmt.free();
-                
-                currentQuestionWord = { cz: randomKey, en: enTrans, answer: finalAns, boldPart: finalBold };
+                currentQuestionWord = { 
+                    cz: randomKey, 
+                    en: questionMap[randomKey].en, 
+                    answer: selectedOption.ans, 
+                    boldPart: selectedOption.bold 
+                };
             } catch (e) { console.error(e); }
         }
 
-        window.currentVerbVerified = verbExists;
-        if (!verbExists && !confirm(`Sloveso "${val}" neznám. Chceš přesto pokračovat?`)) return;
-
         updateVerbBadge();
         showAdminControlsForVerb(currentVerb);
-
         document.getElementById('input-section').style.display = 'none';
         document.getElementById('lesson-section').style.display = 'block';
-        document.getElementById('verb-info-display').innerHTML = " | " + val.replace(/t(\s|$)/, '<b style="color:red">t</b>$1');
-        document.getElementById('question-part').innerHTML = "";
+        document.getElementById('verb-info-display').innerHTML = " | " + val;
         showQuestion();
     }
 
@@ -607,10 +640,10 @@
         const day = days[dayIdx];
         const g = document.getElementById('gender-switch').value;
         const endings = { 'M': 'l', 'F': 'la', 'N': 'lo', 'Pl': 'li', 'PlFem': 'ly', 'PlN': 'la' };
-        let aux = (g === 'PlN') ? '<span style="color:#999">__</span>' : (g.startsWith('Pl') ? "jste" : "jsi");
-        
+        let aux = (g === 'PlN') ? '__' : (g.startsWith('Pl') ? "jste" : "jsi");
         document.getElementById('sentence-display').innerHTML = `Co <span class="blue-bold">${aux}</span> děla<span class="blue-bold">${endings[g]||'l'}</span> ${day}?`;
         document.getElementById('answer-display').innerText = "";
+        document.getElementById('question-part').innerText = "";
         document.getElementById('next-step-btn').innerText = "Odpovědět (Krok 1)";
     }
 
@@ -624,87 +657,43 @@
 
         if (step === 1) {
             answerDiv.innerText = day.charAt(0).toUpperCase() + day.slice(1);
-            let nextAux = (g === 'PlN') ? "(__)" : (g.startsWith('Pl') ? "jsme" : "jsem");
-            nextBtn.innerText = `Krok 2 (+ ${nextAux})`;
             step = 2;
-        } 
-        else if (step === 2) {
-            const aux = (g === 'PlN') ? '<span style="color:#999">__</span>' : (g.startsWith('Pl') ? "jsme" : "jsem");
+        } else if (step === 2) {
+            const aux = (g === 'PlN') ? '__' : (g.startsWith('Pl') ? "jsme" : "jsem");
             answerDiv.innerHTML += ` <span class="blue-bold">${aux}</span>`;
-            nextBtn.innerText = "Krok 3 (příčestí minulé)";
             step = 3;
-        } 
-        else if (step === 3) {
+        } else if (step === 3) {
             let parts = currentVerb.split(/\s+/);
-            let reflex = parts.length > 1 ? parts[1] : "";
-            let finalStem = currentVerbStem;
-            if (finalStem.endsWith("še") && g !== 'M') finalStem = finalStem.slice(0, -1);
-            
-            let pastParticiple = `${finalStem}<span class="blue-bold">${endings[g]||'l'}</span>`;
-            if (reflex) pastParticiple += ` ${reflex}`;
-            
+            let pastParticiple = `${currentVerbStem}<span class="blue-bold">${endings[g]||'l'}</span>${parts[1] ? ' ' + parts[1] : ''}`;
             answerDiv.innerHTML += ` ${pastParticiple}.`;
             speakCzech(answerDiv.innerText);
-            nextBtn.innerText = `Otázka: ${currentQuestionWord.cz} (${currentQuestionWord.en})`;
+            nextBtn.innerText = `Otázka: ${currentQuestionWord.cz}`;
             step = 4;
-        }
-        else if (step === 4) {
+        } else if (step === 4) {
             let auxQ = (g === 'PlN') ? '' : (g.startsWith('Pl') ? "jste" : "jsi");
             let parts = currentVerb.split(/\s+/);
-            let reflex = parts.length > 1 ? parts[1] : "";
-            let finalStem = currentVerbStem;
-            if (finalStem.endsWith("še") && g !== 'M') finalStem = finalStem.slice(0, -1);
-            
-            let fullVerbForm = `${finalStem}${endings[g]||'l'}`;
-            if (reflex) fullVerbForm += ` ${reflex}`;
-            
-            qPart.innerHTML = `<span class="blue-bold">${currentQuestionWord.cz.charAt(0).toUpperCase() + currentQuestionWord.cz.slice(1)}</span> ${auxQ} ${fullVerbForm} ${day}? &nbsp; →`;
+            qPart.innerHTML = `<span class="blue-bold">${currentQuestionWord.cz.charAt(0).toUpperCase() + currentQuestionWord.cz.slice(1)}</span> ${auxQ} ${currentVerbStem}${endings[g]||'l'}${parts[1] ? ' ' + parts[1] : ''} ${day}? →`;
             answerDiv.innerHTML = day.charAt(0).toUpperCase() + day.slice(1);
-            
-            let nextAux = (g === 'PlN') ? "(__)" : (g.startsWith('Pl') ? "jsme" : "jsem");
-            nextBtn.innerText = `Krok 6 (+ ${nextAux})`;
             step = 5;
-        }
-        else if (step === 5) {
-            const aux = (g === 'PlN') ? '<span style="color:#999">__</span>' : (g.startsWith('Pl') ? "jsme" : "jsem");
+        } else if (step === 5) {
+            const aux = (g === 'PlN') ? '__' : (g.startsWith('Pl') ? "jsme" : "jsem");
             answerDiv.innerHTML += ` <span class="blue-bold">${aux}</span>`;
-            nextBtn.innerText = "Krok 7 (příčestí)";
             step = 6;
-        }
-        else if (step === 6) {
+        } else if (step === 6) {
             let parts = currentVerb.split(/\s+/);
-            let reflex = parts.length > 1 ? parts[1] : "";
-            let finalStem = currentVerbStem;
-            if (finalStem.endsWith("še") && g !== 'M') finalStem = finalStem.slice(0, -1);
-            
-            let pastParticiple = `${finalStem}<span class="blue-bold">${endings[g]||'l'}</span>`;
-            if (reflex) pastParticiple += ` ${reflex}`;
-            
-            answerDiv.innerHTML += ` ${pastParticiple}`;
-            nextBtn.innerText = "Krok 8 (odpověď)";
+            answerDiv.innerHTML += ` ${currentVerbStem}<span class="blue-bold">${endings[g]||'l'}</span>${parts[1] ? ' ' + parts[1] : ''}`;
             step = 7;
-        }
-        else if (step === 7) {
-            const ans = currentQuestionWord.answer;
-            const bold = currentQuestionWord.boldPart;
-            const formattedAns = bold ? ans.replace(bold, `<span class="blue-bold">${bold}</span>`) : ans;
-            
-            answerDiv.innerHTML += ` ${formattedAns}.`;
+        } else if (step === 7) {
+            answerDiv.innerHTML += ` ${currentQuestionWord.answer}<span class="blue-bold">${currentQuestionWord.boldPart}</span>.`;
             speakCzech(answerDiv.innerText);
             nextBtn.innerText = "Další sloveso";
             step = 8;
-        }
-        else {
+        } else {
             document.getElementById('log-content').innerHTML += `<div><strong>${qPart.innerText}</strong> ${answerDiv.innerHTML}</div>`;
             dayIdx = (dayIdx + 1) % days.length;
-            
             document.getElementById('lesson-section').style.display = 'none';
-            document.getElementById('admin-panel').style.display = 'none';
             document.getElementById('input-section').style.display = 'block';
-            
             document.getElementById('verb-input').value = "";
-            document.getElementById('verb-info-display').innerHTML = "";
-            document.getElementById('verb-status-badge').innerHTML = "";
             step = 0; 
         }
     }
@@ -713,12 +702,10 @@
         if (!document.getElementById('audio-toggle').checked || !window.speechSynthesis) return;
         const utterance = new SpeechSynthesisUtterance(text);
         utterance.lang = 'cs-CZ';
-        window.speechSynthesis.cancel(); 
         window.speechSynthesis.speak(utterance);
     }
 
     const chars = ['ž','š','č','ř','ď','ť','ň','ě','á','é','í','ý','ó','ú','ů'];
-    const picker = document.getElementById('char-picker');
     chars.forEach(char => {
         let btn = document.createElement('span');
         btn.className = 'char-btn';
@@ -729,7 +716,17 @@
             input.focus();
             checkInputForButton();
         };
-        picker.appendChild(btn);
+        document.getElementById('char-picker').appendChild(btn);
+    });
+
+    document.addEventListener('keydown', function(e) {
+        if (e.key === 'Enter') {
+            if (document.getElementById('input-section').style.display !== 'none') {
+                if (!document.getElementById('start-btn').disabled) startLesson();
+            } else if (document.getElementById('lesson-section').style.display !== 'none') {
+                nextStep();
+            }
+        }
     });
 
     initDatabase();
