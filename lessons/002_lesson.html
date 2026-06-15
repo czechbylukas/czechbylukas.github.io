@@ -5,12 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Tool Teacher | Past Tense + Question Practice</title>
     
-    <script>window.isLoginOnlyPage = true;</script>
-    
-    <script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-app-compat.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-auth-compat.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-database-compat.js"></script>
-    
     <link rel="stylesheet" href="../css/style.css">
     <link rel="stylesheet" href="../css/language-selector.css">
     
@@ -20,14 +14,13 @@
     <style>
         .main-layout { display: flex; flex-direction: column; align-items: center; padding: 20px; flex: 1; }
         #student-view { width: 100%; max-width: 900px; text-align: center; }
-        #input-section, #lesson-section { 
+        #input-section, #lesson-section, #admin-panel { 
             background: white; padding: 40px; border-radius: 15px; 
             box-shadow: 0 4px 15px rgba(0,0,0,0.1); margin-bottom: 20px; 
         }
         #verb-input { padding: 15px; font-size: 24px; border: 2px solid #2f52b5; border-radius: 8px; width: 300px; outline: none; }
         #sentence-display { font-size: 28px; margin-bottom: 20px; color: #333; min-height: 50px; }
         
-        /* Layout for Step 4+ to keep Q and A on one line */
         .qa-container { display: flex; flex-wrap: wrap; justify-content: center; align-items: baseline; gap: 15px; margin-bottom: 40px; }
         #question-part { font-size: 22px; color: #666; }
         #answer-display { font-size: 38px; color: #28a745; font-weight: bold; min-height: 60px; }
@@ -38,20 +31,17 @@
         .gender-box { background: #eef4ff; padding: 15px; border-radius: 10px; border: 1px solid #2f52b5; margin-bottom: 20px; display: inline-block; }
         .char-btn { display: inline-block; min-width: 35px; padding: 10px; background: #eee; border: 1px solid #ccc; border-radius: 5px; cursor: pointer; margin: 2px; font-weight: bold; }
         #history-log { width: 100%; max-width: 700px; margin: 30px auto; text-align: left; background: white; padding: 15px; border-radius: 10px; border: 2px solid #d9e3ff; }
-        #auth-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.8); display: none; justify-content: center; align-items: center; z-index: 2000; }
+        
+        /* Local Admin UI Grid Elements */
+        #admin-panel { text-align: left; border: 3px dashed #dc3545; display: none; }
+        .admin-toggle { background: #f8f9fa; padding: 10px; margin-bottom: 15px; border-radius: 8px; border: 1px dashed #ccc; display: inline-block; }
+        .q-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 12px; margin-top: 15px; }
+        .q-item { padding: 8px; border: 1px solid #ddd; border-radius: 6px; background: #fafafa; display: flex; flex-direction: column; }
+        .q-item label { font-weight: bold; cursor: pointer; display: flex; align-items: center; gap: 5px; }
+        .q-item input[type="text"] { margin-top: 5px; padding: 4px; font-size: 13px; border: 1px solid #ccc; border-radius: 4px; }
     </style>
 </head>
 <body class="home">
-
-<div id="auth-overlay">
-    <div class="auth-card" style="background:white; padding:30px; border-radius:12px; text-align: center;">
-        <h2 id="auth-title">Přihlásit se</h2>
-        <input type="email" id="auth-email" placeholder="Email" style="display:block; margin:10px auto; padding:8px; width: 80%;">
-        <input type="password" id="auth-pass" placeholder="Heslo" style="display:block; margin:10px auto; padding:8px; width: 80%;">
-        <button class="btn-main" onclick="handleAuth()">Potvrdit</button>
-        <p id="auth-error-msg" style="color:red; font-size: 14px;"></p>
-    </div>
-</div>
 
 <header style="display: flex; align-items: center; justify-content: space-between; padding: 10px 20px; background: white; border-bottom: 2px solid #2f52b5; min-height: 60px;">
     <div style="flex: 1;"></div> 
@@ -66,6 +56,15 @@
 
 <main class="main-layout">
     <div id="student-view">
+        
+        <div class="admin-toggle">
+            <label style="cursor: pointer; font-weight: bold; color: #dc3545;">
+                <input type="checkbox" id="admin-mode-checkbox" onchange="toggleAdminMode()"> Režim učitele (Správa sloves)
+            </label>
+            <button id="export-btn" style="display:none; margin-left: 15px; font-size:12px; padding:2px 6px;" onclick="exportJsonFile()">💾 Stáhnout verb_mappings.json</button>
+        </div>
+        <br>
+
         <div class="gender-box">
             <label style="font-weight: bold; margin-right: 10px;">Jsem:</label>
             <select id="gender-switch" onchange="handleGenderChange()" style="padding: 10px; font-size: 18px; border-radius: 8px; border: 2px solid #2f52b5;">
@@ -101,6 +100,14 @@
             <button id="next-step-btn" class="btn-main" onclick="nextStep()">Odpovědět (Krok 1)</button>
         </div>
 
+        <div id="admin-panel">
+            <h3 style="color: #dc3545; margin-top: 0; display: flex; justify-content: space-between; align-items: center;">
+                <span>🛠️ Administrace slovesa: <span id="admin-verb-title" class="blue-bold">-</span></span>
+                <button class="btn-main" style="font-size: 14px; padding: 6px 12px; background: #28a745;" onclick="saveLocalMapping()">Uložit změny v prohlížeči</button>
+            </h3>
+            <div id="admin-questions-grid" class="q-grid"></div>
+        </div>
+
         <div id="history-log">
             <h3 style="color: #2f52b5; margin-top: 0;">Historie lekce:</h3>
             <div id="log-content"></div>
@@ -117,46 +124,158 @@
     let lastGender = ""; 
     let validAnswers = [];
     let currentQuestionWord = { cz: "", en: "", answer: "", boldPart: "" };
+    
+    let isAdminMode = false;
+    let verbMappings = {};
 
     const questionMap = {
-        "kdy": { ans: "v deset hodin", bold: "in" }, 
-        "kdo": { ans: "kamarád", bold: "d" },
-        "kde": { ans: "v parku", bold: "u" }, 
-        "proč": { ans: ", protože jsem chtěl", bold: "chtěl" },
-        "v kolik": { ans: "v jednu hodinu", bold: "u" }, 
-        "kolik": { ans: "pět", bold: "ět" },
-        "který": { ans: "dobrý", bold: "ý" }, 
-        "jaký": { ans: "dobrý", bold: "ý" },
-        "co": { ans: "pizzu", bold: "u" }, 
-        "odkud": { ans: "z Prahy", bold: "y" },
-        "odkdy": { ans: "od středy", bold: "y" }, 
-        "dokdy": { ans: "do pátku", bold: "ku" },
-        "jak často": { ans: "každý den", bold: "en" }, 
-        "čí": { ans: "bratra Lukáše", bold: "e" },
-        "jak": { ans: "dobře", bold: "em" }, 
-        "kam": { ans: "do kina", bold: "a" },
-        "jak dlouho": { ans: "jednu hodinu", bold: "nu" }, 
-        "bez koho": { ans: "bez kamaráda", bold: "da" },
-        "pro koho": { ans: "pro tátu", bold: "tu" }, 
-        "ke komu": { ans: "k doktorovi", bold: "vi" },
-        "o kom": { ans: "o kamarádovi", bold: "vi" }, 
-        "s kým": { ans: "s kamarádem", bold: "em" },
-        "bez čeho": { ans: "bez cukru", bold: "ru" }, 
-        "pro co": { ans: "pro pivo", bold: "vo" },
-        "k čemu": { ans: "k jídlu", bold: "lu" }, 
-        "o čem": { ans: "o škole", bold: "le" },
-        "čím": { ans: "kartou", bold: "ou" }
+        "kdy": { en: "when", ans: "v deset hodin", bold: "in" }, 
+        "kdo": { en: "who", ans: "kamarád", bold: "d" },
+        "kde": { en: "where", ans: "v parku", bold: "u" }, 
+        "proč": { en: "why", ans: ", protože jsem chtěl", bold: "chtěl" },
+        "v kolik": { en: "at what time", ans: "v jednu hodinu", bold: "u" }, 
+        "kolik": { en: "how much / how many", ans: "pět", bold: "ět" },
+        "který": { en: "which / who", ans: "dobrý", bold: "ý" }, 
+        "jaký": { en: "what kind of...?", ans: "dobrý", bold: "ý" },
+        "co": { en: "what", ans: "pizzu", bold: "u" }, 
+        "odkud": { en: "where from", ans: "z Prahy", bold: "y" },
+        "odkdy": { en: "since when", ans: "od středy", bold: "y" }, 
+        "dokdy": { en: "until when", ans: "do pátku", bold: "ku" },
+        "jak často": { en: "how often", ans: "každý den", bold: "en" }, 
+        "čí": { en: "whose?", ans: "bratra Lukáše", bold: "e" },
+        "jak": { en: "how", ans: "dobře", bold: "em" }, 
+        "kam": { en: "where to", ans: "do kina", bold: "a" },
+        "jak dlouho": { en: "how long", ans: "jednu hodinu", bold: "nu" }, 
+        "bez koho": { en: "without whom", ans: "bez kamaráda", bold: "da" },
+        "pro koho": { en: "for whom", ans: "pro tátu", bold: "tu" }, 
+        "ke komu": { en: "to whom", ans: "k doktorovi", bold: "vi" },
+        "o kom": { en: "about whom", ans: "o kamarádovi", bold: "vi" }, 
+        "s kým": { en: "with whom", ans: "s kamarádem", bold: "em" },
+        "bez čeho": { en: "without what", ans: "bez cukru", bold: "ru" }, 
+        "pro co": { en: "what for", ans: "pro pivo", bold: "vo" },
+        "k čemu": { en: "to what", ans: "k jídlu", bold: "lu" }, 
+        "o čem": { en: "what about", ans: "o škole", bold: "le" },
+        "čím": { en: "by/with what", ans: "kartou", bold: "ou" },
+        "kolikrát": { en: "how many times", ans: "třikrát", bold: "krát" },
+        "s čím": { en: "with what", ans: "se solí", bold: "í" },
+        "za jak dlouho": { en: "in how much time", ans: "za hodinu", bold: "nu" }
     };
 
     const days = ["v neděli", "v pondělí", "v úterý", "ve středu", "ve čtvrtek", "v pátek", "v sobotu", "o víkendu", "minulý týden", "minulý rok", "loni"];
 
+    // Initialize Database & Load JSON Config File
     async function initDatabase() {
         try {
             const sqlPromise = initSqlJs({ locateFile: file => `https://cdnjs.cloudflare.com/ajax/libs/sql.js/1.6.2/${file}` });
             const dataPromise = fetch('../VocabSQL_database/czech_master.db').then(res => res.arrayBuffer());
             const [SQL, buf] = await Promise.all([sqlPromise, dataPromise]);
             db = new SQL.Database(new Uint8Array(buf));
-        } catch (err) { console.error("Database failed:", err); }
+            
+            // Try loading existing JSON deployment config. If not found, look at browser cache.
+            try {
+                const mapRes = await fetch('verb_mappings.json');
+                if(mapRes.ok) {
+                    verbMappings = await mapRes.json();
+                    console.log("Loaded approved configuration directly from file.");
+                } else {
+                    loadFromLocalStorageFallback();
+                }
+            } catch(e) {
+                loadFromLocalStorageFallback();
+            }
+            
+            buildAdminGridUI();
+        } catch (err) { console.error("Database connection failure:", err); }
+    }
+
+    function loadFromLocalStorageFallback() {
+        const localData = localStorage.getItem('local_verb_mappings');
+        if (localData) {
+            verbMappings = JSON.parse(localData);
+            console.log("Loaded work-in-progress mappings from storage cache.");
+        }
+    }
+
+    function toggleAdminMode() {
+        isAdminMode = document.getElementById('admin-mode-checkbox').checked;
+        document.getElementById('export-btn').style.display = isAdminMode ? 'inline-block' : 'none';
+        if (!isAdminMode) document.getElementById('admin-panel').style.display = 'none';
+    }
+
+    function buildAdminGridUI() {
+        const container = document.getElementById('admin-questions-grid');
+        container.innerHTML = "";
+        Object.keys(questionMap).forEach(key => {
+            const item = document.createElement('div');
+            item.className = 'q-item';
+            item.innerHTML = `
+                <label><input type="checkbox" id="admin-q-${key}"> ${key}</label>
+                <input type="text" id="admin-ans-${key}" placeholder="Odpověď" value="${questionMap[key].ans}">
+                <input type="text" id="admin-bold-${key}" placeholder="Koncovka" value="${questionMap[key].bold}">
+            `;
+            container.appendChild(item);
+        });
+    }
+
+    function showAdminControlsForVerb(verb) {
+        if (!isAdminMode) return;
+        document.getElementById('admin-panel').style.display = 'block';
+        document.getElementById('admin-verb-title').innerText = verb;
+        
+        const config = verbMappings[verb] || { allowed_questions: [], custom_answers: {} };
+        
+        Object.keys(questionMap).forEach(key => {
+            const check = document.getElementById(`admin-q-${key}`);
+            const ansInput = document.getElementById(`admin-ans-${key}`);
+            const boldInput = document.getElementById(`admin-bold-${key}`);
+            
+            if (config.allowed_questions.includes(key)) {
+                check.checked = true;
+                ansInput.value = config.custom_answers[key]?.ans || questionMap[key].ans;
+                boldInput.value = config.custom_answers[key]?.bold || questionMap[key].bold;
+            } else {
+                check.checked = false;
+                ansInput.value = questionMap[key].ans;
+                boldInput.value = questionMap[key].bold;
+            }
+        });
+    }
+
+    function saveLocalMapping() {
+        if (!currentVerb) return;
+        
+        let allowed_questions = [];
+        let custom_answers = {};
+        
+        Object.keys(questionMap).forEach(key => {
+            const check = document.getElementById(`admin-q-${key}`);
+            if (check.checked) {
+                allowed_questions.push(key);
+                custom_answers[key] = {
+                    ans: document.getElementById(`admin-ans-${key}`).value,
+                    bold: document.getElementById(`admin-bold-${key}`).value
+                };
+            }
+        });
+
+        verbMappings[currentVerb] = {
+            approved: true,
+            allowed_questions: allowed_questions,
+            custom_answers: custom_answers
+        };
+
+        localStorage.setItem('local_verb_mappings', JSON.stringify(verbMappings));
+        alert(`Uloženo! Nezapomeňte si na konci stáhnout JSON soubor a nahrát ho do projektu.`);
+    }
+
+    function exportJsonFile() {
+        const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(verbMappings, null, 2));
+        const downloadAnchor = document.createElement('a');
+        downloadAnchor.setAttribute("href", dataStr);
+        downloadAnchor.setAttribute("download", "verb_mappings.json");
+        document.body.appendChild(downloadAnchor);
+        downloadAnchor.click();
+        downloadAnchor.remove();
     }
 
     function handleGenderChange() {
@@ -185,15 +304,29 @@
         if (!db) return;
         const lang = localStorage.getItem("selectedLanguage") || "en";
         const langCol = "trans_" + (lang === "cs" ? "en" : lang);
+        
         try {
-            const query = `SELECT lemma, synonym, vid_pair, ${langCol} FROM words WHERE (pos LIKE '%verb%') AND level = 'A1' AND lemma LIKE '%t' ORDER BY RANDOM() LIMIT 1`;
+            let query = `SELECT lemma, synonym, vid_pair, ${langCol} FROM words WHERE (pos LIKE '%verb%') AND level = 'A1' AND lemma LIKE '%t' ORDER BY RANDOM() LIMIT 1`;
+            
+            // If running in regular student mode, filter using only your saved verbs mapping list
+            if (!isAdminMode) {
+                const approvedVerbs = Object.keys(verbMappings).filter(k => verbMappings[k].approved === true);
+                if (approvedVerbs.length > 0) {
+                    const dynamicList = approvedVerbs.map(v => `'${v.replace(/'/g, "''")}'`).join(",");
+                    query = `SELECT lemma, synonym, vid_pair, ${langCol} FROM words WHERE lemma IN (${dynamicList}) ORDER BY RANDOM() LIMIT 1`;
+                } else {
+                    document.getElementById('translation-prompt').innerText = "Žádná schválená slovesa v konfiguraci (verb_mappings.json).";
+                    return;
+                }
+            }
+
             const res = db.exec(query);
             if (res[0]) {
                 const [lemma, synonym, vid_pair, translation] = res[0].values[0];
-                console.log("--- Verb:", lemma, "| Trans:", translation);
                 validAnswers = [lemma.toLowerCase().trim()];
-                if (synonym) synonym.split(',').forEach(s => { let c = s.toLowerCase().trim(); if(c) validAnswers.push(c); });
-                if (vid_pair) vid_pair.split(/[,/]/).forEach(v => { let c = v.toLowerCase().trim(); if(c) validAnswers.push(c); });
+                if (synonym) synonym.split(',').forEach(s => { let c = s.toLowerCase().trim(); if(c) validAnswers.push(c); });
+                if (vid_pair) vid_pair.split(/[,/]/).forEach(v => { let c = v.toLowerCase().trim(); if(c) validAnswers.push(c); });
+                
                 document.getElementById('translation-prompt').innerText = `Přelož: ${translation}`;
                 const input = document.getElementById('verb-input');
                 input.value = ""; input.focus();
@@ -203,30 +336,35 @@
     }
 
     async function startLesson() {
-        const input = document.getElementById('verb-input');
-        let val = input.value.trim().toLowerCase();
+        const input = document.getElementById('verb-input');
+        let val = input.value.trim().toLowerCase();
 
-        if (db && validAnswers.length === 0) {
-            const check = db.exec(`SELECT lemma, synonym, vid_pair FROM words WHERE lemma='${val}' OR synonym LIKE '%${val}%' OR vid_pair LIKE '%${val}%' LIMIT 1`);
-            if (check[0]) {
-                const [l, s, v] = check[0].values[0];
-                validAnswers = [l.toLowerCase().trim()];
-                if (s) s.split(',').forEach(i => validAnswers.push(i.toLowerCase().trim()));
-                if (v) v.split(/[,/]/).forEach(i => validAnswers.push(i.toLowerCase().trim()));
-            }
-        }
+        if (db && validAnswers.length === 0) {
+            const check = db.exec(`SELECT lemma, synonym, vid_pair FROM words WHERE lemma='${val}' OR synonym LIKE '%${val}%' OR vid_pair LIKE '%${val}%' LIMIT 1`);
+            if (check[0]) {
+                const [l, s, v] = check[0].values[0];
+                validAnswers = [l.toLowerCase().trim()];
+                if (s) s.split(',').forEach(i => validAnswers.push(i.toLowerCase().trim()));
+                if (v) v.split(/[,/]/).forEach(i => validAnswers.push(i.toLowerCase().trim()));
+            }
+        }
 
-        if (validAnswers.length > 0 && !validAnswers.includes(val)) {
-            alert(`Špatně. Příklady: ${validAnswers.join(", ")}`); return;
-        }
+        if (validAnswers.length > 0 && !validAnswers.includes(val)) {
+            alert(`Špatně. Příklady: ${validAnswers.join(", ")}`); return;
+        }
         if (!isValidVerb(val)) return;
+
+        // Block unauthorized verbs from launching for standard students
+        if (!isAdminMode && (!verbMappings[val] || !verbMappings[val].approved)) {
+            alert("Toto sloveso zatím nebylo schváleno.");
+            return;
+        }
 
         document.getElementById('translation-prompt').innerText = "";
         validAnswers = [];
         currentVerb = val;
         currentVerbStem = val.split(" ")[0].replace(/t$/, ''); 
 
-        // Handle Irregulars logic
         if (db) {
             const stmt = db.prepare("SELECT is_irr, irr_type FROM words WHERE lemma = ? LIMIT 1");
             stmt.bind([val]);
@@ -244,17 +382,29 @@
             }
             stmt.free();
 
-            // Pick Question
-            const keys = Object.keys(questionMap);
+            let keys = Object.keys(questionMap);
+            let activeConfig = verbMappings[val];
+            
+            if (activeConfig && activeConfig.allowed_questions && activeConfig.allowed_questions.length > 0) {
+                keys = activeConfig.allowed_questions;
+            }
+            
             const randomKey = keys[Math.floor(Math.random() * keys.length)];
-            const mapping = questionMap[randomKey];
-            let enTrans = "question";
+            const fallbackMap = questionMap[randomKey];
+            
+            let finalAns = activeConfig?.custom_answers?.[randomKey]?.ans || fallbackMap.ans;
+            let finalBold = activeConfig?.custom_answers?.[randomKey]?.bold || fallbackMap.bold;
+
+            let enTrans = fallbackMap.en;
             const qStmt = db.prepare("SELECT trans_en FROM words WHERE lemma = ? AND lesson = '02 Tázací slova' LIMIT 1");
             qStmt.bind([randomKey]);
             if (qStmt.step()) enTrans = qStmt.get()[0];
             qStmt.free();
-            currentQuestionWord = { cz: randomKey, en: enTrans, answer: mapping.ans, boldPart: mapping.bold };
+            
+            currentQuestionWord = { cz: randomKey, en: enTrans, answer: finalAns, boldPart: finalBold };
         }
+
+        showAdminControlsForVerb(currentVerb);
 
         document.getElementById('input-section').style.display = 'none';
         document.getElementById('lesson-section').style.display = 'block';
@@ -305,7 +455,6 @@
             let auxQ = (g === 'PlN') ? '' : (g.startsWith('Pl') ? "jste" : "jsi");
             let parts = currentVerb.split(/\s+/);
             let reflex = parts.length > 1 ? parts[1] : "";
-            // Move question to the side
             qPart.innerHTML = `${currentQuestionWord.cz.charAt(0).toUpperCase() + currentQuestionWord.cz.slice(1)} ${auxQ} ${reflex} ${currentVerbStem}${endings[g]} ${day}? &nbsp; →`;
             answerDiv.innerHTML = day.charAt(0).toUpperCase() + day.slice(1);
             nextBtn.innerText = "Krok 6 (pomocné sloveso)";
@@ -336,6 +485,7 @@
             document.getElementById('log-content').innerHTML += `<div>${qPart.innerText} ${answerDiv.innerHTML}</div>`;
             dayIdx = (dayIdx + 1) % days.length;
             document.getElementById('lesson-section').style.display = 'none';
+            document.getElementById('admin-panel').style.display = 'none';
             document.getElementById('input-section').style.display = 'block';
             const inputField = document.getElementById('verb-input');
             inputField.value = "";
