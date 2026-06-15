@@ -3,7 +3,46 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tool Teacher | Past Tense + Question Practice</title>
+
+    <title>Czech Past Tense Practice Tool | HáCZech Grammar Simulator</title>
+
+    <meta name="description" content="Master Czech past tense with our interactive sentence generator. Practice verb conjugation, auxiliary verbs (jsem, jsi), and gender-specific endings with native audio support.">
+    <meta name="accessibility" content="audioDescription, highContrast">
+    
+    <meta name="keywords" content="Czech past tense, Czech grammar practice, learn Czech verbs, Czech conjugation exercise, HáCZech, Czech language learning">
+    <link rel="canonical" href="https://www.hackczech.com/lessons/past-tense-practice.html">
+
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://www.hackczech.com/lessons/past-tense-practice.html">
+    <meta property="og:title" content="Interactive Czech Past Tense Practice | HáCZech">
+    <meta property="og:description" content="A step-by-step tool to master Czech past tense. Choose your gender, pick a verb, and build full sentences with native pronunciation.">
+    <meta property="og:image" content="https://www.hackczech.com/images/past-tense-preview.jpg">
+
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Czech Past Tense Practice Tool">
+    <meta name="twitter:description" content="Master Czech verb conjugation with our interactive past tense simulator.">
+
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "LearningResource",
+      "name": "Czech Past Tense Practice Tool",
+      "description": "An interactive tool for practicing Czech past tense sentence construction including auxiliary verbs and past participles.",
+      "learningResourceType": "Exercise",
+      "educationalLevel": "Beginner (A1-A2)",
+      "inLanguage": "cs",
+      "author": {
+        "@type": "Organization",
+        "name": "HáCZech"
+      }
+    }
+    </script>
+    
+    <script>window.isLoginOnlyPage = true;</script>
+    
+    <script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-database-compat.js"></script>
     
     <link rel="stylesheet" href="../css/style.css">
     <link rel="stylesheet" href="../css/language-selector.css">
@@ -13,70 +52,103 @@
 
     <style>
         .main-layout { display: flex; flex-direction: column; align-items: center; padding: 20px; flex: 1; }
-        #student-view { width: 100%; max-width: 900px; text-align: center; }
+        #student-view { width: 100%; max-width: 800px; text-align: center; }
         #input-section, #lesson-section, #admin-panel { 
             background: white; padding: 40px; border-radius: 15px; 
             box-shadow: 0 4px 15px rgba(0,0,0,0.1); margin-bottom: 20px; 
         }
         #verb-input { padding: 15px; font-size: 24px; border: 2px solid #2f52b5; border-radius: 8px; width: 300px; outline: none; }
-        #sentence-display { font-size: 28px; margin-bottom: 20px; color: #333; min-height: 50px; }
-        
-        .qa-container { display: flex; flex-wrap: wrap; justify-content: center; align-items: baseline; gap: 15px; margin-bottom: 40px; }
-        #question-part { font-size: 22px; color: #666; }
-        #answer-display { font-size: 38px; color: #28a745; font-weight: bold; min-height: 60px; }
-
+        #sentence-display { font-size: 32px; margin-bottom: 20px; color: #333; min-height: 50px; }
+        #answer-display { font-size: 36px; color: #28a745; margin-bottom: 40px; min-height: 60px; font-weight: bold; }
         .blue-bold { color: #2f52b5 !important; font-weight: bold !important; }
         .btn-main { padding: 15px 30px; font-size: 20px; cursor: pointer; background: #2f52b5; color: white; border: none; border-radius: 8px; transition: 0.2s; font-weight: bold; }
         .btn-main:disabled { background: #ccc !important; cursor: not-allowed !important; opacity: 0.7; }
         .gender-box { background: #eef4ff; padding: 15px; border-radius: 10px; border: 1px solid #2f52b5; margin-bottom: 20px; display: inline-block; }
         .char-btn { display: inline-block; min-width: 35px; padding: 10px; background: #eee; border: 1px solid #ccc; border-radius: 5px; cursor: pointer; margin: 2px; font-weight: bold; }
-        #history-log { width: 100%; max-width: 700px; margin: 30px auto; text-align: left; background: white; padding: 15px; border-radius: 10px; border: 2px solid #d9e3ff; }
+        #history-log { width: 100%; max-width: 600px; margin: 30px auto; text-align: left; background: white; padding: 15px; border-radius: 10px; border: 2px solid #d9e3ff; }
         
-        /* Local Admin UI Grid Elements */
+        .badge-irr { background: #ff9f43; color: white; font-size: 10px; padding: 2px 6px; border-radius: 4px; margin-left: 8px; vertical-align: middle; text-transform: uppercase; font-weight: bold; }
+        .badge-status { font-size: 11px; padding: 3px 8px; border-radius: 4px; font-weight: bold; margin-left: 10px; text-transform: uppercase; display: inline-block; vertical-align: middle; }
+        .status-approved { background: #28a745; color: white; }
+        .status-unapproved { background: #dc3545; color: white; }
+
+        #auth-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.8); display: none; justify-content: center; align-items: center; z-index: 2000; }
+        #language-selector-container { display: flex; align-items: center; gap: 8px; }
+        .lang-flag { width: 25px; height: auto; cursor: pointer; border-radius: 3px; border: 1px solid transparent; transition: 0.2s; }
+        .lang-flag:hover { transform: scale(1.1); border-color: #2f52b5; }
+
         #admin-panel { text-align: left; border: 3px dashed #dc3545; display: none; }
         .admin-toggle { background: #f8f9fa; padding: 10px; margin-bottom: 15px; border-radius: 8px; border: 1px dashed #ccc; display: inline-block; }
-        .q-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 12px; margin-top: 15px; }
-        .q-item { padding: 8px; border: 1px solid #ddd; border-radius: 6px; background: #fafafa; display: flex; flex-direction: column; }
-        .q-item label { font-weight: bold; cursor: pointer; display: flex; align-items: center; gap: 5px; }
-        .q-item input[type="text"] { margin-top: 5px; padding: 4px; font-size: 13px; border: 1px solid #ccc; border-radius: 4px; }
+        
+        /* Updated layout for 5 full options display */
+        .q-grid { display: grid; grid-template-columns: 1fr; gap: 20px; margin-top: 15px; }
+        .q-item { padding: 15px; border: 1px solid #ddd; border-radius: 8px; background: #fafafa; display: flex; flex-direction: column; }
+        .q-item-header { display: flex; align-items: center; gap: 10px; font-size: 16px; font-weight: bold; margin-bottom: 10px; border-bottom: 1px solid #eee; padding-bottom: 5px; }
+        .options-row-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 10px; }
+        .option-box { background: #fff; padding: 6px; border: 1px solid #e0e0e0; border-radius: 5px; }
+        .option-box span { font-size: 11px; color: #666; font-weight: bold; display: block; margin-bottom: 4px; }
+        .option-box input[type="text"] { width: 95%; padding: 4px; font-size: 12px; border: 1px solid #ccc; border-radius: 4px; margin-bottom: 4px; display: block; }
+
+        .qa-container { display: flex; flex-wrap: wrap; justify-content: center; align-items: baseline; gap: 15px; margin-bottom: 20px; }
+        #question-part { font-size: 22px; color: #666; }
     </style>
 </head>
 <body class="home">
 
+<div id="auth-overlay">
+    <div class="auth-card" style="background:white; padding:30px; border-radius:12px; text-align: center;">
+        <h2 id="auth-title">Přihlásit se</h2>
+        <input type="email" id="auth-email" placeholder="Email" style="display:block; margin:10px auto; padding:8px; width: 80%;">
+        <input type="password" id="auth-pass" placeholder="Heslo" style="display:block; margin:10px auto; padding:8px; width: 80%;">
+        <button class="btn-main" onclick="handleAuth()">Potvrdit</button>
+        <p id="auth-error-msg" style="color:red; font-size: 14px;"></p>
+    </div>
+</div>
+
 <header style="display: flex; align-items: center; justify-content: space-between; padding: 10px 20px; background: white; border-bottom: 2px solid #2f52b5; min-height: 60px;">
     <div style="flex: 1;"></div> 
     <div style="flex: 2; text-align: center;">
-        <h1 style="margin: 0; font-size: 1.4rem; color: #2f52b5; white-space: nowrap;">Past Tense + Question Practice</h1>
+        <h1 style="margin: 0; font-size: 1.4rem; color: #2f52b5; white-space: nowrap;">Past Tense Practice</h1>
     </div>
     <div style="flex: 1; display: flex; justify-content: flex-end; align-items: center; gap: 12px;">
-        <div id="language-selector-container"></div>
-        <div id="auth-status-container"></div>
+        <div id="language-selector-container" style="display: flex; align-items: center; gap: 5px;"></div>
+        <div id="auth-status-container" style="display: flex; align-items: center;"></div>
     </div>
 </header>
 
+<aside id="sidebar-placeholder"></aside>
+
 <main class="main-layout">
     <div id="student-view">
-        
-        <div class="admin-toggle">
-            <label style="cursor: pointer; font-weight: bold; color: #dc3545;">
-                <input type="checkbox" id="admin-mode-checkbox" onchange="toggleAdminMode()"> Režim učitele (Správa sloves)
-            </label>
-            <button id="export-btn" style="display:none; margin-left: 15px; font-size:12px; padding:2px 6px;" onclick="exportJsonFile()">💾 Stáhnout verb_mappings.json</button>
+
+        <div style="margin-bottom: 15px; display: flex; align-items: center; justify-content: center; gap: 15px;">
+            <div style="display: flex; align-items: center; gap: 5px;">
+                <input type="checkbox" id="audio-toggle" checked style="width: 18px; height: 18px; cursor: pointer;">
+                <label for="audio-toggle" style="cursor: pointer; font-weight: bold; color: #2f52b5;">Přehrát zvuk (Audio)</label>
+            </div>
+            
+            <div class="admin-toggle" style="margin-bottom:0;">
+                <label style="cursor: pointer; font-weight: bold; color: #dc3545;">
+                    <input type="checkbox" id="admin-mode-checkbox" onchange="toggleAdminMode()"> Režim učitele
+                </label>
+                <button id="export-btn" style="display:none; margin-left: 10px; font-size:12px; padding:2px 6px;" onclick="exportJsonFile()">💾 Stáhnout JSON</button>
+            </div>
         </div>
-        <br>
 
         <div class="gender-box">
+            <label for="gender-switch" class="sr-only" style="display:none;">Select Gender</label>
             <label style="font-weight: bold; margin-right: 10px;">Jsem:</label>
-            <select id="gender-switch" onchange="handleGenderChange()" style="padding: 10px; font-size: 18px; border-radius: 8px; border: 2px solid #2f52b5;">
+            <select id="gender-switch" onchange="handleGenderChange()" style="padding: 10px; font-size: 18px; border-radius: 8px; border: 2px solid #2f52b5; max-width: 300px; text-overflow: ellipsis;">
                 <option value="" disabled selected>Vyber...</option>
                 <option value="M">Muž (L)</option>
                 <option value="F">Žena (LA)</option>
-                <option value="N">Střední (LO)</option>
-                <option value="Pl">Množné, M (LI)</option>
-                <option value="PlFem">Množné, Ž (LY)</option>
-                <option value="PlN">Množné, S (LA)</option>
+                <option value="N" style="color: #888; font-size: 12px;">Střední (LO)</option>
+                <option value="Pl">Množné - Mužský, životný (LI)</option>
+                <option value="PlFem" style="color: #888; font-size: 12px;">Množné - Ženský + Mužský, neživ. (LY)</option>
+                <option value="PlN" style="color: #888; font-size: 12px;">Množné - Střední (LA)</option>
             </select>
             <span id="verb-info-display" style="margin-left: 20px; font-size: 22px; color: #333;"></span>
+            <span id="verb-status-badge"></span>
         </div>
 
         <div id="input-section" style="display: none;">
@@ -95,15 +167,15 @@
             <div id="sentence-display"></div>
             <div class="qa-container">
                 <div id="question-part"></div>
-                <div id="answer-display"></div>
+                <div id="answer-display" onclick="speakCzech(this.innerText)" style="cursor: pointer;" title="Klikni pro zopakování"></div>
             </div>
             <button id="next-step-btn" class="btn-main" onclick="nextStep()">Odpovědět (Krok 1)</button>
         </div>
 
         <div id="admin-panel">
             <h3 style="color: #dc3545; margin-top: 0; display: flex; justify-content: space-between; align-items: center;">
-                <span>🛠️ Administrace slovesa: <span id="admin-verb-title" class="blue-bold">-</span></span>
-                <button class="btn-main" style="font-size: 14px; padding: 6px 12px; background: #28a745;" onclick="saveLocalMapping()">Uložit změny v prohlížeči</button>
+                <span>🛠️ Nastavení otázek: <span id="admin-verb-title" class="blue-bold">-</span></span>
+                <button class="btn-main" style="font-size: 14px; padding: 6px 12px; background: #28a745;" onclick="saveLocalMapping()">Uložit pro toto sloveso</button>
             </h3>
             <div id="admin-questions-grid" class="q-grid"></div>
         </div>
@@ -115,55 +187,105 @@
     </div>
 </main>
 
+<div id="footer-placeholder"></div>
+
 <script>
+    fetch("/sidebar/sidebar.html")
+        .then(response => response.text())
+        .then(data => { document.getElementById("sidebar-placeholder").innerHTML = data; })
+        .catch(err => console.error("Sidebar failed to load:", err));
+
+    fetch("../footer.html")
+        .then(r => r.text())
+        .then(d => { 
+            document.getElementById("footer-placeholder").innerHTML = d; 
+            const guide = document.getElementById('global-app-guide');
+            if (guide) guide.style.display = 'block';
+        })
+        .catch(err => console.error("Footer load failed", err));
+
     let db = null;
     let currentVerb = "";
     let currentVerbStem = "";
     let step = 0;
     let dayIdx = 0;
     let lastGender = ""; 
+    let isCurrentlyIrregular = false; 
     let validAnswers = [];
-    let currentQuestionWord = { cz: "", en: "", answer: "", boldPart: "" };
     
     let isAdminMode = false;
     let verbMappings = {};
+    let currentQuestionWord = { cz: "", en: "", answer: "", boldPart: "" };
 
+    // Expanded default question structures containing all required fields
     const questionMap = {
-        "kdy": { en: "when", ans: "v deset hodin", bold: "in" }, 
-        "kdo": { en: "who", ans: "kamarád", bold: "d" },
-        "kde": { en: "where", ans: "v parku", bold: "u" }, 
-        "proč": { en: "why", ans: ", protože jsem chtěl", bold: "chtěl" },
-        "v kolik": { en: "at what time", ans: "v jednu hodinu", bold: "u" }, 
-        "kolik": { en: "how much / how many", ans: "pět", bold: "ět" },
-        "který": { en: "which / who", ans: "dobrý", bold: "ý" }, 
-        "jaký": { en: "what kind of...?", ans: "dobrý", bold: "ý" },
-        "co": { en: "what", ans: "pizzu", bold: "u" }, 
-        "odkud": { en: "where from", ans: "z Prahy", bold: "y" },
-        "odkdy": { en: "since when", ans: "od středy", bold: "y" }, 
-        "dokdy": { en: "until when", ans: "do pátku", bold: "ku" },
-        "jak často": { en: "how often", ans: "každý den", bold: "en" }, 
-        "čí": { en: "whose?", ans: "bratra Lukáše", bold: "e" },
-        "jak": { en: "how", ans: "dobře", bold: "em" }, 
-        "kam": { en: "where to", ans: "do kina", bold: "a" },
-        "jak dlouho": { en: "how long", ans: "jednu hodinu", bold: "nu" }, 
-        "bez koho": { en: "without whom", ans: "bez kamaráda", bold: "da" },
-        "pro koho": { en: "for whom", ans: "pro tátu", bold: "tu" }, 
-        "ke komu": { en: "to whom", ans: "k doktorovi", bold: "vi" },
-        "o kom": { en: "about whom", ans: "o kamarádovi", bold: "vi" }, 
-        "s kým": { en: "with whom", ans: "s kamarádem", bold: "em" },
-        "bez čeho": { en: "without what", ans: "bez cukru", bold: "ru" }, 
-        "pro co": { en: "what for", ans: "pro pivo", bold: "vo" },
-        "k čemu": { en: "to what", ans: "k jídlu", bold: "lu" }, 
-        "o čem": { en: "what about", ans: "o škole", bold: "le" },
-        "čím": { en: "by/with what", ans: "kartou", bold: "ou" },
-        "kolikrát": { en: "how many times", ans: "třikrát", bold: "krát" },
-        "s čím": { en: "with what", ans: "se solí", bold: "í" },
-        "za jak dlouho": { en: "in how much time", ans: "za hodinu", bold: "nu" }
+        "kdy": { en: "when", options: [
+            { ans: "v deset hodin", bold: "v" }, { ans: "v jednu hodinu", bold: "u" }, { ans: "odpoledne", bold: "ne" }, { ans: "večer", bold: "er" }, { ans: "ráno", bold: "no" }
+        ]}, 
+        "kdo": { en: "who", options: [
+            { ans: "maminka", bold: "ka" }, { ans: "tatínek", bold: "ek" }, { ans: "kamarád", bold: "ád" }, { ans: "kamarádka", bold: "ka" }, { ans: "soused", bold: "ed" }
+        ]},
+        "kde": { en: "where", options: [
+            { ans: "v parku", bold: "ku" }, { ans: "v koupelně", bold: "ně" }, { ans: "v ložnici", bold: "ci" }, { ans: "v bytě", bold: "tě" }, { ans: "v pokoji", bold: "ji" }
+        ]}, 
+        "proč": { en: "why", options: [
+            { ans: ", protože jsem chtěl", bold: "chtěl" }, { ans: ", protože byl čas", bold: "čas" }, { ans: ", protože jsem měl volno", bold: "volno" }, { ans: ", protože to bylo nutné", bold: "nutné" }, { ans: ", protože byla zima", bold: "zima" }
+        ]},
+        "v kolik": { en: "at what time", options: [
+            { ans: "v jednu hodinu", bold: "u" }, { ans: "ve dvě hodiny", bold: "ny" }, { ans: "v pět hodin", bold: "in" }, { ans: "v poledne", bold: "ne" }, { ans: "v půl jedné", bold: "né" }
+        ]},
+        "odkdy": { en: "since when", options: [
+            { ans: "od středy", bold: "dy" }, { ans: "od rána", bold: "na" }, { ans: "od víkendu", bold: "du" }, { ans: "od pondělí", bold: "lí" }, { ans: "od včerejška", bold: "ka" }
+        ]},
+        "dokdy": { en: "until when", options: [
+            { ans: "do pátku", bold: "ku" }, { ans: "do večera", bold: "ra" }, { ans: "do pondělí", bold: "lí" }, { ans: "do konce týdne", bold: "ne" }, { ans: "do noci", bold: "ci" }
+        ]},
+        "jak": { en: "how", options: [
+            { ans: "dobře", bold: "ře" }, { ans: "špatně", bold: "ně" }, { ans: "pomalu", bold: "lu" }, { ans: "rychle", bold: "le" }, { ans: "skvěle", bold: "le" }
+        ]},
+        "jak dlouho": { en: "how long", options: [
+            { ans: "jednu hodinu", bold: "nu" }, { ans: "celý den", bold: "en" }, { ans: "dva dny", bold: "dny" }, { ans: "chvíli", bold: "li" }, { ans: "pět minut", bold: "nut" }
+        ]},
+        "co": { en: "what", options: [
+            { ans: "pivo", bold: "vo" }, { ans: "vodu", bold: "du" }, { ans: "rýži", bold: "ži" }, { ans: "cukr", bold: "kr" }, { ans: "lososa", bold: "sa" }
+        ]}, 
+        "odkud": { en: "where from", options: [
+            { ans: "z Česka", bold: "ka" }, { ans: "z Ameriky", bold: "ky" }, { ans: "z Itálie", bold: "ie" }, { ans: "z Madridu", bold: "du" }, { ans: "z Bangladéše", bold: "še" }
+        ]},
+        "od koho": { en: "from whom", options: [
+            { ans: "od kamaráda", bold: "da" }, { ans: "od přítele", bold: "le" }, { ans: "od tatínka", bold: "ka" }, { ans: "od dcery", bold: "ry" }, { ans: "od souseda", bold: "da" }
+        ]},
+        "bez koho": { en: "without whom", options: [
+            { ans: "bez kamaráda", bold: "da" }, { ans: "bez přítele", bold: "le" }, { ans: "bez dcery", bold: "ry" }, { ans: "bez maminky", bold: "ky" }, { ans: "bez syna", bold: "na" }
+        ]},
+        "pro koho": { en: "for whom", options: [
+            { ans: "pro tátu", bold: "tu" }, { ans: "pro dceru", bold: "ru" }, { ans: "pro syna", bold: "na" }, { ans: "pro maminku", bold: "ku" }, { ans: "pro kamaráda", bold: "da" }
+        ]},
+        "s kým": { en: "with whom", options: [
+            { ans: "s maminkou", bold: "ou" }, { ans: "se synem", bold: "em" }, { ans: "s dcerou", bold: "ou" }, { ans: "s kamarádem", bold: "em" }, { ans: "s přítelem", bold: "em" }
+        ]}, 
+        "bez čeho": { en: "without what", options: [
+            { ans: "bez cukru", bold: "ru" }, { ans: "bez rýže", bold: "že" }, { ans: "bez vody", bold: "dy" }, { ans: "bez auta", bold: "ta" }, { ans: "bez počítače", bold: "če" }
+        ]},
+        "o kom": { en: "about whom", options: [
+            { ans: "o sousedovi", bold: "vi" }, { ans: "o majitelovi", bold: "vi" }, { ans: "o trenérovi", bold: "vi" }, { ans: "o koučovi", bold: "vi" }, { ans: "o tátovi", bold: "vi" }
+        ]}, 
+        "o čem": { en: "what about", options: [
+            { ans: "v okně", bold: "ně" }, { ans: "v koupelně", bold: "ně" }, { ans: "v ložnici", bold: "ci" }, { ans: "v bytě", bold: "tě" }, { ans: "v pokoji", bold: "ji" }
+        ]},
+        "čím": { en: "by/with what", options: [
+            { ans: "autem", bold: "em" }, { ans: "jachtou", bold: "ou" }, { ans: "autobusem", bold: "em" }, { ans: "přístrojem", bold: "em" }, { ans: "vlakem", bold: "em" }
+        ]},
+        "s čím": { en: "with what", options: [
+            { ans: "se solí", bold: "lí" }, { ans: "s rýží", bold: "ží" }, { ans: "s cukrem", bold: "em" }, { ans: "s prací", bold: "cí" }, { ans: "s kávou", bold: "ou" }
+        ]},
+        "díky čemu": { en: "thanks to what", options: [
+            { ans: "díky volnu", bold: "nu" }, { ans: "díky posilovně", bold: "ně" }, { ans: "díky galerii", bold: "ii" }, { ans: "díky víkendu", bold: "du" }, { ans: "díky počítači", bold: "či" }
+        ]}
     };
 
-    const days = ["v neděli", "v pondělí", "v úterý", "ve středu", "ve čtvrtek", "v pátek", "v sobotu", "o víkendu", "minulý týden", "minulý rok", "loni"];
+    const days = ["v neděli", "v pondělí", "v úterý", "ve středu", "ve čtvrtek", "v pátek", "v sobotu", "o víkendu", "minulý týden"];
 
-    // Initialize Database & Load JSON Config File
     async function initDatabase() {
         try {
             const sqlPromise = initSqlJs({ locateFile: file => `https://cdnjs.cloudflare.com/ajax/libs/sql.js/1.6.2/${file}` });
@@ -171,28 +293,24 @@
             const [SQL, buf] = await Promise.all([sqlPromise, dataPromise]);
             db = new SQL.Database(new Uint8Array(buf));
             
-            // Try loading existing JSON deployment config. If not found, look at browser cache.
             try {
                 const mapRes = await fetch('verb_mappings.json');
                 if(mapRes.ok) {
                     verbMappings = await mapRes.json();
-                    console.log("Loaded approved configuration directly from file.");
                 } else {
                     loadFromLocalStorageFallback();
                 }
             } catch(e) {
                 loadFromLocalStorageFallback();
             }
-            
             buildAdminGridUI();
-        } catch (err) { console.error("Database connection failure:", err); }
+        } catch (err) { console.error("Database failed:", err); }
     }
 
     function loadFromLocalStorageFallback() {
         const localData = localStorage.getItem('local_verb_mappings');
         if (localData) {
             verbMappings = JSON.parse(localData);
-            console.log("Loaded work-in-progress mappings from storage cache.");
         }
     }
 
@@ -200,19 +318,38 @@
         isAdminMode = document.getElementById('admin-mode-checkbox').checked;
         document.getElementById('export-btn').style.display = isAdminMode ? 'inline-block' : 'none';
         if (!isAdminMode) document.getElementById('admin-panel').style.display = 'none';
+        else if (currentVerb) showAdminControlsForVerb(currentVerb);
+        updateVerbBadge();
     }
 
+    // Refactored to generate grid containing 5 inputs per question item
     function buildAdminGridUI() {
         const container = document.getElementById('admin-questions-grid');
         container.innerHTML = "";
         Object.keys(questionMap).forEach(key => {
             const item = document.createElement('div');
             item.className = 'q-item';
-            item.innerHTML = `
-                <label><input type="checkbox" id="admin-q-${key}"> ${key}</label>
-                <input type="text" id="admin-ans-${key}" placeholder="Odpověď" value="${questionMap[key].ans}">
-                <input type="text" id="admin-bold-${key}" placeholder="Koncovka" value="${questionMap[key].bold}">
+            
+            let rowHTML = `
+                <div class="q-item-header">
+                    <input type="checkbox" id="admin-q-${key}">
+                    <span>${key} <small style="color:#777; font-weight:normal;">(${questionMap[key].en})</small></span>
+                </div>
+                <div class="options-row-grid">
             `;
+            
+            for(let i = 0; i < 5; i++) {
+                const defaultOpt = questionMap[key].options[i] || { ans: "", bold: "" };
+                rowHTML += `
+                    <div class="option-box">
+                        <span>Opce ${i+1}</span>
+                        <input type="text" id="admin-ans-${key}-${i}" placeholder="Odpověď" value="${defaultOpt.ans}">
+                        <input type="text" id="admin-bold-${key}-${i}" placeholder="Bold" value="${defaultOpt.bold}">
+                    </div>
+                `;
+            }
+            rowHTML += `</div>`;
+            item.innerHTML = rowHTML;
             container.appendChild(item);
         });
     }
@@ -226,24 +363,31 @@
         
         Object.keys(questionMap).forEach(key => {
             const check = document.getElementById(`admin-q-${key}`);
-            const ansInput = document.getElementById(`admin-ans-${key}`);
-            const boldInput = document.getElementById(`admin-bold-${key}`);
+            const isAllowed = config.allowed_questions && config.allowed_questions.includes(key);
+            check.checked = isAllowed;
             
-            if (config.allowed_questions.includes(key)) {
-                check.checked = true;
-                ansInput.value = config.custom_answers[key]?.ans || questionMap[key].ans;
-                boldInput.value = config.custom_answers[key]?.bold || questionMap[key].bold;
-            } else {
-                check.checked = false;
-                ansInput.value = questionMap[key].ans;
-                boldInput.value = questionMap[key].bold;
+            for(let i = 0; i < 5; i++) {
+                const ansInput = document.getElementById(`admin-ans-${key}-${i}`);
+                const boldInput = document.getElementById(`admin-bold-${key}-${i}`);
+                
+                if (isAllowed && config.custom_answers?.[key]?.options?.[i]) {
+                    ansInput.value = config.custom_answers[key].options[i].ans;
+                    boldInput.value = config.custom_answers[key].options[i].bold;
+                } else if (isAllowed && i === 0 && config.custom_answers?.[key]?.ans) {
+                    // Legacy single-string layout fallback fix
+                    ansInput.value = config.custom_answers[key].ans;
+                    boldInput.value = config.custom_answers[key].bold;
+                } else {
+                    const fallback = questionMap[key].options[i] || { ans: "", bold: "" };
+                    ansInput.value = fallback.ans;
+                    boldInput.value = fallback.bold;
+                }
             }
         });
     }
 
     function saveLocalMapping() {
         if (!currentVerb) return;
-        
         let allowed_questions = [];
         let custom_answers = {};
         
@@ -251,10 +395,15 @@
             const check = document.getElementById(`admin-q-${key}`);
             if (check.checked) {
                 allowed_questions.push(key);
-                custom_answers[key] = {
-                    ans: document.getElementById(`admin-ans-${key}`).value,
-                    bold: document.getElementById(`admin-bold-${key}`).value
-                };
+                
+                let optionsArr = [];
+                for(let i = 0; i < 5; i++) {
+                    optionsArr.push({
+                        ans: document.getElementById(`admin-ans-${key}-${i}`).value,
+                        bold: document.getElementById(`admin-bold-${key}-${i}`).value
+                    });
+                }
+                custom_answers[key] = { options: optionsArr };
             }
         });
 
@@ -265,7 +414,21 @@
         };
 
         localStorage.setItem('local_verb_mappings', JSON.stringify(verbMappings));
-        alert(`Uloženo! Nezapomeňte si na konci stáhnout JSON soubor a nahrát ho do projektu.`);
+        updateVerbBadge();
+        alert(`Uloženo lokálně do mezipaměti pro "${currentVerb}"!`);
+    }
+
+    function updateVerbBadge() {
+        const badgeSpan = document.getElementById('verb-status-badge');
+        if (!currentVerb || !isAdminMode) {
+            badgeSpan.innerHTML = "";
+            return;
+        }
+        if (verbMappings[currentVerb] && verbMappings[currentVerb].approved) {
+            badgeSpan.innerHTML = `<span class="badge-status status-approved">Schváleno</span>`;
+        } else {
+            badgeSpan.innerHTML = `<span class="badge-status status-unapproved">Neschváleno</span>`;
+        }
     }
 
     function exportJsonFile() {
@@ -306,104 +469,130 @@
         const langCol = "trans_" + (lang === "cs" ? "en" : lang);
         
         try {
-            let query = `SELECT lemma, synonym, vid_pair, ${langCol} FROM words WHERE (pos LIKE '%verb%') AND level = 'A1' AND lemma LIKE '%t' ORDER BY RANDOM() LIMIT 1`;
-            
-            // If running in regular student mode, filter using only your saved verbs mapping list
+            let query = `SELECT lemma, synonym, vid_pair, ${langCol}, pos 
+                         FROM words 
+                         WHERE (pos = 'verb' OR pos LIKE 'verb,%' OR pos LIKE '%,verb') 
+                         AND level = 'A1' 
+                         AND lemma LIKE '%t'`;
+                         
             if (!isAdminMode) {
                 const approvedVerbs = Object.keys(verbMappings).filter(k => verbMappings[k].approved === true);
                 if (approvedVerbs.length > 0) {
                     const dynamicList = approvedVerbs.map(v => `'${v.replace(/'/g, "''")}'`).join(",");
-                    query = `SELECT lemma, synonym, vid_pair, ${langCol} FROM words WHERE lemma IN (${dynamicList}) ORDER BY RANDOM() LIMIT 1`;
+                    query += ` AND lemma IN (${dynamicList})`;
                 } else {
-                    document.getElementById('translation-prompt').innerText = "Žádná schválená slovesa v konfiguraci (verb_mappings.json).";
+                    document.getElementById('translation-prompt').innerText = "Žádná schválená slovesa v konfiguraci.";
                     return;
                 }
             }
-
+            
+            query += ` ORDER BY RANDOM() LIMIT 1`;
             const res = db.exec(query);
+            
             if (res[0]) {
-                const [lemma, synonym, vid_pair, translation] = res[0].values[0];
-                validAnswers = [lemma.toLowerCase().trim()];
-                if (synonym) synonym.split(',').forEach(s => { let c = s.toLowerCase().trim(); if(c) validAnswers.push(c); });
-                if (vid_pair) vid_pair.split(/[,/]/).forEach(v => { let c = v.toLowerCase().trim(); if(c) validAnswers.push(c); });
+                const [lemma, synonym, vid_pair, translation, pos] = res[0].values[0];
                 
+                validAnswers = [];
+                if (lemma) validAnswers.push(lemma.toLowerCase().trim());
+                if (synonym) synonym.split(',').forEach(s => { let c = s.toLowerCase().trim(); if (c) validAnswers.push(c); });
+                if (vid_pair) vid_pair.split(/[,/]/).forEach(v => { let c = v.toLowerCase().trim(); if (c) validAnswers.push(c); });
+
                 document.getElementById('translation-prompt').innerText = `Přelož: ${translation}`;
                 const input = document.getElementById('verb-input');
-                input.value = ""; input.focus();
+                input.value = "";
+                input.focus();
                 checkInputForButton();
             }
-        } catch (e) { console.error(e); }
+        } catch (e) { console.error("Random verb error:", e); }
     }
 
     async function startLesson() {
         const input = document.getElementById('verb-input');
         let val = input.value.trim().toLowerCase();
-
-        if (db && validAnswers.length === 0) {
-            const check = db.exec(`SELECT lemma, synonym, vid_pair FROM words WHERE lemma='${val}' OR synonym LIKE '%${val}%' OR vid_pair LIKE '%${val}%' LIMIT 1`);
-            if (check[0]) {
-                const [l, s, v] = check[0].values[0];
-                validAnswers = [l.toLowerCase().trim()];
-                if (s) s.split(',').forEach(i => validAnswers.push(i.toLowerCase().trim()));
-                if (v) v.split(/[,/]/).forEach(i => validAnswers.push(i.toLowerCase().trim()));
-            }
-        }
-
+        
         if (validAnswers.length > 0 && !validAnswers.includes(val)) {
-            alert(`Špatně. Příklady: ${validAnswers.join(", ")}`); return;
+            alert(`Špatně. Příklady správných odpovědí: ${validAnswers.join(", ")}`);
+            return;
         }
-        if (!isValidVerb(val)) return;
 
-        // Block unauthorized verbs from launching for standard students
+        if (!isValidVerb(val)) return;
+        
         if (!isAdminMode && (!verbMappings[val] || !verbMappings[val].approved)) {
-            alert("Toto sloveso zatím nebylo schváleno.");
+            alert("Toto sloveso zatím nebylo schváleno k výuce.");
             return;
         }
 
         document.getElementById('translation-prompt').innerText = "";
-        validAnswers = [];
+        validAnswers = []; 
         currentVerb = val;
-        currentVerbStem = val.split(" ")[0].replace(/t$/, ''); 
-
+        
+        let baseVerb = val.split(" ")[0];
+        if (baseVerb.endsWith("nout")) {
+            currentVerbStem = baseVerb.slice(0, -4);
+        } else {
+            currentVerbStem = baseVerb.replace(/t$/, '');
+        } 
+        
+        let verbExists = false; 
         if (db) {
-            const stmt = db.prepare("SELECT is_irr, irr_type FROM words WHERE lemma = ? LIMIT 1");
-            stmt.bind([val]);
-            if (stmt.step()) {
-                const row = stmt.get();
-                if (row[0] === 1 && [1, 2, 5].includes(row[1])) {
-                    const overStmt = db.prepare("SELECT past_participle FROM overrides WHERE form_key = ? LIMIT 1");
-                    overStmt.bind([val]);
-                    if (overStmt.step()) {
-                        let fullPast = overStmt.get()[0].split(" ")[0];
-                        currentVerbStem = fullPast.endsWith('l') ? fullPast.slice(0, -1) : fullPast;
+            try {
+                const stmt = db.prepare("SELECT is_irr, irr_type FROM words WHERE lemma = ? AND pos LIKE '%verb%' LIMIT 1");
+                stmt.bind([val]);
+                if (stmt.step()) {
+                    verbExists = true; 
+                    const row = stmt.get();
+                    if (row[0] === 1 && [1, 2, 5].includes(row[1])) {
+                        const overStmt = db.prepare("SELECT past_participle FROM overrides WHERE form_key = ? LIMIT 1");
+                        overStmt.bind([val]);
+                        if (overStmt.step()) {
+                            isCurrentlyIrregular = true;
+                            let fullPast = overStmt.get()[0].split(" ")[0];
+                            currentVerbStem = fullPast.endsWith('l') ? fullPast.slice(0, -1) : fullPast;
+                        }
+                        overStmt.free();
                     }
-                    overStmt.free();
                 }
-            }
-            stmt.free();
+                stmt.free();
+                
+                let allowedKeys = Object.keys(questionMap);
+                let activeConfig = verbMappings[val];
+                if (activeConfig && activeConfig.allowed_questions && activeConfig.allowed_questions.length > 0) {
+                    allowedKeys = activeConfig.allowed_questions;
+                }
+                
+                const randomKey = allowedKeys[Math.floor(Math.random() * allowedKeys.length)];
+                const baseQuestionData = questionMap[randomKey];
+                const optionIndex = Math.floor(Math.random() * 5);
+                
+                let finalAns = "";
+                let finalBold = "";
 
-            let keys = Object.keys(questionMap);
-            let activeConfig = verbMappings[val];
-            
-            if (activeConfig && activeConfig.allowed_questions && activeConfig.allowed_questions.length > 0) {
-                keys = activeConfig.allowed_questions;
-            }
-            
-            const randomKey = keys[Math.floor(Math.random() * keys.length)];
-            const fallbackMap = questionMap[randomKey];
-            
-            let finalAns = activeConfig?.custom_answers?.[randomKey]?.ans || fallbackMap.ans;
-            let finalBold = activeConfig?.custom_answers?.[randomKey]?.bold || fallbackMap.bold;
-
-            let enTrans = fallbackMap.en;
-            const qStmt = db.prepare("SELECT trans_en FROM words WHERE lemma = ? AND lesson = '02 Tázací slova' LIMIT 1");
-            qStmt.bind([randomKey]);
-            if (qStmt.step()) enTrans = qStmt.get()[0];
-            qStmt.free();
-            
-            currentQuestionWord = { cz: randomKey, en: enTrans, answer: finalAns, boldPart: finalBold };
+                // Enhanced structural detection fallback protection loops
+                if (activeConfig?.custom_answers?.[randomKey]?.options?.[optionIndex]) {
+                    finalAns = activeConfig.custom_answers[randomKey].options[optionIndex].ans;
+                    finalBold = activeConfig.custom_answers[randomKey].options[optionIndex].bold;
+                } else if (activeConfig?.custom_answers?.[randomKey]?.ans) {
+                    finalAns = activeConfig.custom_answers[randomKey].ans;
+                    finalBold = activeConfig.custom_answers[randomKey].bold;
+                } else {
+                    finalAns = baseQuestionData.options[optionIndex].ans;
+                    finalBold = baseQuestionData.options[optionIndex].bold;
+                }
+                
+                let enTrans = baseQuestionData.en;
+                const qStmt = db.prepare("SELECT trans_en FROM words WHERE lemma = ? AND lesson = '02 Tázací slova' LIMIT 1");
+                qStmt.bind([randomKey]);
+                if (qStmt.step()) enTrans = qStmt.get()[0];
+                qStmt.free();
+                
+                currentQuestionWord = { cz: randomKey, en: enTrans, answer: finalAns, boldPart: finalBold };
+            } catch (e) { console.error(e); }
         }
 
+        window.currentVerbVerified = verbExists;
+        if (!verbExists && !confirm(`Sloveso "${val}" neznám. Chceš přesto pokračovat?`)) return;
+
+        updateVerbBadge();
         showAdminControlsForVerb(currentVerb);
 
         document.getElementById('input-section').style.display = 'none';
@@ -418,8 +607,9 @@
         const day = days[dayIdx];
         const g = document.getElementById('gender-switch').value;
         const endings = { 'M': 'l', 'F': 'la', 'N': 'lo', 'Pl': 'li', 'PlFem': 'ly', 'PlN': 'la' };
-        let aux = (g === 'PlN') ? '___' : (g.startsWith('Pl') ? "jste" : "jsi");
-        document.getElementById('sentence-display').innerHTML = `Co <span class="blue-bold">${aux}</span> děla<span class="blue-bold">${endings[g]}</span> ${day}?`;
+        let aux = (g === 'PlN') ? '<span style="color:#999">__</span>' : (g.startsWith('Pl') ? "jste" : "jsi");
+        
+        document.getElementById('sentence-display').innerHTML = `Co <span class="blue-bold">${aux}</span> děla<span class="blue-bold">${endings[g]||'l'}</span> ${day}?`;
         document.getElementById('answer-display').innerText = "";
         document.getElementById('next-step-btn').innerText = "Odpovědět (Krok 1)";
     }
@@ -439,29 +629,44 @@
             step = 2;
         } 
         else if (step === 2) {
-            let aux = (g === 'PlN') ? '<span style="color:#999">__</span>' : (g.startsWith('Pl') ? "jsme" : "jsem");
+            const aux = (g === 'PlN') ? '<span style="color:#999">__</span>' : (g.startsWith('Pl') ? "jsme" : "jsem");
             answerDiv.innerHTML += ` <span class="blue-bold">${aux}</span>`;
-            nextBtn.innerText = "Krok 3 (příčestí)";
+            nextBtn.innerText = "Krok 3 (příčestí minulé)";
             step = 3;
         } 
         else if (step === 3) {
             let parts = currentVerb.split(/\s+/);
             let reflex = parts.length > 1 ? parts[1] : "";
-            answerDiv.innerHTML += reflex ? ` <span class="blue-bold">${reflex}</span> ${currentVerbStem}<span class="blue-bold">${endings[g]}</span>.` : ` ${currentVerbStem}<span class="blue-bold">${endings[g]}</span>.`;
+            let finalStem = currentVerbStem;
+            if (finalStem.endsWith("še") && g !== 'M') finalStem = finalStem.slice(0, -1);
+            
+            let pastParticiple = `${finalStem}<span class="blue-bold">${endings[g]||'l'}</span>`;
+            if (reflex) pastParticiple += ` ${reflex}`;
+            
+            answerDiv.innerHTML += ` ${pastParticiple}.`;
+            speakCzech(answerDiv.innerText);
             nextBtn.innerText = `Otázka: ${currentQuestionWord.cz} (${currentQuestionWord.en})`;
             step = 4;
-        } 
+        }
         else if (step === 4) {
             let auxQ = (g === 'PlN') ? '' : (g.startsWith('Pl') ? "jste" : "jsi");
             let parts = currentVerb.split(/\s+/);
             let reflex = parts.length > 1 ? parts[1] : "";
-            qPart.innerHTML = `${currentQuestionWord.cz.charAt(0).toUpperCase() + currentQuestionWord.cz.slice(1)} ${auxQ} ${reflex} ${currentVerbStem}${endings[g]} ${day}? &nbsp; →`;
+            let finalStem = currentVerbStem;
+            if (finalStem.endsWith("še") && g !== 'M') finalStem = finalStem.slice(0, -1);
+            
+            let fullVerbForm = `${finalStem}${endings[g]||'l'}`;
+            if (reflex) fullVerbForm += ` ${reflex}`;
+            
+            qPart.innerHTML = `<span class="blue-bold">${currentQuestionWord.cz.charAt(0).toUpperCase() + currentQuestionWord.cz.slice(1)}</span> ${auxQ} ${fullVerbForm} ${day}? &nbsp; →`;
             answerDiv.innerHTML = day.charAt(0).toUpperCase() + day.slice(1);
-            nextBtn.innerText = "Krok 6 (pomocné sloveso)";
+            
+            let nextAux = (g === 'PlN') ? "(__)" : (g.startsWith('Pl') ? "jsme" : "jsem");
+            nextBtn.innerText = `Krok 6 (+ ${nextAux})`;
             step = 5;
         }
         else if (step === 5) {
-            let aux = (g === 'PlN') ? '<span style="color:#999">__</span>' : (g.startsWith('Pl') ? "jsme" : "jsem");
+            const aux = (g === 'PlN') ? '<span style="color:#999">__</span>' : (g.startsWith('Pl') ? "jsme" : "jsem");
             answerDiv.innerHTML += ` <span class="blue-bold">${aux}</span>`;
             nextBtn.innerText = "Krok 7 (příčestí)";
             step = 6;
@@ -469,7 +674,13 @@
         else if (step === 6) {
             let parts = currentVerb.split(/\s+/);
             let reflex = parts.length > 1 ? parts[1] : "";
-            answerDiv.innerHTML += reflex ? ` <span class="blue-bold">${reflex}</span> ${currentVerbStem}<span class="blue-bold">${endings[g]}</span>` : ` ${currentVerbStem}<span class="blue-bold">${endings[g]}</span>`;
+            let finalStem = currentVerbStem;
+            if (finalStem.endsWith("še") && g !== 'M') finalStem = finalStem.slice(0, -1);
+            
+            let pastParticiple = `${finalStem}<span class="blue-bold">${endings[g]||'l'}</span>`;
+            if (reflex) pastParticiple += ` ${reflex}`;
+            
+            answerDiv.innerHTML += ` ${pastParticiple}`;
             nextBtn.innerText = "Krok 8 (odpověď)";
             step = 7;
         }
@@ -477,22 +688,33 @@
             const ans = currentQuestionWord.answer;
             const bold = currentQuestionWord.boldPart;
             const formattedAns = bold ? ans.replace(bold, `<span class="blue-bold">${bold}</span>`) : ans;
+            
             answerDiv.innerHTML += ` ${formattedAns}.`;
+            speakCzech(answerDiv.innerText);
             nextBtn.innerText = "Další sloveso";
             step = 8;
         }
         else {
-            document.getElementById('log-content').innerHTML += `<div>${qPart.innerText} ${answerDiv.innerHTML}</div>`;
+            document.getElementById('log-content').innerHTML += `<div><strong>${qPart.innerText}</strong> ${answerDiv.innerHTML}</div>`;
             dayIdx = (dayIdx + 1) % days.length;
+            
             document.getElementById('lesson-section').style.display = 'none';
             document.getElementById('admin-panel').style.display = 'none';
             document.getElementById('input-section').style.display = 'block';
-            const inputField = document.getElementById('verb-input');
-            inputField.value = "";
+            
+            document.getElementById('verb-input').value = "";
             document.getElementById('verb-info-display').innerHTML = "";
-            setTimeout(() => inputField.focus(), 10);
+            document.getElementById('verb-status-badge').innerHTML = "";
             step = 0; 
         }
+    }
+
+    function speakCzech(text) {
+        if (!document.getElementById('audio-toggle').checked || !window.speechSynthesis) return;
+        const utterance = new SpeechSynthesisUtterance(text);
+        utterance.lang = 'cs-CZ';
+        window.speechSynthesis.cancel(); 
+        window.speechSynthesis.speak(utterance);
     }
 
     const chars = ['ž','š','č','ř','ď','ť','ň','ě','á','é','í','ý','ó','ú','ů'];
@@ -508,13 +730,6 @@
             checkInputForButton();
         };
         picker.appendChild(btn);
-    });
-
-    document.addEventListener('keypress', (e) => {
-        if (e.key === 'Enter') {
-            if (document.getElementById('lesson-section').style.display !== 'none') nextStep();
-            else if (!document.getElementById('start-btn').disabled) startLesson();
-        }
     });
 
     initDatabase();
