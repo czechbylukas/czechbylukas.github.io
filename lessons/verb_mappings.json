@@ -70,5 +70,139 @@
         "bold": "í"
       }
     }
+  },
+  "mluvit": {
+    "approved": true,
+    "allowed_questions": [
+      "kdy",
+      "kde",
+      "proč",
+      "v kolik",
+      "odkdy",
+      "dokdy",
+      "jak",
+      "jak dlouho",
+      "bez koho",
+      "pro koho",
+      "s kým",
+      "bez čeho",
+      "o kom",
+      "o čem",
+      "s čím",
+      "díky čemu"
+    ],
+    "custom_answers": {
+      "odkdy": [
+        {
+          "ans": "od stř",
+          "bold": "edy",
+          "enabled": false
+        },
+        {
+          "ans": "od rá",
+          "bold": "na",
+          "enabled": true
+        },
+        {
+          "ans": "od víken",
+          "bold": "du",
+          "enabled": false
+        },
+        {
+          "ans": "od pondě",
+          "bold": "lí",
+          "enabled": false
+        },
+        {
+          "ans": "od včerejš",
+          "bold": "ka",
+          "enabled": false
+        },
+        {
+          "ans": "od loňs",
+          "bold": "ka",
+          "enabled": false
+        },
+        {
+          "ans": "od břez",
+          "bold": "na",
+          "enabled": false
+        }
+      ],
+      "dokdy": [
+        {
+          "ans": "do pát",
+          "bold": "ku",
+          "enabled": false
+        },
+        {
+          "ans": "do veče",
+          "bold": "ra",
+          "enabled": true
+        },
+        {
+          "ans": "do pondě",
+          "bold": "lí",
+          "enabled": false
+        },
+        {
+          "ans": "do konce týd",
+          "bold": "ne",
+          "enabled": false
+        },
+        {
+          "ans": "do no",
+          "bold": "ci",
+          "enabled": true
+        },
+        {
+          "ans": "do zítř",
+          "bold": "ka",
+          "enabled": false
+        },
+        {
+          "ans": "do konce ro",
+          "bold": "ku",
+          "enabled": false
+        }
+      ],
+      "jak": [
+        {
+          "ans": "česk",
+          "bold": "y",
+          "enabled": true
+        },
+        {
+          "ans": "anglick",
+          "bold": "y",
+          "enabled": true
+        },
+        {
+          "ans": "poma",
+          "bold": "lu",
+          "enabled": true
+        },
+        {
+          "ans": "rych",
+          "bold": "le",
+          "enabled": true
+        },
+        {
+          "ans": "skvě",
+          "bold": "le",
+          "enabled": false
+        },
+        {
+          "ans": "vese",
+          "bold": "le",
+          "enabled": false
+        },
+        {
+          "ans": "dobř",
+          "bold": "e",
+          "enabled": true
+        }
+      ]
+    }
   }
 }
