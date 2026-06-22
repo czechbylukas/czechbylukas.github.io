@@ -79,7 +79,7 @@ export function startGame(state) {
           feedback.textContent = `❌ Špatně. Správná odpověď: ${correct}`;
         }
         currentIndex++;
-        setTimeout(showQuestion, 1000);
+        setTimeout(showQuestion, 3000);
       };
     });
   }
