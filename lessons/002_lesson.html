@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>Czech Past Tense Practice Tool | HáCZech Grammar Simulator</title>
+    <title>Czech Questions Practice Tool | HáCZech Grammar Simulator</title>
 
     <meta name="description" content="Master Czech past tense with our interactive sentence generator. Practice verb conjugation, auxiliary verbs (jsem, jsi), and gender-specific endings with native audio support.">
     <meta name="accessibility" content="audioDescription, highContrast">
@@ -26,7 +26,7 @@
     {
       "@context": "https://schema.org",
       "@type": "LearningResource",
-      "name": "Czech Past Tense Practice Tool",
+      "name": "Czech Question Practice Tool",
       "description": "An interactive tool for practicing Czech past tense sentence construction including auxiliary verbs and past participles.",
       "learningResourceType": "Exercise",
       "educationalLevel": "Beginner (A1-A2)",
@@ -575,7 +575,7 @@
         if (!isValidVerb(val)) return;
         
         if (!isAdminMode && (!verbMappings[val] || !verbMappings[val].approved)) {
-            alert("Toto sloveso zatím nebylo schváleno k výuce.");
+            alert("Toto sloveso zatím nebylo schváleno k výuce. / this Verb has not yet been approved");
             return;
         }
 

@@ -150,5 +150,136 @@
         }
       ]
     }
+  },
+  "odpočívat": {
+    "approved": true,
+    "allowed_questions": [
+      "kdy",
+      "kdo",
+      "kde",
+      "proč",
+      "v kolik",
+      "odkdy",
+      "dokdy",
+      "jak dlouho",
+      "bez koho",
+      "s kým",
+      "bez čeho",
+      "s čím",
+      "díky čemu"
+    ],
+    "custom_answers": {
+      "bez čeho": [
+        {
+          "ans": "bez cuk",
+          "bold": "ru",
+          "enabled": false
+        },
+        {
+          "ans": "bez rý",
+          "bold": "že",
+          "enabled": false
+        },
+        {
+          "ans": "bez vo",
+          "bold": "dy",
+          "enabled": false
+        },
+        {
+          "ans": "bez au",
+          "bold": "ta",
+          "enabled": false
+        },
+        {
+          "ans": "bez počíta",
+          "bold": "če",
+          "enabled": true
+        },
+        {
+          "ans": "bez mlé",
+          "bold": "ka",
+          "enabled": false
+        },
+        {
+          "ans": "bez peně",
+          "bold": "z",
+          "enabled": false
+        }
+      ],
+      "s čím": [
+        {
+          "ans": "se so",
+          "bold": "lí",
+          "enabled": false
+        },
+        {
+          "ans": "s rý",
+          "bold": "ží",
+          "enabled": false
+        },
+        {
+          "ans": "s cuk",
+          "bold": "rem",
+          "enabled": false
+        },
+        {
+          "ans": "s pra",
+          "bold": "cí",
+          "enabled": false
+        },
+        {
+          "ans": "s ká",
+          "bold": "vou",
+          "enabled": true
+        },
+        {
+          "ans": "s chle",
+          "bold": "bem",
+          "enabled": false
+        },
+        {
+          "ans": "s mas",
+          "bold": "em",
+          "enabled": false
+        }
+      ],
+      "díky čemu": [
+        {
+          "ans": "díky vol",
+          "bold": "nu",
+          "enabled": true
+        },
+        {
+          "ans": "díky posilov",
+          "bold": "ně",
+          "enabled": false
+        },
+        {
+          "ans": "díky galer",
+          "bold": "ii",
+          "enabled": false
+        },
+        {
+          "ans": "díky víken",
+          "bold": "du",
+          "enabled": false
+        },
+        {
+          "ans": "díky počíta",
+          "bold": "či",
+          "enabled": false
+        },
+        {
+          "ans": "díky náho",
+          "bold": "dě",
+          "enabled": false
+        },
+        {
+          "ans": "díky pomo",
+          "bold": "ci",
+          "enabled": false
+        }
+      ]
+    }
   }
 }
