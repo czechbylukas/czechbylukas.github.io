@@ -226,7 +226,7 @@
 
     const questionMap = {
         "kdy": { en: "when", options: [
-            { ans: "v deset hodi", bold: "n" }, { ans: "v jednu hodin", bold: "u" }, { ans: "odpoledne", bold: "" }, { ans: "večer", bold: "er" }, { ans: "ráno", bold: "" }, { ans: "v noc", bold: "i" }, { ans: "před poledn", bold: "em" }
+            { ans: "v deset hodi", bold: "n" }, { ans: "v jednu hodin", bold: "u" }, { ans: "odpoledne", bold: "" }, { ans: "večer", bold: "" }, { ans: "ráno", bold: "" }, { ans: "v noc", bold: "i" }, { ans: "před poledn", bold: "em" }
         ]}, 
         "kdo": { en: "who", options: [
             { ans: "mamin", bold: "ka" }, { ans: "tatínek", bold: "" }, { ans: "kamarád", bold: "" }, { ans: "kamarádka", bold: "" }, { ans: "soused", bold: "" }, { ans: "manželka", bold: "" }, { ans: "profesor", bold: "" }
@@ -244,7 +244,7 @@
             { ans: "od střed", bold: "y" }, { ans: "od rán", bold: "a" }, { ans: "od víkend", bold: "u" }, { ans: "od pondělí", bold: "" }, { ans: "od včerejšk", bold: "a" }, { ans: "od loňsk", bold: "a" }, { ans: "od březn", bold: "a" }
         ]},
         "dokdy": { en: "until when", options: [
-            { ans: "do pátk", bold: "u" }, { ans: "do večer", bold: "a" }, { ans: "do pondělé", bold: "" }, { ans: "do konce týdn", bold: "e" }, { ans: "do noc", bold: "i" }, { ans: "do zítřk", bold: "a" }, { ans: "do konce rok", bold: "u" }
+            { ans: "do pátk", bold: "u" }, { ans: "do večer", bold: "a" }, { ans: "do pondělí", bold: "" }, { ans: "do konce týdn", bold: "e" }, { ans: "do noc", bold: "i" }, { ans: "do zítřk", bold: "a" }, { ans: "do konce rok", bold: "u" }
         ]},
         "jak": { en: "how", options: [
             { ans: "dobř", bold: "e" }, { ans: "špatn", bold: "ě" }, { ans: "pomal", bold: "u" }, { ans: "rychl", bold: "e" }, { ans: "skvěl", bold: "e" }, { ans: "vesel", bold: "e" }, { ans: "těžc", bold: "e" }
@@ -370,14 +370,31 @@
     }
 
     function updateBoxStyle(key, i) {
-        const check = document.getElementById(`check-opt-${key}-${i}`);
-        const box = document.getElementById(`box-opt-${key}-${i}`);
-        if(check.checked) {
-            box.classList.remove('disabled-opt');
-        } else {
-            box.classList.add('disabled-opt');
+    const check = document.getElementById(`check-opt-${key}-${i}`);
+    const box = document.getElementById(`box-opt-${key}-${i}`);
+    if(check.checked) {
+        box.classList.remove('disabled-opt');
+    } else {
+        box.classList.add('disabled-opt');
+    }
+
+    // Security check: count how many options remain enabled for this question word
+    let activeOptionsCount = 0;
+    for (let index = 0; index < 7; index++) {
+        const optCheck = document.getElementById(`check-opt-${key}-${index}`);
+        if (optCheck && optCheck.checked) {
+            activeOptionsCount++;
         }
     }
+
+    // If zero choices are checked, automatically clear the parent question checkbox
+    if (activeOptionsCount === 0) {
+        const parentQCheck = document.getElementById(`admin-q-${key}`);
+        if (parentQCheck) {
+            parentQCheck.checked = false;
+        }
+    }
+}
 
     function toggleAccordion(key) {
         const wrapper = document.getElementById(`row-wrapper-${key}`);
@@ -658,68 +675,205 @@
         showQuestion();
     }
 
-    function showQuestion() {
-        step = 1;
-        const day = days[dayIdx];
-        const g = document.getElementById('gender-switch').value;
-        const endings = { 'M': 'l', 'F': 'la', 'N': 'lo', 'Pl': 'li', 'PlFem': 'ly', 'PlN': 'la' };
-        let aux = (g === 'PlN') ? '__' : (g.startsWith('Pl') ? "jste" : "jsi");
-        document.getElementById('sentence-display').innerHTML = `Co <span class="blue-bold">${aux}</span> děla<span class="blue-bold">${endings[g]||'l'}</span> ${day}?`;
-        document.getElementById('answer-display').innerText = "";
-        document.getElementById('question-part').innerText = "";
-        document.getElementById('next-step-btn').innerText = "Odpovědět (Krok 1)";
-    }
+   function showQuestion() {
+    step = 1;
+    const day = days[dayIdx];
+    const g = document.getElementById('gender-switch').value;
+    const endings = { 'M': 'l', 'F': 'la', 'N': 'lo', 'Pl': 'li', 'PlFem': 'ly', 'PlN': 'la' };
+    
+    // First question is always general with the verb "dělat"
+    let aux = (g === 'PlN') ? '<span style="color:#999">__</span>' : (g.startsWith('Pl') ? "jste" : "jsi");
+    let queryWord = `Co <span class="blue-bold">${aux}</span>`;
+    
+    document.getElementById('sentence-display').innerHTML = `${queryWord} děla<span class="blue-bold">${endings[g]||'l'}</span> ${day}?`;
+    document.getElementById('answer-display').innerText = "";
+    document.getElementById('next-step-btn').innerText = "Odpovědět (Krok 1)";
+}
 
-    function nextStep() {
-        const g = document.getElementById('gender-switch').value;
-        const qPart = document.getElementById('question-part');
-        const answerDiv = document.getElementById('answer-display');
-        const nextBtn = document.getElementById('next-step-btn');
-        const day = days[dayIdx];
-        const endings = { 'M': 'l', 'F': 'la', 'N': 'lo', 'Pl': 'li', 'PlFem': 'ly', 'PlN': 'la' };
 
-        if (step === 1) {
-            answerDiv.innerText = day.charAt(0).toUpperCase() + day.slice(1);
-            step = 2;
-        } else if (step === 2) {
-            const aux = (g === 'PlN') ? '__' : (g.startsWith('Pl') ? "jsme" : "jsem");
-            answerDiv.innerHTML += ` <span class="blue-bold">${aux}</span>`;
-            step = 3;
-        } else if (step === 3) {
-            let parts = currentVerb.split(/\s+/);
-            let pastParticiple = `${currentVerbStem}<span class="blue-bold">${endings[g]||'l'}</span>${parts[1] ? ' ' + parts[1] : ''}`;
-            answerDiv.innerHTML += ` ${pastParticiple}.`;
-            speakCzech(answerDiv.innerText);
-            nextBtn.innerText = `Otázka: ${currentQuestionWord.cz}`;
-            step = 4;
-        } else if (step === 4) {
-            let auxQ = (g === 'PlN') ? '' : (g.startsWith('Pl') ? "jste" : "jsi");
-            let parts = currentVerb.split(/\s+/);
-            qPart.innerHTML = `<span class="blue-bold">${currentQuestionWord.cz.charAt(0).toUpperCase() + currentQuestionWord.cz.slice(1)}</span> ${auxQ} ${currentVerbStem}${endings[g]||'l'}${parts[1] ? ' ' + parts[1] : ''} ${day}? →`;
-            answerDiv.innerHTML = day.charAt(0).toUpperCase() + day.slice(1);
-            step = 5;
-        } else if (step === 5) {
-            const aux = (g === 'PlN') ? '__' : (g.startsWith('Pl') ? "jsme" : "jsem");
-            answerDiv.innerHTML += ` <span class="blue-bold">${aux}</span>`;
-            step = 6;
-        } else if (step === 6) {
-            let parts = currentVerb.split(/\s+/);
-            answerDiv.innerHTML += ` ${currentVerbStem}<span class="blue-bold">${endings[g]||'l'}</span>${parts[1] ? ' ' + parts[1] : ''}`;
-            step = 7;
-        } else if (step === 7) {
-            answerDiv.innerHTML += ` ${currentQuestionWord.answer}<span class="blue-bold">${currentQuestionWord.boldPart}</span>.`;
-            speakCzech(answerDiv.innerText);
-            nextBtn.innerText = "Další sloveso";
-            step = 8;
-        } else {
-            document.getElementById('log-content').innerHTML += `<div><strong>${qPart.innerText}</strong> ${answerDiv.innerHTML}</div>`;
-            dayIdx = (dayIdx + 1) % days.length;
-            document.getElementById('lesson-section').style.display = 'none';
-            document.getElementById('input-section').style.display = 'block';
-            document.getElementById('verb-input').value = "";
-            step = 0; 
+
+
+
+
+
+
+
+function nextStep() {
+    const g = document.getElementById('gender-switch').value;
+    const answerDiv = document.getElementById('answer-display');
+    const nextBtn = document.getElementById('next-step-btn');
+    const day = days[dayIdx];
+
+    // Detekce zvratného zájmena ("se", "si", nebo "")
+    let parts = currentVerb.split(/\s+/);
+    let reflex = parts.length > 1 ? parts[1].toLowerCase().trim() : "";
+    
+    // Koncovky minulého času
+    const endings = { 'M': 'l', 'F': 'la', 'N': 'lo', 'Pl': 'li', 'PlFem': 'ly', 'PlN': 'la' };
+    let finalStem = currentVerbStem;
+    if (finalStem.endsWith("še") && g !== 'M') finalStem = finalStem.slice(0, -1);
+    let baseVerbForm = `${finalStem}${endings[g] || 'l'}`;
+    let highlightedVerbForm = `${finalStem}<span class="blue-bold">${endings[g] || 'l'}</span>`;
+
+    // --- 1. VĚTA: TVORBA ZÁKLADNÍHO TVRZENÍ ---
+    
+    if (step === 1) {
+        answerDiv.innerText = day.charAt(0).toUpperCase() + day.slice(1);
+        nextBtn.innerText = `Krok 2 (+ pomocné sloveso)`;
+        step = 2;
+    } 
+    else if (step === 2) {
+        let aux = (g === 'PlN') ? "" : (g.startsWith('Pl') ? "jsme" : "jsem");
+        if (aux) {
+            answerDiv.innerHTML += reflex ? ` <span class="blue-bold">${aux} ${reflex}</span>` : ` <span class="blue-bold">${aux}</span>`;
+        } else if (reflex) {
+            answerDiv.innerHTML += ` <span class="blue-bold">${reflex}</span>`;
         }
+        nextBtn.innerText = "Krok 3 (příčestí minulé)";
+        step = 3;
+    } 
+    else if (step === 3) {
+        answerDiv.innerHTML += ` ${highlightedVerbForm}.`;
+        speakCzech(answerDiv.innerText);
+
+        nextBtn.innerText = "Následná otázka";
+        step = 4;
+    } 
+    
+    // --- MEZIKROK: TVORBA NÁSLEDNÉ OTÁZKY (Čistě česky) ---
+    
+    else if (step === 4) {
+        let qAux = "";
+        if (g === 'PlN') {
+            qAux = reflex ? ` ${reflex}` : "";
+        } else if (g.startsWith('Pl')) {
+            qAux = reflex ? ` jste ${reflex}` : " jste";
+        } else {
+            if (reflex === "se") qAux = " ses";
+            else if (reflex === "si") qAux = " sis";
+            else qAux = " jsi";
+        }
+
+        let capitalizedQ = currentQuestionWord.cz.charAt(0).toUpperCase() + currentQuestionWord.cz.slice(1);
+        
+        // Zde je pouze čistá česká otázka bez překladu
+        answerDiv.innerHTML += `<br><br><span style="font-size: 24px; color: #cc6600; font-weight: bold;">${capitalizedQ}${qAux} ${baseVerbForm} ${day}?</span>`;
+        
+        // Kontejner pro stavbu druhé odpovědi
+        answerDiv.innerHTML += `<br><span id="second-sentence-builder"></span>`;
+        
+        nextBtn.innerText = "Odpověď 2 (Krok 1)";
+        step = 5;
     }
+
+    // --- 2. VĚTA: STAVBA ODPOVĚDI KROK ZA KROKEM ---
+    
+    // KROK 5: Den na začátku druhé věty
+    else if (step === 5) {
+        const subBuilder = document.getElementById('second-sentence-builder');
+        subBuilder.innerHTML = day.charAt(0).toUpperCase() + day.slice(1);
+        
+        nextBtn.innerText = "Odpověď 2 (Krok 2)";
+        step = 6;
+    }
+    // KROK 6: Přidání pomocného slovesa / zvratného zájmena
+    else if (step === 6) {
+        const subBuilder = document.getElementById('second-sentence-builder');
+        let aux = (g === 'PlN') ? "" : (g.startsWith('Pl') ? "jsme" : "jsem");
+        
+        if (aux) {
+            subBuilder.innerHTML += reflex ? ` <span class="blue-bold">${aux} ${reflex}</span>` : ` <span class="blue-bold">${aux}</span>`;
+        } else if (reflex) {
+            subBuilder.innerHTML += ` <span class="blue-bold">${reflex}</span>`;
+        }
+        
+        nextBtn.innerText = "Odpověď 2 (Krok 3)";
+        step = 7;
+    }
+    // KROK 7: Přidání příčestí minulého (slovesa)
+    else if (step === 7) {
+        const subBuilder = document.getElementById('second-sentence-builder');
+        subBuilder.innerHTML += ` ${highlightedVerbForm}`;
+        
+        nextBtn.innerText = "Odpověď 2 (Krok 4)";
+        step = 8;
+    }
+    // KROK 8: Přidání odpovědi z databáze + PŘEKLADU na úplný konec řádku
+    else if (step === 8) {
+        const subBuilder = document.getElementById('second-sentence-builder');
+        
+        let customAnsText = currentQuestionWord.boldPart 
+            ? `${currentQuestionWord.answer}<span class="blue-bold">${currentQuestionWord.boldPart}</span>`
+            : currentQuestionWord.answer;
+            
+        // Spojení odpovědi a anglického překladu tázacího zájmena na konec řádku
+        subBuilder.innerHTML += ` ${customAnsText}. <span style="font-size:16px; color:#666; margin-left: 8px;">(${currentQuestionWord.en})</span>`;
+        
+        // Pro předčítání hlasem získáme pouze čistý český text (bez závorky)
+        let cleanTextToSpeak = subBuilder.innerText.split('(')[0].trim();
+        speakCzech(cleanTextToSpeak);
+
+        nextBtn.innerText = "Další sloveso";
+        step = 9;
+    }
+    
+    // --- RESET A ZÁPIS DO HISTORIE (LOGU) ---
+    else {
+        // OPRAVENÁ DETEKCE: Kontrolujeme globální příznak ověření, nebo ověření přímo v databázi mapování
+        let isVerified = false;
+        if (typeof window.currentVerbVerified !== 'undefined' && window.currentVerbVerified === true) {
+            isVerified = true;
+        } else if (typeof verbMappings !== 'undefined' && verbMappings[currentVerb]) {
+            // Kontrola, zda existuje klíč approved, nebo zda samotná přítomnost v ověřeném slovníku znamená true
+            isVerified = verbMappings[currentVerb].approved || verbMappings[currentVerb].verified || false;
+        }
+
+        const note = !isVerified ? `<small style="color:red; margin-left:10px;">(Verb not verified)</small>` : "";
+        const irrBadge = isCurrentlyIrregular ? `<span class="badge-irr" style="margin-left:10px;">Irregular</span>` : "";
+        
+        // Zápis do logu s opravenými štítky u nadpisu slovesa
+        let logBlock = `
+            <div style="margin-bottom: 15px; border-bottom: 1px dashed #ccc; padding-bottom: 8px;">
+                <div style="display: flex; align-items: center; justify-content: space-between; background-color: #f9f9f9; padding: 4px 8px; border-radius: 4px;">
+                    <strong style="font-size: 16px; color: #222;">${currentVerb.toUpperCase()}</strong>
+                    <div>${irrBadge}${note}</div>
+                </div>
+                <div style="margin-top: 8px; color: #444; line-height: 1.4;">
+                    ${answerDiv.innerHTML}
+                </div>
+            </div>`;
+            
+        document.getElementById('log-content').innerHTML += logBlock;
+        
+        // Kompletní reset stavů a vyčištění příznaků pro další sloveso
+        isCurrentlyIrregular = false; 
+        if (typeof window.currentVerbVerified !== 'undefined') {
+            window.currentVerbVerified = false; // resetujeme pro další vstup
+        }
+        
+        dayIdx = (dayIdx + 1) % days.length;
+        document.getElementById('lesson-section').style.display = 'none';
+        document.getElementById('input-section').style.display = 'block';
+        
+        const inputField = document.getElementById('verb-input');
+        inputField.value = "";
+        document.getElementById('verb-info-display').innerHTML = "";
+        
+        setTimeout(() => {
+            inputField.focus();
+        }, 10);
+        
+        step = 0; 
+    }
+}
+
+
+
+
+
+
+
+
 
     function speakCzech(text) {
         if (!document.getElementById('audio-toggle').checked || !window.speechSynthesis) return;
