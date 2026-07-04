@@ -93,6 +93,7 @@ def create_present_tense(lemma, person, gender, number):
         wiki_val = wiki_val.strip().lower()
 
     # -------------------------------------------------------------------------
+    # -------------------------------------------------------------------------
     # STEP 3: ESTABLISH ASPECTS & DB VALIDATION
     # -------------------------------------------------------------------------
     current_dir = os.path.dirname(os.path.abspath(__file__))
@@ -110,8 +111,14 @@ def create_present_tense(lemma, person, gender, number):
     irr_type = 0   
 
     try:
-        cur.execute("SELECT id, is_irr, irr_type, pos, pattern_id, vid FROM words WHERE lemma = ?", (base_verb,))
+        # FIX: Query using lemma_clean ('oblékat se') instead of base_verb ('oblékat')
+        cur.execute("SELECT id, is_irr, irr_type, pos, pattern_id, vid FROM words WHERE lemma = ?", (lemma_clean,))
         row = cur.fetchone()
+
+        # Fallback: If it's not found with 'se', try searching without it just in case
+        if not row:
+            cur.execute("SELECT id, is_irr, irr_type, pos, pattern_id, vid FROM words WHERE lemma = ?", (base_verb,))
+            row = cur.fetchone()
 
         if row and row[3] == 'verb':
             is_verified = True

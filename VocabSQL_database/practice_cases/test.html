@@ -272,7 +272,19 @@ function handleLogic() {
     const val = document.getElementById('user-input').value.trim().toLowerCase();
     let correct = false;
 
-    if (currentLevel === 1) correct = (val === currentWord.cz.toLowerCase());
+    if (currentLevel === 1) {
+    // Start with the main lemma
+    let validList = [currentWord.cz.toLowerCase().trim()];
+    
+    // If synonyms exist, split them by comma, clean them up, and add them to the list
+    if (currentWord.synonym) {
+        let synArray = currentWord.synonym.split(',').map(s => s.trim().toLowerCase());
+        validList = validList.concat(synArray);
+    }
+    
+    // Check if what the user typed matches any of the allowed options
+    correct = validList.includes(val);
+}
     else if (currentLevel === 3) {
             // Check if the input exists anywhere in the array of correct forms
             correct = currentWord.step3Answers.includes(val);
