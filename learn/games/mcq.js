@@ -72,6 +72,10 @@ export function startGame(state) {
 
     container.querySelectorAll(".opt").forEach(btn => {
       btn.onclick = () => {
+        
+        // Disable all buttons immediately to prevent multiple clicks
+        container.querySelectorAll(".opt").forEach(b => b.disabled = true);
+        
         if (normalize(btn.textContent) === normalize(correct)) {
           feedback.textContent = "✅ Správně!";
           score++;
