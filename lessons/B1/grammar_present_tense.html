@@ -1,407 +1,375 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-   <meta charset="UTF-8">
-   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-   <title>Czech Grammar Learning</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8">
 
+    <title>Naučte se českou gramatiku| HáCZech</title>
+    
+    <meta name="description" content="Naučte se český přítomný čas jednoduše. Vysvětlení časování sloves, slovesné třídy a příklady v přehledných tabulkách.">
+    <meta name="keywords" content="česká gramatika, přítomný čas, časování sloves, slovesné třídy, učíme se česky, HáCZech">
 
-   <style>
-       *{
-           margin:0;
-           padding:0;
-           box-sizing:border-box;
-           font-family:Arial, Helvetica, sans-serif;
-       }
+    <link rel="canonical" href="https://www.hackczech.com/grammar/present-tense.html" />
+    <link rel="alternate" hreflang="en" href="https://www.hackczech.com/grammar/present-tense.html" />
+    <link rel="alternate" hreflang="cs" href="https://www.hackczech.com/grammar/present-tense.html" />
+    
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://www.hackczech.com/grammar/present-tense.html">
+    <meta property="og:title" content="Naučte se českou gramatiku">
+    <meta property="og:description" content="Kompletní průvodce přítomným časem v češtině pro začátečníky i pokročilé.">
 
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "TechArticle",
+      "name": "Česká gramatika - Přítomný čas",
+      "description": "Průvodce českým přítomným časem a časováním sloves s přehlednými tabulkami a překlady."
+    }
+    </script>
+  
+    <!-- Firebase Authentication & Database SDKs -->
+    <script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-database-compat.js"></script>
 
-       body{
-           background:#f4f4f4;
-           color:#333;
-           line-height:1.6;
-       }
+    <script src="../../scripts-header.js"></script>
 
+    <!-- Main stylesheets -->
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="/css/language-selector.css">
 
-       header{
-           background:#2d6cdf;
-           color:white;
-           text-align:center;
-           padding:30px;
-       }
+    <style>
+        /* Upper Navigation / Breadcrumbs Bar */
+        .top-subnav {
+            background-color: #f8fafc;
+            border-bottom: 1px solid #e2e8f0;
+            padding: 10px 20px;
+            font-size: 0.9rem;
+            display: flex;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
 
+        .top-subnav a {
+            color: #2d6cdf;
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.2s ease;
+        }
 
-       nav{
-           background:white;
-           padding:15px;
-           text-align:center;
-           border-bottom:1px solid #ddd;
-           position:sticky;
-           top:0;
-       }
+        .top-subnav a:hover {
+            color: #17479e;
+            text-decoration: underline;
+        }
 
+        .top-subnav .separator {
+            color: #94a3b8;
+            font-size: 0.8rem;
+        }
 
-       nav a{
-           text-decoration:none;
-           color:#2d6cdf;
-           margin:0 18px;
-           font-weight:bold;
-       }
+        .top-subnav .current-page {
+            color: #64748b;
+            font-weight: 600;
+        }
 
+        /* Embedded styling for hover translations and games cards */
+        .tr-text {
+            cursor: help;
+            border-bottom: 1px dashed #2d6cdf;
+        }
 
-       nav a:hover{
-           color:#17479e;
-       }
+        #translation-bridge {
+            position: fixed;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: #333;
+            color: #fff;
+            padding: 12px 24px;
+            border-radius: 8px;
+            font-size: 16px;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.2s ease-in-out;
+            z-index: 1000;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.3);
+            max-width: 80%;
+            text-align: center;
+        }
 
+        #translation-bridge.visible {
+            opacity: 1;
+        }
 
-       section{
-           max-width:900px;
-           margin:30px auto;
-           background:white;
-           padding:25px;
-           border-radius:8px;
-           box-shadow:0 2px 6px rgba(0,0,0,.1);
-       }
+        .games {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            flex-wrap: wrap;
+            margin-top: 20px;
+        }
 
+        .card {
+            background: #2d6cdf;
+            color: white;
+            padding: 20px;
+            width: 180px;
+            text-align: center;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: transform 0.3s ease, background-color 0.3s ease;
+        }
 
-       h2{
-           color:#2d6cdf;
-           margin-bottom:15px;
-       }
-
-
-       h3{
-           margin-top:20px;
-           margin-bottom:10px;
-       }
-
-
-       p{
-           margin-bottom:12px;
-       }
-
-
-       ul{
-           margin-left:25px;
-           margin-bottom:15px;
-       }
-
-
-       table{
-           width:100%;
-           border-collapse:collapse;
-           margin-top:15px;
-       }
-
-
-       table, th, td{
-           border:1px solid #ccc;
-       }
-
-
-       th{
-           background:#2d6cdf;
-           color:white;
-       }
-
-
-       th, td{
-           padding:10px;
-           text-align:center;
-       }
-
-
-       .games{
-           display:flex;
-           justify-content:center;
-           gap:20px;
-           flex-wrap:wrap;
-           margin-top:20px;
-       }
-
-
-       .card{
-           background:#2d6cdf;
-           color:white;
-           padding:20px;
-           width:180px;
-           text-align:center;
-           border-radius:8px;
-           cursor:pointer;
-           transition:.3s;
-       }
-
-
-       .card:hover{
-           background:#17479e;
-           transform:scale(1.05);
-       }
-
-
-       footer{
-           text-align:center;
-           background:#2d6cdf;
-           color:white;
-           padding:20px;
-           margin-top:30px;
-       }
-   </style>
+        .card:hover {
+            background: #17479e;
+            transform: scale(1.05);
+        }
+    </style>
 </head>
-
-
 <body>
 
-
 <header>
-   <h1>Czech Grammar Learning</h1>
-   <p>Simple English notes about Czech grammar</p>
+    <h1><span class="tr-text" onmouseover="showT('Learn Czech Grammar')" onmouseout="hideT()">Naučte se českou gramatiku</span></h1>
+    <div id="language-selector-container"></div>
 </header>
 
+<div class="content-layout">
+    <aside id="sidebar-placeholder"></aside>
+    
+    <main class="page-content">
 
-<nav>
-   <a href="#home">Home</a>
-   <a href="#grammar">Grammar</a>
-   <a href="#exercise">Exercises</a>
-   <a href="#test">Test</a>
+<!-- Upper Navigation Bar / Breadcrumbs -->
+<nav class="top-subnav" aria-label="Breadcrumb">
+    <a href="/index.html"><span class="tr-text" onmouseover="showT('Home')" onmouseout="hideT()">Domů</span></a>
+    <span class="separator">/</span>
+    <a href="/grammar/index.html"><span class="tr-text" onmouseover="showT('Grammar')" onmouseout="hideT()">Gramatika</span></a>
+    <span class="separator">/</span>
+    <a href="#cviceni"><span class="tr-text" onmouseover="showT('Exercises')" onmouseout="hideT()">Cvičení</span></a>
+    <span class="separator">/</span>
+    <a href="#testy"><span class="tr-text" onmouseover="showT('Tests')" onmouseout="hideT()">Test</span></a>
 </nav>
 
-
-<section id="home">
-   <h2>Welcome</h2>
-
-
-   <p>
-       Welcome to this simple Czech Grammar website. This page explains
-       the Czech Present Tense in easy English. After learning the grammar,
-       you can practice with exercises and test your knowledge using the
-       games below.
-   </p>
-</section>
-
-
-<section id="grammar">
-
-
-   <h2>Present Tense (Přítomný čas)</h2>
-
-
-   <p>
-       The <strong>Present Tense</strong> is used to talk about actions
-       happening now or actions that happen regularly.
-   </p>
-
-
-   <p>
-       In Czech, every verb must be <strong>conjugated</strong>.
-       Conjugation means changing the ending of the verb depending on the
-       person who performs the action.
-   </p>
-
-
-   <h3>What is a Verb?</h3>
-
-
-   <p>
-       A verb describes what a person, animal, or thing does, or what
-       happens to it.
-   </p>
-
-
-   <p>Examples:</p>
-
-
-   <ul>
-       <li>dělat – to do</li>
-       <li>vařit – to cook</li>
-       <li>hrát – to play</li>
-       <li>běhat – to run</li>
-   </ul>
-
-
-   <h3>Types of Verbs</h3>
-
-
-   <ul>
-       <li><strong>Main verbs</strong> – have their own meaning (dělat, vařit, hrát).</li>
-       <li><strong>Helping verbs</strong> – help another verb (být, chtít).</li>
-   </ul>
-
-
-   <h3>Common Czech Verb Groups</h3>
-
-
-   <table>
-
-
-       <tr>
-           <th>Verb Group</th>
-           <th>Example</th>
-       </tr>
-
-
-       <tr>
-           <td>-at</td>
-           <td>dělat</td>
-       </tr>
-
-
-       <tr>
-           <td>-it / -et / -ět / -ít</td>
-           <td>prosit</td>
-       </tr>
-
-
-       <tr>
-           <td>-ovat</td>
-           <td>děkovat</td>
-       </tr>
-
-
-       <tr>
-           <td>-out and irregular verbs</td>
-           <td>nést, minout</td>
-       </tr>
-
-
-   </table>
-
-
-   <h3>Example Conjugation</h3>
-
-
-   <table>
-
-
-       <tr>
-           <th>Person</th>
-           <th>dělat</th>
-           <th>prosit</th>
-           <th>děkovat</th>
-           <th>nést</th>
-       </tr>
-
-
-       <tr>
-           <td>já</td>
-           <td>dělám</td>
-           <td>prosím</td>
-           <td>děkuji</td>
-           <td>nesu</td>
-       </tr>
-
-
-       <tr>
-           <td>ty</td>
-           <td>děláš</td>
-           <td>prosíš</td>
-           <td>děkuješ</td>
-           <td>neseš</td>
-       </tr>
-
-
-       <tr>
-           <td>on / ona</td>
-           <td>dělá</td>
-           <td>prosí</td>
-           <td>děkuje</td>
-           <td>nese</td>
-       </tr>
-
-
-       <tr>
-           <td>my</td>
-           <td>děláme</td>
-           <td>prosíme</td>
-           <td>děkujeme</td>
-           <td>neseme</td>
-       </tr>
-
-
-       <tr>
-           <td>vy</td>
-           <td>děláte</td>
-           <td>prosíte</td>
-           <td>děkujete</td>
-           <td>nesete</td>
-       </tr>
-
-
-       <tr>
-           <td>oni</td>
-           <td>dělají</td>
-           <td>prosí</td>
-           <td>děkují</td>
-           <td>nesou</td>
-       </tr>
-
-
-   </table>
-
-
-</section>
-
-
-<section id="exercise">
-
-
-   <h2>Exercises</h2>
-
-
-   <p>Practice the Present Tense by completing the following activities:</p>
-
-
-   <ul>
-       <li>Conjugate Czech verbs.</li>
-       <li>Fill in the missing verb.</li>
-       <li>Read a short text and choose the correct verb form.</li>
-   </ul>
-
-
-</section>
-
-
-<section id="test">
-
-
-   <h2>Test & Games</h2>
-
-
-   <p>
-       After studying the grammar, choose one of the games below to test your knowledge.
-   </p>
-
-
-   <div class="games">
-
-
-       <div class="card">
-           🎴<br><br>
-           Match Cards
-       </div>
-
-
-       <div class="card">
-           ❓<br><br>
-           Multiple Choice Quiz
-       </div>
-
-
-       <div class="card">
-           ✏️<br><br>
-           Fill in the Blank
-       </div>
-
-
-   </div>
-
-
-</section>
-
-
-<footer>
-   Czech Grammar Homework | Present Tense
-</footer>
-
+        <section style="max-width: 800px; margin: 20px auto; padding: 0 15px;">
+            <h2><span class="tr-text" onmouseover="showT('Welcome')" onmouseout="hideT()">Úvod</span></h2>
+            <p style="font-size: 16px; line-height: 1.6;">
+                <span class="tr-text" onmouseover="showT('Welcome to this simple Czech Grammar website. This page explains the Czech Present Tense in easy English. After learning the grammar, you can practice with exercises and test your knowledge using the games below.')" onmouseout="hideT()">Vítáme vás na stránce <strong>"Česká gramatika jednoduše"</strong>. Tato stránka vysvětluje jak používat <strong>přítomný čas</strong> v češtině.</span>
+            </p>
+
+            <h2><span class="tr-text" onmouseover="showT('Present Tense')" onmouseout="hideT()">Přítomný čas</span></h2>
+
+            <p>
+                <span class="tr-text" onmouseover="showT('The Present Tense is used to talk about actions happening now or actions that happen regularly.')" onmouseout="hideT()">Přítomný čas se používá pro vyjádření děje, který se odehrává teď.</span>
+            </p>
+
+            <p>
+                <span class="tr-text" onmouseover="showT('In Czech, every verb must be conjugated. Conjugation means changing the ending of the verb depending on the person who performs the action.')" onmouseout="hideT()">Každé sloveso v češtině se musí časovat. Časování znamená změnu koncovky slovesa.</span>
+            </p>
+
+            <h3><span class="tr-text" onmouseover="showT('What is a Verb?')" onmouseout="hideT()">Co je sloveso?</span></h3>
+
+            <p>
+                <span class="tr-text" onmouseover="showT('A verb describes what a person, animal, or thing does, or what happens to it.')" onmouseout="hideT()">Slovesa popisují co lidi, zvířata, nebo věci dělají, nebo co se s nimi děje.</span>
+            </p>
+
+            <p><span class="tr-text" onmouseover="showT('Examples')" onmouseout="hideT()">Příklady:</span></p>
+
+            <ul style="text-align: left; max-width: 300px; margin: 15px auto;">
+                <li>dělat – to do</li>
+                <li>vařit – to cook</li>
+                <li>hrát – to play</li>
+                <li>běhat – to run</li>
+            </ul>
+
+            <h3><span class="tr-text" onmouseover="showT('Types of Verbs')" onmouseout="hideT()">Druhy sloves</span></h3>
+
+            <ul style="text-align: left; max-width: 600px; margin: 15px auto;">
+                <li><span class="tr-text" onmouseover="showT('Main verbs – have their own meaning (to do, to cook, to play).')" onmouseout="hideT()"><strong>plnovýznamová slovesa</strong> - mají význam. Vyjadřují konkrétní děj nebo stav (dělat, vařit, hrát).</span></li>
+                <li><span class="tr-text" onmouseover="showT('Helping verbs – help another verb (to be, to want).')" onmouseout="hideT()"><strong>pomocná slovesa</strong> - jsou spojená s plnovýznamovým slovesem (být, chtít).</span></li>
+            </ul>
+
+            <h3><span class="tr-text" onmouseover="showT('Common Czech Verb Groups')" onmouseout="hideT()">Slovesné třídy</span></h3>
+
+            <table>
+                <tr>
+                    <th><span class="tr-text" onmouseover="showT('Verb classes')" onmouseout="hideT()">Slovesné třídy</span></th>
+                    <th><span class="tr-text" onmouseover="showT('Suffixes')" onmouseout="hideT()">Koncovky</span></th>
+                    <th><span class="tr-text" onmouseover="showT('Examples')" onmouseout="hideT()">Příklady</span></th>
+                </tr>
+                <tr>
+                    <td><span style="color: #C00000; font-weight: bold;">-á</span></td>
+                    <td>-<span style="color: #C00000; font-weight: bold;">at</span></td>
+                    <td>děl<span style="color: #C00000; font-weight: bold;">at</span></td>
+                </tr>
+                <tr>
+                    <td><span style="color: #008000; font-weight: bold;">-í</span></td>
+                    <td>-<span style="color: #008000; font-weight: bold;">it</span> / -<span style="color: #008000; font-weight: bold;">et</span> / -<span style="color: #008000; font-weight: bold;">ět</span> / -<span style="color: #008000; font-weight: bold;">ít</span></td>
+                    <td>pros<span style="color: #008000; font-weight: bold;">it</span></td>
+                </tr>
+                <tr>
+                    <td><span style="color: #D96B00; font-weight: bold;">-je</span></td>
+                    <td>-<span style="color: #D96B00; font-weight: bold;">ovat</span></td>
+                    <td>děk<span style="color: #D96B00; font-weight: bold;">ovat</span></td>
+                </tr>
+                <tr>
+                    <td><span style="color: #7B2CBF; font-weight: bold;">-ne</span></td>
+                    <td>-<span style="color: #7B2CBF; font-weight: bold;">out</span></td>
+                    <td>min<span style="color: #7B2CBF; font-weight: bold;">out</span>, tiskn<span style="color: #7B2CBF; font-weight: bold;">out</span></td>
+                </tr>
+                <tr>
+                    <td><span style="color: #0077B6; font-weight: bold;">-e</span></td>
+                    <td>other and irregular verbs</td>
+                    <td>né<span style="color: #0077B6; font-weight: bold;">st</span></td>
+                </tr>
+            </table>
+
+            <h3 style="margin-top: 30px;"><span class="tr-text" onmouseover="showT('Conjugation Examples')" onmouseout="hideT()">Příklady časování</span></h3>
+
+            <table>
+                <tr style="background-color: #1a365d; color: white;">
+                    <th><span class="tr-text" onmouseover="showT('Person')" onmouseout="hideT()" style="color: white;">osoba</span></th>
+                    <th style="color: white;"><span class="tr-text" onmouseover="showT('to do')" onmouseout="hideT()">děl<span style="color: #FF6B6B; font-weight: bold;">at</span></span></th>
+                    <th style="color: white;"><span class="tr-text" onmouseover="showT('to ask / to beg')" onmouseout="hideT()">pros<span style="color: #4E4; font-weight: bold;">it</span></span></th>
+                    <th style="color: white;"><span class="tr-text" onmouseover="showT('to thank')" onmouseout="hideT()">děk<span style="color: #FFB703; font-weight: bold;">ovat</span></span></th>
+                    <th style="color: white;"><span class="tr-text" onmouseover="showT('to print')" onmouseout="hideT()">tiskn<span style="color: #C77DFF; font-weight: bold;">out</span></span></th>
+                    <th style="color: white;"><span class="tr-text" onmouseover="showT('to carry')" onmouseout="hideT()">né<span style="color: #48CAE4; font-weight: bold;">st</span></span></th>
+                </tr>
+                <tr>
+                    <td>já</td>
+                    <td>děl<span style="color: #C00000; font-weight: bold;">ám</span></td>
+                    <td>pros<span style="color: #008000; font-weight: bold;">ím</span></td>
+                    <td>děk<span style="color: #D96B00; font-weight: bold;">uji</span></td>
+                    <td>tisk<span style="color: #7B2CBF; font-weight: bold;">nu</span></td>
+                    <td>nes<span style="color: #0077B6; font-weight: bold;">u</span></td>
+                </tr>
+                <tr>
+                    <td>ty</td>
+                    <td>děl<span style="color: #C00000; font-weight: bold;">áš</span></td>
+                    <td>pros<span style="color: #008000; font-weight: bold;">íš</span></td>
+                    <td>děk<span style="color: #D96B00; font-weight: bold;">uješ</span></td>
+                    <td>tisk<span style="color: #7B2CBF; font-weight: bold;">neš</span></td>
+                    <td>nes<span style="color: #0077B6; font-weight: bold;">eš</span></td>
+                </tr>
+                <tr>
+                    <td>on/ona/ono</td>
+                    <td>děl<span style="color: #C00000; font-weight: bold;">á</span></td>
+                    <td>pros<span style="color: #008000; font-weight: bold;">í</span></td>
+                    <td>děk<span style="color: #D96B00; font-weight: bold;">uje</span></td>
+                    <td>tisk<span style="color: #7B2CBF; font-weight: bold;">ne</span></td>
+                    <td>nes<span style="color: #0077B6; font-weight: bold;">e</span></td>
+                </tr>
+                <tr>
+                    <td>my</td>
+                    <td>děl<span style="color: #C00000; font-weight: bold;">áme</span></td>
+                    <td>pros<span style="color: #008000; font-weight: bold;">íme</span></td>
+                    <td>děk<span style="color: #D96B00; font-weight: bold;">ujeme</span></td>
+                    <td>tisk<span style="color: #7B2CBF; font-weight: bold;">neme</span></td>
+                    <td>nes<span style="color: #0077B6; font-weight: bold;">eme</span></td>
+                </tr>
+                <tr>
+                    <td>vy</td>
+                    <td>děl<span style="color: #C00000; font-weight: bold;">áte</span></td>
+                    <td>pros<span style="color: #008000; font-weight: bold;">íte</span></td>
+                    <td>děk<span style="color: #D96B00; font-weight: bold;">ujete</span></td>
+                    <td>tisk<span style="color: #7B2CBF; font-weight: bold;">nete</span></td>
+                    <td>nes<span style="color: #0077B6; font-weight: bold;">ete</span></td>
+                </tr>
+                <tr>
+                    <td>oni/ony/ona</td>
+                    <td>děl<span style="color: #C00000; font-weight: bold;">ají</span></td>
+                    <td>pros<span style="color: #008000; font-weight: bold;">í</span></td>
+                    <td>děk<span style="color: #D96B00; font-weight: bold;">ují</span></td>
+                    <td>tisk<span style="color: #7B2CBF; font-weight: bold;">nou</span></td>
+                    <td>nes<span style="color: #0077B6; font-weight: bold;">ou</span></td>
+                </tr>
+            </table>
+
+            <h2 id="cviceni"><span class="tr-text" onmouseover="showT('Exercises')" onmouseout="hideT()">Cvičení</span></h2>
+
+            <p><span class="tr-text" onmouseover="showT('Practice the Present Tense')" onmouseout="hideT()">Procvičte si přítomný čas:</span></p>
+
+            <ul style="text-align: left; max-width: 500px; margin: 15px auto;">
+                <li><span class="tr-text" onmouseover="showT('Conjugate Czech verbs.')" onmouseout="hideT()">Časujte česká slovesa.</span></li>
+                <li><span class="tr-text" onmouseover="showT('Fill in the missing verb.')" onmouseout="hideT()">Doplňte chybějící sloveso.</span></li>
+                <li><span class="tr-text" onmouseover="showT('Read a short text and choose the correct verb form.')" onmouseout="hideT()">Přečtěte si krátký text a vyberte správné sloveso.</span></li>
+            </ul>
+
+            <h2 id="testy"><span class="tr-text" onmouseover="showT('Test & Games')" onmouseout="hideT()">Test a hry</span></h2>
+
+            <p>
+                <span class="tr-text" onmouseover="showT('After studying the grammar, choose one of the games below to test your knowledge.')" onmouseout="hideT()">Po studiu gramatiky si vyberte hru dole a otestujte si znalosti.</span>
+            </p>
+
+            <div class="games">
+                <div class="card">
+                    🎴<br><br>
+                    Match Cards
+                </div>
+                <div class="card">
+                    ❓<br><br>
+                    Multiple Choice Quiz
+                </div>
+                <div class="card">
+                    ✏️<br><br>
+                    Fill in the Blank
+                </div>
+            </div>
+        </section>
+
+        <!-- Informational Collapsible Details Section -->
+        <section style="max-width: 800px; margin: 40px auto; padding: 0 20px; text-align: left;">
+            <details style="cursor: pointer; color: #94a3b8; font-size: 0.85rem; border: 1px solid #edf2f7; padding: 10px; border-radius: 8px;">
+                <summary style="font-weight: bold; color: #64748b; outline: none;">How the HáCZech Grammar System Works</summary>
+                <div style="margin-top: 15px; line-height: 1.6;">
+                    <h2 style="font-size: 1rem; color: #64748b;">A Structured Approach to Czech Grammar</h2>
+                    <p>Mastering verb conjugation is key to speaking Czech confidently. For best results, follow this recommended study flow:</p>
+                    
+                    <h3 style="font-size: 0.9rem; color: #64748b; margin-top: 10px;">The HáCZech Learning Cycle:</h3>
+                    <ul style="list-style: none; padding: 0;">
+                        <li>✔ <strong>Step 1 (Study):</strong> Review the conjugation tables and grammar rules on this page.</li>
+                        <li>✔ <strong>Step 2 (Practice):</strong> Head over to the <a href="/learn/games.html">Interactive GameZone</a> to build speed and accuracy.</li>
+                        <li>✔ <strong>Step 3 (Verify):</strong> Test your mastery using our <a href="/tests/">Grammar Knowledge Tests</a>.</li>
+                    </ul>
+                </div>
+            </details>
+        </section>
+
+    </main>
+</div> 
+
+<!-- Dynamic Footer Placeholder -->
+<div id="footer-placeholder"></div>
+
+<!-- Translation Popup Bridge -->
+<div id="translation-bridge"></div>
+
+<!-- Component Loader Script -->
+<script>
+    // Load Sidebar Component
+    fetch("/sidebar/sidebar.html")
+        .then(res => res.text())
+        .then(data => { document.getElementById("sidebar-placeholder").innerHTML = data; });
+
+    // Load Footer Component
+    fetch("/footer.html")
+        .then(res => res.text())
+        .then(data => { document.getElementById("footer-placeholder").innerHTML = data; });
+
+    // Translation Hover Functions
+    function showT(eng) {
+        const bridge = document.getElementById('translation-bridge');
+        bridge.innerText = eng;
+        bridge.classList.add('visible');
+    }
+
+    function hideT() {
+        document.getElementById('translation-bridge').classList.remove('visible');
+    }
+</script>
+
+<!-- Platform Scripts -->
+<script src="/js/translations.js"></script>
+<script src="/js/language-selector.js"></script>
 
 </body>
 </html>
-
