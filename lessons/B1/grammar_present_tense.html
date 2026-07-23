@@ -4,26 +4,67 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta charset="UTF-8">
 
-    <title>Naučte se českou gramatiku| HáCZech</title>
-    
-    <meta name="description" content="Naučte se český přítomný čas jednoduše. Vysvětlení časování sloves, slovesné třídy a příklady v přehledných tabulkách.">
-    <meta name="keywords" content="česká gramatika, přítomný čas, časování sloves, slovesné třídy, učíme se česky, HáCZech">
+    <!-- UPDATED: English-targeted SEO Title & Description -->
+    <title>Czech Present Tense Conjugation &amp; Verb Classes | HáCZech</title>
+    <meta name="description" content="Master Czech present tense verb conjugation (A2–B1 level). Learn the 5 Czech verb classes with clear tables, real-world examples, and interactive exercises.">
+    <meta name="keywords" content="Czech present tense, Czech verb conjugation, Czech verb classes, learn Czech grammar, Czech present tense tables, Czech A2 B1 grammar">
+    <meta name="robots" content="index, follow">
 
-    <link rel="canonical" href="https://www.hackczech.com/grammar/present-tense.html" />
-    <link rel="alternate" hreflang="en" href="https://www.hackczech.com/grammar/present-tense.html" />
-    <link rel="alternate" hreflang="cs" href="https://www.hackczech.com/grammar/present-tense.html" />
-    
-    <meta property="og:type" content="website">
+    <!-- Canonical and Alternate Links -->
+    <link rel="canonical" href="https://www.hackczech.com/grammar/present-tense.html">
+
+    <!-- UPDATED: Social OpenGraph & Twitter Cards -->
+    <meta property="og:type" content="article">
+    <meta property="og:site_name" content="HáCZech">
+    <meta property="og:locale" content="en_US">
     <meta property="og:url" content="https://www.hackczech.com/grammar/present-tense.html">
-    <meta property="og:title" content="Naučte se českou gramatiku">
-    <meta property="og:description" content="Kompletní průvodce přítomným časem v češtině pro začátečníky i pokročilé.">
+    <meta property="og:title" content="Czech Present Tense Conjugation &amp; Verb Classes | HáCZech">
+    <meta property="og:description" content="Master Czech present tense verb conjugation (A2–B1 level) with color-coded tables, spoken vs. formal notes, and interactive practice exercises.">
+    <meta property="og:image" content="https://www.hackczech.com/images/og-present-tense.jpg">
+
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Czech Present Tense Conjugation &amp; Verb Classes | HáCZech">
+    <meta name="twitter:description" content="Learn Czech present tense step-by-step with simple rules, 5 verb classes, and interactive exercises.">
+    <meta name="twitter:image" content="https://www.hackczech.com/images/og-present-tense.jpg">
+
+    <!-- UPDATED: Replaced TechArticle with LearningResource & Breadcrumb Schema -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "LearningResource",
+      "name": "Czech Present Tense Conjugation & Verb Classes",
+      "description": "Comprehensive guide to Czech present tense verb conjugation across all 5 verb classes with examples and interactive practice.",
+      "learningResourceType": "Grammar Guide",
+      "educationalLevel": "A2-B1",
+      "inLanguage": ["en", "cs"],
+      "provider": {
+        "@type": "Organization",
+        "name": "HáCZech",
+        "url": "https://www.hackczech.com/"
+      }
+    }
+    </script>
 
     <script type="application/ld+json">
     {
       "@context": "https://schema.org",
-      "@type": "TechArticle",
-      "name": "Česká gramatika - Přítomný čas",
-      "description": "Průvodce českým přítomným časem a časováním sloves s přehlednými tabulkami a překlady."
+      "@type": "BreadcrumbList",
+      "itemListElement": [{
+        "@type": "ListItem",
+        "position": 1,
+        "name": "Home",
+        "item": "https://www.hackczech.com/"
+      },{
+        "@type": "ListItem",
+        "position": 2,
+        "name": "Grammar",
+        "item": "https://www.hackczech.com/grammar/"
+      },{
+        "@type": "ListItem",
+        "position": 3,
+        "name": "Present Tense",
+        "item": "https://www.hackczech.com/grammar/present-tense.html"
+      }]
     }
     </script>
   
@@ -36,7 +77,6 @@
 
     <!-- Main stylesheets -->
     <link rel="stylesheet" href="/css/style.css">
-    <link rel="stylesheet" href="/css/language-selector.css">
 
     <style>
         /* Upper Navigation / Breadcrumbs Bar */
@@ -126,6 +166,33 @@
             transform: scale(1.05);
         }
     </style>
+    <script>
+  // Mobile / Touch Detection Script
+  window.addEventListener('DOMContentLoaded', () => {
+    // Check if the user is on a touch device
+    if ('ontouchstart' in window || navigator.maxTouchPoints > 0) {
+      // Find all elements with inline onmouseover events
+      const elements = document.querySelectorAll('[onmouseover]');
+
+      elements.forEach(el => {
+        // Tap to show translation
+        el.addEventListener('touchstart', (e) => {
+          // Trigger the onmouseover logic (showT)
+          el.dispatchEvent(new Event('mouseover'));
+        }, { passive: true });
+
+        // Tap anywhere else to hide translation
+        document.addEventListener('touchstart', (e) => {
+          if (!el.contains(e.target)) {
+            // Trigger the onmouseout logic (hideT)
+            el.dispatchEvent(new Event('mouseout'));
+          }
+        }, { passive: true });
+      });
+    }
+  });
+</script>
+
 </head>
 <body>
 
@@ -140,30 +207,28 @@
     <main class="page-content">
 
 <!-- Upper Navigation Bar / Breadcrumbs -->
-<nav class="top-subnav" aria-label="Breadcrumb">
-    <a href="/index.html"><span class="tr-text" onmouseover="showT('Home')" onmouseout="hideT()">Domů</span></a>
-    <span class="separator">/</span>
-    <a href="/grammar/index.html"><span class="tr-text" onmouseover="showT('Grammar')" onmouseout="hideT()">Gramatika</span></a>
+<nav class="top-subnav" aria-label="Page Sections">
+    <a href="#pritomnycas"><span class="tr-text" onmouseover="showT('Grammar')" onmouseout="hideT()">Gramatika</span></a>
     <span class="separator">/</span>
     <a href="#cviceni"><span class="tr-text" onmouseover="showT('Exercises')" onmouseout="hideT()">Cvičení</span></a>
     <span class="separator">/</span>
-    <a href="#testy"><span class="tr-text" onmouseover="showT('Tests')" onmouseout="hideT()">Test</span></a>
+    <a href="#testy"><span class="tr-text" onmouseover="showT('Tests')" onmouseout="hideT()">Testy</span></a>
 </nav>
 
         <section style="max-width: 800px; margin: 20px auto; padding: 0 15px;">
-            <h2><span class="tr-text" onmouseover="showT('Welcome')" onmouseout="hideT()">Úvod</span></h2>
+            <h2><span class="tr-text" onmouseover="showT('Introduction')" onmouseout="hideT()">Úvod</span></h2>
             <p style="font-size: 16px; line-height: 1.6;">
-                <span class="tr-text" onmouseover="showT('Welcome to this simple Czech Grammar website. This page explains the Czech Present Tense in easy English. After learning the grammar, you can practice with exercises and test your knowledge using the games below.')" onmouseout="hideT()">Vítáme vás na stránce <strong>"Česká gramatika jednoduše"</strong>. Tato stránka vysvětluje jak používat <strong>přítomný čas</strong> v češtině.</span>
+                <span class="tr-text" onmouseover="showT('Welcome to the Czech Grammar simply website. This page explains how to use the Czech Present Tense.')" onmouseout="hideT()">Vítáme vás na stránce <strong>"Česká gramatika jednoduše"</strong>. Tato stránka vysvětluje jak používat <strong>přítomný čas</strong> v češtině.</span>
             </p>
 
-            <h2><span class="tr-text" onmouseover="showT('Present Tense')" onmouseout="hideT()">Přítomný čas</span></h2>
+            <h2 id="pritomnycas"><span class="tr-text" onmouseover="showT('Present Tense')" onmouseout="hideT()">Přítomný čas</span></h2>
 
             <p>
-                <span class="tr-text" onmouseover="showT('The Present Tense is used to talk about actions happening now or actions that happen regularly.')" onmouseout="hideT()">Přítomný čas se používá pro vyjádření děje, který se odehrává teď.</span>
+                <span class="tr-text" onmouseover="showT('The Present Tense is used to talk about actions happening now or actions that happen regularly.')" onmouseout="hideT()">Přítomný čas se používá pro vyjádření děje, který se odehrává teď, nebo se pravidelně opakuje.</span>
             </p>
 
             <p>
-                <span class="tr-text" onmouseover="showT('In Czech, every verb must be conjugated. Conjugation means changing the ending of the verb depending on the person who performs the action.')" onmouseout="hideT()">Každé sloveso v češtině se musí časovat. Časování znamená změnu koncovky slovesa.</span>
+                <span class="tr-text" onmouseover="showT('In Czech, every verb must be conjugated. Conjugation means changing the ending of the verb depending on the person who performs the action.')" onmouseout="hideT()">Každé sloveso v češtině se musí časovat. Časování znamená změnu koncovky slovesa v závislosti na tom, kdo činnost vykonává.</span>
             </p>
 
             <h3><span class="tr-text" onmouseover="showT('What is a Verb?')" onmouseout="hideT()">Co je sloveso?</span></h3>
@@ -184,105 +249,151 @@
             <h3><span class="tr-text" onmouseover="showT('Types of Verbs')" onmouseout="hideT()">Druhy sloves</span></h3>
 
             <ul style="text-align: left; max-width: 600px; margin: 15px auto;">
-                <li><span class="tr-text" onmouseover="showT('Main verbs – have their own meaning (to do, to cook, to play).')" onmouseout="hideT()"><strong>plnovýznamová slovesa</strong> - mají význam. Vyjadřují konkrétní děj nebo stav (dělat, vařit, hrát).</span></li>
-                <li><span class="tr-text" onmouseover="showT('Helping verbs – help another verb (to be, to want).')" onmouseout="hideT()"><strong>pomocná slovesa</strong> - jsou spojená s plnovýznamovým slovesem (být, chtít).</span></li>
-            </ul>
+                <li>
+                    <span class="tr-text" onmouseover="showT('Main verbs – have their own meaning. The express a specific action, or condition (to do, to cook, to play).')" onmouseout="hideT()">
+                        <strong>plnovýznamová slovesa</strong> - mají význam. Vyjadřují konkrétní děj nebo stav (děla<span style="color: #8B0000; font-weight: bold;">t</span>, vaři<span style="color: #8B0000; font-weight: bold;">t</span>, hrá<span style="color: #8B0000; font-weight: bold;">t</span>).
+                    </span>
+                </li>
+                <li>
+                    <span class="tr-text" onmouseover="showT('Auxiliary verbs – help a main verb (to be, to want).')" onmouseout="hideT()">
+                        <strong>pomocná slovesa</strong> - jsou spojená s plnovýznamovým slovesem (bý<span style="color: #8B0000; font-weight: bold;">t</span>, chtí<span style="color: #8B0000; font-weight: bold;">t</span>).
+                    </span>
+                </li>            </ul>
 
-            <h3><span class="tr-text" onmouseover="showT('Common Czech Verb Groups')" onmouseout="hideT()">Slovesné třídy</span></h3>
+            <h3><span class="tr-text" onmouseover="showT('Verb classes (Groups)')" onmouseout="hideT()">Slovesné třídy</span></h3>
 
             <table>
                 <tr>
                     <th><span class="tr-text" onmouseover="showT('Verb classes')" onmouseout="hideT()">Slovesné třídy</span></th>
-                    <th><span class="tr-text" onmouseover="showT('Suffixes')" onmouseout="hideT()">Koncovky</span></th>
+                    <th><span class="tr-text" onmouseover="showT('Infinitive endings')" onmouseout="hideT()">Koncovky</span></th>
                     <th><span class="tr-text" onmouseover="showT('Examples')" onmouseout="hideT()">Příklady</span></th>
                 </tr>
                 <tr>
                     <td><span style="color: #C00000; font-weight: bold;">-á</span></td>
                     <td>-<span style="color: #C00000; font-weight: bold;">at</span></td>
-                    <td>děl<span style="color: #C00000; font-weight: bold;">at</span></td>
+                    <td>
+                        <span class="tr-text" onmouseover="showT('to do / to make')" onmouseout="hideT()">děl<span style="color: #C00000; font-weight: bold;">at</span></span>
+                    </td>
                 </tr>
                 <tr>
                     <td><span style="color: #008000; font-weight: bold;">-í</span></td>
                     <td>-<span style="color: #008000; font-weight: bold;">it</span> / -<span style="color: #008000; font-weight: bold;">et</span> / -<span style="color: #008000; font-weight: bold;">ět</span> / -<span style="color: #008000; font-weight: bold;">ít</span></td>
-                    <td>pros<span style="color: #008000; font-weight: bold;">it</span></td>
+                    <td>
+                        <span class="tr-text" onmouseover="showT('to ask / to beg')" onmouseout="hideT()">pros<span style="color: #008000; font-weight: bold;">it</span></span>
+                    </td>
                 </tr>
                 <tr>
                     <td><span style="color: #D96B00; font-weight: bold;">-je</span></td>
                     <td>-<span style="color: #D96B00; font-weight: bold;">ovat</span></td>
-                    <td>děk<span style="color: #D96B00; font-weight: bold;">ovat</span></td>
+                    <td>
+                        <span class="tr-text" onmouseover="showT('to thank')" onmouseout="hideT()">děk<span style="color: #D96B00; font-weight: bold;">ovat</span></span>
+                    </td>
                 </tr>
                 <tr>
                     <td><span style="color: #7B2CBF; font-weight: bold;">-ne</span></td>
                     <td>-<span style="color: #7B2CBF; font-weight: bold;">out</span></td>
-                    <td>min<span style="color: #7B2CBF; font-weight: bold;">out</span>, tiskn<span style="color: #7B2CBF; font-weight: bold;">out</span></td>
+                    <td>
+                        <span class="tr-text" onmouseover="showT('to miss / to pass')" onmouseout="hideT()">min<span style="color: #7B2CBF; font-weight: bold;">out</span></span>, 
+                        <span class="tr-text" onmouseover="showT('to print')" onmouseout="hideT()">tiskn<span style="color: #7B2CBF; font-weight: bold;">out</span></span>
+                    </td>
                 </tr>
                 <tr>
                     <td><span style="color: #0077B6; font-weight: bold;">-e</span></td>
-                    <td>other and irregular verbs</td>
-                    <td>né<span style="color: #0077B6; font-weight: bold;">st</span></td>
+                    <td>
+                        <span class="tr-text" onmouseover="showT('other and irregular verbs')" onmouseout="hideT()">ostatní a nepravidelná slovesa</span>
+                    </td>
+                    <td>
+                        <span class="tr-text" onmouseover="showT('to carry')" onmouseout="hideT()">né<span style="color: #0077B6; font-weight: bold;">st</span></span>
+                    </td>
                 </tr>
             </table>
 
             <h3 style="margin-top: 30px;"><span class="tr-text" onmouseover="showT('Conjugation Examples')" onmouseout="hideT()">Příklady časování</span></h3>
 
             <table>
-                <tr style="background-color: #1a365d; color: white;">
-                    <th><span class="tr-text" onmouseover="showT('Person')" onmouseout="hideT()" style="color: white;">osoba</span></th>
-                    <th style="color: white;"><span class="tr-text" onmouseover="showT('to do')" onmouseout="hideT()">děl<span style="color: #FF6B6B; font-weight: bold;">at</span></span></th>
-                    <th style="color: white;"><span class="tr-text" onmouseover="showT('to ask / to beg')" onmouseout="hideT()">pros<span style="color: #4E4; font-weight: bold;">it</span></span></th>
-                    <th style="color: white;"><span class="tr-text" onmouseover="showT('to thank')" onmouseout="hideT()">děk<span style="color: #FFB703; font-weight: bold;">ovat</span></span></th>
-                    <th style="color: white;"><span class="tr-text" onmouseover="showT('to print')" onmouseout="hideT()">tiskn<span style="color: #C77DFF; font-weight: bold;">out</span></span></th>
-                    <th style="color: white;"><span class="tr-text" onmouseover="showT('to carry')" onmouseout="hideT()">né<span style="color: #48CAE4; font-weight: bold;">st</span></span></th>
+                <tr style="background-color: #1a365d; color: #1a365d;">
+                    <th>
+                        <span class="tr-text" onmouseover="showT('Person')" onmouseout="hideT()" style="color: #1a365d;">osoba</span>
+                    </th>
+                    <th>
+                        <span class="tr-text" onmouseover="showT('to do / to make')" onmouseout="hideT()">
+                            <span style="color: #1a365d !important;">děl</span><span style="color: #FF6B6B !important; font-weight: bold;">at</span>
+                        </span>
+                    </th>
+                    <th>
+                        <span class="tr-text" onmouseover="showT('to ask / to beg')" onmouseout="hideT()">
+                            <span style="color: #1a365d !important;">pros</span><span style="color: #44EE44 !important; font-weight: bold;">it</span>
+                        </span>
+                    </th>
+                    <th>
+                        <span class="tr-text" onmouseover="showT('to thank')" onmouseout="hideT()">
+                            <span style="color: #1a365d !important;">děk</span><span style="color: #FFB703 !important; font-weight: bold;">ovat</span>
+                        </span>
+                    </th>
+                    <th>
+                        <span class="tr-text" onmouseover="showT('to print')" onmouseout="hideT()">
+                            <span style="color: #1a365d !important;">tiskn</span><span style="color: #C77DFF !important; font-weight: bold;">out</span>
+                        </span>
+                    </th>
+                    <th>
+                        <span class="tr-text" onmouseover="showT('to carry')" onmouseout="hideT()">
+                            <span style="color: #1a365d !important;">né</span><span style="color: #48CAE4 !important; font-weight: bold;">st</span>
+                        </span>
+                    </th>
                 </tr>
                 <tr>
-                    <td>já</td>
-                    <td>děl<span style="color: #C00000; font-weight: bold;">ám</span></td>
-                    <td>pros<span style="color: #008000; font-weight: bold;">ím</span></td>
-                    <td>děk<span style="color: #D96B00; font-weight: bold;">uji</span></td>
-                    <td>tisk<span style="color: #7B2CBF; font-weight: bold;">nu</span></td>
-                    <td>nes<span style="color: #0077B6; font-weight: bold;">u</span></td>
+                    <td><span class="tr-text" onmouseover="showT('I')" onmouseout="hideT()">já</span></td>
+                    <td><span class="tr-text" onmouseover="showT('I do')" onmouseout="hideT()">děl<span style="color: #C00000; font-weight: bold;">ám</span></span></td>
+                    <td><span class="tr-text" onmouseover="showT('I ask / beg')" onmouseout="hideT()">pros<span style="color: #008000; font-weight: bold;">ím</span></span></td>
+                    <td><span class="tr-text" onmouseover="showT('I thank')" onmouseout="hideT()">děk<span style="color: #D96B00; font-weight: bold;">uji</span>*</span></td>
+                    <td><span class="tr-text" onmouseover="showT('I print')" onmouseout="hideT()">tisk<span style="color: #7B2CBF; font-weight: bold;">nu</span></span></td>
+                    <td><span class="tr-text" onmouseover="showT('I carry')" onmouseout="hideT()">nes<span style="color: #0077B6; font-weight: bold;">u</span></span></td>
                 </tr>
                 <tr>
-                    <td>ty</td>
-                    <td>děl<span style="color: #C00000; font-weight: bold;">áš</span></td>
-                    <td>pros<span style="color: #008000; font-weight: bold;">íš</span></td>
-                    <td>děk<span style="color: #D96B00; font-weight: bold;">uješ</span></td>
-                    <td>tisk<span style="color: #7B2CBF; font-weight: bold;">neš</span></td>
-                    <td>nes<span style="color: #0077B6; font-weight: bold;">eš</span></td>
+                    <td><span class="tr-text" onmouseover="showT('you (singular/informal)')" onmouseout="hideT()">ty</span></td>
+                    <td><span class="tr-text" onmouseover="showT('you do')" onmouseout="hideT()">děl<span style="color: #C00000; font-weight: bold;">áš</span></span></td>
+                    <td><span class="tr-text" onmouseover="showT('you ask / beg')" onmouseout="hideT()">pros<span style="color: #008000; font-weight: bold;">íš</span></span></td>
+                    <td><span class="tr-text" onmouseover="showT('you thank')" onmouseout="hideT()">děk<span style="color: #D96B00; font-weight: bold;">uješ</span></span></td>
+                    <td><span class="tr-text" onmouseover="showT('you print')" onmouseout="hideT()">tisk<span style="color: #7B2CBF; font-weight: bold;">neš</span></span></td>
+                    <td><span class="tr-text" onmouseover="showT('you carry')" onmouseout="hideT()">nes<span style="color: #0077B6; font-weight: bold;">eš</span></span></td>
                 </tr>
                 <tr>
-                    <td>on/ona/ono</td>
-                    <td>děl<span style="color: #C00000; font-weight: bold;">á</span></td>
-                    <td>pros<span style="color: #008000; font-weight: bold;">í</span></td>
-                    <td>děk<span style="color: #D96B00; font-weight: bold;">uje</span></td>
-                    <td>tisk<span style="color: #7B2CBF; font-weight: bold;">ne</span></td>
-                    <td>nes<span style="color: #0077B6; font-weight: bold;">e</span></td>
+                    <td><span class="tr-text" onmouseover="showT('he / she / it')" onmouseout="hideT()">on/ona/ono</span></td>
+                    <td><span class="tr-text" onmouseover="showT('he/she/it does')" onmouseout="hideT()">děl<span style="color: #C00000; font-weight: bold;">á</span></span></td>
+                    <td><span class="tr-text" onmouseover="showT('he/she/it asks / begs')" onmouseout="hideT()">pros<span style="color: #008000; font-weight: bold;">í</span></span></td>
+                    <td><span class="tr-text" onmouseover="showT('he/she/it thanks')" onmouseout="hideT()">děk<span style="color: #D96B00; font-weight: bold;">uje</span></span></td>
+                    <td><span class="tr-text" onmouseover="showT('he/she/it prints')" onmouseout="hideT()">tisk<span style="color: #7B2CBF; font-weight: bold;">ne</span></span></td>
+                    <td><span class="tr-text" onmouseover="showT('he/she/it carries')" onmouseout="hideT()">nes<span style="color: #0077B6; font-weight: bold;">e</span></span></td>
                 </tr>
                 <tr>
-                    <td>my</td>
-                    <td>děl<span style="color: #C00000; font-weight: bold;">áme</span></td>
-                    <td>pros<span style="color: #008000; font-weight: bold;">íme</span></td>
-                    <td>děk<span style="color: #D96B00; font-weight: bold;">ujeme</span></td>
-                    <td>tisk<span style="color: #7B2CBF; font-weight: bold;">neme</span></td>
-                    <td>nes<span style="color: #0077B6; font-weight: bold;">eme</span></td>
+                    <td><span class="tr-text" onmouseover="showT('we')" onmouseout="hideT()">my</span></td>
+                    <td><span class="tr-text" onmouseover="showT('we do')" onmouseout="hideT()">děl<span style="color: #C00000; font-weight: bold;">áme</span></span></td>
+                    <td><span class="tr-text" onmouseover="showT('we ask / beg')" onmouseout="hideT()">pros<span style="color: #008000; font-weight: bold;">íme</span></span></td>
+                    <td><span class="tr-text" onmouseover="showT('we thank')" onmouseout="hideT()">děk<span style="color: #D96B00; font-weight: bold;">ujeme</span></span></td>
+                    <td><span class="tr-text" onmouseover="showT('we print')" onmouseout="hideT()">tisk<span style="color: #7B2CBF; font-weight: bold;">neme</span></span></td>
+                    <td><span class="tr-text" onmouseover="showT('we carry')" onmouseout="hideT()">nes<span style="color: #0077B6; font-weight: bold;">eme</span></span></td>
                 </tr>
                 <tr>
-                    <td>vy</td>
-                    <td>děl<span style="color: #C00000; font-weight: bold;">áte</span></td>
-                    <td>pros<span style="color: #008000; font-weight: bold;">íte</span></td>
-                    <td>děk<span style="color: #D96B00; font-weight: bold;">ujete</span></td>
-                    <td>tisk<span style="color: #7B2CBF; font-weight: bold;">nete</span></td>
-                    <td>nes<span style="color: #0077B6; font-weight: bold;">ete</span></td>
+                    <td><span class="tr-text" onmouseover="showT('you (plural/formal)')" onmouseout="hideT()">vy</span></td>
+                    <td><span class="tr-text" onmouseover="showT('you do (plural/formal)')" onmouseout="hideT()">děl<span style="color: #C00000; font-weight: bold;">áte</span></span></td>
+                    <td><span class="tr-text" onmouseover="showT('you ask / beg (plural/formal)')" onmouseout="hideT()">pros<span style="color: #008000; font-weight: bold;">íte</span></span></td>
+                    <td><span class="tr-text" onmouseover="showT('you thank (plural/formal)')" onmouseout="hideT()">děk<span style="color: #D96B00; font-weight: bold;">ujete</span></span></td>
+                    <td><span class="tr-text" onmouseover="showT('you print (plural/formal)')" onmouseout="hideT()">tisk<span style="color: #7B2CBF; font-weight: bold;">nete</span></span></td>
+                    <td><span class="tr-text" onmouseover="showT('you carry (plural/formal)')" onmouseout="hideT()">nes<span style="color: #0077B6; font-weight: bold;">ete</span></span></td>
                 </tr>
                 <tr>
-                    <td>oni/ony/ona</td>
-                    <td>děl<span style="color: #C00000; font-weight: bold;">ají</span></td>
-                    <td>pros<span style="color: #008000; font-weight: bold;">í</span></td>
-                    <td>děk<span style="color: #D96B00; font-weight: bold;">ují</span></td>
-                    <td>tisk<span style="color: #7B2CBF; font-weight: bold;">nou</span></td>
-                    <td>nes<span style="color: #0077B6; font-weight: bold;">ou</span></td>
+                    <td><span class="tr-text" onmouseover="showT('they (masc / fem / neut)')" onmouseout="hideT()">oni/ony/ona</span></td>
+                    <td><span class="tr-text" onmouseover="showT('they do')" onmouseout="hideT()">děl<span style="color: #C00000; font-weight: bold;">ají</span></span></td>
+                    <td><span class="tr-text" onmouseover="showT('they ask / beg')" onmouseout="hideT()">pros<span style="color: #008000; font-weight: bold;">í</span></span></td>
+                    <td><span class="tr-text" onmouseover="showT('they thank')" onmouseout="hideT()">děk<span style="color: #D96B00; font-weight: bold;">ují</span>*</span></td>
+                    <td><span class="tr-text" onmouseover="showT('they print')" onmouseout="hideT()">tisk<span style="color: #7B2CBF; font-weight: bold;">nou</span></span></td>
+                    <td><span class="tr-text" onmouseover="showT('they carry')" onmouseout="hideT()">nes<span style="color: #0077B6; font-weight: bold;">ou</span></span></td>
                 </tr>
             </table>
+
+            <p style="font-size: 0.9em; margin-top: 8px; color: #555;">
+                <span class="tr-text" onmouseover="showT('*In informal/spoken Czech, you will often hear \'děkuju\' instead of \'děkuji\' and \'děkujou\' instead of \'děkují\'.')" onmouseout="hideT()">* V hovorové češtině se často používá také <strong>děkuju</strong> (místo <em>děkuji</em>) a <strong>děkujou</strong> (místo <em>děkují</em>).</span>
+            </p>
 
             <h2 id="cviceni"><span class="tr-text" onmouseover="showT('Exercises')" onmouseout="hideT()">Cvičení</span></h2>
 
@@ -321,12 +432,12 @@
             <details style="cursor: pointer; color: #94a3b8; font-size: 0.85rem; border: 1px solid #edf2f7; padding: 10px; border-radius: 8px;">
                 <summary style="font-weight: bold; color: #64748b; outline: none;">How the HáCZech Grammar System Works</summary>
                 <div style="margin-top: 15px; line-height: 1.6;">
-                    <h2 style="font-size: 1rem; color: #64748b;">A Structured Approach to Czech Grammar</h2>
-                    <p>Mastering verb conjugation is key to speaking Czech confidently. For best results, follow this recommended study flow:</p>
+                    <h2 style="font-size: 1rem; color: #64748b;">Mastering Czech Present Tense Conjugation (A2–B1 Level)</h2>
+                    <p>This guide breaks down Czech present tense verb conjugation into 5 core classes using clear rules, color-coded endings, and real-world examples. Designed for intermediate learners, this page helps you understand standard forms, spot spoken variations, and apply rules in context through exercises.</p>
                     
                     <h3 style="font-size: 0.9rem; color: #64748b; margin-top: 10px;">The HáCZech Learning Cycle:</h3>
                     <ul style="list-style: none; padding: 0;">
-                        <li>✔ <strong>Step 1 (Study):</strong> Review the conjugation tables and grammar rules on this page.</li>
+                        <li>✔ <strong>Step 1 (Study):</strong> Review the present tense conjugation tables, verb classes, and formal vs. informal notes on this page.</li>
                         <li>✔ <strong>Step 2 (Practice):</strong> Head over to the <a href="/learn/games.html">Interactive GameZone</a> to build speed and accuracy.</li>
                         <li>✔ <strong>Step 3 (Verify):</strong> Test your mastery using our <a href="/tests/">Grammar Knowledge Tests</a>.</li>
                     </ul>
@@ -367,9 +478,6 @@
     }
 </script>
 
-<!-- Platform Scripts -->
-<script src="/js/translations.js"></script>
-<script src="/js/language-selector.js"></script>
 
 </body>
 </html>
