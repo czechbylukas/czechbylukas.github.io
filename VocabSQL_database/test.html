@@ -215,8 +215,6 @@
 
 
 
-
-
     </aside>
 
     <div class="test-box" style="margin: 0;">
@@ -456,8 +454,8 @@ sortedRows.forEach(row => {
             posRes[0].values.sort().forEach(row => {
                 const val = row[0];
                 if (val.toLowerCase() === 'verb') {
-                    optionsHtml += `<option value="verb|filtered">verb</option>`;
-                    optionsHtml += `<option value="verb">verb with vid (Grammatical aspect)</option>`;
+                    optionsHtml += `<option value="verb|filtered">Verb (both aspects accepted)</option>`;
+                    optionsHtml += `<option value="verb">Verb (strict aspect)</option>`;
                 } else {
                     optionsHtml += `<option value="${val}">${val}</option>`;
                 }
@@ -649,7 +647,7 @@ if (posVal !== "all") {
     let lessonClause = (lesson === "ALL_LESSONS") ? "" : `AND lesson='${lesson}'`;
 
     // Change the SELECT to include 'vid_pair' (Column M)
-const query = `SELECT lemma, ${langColumn}, image_path, audio_path, synonym, vid_pair, show_vid_pair 
+const query = `SELECT lemma, ${langColumn}, image_path, audio_path, synonym, vid_pair, show_vid_pair, vid
                FROM words 
                WHERE level='${level}' ${lessonClause} ${filterClause}`;
 
@@ -680,7 +678,8 @@ const query = `SELECT lemma, ${langColumn}, image_path, audio_path, synonym, vid
             audio: s[3], 
             synonym: s[4],
             vidPair: s[5],
-            showVid: s[6] 
+            showVid: s[6],
+            aspect: s[7]
         };
 
         // --- IMPROVED IMAGE LOGIC ---
@@ -705,7 +704,18 @@ const query = `SELECT lemma, ${langColumn}, image_path, audio_path, synonym, vid
         
         
 
-        document.getElementById('english-word').innerText = s[1];
+        let english = s[1];
+        const strictMode = document.getElementById('pos-select').value === "verb";
+
+        if (strictMode) {
+            if (currentWord.aspect === "perfective") {
+                english += "\n\n⭐ Perfective (once)";
+            } else if (currentWord.aspect === "imperfective") {
+                english += "\n\n⭐ Imperfective (ongoing)";
+            }
+        }
+
+        document.getElementById('english-word').innerText = english;
         
 
 
@@ -754,20 +764,32 @@ function evaluateTyping() {
     const lemma = currentWord.czech.toLowerCase();
     const synonym = currentWord.synonym ? currentWord.synonym.toLowerCase() : null;
     const vPair = currentWord.vidPair ? currentWord.vidPair.toLowerCase() : null;
+    const strictMode = document.getElementById('pos-select').value === "verb";
 
     // Create a list of all acceptable answers
+    // Create a list of all acceptable answers
     let acceptableAnswers = [lemma];
-    if (synonym) acceptableAnswers.push(synonym);
-    
-    if (vPair) {
-        acceptableAnswers.push(vPair);
-        // Add combinations: "lemma/vPair" and "vPair/lemma"
-        acceptableAnswers.push(`${lemma}/${vPair}`);
-        acceptableAnswers.push(`${vPair}/${lemma}`);
-        // Add versions with spaces: "lemma / vPair"
-        acceptableAnswers.push(`${lemma} / ${vPair}`);
-        acceptableAnswers.push(`${vPair} / ${lemma}`);
+
+    if (!strictMode) {
+        // Allow every synonym
+        if (synonym) {
+            acceptableAnswers.push(
+                ...synonym.split(",").map(s => s.trim().toLowerCase())
+            );
+        }
+
+        // Allow the aspect pair
+        if (vPair) {
+            acceptableAnswers.push(vPair);
+            acceptableAnswers.push(`${lemma}/${vPair}`);
+            acceptableAnswers.push(`${vPair}/${lemma}`);
+            acceptableAnswers.push(`${lemma} / ${vPair}`);
+            acceptableAnswers.push(`${vPair} / ${lemma}`);
+        }
     }
+
+    // In strict mode we intentionally do nothing.
+    // Only the lemma is accepted.
 
     // Check for a perfect match in any of the acceptable answers
     const isCorrect = acceptableAnswers.some(ans => input === ans);
@@ -796,8 +818,10 @@ function evaluateTyping() {
 // Helper to show the full answer (Lemma + Pair)
 function showAnswerInUI() {
     let display = currentWord.czech;
-    if (currentWord.vidPair && currentWord.showVid == 1) display += ` / ${currentWord.vidPair}`;
-    if (currentWord.synonym) display += ` (${currentWord.synonym})`;
+    const strictMode = document.getElementById('pos-select').value === "verb";
+
+    if (currentWord.vidPair && !strictMode)
+        display += ` / ${currentWord.vidPair}`;
     
     // Update local UI
     const czechEl = document.getElementById('czech-word');
