@@ -10,30 +10,134 @@ from datetime import datetime
 from .prefix_function import is_likely_perfective
 
 
-def get_wiktionary_verb_present(lemma, person, number):
-    """Scrapes present tense conjugation tables from Wiktionary."""
-    if not lemma: return None
-    url = f"https://cs.wiktionary.org/wiki/{urllib.parse.quote(lemma)}"
-    headers = {'User-Agent': 'HackCzech-Bot/1.0'}
-    try:
-        response = requests.get(url, timeout=3.0, headers=headers)
-        if response.status_code != 200: return None
-        soup = BeautifulSoup(response.content, 'html.parser')
-        table = soup.find('table', {'class': 'inflection-table'})
-        if not table: return None
-        
-        # Maps coordinates to rows inside typical Wiktionary layout
-        # Row indicators: 1. osoba (Singular/Plural)
-        person_idx = int(person) - 1 # 0 for 1st person, 1 for 2nd, etc.
-        col_idx = 0 if number == 'S' else 1
-        
-        rows = [row for row in table.find_all('tr') if "osoba" in row.get_text().lower()]
-        if len(rows) >= 3:
-            tds = rows[person_idx].find_all('td')
-            if len(tds) >= 2:
-                return tds[col_idx].get_text(strip=True).split(',')[0].split('[')[0].replace('\xad', '')
+def get_wiktionary_verb_present(lemma):
+    """
+    Scrapes Czech Wiktionary.
+
+    Returns:
+    {
+        "aspect": "imperfective" | "perfective",
+        "forms": {
+            "1S":"...",
+            "2S":"...",
+            "3S":"...",
+            "1P":"...",
+            "2P":"...",
+            "3P":"..."
+        }
+    }
+
+    Returns None if nothing could be extracted.
+    """
+
+    if not lemma:
         return None
-    except:
+
+    url = f"https://cs.wiktionary.org/wiki/{urllib.parse.quote(lemma)}"
+    headers = {"User-Agent": "HackCzech-Bot/1.0"}
+
+    try:
+        response = requests.get(url, timeout=5, headers=headers)
+
+        if response.status_code != 200:
+            return None
+
+        soup = BeautifulSoup(response.content, "html.parser")
+
+        page_text = soup.get_text(" ", strip=True).lower()
+
+        # -----------------------------------------
+        # Detect aspect
+        # -----------------------------------------
+
+        if "nedokonavé" in page_text:
+            aspect = "imperfective"
+        elif "dokonavý" in page_text or "dokonavé" in page_text:
+            aspect = "perfective"
+        else:
+            aspect = None
+
+        # -----------------------------------------
+        # Find Present Tense row
+        # -----------------------------------------
+
+        forms = {}
+
+        pronouns = {
+            "já": "1S",
+            "ty": "2S",
+            "on": "3S",
+            "ona": "3S",
+            "ono": "3S",
+            "my": "1P",
+            "vy": "2P",
+            "oni": "3P",
+            "ony": "3P"
+        }
+
+        for table in soup.find_all("table"):
+
+            table_text = table.get_text(" ", strip=True).lower()
+
+            if "přítomný" not in table_text:
+                continue
+
+            for row in table.find_all("tr"):
+
+                cells = row.find_all(["th", "td"])
+
+                if len(cells) < 2:
+                    continue
+
+                first = cells[0].get_text(" ", strip=True).lower()
+
+                if first in pronouns:
+
+                    value = (
+                        cells[1]
+                        .get_text(" ", strip=True)
+                        .split(",")[0]
+                        .split("[")[0]
+                        .replace("\xad", "")
+                        .strip()
+                    )
+
+                    if value:
+                        forms[pronouns[first]] = value
+
+            # Stop searching once we've found all six forms
+            if len(forms) >= 6:
+                break
+
+
+
+
+        if forms:
+            return {
+                "aspect": aspect,
+                "forms": forms
+            }
+
+        return {
+            "aspect": aspect,
+            "forms": {}
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    except Exception as e:
+        print("Wiki verb scraper:", e)
         return None
 
 def log_verb_mismatch_to_gsheet(lemma, tense, form_key, gender, my_val, wiki_val):
@@ -88,9 +192,24 @@ def create_present_tense(lemma, person, gender, number):
     # -------------------------------------------------------------------------
     # STEP 2: SCRAPE WIKTIONARY IMMEDIATELY
     # -------------------------------------------------------------------------
-    wiki_val = get_wiktionary_verb_present(lemma_clean, person, number)
-    if wiki_val:
-        wiki_val = wiki_val.strip().lower()
+    wiki = get_wiktionary_verb_present(lemma_clean)
+
+    wiki_val = None
+
+    if wiki:
+
+        if wiki["aspect"] == "perfective":
+            return (
+                f"The verb '{lemma}' is perfective and has no present tense.",
+                True,
+                bool(is_reflexive),
+                False
+            )
+
+        wiki_val = wiki["forms"].get(f"{person}{number}")
+
+        if wiki_val:
+            wiki_val = wiki_val.lower().strip()
 
     # -------------------------------------------------------------------------
     # -------------------------------------------------------------------------
