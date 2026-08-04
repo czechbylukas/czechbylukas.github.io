@@ -500,9 +500,9 @@ const vocab = [
   },
   {
     czech:   "kudrnatý",
-    english: "wavy",
-    spanish: "ondulado",
-    german:  "wellig"
+    english: "curly",
+    spanish: "rizado",
+    german:  "lockig"
   },
   {
     czech:   "rovný",
@@ -512,9 +512,9 @@ const vocab = [
   },
  {
     czech:   "vlnitý",
-    english: "straight",
-    spanish: "liso",
-    german:  "glatt"
+    english: "wavy",
+    spanish: "ondulado",
+    german:  "wellig"
   },
   {
     czech:   "blond",
