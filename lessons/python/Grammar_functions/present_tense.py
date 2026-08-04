@@ -4,6 +4,7 @@ import csv
 import requests
 import urllib.parse
 from bs4 import BeautifulSoup
+import traceback
 import gspread
 from oauth2client.service_account import ServiceAccountCredentials
 from datetime import datetime
@@ -34,17 +35,34 @@ def get_wiktionary_verb_present(lemma):
         return None
 
     url = f"https://cs.wiktionary.org/wiki/{urllib.parse.quote(lemma)}"
-    headers = {"User-Agent": "HackCzech-Bot/1.0"}
+    headers = {
+        "User-Agent": "CzechDeclensionBot/1.0 (contact: your_email@example.com) Python-requests",
+        "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8",
+        "Accept-Language": "cs-CZ,cs;q=0.9,en;q=0.8",
+        "Referer": "https://cs.wiktionary.org/"
+    }
 
     try:
+        print("Fetching:", url)
         response = requests.get(url, timeout=5, headers=headers)
+        print("===== WIKI DEBUG START =====")
+        print("URL:", url)
+        print("HTTP STATUS:", response.status_code)
+        print("PAGE LENGTH:", len(response.text))
 
         if response.status_code != 200:
             return None
 
         soup = BeautifulSoup(response.content, "html.parser")
+        print("TITLE:", soup.title.get_text() if soup.title else "NO TITLE")
 
         page_text = soup.get_text(" ", strip=True).lower()
+        print("HAS 'sloveso':", "sloveso" in page_text)
+        print("HAS 'přítomný':", "přítomný" in page_text)
+        print("HAS 'časování':", "časování" in page_text)
+
+        print("FIRST 500 CHARS:")
+        print(page_text[:500])
 
         # -----------------------------------------
         # Detect aspect
@@ -75,9 +93,15 @@ def get_wiktionary_verb_present(lemma):
             "ony": "3P"
         }
 
-        for table in soup.find_all("table"):
+        tables = soup.find_all("table")
+
+        print("NUMBER OF TABLES:", len(tables))
+
+        for index, table in enumerate(tables):
 
             table_text = table.get_text(" ", strip=True).lower()
+            print("--- TABLE", index, "---")
+            print(table_text[:300])
 
             if "přítomný" not in table_text:
                 continue
@@ -103,13 +127,16 @@ def get_wiktionary_verb_present(lemma):
                     )
 
                     if value:
+                        print("FOUND FORM:", first, "=", value)
                         forms[pronouns[first]] = value
 
             # Stop searching once we've found all six forms
             if len(forms) >= 6:
                 break
 
-
+        print("FINAL WIKI FORMS:", forms)
+        print("FINAL ASPECT:", aspect)
+        print("===== WIKI DEBUG END =====")
 
 
         if forms:
@@ -121,23 +148,11 @@ def get_wiktionary_verb_present(lemma):
         return {
             "aspect": aspect,
             "forms": {}
-}
-
-
-
-
-
-
-
-
-
-
-
-
-
+        }
 
     except Exception as e:
-        print("Wiki verb scraper:", e)
+        print("Wiki verb scraper ERROR:")
+        traceback.print_exc()
         return None
 
 def log_verb_mismatch_to_gsheet(lemma, tense, form_key, gender, my_val, wiki_val):
@@ -192,13 +207,19 @@ def create_present_tense(lemma, person, gender, number):
     # -------------------------------------------------------------------------
     # STEP 2: SCRAPE WIKTIONARY IMMEDIATELY
     # -------------------------------------------------------------------------
+    print("PRESENT CHECK WORD:", lemma_clean)
+
     wiki = get_wiktionary_verb_present(lemma_clean)
+
+    print("PRESENT WIKI RESULT =", wiki)
+    print("WIKI =", wiki)
 
     wiki_val = None
 
     if wiki:
 
-        if wiki["aspect"] == "perfective":
+
+        if wiki.get("aspect") == "perfective":
             return (
                 f"The verb '{lemma}' is perfective and has no present tense.",
                 True,
@@ -206,7 +227,7 @@ def create_present_tense(lemma, person, gender, number):
                 False
             )
 
-        wiki_val = wiki["forms"].get(f"{person}{number}")
+        wiki_val = wiki.get("forms", {}).get(f"{person}{number}")
 
         if wiki_val:
             wiki_val = wiki_val.lower().strip()
