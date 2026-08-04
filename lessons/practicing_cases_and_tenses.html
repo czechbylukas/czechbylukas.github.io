@@ -404,8 +404,6 @@ async function preVerifyNoun(mode, word) {
         });
         const data = await response.json();
         
-        const isUnverified = !!(data.status && data.status.includes('UNVERIFIED'));
-        
         // Removed the alert and the call to show the helper box from here.
         // This function now only runs silently in the background.
         
@@ -513,19 +511,45 @@ async function callPythonAPI(event) {
         
         let finalWordToShow = data.result || "No result";
 
-        // --- 1. DISPLAY INITIAL RESULT CARD FIRST ---
-        showResult(finalWordToShow, data.status || []);
-
-        // --- 2. WIKTIONARY CHECK ---
+        // Wait for Wiktionary before displaying anything
         if (data.result) {
-            const caseVal = (mode === 'noun') ? document.getElementById('case').value : null;
-            const numVal = (mode === 'verb') ? document.getElementById('verb-number').value : document.getElementById('noun-number').value;
+            const caseVal = (mode === 'noun')
+                ? document.getElementById('case').value
+                : null;
+
+            const numVal = (mode === 'verb')
+                ? document.getElementById('verb-number').value
+                : document.getElementById('noun-number').value;
+
             const tenseVal = document.getElementById('tense').value;
             const personVal = document.getElementById('person').value;
             const genderVal = document.getElementById('gender').value;
 
-            await verifyWithWiktionary(word, data.result, caseVal, numVal, mode, tenseVal, personVal, genderVal);
-        }
+            let wiki = await verifyWithWiktionary(
+                word,
+                data.result,
+                caseVal,
+                numVal,
+                mode,
+                tenseVal,
+                personVal,
+                genderVal
+            );
+            
+
+            if (wiki && wiki.verified && wiki.text) {
+                finalWordToShow = wiki.text;
+            }
+
+            showResult(finalWordToShow, data.status || []);
+
+            if (wiki && wiki.verified) {
+                const wBadge = document.createElement('span');
+                wBadge.className = 'badge-w';
+                wBadge.innerText = 'W';
+                document.getElementById('badges').prepend(wBadge);
+            }
+            }
 
         // --- 3. FINAL VALIDATION ---
         const wBadgeFound = !!document.getElementById('badges').querySelector('.badge-w');
@@ -717,7 +741,6 @@ async function logMismatchToSheet(word, caseLabel, number, myApp, wiki) {
 
 async function verifyWithWiktionary(word, myResult, caseValue, numberValue, mode, tense, person, gender) {
     const badgesContainer = document.getElementById('badges');
-    const resultTextElement = document.getElementById('result-text');
     const warningElement = document.getElementById('unverified-warning');
     
     const endpoint = (mode === 'verb') 
@@ -798,16 +821,26 @@ async function verifyWithWiktionary(word, myResult, caseValue, numberValue, mode
                 logMismatchToSheet(word, logLabel, numberValue, myResult, wikiBaseWord);
             }
 
-            const wBadge = document.createElement('span');
-            wBadge.className = 'badge-w';
-            wBadge.innerText = 'W';
-            badgesContainer.appendChild(wBadge);
-            resultTextElement.innerText = finalWikiResult; 
             warningElement.style.display = 'none';
+
+            return {
+                text: finalWikiResult,
+                verified: true
+            };
         }
+
+        return {
+            text: null,
+            verified: false
+        };
+        
     } catch (err) {
-        console.warn("Cloud Verification failed:", err.message);
-    }
+    console.warn("Cloud Verification failed:", err.message);
+    return {
+        text: null,
+        verified: false
+    };
+}
 }
 
 
