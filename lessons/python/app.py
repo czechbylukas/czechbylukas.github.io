@@ -83,7 +83,9 @@ def scrape_conjugation():
         if tense == 'past':
             res_str, is_ver, refl, irr, wiki_val, wiki_debug = create_past_tense(word, person, gender, number)
         elif tense == 'present':
-            res_str, is_ver, refl, irr = create_present_tense(word, person, gender, number)
+            res_str, is_ver, refl, irr, wiki_val, wiki_debug = create_present_tense(
+                word, person, gender, number
+            )
         elif tense == 'future':
             res_str, vid, is_ver, irr = create_future_tense(word, person, gender, number)
             refl = "se" in word or "si" in word

@@ -202,7 +202,14 @@ def create_present_tense(lemma, person, gender, number):
     base_verb = lemma_clean.split(" ")[0] if is_reflexive else lemma_clean
 
     if not base_verb.endswith("t"):
-        return "Not a verb", "UNVERIFIED", bool(is_reflexive), False
+        return (
+            "Not a verb",
+            False,
+            bool(is_reflexive),
+            False,
+            None,
+            "Not a verb"
+        )
 
     # -------------------------------------------------------------------------
     # STEP 2: SCRAPE WIKTIONARY IMMEDIATELY
@@ -224,7 +231,9 @@ def create_present_tense(lemma, person, gender, number):
                 f"The verb '{lemma}' is perfective and has no present tense.",
                 True,
                 bool(is_reflexive),
-                False
+                False,
+                None,
+                "Perfective verb - no present tense"
             )
 
         wiki_val = wiki.get("forms", {}).get(f"{person}{number}")
