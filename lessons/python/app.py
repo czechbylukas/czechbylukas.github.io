@@ -154,7 +154,9 @@ def process_word():
             if tense == 'past':
                 res, ver, refl, irr, wiki_val, wiki_debug = create_past_tense(word, person, gender, number)
             elif tense == 'present':
-                res, ver, refl, irr = create_present_tense(word, person, gender, number)
+                res_str, is_ver, refl, irr, wiki_val, wiki_debug = create_present_tense(
+                    word, person, gender, number
+                )
             elif tense == 'future':
                 res, vid, ver, irr = create_future_tense(word, person, gender, number)
                 status_badges.append(vid)

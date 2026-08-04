@@ -345,4 +345,11 @@ def create_present_tense(lemma, person, gender, number):
         if is_reflexive and not present_form.endswith(is_reflexive):
             present_form = f"{present_form} {is_reflexive}"
 
-    return present_form, is_verified, bool(is_reflexive), is_actually_irregular
+    return (
+        present_form,
+        is_verified,
+        bool(is_reflexive),
+        is_actually_irregular,
+        wiki_val,
+        str(wiki)
+    )
