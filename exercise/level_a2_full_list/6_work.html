@@ -130,10 +130,17 @@ console.error("Database error:", err);
 <script src="../../js/practice.js"></script>
 
 <script>
-document.addEventListener("DOMContentLoaded", () => {
-const savedLang = localStorage.getItem("selectedLanguage") || "en";
-if (typeof loadTranslations === "function") loadTranslations(savedLang);
-initDatabase();
+document.addEventListener("DOMContentLoaded", async () => {
+
+    const savedLang = localStorage.getItem("selectedLanguage") || "en";
+
+    // Load translations first
+    if (typeof loadTranslations === "function") {
+        await loadTranslations(savedLang);
+    }
+
+    // Then load the vocabulary database
+    await initDatabase();
 });
 
 document.addEventListener("languageChanged", () => {

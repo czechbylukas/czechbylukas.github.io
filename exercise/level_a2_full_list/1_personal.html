@@ -176,14 +176,18 @@
 
 
 <script>
-  document.addEventListener("DOMContentLoaded", () => {
+document.addEventListener("DOMContentLoaded", async () => {
+
     const savedLang = localStorage.getItem("selectedLanguage") || "en";
-    
-    // 1. Load the translation JSON file
+
+    // Load translations first
     if (typeof loadTranslations === "function") {
-      loadTranslations(savedLang);
+        await loadTranslations(savedLang);
     }
-  });
+
+    // Then load the vocabulary database
+    await initDatabase();
+});
 
   // 2. This handles the flag clicks without changing the Page Title
   document.addEventListener("languageChanged", () => {
