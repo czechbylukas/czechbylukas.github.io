@@ -135,8 +135,17 @@
 
 
 
+<!-- Translations -->
+<script src="../../../js/translations.js"></script>
+
+<!-- Language selector -->
+<script src="../../../js/language-selector.js"></script>
+
+<!-- Practice logic -->
+<script src="../../../js/practice.js"></script>
 
 <script>
+  
   async function initDatabase() {
     try {
       const sqlPromise = initSqlJs({ locateFile: file => `https://cdnjs.cloudflare.com/ajax/libs/sql.js/1.8.0/${file}` });
@@ -165,14 +174,6 @@
   initDatabase();
 </script>
 
-<!-- Translations -->
-<script src="../../../js/translations.js"></script>
-
-<!-- Language selector -->
-<script src="../../../js/language-selector.js"></script>
-
-<!-- Practice logic -->
-<script src="../../../js/practice.js"></script>
 
 <script>
   document.addEventListener("DOMContentLoaded", () => {
