@@ -4,36 +4,37 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta charset="UTF-8">
 
-    <!-- UPDATED: English-targeted SEO Title & Description -->
-    <title>Czech Present Tense Conjugation &amp; Verb Classes | HáCZech</title>
-    <meta name="description" content="Master Czech present tense verb conjugation (A2–B1 level). Learn the 5 Czech verb classes with clear tables, real-world examples, and interactive exercises.">
-    <meta name="keywords" content="Czech present tense, Czech verb conjugation, Czech verb classes, learn Czech grammar, Czech present tense tables, Czech A2 B1 grammar">
+    <title>Czech Present Tense: Conjugation & Verb Classes | HáCZech</title>
+
+    <meta name="description" content="Learn Czech present tense conjugation with clear explanations, verb classes, conjugation tables, examples, and interactive exercises.">
+
     <meta name="robots" content="index, follow">
 
-    <!-- Canonical and Alternate Links -->
+    <!-- Canonical -->
     <link rel="canonical" href="https://www.hackczech.com/grammar/present-tense.html">
 
-    <!-- UPDATED: Social OpenGraph & Twitter Cards -->
+    <!-- Open Graph -->
     <meta property="og:type" content="article">
     <meta property="og:site_name" content="HáCZech">
     <meta property="og:locale" content="en_US">
     <meta property="og:url" content="https://www.hackczech.com/grammar/present-tense.html">
-    <meta property="og:title" content="Czech Present Tense Conjugation &amp; Verb Classes | HáCZech">
-    <meta property="og:description" content="Master Czech present tense verb conjugation (A2–B1 level) with color-coded tables, spoken vs. formal notes, and interactive practice exercises.">
+    <meta property="og:title" content="Czech Present Tense: Conjugation & Verb Classes | HáCZech">
+    <meta property="og:description" content="Learn Czech present tense conjugation with verb classes, tables, examples, and interactive exercises.">
     <meta property="og:image" content="https://www.hackczech.com/images/og-present-tense.jpg">
 
+    <!-- Twitter -->
     <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="Czech Present Tense Conjugation &amp; Verb Classes | HáCZech">
-    <meta name="twitter:description" content="Learn Czech present tense step-by-step with simple rules, 5 verb classes, and interactive exercises.">
+    <meta name="twitter:title" content="Czech Present Tense: Conjugation & Verb Classes | HáCZech">
+    <meta name="twitter:description" content="Learn Czech present tense conjugation with verb classes, tables, examples, and interactive exercises.">
     <meta name="twitter:image" content="https://www.hackczech.com/images/og-present-tense.jpg">
 
-    <!-- UPDATED: Replaced TechArticle with LearningResource & Breadcrumb Schema -->
+    <!-- LearningResource Schema -->
     <script type="application/ld+json">
     {
       "@context": "https://schema.org",
       "@type": "LearningResource",
-      "name": "Czech Present Tense Conjugation & Verb Classes",
-      "description": "Comprehensive guide to Czech present tense verb conjugation across all 5 verb classes with examples and interactive practice.",
+      "name": "Czech Present Tense: Conjugation & Verb Classes",
+      "description": "A guide to Czech present tense conjugation with verb classes, conjugation tables, examples, and interactive practice.",
       "learningResourceType": "Grammar Guide",
       "educationalLevel": "A2-B1",
       "inLanguage": ["en", "cs"],
@@ -45,29 +46,34 @@
     }
     </script>
 
+    <!-- Breadcrumb Schema -->
     <script type="application/ld+json">
     {
       "@context": "https://schema.org",
       "@type": "BreadcrumbList",
-      "itemListElement": [{
-        "@type": "ListItem",
-        "position": 1,
-        "name": "Home",
-        "item": "https://www.hackczech.com/"
-      },{
-        "@type": "ListItem",
-        "position": 2,
-        "name": "Grammar",
-        "item": "https://www.hackczech.com/grammar/"
-      },{
-        "@type": "ListItem",
-        "position": 3,
-        "name": "Present Tense",
-        "item": "https://www.hackczech.com/grammar/present-tense.html"
-      }]
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Home",
+          "item": "https://www.hackczech.com/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Grammar",
+          "item": "https://www.hackczech.com/grammar/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 3,
+          "name": "Present Tense",
+          "item": "https://www.hackczech.com/grammar/present-tense.html"
+        }
+      ]
     }
     </script>
-  
+
     <!-- Firebase Authentication & Database SDKs -->
     <script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-auth-compat.js"></script>
@@ -77,40 +83,35 @@
 
     <!-- Main stylesheets -->
     <link rel="stylesheet" href="/css/style.css">
+    
 
     <style>
-        /* Upper Navigation / Breadcrumbs Bar */
-        .top-subnav {
-            background-color: #f8fafc;
-            border-bottom: 1px solid #e2e8f0;
-            padding: 10px 20px;
-            font-size: 0.9rem;
+
+        /* ================================
+        GRAMMAR SECTION NAVIGATION
+        ================================ */
+
+        .bottom-subnav {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+
             display: flex;
+            justify-content: center;
             align-items: center;
             flex-wrap: wrap;
             gap: 8px;
-        }
 
-        .top-subnav a {
-            color: #2d6cdf;
-            text-decoration: none;
-            font-weight: 500;
-            transition: color 0.2s ease;
-        }
+            box-sizing: border-box;
+            padding: 12px 20px;
 
-        .top-subnav a:hover {
-            color: #17479e;
-            text-decoration: underline;
-        }
+            background: white;
+            border-top: 1px solid #ddd;
 
-        .top-subnav .separator {
-            color: #94a3b8;
-            font-size: 0.8rem;
-        }
+            z-index: 9999;
 
-        .top-subnav .current-page {
-            color: #64748b;
-            font-weight: 600;
+            font-size: 0.9rem;
         }
 
         /* Embedded styling for hover translations and games cards */
@@ -165,6 +166,47 @@
             background: #17479e;
             transform: scale(1.05);
         }
+
+
+
+        .game-btn {
+            background: #2d6cdf;
+            color: white;
+            border: none;
+            padding: 12px 20px;
+            border-radius: 8px;
+            font-size: 1.1rem;
+            cursor: pointer;
+            transition: background 0.2s;
+            margin-top: 10px;
+            font-weight: bold;
+            width: 100%;
+        }
+
+        .game-btn:hover {
+            background: #17479e;
+        }
+
+        .game-btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        .match-box {
+            padding: 15px;
+            background: #FF9800;
+            border-radius: 8px;
+            cursor: pointer;
+            text-align: center;
+            font-weight: bold;
+            min-width: 120px;
+            user-select: none;
+            transition: all 0.2s;
+        }
+
+
+
+
     </style>
     <script>
   // Mobile / Touch Detection Script
@@ -206,14 +248,6 @@
     
     <main class="page-content">
 
-<!-- Upper Navigation Bar / Breadcrumbs -->
-<nav class="top-subnav" aria-label="Page Sections">
-    <a href="#pritomnycas"><span class="tr-text" onmouseover="showT('Grammar')" onmouseout="hideT()">Gramatika</span></a>
-    <span class="separator">/</span>
-    <a href="#cviceni"><span class="tr-text" onmouseover="showT('Exercises')" onmouseout="hideT()">Cvičení</span></a>
-    <span class="separator">/</span>
-    <a href="#testy"><span class="tr-text" onmouseover="showT('Tests')" onmouseout="hideT()">Testy</span></a>
-</nav>
 
         <section style="max-width: 800px; margin: 20px auto; padding: 0 15px;">
             <h2><span class="tr-text" onmouseover="showT('Introduction')" onmouseout="hideT()">Úvod</span></h2>
@@ -412,19 +446,38 @@
             </p>
 
             <div class="games">
-                <div class="card">
+                <div class="card" id="btn-match">
                     🎴<br><br>
                     Match Cards
                 </div>
-                <div class="card">
+
+                <div class="card" id="btn-mc">
                     ❓<br><br>
                     Multiple Choice Quiz
                 </div>
-                <div class="card">
+
+                <div class="card" id="btn-fill">
                     ✏️<br><br>
                     Fill in the Blank
                 </div>
             </div>
+        
+        
+            <div id="game-section" style="margin-top: 40px; display: none;">
+            <div id="game"
+                background: transparent;
+                        padding: 30px;
+                        border-radius: 12px;
+                        border: 3px solid #2d6cdf;
+                        min-height: 300px;
+                        box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+                        text-align: center;">
+
+                <!-- Game content will load here -->
+
+            </div>
+        </div>
+
         </section>
 
         <!-- Informational Collapsible Details Section -->
@@ -443,10 +496,29 @@
                     </ul>
                 </div>
             </details>
-        </section>
+                </section>
+
+        <!-- Bottom Navigation -->
+        <nav class="bottom-subnav" aria-label="Page Sections">
+            <a href="#pritomnycas">
+                <span class="tr-text" onmouseover="showT('Grammar')" onmouseout="hideT()">Gramatika</span>
+            </a>
+
+            <span class="separator">/</span>
+
+            <a href="#cviceni">
+                <span class="tr-text" onmouseover="showT('Exercises')" onmouseout="hideT()">Cvičení</span>
+            </a>
+
+            <span class="separator">/</span>
+
+            <a href="#testy">
+                <span class="tr-text" onmouseover="showT('Tests')" onmouseout="hideT()">Testy</span>
+            </a>
+        </nav>
 
     </main>
-</div> 
+</div>
 
 <!-- Dynamic Footer Placeholder -->
 <div id="footer-placeholder"></div>
@@ -477,6 +549,66 @@
         document.getElementById('translation-bridge').classList.remove('visible');
     }
 </script>
+
+
+
+<script type="module">
+
+    import { gameState } from "./data.js";
+
+    import {
+        startMultipleChoice,
+        startFillGap,
+        startMatchGame
+    } from "./games.js";
+
+
+    const gameSection = document.getElementById("game-section");
+    const gameContainer = document.getElementById("game");
+
+
+    function launchGame(gameFunction) {
+
+        // Show the game area
+        gameSection.style.display = "block";
+
+        // Remove the previous game
+        gameContainer.innerHTML = "";
+
+        // Start the selected game
+        gameFunction(gameState);
+
+        // Scroll to the game
+        gameSection.scrollIntoView({
+            behavior: "smooth",
+            block: "start"
+        });
+    }
+
+
+    // Match Cards
+    document.getElementById("btn-match")
+        .addEventListener("click", () => {
+            launchGame(startMatchGame);
+        });
+
+
+    // Multiple Choice
+    document.getElementById("btn-mc")
+        .addEventListener("click", () => {
+            launchGame(startMultipleChoice);
+        });
+
+
+    // Fill in the Blank
+    document.getElementById("btn-fill")
+        .addEventListener("click", () => {
+            launchGame(startFillGap);
+        });
+
+</script>
+
+
 
 
 </body>
