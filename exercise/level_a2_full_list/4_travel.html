@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="UTF-8">
+<title>Practice Czech A2 Travel Vocabulary | Interactive Flashcards | HáCZech</title>
+<meta name="description" content="Practice complete Czech A2 travel vocabulary with interactive flashcards. Learn words for transport, journeys, accommodation, tickets, and travel situations.">
+<meta name="keywords" content="Czech A2 vocabulary, Czech travel vocabulary, Cestování Czech, Czech flashcards, HáCZech">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://www.hackczech.com/exercise/level_a2_full_list/4_travel.html">
+<meta property="og:title" content="Practice Czech A2 Travel Vocabulary | Interactive Flashcards | HáCZech">
+<meta property="og:description" content="Practice complete Czech A2 travel vocabulary with interactive flashcards. Learn words for transport, journeys, accommodation, tickets, and travel situations.">
+<link rel="canonical" href="https://www.hackczech.com/exercise/level_a2_full_list/4_travel.html">
+<style>body:not(.logged-in) .content-layout { display: none; }</style>
+<script>window.isLoginOnlyPage = true;</script>
+<script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-auth-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-database-compat.js"></script>
+<script src="../../scripts-header.js"></script>
+<link rel="stylesheet" href="../../css/style.css">
+<link rel="stylesheet" href="../../css/practice.css">
+<link rel="stylesheet" href="../../css/language-selector.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/sql.js/1.8.0/sql-wasm.js"></script>
+</head>
+<body class="vocab-page">
+<header>
+<h1 id="heading-practice">Practice Cestování (Travel)</h1>
+<div id="language-selector-container"></div>
+</header>
+
+<main>
+<div class="vocab-container">
+<div id="englishCard" class="card"></div>
+<div id="czechCard" class="card"></div>
+</div>
+
+<div class="big-buttons">
+<button id="prevBtn"></button>
+<button id="nextBtn"></button>
+</div>
+
+<div class="progress-wrapper">
+<div class="progress-bar"><div id="progress" class="progress"></div></div>
+<div id="progressText" class="progress-text"></div>
+</div>
+
+<div class="big-buttons">
+<a id="btn-vocab" href="../../vocabulary/level_a2_full_list/4_travel.html"></a>
+
+</div>
+
+<div class="small-buttons">
+<a id="btn-home" href="../../index.html"></a>
+<a id="btn-exerciseList" href="../../exercise/index.html"></a>
+</div>
+
+<section style="max-width: 1000px; margin: 40px auto; padding: 0 20px; text-align: left;">
+<details style="cursor: pointer; color: #94a3b8; font-size: 0.85rem; border: 1px solid #edf2f7; padding: 10px; border-radius: 8px;">
+<summary style="font-weight: bold; color: #64748b; outline: none;">Training Guide: Travel Vocabulary</summary>
+<div style="margin-top: 15px; line-height: 1.6;">
+<h2 style="font-size: 1rem; color: #64748b;">Active Recall: Czech A2 Travel</h2>
+<p>This session focuses on complete <strong>A2 Czech vocabulary</strong> for <strong>Cestování</strong>. Use the flashcards to strengthen active recall and build confidence with everyday Czech.</p>
+<div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; margin-top: 15px;">
+<div>
+<h3 style="font-size: 0.9rem; color: #64748b; margin-bottom: 5px;">Learn in Context</h3>
+<p style="margin: 0;">Pay attention to related words, useful expressions, and common Czech patterns as you move through the cards.</p>
+</div>
+<div>
+<h3 style="font-size: 0.9rem; color: #64748b; margin-bottom: 5px;">Build Active Recall</h3>
+<p style="margin: 0;">Try to produce the Czech word before revealing the answer, then repeat difficult items until they become automatic.</p>
+</div>
+</div>
+<h3 style="font-size: 0.9rem; color: #64748b; margin-top: 20px;">Practice Optimization:</h3>
+<ul style="list-style: none; padding: 0;">
+<li>✔ <strong>Step 1:</strong> Read the English prompt and recall the Czech word.</li>
+<li>✔ <strong>Step 2:</strong> Review difficult cards several times.</li>
+<li>✔ <strong>Step 3:</strong> Continue with the vocabulary list or test.</li>
+</ul>
+</div>
+</details>
+</section>
+</main>
+
+<div id="footer-placeholder"></div>
+
+<script>
+fetch("/footer.html")
+.then(response => response.text())
+.then(data => { document.getElementById("footer-placeholder").innerHTML = data; })
+.catch(error => console.error("Error loading footer:", error));
+
+async function initDatabase() {
+try {
+const sqlPromise = initSqlJs({
+locateFile: file => `https://cdnjs.cloudflare.com/ajax/libs/sql.js/1.8.0/${file}`
+});
+const dataPromise = fetch("../../VocabSQL_database/czech_master.db")
+.then(res => {
+if (!res.ok) throw new Error("Database file could not be loaded.");
+return res.arrayBuffer();
+});
+const [SQL, buf] = await Promise.all([sqlPromise, dataPromise]);
+const db = new SQL.Database(new Uint8Array(buf));
+
+const query = "SELECT lemma, trans_en, trans_de, trans_es FROM words WHERE level = 'A2' AND lesson = '053 Cestování (kompletní)' ORDER BY lemma COLLATE NOCASE";
+const results = db.exec(query);
+
+if (results.length > 0) {
+window.vocab = results[0].values.map(row => ({
+czech: row[0],
+english: row[1],
+german: row[2],
+spanish: row[3]
+}));
+} else {
+window.vocab = [];
+console.warn("No vocabulary found for lesson: 4 Cestování (kompletní)");
+}
+
+if (typeof initPractice === "function") initPractice();
+else if (typeof renderCard === "function") renderCard();
+} catch (err) {
+console.error("Database error:", err);
+}
+}
+</script>
+
+<script src="../../js/translations.js"></script>
+<script src="../../js/language-selector.js"></script>
+<script src="../../js/practice.js"></script>
+
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+const savedLang = localStorage.getItem("selectedLanguage") || "en";
+if (typeof loadTranslations === "function") loadTranslations(savedLang);
+initDatabase();
+});
+
+document.addEventListener("languageChanged", () => {
+if (typeof applyTranslations === "function") applyTranslations();
+if (typeof showCurrentCard === "function") showCurrentCard();
+});
+</script>
+</body>
+</html>
