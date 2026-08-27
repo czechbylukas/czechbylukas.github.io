@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Complete A2 Daily routine Czech Vocabulary | HáCZech</title>
+<meta name="description" content="Complete Czech A2 vocabulary list for daily routine, with Czech terms and translations for practical language learning.">
+<meta name="keywords" content="Czech A2 vocabulary, Daily routine Czech, HáCZech">
+<link rel="canonical" href="https://www.hackczech.com/vocabulary/level_a2_full_list/5_daily_routine.html">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://www.hackczech.com/vocabulary/level_a2_full_list/5_daily_routine.html">
+<meta property="og:title" content="Complete A2 Daily routine Czech Vocabulary | HáCZech">
+<meta property="og:description" content="Complete Czech A2 vocabulary list for daily routine, with Czech terms and translations for practical language learning.">
+<style>body:not(.logged-in) .content-layout{display:none;}#tableStatus{max-width:1000px;margin:18px auto;padding:0 20px;color:#64748b;text-align:center;}</style>
+<script>window.isLoginOnlyPage=true;</script>
+<script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-auth-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-database-compat.js"></script>
+<script src="../../scripts-header.js"></script>
+<link rel="stylesheet" href="../../css/style.css">
+<link rel="stylesheet" href="../../css/language-selector.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/sql.js/1.8.0/sql-wasm.js"></script>
+</head>
+<body class="vocab-page">
+<header><h1 id="heading-vocab">A2 – Denní režim (kompletní)</h1><div id="language-selector-container"></div></header>
+<div class="content-layout"><aside id="sidebar-placeholder"></aside><main class="page-content">
+<p id="tableStatus">Loading vocabulary…</p>
+<div class="table-container"><table id="vocabTable"><thead><tr><th id="table-czech">Czech</th><th id="table-english">English</th></tr></thead><tbody id="vocabBody"></tbody></table></div>
+<section style="max-width:1000px;margin:40px auto;padding:0 20px;text-align:left;"><details style="cursor:pointer;color:#94a3b8;font-size:.85rem;border:1px solid #edf2f7;padding:10px;border-radius:8px;"><summary style="font-weight:bold;color:#64748b;outline:none;">Study Guide: Daily routine</summary><div style="margin-top:15px;line-height:1.6;"><h2 style="font-size:1rem;color:#64748b;">Complete A2 Daily routine Vocabulary</h2><p>This complete <strong>A2 Czech vocabulary list</strong> covers essential language for daily routine.</p><h3 style="font-size:.9rem;color:#64748b;margin-top:20px;">The HáCZech Learning Path</h3><ul style="list-style:none;padding:0;"><li>✅ <strong>Step 1:</strong> Study the Czech-English word pairs in the table.</li><li>✅ <strong>Step 2:</strong> Change the language selector to review German or Spanish translations.</li><li>✅ <strong>Step 3:</strong> Use Practice and Test to check your recall.</li></ul><p style="font-style:italic;margin-top:15px;font-size:.75rem;opacity:.8;">Technical Metadata: Dataset <code>054 Denní režim (kompletní)</code>. Duplicate entries with the same lemma and part of speech are shown only once.</p></div></details></section>
+<div class="big-buttons"><a id="btn-practice" href="../../exercise/level_a2_full_list/5_daily_routine.html">🧠 Practice</a></div>
+<div class="small-buttons"><a id="btn-home" href="../../index.html">🏠 Home</a><a id="btn-vocabList" href="../../vocabulary/index.html">📘 Vocabulary List</a></div>
+</main></div><div id="footer-placeholder"></div>
+<script>fetch("/sidebar/sidebar.html").then(r=>r.text()).then(h=>document.getElementById("sidebar-placeholder").innerHTML=h).catch(e=>console.error("Sidebar error:",e));fetch("/footer.html").then(r=>r.text()).then(h=>document.getElementById("footer-placeholder").innerHTML=h).catch(e=>console.error("Footer error:",e));</script>
+<script src="../../js/translations.js"></script><script src="../../js/language-selector.js"></script>
+<script>
+let db=null;const VOCABULARY_LEVEL="A2";const VOCABULARY_LESSON="054 Denní režim (kompletní)";
+async function initDatabase(){const status=document.getElementById("tableStatus");try{const SQL=await initSqlJs({locateFile:file=>`https://cdnjs.cloudflare.com/ajax/libs/sql.js/1.8.0/${file}`});const response=await fetch("../../VocabSQL_database/czech_master.db");if(!response.ok)throw new Error("Database file not found.");const buffer=await response.arrayBuffer();db=new SQL.Database(new Uint8Array(buffer));renderVocab();}catch(error){console.error("Database error:",error);status.textContent="Vocabulary could not be loaded.";}}
+function getTranslation(row,language){const english=row[1]||"",german=row[2]||"",spanish=row[3]||"";if(language==="de")return german||english;if(language==="es")return spanish||english;return english;}
+function renderVocab(){if(!db)return;const tbody=document.getElementById("vocabBody"),status=document.getElementById("tableStatus"),language=localStorage.getItem("selectedLanguage")||"en";tbody.innerHTML="";const query=`WITH ranked AS (SELECT id,lemma,pos,trans_en,trans_de,trans_es,ROW_NUMBER() OVER(PARTITION BY LOWER(TRIM(lemma)),COALESCE(pos,'') ORDER BY id) AS row_number FROM words WHERE level='${VOCABULARY_LEVEL}' AND lesson='${VOCABULARY_LESSON}') SELECT lemma,trans_en,trans_de,trans_es FROM ranked WHERE row_number=1 ORDER BY lemma COLLATE NOCASE;`;try{const results=db.exec(query);if(results.length===0||results[0].values.length===0){status.textContent="No vocabulary was found for this lesson.";return;}const fragment=document.createDocumentFragment();results[0].values.forEach(row=>{const tr=document.createElement("tr"),c=document.createElement("td"),t=document.createElement("td");c.textContent=row[0]||"";t.textContent=getTranslation(row,language);tr.appendChild(c);tr.appendChild(t);fragment.appendChild(tr);});tbody.appendChild(fragment);status.textContent=`${results[0].values.length} vocabulary entries`;}catch(error){console.error("SQL error:",error);status.textContent="Vocabulary could not be displayed.";}}
+document.addEventListener("DOMContentLoaded",()=>{initDatabase();if(typeof applyTranslations==="function")applyTranslations();});document.addEventListener("languageChanged",()=>{renderVocab();if(typeof applyTranslations==="function")applyTranslations();});
+</script></body></html>
