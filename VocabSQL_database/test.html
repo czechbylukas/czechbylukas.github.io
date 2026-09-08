@@ -212,9 +212,6 @@
 
 
 
-
-
-
     </aside>
 
     <div class="test-box" style="margin: 0;">
@@ -721,7 +718,9 @@ const query = `SELECT lemma, ${langColumn}, image_path, audio_path, synonym, vid
 
 
         // Show synonym if it exists
-        const displayWord = currentWord.synonym ? `${s[0]} / ${s[4]}` : s[0];
+        const displayWord = currentWord.synonym 
+            ? `${currentWord.czech} / ${currentWord.synonym}`
+            : currentWord.czech;
         document.getElementById('czech-word').innerText = displayWord;
         
         
@@ -819,6 +818,10 @@ function evaluateTyping() {
 function showAnswerInUI() {
     let display = currentWord.czech;
     const strictMode = document.getElementById('pos-select').value === "verb";
+        // Show lemma + all synonyms
+    if (currentWord.synonym) {
+        display += ` / ${currentWord.synonym}`;
+    }
 
     if (currentWord.vidPair && !strictMode)
         display += ` / ${currentWord.vidPair}`;
