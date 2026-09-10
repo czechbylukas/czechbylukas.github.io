@@ -684,6 +684,7 @@ function insertChar(char) {
 
 
 function speakCzech(text) {
+    console.log("🔊 Speaking:", JSON.stringify(text));
     const isAudioOn = document.getElementById('audio-toggle').checked;
     if (!isAudioOn || !window.speechSynthesis) return;
 

@@ -75,30 +75,23 @@ def get_wiktionary_verb_present(lemma):
         else:
             aspect = None
 
-        # -----------------------------------------
-        # Find Present Tense row
-        # -----------------------------------------
-
+        # Czech Wiktionary stores the six forms in one "přítomný čas" row.
         forms = {}
+        form_keys = ("1S", "2S", "3S", "1P", "2P", "3P")
 
-        pronouns = {
-            "já": "1S",
-            "ty": "2S",
-            "on": "3S",
-            "ona": "3S",
-            "ono": "3S",
-            "my": "1P",
-            "vy": "2P",
-            "oni": "3P",
-            "ony": "3P"
-        }
+        def clean_form(cell):
+            return (
+                cell.get_text(" ", strip=True)
+                .split(",")[0]
+                .split("[")[0]
+                .replace("\xad", "")
+                .strip()
+            )
 
         tables = soup.find_all("table")
-
         print("NUMBER OF TABLES:", len(tables))
 
         for index, table in enumerate(tables):
-
             table_text = table.get_text(" ", strip=True).lower()
             print("--- TABLE", index, "---")
             print(table_text[:300])
@@ -107,31 +100,21 @@ def get_wiktionary_verb_present(lemma):
                 continue
 
             for row in table.find_all("tr"):
-
                 cells = row.find_all(["th", "td"])
-
-                if len(cells) < 2:
+                if len(cells) < 7:
                     continue
 
-                first = cells[0].get_text(" ", strip=True).lower()
+                row_label = cells[0].get_text(" ", strip=True).lower()
+                if "přítomný" not in row_label:
+                    continue
 
-                if first in pronouns:
+                values = [clean_form(cell) for cell in cells[1:7]]
+                if all(values):
+                    forms = dict(zip(form_keys, values))
+                    print("FOUND PRESENT FORMS:", forms)
+                    break
 
-                    value = (
-                        cells[1]
-                        .get_text(" ", strip=True)
-                        .split(",")[0]
-                        .split("[")[0]
-                        .replace("\xad", "")
-                        .strip()
-                    )
-
-                    if value:
-                        print("FOUND FORM:", first, "=", value)
-                        forms[pronouns[first]] = value
-
-            # Stop searching once we've found all six forms
-            if len(forms) >= 6:
+            if len(forms) == 6:
                 break
 
         print("FINAL WIKI FORMS:", forms)
@@ -211,35 +194,9 @@ def create_present_tense(lemma, person, gender, number):
             "Not a verb"
         )
 
-    # -------------------------------------------------------------------------
-    # STEP 2: SCRAPE WIKTIONARY IMMEDIATELY
-    # -------------------------------------------------------------------------
-    print("PRESENT CHECK WORD:", lemma_clean)
-
-    wiki = get_wiktionary_verb_present(lemma_clean)
-
-    print("PRESENT WIKI RESULT =", wiki)
-    print("WIKI =", wiki)
-
+     # Scrape only after the DB/grammar code has generated a candidate form.
+    wiki = None
     wiki_val = None
-
-    if wiki:
-
-
-        if wiki.get("aspect") == "perfective":
-            return (
-                f"The verb '{lemma}' is perfective and has no present tense.",
-                True,
-                bool(is_reflexive),
-                False,
-                None,
-                "Perfective verb - no present tense"
-            )
-
-        wiki_val = wiki.get("forms", {}).get(f"{person}{number}")
-
-        if wiki_val:
-            wiki_val = wiki_val.lower().strip()
 
     # -------------------------------------------------------------------------
     # -------------------------------------------------------------------------
@@ -286,7 +243,7 @@ def create_present_tense(lemma, person, gender, number):
         if is_perfective:
             return (
                 f"The verb '{lemma}' is perfective and has no present form.",
-                is_verified,
+                False,
                 bool(is_reflexive),
                 False,
                 None,
@@ -341,30 +298,56 @@ def create_present_tense(lemma, person, gender, number):
         stem = base_verb[:-cut_map.get(active_p, 2)]
         present_form = stem + patterns[active_p][f"{person}{number}"]
 
-    # -------------------------------------------------------------------------
-    # STEP 6: COMPARE, MISMATCH LOGGING, AND VERIFICATION OVERWRITE
-    # -------------------------------------------------------------------------
-    my_base_only = present_form.split(' ')[0] if is_reflexive else present_form
-    
-    if wiki_val and wiki_val.strip():
-        if my_base_only.lower().strip() != wiki_val:
-            person_num = f"{person}{number}"
-            log_verb_mismatch_to_gsheet(lemma, "Přítomný čas", person_num, None, my_base_only, wiki_val)
-            
-            # Use scraped wikitionary token
-            if is_reflexive:
-                present_form = f"{wiki_val} {is_reflexive}"
-            else:
-                present_form = wiki_val
-            is_verified = True
-    else:
-        # Re-attach particle if fallback was kept
-        if is_reflexive and not present_form.endswith(is_reflexive):
-            present_form = f"{present_form} {is_reflexive}"
+      # Attach a reflexive particle before comparing the generated base form.
+    if is_reflexive and not present_form.endswith(is_reflexive):
+        present_form = f"{present_form} {is_reflexive}"
+
+    # Wiktionary is scraped after generation and is the only source of W.
+    print("PRESENT CHECK WORD:", base_verb)
+    wiki = get_wiktionary_verb_present(base_verb)
+    print("PRESENT WIKI RESULT =", wiki)
+
+    wiki_verified = False
+    if wiki:
+        if wiki.get("aspect") == "perfective":
+            return (
+                f"The verb '{lemma}' is perfective and has no present tense.",
+                False,
+                bool(is_reflexive),
+                is_actually_irregular,
+                None,
+                "Perfective verb - no present tense"
+            )
+
+        wiki_val = wiki.get("forms", {}).get(f"{person}{number}")
+        if wiki_val:
+            wiki_val = wiki_val.strip()
+            generated_base = (
+                present_form.rsplit(" ", 1)[0]
+                if is_reflexive else present_form
+            )
+
+            # Exact equality only: no lowercasing and no Wiki replacement.
+            if generated_base != wiki_val:
+                log_verb_mismatch_to_gsheet(
+                    lemma,
+                    "Přítomný čas",
+                    f"{person}{number}",
+                    None,
+                    generated_base,
+                    wiki_val
+                )
+
+                present_form = (
+                    f"{wiki_val} {is_reflexive}"
+                    if is_reflexive else wiki_val
+                )
+
+            wiki_verified = True
 
     return (
         present_form,
-        is_verified,
+        wiki_verified,
         bool(is_reflexive),
         is_actually_irregular,
         wiki_val,
