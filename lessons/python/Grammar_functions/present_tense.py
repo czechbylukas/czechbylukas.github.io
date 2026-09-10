@@ -155,20 +155,12 @@ def log_verb_mismatch_to_gsheet(lemma, tense, form_key, gender, my_val, wiki_val
         print(f"Logging to Verb Sheet failed: {e}")
 
 def log_error(lemma, word_id, person_num, error_type):
-    """Appends a report to grammar_errors.csv inside the Grammar_functions folder."""
-    current_dir = os.path.dirname(os.path.abspath(__file__))
-    log_file = os.path.join(current_dir, "grammar_errors.csv")
-    
-    file_exists = os.path.isfile(log_file)
-    timestamp = datetime.now().strftime("%Y-%m-%d %H:%M")
-    headers = ['Timestamp', 'Lemma', 'Word_ID', 'Person_Number', 'Error_Type']
-    
-    with open(log_file, 'a', newline='', encoding='utf-8') as f:
-        writer = csv.writer(f)
-        if not file_exists:
-            writer.writerow(headers)
-        writer.writerow([timestamp, lemma, word_id, person_num, error_type])
-
+    """Logs missing override information without writing to the read-only app folder."""
+    print(
+        f"PRESENT-TENSE OVERRIDE MISSING | "
+        f"lemma={lemma} | word_id={word_id} | "
+        f"form={person_num} | error={error_type}"
+    )
 
 def create_present_tense(lemma, person, gender, number):
     """

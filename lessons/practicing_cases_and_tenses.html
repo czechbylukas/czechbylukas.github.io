@@ -508,7 +508,18 @@ async function callPythonAPI(event) {
             body: JSON.stringify(payload)
         });
         const data = await response.json();
-        
+       
+       
+       
+        if (!response.ok) {
+            console.error("❌ Server error details:", data);
+            alert(data.error || "Server error");
+            return;
+        }
+
+
+
+
         let finalWordToShow = data.result || "No result";
 
         // Wait for Wiktionary before displaying anything
