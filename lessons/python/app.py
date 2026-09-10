@@ -156,7 +156,7 @@ def process_word():
             if tense == 'past':
                 res, ver, refl, irr, wiki_val, wiki_debug = create_past_tense(word, person, gender, number)
             elif tense == 'present':
-                res_str, is_ver, refl, irr, wiki_val, wiki_debug = create_present_tense(
+                res, ver, refl, irr, wiki_val, wiki_debug = create_present_tense(
                     word, person, gender, number
                 )
             elif tense == 'future':

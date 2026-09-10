@@ -268,6 +268,7 @@ def create_present_tense(lemma, person, gender, number):
         if not row:
             cur.execute("SELECT id, is_irr, irr_type, pos, pattern_id, vid FROM words WHERE lemma = ?", (base_verb,))
             row = cur.fetchone()
+            
 
         if row and row[3] == 'verb':
             is_verified = True
@@ -283,7 +284,14 @@ def create_present_tense(lemma, person, gender, number):
 
         # Perfective blockade check executed right here
         if is_perfective:
-            return f"The verb '{lemma}' is perfective and has no present form.", is_verified, bool(is_reflexive), False
+            return (
+                f"The verb '{lemma}' is perfective and has no present form.",
+                is_verified,
+                bool(is_reflexive),
+                False,
+                None,
+                "Perfective verb - no present form"
+            )
             
         # -------------------------------------------------------------------------
         # STEP 4: RESOLVE FROM DATABASE IRREGULAR OVERRIDES
