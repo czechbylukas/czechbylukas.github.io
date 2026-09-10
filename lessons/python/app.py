@@ -1,6 +1,7 @@
 import requests
 from bs4 import BeautifulSoup
 import os
+import traceback
 import sqlite3
 from flask import Flask, jsonify, request, make_response
 from flask_cors import CORS
@@ -53,7 +54,11 @@ def scrape_wiktionary_table(word):
             if len(results) > 0:
                 return results
     except Exception as e:
-        print(f"Scraper error: {e}")
+        print(traceback.format_exc())
+        return jsonify({
+            "error": str(e),
+            "traceback": traceback.format_exc()
+        }), 500
     return None
 
 @app.route('/scrape_declension', methods=['GET'])
@@ -199,8 +204,13 @@ def process_word():
         return jsonify({"result": result_text, "status": status_badges})
 
     except Exception as e:
-        print(f"CRITICAL ERROR: {str(e)}")
-        return jsonify({"error": "Internal Server Error"}), 500
+        error_trace = traceback.format_exc()
+        print(error_trace)
+        return jsonify({
+            "error": str(e),
+            "traceback": error_trace
+        }), 500
+
 
 if __name__ == '__main__':
     port = int(os.environ.get('PORT', 5000))

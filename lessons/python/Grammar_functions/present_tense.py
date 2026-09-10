@@ -235,7 +235,9 @@ def create_present_tense(lemma, person, gender, number):
             irr_type = int(float(db_irr_type)) if db_irr_type is not None else 0
         else:
             is_verified = False
-            is_perfective = is_likely_perfective(base_verb)
+            # A spelling/word that is absent from the database must use the normal guess
+            # path. Only a database-confirmed perfective verb blocks present tense.
+            is_perfective = False
             is_irr = 0
             irr_type = 0
 
@@ -303,8 +305,9 @@ def create_present_tense(lemma, person, gender, number):
         present_form = f"{present_form} {is_reflexive}"
 
     # Wiktionary is scraped after generation and is the only source of W.
-    print("PRESENT CHECK WORD:", base_verb)
-    wiki = get_wiktionary_verb_present(base_verb)
+    wiki_lookup_lemma = lemma_clean if is_reflexive else base_verb
+    print("PRESENT CHECK WORD:", wiki_lookup_lemma)
+    wiki = get_wiktionary_verb_present(wiki_lookup_lemma)
     print("PRESENT WIKI RESULT =", wiki)
 
     wiki_verified = False
@@ -338,10 +341,15 @@ def create_present_tense(lemma, person, gender, number):
                     wiki_val
                 )
 
-                present_form = (
-                    f"{wiki_val} {is_reflexive}"
-                    if is_reflexive else wiki_val
-                )
+                if is_reflexive:
+                    # Wiktionary's reflexive present forms already include se/si.
+                    present_form = (
+                        wiki_val
+                        if wiki_val.endswith(f" {is_reflexive}")
+                        else f"{wiki_val} {is_reflexive}"
+                    )
+                else:
+                    present_form = wiki_val
 
             wiki_verified = True
 
