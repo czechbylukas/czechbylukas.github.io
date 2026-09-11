@@ -94,6 +94,7 @@ def scrape_conjugation():
         elif tense == 'future':
             res_str, vid, is_ver, irr = create_future_tense(word, person, gender, number)
             refl = "se" in word or "si" in word
+            wiki_val, wiki_debug = None, None
         else:
             return jsonify({"error": f"Invalid tense parameter: {tense}"}), 400
 
@@ -167,6 +168,7 @@ def process_word():
             elif tense == 'future':
                 res, vid, ver, irr = create_future_tense(word, person, gender, number)
                 status_badges.append(vid)
+                refl = "se" in word or "si" in word
             result_text = res
 
         elif mode == 'noun':
