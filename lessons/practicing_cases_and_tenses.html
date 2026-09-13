@@ -523,6 +523,8 @@ async function callPythonAPI(event) {
         let finalWordToShow = data.result || "No result";
 
         // Wait for Wiktionary before displaying anything
+        let wiki = null; // Declare in outer scope first
+
         if (data.result) {
             const caseVal = (mode === 'noun')
                 ? document.getElementById('case').value
@@ -536,7 +538,7 @@ async function callPythonAPI(event) {
             const personVal = document.getElementById('person').value;
             const genderVal = document.getElementById('gender').value;
 
-            let wiki = await verifyWithWiktionary(
+            wiki = await verifyWithWiktionary(
                 word,
                 data.result,
                 caseVal,
@@ -559,14 +561,18 @@ async function callPythonAPI(event) {
                 wBadge.className = 'badge-w';
                 wBadge.innerText = 'W';
                 document.getElementById('badges').prepend(wBadge);
+                
             }
             }
 
         // --- 3. FINAL VALIDATION ---
+        // Check if Wiktionary verified it (either via wBadge or the wiki object)
         const wBadgeFound = !!document.getElementById('badges').querySelector('.badge-w');
+        const isWikiVerified = (wiki && wiki.verified) || wBadgeFound;
         const isPythonUnverified = data.status && data.status.includes('UNVERIFIED');
 
-        if (isPythonUnverified && !wBadgeFound) {
+        // Only alert if BOTH Python and Wiktionary failed to verify the word
+        if (isPythonUnverified && !isWikiVerified) {
             alert("Word not found in database! Using grammar rules to guess.");
             updateNounHelperVisibility(mode, word, true);
         }
@@ -793,7 +799,8 @@ async function verifyWithWiktionary(word, myResult, caseValue, numberValue, mode
             errorSpan.innerText = "⚠️ Word could not be verified on Wiktionary.";
             badgesContainer.appendChild(errorSpan);
             
-            return; // Exit out safely
+            return { text: null, verified: false };
+            
         }
 
         let finalWikiResult = "";
@@ -849,20 +856,12 @@ async function verifyWithWiktionary(word, myResult, caseValue, numberValue, mode
             };
         }
 
-        return {
-            text: null,
-            verified: false
-        };
-        
+        return { text: null, verified: false };
     } catch (err) {
-    console.warn("Cloud Verification failed:", err.message);
-    return {
-        text: null,
-        verified: false
-    };
+        console.error(err);
+        return { text: null, verified: false }; // Safely report failure on fetch error
+    }
 }
-}
-
 
 
 
