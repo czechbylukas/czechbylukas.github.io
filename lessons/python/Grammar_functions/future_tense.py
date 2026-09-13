@@ -1,6 +1,5 @@
 import os
 import sqlite3
-import traceback
 import urllib.parse
 import requests
 from bs4 import BeautifulSoup
@@ -9,7 +8,9 @@ from .present_tense import create_present_tense, get_wiktionary_verb_present, lo
 
 
 def get_wiktionary_verb_future(lemma):
-    """Scrapes Czech Wiktionary specifically for future tense forms (Budoucí čas)."""
+    """
+    Scrapes Czech Wiktionary strictly for aspect and an explicit 'Budoucí čas' table row.
+    """
     if not lemma:
         return None
 
@@ -47,6 +48,7 @@ def get_wiktionary_verb_future(lemma):
                 .strip()
             )
 
+        # Look specifically for an explicit 'budoucí' row
         tables = soup.find_all("table")
         for table in tables:
             table_text = table.get_text(" ", strip=True).lower()
@@ -75,7 +77,9 @@ def get_wiktionary_verb_future(lemma):
 
 
 def create_future_tense(lemma, person, gender, number):
-    # 1. Cleaning
+    # -------------------------------------------------------------------------
+    # STEP 1: CLEANING
+    # -------------------------------------------------------------------------
     is_reflexive = (
         "se" if lemma.endswith(" se") else "si" if lemma.endswith(" si") else None
     )
@@ -86,39 +90,37 @@ def create_future_tense(lemma, person, gender, number):
     if not base_verb.endswith("t"):
         return "Not a verb", None, False, False
 
-    # 2. Database Lookup
+    # -------------------------------------------------------------------------
+    # STEP 2: DATABASE OVERRIDES & ASPECT LOOKUP
+    # -------------------------------------------------------------------------
     current_dir = os.path.dirname(os.path.abspath(__file__))
-    db_path = os.path.abspath(
-        os.path.join(current_dir, "..", "czech_master.db")
-    )
+    db_path = os.path.abspath(os.path.join(current_dir, "..", "czech_master.db"))
 
     conn = sqlite3.connect(db_path)
     cur = conn.cursor()
 
     is_verified = False
     is_actually_irregular = False
-    vid_clean = "unknown"
+    vid_clean = None
 
     try:
         cur.execute(
-            "SELECT id, is_irr, irr_type, vid, category FROM words WHERE lemma"
-            " = ?",
+            "SELECT id, is_irr, irr_type, vid FROM words WHERE lemma = ?",
             (lemma_clean,),
         )
         row = cur.fetchone()
 
         if not row:
             cur.execute(
-                "SELECT id, is_irr, irr_type, vid, category FROM words WHERE"
-                " lemma = ?",
+                "SELECT id, is_irr, irr_type, vid FROM words WHERE lemma = ?",
                 (base_verb,),
             )
             row = cur.fetchone()
 
         if row:
-            word_id, is_irr, irr_type, vid, category = row
+            word_id, is_irr, irr_type, vid = row
             is_verified = True
-            vid_clean = str(vid).strip().lower() if vid else "imperfective"
+            vid_clean = str(vid).strip().lower() if vid else None
 
             # Irregular overrides lookup
             if int(float(is_irr or 0)) == 1:
@@ -144,42 +146,75 @@ def create_future_tense(lemma, person, gender, number):
                 ):
                     res = str(over_row[0]).strip()
                     conn.close()
-                    return res, f"Aspect: {vid_clean}", True, True
-        else:
-            if is_likely_perfective(base_verb):
-                vid_clean = "perfective"
-            else:
-                vid_clean = "imperfective"
-
+                    return res, f"Aspect: {vid_clean or 'imperfective'}", True, True
         conn.close()
-    except Exception as e:
+    except Exception:
         if conn:
             conn.close()
-        return f"DB Error: {str(e)}", None, False, False
 
-    # 3. Wiktionary Verification (looks specifically for dedicated 'Budoucí čas' table)
+    # -------------------------------------------------------------------------
+    # STEP 3: WIKTIONARY CHECK FOR BUDOUCÍ ČAS
+    # -------------------------------------------------------------------------
     wiki_lookup_lemma = lemma_clean if is_reflexive else base_verb
     wiki = get_wiktionary_verb_future(wiki_lookup_lemma)
 
     if wiki:
-        if wiki.get("aspect") == "perfective":
-            vid_clean = "perfective"
+        is_verified = True
+        if wiki.get("aspect"):
+            vid_clean = wiki.get("aspect")
 
+        # RULE 1: If explicit 'budoucí' row is found, use it NO MATTER WHAT
         wiki_forms = wiki.get("forms", {})
         if person_num in wiki_forms and wiki_forms[person_num]:
-            wiki_future = wiki_forms[person_num]
+            wiki_future = wiki_forms[person_num].strip()
             if is_reflexive and not wiki_future.endswith(f" {is_reflexive}"):
                 wiki_future = f"{wiki_future} {is_reflexive}"
             return wiki_future, f"Aspect: {vid_clean}", True, is_actually_irregular
 
-    # 4. Perfective Fallback (Perfective verbs express future via present forms)
-    if vid_clean == "perfective":
-        res, ver, refl, irr, _, _ = create_present_tense(
-            lemma, person, gender, number
-        )
-        return res, f"Aspect: {vid_clean}", ver, irr
+    # -------------------------------------------------------------------------
+    # STEP 4: NO BUDOUCÍ ČAS FOUND -> FALLBACK BASED ON ASPECT
+    # -------------------------------------------------------------------------
+    if not vid_clean:
+        if is_likely_perfective(base_verb):
+            vid_clean = "perfective"
+        else:
+            vid_clean = "imperfective"
 
-    # 5. Default Imperfective Fallback (budu / budeš / bude / budeme / budete / budou + infinitive)
+    # RULE 2: If Dokonavé (perfective) -> Use the present form
+    if vid_clean == "perfective":
+        # Scrape present table via Wiktionary present function
+        wiki_pres = get_wiktionary_verb_present(wiki_lookup_lemma)
+        if wiki_pres and wiki_pres.get("forms", {}).get(person_num):
+            pres_val = wiki_pres["forms"][person_num].strip()
+            if is_reflexive and not pres_val.endswith(f" {is_reflexive}"):
+                pres_val = f"{pres_val} {is_reflexive}"
+            return pres_val, f"Aspect: {vid_clean}", True, is_actually_irregular
+
+        # Grammatical fallback for present form if Wiktionary scraping fails
+        patterns = {
+            'dělat':   {'1S':'ám',  '2S':'áš',  '3S':'á',   '1P':'áme',  '2P':'áte',  '3P':'ají'},
+            'prosit':  {'1S':'ím',  '2S':'íš',  '3S':'í',   '1P':'íme',  '2P':'íte',  '3P':'í'},
+            'sázet':   {'1S':'ím',  '2S':'íš',  '3S':'í',   '1P':'íme',  '2P':'íte',  '3P':'ejí'}, 
+            'děkovat': {'1S':'uji', '2S':'uješ','3S':'uje', '1P':'ujeme','2P':'ujete','3P':'ují'},
+            'tisknout':{'1S':'u',   '2S':'neš', '3S':'ne',  '1P':'neme', '2P':'nete', '3P':'nou'},
+            'nést':    {'1S':'u',   '2S':'eš',  '3S':'e',   '1P':'eme',  '2P':'ete',  '3P':'ou'}
+        }
+        cut_map = {'dělat': 2, 'prosit': 2, 'sázet': 2, 'děkovat': 4, 'tisknout': 4, 'nést': 2}
+        
+        if base_verb.endswith("ovat"): active_p = 'děkovat'
+        elif base_verb.endswith("nout"): active_p = 'tisknout'
+        elif base_verb.endswith("at"): active_p = 'dělat'
+        elif any(base_verb.endswith(s) for s in ["it", "ít", "et", "ět"]): active_p = 'prosit'
+        else: active_p = 'nést'
+
+        stem = base_verb[:-cut_map.get(active_p, 2)]
+        fut_form = stem + patterns[active_p][person_num]
+        if is_reflexive:
+            fut_form = f"{fut_form} {is_reflexive}"
+            
+        return fut_form, f"Aspect: {vid_clean}", is_verified, False
+
+    # RULE 3: If Nedokonavé (imperfective) -> Use budu / budeš / ... + infinitive
     aux_map = {
         "1S": "budu",
         "2S": "budeš",

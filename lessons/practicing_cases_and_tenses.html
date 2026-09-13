@@ -323,9 +323,9 @@
     <div id="result-card">
         <span id="result-text" onclick="speakCzech(this.innerText)" style="cursor: pointer;" title="Click to replay"></span>
         <div id="badges" style="margin-bottom: 10px;"></div>
-        <button type="button" onclick="resetUI()">Clear</button>
+        <button type="button" class="btn-clear" onclick="resetUI()">Clear</button>
     </div>
-</div> </main> <div id="enable-app-guide"></div>
+</main> <div id="enable-app-guide"></div>
 
 
 
@@ -334,14 +334,16 @@
         <summary style="font-weight: bold; color: #64748b; outline: none;">Technical Details & Tool Information</summary>
         <div style="margin-top: 15px; line-height: 1.6;">
             <h2 style="font-size: 1rem; color: #64748b;">Why use the HáCZech Grammar Engine?</h2>
-            <p>Czech grammar is notoriously difficult due to its seven cases and complex declension patterns. Our engine is connected to a high-performance Python API and a database of tens of thousands of verified entries. Whether you are a student at A1 level struggling with the <strong>Accusative case</strong>, or a native speaker verifying an <strong>irregular Instrumental ending</strong>, this tool provides instant accuracy.</p>
+            <p>Czech grammar is notoriously complex, with seven cases, intricate noun declensions, and multi-tense verb conjugations. The HáCZech engine pairs custom linguistic rule sets with automated real-time verification against <strong>Wiktionary</strong>. Every generated form is dynamically cross-referenced against live Wiktionary tables containing over <strong>160,000+ verified Czech entries</strong> (including tens of thousands of nouns and verbs). If a match is found, the result earns a green <strong>VERIFIED</strong> Wiktionary badge. If a rare or regional word isn't listed, our engine falls back on algorithmic rule guessing to deliver an educated form tagged as <strong>UNVERIFIED - GUESSED</strong>—giving you total transparency.</p>
             
             <h3 style="font-size: 0.9rem; color: #64748b; margin-top: 10px;">Key Features:</h3>
             <ul style="list-style: none; padding: 0;">
-                <li>✔ <strong>Declension:</strong> Nouns, adjectives, and pronouns across all 7 Czech cases.</li>
-                <li>✔ <strong>Conjugation:</strong> Complete verb forms for Past, Present, and Future tenses.</li>
-                <li>✔ <strong>Audio:</strong> High-quality text-to-speech for correct phonetics.</li>
-                <li>✔ <strong>Wiktionary Integration:</strong> Real-time cross-referencing for guaranteed precision.</li>
+                <li>✔ <strong>Live Wiktionary Cross-Referencing:</strong> Validates inflection tables against a database of 160,000+ Czech entries.</li>
+                <li>✔ <strong>Algorithmic Fallback Engine:</strong> Intelligently guesses conjugations/declensions for rare words missing from Wiktionary.</li>
+                <li>✔ <strong>Transparent Status Badges:</strong> Instantly indicates whether a result is verified via Wiktionary, an unverified guess, irregular, or tied to a pattern.</li>
+                <li>✔ <strong>Full Declension Engine:</strong> Complete 7-case declension for Czech nouns, adjectives, pronouns, and numerals (Singular & Plural).</li>
+                <li>✔ <strong>Complete Conjugation Engine:</strong> Accurately generates Present, Past, and Future verb tenses (including reflexive and irregular forms).</li>
+                <li>✔ <strong>Audio Pronunciation:</strong> Built-in high-quality text-to-speech to master correct Czech phonetics and stress.</li>
             </ul>
         </div>
     </details>
@@ -705,7 +707,9 @@ function speakCzech(text) {
     if (!text) return;
 
     // Check if the text is an informational error message instead of a conjugable word
-    if (text.includes("is perfective and has no present form") || text.includes("Server Connection Failed")) {
+    if (
+        text.startsWith("Not a Verb") ||
+        text.includes("is perfective and has no present form") || text.includes("Server Connection Failed")) {
         console.log("🤐 Skipping audio playback for status message:", text);
         return;
     }
@@ -839,37 +843,26 @@ async function verifyWithWiktionary(word, myResult, caseValue, numberValue, mode
         }
 
         if (finalWikiResult) {
-            // Clean both strings to lowercase and trim spaces to ensure accurate comparison
-            const cleanMyResult = myResult.toLowerCase().trim();
-            const cleanWikiBase = wikiBaseWord.toLowerCase().trim();
+                const cleanMyResult = myResult.toLowerCase().trim();
+                const cleanWikiBase = wikiBaseWord.toLowerCase().trim();
 
-            // Check if your engine's result contains or ends with the Wiktionary base word
-            if (!cleanMyResult.endsWith(cleanWikiBase) && !cleanMyResult.includes(cleanWikiBase)) {
-                logMismatchToSheet(word, logLabel, numberValue, myResult, wikiBaseWord);
+                if (!cleanMyResult.endsWith(cleanWikiBase) && !cleanMyResult.includes(cleanWikiBase)) {
+                    logMismatchToSheet(word, logLabel, numberValue, myResult, wikiBaseWord);
+                }
+
+                warningElement.style.display = 'none';
+
+                return {
+                    text: finalWikiResult,
+                    verified: true
+                };
             }
-
-            warningElement.style.display = 'none';
-
-            return {
-                text: finalWikiResult,
-                verified: true
-            };
+        } catch (err) {
+            console.error("Wiktionary verification failed:", err);
+            return { text: null, verified: false };
         }
-
-        return { text: null, verified: false };
-    } catch (err) {
-        console.error(err);
-        return { text: null, verified: false }; // Safely report failure on fetch error
     }
-}
-
-
-
-
-
-
-
-
 </script>
+
 </body>
 </html>

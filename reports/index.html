@@ -83,7 +83,7 @@
                oninput="processUsers()" 
                autocomplete="off">
     </div>
-</div>
+
 
 
         </div>
@@ -94,6 +94,7 @@
                     <th onclick="setSort('name')">Name ↕</th>
                     <th onclick="setSort('email')">Email ↕</th>
                     <th onclick="setSort('totalSeconds')">Total Usage ↕</th> 
+                    <th onclick="setSort('weekSeconds')">Past Week Usage ↕</th>
                     <th>Paid Status</th>
                     <th>Actions</th>
                 </tr>
@@ -179,6 +180,13 @@
 
     
     function processUsers() {
+
+    const last7Days = [];
+        for (let i = 0; i < 7; i++) {
+            let d = new Date();
+            d.setDate(d.getDate() - i);
+            last7Days.push(d.toISOString().split('T')[0]);
+        }
     // Update this line to match the new ID
     const searchTerm = document.getElementById('main-search-filter').value.toLowerCase();
     
@@ -193,28 +201,39 @@
         for (let id in allUsersRaw) {
             let u = allUsersRaw[id];
             let totalSecs = 0;
-            
-            // NaN FIX: Use (val || 0)
+            let weekSecs = 0;
+
+            // Prefer detailed_usage; if it exists, sum it up
             if (u.detailed_usage) {
-                Object.values(u.detailed_usage).forEach(day => {
+                Object.entries(u.detailed_usage).forEach(([dateStr, day]) => {
                     if (day) {
+                        let dayTotal = 0;
                         Object.values(day).forEach(group => {
                             if (group) {
-                                Object.values(group).forEach(val => totalSecs += (Number(val) || 0));
+                                Object.values(group).forEach(val => dayTotal += (Number(val) || 0));
                             }
                         });
+                        totalSecs += dayTotal;
+                        if (last7Days.includes(dateStr)) {
+                            weekSecs += dayTotal;
+                        }
                     }
                 });
-            }
-            if (u.usage) {
-                Object.values(u.usage).forEach(day => {
+            } else if (u.usage) { 
+                // Use legacy usage only as a fallback if detailed_usage isn't present
+                Object.entries(u.usage).forEach(([dateStr, day]) => {
                     if (day) {
-                        Object.values(day).forEach(val => totalSecs += (Number(val) || 0));
+                        let dayTotal = 0;
+                        Object.values(day).forEach(val => dayTotal += (Number(val) || 0));
+                        totalSecs += dayTotal;
+                        if (last7Days.includes(dateStr)) {
+                            weekSecs += dayTotal;
+                        }
                     }
                 });
             }
 
-            usersArray.push({ id, ...u, totalSeconds: totalSecs });
+            usersArray.push({ id, ...u, totalSeconds: totalSecs, weekSeconds: weekSecs });
         }
 
         // 1. APPLY FILTERS
@@ -255,12 +274,14 @@
         tbody.innerHTML = '';
         users.forEach(u => {
             const isPaid = u.status === 'paid';
-            const mins = Math.floor(u.totalSeconds / 60);
+            const totalMins = Math.floor(u.totalSeconds / 60);
+            const weekMins = Math.floor(u.weekSeconds / 60);       
             tbody.innerHTML += `
                 <tr>
                     <td><strong>${u.name || 'N/A'}</strong></td>
                     <td>${u.email}</td>
-                    <td>${mins} min</td>
+                    <td>${totalMins} min</td>
+                    <td>${weekMins} min</td> <!-- ADDED THIS MISSING TD -->
                     <td>
                         <input type="checkbox" ${isPaid ? 'checked' : ''} onchange="togglePaidStatus('${u.id}', this.checked)">
                         <span style="color:${isPaid?'#27ae60':'#e67e22'}">${u.status || 'pending'}</span>

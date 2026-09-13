@@ -186,7 +186,7 @@ def create_past_tense(lemma, person, gender, number):
 
     if not base_verb.endswith("t"):
         return (
-                "Verb not known (doesn't end in 't')",
+                "Not a Verb (doesn't end in 't')",
                 False,
                 bool(is_reflexive),
                 False,

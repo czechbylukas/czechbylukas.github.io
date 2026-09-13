@@ -167,7 +167,8 @@ def process_word():
                 )
             elif tense == 'future':
                 res, vid, ver, irr = create_future_tense(word, person, gender, number)
-                status_badges.append(vid)
+                if vid:
+                    status_badges.append(vid)
                 refl = "se" in word or "si" in word
             result_text = res
 

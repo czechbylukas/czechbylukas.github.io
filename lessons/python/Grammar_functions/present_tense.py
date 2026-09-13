@@ -237,7 +237,7 @@ def create_present_tense(lemma, person, gender, number):
         if is_perfective:
             return (
                 f"The verb '{lemma}' is perfective and has no present form.",
-                False,
+                True,  # <-- Change False to True here as well
                 bool(is_reflexive),
                 False,
                 None,
@@ -306,8 +306,8 @@ def create_present_tense(lemma, person, gender, number):
     if wiki:
         if wiki.get("aspect") == "perfective":
             return (
-                f"The verb '{lemma}' is perfective and has no present tense.",
-                False,
+                f"The verb '{lemma}' is perfective and has no present form.",
+                True,  # <-- Change False to True so frontend knows Wiktionary verified this response!
                 bool(is_reflexive),
                 is_actually_irregular,
                 None,
