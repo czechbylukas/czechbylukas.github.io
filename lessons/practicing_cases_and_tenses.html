@@ -630,6 +630,7 @@ function showResult(text, statusArray) {
     });
 }
 
+
 function resetUI() {
     document.getElementById('result-card').style.display = 'none';
     document.getElementById('grammar_query').value = '';
@@ -695,6 +696,13 @@ function insertChar(char) {
 
 
 function speakCzech(text) {
+    if (!text) return;
+
+    // Check if the text is an informational error message instead of a conjugable word
+    if (text.includes("is perfective and has no present form") || text.includes("Server Connection Failed")) {
+        console.log("🤐 Skipping audio playback for status message:", text);
+        return;
+    }
     console.log("🔊 Speaking:", JSON.stringify(text));
     const isAudioOn = document.getElementById('audio-toggle').checked;
     if (!isAudioOn || !window.speechSynthesis) return;
