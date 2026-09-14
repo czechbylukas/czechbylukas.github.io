@@ -11,7 +11,7 @@ from Grammar_functions.past_tense import create_past_tense
 from Grammar_functions.present_tense import create_present_tense
 from Grammar_functions.future_tense import create_future_tense
 from Grammar_functions.noun_declension import declension_noun
-from Grammar_functions.adjective_declension import declension_adjective
+# from Grammar_functions.adjective_declension import declension_adjective
 # from Grammar_functions.declension_pronoun_number import declension_pronoun_number
 
 app = Flask(__name__)
