@@ -277,13 +277,13 @@
 
         <div id="noun-options" class="row hidden-menu">
             <select id="case">
-                <option value="1">1. Nominativ</option>
-                <option value="2">2. Genitiv</option>
-                <option value="3">3. Dativ</option>
-                <option value="4">4. Akuzativ</option>
-                <option value="5">5. Vokativ</option>
-                <option value="6">6. Lokál</option>
-                <option value="7">7. Instrumentál</option>
+                <option value="1">1. case (Nominativ)</option>
+                <option value="2">2. case (Genitiv)</option>
+                <option value="3">3. case (Dativ)</option>
+                <option value="4">4. case (Akuzativ)</option>
+                <option value="5">5. case (Vokativ)</option>
+                <option value="6">6. case (Lokál)</option>
+                <option value="7">7. case (Instrumentál)</option>
             </select>
             <select id="noun-number">
                 <option value="S">Singular</option>
@@ -672,8 +672,8 @@ function updatePersonLabels() {
     const isPlural = document.getElementById('verb-number').value === 'P';
     const personSelect = document.getElementById('person');
     const labels = isPlural 
-        ? ["1. Person (my)", "2. Person (vy)", "3. Person (oni/ony/ona)"] 
-        : ["1. Person (já)", "2. Person (ty)", "3. Person (on/ona/ono)"];
+        ? ["my = we (1. Person)", "vy = you all (2. Person)", "oni/ony/ona  = they (3. Person)"] 
+        : ["já = I (1. Person)", "ty = you (2. Person)", "on/ona/ono = he/she/it (3. Person)"];
 
     Array.from(personSelect.options).forEach((opt, i) => {
         opt.text = labels[i];

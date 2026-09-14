@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8">
+  <title>Czech Question Generator | Practice Speaking (A0-A1) | HáCZech</title>
+  <meta name="description" content="Generate random Czech questions to practice your speaking and conversation skills. Perfect for A0 and A1 beginners. Over 100+ common Czech questions.">
+  <meta name="keywords" content="Czech question generator, practice Czech speaking, Czech conversation starters, learn Czech A1, Czech questions for beginners, generátor otázek">
+    
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Random Czech Question Generator | HáCZech">
+  <meta property="og:description" content="Improve your Czech speaking skills with random questions. Great for solo practice or language exchange!">
+  <meta property="og:url" content="https://www.hackczech.com/practice/question-generator.html">
+
+<style>body:not(.logged-in) .content-layout { display: none; }</style>
+<script>window.isLoginOnlyPage = true;</script>
+
+<script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-auth-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-database-compat.js"></script>
+
+<script src="../../scripts-header.js"></script>
+
+  <!-- ✅ All styles hardcoded directly here -->
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #eaf8ea; /* light green background */
+      color: #222;
+      margin: 0;
+      padding: 20px;
+    }
+
+    h1, h2 {
+      color: #005500;
+      text-align: center;
+    }
+
+    button {
+      background-color: #4CAF50;
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      font-size: 16px;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: background-color 0.3s;
+      display: block;
+      margin: 20px auto;
+    }
+
+    button:hover {
+      background-color: #45a049;
+    }
+
+    button:disabled {
+      background-color: #a5d6a7;
+      cursor: not-allowed;
+    }
+
+    .container {
+      max-width: 600px;
+      margin: 0 auto;
+      background: white;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+      padding: 20px;
+    }
+
+    textarea {
+      width: 100%;
+      height: 80px;
+      padding: 10px;
+      font-size: 16px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      box-sizing: border-box;
+      resize: vertical;
+    }
+
+    #output {
+      font-size: 1.2em;
+      text-align: center;
+      margin-top: 20px;
+      min-height: 2em;
+      font-weight: bold;
+      color: #005500;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="container">
+    <main>
+      <h1>Question Generator (A0)</h1>
+      <p style="text-align:center;">Type what you did yesterday in Czech (e.g., <i>"Včera jsem pracoval."</i>):</p>
+      
+      <!-- Input text area for user activity -->
+      <textarea id="userInput" placeholder="Včera jsem..."></textarea>
+      
+      <button id="submitBtn" onclick="handleGenerateQuestion()">Show question</button>
+      <div id="output"></div>
+    </main>
+
+  <div style="overflow: auto; margin-top: 20px;">
+  <a href="../../index.html">
+    <button style="float: left; background-color: #4CAF50; color: white; border: none; padding: 10px 20px; font-size: 16px; border-radius: 5px; cursor: pointer;">
+      🏠 Main Page
+    </button>
+  </a>
+</div>
+
+  </div>
+
+  <!-- ✅ Everything defined in this page -->
+  <script>
+    // Local definition of call_GPT in case it isn't in scripts-header.js
+    async function call_GPT(userInput, systemPrompt) {
+      // ⚠️ Add your OpenAI API key or Proxy Endpoint here
+      const API_KEY = "YOUR_OPENAI_API_KEY"; 
+
+      const response = await fetch("https://api.openai.com/v1/chat/completions", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "Authorization": `Bearer ${API_KEY}`
+        },
+        body: JSON.stringify({
+          model: "gpt-4o-mini",
+          messages: [
+            { role: "system", content: systemPrompt },
+            { role: "user", content: userInput }
+          ]
+        })
+      });
+
+      if (!response.ok) {
+        throw new Error("Failed to call ChatGPT API");
+      }
+
+      const data = await response.json();
+      return data.choices[0].message.content.trim();
+    }
+
+    // Triggered when button is clicked
+    async function handleGenerateQuestion() {
+      const userInput = document.getElementById("userInput").value.trim();
+      const outputDiv = document.getElementById("output");
+      const submitBtn = document.getElementById("submitBtn");
+
+      if (!userInput) {
+        outputDiv.innerHTML = "<span style='color:red;'>Napiš prosím, co jsi včera dělal/a!</span>";
+        return;
+      }
+
+      outputDiv.innerHTML = "<em>Přemýšlím...</em>";
+      submitBtn.disabled = true;
+
+      const systemPrompt = `You are a helpful Czech language tutor for beginners (A0-A1). The user will input what they did yesterday in Czech. Ask ONE short, direct, follow-up question in Czech asking for details (e.g., Kde?, S kým?, Kdy?). Output ONLY the Czech question, nothing else.`;
+
+      try {
+        const question = await call_GPT(userInput, systemPrompt);
+        outputDiv.innerHTML = `<p>${question}</p>`;
+      } catch (error) {
+        console.error("Error:", error);
+        outputDiv.innerHTML = "<span style='color:red;'>Něco se nepodařilo. Zkuste to znovu.</span>";
+      } finally {
+        submitBtn.disabled = false;
+      }
+    }
+  </script>
+
+<section style="max-width: 1000px; margin: 40px auto; padding: 0 20px; text-align: left;">
+    <details style="cursor: pointer; color: #94a3b8; font-size: 0.85rem; border: 1px solid #edf2f7; padding: 10px; border-radius: 8px;">
+        <summary style="font-weight: bold; color: #64748b; outline: none;">Training Guide: Mastering Czech Conversation</summary>
+        <div style="margin-top: 15px; line-height: 1.6;">
+            <h2 style="font-size: 1rem; color: #64748b;">Active Speaking: From Grammar to Reality</h2>
+            <p>At the A0-A1 level, the biggest hurdle is <strong>spontaneous reaction</strong>. This generator helps you move beyond static textbook exercises by forcing you to process and answer questions in real-time.</p>
+            
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; margin-top: 15px;">
+                <div>
+                    <h3 style="font-size: 0.9rem; color: #64748b; margin-bottom: 5px;">The Power of "Wh-" Questions:</h3>
+                    <p style="margin: 0;">Learn to distinguish between <strong>Kdo</strong> (Who), <strong>Kde</strong> (Where), <strong>Kdy</strong> (When), and <strong>Kam</strong> (Where to). Recognizing the question word is 50% of the answer!</p>
+                </div>
+                <div>
+                    <h3 style="font-size: 0.9rem; color: #64748b; margin-bottom: 5px;">Case Recognition:</h3>
+                    <p style="margin: 0;">Many questions here use prepositions that trigger specific cases (e.g., <em>S kým?</em> - Instrumental, <em>O čem?</em> - Locative). Listen for the ending to know which form to use in your reply.</p>
+                </div>
+            </div>
+
+            <h3 style="font-size: 0.9rem; color: #64748b; margin-top: 20px;">Optimization Strategy:</h3>
+            <ul style="list-style: none; padding: 0;">
+                <li>✔ <strong>Step 1:</strong> Read the question out loud to practice your <strong>výslovnost</strong> (pronunciation).</li>
+                <li>✔ <strong>Step 2:</strong> Try to answer with a full sentence, not just one word. (e.g., instead of "V Praze," say "Bydlím v Praze.")</li>
+            </ul>
+        </div>
+    </details>
+</section>
+
+<div id="footer-placeholder"></div>
+
+<script>
+  // Load footer.html dynamically
+  fetch("/footer.html")
+    .then(response => response.text())
+    .then(data => {
+      document.getElementById("footer-placeholder").innerHTML = data;
+    })
+    .catch(error => console.error("Error loading footer:", error));
+</script>
+
+</body>
+</html>
