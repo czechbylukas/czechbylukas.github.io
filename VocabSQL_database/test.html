@@ -209,6 +209,7 @@
 
 
 
+
     </aside>
 
     <div class="test-box" style="margin: 0;">
@@ -423,7 +424,7 @@ sortedRows.forEach(row => {
     const opt = document.createElement('option');
     opt.value = `${levelVal}|${lessonVal}`;
     // Removes the prefix (e.g., "01 ") from the lesson name for display
-    opt.innerText = lessonVal.substring(3); 
+    opt.innerText = lessonVal;
     groupElement.appendChild(opt);
 });
 
@@ -462,6 +463,7 @@ sortedRows.forEach(row => {
         console.error("Database Error:", err); 
     }
 }
+
 
 
 

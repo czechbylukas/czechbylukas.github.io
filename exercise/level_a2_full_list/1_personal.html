@@ -154,7 +154,7 @@
       const db = new SQL.Database(new Uint8Array(buf));
 
       // Updated query for Locative Case
-      const query = "SELECT lemma, trans_en, trans_de, trans_es FROM words WHERE level = 'A2' AND lesson = '050 Osobní údaje (kompletní)'";
+      const query = "SELECT lemma, trans_en, trans_de, trans_es FROM words WHERE level = 'A2' AND lesson = '030 Osobní údaje (kompletní)'";
       const results = db.exec(query);
 
       if (results.length > 0) {
