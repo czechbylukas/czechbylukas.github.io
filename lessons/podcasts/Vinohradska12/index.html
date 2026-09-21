@@ -22,7 +22,7 @@
         .content-card { 
             background: white; padding: 30px; border-radius: 15px; 
             box-shadow: 0 4px 15px rgba(0,0,0,0.1); margin-bottom: 20px; text-align: left;
-            overflow: hidden; /* Prevents visual spill */
+            overflow: hidden;
         }
 
         .podcast-select { 
@@ -48,7 +48,6 @@
         }
 
         /* --- FIXED ITEM ROW LAYOUT --- */
-
         .item-row { 
             display: flex; 
             flex-direction: column; 
@@ -57,10 +56,17 @@
             gap: 12px; 
         }
 
+        .item-row-vertical {
+            padding: 12px 0;
+            border-bottom: 1px solid #edf2f7;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
         @media (min-width: 600px) {
             .item-row { 
                 display: grid;
-                /* auto vlevo dá textu dostatek prostoru, min-content vpravo udrží výběr/rádio */
                 grid-template-columns: 1fr min-content; 
                 align-items: center;
                 gap: 20px;
@@ -68,15 +74,14 @@
         }
 
         .item-right {
-            min-width: 220px; /* Udrží rozevírací seznamy dostatečně široké */
+            min-width: 220px;
         }
 
-        .item-row:last-child { border-bottom: none; }
+        .item-row:last-child, .item-row-vertical:last-child { border-bottom: none; }
         .item-left { font-weight: 500; line-height: 1.4; }
 
-        /* --- INPUT & SELECT CONTROLS FIX --- */
         .ex-select, .ex-input {
-            width: 100%; /* Fills the 280px grid column cleanly */
+            width: 100%;
             box-sizing: border-box;
             padding: 8px 12px; 
             border-radius: 6px; 
@@ -85,7 +90,7 @@
             outline: none; 
             transition: 0.2s; 
             background-color: #fff;
-            text-overflow: ellipsis; /* Prevents option overflow */
+            text-overflow: ellipsis;
         }
         .ex-select:focus, .ex-input:focus { border-color: #2f52b5; box-shadow: 0 0 0 2px rgba(47,82,181,0.2); }
 
@@ -116,12 +121,13 @@
 </head>
 <body class="home">
 
-<header style="display: flex; align-items: center; justify-content: space-between; padding: 10px 20px; background: white; border-bottom: 2px solid #2f52b5; min-height: 60px;">
+<header style="display: flex; align-items: center; justify-content: space-between; padding: 10px 20px; background: white; border-bottom: 2px solid #2f52b5; min-height: 60px; position: relative;">
     <div style="flex: 1;"></div> 
     <div style="flex: 2; text-align: center;">
         <h1 style="margin: 0; font-size: 1.4rem; color: #2f52b5; white-space: nowrap;">Vinohradská 12 Podcast Practice</h1>
     </div>
     <div style="flex: 1; display: flex; justify-content: flex-end; align-items: center; gap: 12px;">
+        <button id="admin-console-btn" style="display: none; background: #f39c12; color: white; border: none; padding: 8px 15px; border-radius: 5px; cursor: pointer; font-weight: bold; z-index: 100;" onclick="window.location.href='/lessons/podcasts/Vinohradska12/admin-converter.html'">Admin Converter</button>
         <div id="language-selector-container"></div>
         <div id="auth-status-container"></div>
     </div>
@@ -171,11 +177,22 @@
 
 <div id="footer-placeholder"></div>
 
-
 <script>
     let currentEpisodeData = null;
     let selectedLevel = 'B1';
     let myChart = null;
+
+    // --- Firebase Auth Admin Verification ---
+    if (typeof firebase !== 'undefined' && firebase.auth) {
+        firebase.auth().onAuthStateChanged((user) => {
+            const adminBtn = document.getElementById('admin-console-btn');
+            if (user && user.email === 'lukas@hackczech.com') {
+                if (adminBtn) adminBtn.style.display = 'inline-block';
+            } else {
+                if (adminBtn) adminBtn.style.display = 'none';
+            }
+        });
+    }
 
     fetch("/sidebar/sidebar.html").then(r => r.text()).then(d => { document.getElementById("sidebar-placeholder").innerHTML = d; });
     fetch("../../../../footer.html").then(r => r.text()).then(d => { document.getElementById("footer-placeholder").innerHTML = d; });
@@ -279,25 +296,25 @@
             const items = ex.items || [];
             const sections = ex.sections || [];
 
-            // Complex exercise layout (Exercise 5 or items with explicit sections)
             if (exIdx === 4 || (ex.title && ex.title.includes("Cvičení 5")) || sections.length > 0) {
                 html += `<form id="ex-form-${exIdx}">`;
                 let currentSectionHeader = '';
                 
                 items.forEach((item, itemIdx) => {
                     const promptText = typeof item === 'string' ? item : item.prompt;
-                    const itemType = (typeof item === 'object' && item.type) ? item.type : (item.options && item.is_multiselect ? 'checkbox' : (item.options ? 'select' : 'radio'));
                     
+                    const isCheckbox = (typeof item === 'object' && (item.type === 'checkbox' || item.is_multiselect || item.max_select));
+                    const isSelect = (typeof item === 'object' && item.options && item.options.length > 0 && !isCheckbox);
+
                     if (item.section_title && item.section_title !== currentSectionHeader) {
                         currentSectionHeader = item.section_title;
-                        html += `<h4 style="color: #2f52b5; margin-top: 20px; border-bottom: 1px dashed #cbd5e1; padding-bottom: 5px;">${currentSectionHeader}</h4>`;
+                        html += `<h4 style="color: #2f52b5; margin-top: 25px; margin-bottom: 12px; border-bottom: 2px solid #e2e8f0; padding-bottom: 6px;">${currentSectionHeader}</h4>`;
                     }
 
-                    html += `<div class="item-row" style="grid-template-columns: 1fr auto; align-items: flex-start;">`;
-                    html += `<div class="item-left"><strong>${itemIdx + 1}.</strong> ${promptText}`;
-
-                    if (itemType === 'checkbox' || (typeof item === 'object' && (item.is_multiselect || item.max_select))) {
-                        html += `<div class="checkbox-group" style="margin-top: 10px; display: flex; flex-direction: column; gap: 6px;">`;
+                    if (isCheckbox) {
+                        html += `<div class="item-row-vertical">`;
+                        html += `<div><strong>${itemIdx + 1}.</strong> ${promptText}</div>`;
+                        html += `<div class="checkbox-group" style="display: flex; flex-direction: column; gap: 8px; margin-top: 6px; margin-left: 10px;">`;
                         (item.options || []).forEach((opt, optIdx) => {
                             const letter = String.fromCharCode(97 + optIdx);
                             const cleanOptText = typeof opt === 'object' ? opt.text : opt;
@@ -308,20 +325,25 @@
                                 </label>`;
                         });
                         html += `</div>`;
-                        html += `<div class="feedback-text" id="fb-${exIdx}-${itemIdx}"></div></div></div>`;
+                        html += `<div class="feedback-text" id="fb-${exIdx}-${itemIdx}"></div></div>`;
                     } 
-                    else if (typeof item === 'object' && item.options && item.options.length > 0) {
-                        html += `</div><div class="item-right">`;
-                        html += `<select class="ex-select" name="item-${itemIdx}"><option value="">-- Vyber možnost --</option>`;
+                    else if (isSelect) {
+                        html += `<div class="item-row-vertical">`;
+                        html += `<div style="line-height: 1.5;"><strong>${itemIdx + 1}.</strong> ${promptText}</div>`;
+                        html += `<div style="margin-top: 8px;">`;
+                        html += `<select class="ex-select" name="item-${itemIdx}" style="max-width: 100%; width: 100%;"><option value="">-- Vyber možnost --</option>`;
                         item.options.forEach((opt, optIdx) => {
                             const letter = String.fromCharCode(97 + optIdx);
                             html += `<option value="${letter}">${letter}) ${opt}</option>`;
                         });
                         html += `</select>`;
-                        html += `<div class="feedback-text" id="fb-${exIdx}-${itemIdx}"></div></div></div>`;
+                        html += `</div>`;
+                        html += `<div class="feedback-text" id="fb-${exIdx}-${itemIdx}"></div></div>`;
                     } 
                     else {
-                        html += `</div><div class="item-right">`;
+                        html += `<div class="item-row">`;
+                        html += `<div class="item-left"><strong>${itemIdx + 1}.</strong> ${promptText}</div>`;
+                        html += `<div class="item-right">`;
                         html += `<div class="radio-group" id="input-${exIdx}-${itemIdx}">
                             <label class="radio-label"><input type="radio" name="item-${itemIdx}" value="Ano"> Ano</label>
                             <label class="radio-label"><input type="radio" name="item-${itemIdx}" value="Ne"> Ne</label>
@@ -332,7 +354,6 @@
 
                 html += `</form>`;
             } else {
-                // Standard Exercises 1-4
                 let sharedExerciseOptions = [];
                 items.forEach(it => {
                     if (typeof it === 'object' && it.options && it.options.length > sharedExerciseOptions.length) {
@@ -435,7 +456,6 @@
                 let isCorrect = false;
                 let displayExpected = "";
 
-                // A) PŘÍPAD PRO CHECKBOXY (MULTISELECT)
                 if (checkboxes.length > 0 || Array.isArray(expectedVal)) {
                     const userArr = Array.from(checkboxes).map(cb => cb.value.toLowerCase()).sort();
 
@@ -448,11 +468,9 @@
 
                     displayExpected = expectedArr.join(',');
                     
-                    // Porovnání dvou polí hodu/délky
                     isCorrect = userArr.length === expectedArr.length && 
                                 userArr.every((val, index) => val === expectedArr[index]);
                 } 
-                // B) PŘÍPAD PRO SINGLESELECT (RADIO / SELECT / TEXT)
                 else {
                     let userVal = '';
                     if (radio) userVal = radio.value;
@@ -479,7 +497,6 @@
                     }
                 }
 
-                // ZOBRAZENÍ VÝSLEDKU
                 if (fbElem) {
                     if (isCorrect) {
                         correctAnswers++;
