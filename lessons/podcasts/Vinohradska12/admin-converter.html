@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+    <meta charset="UTF-8">
+    <title>HáCZech - Admin JSON Generator</title>
+    <style>
+        body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; margin: 30px; background: #f8fafc; color: #1e293b; }
+        .container { max-width: 900px; margin: 0 auto; background: white; padding: 25px; border-radius: 10px; box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1); }
+        h1 { margin-top: 0; color: #2d6cdf; }
+        label { font-weight: bold; display: block; margin-bottom: 8px; }
+        textarea { width: 100%; height: 300px; font-family: monospace; padding: 10px; border: 1px solid #cbd5e1; border-radius: 6px; box-sizing: border-box; }
+        .btn-group { margin: 15px 0; display: flex; gap: 10px; }
+        button { background: #2d6cdf; color: white; border: none; padding: 10px 20px; border-radius: 6px; cursor: pointer; font-size: 15px; font-weight: bold; }
+        button:hover { background: #17479e; }
+        button.download-btn { background: #10b981; }
+        button.download-btn:hover { background: #059669; }
+        pre { background: #1e293b; color: #f8fafc; padding: 15px; border-radius: 6px; overflow-x: auto; font-size: 13px; max-height: 500px; }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>HáCZech Admin — Raw Text to JSON Converter</h1>
+
+    <label for="rawInput">Vložte surový text epizody:</label>
+    <textarea id="rawInput" placeholder="Vložte kompletní text sem..."></textarea>
+
+    <div class="btn-group">
+        <button onclick="processText()">1. Převést text na JSON</button>
+        <button id="dlBtn" class="download-btn" onclick="downloadJSON()" style="display:none;">2. Stáhnout JSON soubor</button>
+    </div>
+
+    <label>Vygenerovaný JSON výstup:</label>
+    <pre id="jsonPreview">// Zde se zobrazí výsledný JSON...</pre>
+</div>
+
+<script>
+    let generatedJSONObject = null;
+
+    function processText() {
+        const rawText = document.getElementById("rawInput").value;
+        if (!rawText.trim()) {
+            alert("Nejprve vložte text!");
+            return;
+        }
+
+        // 1. Předčištění běžných překlepů z kopírování
+        let cleanText = rawText
+            .replace(/Vybertedvě/gi, "Vyberte dvě")
+            .replace(/Vybertetři/gi, "Vyberte tři");
+
+        const rawLines = cleanText.split('\n')
+            .map(l => l.trim().replace(/^[*•\t\s]+/, "")) // Odstranění odrážek (•, *), tabulátorů a mezer na začátku řádku
+            .filter(l => l.length > 0);
+
+        let result = {
+            title: "",
+            description: "Práce s textem – úrovně B1, B2, C1",
+            audioUrl: "",
+            episodeUrl: "",
+            levels: {
+                B1: { vocabulary: [], exercises: [] },
+                B2: { vocabulary: [], exercises: [] },
+                C1: { vocabulary: [], exercises: [] }
+            },
+            answer_key: {
+                B1: {},
+                B2: {},
+                C1: {}
+            }
+        };
+
+        let mode = "HEADER"; 
+        let currentExerciseLevel = "B1";
+        let currentVocabLevel = "B1";
+        let currentKeyLevel = "B1";
+
+        let currentExercise = null;
+        let currentKeyEx = null;
+        let activeSectionTitle = "";
+        let isCurrentSectionMulti = false;
+
+        for (let i = 0; i < rawLines.length; i++) {
+            const line = rawLines[i];
+
+            if (line.includes("Doporučení pro automatické vyhodnocení")) break;
+
+            if (line.startsWith("Titulek:")) {
+                result.title = line.replace("Titulek:", "").trim();
+                continue;
+            }
+            if (line.startsWith("Link:")) {
+                result.episodeUrl = line.replace("Link:", "").trim();
+                continue;
+            }
+
+            if (line.includes("KLÍČ SPRÁVNÝCH ODPOVĚDÍ") || line.match(/^KLÍČ/i)) {
+                mode = "KEY";
+                continue;
+            }
+            if (line.includes("BONUS") || line.includes("Slovník po vyhodnocení") || line.match(/^SLOVNÍK/i)) {
+                mode = "VOCAB";
+                continue;
+            }
+
+            // SEKCE CVIČENÍ
+            if (mode === "HEADER" || mode === "EXERCISES") {
+                if (["B1", "B2", "C1"].includes(line)) {
+                    currentExerciseLevel = line;
+                    mode = "EXERCISES";
+                    activeSectionTitle = "";
+                    isCurrentSectionMulti = false;
+                    continue;
+                }
+
+                if (line.startsWith("Cvičení")) {
+                    currentExercise = {
+                        title: line,
+                        instructions: "",
+                        optionsList: [],
+                        items: []
+                    };
+                    activeSectionTitle = "";
+                    isCurrentSectionMulti = false;
+                    result.levels[currentExerciseLevel].exercises.push(currentExercise);
+                    continue;
+                }
+
+                if (currentExercise) {
+                    // Banka slov / možností
+                    if (line.match(/^(Slova|Výrazy|Možnosti):/i)) {
+                        const wordsStr = line.replace(/^(Slova|Výrazy|Možnosti):\s*/i, "");
+                        currentExercise.optionsList = wordsStr.split(",").map(w => w.trim());
+                        currentExercise.instructions += (currentExercise.instructions ? "\n" : "") + line;
+                        continue;
+                    }
+
+                    // Detekce nového podnadpisu sekce (A., B., C. atd.)
+                    if (line.match(/^[A-C]\.\s*/i)) {
+                        activeSectionTitle = line; // Zresetujeme na nový podnadpis (neakumulujeme)
+                        
+                        // Pokud nadpis pokračuje na dalším řádku (např. "Vyberte dvě...")
+                        if (i + 1 < rawLines.length && !rawLines[i + 1].match(/^[a-h]\)/i) && !rawLines[i + 1].match(/^\d+\./)) {
+                            if (rawLines[i + 1].toLowerCase().includes("vyberte") || rawLines[i + 1].toLowerCase().includes("co vyplývá")) {
+                                activeSectionTitle += " " + rawLines[i + 1];
+                                i++; // Posuneme index, jelikož jsme načetli další řádek
+                            }
+                        }
+
+                        currentExercise.instructions += (currentExercise.instructions ? " " : "") + activeSectionTitle;
+                        isCurrentSectionMulti = activeSectionTitle.toLowerCase().includes("dvě") || 
+                                                activeSectionTitle.toLowerCase().includes("více") || 
+                                                activeSectionTitle.toLowerCase().includes("zaškrtněte");
+                        continue;
+                    }
+
+                    // Samostatné instrukční řádky typu "Vyberte dvě správné možnosti"
+                    if (line.toLowerCase().includes("vyberte dvě") || line.toLowerCase().includes("zaškrtněte")) {
+                        activeSectionTitle += " " + line;
+                        isCurrentSectionMulti = true;
+                        continue;
+                    }
+
+                    // Detekce Možností: a) text, b) text
+                    if (line.match(/^[a-h]\)\s*/i)) {
+                        const optText = line.replace(/^[a-h]\)\s*/i, "").trim();
+                        let lastItem = currentExercise.items[currentExercise.items.length - 1];
+
+                        if (lastItem) {
+                            lastItem.options.push(optText);
+                        } else {
+                            currentExercise.optionsList.push(optText);
+                        }
+                        continue;
+                    }
+
+                    // Otázka / Prompt
+                    const isNumbered = line.match(/^\d+\.\s*/);
+                    const promptText = isNumbered ? line.replace(/^\d+\.\s*/, "").trim() : line.trim();
+
+                    currentExercise.items.push({
+                        section_title: activeSectionTitle,
+                        prompt: promptText,
+                        type: isCurrentSectionMulti ? "checkbox" : "single",
+                        is_multiselect: isCurrentSectionMulti,
+                        options: []
+                    });
+                }
+            }
+
+            // SEKCE SLOVNÍKU
+            if (mode === "VOCAB") {
+                const lvlCheck = line.match(/\b(B1|B2|C1)\b/i);
+                if (lvlCheck && (line.includes("slovník") || line.length < 35)) {
+                    currentVocabLevel = lvlCheck[1].toUpperCase();
+                    continue;
+                }
+
+                if (line.includes("–") || line.includes("-")) {
+                    const parts = line.split(/[–-]/).map(s => s.trim());
+                    if (parts.length >= 2 && parts[0] && parts[1]) {
+                        const cz = parts[0].replace(/^[*•\d+\.]\s*/, "");
+                        const en = parts.slice(1).join(" – ");
+
+                        const exists = result.levels[currentVocabLevel].vocabulary.some(v => v.czech === cz);
+                        if (!exists) {
+                            result.levels[currentVocabLevel].vocabulary.push({
+                                czech: cz,
+                                english: en
+                            });
+                        }
+                    }
+                }
+            }
+
+            // SEKCE KLÍČE ODPOVĚDÍ
+            if (mode === "KEY") {
+                if (["B1", "B2", "C1"].includes(line)) {
+                    currentKeyLevel = line;
+                    continue;
+                }
+
+                if (line.startsWith("Cvičení")) {
+                    currentKeyEx = line;
+                    if (!result.answer_key[currentKeyLevel]) {
+                        result.answer_key[currentKeyLevel] = {};
+                    }
+                    result.answer_key[currentKeyLevel][currentKeyEx] = [];
+                    continue;
+                }
+
+                if (currentKeyEx) {
+                    if (line.match(/^\d+\.\s*/)) {
+                        const cleanLine = line.replace(/^\d+\.\s*/, "").trim();
+                        if (cleanLine.includes(",")) {
+                            const multiAnswers = cleanLine.split(",").map(a => a.trim().toLowerCase());
+                            result.answer_key[currentKeyLevel][currentKeyEx].push(multiAnswers);
+                        } else {
+                            result.answer_key[currentKeyLevel][currentKeyEx].push(cleanLine);
+                        }
+                    } else if (line.trim().length > 0) {
+                        result.answer_key[currentKeyLevel][currentKeyEx].push(line.trim());
+                    }
+                }
+            }
+        }
+
+        generatedJSONObject = result;
+        document.getElementById("jsonPreview").textContent = JSON.stringify(result, null, 2);
+        document.getElementById("dlBtn").style.display = "inline-block";
+    }
+
+    function downloadJSON() {
+        if (!generatedJSONObject) return;
+        const filename = (generatedJSONObject.title || "epizoda")
+            .toLowerCase()
+            .normalize("NFD").replace(/[\u0300-\u036f]/g, "")
+            .replace(/[^a-z0-9]/g, "-")
+            .replace(/-+/g, "-")
+            .replace(/^-|-$/g, "") + ".json";
+
+        const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(generatedJSONObject, null, 2));
+        const downloadAnchor = document.createElement('a');
+        downloadAnchor.setAttribute("href", dataStr);
+        downloadAnchor.setAttribute("download", filename);
+        document.body.appendChild(downloadAnchor);
+        downloadAnchor.click();
+        downloadAnchor.remove();
+    }
+</script>
+
+</body>
+</html>

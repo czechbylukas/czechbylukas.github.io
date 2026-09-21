@@ -1,0 +1,530 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vinohradská 12 - Podcast Practice | HáCZech</title>
+
+    <script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-database-compat.js"></script>
+    
+    <!-- Knihovna pro kruhový graf výsledků -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <link rel="stylesheet" href="../../../../css/style.css">
+    <script src="../../../../scripts-header.js"></script>
+
+    <style>
+        .main-layout { display: flex; flex-direction: column; align-items: center; padding: 20px; flex: 1; }
+        #podcast-view { width: 100%; max-width: 850px; text-align: center; }
+
+        .content-card { 
+            background: white; padding: 30px; border-radius: 15px; 
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1); margin-bottom: 20px; text-align: left;
+            overflow: hidden; /* Prevents visual spill */
+        }
+
+        .podcast-select { 
+            padding: 12px; font-size: 18px; border-radius: 8px; 
+            border: 2px solid #2f52b5; width: 100%; max-width: 500px; 
+            margin: 0 auto 20px auto; display: block; cursor: pointer; outline: none;
+        }
+
+        .level-btn-group { display: flex; gap: 10px; justify-content: center; margin-bottom: 25px; }
+        .level-btn { 
+            padding: 10px 20px; border: 2px solid #2f52b5; background: white; 
+            color: #2f52b5; font-weight: bold; border-radius: 8px; cursor: pointer; transition: 0.2s; 
+        }
+        .level-btn.active, .level-btn:hover { background: #2f52b5; color: white; }
+
+        .exercise-card { background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 10px; padding: 20px; margin-bottom: 25px; }
+        .exercise-title { color: #2f52b5; margin-top: 0; border-bottom: 2px solid #e2e8f0; padding-bottom: 8px; }
+
+        .word-bank-container { display: flex; flex-wrap: wrap; gap: 8px; margin: 10px 0 15px 0; }
+        .word-badge { 
+            background: #e2e8f0; color: #1e293b; padding: 4px 10px; 
+            border-radius: 6px; font-size: 0.9rem; font-weight: 600; border: 1px solid #cbd5e1;
+        }
+
+        /* --- FIXED ITEM ROW LAYOUT --- */
+
+        .item-row { 
+            display: flex; 
+            flex-direction: column; 
+            padding: 12px 0; 
+            border-bottom: 1px solid #edf2f7; 
+            gap: 12px; 
+        }
+
+        @media (min-width: 600px) {
+            .item-row { 
+                display: grid;
+                /* auto vlevo dá textu dostatek prostoru, min-content vpravo udrží výběr/rádio */
+                grid-template-columns: 1fr min-content; 
+                align-items: center;
+                gap: 20px;
+            }
+        }
+
+        .item-right {
+            min-width: 220px; /* Udrží rozevírací seznamy dostatečně široké */
+        }
+
+        .item-row:last-child { border-bottom: none; }
+        .item-left { font-weight: 500; line-height: 1.4; }
+
+        /* --- INPUT & SELECT CONTROLS FIX --- */
+        .ex-select, .ex-input {
+            width: 100%; /* Fills the 280px grid column cleanly */
+            box-sizing: border-box;
+            padding: 8px 12px; 
+            border-radius: 6px; 
+            border: 1px solid #cbd5e1; 
+            font-size: 0.95rem; 
+            outline: none; 
+            transition: 0.2s; 
+            background-color: #fff;
+            text-overflow: ellipsis; /* Prevents option overflow */
+        }
+        .ex-select:focus, .ex-input:focus { border-color: #2f52b5; box-shadow: 0 0 0 2px rgba(47,82,181,0.2); }
+
+        .radio-group { display: flex; gap: 15px; align-items: center; justify-content: flex-start; }
+        .radio-label { display: flex; align-items: center; gap: 5px; cursor: pointer; font-weight: 600; }
+
+        .feedback-text { font-size: 0.85rem; margin-top: 4px; font-weight: bold; }
+        .feedback-text.correct { color: #16a34a; }
+        .feedback-text.incorrect { color: #dc2626; }
+
+        .btn-submit-all { 
+            display: block; width: 100%; padding: 15px; background: #16a34a; color: white; 
+            font-size: 1.1rem; font-weight: bold; border: none; border-radius: 8px; cursor: pointer; 
+            margin-top: 20px; text-align: center; transition: 0.2s;
+        }
+        .btn-submit-all:hover { background: #15803d; }
+
+        #results-dashboard {
+            display: none; background: #ffffff; border: 2px solid #2f52b5; 
+            border-radius: 12px; padding: 25px; margin-top: 25px; text-align: center;
+        }
+        .chart-container { width: 220px; height: 220px; margin: 0 auto 15px auto; }
+
+        .vocab-card { background: #f1f5f9; border-left: 4px solid #2f52b5; padding: 20px; border-radius: 8px; margin-top: 30px; }
+        .vocab-list { list-style: none; padding-left: 0; margin: 0; }
+        .vocab-item { padding: 6px 0; border-bottom: 1px solid #e2e8f0; display: flex; justify-content: space-between; }
+    </style>
+</head>
+<body class="home">
+
+<header style="display: flex; align-items: center; justify-content: space-between; padding: 10px 20px; background: white; border-bottom: 2px solid #2f52b5; min-height: 60px;">
+    <div style="flex: 1;"></div> 
+    <div style="flex: 2; text-align: center;">
+        <h1 style="margin: 0; font-size: 1.4rem; color: #2f52b5; white-space: nowrap;">Vinohradská 12 Podcast Practice</h1>
+    </div>
+    <div style="flex: 1; display: flex; justify-content: flex-end; align-items: center; gap: 12px;">
+        <div id="language-selector-container"></div>
+        <div id="auth-status-container"></div>
+    </div>
+</header>
+
+<aside id="sidebar-placeholder"></aside>
+
+<main class="main-layout">
+    <div id="podcast-view">
+        <div class="content-card">
+            <label for="episode-select" style="font-weight: bold; color: #2f52b5; display: block; margin-bottom: 10px; font-size: 20px; text-align: center;">
+                Vyber epizodu (Select Episode):
+            </label>
+            <select id="episode-select" class="podcast-select" onchange="loadSelectedEpisode()">
+                <option value="" disabled selected>Načítám epizody...</option>
+            </select>
+
+            <div id="episode-details" style="display: none;">
+                <h2 id="episode-title" style="color: #2f52b5; text-align: center; margin-bottom: 5px;"></h2>
+                <p id="episode-desc" style="text-align: center; color: #666; margin-bottom: 15px; font-style: italic;"></p>
+                
+                <div id="audio-player-container" style="background: #f1f5f9; padding: 15px; border-radius: 10px; margin-bottom: 25px;"></div>
+
+                <div class="level-btn-group" id="level-selector">
+                    <button class="level-btn active" onclick="switchLevel('B1')">Úroveň B1</button>
+                    <button class="level-btn" onclick="switchLevel('B2')">Úroveň B2</button>
+                    <button class="level-btn" onclick="switchLevel('C1')">Úroveň C1</button>
+                </div>
+
+                <div id="exercise-container"></div>
+                
+                <button id="submit-all-btn" class="btn-submit-all" onclick="evaluateAllExercises()">Vyhodnotit cvičení a zobrazit slovník</button>
+
+                <div id="results-dashboard">
+                    <h3 style="color: #2f52b5; margin-top: 0;">Výsledky cvičení</h3>
+                    <div class="chart-container">
+                        <canvas id="scoreChart"></canvas>
+                    </div>
+                    <div id="score-text" style="font-size: 1.2rem; font-weight: bold;"></div>
+                </div>
+
+                <div id="vocabulary-container" style="display: none;"></div>
+            </div>
+        </div>
+    </div>
+</main>
+
+<div id="footer-placeholder"></div>
+
+
+<script>
+    let currentEpisodeData = null;
+    let selectedLevel = 'B1';
+    let myChart = null;
+
+    fetch("/sidebar/sidebar.html").then(r => r.text()).then(d => { document.getElementById("sidebar-placeholder").innerHTML = d; });
+    fetch("../../../../footer.html").then(r => r.text()).then(d => { document.getElementById("footer-placeholder").innerHTML = d; });
+
+    async function loadEpisodeIndex() {
+        const select = document.getElementById('episode-select');
+        try {
+            const res = await fetch('./episodes/index.json');
+            const files = await res.json();
+            select.innerHTML = '<option value="" disabled selected>Vyber epizodu...</option>';
+            files.forEach(file => {
+                const option = document.createElement('option');
+                option.value = file;
+                option.textContent = file.replace(/\.json$/, '').replace(/-/g, ' ');
+                select.appendChild(option);
+            });
+        } catch (err) {
+            select.innerHTML = '<option value="" disabled>Chyba při načítání epizod</option>';
+        }
+    }
+
+    async function loadSelectedEpisode() {
+        const filename = document.getElementById('episode-select').value;
+        if (!filename) return;
+
+        try {
+            const res = await fetch(`./episodes/${filename}`);
+            currentEpisodeData = await res.json();
+            
+            document.getElementById('episode-title').innerText = currentEpisodeData.title || filename;
+            document.getElementById('episode-desc').innerText = currentEpisodeData.description || '';
+
+            const audioUrl = currentEpisodeData.audioUrl || currentEpisodeData.audio_url || null;
+            const episodeUrl = currentEpisodeData.episodeUrl || currentEpisodeData.articleUrl || currentEpisodeData.link || null;
+
+            const audioContainer = document.getElementById('audio-player-container');
+            let playerHTML = '';
+            
+            if (audioUrl) {
+                playerHTML += `<audio controls style="width: 100%; margin-bottom: 10px;"><source src="${audioUrl}" type="audio/mpeg"></audio>`;
+            }
+            if (episodeUrl) {
+                playerHTML += `<div style="text-align: center;"><a href="${episodeUrl}" target="_blank" style="color: #2f52b5; font-weight: bold; text-decoration: underline;">🎧 Otevřít originální epizodu na iROZHLAS / Vinohradská 12</a></div>`;
+            }
+            if (!audioUrl && !episodeUrl) {
+                playerHTML = `<p style="text-align:center; color:#666; margin:0;">Audio nebo odkaz není k dispozici.</p>`;
+            }
+
+            audioContainer.innerHTML = playerHTML;
+            document.getElementById('episode-details').style.display = 'block';
+            renderLevelExercises(selectedLevel);
+
+        } catch (err) {
+            alert("Nepodařilo se načíst epizodu.");
+        }
+    }
+
+    function switchLevel(level) {
+        selectedLevel = level;
+        document.querySelectorAll('.level-btn').forEach(btn => {
+            btn.classList.toggle('active', btn.innerText.includes(level));
+        });
+        renderLevelExercises(level);
+    }
+
+    function formatInstructions(instructions) {
+        if (!instructions) return '';
+        if (instructions.includes('Slova:') || instructions.includes('Výrazy:')) {
+            const splitKey = instructions.includes('Slova:') ? 'Slova:' : 'Výrazy:';
+            const parts = instructions.split(splitKey);
+            const words = parts[1].split(',').map(w => w.trim());
+            let badges = '<div class="word-bank-container">' + words.map(w => `<span class="word-badge">${w}</span>`).join('') + '</div>';
+            return `<p style="font-size: 0.95rem; color: #4a5568;"><em>${parts[0]}</em></p>${badges}`;
+        }
+        return `<p style="font-size: 0.95rem; color: #4a5568;"><em>${instructions}</em></p>`;
+    }
+
+    function renderLevelExercises(level) {
+        const container = document.getElementById('exercise-container');
+        document.getElementById('vocabulary-container').style.display = 'none';
+        document.getElementById('results-dashboard').style.display = 'none';
+        container.innerHTML = '';
+
+        if (!currentEpisodeData || !currentEpisodeData.levels || !currentEpisodeData.levels[level]) {
+            container.innerHTML = '<p style="text-align:center;">Pro tuto úroveň nejsou k dispozici žádná cvičení.</p>';
+            return;
+        }
+
+        const exercises = currentEpisodeData.levels[level].exercises || [];
+
+        exercises.forEach((ex, exIdx) => {
+            const card = document.createElement('div');
+            card.className = 'exercise-card';
+
+            let html = `<h3 class="exercise-title">${ex.title}</h3>`;
+            
+            if (ex.instructions && (!ex.sections || ex.sections.length === 0)) {
+                html += formatInstructions(ex.instructions);
+            }
+
+            const items = ex.items || [];
+            const sections = ex.sections || [];
+
+            // Complex exercise layout (Exercise 5 or items with explicit sections)
+            if (exIdx === 4 || (ex.title && ex.title.includes("Cvičení 5")) || sections.length > 0) {
+                html += `<form id="ex-form-${exIdx}">`;
+                let currentSectionHeader = '';
+                
+                items.forEach((item, itemIdx) => {
+                    const promptText = typeof item === 'string' ? item : item.prompt;
+                    const itemType = (typeof item === 'object' && item.type) ? item.type : (item.options && item.is_multiselect ? 'checkbox' : (item.options ? 'select' : 'radio'));
+                    
+                    if (item.section_title && item.section_title !== currentSectionHeader) {
+                        currentSectionHeader = item.section_title;
+                        html += `<h4 style="color: #2f52b5; margin-top: 20px; border-bottom: 1px dashed #cbd5e1; padding-bottom: 5px;">${currentSectionHeader}</h4>`;
+                    }
+
+                    html += `<div class="item-row" style="grid-template-columns: 1fr auto; align-items: flex-start;">`;
+                    html += `<div class="item-left"><strong>${itemIdx + 1}.</strong> ${promptText}`;
+
+                    if (itemType === 'checkbox' || (typeof item === 'object' && (item.is_multiselect || item.max_select))) {
+                        html += `<div class="checkbox-group" style="margin-top: 10px; display: flex; flex-direction: column; gap: 6px;">`;
+                        (item.options || []).forEach((opt, optIdx) => {
+                            const letter = String.fromCharCode(97 + optIdx);
+                            const cleanOptText = typeof opt === 'object' ? opt.text : opt;
+                            html += `
+                                <label style="display: flex; align-items: flex-start; gap: 8px; cursor: pointer; font-weight: normal; font-size: 0.95rem;">
+                                    <input type="checkbox" name="item-${itemIdx}" value="${letter}" style="margin-top: 3px;">
+                                    <span><strong>${letter})</strong> ${cleanOptText}</span>
+                                </label>`;
+                        });
+                        html += `</div>`;
+                        html += `<div class="feedback-text" id="fb-${exIdx}-${itemIdx}"></div></div></div>`;
+                    } 
+                    else if (typeof item === 'object' && item.options && item.options.length > 0) {
+                        html += `</div><div class="item-right">`;
+                        html += `<select class="ex-select" name="item-${itemIdx}"><option value="">-- Vyber možnost --</option>`;
+                        item.options.forEach((opt, optIdx) => {
+                            const letter = String.fromCharCode(97 + optIdx);
+                            html += `<option value="${letter}">${letter}) ${opt}</option>`;
+                        });
+                        html += `</select>`;
+                        html += `<div class="feedback-text" id="fb-${exIdx}-${itemIdx}"></div></div></div>`;
+                    } 
+                    else {
+                        html += `</div><div class="item-right">`;
+                        html += `<div class="radio-group" id="input-${exIdx}-${itemIdx}">
+                            <label class="radio-label"><input type="radio" name="item-${itemIdx}" value="Ano"> Ano</label>
+                            <label class="radio-label"><input type="radio" name="item-${itemIdx}" value="Ne"> Ne</label>
+                        </div>`;
+                        html += `<div class="feedback-text" id="fb-${exIdx}-${itemIdx}"></div></div></div>`;
+                    }
+                });
+
+                html += `</form>`;
+            } else {
+                // Standard Exercises 1-4
+                let sharedExerciseOptions = [];
+                items.forEach(it => {
+                    if (typeof it === 'object' && it.options && it.options.length > sharedExerciseOptions.length) {
+                        sharedExerciseOptions = it.options;
+                    }
+                });
+
+                if (items.length > 0) {
+                    html += `<form id="ex-form-${exIdx}">`;
+                    items.forEach((item, itemIdx) => {
+                        const promptText = typeof item === 'string' ? item : item.prompt;
+                        const hasOwnOptions = (typeof item === 'object' && Array.isArray(item.options) && item.options.length > 0);
+                        const itemOptions = hasOwnOptions ? item.options : sharedExerciseOptions;
+
+                        html += `<div class="item-row">`;
+                        html += `<div class="item-left">${itemIdx + 1}. ${promptText}</div>`;
+                        html += `<div class="item-right">`;
+
+                        if (itemOptions && itemOptions.length > 0) {
+                            html += `<select class="ex-select" name="item-${itemIdx}"><option value="">-- Vyber možnost --</option>`;
+                            itemOptions.forEach((opt, optIdx) => {
+                                const letter = String.fromCharCode(97 + optIdx);
+                                html += `<option value="${letter}">${letter}) ${opt}</option>`;
+                            });
+                            html += `</select>`;
+                        } else {
+                            html += `<input type="text" class="ex-input" name="item-${itemIdx}" placeholder="Napište odpověď...">`;
+                        }
+
+                        html += `<div class="feedback-text" id="fb-${exIdx}-${itemIdx}"></div></div></div>`;
+                    });
+                    html += `</form>`;
+                }
+            }
+
+            card.innerHTML = html;
+            container.appendChild(card);
+        });
+
+        const vocabList = currentEpisodeData.levels[level].vocabulary;
+        const vocabContainer = document.getElementById('vocabulary-container');
+        if (vocabList && vocabList.length > 0) {
+            let vHtml = `<div class="vocab-card"><h3 style="color: #2f52b5; margin-top: 0;">Slovní zásoba (Vocabulary) - ${level}</h3><ul class="vocab-list">`;
+            vocabList.forEach(v => {
+                vHtml += `<li class="vocab-item"><strong>${v.czech}</strong> <span style="color: #64748b;">${v.english}</span></li>`;
+            });
+            vHtml += `</ul></div>`;
+            vocabContainer.innerHTML = vHtml;
+        } else {
+            vocabContainer.innerHTML = '';
+        }
+    }
+
+    function evaluateAllExercises() {
+        const level = selectedLevel;
+        const exercises = currentEpisodeData.levels[level].exercises || [];
+        let totalQuestions = 0;
+        let correctAnswers = 0;
+
+        exercises.forEach((exData, exIdx) => {
+            const form = document.getElementById(`ex-form-${exIdx}`);
+            if (!form) return;
+            const items = exData.items || [];
+
+            let rawAnswers = [];
+            if (currentEpisodeData.answer_key && currentEpisodeData.answer_key[level]) {
+                const keyKeys = Object.keys(currentEpisodeData.answer_key[level]);
+                const matchedKey = keyKeys.find(k => k.includes(`${exIdx + 1}`));
+                if (matchedKey) rawAnswers = currentEpisodeData.answer_key[level][matchedKey];
+            }
+
+            let parsedKeyMap = {};
+            if (rawAnswers.length === 1 && typeof rawAnswers[0] === 'string' && rawAnswers[0].includes(',')) {
+                const pairs = rawAnswers[0].split(',');
+                pairs.forEach(p => {
+                    const parts = p.split(/[–-]/);
+                    if (parts.length === 2) {
+                        const num = parseInt(parts[0].trim(), 10) - 1;
+                        parsedKeyMap[num] = parts[1].trim();
+                    }
+                });
+            }
+
+            items.forEach((item, itemIdx) => {
+                totalQuestions++;
+                const fbElem = document.getElementById(`fb-${exIdx}-${itemIdx}`);
+
+                const checkboxes = form.querySelectorAll(`input[type="checkbox"][name="item-${itemIdx}"]:checked`);
+                const radio = form.querySelector(`input[type="radio"][name="item-${itemIdx}"]:checked`);
+                const select = form.querySelector(`select[name="item-${itemIdx}"]`);
+                const textInput = form.querySelector(`input[type="text"][name="item-${itemIdx}"]`);
+
+                let expectedVal = '';
+                if (parsedKeyMap[itemIdx] !== undefined) {
+                    expectedVal = parsedKeyMap[itemIdx];
+                } else if (rawAnswers[itemIdx] !== undefined) {
+                    expectedVal = rawAnswers[itemIdx];
+                }
+
+                let isCorrect = false;
+                let displayExpected = "";
+
+                // A) PŘÍPAD PRO CHECKBOXY (MULTISELECT)
+                if (checkboxes.length > 0 || Array.isArray(expectedVal)) {
+                    const userArr = Array.from(checkboxes).map(cb => cb.value.toLowerCase()).sort();
+
+                    let expectedArr = [];
+                    if (Array.isArray(expectedVal)) {
+                        expectedArr = expectedVal.map(v => v.toString().trim().toLowerCase()).sort();
+                    } else if (typeof expectedVal === 'string') {
+                        expectedArr = expectedVal.split(/[,/]/).map(v => v.trim().toLowerCase()).sort();
+                    }
+
+                    displayExpected = expectedArr.join(',');
+                    
+                    // Porovnání dvou polí hodu/délky
+                    isCorrect = userArr.length === expectedArr.length && 
+                                userArr.every((val, index) => val === expectedArr[index]);
+                } 
+                // B) PŘÍPAD PRO SINGLESELECT (RADIO / SELECT / TEXT)
+                else {
+                    let userVal = '';
+                    if (radio) userVal = radio.value;
+                    else if (select) userVal = select.value;
+                    else if (textInput) userVal = textInput.value;
+
+                    displayExpected = expectedVal.toString().trim();
+                    if (displayExpected.includes('–') || displayExpected.includes('-')) {
+                        const parts = displayExpected.split(/[–-]/);
+                        displayExpected = parts[parts.length - 1].trim();
+                    }
+                    displayExpected = displayExpected.replace(/^\d+\.\s*/, '');
+
+                    const cleanExpected = displayExpected.toLowerCase();
+                    const cleanUser = userVal.toString().trim().toLowerCase();
+
+                    if (cleanUser !== '') {
+                        if (cleanExpected.includes('/') || cleanExpected.includes(',')) {
+                            const options = cleanExpected.split(/[/,]/).map(o => o.trim());
+                            isCorrect = options.includes(cleanUser);
+                        } else {
+                            isCorrect = (cleanUser === cleanExpected);
+                        }
+                    }
+                }
+
+                // ZOBRAZENÍ VÝSLEDKU
+                if (fbElem) {
+                    if (isCorrect) {
+                        correctAnswers++;
+                        fbElem.className = 'feedback-text correct';
+                        fbElem.innerText = 'Správně! ✓';
+                    } else {
+                        fbElem.className = 'feedback-text incorrect';
+                        fbElem.innerText = `Správná odpověď: ${displayExpected || 'Nezadána'}`;
+                    }
+                }
+            });
+        });
+
+        if (totalQuestions === 0) return;
+
+        const percentage = Math.round((correctAnswers / totalQuestions) * 100);
+        document.getElementById('results-dashboard').style.display = 'block';
+        document.getElementById('score-text').innerText = `Správně: ${correctAnswers} z ${totalQuestions} (${percentage}%)`;
+
+        const wrongAnswers = totalQuestions - correctAnswers;
+        const ctx = document.getElementById('scoreChart').getContext('2d');
+
+        if (myChart) {
+            myChart.destroy();
+        }
+
+        myChart = new Chart(ctx, {
+            type: 'pie',
+            data: {
+                labels: ['Správně', 'Špatně'],
+                datasets: [{
+                    data: [correctAnswers, wrongAnswers],
+                    backgroundColor: ['#16a34a', '#dc2626']
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false
+            }
+        });
+
+        document.getElementById('vocabulary-container').style.display = 'block';
+    }
+
+    loadEpisodeIndex();
+</script>
+</body>
+</html>

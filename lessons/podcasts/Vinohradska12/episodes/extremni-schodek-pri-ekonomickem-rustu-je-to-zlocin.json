@@ -1,0 +1,1580 @@
+{
+  "title": "Extrémní schodek? Při ekonomickém růstu je to zločin",
+  "description": "Práce s textem – úrovně B1, B2, C1",
+  "audioUrl": "",
+  "episodeUrl": "https://www.irozhlas.cz/zpravy-domov/extremni-schodek-pri-ekonomickem-rustu-je-zlocin-kritizuje-komentatorka-a-neveri_2609040600_med",
+  "levels": {
+    "B1": {
+      "vocabulary": [
+        {
+          "czech": "rozpočet",
+          "english": "plán příjmů a výdajů"
+        },
+        {
+          "czech": "schodek",
+          "english": "situace, kdy jsou výdaje vyšší než příjmy"
+        },
+        {
+          "czech": "úspora",
+          "english": "peníze, které nebyly utraceny"
+        },
+        {
+          "czech": "dluh",
+          "english": "peníze, které je potřeba vrátit"
+        },
+        {
+          "czech": "úrok",
+          "english": "cena za půjčené peníze"
+        },
+        {
+          "czech": "investice",
+          "english": "vložení peněz do něčeho s očekávaným budoucím přínosem"
+        },
+        {
+          "czech": "důchod",
+          "english": "pravidelná platba člověku po skončení pracovního života"
+        },
+        {
+          "czech": "daň",
+          "english": "povinná platba státu"
+        },
+        {
+          "czech": "nezaměstnanost",
+          "english": "situace, kdy lidé nemají práci"
+        },
+        {
+          "czech": "reforma",
+          "english": "větší změna určitého systému"
+        }
+      ],
+      "exercises": [
+        {
+          "title": "Cvičení 1 – Spoj výraz s významem",
+          "instructions": "",
+          "optionsList": [],
+          "items": [
+            {
+              "section_title": "",
+              "prompt": "Spojte výrazy s jejich významem.",
+              "type": "single",
+              "is_multiselect": false,
+              "options": []
+            },
+            {
+              "section_title": "",
+              "prompt": "rozpočet",
+              "type": "single",
+              "is_multiselect": false,
+              "options": []
+            },
+            {
+              "section_title": "",
+              "prompt": "schodek",
+              "type": "single",
+              "is_multiselect": false,
+              "options": []
+            },
+            {
+              "section_title": "",
+              "prompt": "úspora",
+              "type": "single",
+              "is_multiselect": false,
+              "options": []
+            },
+            {
+              "section_title": "",
+              "prompt": "půjčovat si peníze",
+              "type": "single",
+              "is_multiselect": false,
+              "options": []
+            },
+            {
+              "section_title": "",
+              "prompt": "investice",
+              "type": "single",
+              "is_multiselect": false,
+              "options": []
+            },
+            {
+              "section_title": "",
+              "prompt": "důchod",
+              "type": "single",
+              "is_multiselect": false,
+              "options": []
+            },
+            {
+              "section_title": "",
+              "prompt": "nezaměstnanost",
+              "type": "single",
+              "is_multiselect": false,
+              "options": []
+            },
+            {
+              "section_title": "",
+              "prompt": "daň",
+              "type": "single",
+              "is_multiselect": false,
+              "options": [
+                "peníze, které člověk dostává po skončení pracovního života",
+                "peníze, které stát nebo člověk vydá na něco, co má přinést užitek v budoucnosti",
+                "situace, kdy stát utratí více peněz, než získá",
+                "peníze, které člověk nebo stát získá a musí je později vrátit",
+                "peníze, které stát vybírá od lidí a firem",
+                "plán příjmů a výdajů",
+                "situace, kdy člověk nemá práci",
+                "peníze, které se podaří neutratit"
+              ]
+            }
+          ]
+        },
+        {
+          "title": "Cvičení 2 – Doplňte do věty",
+          "instructions": "Slova: rozpočet, schodek, ekonomika, investice, daně, důchody, půjčovat, úroky",
+          "optionsList": [
+            "rozpočet",
+            "schodek",
+            "ekonomika",
+            "investice",
+            "daně",
+            "důchody",
+            "půjčovat",
+            "úroky"
+          ],
+          "items": [
+            {
+              "section_title": "",
+              "prompt": "Vláda připravuje státní __________ na příští rok.",
+              "type": "single",
+              "is_multiselect": false,
+              "options": []
+            },
+            {
+              "section_title": "",
+              "prompt": "Navrhovaný __________ je téměř 390 miliard korun.",
+              "type": "single",
+              "is_multiselect": false,
+              "options": []
+            },
+            {
+              "section_title": "",
+              "prompt": "Česká __________ podle textu roste.",
+              "type": "single",
+              "is_multiselect": false,
+              "options": []
+            },
+            {
+              "section_title": "",
+              "prompt": "Do dopravy mají směřovat velké __________.",
+              "type": "single",
+              "is_multiselect": false,
+              "options": []
+            },
+            {
+              "section_title": "",
+              "prompt": "Stát získává část peněz z __________.",
+              "type": "single",
+              "is_multiselect": false,
+              "options": []
+            },
+            {
+              "section_title": "",
+              "prompt": "Stát musí vyplácet také __________.",
+              "type": "single",
+              "is_multiselect": false,
+              "options": []
+            },
+            {
+              "section_title": "",
+              "prompt": "Když stát nemá dost peněz, musí si __________.",
+              "type": "single",
+              "is_multiselect": false,
+              "options": []
+            },
+            {
+              "section_title": "",
+              "prompt": "Za půjčené peníze musí platit __________.",
+              "type": "single",
+              "is_multiselect": false,
+              "options": []
+            }
+          ]
+        },
+        {
+          "title": "Cvičení 3 – Gramatika",
+          "instructions": "",
+          "optionsList": [],
+          "items": [
+            {
+              "section_title": "",
+              "prompt": "Doplňte správný tvar slovesa.",
+              "type": "single",
+              "is_multiselect": false,
+              "options": []
+            },
+            {
+              "section_title": "",
+              "prompt": "Ekonomika __________ (růst).",
+              "type": "single",
+              "is_multiselect": false,
+              "options": []
+            },
+            {
+              "section_title": "",
+              "prompt": "Vláda __________ (připravovat) rozpočet.",
+              "type": "single",
+              "is_multiselect": false,
+              "options": []
+            },
+            {
+              "section_title": "",
+              "prompt": "Stát si __________ (půjčovat) stále více peněz.",
+              "type": "single",
+              "is_multiselect": false,
+              "options": []
+            },
+            {
+              "section_title": "",
+              "prompt": "Úrokové sazby __________ (růst).",
+              "type": "single",
+              "is_multiselect": false,
+              "options": []
+            },
+            {
+              "section_title": "",
+              "prompt": "Ministryně __________ (představit) návrh rozpočtu.",
+              "type": "single",
+              "is_multiselect": false,
+              "options": []
+            },
+            {
+              "section_title": "",
+              "prompt": "Ekonomové o návrhu __________ (diskutovat).",
+              "type": "single",
+              "is_multiselect": false,
+              "options": []
+            },
+            {
+              "section_title": "",
+              "prompt": "Vláda bude rozpočet __________ (schvalovat) na konci září.",
+              "type": "single",
+              "is_multiselect": false,
+              "options": []
+            },
+            {
+              "section_title": "",
+              "prompt": "Sněmovna ho bude v říjnu __________ (projednávat).",
+              "type": "single",
+              "is_multiselect": false,
+              "options": []
+            }
+          ]
+        },
+        {
+          "title": "Cvičení 4 – Slovní zásoba a předložky",
+          "instructions": "",
+          "optionsList": [],
+          "items": [
+            {
+              "section_title": "",
+              "prompt": "Doplňte správnou předložku.",
+              "type": "single",
+              "is_multiselect": false,
+              "options": []
+            },
+            {
+              "section_title": "",
+              "prompt": "růst ___ 1,9 %",
+              "type": "single",
+              "is_multiselect": false,
+              "options": []
+            },
+            {
+              "section_title": "",
+              "prompt": "mluvit ___ rozpočtu",
+              "type": "single",
+              "is_multiselect": false,
+              "options": []
+            },
+            {
+              "section_title": "",
+              "prompt": "půjčovat si peníze ___ bank",
+              "type": "single",
+              "is_multiselect": false,
+              "options": []
+            },
+            {
+              "section_title": "",
+              "prompt": "investovat ___ dopravy",
+              "type": "single",
+              "is_multiselect": false,
+              "options": []
+            },
+            {
+              "section_title": "",
+              "prompt": "zaplatit ___ úroky",
+              "type": "single",
+              "is_multiselect": false,
+              "options": []
+            },
+            {
+              "section_title": "",
+              "prompt": "pracovat ___ reformě",
+              "type": "single",
+              "is_multiselect": false,
+              "options": []
+            },
+            {
+              "section_title": "",
+              "prompt": "být odpovědný ___ rozpočet",
+              "type": "single",
+              "is_multiselect": false,
+              "options": []
+            },
+            {
+              "section_title": "",
+              "prompt": "peníze ___ důchody",
+              "type": "single",
+              "is_multiselect": false,
+              "options": []
+            }
+          ]
+        },
+        {
+          "title": "Cvičení 5 – Porozumění textu",
+          "instructions": "A. Ano – Ne B. Vyberte správnou odpověď.",
+          "optionsList": [],
+          "items": [
+            {
+              "section_title": "A. Ano – Ne",
+              "prompt": "Text se zabývá návrhem státního rozpočtu.",
+              "type": "single",
+              "is_multiselect": false,
+              "options": []
+            },
+            {
+              "section_title": "A. Ano – Ne",
+              "prompt": "Navrhovaný schodek je nižší než 100 miliard korun.",
+              "type": "single",
+              "is_multiselect": false,
+              "options": []
+            },
+            {
+              "section_title": "A. Ano – Ne",
+              "prompt": "Ekonomika podle textu roste.",
+              "type": "single",
+              "is_multiselect": false,
+              "options": []
+            },
+            {
+              "section_title": "A. Ano – Ne",
+              "prompt": "Vláda plánuje investice do dopravy.",
+              "type": "single",
+              "is_multiselect": false,
+              "options": []
+            },
+            {
+              "section_title": "A. Ano – Ne",
+              "prompt": "Stát si podle textu půjčuje peníze zdarma.",
+              "type": "single",
+              "is_multiselect": false,
+              "options": []
+            },
+            {
+              "section_title": "A. Ano – Ne",
+              "prompt": "V textu se mluví také o důchodech.",
+              "type": "single",
+              "is_multiselect": false,
+              "options": []
+            },
+            {
+              "section_title": "A. Ano – Ne",
+              "prompt": "Rozhovor se zabývá také podporou v nezaměstnanosti.",
+              "type": "single",
+              "is_multiselect": false,
+              "options": []
+            },
+            {
+              "section_title": "A. Ano – Ne",
+              "prompt": "Na konci textu se říká, že přesná konečná výše schodku už je známá.",
+              "type": "single",
+              "is_multiselect": false,
+              "options": []
+            },
+            {
+              "section_title": "B. Vyberte správnou odpověď.",
+              "prompt": "Kolik činí navrhovaný schodek?",
+              "type": "single",
+              "is_multiselect": false,
+              "options": [
+                "89 miliard",
+                "290 miliard",
+                "389 miliard"
+              ]
+            },
+            {
+              "section_title": "B. Vyberte správnou odpověď.",
+              "prompt": "O kolik podle textu roste ekonomika?",
+              "type": "single",
+              "is_multiselect": false,
+              "options": [
+                "o 1,9 %",
+                "o 5 %",
+                "o 10 %"
+              ]
+            },
+            {
+              "section_title": "B. Vyberte správnou odpověď.",
+              "prompt": "Do čeho chce vláda podle rozhovoru investovat?",
+              "type": "single",
+              "is_multiselect": false,
+              "options": [
+                "pouze do školství",
+                "například do dopravy a zdravotnictví",
+                "pouze do obrany"
+              ]
+            },
+            {
+              "section_title": "B. Vyberte správnou odpověď.",
+              "prompt": "Co se podle textu stane, když stát platí úroky z dluhu?",
+              "type": "single",
+              "is_multiselect": false,
+              "options": [
+                "Musí na ně vydávat peníze.",
+                "Dostává za ně peníze.",
+                "Nemá žádné další náklady."
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    "B2": {
+      "vocabulary": [
+        {
+          "czech": "prorůstový",
+          "english": "podporující ekonomický růst"
+        },
+        {
+          "czech": "stagnace",
+          "english": "období, kdy ekonomika výrazně neroste"
+        },
+        {
+          "czech": "úrokové sazby",
+          "english": "sazby určující cenu půjčených peněz"
+        },
+        {
+          "czech": "konsolidace veřejných financí",
+          "english": "snaha dlouhodobě stabilizovat hospodaření státu"
+        },
+        {
+          "czech": "mandatorní výdaje",
+          "english": "výdaje, které stát musí platit"
+        },
+        {
+          "czech": "úrokový servis",
+          "english": "náklady na placení úroků ze státního dluhu"
+        },
+        {
+          "czech": "vytěsňování investic",
+          "english": "situace, kdy jedna skupina investic omezuje prostor pro jiné investice"
+        },
+        {
+          "czech": "pracovní síla",
+          "english": "lidé, kteří mohou pracovat"
+        },
+        {
+          "czech": "dotace",
+          "english": "finanční podpora poskytovaná státem nebo jinou institucí"
+        },
+        {
+          "czech": "schvalovat",
+          "english": "oficiálně přijímat návrh"
+        }
+      ],
+      "exercises": [
+        {
+          "title": "Cvičení 1 – Spoj výraz s vysvětlením",
+          "instructions": "",
+          "optionsList": [],
+          "items": [
+            {
+              "section_title": "",
+              "prompt": "rozvolnit rozpočtová pravidla",
+              "type": "single",
+              "is_multiselect": false,
+              "options": []
+            },
+            {
+              "section_title": "",
+              "prompt": "nástřel návrhu",
+              "type": "single",
+              "is_multiselect": false,
+              "options": []
+            },
+            {
+              "section_title": "",
+              "prompt": "prorůstový",
+              "type": "single",
+              "is_multiselect": false,
+              "options": []
+            },
+            {
+              "section_title": "",
+              "prompt": "úniková doložka",
+              "type": "single",
+              "is_multiselect": false,
+              "options": []
+            },
+            {
+              "section_title": "",
+              "prompt": "vytěsňování investic",
+              "type": "single",
+              "is_multiselect": false,
+              "options": []
+            },
+            {
+              "section_title": "",
+              "prompt": "mandatorní výdaje",
+              "type": "single",
+              "is_multiselect": false,
+              "options": []
+            },
+            {
+              "section_title": "",
+              "prompt": "úrokový servis",
+              "type": "single",
+              "is_multiselect": false,
+              "options": []
+            },
+            {
+              "section_title": "",
+              "prompt": "konsolidace veřejných financí",
+              "type": "single",
+              "is_multiselect": false,
+              "options": [
+                "výdaje, které musí stát ze zákona nebo z jiných závazků platit",
+                "první, předběžná podoba návrhu",
+                "opatření směřující ke snížení schodku a stabilizaci veřejných financí",
+                "výdaje spojené s placením úroků ze státního dluhu",
+                "situace, kdy veřejné investice mohou omezovat jiné investice kvůli omezeným zdrojům",
+                "opatření nebo pravidlo umožňující určitou výjimku",
+                "takový, který má podporovat ekonomický růst",
+                "zmírnit nebo změnit omezení stanovená rozpočtovými pravidly"
+              ]
+            }
+          ]
+        },
+        {
+          "title": "Cvičení 2 – Doplňte vhodný výraz",
+          "instructions": "Výrazy: schodek, úrokové sazby, stavebnictví, pracovní síla, stagnace, konsolidace, dotace, reforma",
+          "optionsList": [
+            "schodek",
+            "úrokové sazby",
+            "stavebnictví",
+            "pracovní síla",
+            "stagnace",
+            "konsolidace",
+            "dotace",
+            "reforma"
+          ],
+          "items": [
+            {
+              "section_title": "",
+              "prompt": "Vysoký rozpočtový __________ znamená, že stát musí hledat další zdroje financování.",
+              "type": "single",
+              "is_multiselect": false,
+              "options": []
+            },
+            {
+              "section_title": "",
+              "prompt": "Pokud rostou __________, půjčování peněz je dražší.",
+              "type": "single",
+              "is_multiselect": false,
+              "options": []
+            },
+            {
+              "section_title": "",
+              "prompt": "Ve __________ podle textu chybí zaměstnanci.",
+              "type": "single",
+              "is_multiselect": false,
+              "options": []
+            },
+            {
+              "section_title": "",
+              "prompt": "Firmy mají problém získat dostatečnou __________.",
+              "type": "single",
+              "is_multiselect": false,
+              "options": []
+            },
+            {
+              "section_title": "",
+              "prompt": "Autorka rozhovoru upozorňuje na riziko ekonomické __________.",
+              "type": "single",
+              "is_multiselect": false,
+              "options": []
+            },
+            {
+              "section_title": "",
+              "prompt": "Snižování schodku souvisí s fiskální __________.",
+              "type": "single",
+              "is_multiselect": false,
+              "options": []
+            },
+            {
+              "section_title": "",
+              "prompt": "Některé politické strany chtějí omezit státní __________.",
+              "type": "single",
+              "is_multiselect": false,
+              "options": []
+            },
+            {
+              "section_title": "",
+              "prompt": "Autorka mluví o potřebě velké ekonomické __________.",
+              "type": "single",
+              "is_multiselect": false,
+              "options": []
+            }
+          ]
+        },
+        {
+          "title": "Cvičení 3 – Gramatika",
+          "instructions": "",
+          "optionsList": [],
+          "items": [
+            {
+              "section_title": "",
+              "prompt": "Doplňte správný tvar.",
+              "type": "single",
+              "is_multiselect": false,
+              "options": []
+            },
+            {
+              "section_title": "",
+              "prompt": "Kdyby stát méně __________ (utrácet), nemusel by si tolik půjčovat.",
+              "type": "single",
+              "is_multiselect": false,
+              "options": []
+            },
+            {
+              "section_title": "",
+              "prompt": "Pokud budou úrokové sazby dál __________ (růst), dluh bude dražší.",
+              "type": "single",
+              "is_multiselect": false,
+              "options": []
+            },
+            {
+              "section_title": "",
+              "prompt": "Vláda tvrdí, že deficit __________ (podporovat) ekonomický růst.",
+              "type": "single",
+              "is_multiselect": false,
+              "options": []
+            },
+            {
+              "section_title": "",
+              "prompt": "Kdyby se podařilo snížit výdaje, schodek by __________ (být) nižší.",
+              "type": "single",
+              "is_multiselect": false,
+              "options": []
+            },
+            {
+              "section_title": "",
+              "prompt": "Investice, které stát __________ (plánovat), mohou ovlivnit stavební sektor.",
+              "type": "single",
+              "is_multiselect": false,
+              "options": []
+            },
+            {
+              "section_title": "",
+              "prompt": "Ekonomové se zatím neshodli, zda návrh skutečně __________ (přinést) vyšší růst.",
+              "type": "single",
+              "is_multiselect": false,
+              "options": []
+            },
+            {
+              "section_title": "",
+              "prompt": "Pokud se reforma __________ (uskutečnit), mohla by změnit strukturu ekonomiky.",
+              "type": "single",
+              "is_multiselect": false,
+              "options": []
+            },
+            {
+              "section_title": "",
+              "prompt": "O návrhu rozpočtu se __________ (jednat) v Poslanecké sněmovně.",
+              "type": "single",
+              "is_multiselect": false,
+              "options": []
+            }
+          ]
+        },
+        {
+          "title": "Cvičení 4 – Slovní zásoba a předložky",
+          "instructions": "",
+          "optionsList": [],
+          "items": [
+            {
+              "section_title": "",
+              "prompt": "Doplňte správnou předložku.",
+              "type": "single",
+              "is_multiselect": false,
+              "options": []
+            },
+            {
+              "section_title": "",
+              "prompt": "upozorňovat ___ vysoký schodek",
+              "type": "single",
+              "is_multiselect": false,
+              "options": []
+            },
+            {
+              "section_title": "",
+              "prompt": "dosáhnout ___ 3,7 % HDP",
+              "type": "single",
+              "is_multiselect": false,
+              "options": []
+            },
+            {
+              "section_title": "",
+              "prompt": "být závislý ___ zahraničních investicích",
+              "type": "single",
+              "is_multiselect": false,
+              "options": []
+            },
+            {
+              "section_title": "",
+              "prompt": "přispět ___ ekonomickému růstu",
+              "type": "single",
+              "is_multiselect": false,
+              "options": []
+            },
+            {
+              "section_title": "",
+              "prompt": "vést ___ vyšším úrokovým sazbám",
+              "type": "single",
+              "is_multiselect": false,
+              "options": []
+            },
+            {
+              "section_title": "",
+              "prompt": "mít dopad ___ ceny hypoték",
+              "type": "single",
+              "is_multiselect": false,
+              "options": []
+            },
+            {
+              "section_title": "",
+              "prompt": "investovat ___ infrastruktury",
+              "type": "single",
+              "is_multiselect": false,
+              "options": []
+            },
+            {
+              "section_title": "",
+              "prompt": "vyrovnat se ___ rostoucím dluhem",
+              "type": "single",
+              "is_multiselect": false,
+              "options": []
+            }
+          ]
+        },
+        {
+          "title": "Cvičení 5 – Porozumění textu",
+          "instructions": "A. Ano – Ne B. Vyberte správnou odpověď.",
+          "optionsList": [],
+          "items": [
+            {
+              "section_title": "A. Ano – Ne",
+              "prompt": "Národní rozpočtová rada podle rozhovoru návrh rozpočtu podrobněji analyzovala.",
+              "type": "single",
+              "is_multiselect": false,
+              "options": []
+            },
+            {
+              "section_title": "A. Ano – Ne",
+              "prompt": "Podle rozhovoru je možné výrazně zvýšit ekonomický růst pouze vyšším zadlužováním.",
+              "type": "single",
+              "is_multiselect": false,
+              "options": []
+            },
+            {
+              "section_title": "A. Ano – Ne",
+              "prompt": "V textu se uvádí, že rostoucí úrokové sazby zdražují státní dluh.",
+              "type": "single",
+              "is_multiselect": false,
+              "options": []
+            },
+            {
+              "section_title": "A. Ano – Ne",
+              "prompt": "Investice do dálnic podle autorky automaticky znamenají vyšší ekonomický růst.",
+              "type": "single",
+              "is_multiselect": false,
+              "options": []
+            },
+            {
+              "section_title": "A. Ano – Ne",
+              "prompt": "Omezený počet stavebních firem a pracovníků může podle rozhovoru způsobit problém při rychlém růstu veřejných investic.",
+              "type": "single",
+              "is_multiselect": false,
+              "options": []
+            },
+            {
+              "section_title": "A. Ano – Ne",
+              "prompt": "Autorka tvrdí, že žádná reforma české ekonomiky není potřeba.",
+              "type": "single",
+              "is_multiselect": false,
+              "options": []
+            },
+            {
+              "section_title": "A. Ano – Ne",
+              "prompt": "V rozhovoru se diskutuje také o důchodové reformě.",
+              "type": "single",
+              "is_multiselect": false,
+              "options": []
+            },
+            {
+              "section_title": "A. Ano – Ne",
+              "prompt": "Autorka očekává, že koalice kvůli rozpočtu určitě padne.",
+              "type": "single",
+              "is_multiselect": false,
+              "options": []
+            },
+            {
+              "section_title": "B. Vyberte správnou odpověď.",
+              "prompt": "Proč může podle autorky vysoký objem veřejných investic vytěsňovat jiné investice?",
+              "type": "single",
+              "is_multiselect": false,
+              "options": [
+                "Protože stát může využít omezenou kapacitu stavebních firem a pracovníků.",
+                "Protože stát zakáže soukromým firmám investovat.",
+                "Protože evropské peníze nesmějí být použity na dopravu."
+              ]
+            },
+            {
+              "section_title": "B. Vyberte správnou odpověď.",
+              "prompt": "Co podle rozhovoru znamenají mandatorní výdaje?",
+              "type": "single",
+              "is_multiselect": false,
+              "options": [
+                "Dobrovolné investice vlády.",
+                "Výdaje, které stát musí platit.",
+                "Výdaje pouze na zahraniční politiku."
+              ]
+            },
+            {
+              "section_title": "B. Vyberte správnou odpověď.",
+              "prompt": "Jaký problém autorka zmiňuje u růstu úrokových sazeb?",
+              "type": "single",
+              "is_multiselect": false,
+              "options": [
+                "Mohou zdražit státní dluh i hypotéky.",
+                "Automaticky sníží všechny daně.",
+                "Způsobí okamžitý růst mezd."
+              ]
+            },
+            {
+              "section_title": "B. Vyberte správnou odpověď.",
+              "prompt": "Co by podle rozhovoru bylo potřeba k výraznějšímu růstu ekonomiky?",
+              "type": "single",
+              "is_multiselect": false,
+              "options": [
+                "Pouze zvýšit státní dluh.",
+                "Velká ekonomická transformace a strukturální změny.",
+                "Zastavit všechny veřejné investice."
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    "C1": {
+      "vocabulary": [
+        {
+          "czech": "fiskální politika",
+          "english": "způsob, jak stát prostřednictvím příjmů a výdajů ovlivňuje ekonomiku"
+        },
+        {
+          "czech": "strukturální reforma",
+          "english": "hlubší změna fungování určité části ekonomiky nebo společnosti"
+        },
+        {
+          "czech": "fiskální plán",
+          "english": "dlouhodobější plán hospodaření veřejných financí"
+        },
+        {
+          "czech": "valorizační vzorec",
+          "english": "pravidlo určující způsob zvyšování určité platby, například důchodů"
+        },
+        {
+          "czech": "mobilita pracovní síly",
+          "english": "schopnost pracovníků měnit zaměstnání, obor nebo místo práce"
+        },
+        {
+          "czech": "konsolidovat",
+          "english": "postupně stabilizovat veřejné finance, zejména snižováním schodku"
+        },
+        {
+          "czech": "proinvestovat se z dluhu",
+          "english": "pokus podpořit ekonomiku rozsáhlými investicemi financovanými půjčkami"
+        },
+        {
+          "czech": "transformace ekonomiky",
+          "english": "zásadní změna struktury a fungování hospodářství"
+        },
+        {
+          "czech": "konkurenceschopnost",
+          "english": "schopnost ekonomiky nebo firmy obstát v konkurenci"
+        },
+        {
+          "czech": "vytěsňování",
+          "english": "omezení určité aktivity v důsledku růstu jiné aktivity"
+        }
+      ],
+      "exercises": [
+        {
+          "title": "Cvičení 1 – Spojte výraz s přesným významem",
+          "instructions": "",
+          "optionsList": [],
+          "items": [
+            {
+              "section_title": "",
+              "prompt": "proinvestovat se z dluhu",
+              "type": "single",
+              "is_multiselect": false,
+              "options": []
+            },
+            {
+              "section_title": "",
+              "prompt": "fiskální plán",
+              "type": "single",
+              "is_multiselect": false,
+              "options": []
+            },
+            {
+              "section_title": "",
+              "prompt": "strukturální reforma",
+              "type": "single",
+              "is_multiselect": false,
+              "options": []
+            },
+            {
+              "section_title": "",
+              "prompt": "vytěsňování soukromých investic",
+              "type": "single",
+              "is_multiselect": false,
+              "options": []
+            },
+            {
+              "section_title": "",
+              "prompt": "úniková doložka",
+              "type": "single",
+              "is_multiselect": false,
+              "options": []
+            },
+            {
+              "section_title": "",
+              "prompt": "mobilita pracovní síly",
+              "type": "single",
+              "is_multiselect": false,
+              "options": []
+            },
+            {
+              "section_title": "",
+              "prompt": "valorizační vzorec",
+              "type": "single",
+              "is_multiselect": false,
+              "options": []
+            },
+            {
+              "section_title": "",
+              "prompt": "být politicky nepopulární",
+              "type": "single",
+              "is_multiselect": false,
+              "options": [
+                "mechanismus, podle kterého se upravuje určitá pravidelná platba, například důchod",
+                "schopnost pracovníků měnit zaměstnání, místo nebo sektor podle potřeb trhu",
+                "opatření, které mění fungování určité části ekonomiky dlouhodobě, nikoli pouze krátkodobě",
+                "plán určující směřování příjmů, výdajů a hospodaření veřejných rozpočtů",
+                "situace, kdy veřejné výdaje omezují dostupnost zdrojů pro soukromý sektor",
+                "způsob financování růstu prostřednictvím rozsáhlých veřejných investic financovaných dluhem",
+                "výjimka z určitého pravidla, která umožňuje jeho dočasné nebo specifické obejití",
+                "opatření, které může být pro veřejnost nebo voliče nepříjemné a může proto snižovat politickou podporu"
+              ]
+            }
+          ]
+        },
+        {
+          "title": "Cvičení 2 – Doplňte výraz do věty",
+          "instructions": "Výrazy: fiskální, mandatorní, strukturální, konsolidovat, valorizace, stagnace, transformace, konkurenceschopnost",
+          "optionsList": [
+            "fiskální",
+            "mandatorní",
+            "strukturální",
+            "konsolidovat",
+            "valorizace",
+            "stagnace",
+            "transformace",
+            "konkurenceschopnost"
+          ],
+          "items": [
+            {
+              "section_title": "",
+              "prompt": "Vláda bude muset veřejné finance postupně __________.",
+              "type": "single",
+              "is_multiselect": false,
+              "options": []
+            },
+            {
+              "section_title": "",
+              "prompt": "Důchodová __________ se týká změny výše důchodů.",
+              "type": "single",
+              "is_multiselect": false,
+              "options": []
+            },
+            {
+              "section_title": "",
+              "prompt": "Ekonomická __________ může zásadně změnit strukturu hospodářství.",
+              "type": "single",
+              "is_multiselect": false,
+              "options": []
+            },
+            {
+              "section_title": "",
+              "prompt": "Výdaje na důchody patří mezi __________ výdaje.",
+              "type": "single",
+              "is_multiselect": false,
+              "options": []
+            },
+            {
+              "section_title": "",
+              "prompt": "Dlouhodobá __________ by znamenala období bez výrazného hospodářského růstu.",
+              "type": "single",
+              "is_multiselect": false,
+              "options": []
+            },
+            {
+              "section_title": "",
+              "prompt": "Některé problémy nelze vyřešit bez __________ reforem.",
+              "type": "single",
+              "is_multiselect": false,
+              "options": []
+            },
+            {
+              "section_title": "",
+              "prompt": "__________ politika ovlivňuje příjmy a výdaje státu.",
+              "type": "single",
+              "is_multiselect": false,
+              "options": []
+            },
+            {
+              "section_title": "",
+              "prompt": "Investice do vzdělávání mohou dlouhodobě zvýšit __________ ekonomiky.",
+              "type": "single",
+              "is_multiselect": false,
+              "options": []
+            }
+          ]
+        },
+        {
+          "title": "Cvičení 3 – Gramatika",
+          "instructions": "A. Opravte chybu B. Doplňte správný tvar",
+          "optionsList": [],
+          "items": [
+            {
+              "section_title": "A. Opravte chybu",
+              "prompt": "V každé větě je jedna chyba.",
+              "type": "single",
+              "is_multiselect": false,
+              "options": []
+            },
+            {
+              "section_title": "A. Opravte chybu",
+              "prompt": "Vláda musí počítat s rostoucími úrokové sazbami.",
+              "type": "single",
+              "is_multiselect": false,
+              "options": []
+            },
+            {
+              "section_title": "A. Opravte chybu",
+              "prompt": "Ekonomové upozorňují na riziko další zadlužování.",
+              "type": "single",
+              "is_multiselect": false,
+              "options": []
+            },
+            {
+              "section_title": "A. Opravte chybu",
+              "prompt": "Pokud budou sazby růst, stát bude platit za dluh více peněz.",
+              "type": "single",
+              "is_multiselect": false,
+              "options": []
+            },
+            {
+              "section_title": "A. Opravte chybu",
+              "prompt": "Investice do infrastruktury mohou mít pozitivní vliv na ekonomickému růstu.",
+              "type": "single",
+              "is_multiselect": false,
+              "options": []
+            },
+            {
+              "section_title": "A. Opravte chybu",
+              "prompt": "Bez strukturálních reforem bude obtížné schodek dlouhodobě snížit.",
+              "type": "single",
+              "is_multiselect": false,
+              "options": []
+            },
+            {
+              "section_title": "A. Opravte chybu",
+              "prompt": "Firmy mají problém zaměstnávat lidi nad padesát let, protože často mají daleko do důchodu.",
+              "type": "single",
+              "is_multiselect": false,
+              "options": []
+            },
+            {
+              "section_title": "A. Opravte chybu",
+              "prompt": "Důchodová reforma by měla být připravena tak, aby odpovídala demografickým změnám.",
+              "type": "single",
+              "is_multiselect": false,
+              "options": []
+            },
+            {
+              "section_title": "A. Opravte chybu",
+              "prompt": "Autorka upozorňuje, že vysoký schodek není možné jednoduše zaplatit z ekonomického růstu.",
+              "type": "single",
+              "is_multiselect": false,
+              "options": []
+            },
+            {
+              "section_title": "B. Doplňte správný tvar",
+              "prompt": "Kdyby vláda výrazně __________ (omezit) výdaje, mohla by snížit schodek.",
+              "type": "single",
+              "is_multiselect": false,
+              "options": []
+            },
+            {
+              "section_title": "B. Doplňte správný tvar",
+              "prompt": "Pokud by stát více investoval do vzdělávání, ekonomika by v budoucnu __________ (moci) růst rychleji.",
+              "type": "single",
+              "is_multiselect": false,
+              "options": []
+            },
+            {
+              "section_title": "B. Doplňte správný tvar",
+              "prompt": "Přestože ekonomika __________ (růst), schodek zůstává vysoký.",
+              "type": "single",
+              "is_multiselect": false,
+              "options": []
+            },
+            {
+              "section_title": "B. Doplňte správný tvar",
+              "prompt": "Vláda tvrdí, že investice __________ (mít) prorůstový efekt.",
+              "type": "single",
+              "is_multiselect": false,
+              "options": []
+            },
+            {
+              "section_title": "B. Doplňte správný tvar",
+              "prompt": "Není jisté, zda se tento efekt skutečně __________ (projevit).",
+              "type": "single",
+              "is_multiselect": false,
+              "options": []
+            },
+            {
+              "section_title": "B. Doplňte správný tvar",
+              "prompt": "Kdyby byly reformy provedeny dříve, některé problémy __________ (být) dnes menší.",
+              "type": "single",
+              "is_multiselect": false,
+              "options": []
+            },
+            {
+              "section_title": "B. Doplňte správný tvar",
+              "prompt": "Ekonomika potřebuje změny, které __________ (zvýšit) její konkurenceschopnost.",
+              "type": "single",
+              "is_multiselect": false,
+              "options": []
+            },
+            {
+              "section_title": "B. Doplňte správný tvar",
+              "prompt": "Jakmile vláda __________ (představit) konkrétní reformy, bude možné posoudit jejich dopad.",
+              "type": "single",
+              "is_multiselect": false,
+              "options": []
+            }
+          ]
+        },
+        {
+          "title": "Cvičení 4 – Slovní zásoba a předložky",
+          "instructions": "",
+          "optionsList": [],
+          "items": [
+            {
+              "section_title": "",
+              "prompt": "Doplňte správnou předložku nebo vazbu.",
+              "type": "single",
+              "is_multiselect": false,
+              "options": []
+            },
+            {
+              "section_title": "",
+              "prompt": "dosáhnout ___ určité úrovně zadlužení",
+              "type": "single",
+              "is_multiselect": false,
+              "options": []
+            },
+            {
+              "section_title": "",
+              "prompt": "přispět ___ dlouhodobé stabilitě veřejných financí",
+              "type": "single",
+              "is_multiselect": false,
+              "options": []
+            },
+            {
+              "section_title": "",
+              "prompt": "být vystaven ___ tlaku rostoucích úrokových sazeb",
+              "type": "single",
+              "is_multiselect": false,
+              "options": []
+            },
+            {
+              "section_title": "",
+              "prompt": "mít vliv ___ dostupnost hypoték",
+              "type": "single",
+              "is_multiselect": false,
+              "options": []
+            },
+            {
+              "section_title": "",
+              "prompt": "vycházet ___ předpokladu",
+              "type": "single",
+              "is_multiselect": false,
+              "options": []
+            },
+            {
+              "section_title": "",
+              "prompt": "soustředit se ___ strukturální změny",
+              "type": "single",
+              "is_multiselect": false,
+              "options": []
+            },
+            {
+              "section_title": "",
+              "prompt": "být závislý ___ veřejných výdajích",
+              "type": "single",
+              "is_multiselect": false,
+              "options": []
+            },
+            {
+              "section_title": "",
+              "prompt": "vyrovnat se ___ demografickými změnami",
+              "type": "single",
+              "is_multiselect": false,
+              "options": []
+            }
+          ]
+        },
+        {
+          "title": "Cvičení 5 – Porozumění textu",
+          "instructions": "A. Ano – Ne B. Vyberte nejpřesnější odpověď. C. Co vyplývá z rozhovoru? Vyberte dvě správné možnosti.",
+          "optionsList": [],
+          "items": [
+            {
+              "section_title": "A. Ano – Ne",
+              "prompt": "Rozhovor rozlišuje mezi nominální výší schodku a jeho relativním vyjádřením.",
+              "type": "single",
+              "is_multiselect": false,
+              "options": []
+            },
+            {
+              "section_title": "A. Ano – Ne",
+              "prompt": "Autorka tvrdí, že samotné veřejné investice automaticky zajistí výrazně vyšší hospodářský růst.",
+              "type": "single",
+              "is_multiselect": false,
+              "options": []
+            },
+            {
+              "section_title": "A. Ano – Ne",
+              "prompt": "Podle rozhovoru může vysoká poptávka státu po stavebních kapacitách ovlivnit dostupnost zdrojů pro soukromý sektor.",
+              "type": "single",
+              "is_multiselect": false,
+              "options": []
+            },
+            {
+              "section_title": "A. Ano – Ne",
+              "prompt": "Vysoké úrokové sazby jsou v textu spojovány pouze se státním dluhem, nikoli s hypotékami.",
+              "type": "single",
+              "is_multiselect": false,
+              "options": []
+            },
+            {
+              "section_title": "A. Ano – Ne",
+              "prompt": "Autorka považuje strukturální reformy za jednoduché a rychle proveditelné.",
+              "type": "single",
+              "is_multiselect": false,
+              "options": []
+            },
+            {
+              "section_title": "A. Ano – Ne",
+              "prompt": "V rozhovoru se upozorňuje na rozdíl mezi krátkodobým snížením schodku a dlouhodobou změnou struktury veřejných financí.",
+              "type": "single",
+              "is_multiselect": false,
+              "options": []
+            },
+            {
+              "section_title": "A. Ano – Ne",
+              "prompt": "U podpory v nezaměstnanosti se v rozhovoru diskutuje také její možný vliv na mobilitu pracovní síly.",
+              "type": "single",
+              "is_multiselect": false,
+              "options": []
+            },
+            {
+              "section_title": "A. Ano – Ne",
+              "prompt": "Autorka na konci rozhovoru uvádí přesnou částku, na které se podle ní konečný schodek určitě ustálí.",
+              "type": "single",
+              "is_multiselect": false,
+              "options": []
+            },
+            {
+              "section_title": "B. Vyberte nejpřesnější odpověď.",
+              "prompt": "Jaký problém autorka spojuje s představou, že se ekonomika „proinvestuje z dluhu“?",
+              "type": "single",
+              "is_multiselect": false,
+              "options": [
+                "Samotné zvýšení investic podle ní nemusí vést k dostatečnému růstu, pokud chybí strukturální změny a zároveň jsou omezené kapacity ekonomiky.",
+                "Veřejné investice podle ní nikdy nemají žádný ekonomický přínos.",
+                "Investice lze financovat pouze z evropských fondů."
+              ]
+            },
+            {
+              "section_title": "B. Vyberte nejpřesnější odpověď.",
+              "prompt": "Proč je podle rozhovoru obtížné rychle snížit schodek?",
+              "type": "single",
+              "is_multiselect": false,
+              "options": [
+                "Protože významnou část výdajů tvoří mandatorní výdaje a výrazné škrty nebo zvýšení daní mají politické a ekonomické důsledky.",
+                "Protože stát nemůže změnit žádný ze svých výdajů.",
+                "Protože všechny státní výdaje jsou určeny Evropskou unií."
+              ]
+            },
+            {
+              "section_title": "B. Vyberte nejpřesnější odpověď.",
+              "prompt": "Jaký problém je v rozhovoru zmíněn v souvislosti s lidmi nad padesát let?",
+              "type": "single",
+              "is_multiselect": false,
+              "options": [
+                "Firmy je podle popisu často obtížně zaměstnávají, přestože české podniky potřebují pracovní sílu.",
+                "Většina z nich podle textu pracuje v zahraničí.",
+                "Nemohou pobírat důchod."
+              ]
+            },
+            {
+              "section_title": "B. Vyberte nejpřesnější odpověď.",
+              "prompt": "Jakou otázku rozhovor otevírá v souvislosti s podporou v nezaměstnanosti?",
+              "type": "single",
+              "is_multiselect": false,
+              "options": [
+                "Zda její změna může ovlivnit mobilitu pracovní síly a následně příjmy veřejných rozpočtů.",
+                "Zda by měla být podpora úplně zrušena ve všech zemích EU.",
+                "Zda by měla být nahrazena pouze soukromým pojištěním."
+              ]
+            },
+            {
+              "section_title": "C. Co vyplývá z rozhovoru? Vyberte dvě správné možnosti.",
+              "prompt": "Autorka upozorňuje, že:",
+              "type": "checkbox",
+              "is_multiselect": true,
+              "options": [
+                "vysoký schodek může mít dlouhodobé nákladové důsledky kvůli úrokům",
+                "každá veřejná investice automaticky zvýší růst ekonomiky",
+                "strukturální reformy mohou být politicky i ekonomicky obtížné",
+                "konečný schodek už je definitivně známý"
+              ]
+            },
+            {
+              "section_title": "C. Co vyplývá z rozhovoru? Vyberte dvě správné možnosti.",
+              "prompt": "V rozhovoru se jako možné oblasti strukturálních změn objevují:",
+              "type": "checkbox",
+              "is_multiselect": true,
+              "options": [
+                "školství",
+                "důchodový systém",
+                "pracovní trh",
+                "pouze výstavba dálnic"
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  },
+  "answer_key": {
+    "B1": {
+      "Cvičení 1": [
+        "1–f, 2–c, 3–h, 4–d, 5–b, 6–a, 7–g, 8–e"
+      ],
+      "Cvičení 2": [
+        "rozpočet",
+        "schodek",
+        "ekonomika",
+        "investice",
+        "daní",
+        "důchody",
+        "půjčovat",
+        "úroky"
+      ],
+      "Cvičení 3": [
+        "roste",
+        "připravuje",
+        "půjčuje",
+        "rostou",
+        "představila",
+        "diskutují",
+        "schvalovat",
+        "projednávat"
+      ],
+      "Cvičení 4": [
+        "o",
+        "o",
+        "od",
+        "do",
+        "na",
+        "na",
+        "za",
+        "na"
+      ],
+      "Cvičení 5": [
+        "Ano",
+        "Ne",
+        "Ano",
+        "Ano",
+        "Ne",
+        "Ano",
+        "Ano",
+        "Ne",
+        "c",
+        "a",
+        "b",
+        "a"
+      ]
+    },
+    "B2": {
+      "Cvičení 1": [
+        "1–h, 2–b, 3–g, 4–f, 5–e, 6–a, 7–d, 8–c"
+      ],
+      "Cvičení 2": [
+        "schodek",
+        "úrokové sazby",
+        "stavebnictví",
+        "pracovní sílu",
+        "stagnace",
+        "konsolidací",
+        "dotace",
+        "reformy"
+      ],
+      "Cvičení 3": [
+        "utrácel",
+        "růst",
+        "podporuje",
+        "byl",
+        "plánuje",
+        "přinese",
+        "uskuteční",
+        "jedná"
+      ],
+      "Cvičení 4": [
+        "na",
+        [
+          "3",
+          "7 %"
+        ],
+        "na",
+        "k",
+        "k",
+        "na",
+        "do",
+        "s"
+      ],
+      "Cvičení 5": [
+        "Ano",
+        "Ne",
+        "Ano",
+        "Ne",
+        "Ano",
+        "Ne",
+        "Ano",
+        "Ne",
+        "a",
+        "b",
+        "a",
+        "b"
+      ]
+    },
+    "C1": {
+      "Cvičení 1": [
+        "1–f, 2–d, 3–c, 4–e, 5–g, 6–b, 7–a, 8–h"
+      ],
+      "Cvičení 2": [
+        "konsolidovat",
+        "valorizace",
+        "transformace",
+        "mandatorní",
+        "stagnace",
+        "strukturálních",
+        "fiskální",
+        "konkurenceschopnost"
+      ],
+      "Cvičení 3A": [
+        "úrokovými sazbami",
+        "na další zadlužování",
+        "Pokud budou sazby růst → bez chyby",
+        "na ekonomický růst",
+        "Bez strukturálních reforem → bez chyby",
+        [
+          "protože často mají daleko do důchodu → gramaticky správně; věta je podle kontextu možná",
+          "ale významově lze lépe: „přestože mají do důchodu daleko“"
+        ],
+        "bez chyby",
+        "bez chyby"
+      ],
+      "Cvičení 3B": [
+        "omezila",
+        "mohla",
+        "roste",
+        "mají",
+        "projeví",
+        "byly",
+        "zvýší",
+        "představí"
+      ],
+      "Cvičení 4": [
+        "určité úrovně",
+        "k",
+        "tlaku",
+        "na",
+        "z",
+        "na",
+        "na",
+        "s"
+      ],
+      "Cvičení 5": [
+        "Ano",
+        "Ne",
+        "Ano",
+        "Ne",
+        "Ne",
+        "Ano",
+        "Ano",
+        "Ne",
+        "a",
+        "a",
+        "a",
+        "a",
+        [
+          "a",
+          "c"
+        ],
+        [
+          "a",
+          "b",
+          "c"
+        ]
+      ]
+    }
+  }
+}

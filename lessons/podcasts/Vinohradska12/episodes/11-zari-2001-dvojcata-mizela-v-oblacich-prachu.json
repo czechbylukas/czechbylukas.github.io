@@ -1,0 +1,1158 @@
+{
+  "title": "11. září 2001 – Dvojčata mizela v oblacích prachu",
+  "description": "Práce s textem – úrovně B1, B2, C1",
+  "audioUrl": "",
+  "episodeUrl": "https://www.irozhlas.cz/zpravy-svet/dvojcata-mizela-v-oblacich-prachu-tak-bezel-na-pomoc-dnes-naraz-ustala-veri_2609110600_lar#transkripce",
+  "levels": {
+    "B1": {
+      "vocabulary": [
+        {
+          "czech": "svědek",
+          "english": "člověk, který něco viděl nebo zažil"
+        },
+        {
+          "czech": "evakuovat",
+          "english": "odvést lidi z nebezpečného místa"
+        },
+        {
+          "czech": "trosky",
+          "english": "zničené části budovy nebo jiné stavby"
+        },
+        {
+          "czech": "náraz",
+          "english": "silný kontakt jednoho předmětu s druhým"
+        },
+        {
+          "czech": "kouř",
+          "english": "plyn vznikající například při hoření"
+        },
+        {
+          "czech": "přeživší",
+          "english": "člověk, který přežil nehodu nebo katastrofu"
+        },
+        {
+          "czech": "věž",
+          "english": "vysoká stavba"
+        },
+        {
+          "czech": "hasič",
+          "english": "člověk, který zasahuje při požárech a dalších nebezpečných situacích"
+        }
+      ],
+      "exercises": [
+        {
+          "title": "Cvičení 1 – Spoj výraz s významem",
+          "instructions": "Spojte výrazy z levého sloupce s jejich významem.",
+          "optionsList": [],
+          "items": [
+            {
+              "prompt": "svědek",
+              "options": []
+            },
+            {
+              "prompt": "evakuovat",
+              "options": []
+            },
+            {
+              "prompt": "trosky",
+              "options": []
+            },
+            {
+              "prompt": "hasič",
+              "options": []
+            },
+            {
+              "prompt": "kouř",
+              "options": []
+            },
+            {
+              "prompt": "náraz",
+              "options": []
+            },
+            {
+              "prompt": "věž",
+              "options": []
+            },
+            {
+              "prompt": "přeživší",
+              "options": [
+                "člověk, který přežil neštěstí",
+                "člověk, který viděl nějakou událost",
+                "část budovy, která je velmi vysoká",
+                "odstranit lidi z nebezpečného místa",
+                "člověk, který zasahuje například při požáru",
+                "zničené části budovy",
+                "situace, kdy do něčeho něco silně narazí",
+                "šedý nebo černý plyn, který vzniká například při požáru"
+              ]
+            }
+          ]
+        },
+        {
+          "title": "Cvičení 2 – Doplň do věty",
+          "instructions": "Doplňte vhodné slovo.\nSlova: most, telefon, prach, práce, věže, rádio, bahno, schodiště",
+          "optionsList": [
+            "most",
+            "telefon",
+            "prach",
+            "práce",
+            "věže",
+            "rádio",
+            "bahno",
+            "schodiště"
+          ],
+          "items": [
+            {
+              "prompt": "Jiří Boudník pracoval jako projektový __________.",
+              "options": []
+            },
+            {
+              "prompt": "Když se dozvěděl o útoku, začaly všem zvonit __________.",
+              "options": []
+            },
+            {
+              "prompt": "Ze Severní věže stoupal hustý __________.",
+              "options": []
+            },
+            {
+              "prompt": "Boudník šel přes Brooklynský __________.",
+              "options": []
+            },
+            {
+              "prompt": "Po pádu budov bylo všude mnoho __________.",
+              "options": []
+            },
+            {
+              "prompt": "V troskách bylo potřeba hledat také výtahové šachty a __________.",
+              "options": []
+            },
+            {
+              "prompt": "Na místě používal přenosné __________.",
+              "options": []
+            },
+            {
+              "prompt": "Po příjezdu na Manhattan šlápl do __________.",
+              "options": []
+            }
+          ]
+        },
+        {
+          "title": "Cvičení 3 – Gramatika",
+          "instructions": "Doplňte správný tvar slovesa v minulém čase.",
+          "optionsList": [],
+          "items": [
+            {
+              "prompt": "Boudník __________ (pracovat) na stavbě federálního soudu.",
+              "options": []
+            },
+            {
+              "prompt": "Najednou všem __________ (začít) zvonit telefony.",
+              "options": []
+            },
+            {
+              "prompt": "Potom se lidé __________ (evakuovat).",
+              "options": []
+            },
+            {
+              "prompt": "Boudník __________ (vidět) obě věže hořet.",
+              "options": []
+            },
+            {
+              "prompt": "Přes Brooklynský most __________ (jít) tisíce lidí.",
+              "options": []
+            },
+            {
+              "prompt": "Jižní věž __________ (spadnout) dříve než druhá.",
+              "options": []
+            },
+            {
+              "prompt": "Policie ho na Manhattan __________ (nepustit).",
+              "options": []
+            },
+            {
+              "prompt": "Večer se Boudník __________ (vrátit) domů.",
+              "options": []
+            }
+          ]
+        },
+        {
+          "title": "Cvičení 4 – Slovní zásoba a předložky",
+          "instructions": "Doplňte správnou předložku. Z vybraných možnosti: …..",
+          "optionsList": [],
+          "items": [
+            {
+              "prompt": "pracovat ___ stavbě",
+              "options": []
+            },
+            {
+              "prompt": "narazit ___ budovy",
+              "options": []
+            },
+            {
+              "prompt": "jít ___ Brooklynský most",
+              "options": []
+            },
+            {
+              "prompt": "vrátit se ___ Manhattanu",
+              "options": []
+            },
+            {
+              "prompt": "pomáhat ___ troskách",
+              "options": []
+            },
+            {
+              "prompt": "mluvit ___ hasiči",
+              "options": []
+            },
+            {
+              "prompt": "pracovat ___ Ground Zero",
+              "options": []
+            },
+            {
+              "prompt": "přijet ___ Manhattan",
+              "options": []
+            }
+          ]
+        },
+        {
+          "title": "Cvičení 5 – Porozumění textu",
+          "instructions": "",
+          "optionsList": [],
+          "items": [
+            {
+              "prompt": "A. Ano – Ne",
+              "isSubHeader": true,
+              "options": []
+            },
+            {
+              "prompt": "Rozhodněte, zda je tvrzení podle textu ANO, nebo NE.",
+              "options": []
+            },
+            {
+              "prompt": "Boudník byl 11. září v New Yorku.",
+              "options": []
+            },
+            {
+              "prompt": "Pracoval v nemocnici.",
+              "options": []
+            },
+            {
+              "prompt": "První informaci o útoku dostal od kamarádky.",
+              "options": []
+            },
+            {
+              "prompt": "Na Brooklynském mostě viděl, jak se Jižní věž začíná sesouvat.",
+              "options": []
+            },
+            {
+              "prompt": "Policie ho okamžitě pustila do oblasti Ground Zero.",
+              "options": []
+            },
+            {
+              "prompt": "Později se podílel na záchranných pracích.",
+              "options": []
+            },
+            {
+              "prompt": "Vytvořil také model budov.",
+              "options": []
+            },
+            {
+              "prompt": "Na Ground Zero pracoval až do roku 2005.",
+              "options": []
+            },
+            {
+              "prompt": "B. Vyberte správnou odpověď.",
+              "isSubHeader": true,
+              "options": []
+            },
+            {
+              "prompt": "Proč se Boudník rozhodl jít směrem k Severní věži?",
+              "options": [
+                "Chtěl se podívat na požár.",
+                "Chtěl varovat známé, kterým se nemohl dovolat.",
+                "Chtěl najít práci."
+              ]
+            },
+            {
+              "prompt": "Co si vzal, když šel pomáhat?",
+              "options": [
+                "baterku, přilbu a rádio",
+                "telefon, počítač a mapu",
+                "vodu, jídlo a stan"
+              ]
+            },
+            {
+              "prompt": "Co vytvořil pro záchranáře?",
+              "options": [
+                "nový most",
+                "fyzický a později počítačový model",
+                "nové hasičské auto"
+              ]
+            },
+            {
+              "prompt": "Proč podle Boudníka věže nakonec spadly?",
+              "options": [
+                "Kvůli silnému větru.",
+                "Kvůli kombinaci poškození konstrukce a paliva a následnému zatížení konstrukce.",
+                "Protože byly příliš staré."
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    "B2": {
+      "vocabulary": [
+        {
+          "czech": "mít oči na stopkách",
+          "english": "být velmi pozorný"
+        },
+        {
+          "czech": "přetížený",
+          "english": "zatížený více, než je běžné nebo bezpečné"
+        },
+        {
+          "czech": "vzdušnou čarou",
+          "english": "přímo, bez ohledu na skutečnou trasu"
+        },
+        {
+          "czech": "sesunout se",
+          "english": "posunout se nebo zhroutit směrem dolů"
+        },
+        {
+          "czech": "zorientovat se",
+          "english": "zjistit, kde člověk je a jak se dostat na určité místo"
+        },
+        {
+          "czech": "ustát náraz",
+          "english": "vydržet náraz bez okamžitého zhroucení"
+        },
+        {
+          "czech": "vyztužený",
+          "english": "zesílený tak, aby byl pevnější"
+        },
+        {
+          "czech": "katarze",
+          "english": "psychické uvolnění nebo zpracování silného prožitku"
+        }
+      ],
+      "exercises": [
+        {
+          "title": "Cvičení 1 – Spoj výraz s vysvětlením",
+          "instructions": "",
+          "optionsList": [],
+          "items": [
+            {
+              "prompt": "mít oči na stopkách",
+              "options": []
+            },
+            {
+              "prompt": "být přetížený",
+              "options": []
+            },
+            {
+              "prompt": "vzdušnou čarou",
+              "options": []
+            },
+            {
+              "prompt": "dát dohromady partu",
+              "options": []
+            },
+            {
+              "prompt": "být zasypaný",
+              "options": []
+            },
+            {
+              "prompt": "zorientovat se",
+              "options": []
+            },
+            {
+              "prompt": "povolit",
+              "options": []
+            },
+            {
+              "prompt": "ustát náraz",
+              "options": [
+                "být schopen zvládnout silný náraz nebo zátěž",
+                "být zavalený materiálem",
+                "být velmi pozorný",
+                "určit, kde se člověk nachází a kam má jít",
+                "být zatížený nad běžnou kapacitu",
+                "vytvořit skupinu lidí pro určitý úkol",
+                "přestat být pevný nebo se uvolnit",
+                "měřit vzdálenost přímo, bez ohledu na skutečnou cestu"
+              ]
+            }
+          ]
+        },
+        {
+          "title": "Cvičení 2 – Doplňte vhodné slovo",
+          "instructions": "Slova: evakuace, přetížené, sesunout, konstrukce, přeživší, trosky, vyztužené, katarze",
+          "optionsList": [
+            "evakuace",
+            "přetížené",
+            "sesunout",
+            "konstrukce",
+            "přeživší",
+            "trosky",
+            "vyztužené",
+            "katarze"
+          ],
+          "items": [
+            {
+              "prompt": "Všechny telefonní linky byly __________.",
+              "options": []
+            },
+            {
+              "prompt": "Boudník se rozhodl pomoci při hledání __________.",
+              "options": []
+            },
+            {
+              "prompt": "Záchranáři pracovali v nebezpečných __________.",
+              "options": []
+            },
+            {
+              "prompt": "Boudník se obával, že se budova může ještě více __________.",
+              "options": []
+            },
+            {
+              "prompt": "Vytvořil model, který zobrazoval důležité části __________.",
+              "options": []
+            },
+            {
+              "prompt": "Podle rozhovoru jsou dnes některá patra budov lépe __________.",
+              "options": []
+            },
+            {
+              "prompt": "Po pádu věží začala rozsáhlá __________.",
+              "options": []
+            },
+            {
+              "prompt": "Knihu napsal mimo jiné jako určitou formu __________.",
+              "options": []
+            }
+          ]
+        },
+        {
+          "title": "Cvičení 3 – Gramatika",
+          "instructions": "Doplňte správný tvar slovesa. Rozhodněte, zda je vhodnější minulý, přítomný, nebo budoucí čas.",
+          "optionsList": [],
+          "items": [
+            {
+              "prompt": "Když Boudník __________ (vidět) druhé letadlo, pochopil, že situace je vážná.",
+              "options": []
+            },
+            {
+              "prompt": "Dnes se podobná budova podle jeho názoru __________ (stavět) jinak.",
+              "options": []
+            },
+            {
+              "prompt": "Kdyby se podobná situace opakovala, moderní konstrukce ji podle něj __________ (ustát).",
+              "options": []
+            },
+            {
+              "prompt": "Když se __________ (vrátit) domů, sledoval zprávy.",
+              "options": []
+            },
+            {
+              "prompt": "Druhý den __________ (jít) znovu do práce.",
+              "options": []
+            },
+            {
+              "prompt": "Záchranáři tehdy __________ (potřebovat) informace o konstrukci budov.",
+              "options": []
+            },
+            {
+              "prompt": "Model jim __________ (umožnit) lépe se orientovat.",
+              "options": []
+            },
+            {
+              "prompt": "Boudník říká, že na tuto zkušenost nikdy __________ (nezapomenout).",
+              "options": []
+            }
+          ]
+        },
+        {
+          "title": "Cvičení 4 – Slovní zásoba a předložky",
+          "instructions": "Doplňte vhodnou předložku a případně správný pád.",
+          "optionsList": [],
+          "items": [
+            {
+              "prompt": "být zodpovědný ___ organizaci práce",
+              "options": []
+            },
+            {
+              "prompt": "přemýšlet ___ tom, co se stalo",
+              "options": []
+            },
+            {
+              "prompt": "pracovat ___ záchranáři",
+              "options": []
+            },
+            {
+              "prompt": "dostat strach ___ dalšího útoku",
+              "options": []
+            },
+            {
+              "prompt": "dostat se ___ místa nehody",
+              "options": []
+            },
+            {
+              "prompt": "podílet se ___ záchranných pracích",
+              "options": []
+            },
+            {
+              "prompt": "mít přístup ___ fotografiím a výkresům",
+              "options": []
+            },
+            {
+              "prompt": "pomoci ___ záchranářům",
+              "options": []
+            }
+          ]
+        },
+        {
+          "title": "Cvičení 5 – Porozumění textu",
+          "instructions": "",
+          "optionsList": [],
+          "items": [
+            {
+              "prompt": "A. Ano – Ne",
+              "isSubHeader": true,
+              "options": []
+            },
+            {
+              "prompt": "Boudník se nejprve nemohl dovolat známým, kteří pracovali v Severní věži.",
+              "options": []
+            },
+            {
+              "prompt": "Na mostě okamžitě slyšel zvuk pádu Jižní věže.",
+              "options": []
+            },
+            {
+              "prompt": "Po příjezdu na Manhattan byla oblast podle jeho popisu zahalená prachem a tmou.",
+              "options": []
+            },
+            {
+              "prompt": "Policie Boudníkovi a jeho skupině zabránila v práci na místě.",
+              "options": []
+            },
+            {
+              "prompt": "Boudník se později podílel na tvorbě modelu Ground Zero.",
+              "options": []
+            },
+            {
+              "prompt": "Model měl mimo jiné pomoci při hledání výtahových šachet.",
+              "options": []
+            },
+            {
+              "prompt": "Boudník na Ground Zero pracoval pouze několik dní.",
+              "options": []
+            },
+            {
+              "prompt": "Podle jeho vysvětlení hrálo při kolapsu budov roli palivo.",
+              "options": []
+            },
+            {
+              "prompt": "B. Vyberte správnou odpověď.",
+              "isSubHeader": true,
+              "options": []
+            },
+            {
+              "prompt": "Proč byl problém orientovat se v troskách?",
+              "options": [
+                "Oblast byla příliš malá.",
+                "Trosky změnily původní prostor a nebylo snadné najít například schodiště a šachty.",
+                "Záchranáři neměli žádné mapy New Yorku."
+              ]
+            },
+            {
+              "prompt": "Co umožňoval počítačový model?",
+              "options": [
+                "předpovídat počasí",
+                "ukazovat stav některých konstrukčních prvků a simulovat jejich chování",
+                "řídit dopravu v New Yorku"
+              ]
+            },
+            {
+              "prompt": "Co podle Boudníka pomohlo konstrukci věží krátkodobě odolat nárazu?",
+              "options": [
+                "konstrukce byla navržena s určitou rezervou pro náraz letadla",
+                "budovy byly prázdné",
+                "letadla byla velmi malá"
+              ]
+            },
+            {
+              "prompt": "Proč podle rozhovoru následoval později kolaps?",
+              "options": [
+                "Poškození konstrukce bylo spojeno s účinkem paliva a váhou horní části budovy.",
+                "Věž zasáhl další hurikán.",
+                "Došlo k zemětřesení."
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    "C1": {
+      "vocabulary": [
+        {
+          "czech": "čelit něčemu",
+          "english": "aktivně se postavit problému nebo nebezpečí"
+        },
+        {
+          "czech": "stabilita",
+          "english": "schopnost zůstat pevný a vyvážený"
+        },
+        {
+          "czech": "zatížení",
+          "english": "síla nebo tlak působící na konstrukci či člověka"
+        },
+        {
+          "czech": "postupný kolaps",
+          "english": "proces, při kterém dochází ke zhroucení krok za krokem"
+        },
+        {
+          "czech": "vyztužení",
+          "english": "proces zesílení konstrukce"
+        },
+        {
+          "czech": "vyrovnat se s něčím",
+          "english": "psychicky nebo prakticky zvládnout obtížnou situaci"
+        },
+        {
+          "czech": "být vystaven něčemu",
+          "english": "být určitému vlivu nebo situaci přímo podroben"
+        },
+        {
+          "czech": "v širším kontextu",
+          "english": "při pohledu na širší souvislosti určitého problému"
+        }
+      ],
+      "exercises": [
+        {
+          "title": "Cvičení 1 – Spoj výraz s významem",
+          "instructions": "",
+          "optionsList": [],
+          "items": [
+            {
+              "prompt": "mít něco na stopkách",
+              "options": []
+            },
+            {
+              "prompt": "být na pokraji kolapsu",
+              "options": []
+            },
+            {
+              "prompt": "ustát zátěž",
+              "options": []
+            },
+            {
+              "prompt": "čelit něčemu",
+              "options": []
+            },
+            {
+              "prompt": "strčit hlavu do písku",
+              "options": []
+            },
+            {
+              "prompt": "být něč zaskočen",
+              "options": []
+            },
+            {
+              "prompt": "podléhat něčemu",
+              "options": []
+            },
+            {
+              "prompt": "dostat se z něčeho zpět do normálního fungování",
+              "options": [
+                "reagovat na určitou situaci a aktivně se jí postavit",
+                "zvládnout tlak nebo náročnou situaci",
+                "snažit se problém ignorovat místo jeho řešení",
+                "být překvapený nebo nepřipravený na určitou situaci",
+                "dostat se po náročné zkušenosti zpět do běžného života",
+                "být velmi blízko zhroucení nebo selhání",
+                "být vystaven určitému vlivu",
+                "být velmi pozorný a sledovat, co se děje"
+              ]
+            }
+          ]
+        },
+        {
+          "title": "Cvičení 2 – Doplňte vhodný výraz",
+          "instructions": "Výrazy: následně, v důsledku, postupný kolaps, stabilita, vyztužení, zprostředkovat, nejužší tým, katarze",
+          "optionsList": [
+            "následně",
+            "v důsledku",
+            "postupný kolaps",
+            "stabilita",
+            "vyztužení",
+            "zprostředkovat",
+            "nejužší tým",
+            "katarze"
+          ],
+          "items": [
+            {
+              "prompt": "Boudník se dostal do __________ lidí, kteří organizovali záchranné práce.",
+              "options": []
+            },
+            {
+              "prompt": "Nová konstrukční opatření mají zvýšit __________ budov.",
+              "options": []
+            },
+            {
+              "prompt": "Jedním z opatření je dodatečné __________ některých pater.",
+              "options": []
+            },
+            {
+              "prompt": "Model měl __________ informace o konstrukci záchranářům.",
+              "options": []
+            },
+            {
+              "prompt": "K poškození konstrukce došlo a __________ se začala stavba hroutit.",
+              "options": []
+            },
+            {
+              "prompt": "Podle rozhovoru byl kolaps budov __________ proces.",
+              "options": []
+            },
+            {
+              "prompt": "Boudník svou knihu vnímá také jako určitou formu __________.",
+              "options": []
+            },
+            {
+              "prompt": "__________ požáru a poškození konstrukce došlo k dalšímu oslabení budovy.",
+              "options": []
+            }
+          ]
+        },
+        {
+          "title": "Cvičení 3 – Gramatika a transformace",
+          "instructions": "",
+          "optionsList": [],
+          "items": [
+            {
+              "prompt": "A. Opravte chybu",
+              "isSubHeader": true,
+              "options": []
+            },
+            {
+              "prompt": "V každé větě je jedna gramatická chyba. Pokud je text bez chyby, napiš: „správně“",
+              "options": []
+            },
+            {
+              "prompt": "Boudník pracoval na stavbu federálního soudu.",
+              "options": []
+            },
+            {
+              "prompt": "Nemohl se dovolat svým známým, protože všechny linky byly přetížené.",
+              "options": []
+            },
+            {
+              "prompt": "Rozhodl se, že je půjde varovat na osobně.",
+              "options": []
+            },
+            {
+              "prompt": "Policie jim nedovolila vstoupit do Manhattan.",
+              "options": []
+            },
+            {
+              "prompt": "Model měl pomoci záchranáři lépe se orientovat.",
+              "options": []
+            },
+            {
+              "prompt": "Pracoval tam až do březen 2002.",
+              "options": []
+            },
+            {
+              "prompt": "Knihu napsal, aby se z toho vypsal a mohl vrátit k normálnímu fungování.",
+              "options": []
+            },
+            {
+              "prompt": "V dnešní době by budova podle něj náraz ustála lépe.",
+              "options": []
+            },
+            {
+              "prompt": "B. Doplňte správný tvar",
+              "isSubHeader": true,
+              "options": []
+            },
+            {
+              "prompt": "Přestože __________ (být) situace velmi nebezpečná, rozhodl se pomáhat.",
+              "options": []
+            },
+            {
+              "prompt": "Kdyby konstrukce __________ (být) upravena podle dnešních předpisů, podle Boudníka by náraz pravděpodobně ustála.",
+              "options": []
+            },
+            {
+              "prompt": "Jakmile __________ (zjistit), že už nejsou žádní přeživší, začal situaci prožívat jinak.",
+              "options": []
+            },
+            {
+              "prompt": "Boudník vytvořil model, který __________ (umožnit) záchranářům lépe se orientovat.",
+              "options": []
+            },
+            {
+              "prompt": "Věže byly navrženy tak, aby __________ (ustát) náraz letadla.",
+              "options": []
+            },
+            {
+              "prompt": "Po několika měsících si uvědomil, že už dál __________ (nemoci) pokračovat.",
+              "options": []
+            }
+          ]
+        },
+        {
+          "title": "Cvičení 4 – Slovní zásoba a předložky",
+          "instructions": "Doplňte správnou předložku nebo výraz. Pokud je výraz bez předložky, nechte políčko prázdné.",
+          "optionsList": [],
+          "items": [
+            {
+              "prompt": "být vystaven ___ extrémnímu zatížení",
+              "options": []
+            },
+            {
+              "prompt": "podílet se ___ organizaci záchranných prací",
+              "options": []
+            },
+            {
+              "prompt": "dojít ___ postupnému kolapsu",
+              "options": []
+            },
+            {
+              "prompt": "přispět ___ lepší orientaci záchranářů",
+              "options": []
+            },
+            {
+              "prompt": "vyrovnat se ___ traumatickou zkušeností",
+              "options": []
+            },
+            {
+              "prompt": "vrátit se ___ běžnému fungování",
+              "options": []
+            },
+            {
+              "prompt": "být spojeno ___ určitým rizikem",
+              "options": []
+            },
+            {
+              "prompt": "čelit ___ nebezpečné situaci",
+              "options": []
+            }
+          ]
+        },
+        {
+          "title": "Cvičení 5 – Porozumění textu",
+          "instructions": "",
+          "optionsList": [],
+          "items": [
+            {
+              "prompt": "A. Ano – Ne",
+              "isSubHeader": true,
+              "options": []
+            },
+            {
+              "prompt": "Boudník popisuje 11. září jako zkušenost, která pro něj zůstává velmi silná i po mnoha letech.",
+              "options": []
+            },
+            {
+              "prompt": "Když začaly padat věže, věděl přesně, co se stane.",
+              "options": []
+            },
+            {
+              "prompt": "Jeho první snaha po útoku byla mimo jiné varovat známé v budově.",
+              "options": []
+            },
+            {
+              "prompt": "Jeho původní model měl záchranářům pomoci orientovat se v prostorovém uspořádání trosek.",
+              "options": []
+            },
+            {
+              "prompt": "Po vytvoření prvního modelu už se na dalších projektech nepodílel.",
+              "options": []
+            },
+            {
+              "prompt": "Podle jeho vysvětlení samotný náraz letadla nebyl jediným faktorem vedoucím ke kolapsu.",
+              "options": []
+            },
+            {
+              "prompt": "Kniha pro něj představovala mimo jiné způsob, jak zpracovat vlastní zkušenost.",
+              "options": []
+            },
+            {
+              "prompt": "V závěru rozhovoru Boudník interpretuje události také v širším politickém a ideologickém kontextu.",
+              "options": []
+            },
+            {
+              "prompt": "B. Vyberte nejpřesnější odpověď.",
+              "isSubHeader": true,
+              "options": []
+            },
+            {
+              "prompt": "Jaký význam má v rozhovoru model Ground Zero?",
+              "options": [
+                "Je pouze dokumentací historické události.",
+                "Měl praktickou funkci a pomáhal záchranářům chápat prostor a stav konstrukce.",
+                "Byl vytvořen hlavně jako turistická pomůcka."
+              ]
+            },
+            {
+              "prompt": "Jak se v průběhu rozhovoru mění Boudníkova role?",
+              "options": [
+                "Od náhodného svědka se postupně dostává k aktivnímu účastníkovi záchranných prací.",
+                "Od hasiče se stává novinářem.",
+                "Od pracovníka soudu se stává pilotem."
+              ]
+            },
+            {
+              "prompt": "Jaký vztah mezi nárazem a kolapsem věží popisuje Boudník?",
+              "options": [
+                "Náraz podle něj neměl na konstrukci žádný vliv.",
+                "Náraz byl jedinou bezprostřední příčinou kolapsu.",
+                "Konstrukce náraz určitou dobu vydržela, ale následné poškození a účinky paliva přispěly k jejímu oslabení a následnému kolapsu."
+              ]
+            },
+            {
+              "prompt": "Proč má pro Boudníka význam napsání knihy?",
+              "options": [
+                "Chtěl vytvořit technickou učebnici.",
+                "Pomohla mu zpracovat vlastní zkušenost a vrátit se k běžnějšímu fungování.",
+                "Potřeboval vysvětlit konstrukci nového mrakodrapu."
+              ]
+            },
+            {
+              "prompt": "C. Co vyplývá z textu?",
+              "isSubHeader": true,
+              "options": []
+            },
+            {
+              "prompt": "Vyberte dvě správné možnosti.",
+              "options": []
+            },
+            {
+              "prompt": "Boudníkova zkušenost zahrnovala:",
+              "options": []
+            },
+            {
+              "prompt": "• a) přímé svědectví útoku",
+              "options": []
+            },
+            {
+              "prompt": "• b) práci při odklízení trosek",
+              "options": []
+            },
+            {
+              "prompt": "• c) dlouhodobou práci na letišti",
+              "options": []
+            },
+            {
+              "prompt": "• d) tvorbu modelů pro záchranáře",
+              "options": []
+            },
+            {
+              "prompt": "Text ukazuje, že:",
+              "options": []
+            },
+            {
+              "prompt": "• a) jeho vzpomínky mají osobní i profesní rozměr",
+              "options": []
+            },
+            {
+              "prompt": "• b) technické znalosti využil při záchranných pracích",
+              "options": []
+            },
+            {
+              "prompt": "• c) o události odmítá po letech mluvit",
+              "options": []
+            },
+            {
+              "prompt": "• d) jeho práce na místě trvala jen několik hodin",
+              "options": []
+            }
+          ]
+        }
+      ]
+    }
+  },
+  "answer_key": {
+    "B1": {
+      "Cvičení 1": [
+        "b",
+        "d",
+        "f",
+        "e",
+        "h",
+        "g",
+        "c",
+        "a"
+      ],
+      "Cvičení 2": [
+        "1. projektový manažer",
+        "2. telefony",
+        "3. kouř",
+        "4. most",
+        "5. prachu",
+        "6. schodiště",
+        "7. rádio",
+        "8. bahna"
+      ],
+      "Cvičení 3": [
+        "1. pracoval",
+        "2. začaly",
+        "3. evakuovali",
+        "4. viděl",
+        "5. šly",
+        "6. spadla",
+        "7. nepustila",
+        "8. vrátil"
+      ],
+      "Cvičení 4": [
+        "1. na",
+        "2. do",
+        "3. přes",
+        "4. na",
+        "5. v",
+        "6. s",
+        "7. na",
+        "8. na"
+      ],
+      "Cvičení 5": [
+        "1. Ano",
+        "2. Ne",
+        "3. Ano",
+        "4. Ano",
+        "5. Ne",
+        "6. Ano",
+        "7. Ano",
+        "8. Ne",
+        "9. b",
+        "10. a",
+        "11. b",
+        "12. b"
+      ]
+    },
+    "B2": {
+      "Cvičení 1": [
+        "c",
+        "e",
+        "h",
+        "f",
+        "b",
+        "d",
+        "g",
+        "a"
+      ],
+      "Cvičení 2": [
+        "1. přetížené",
+        "2. přeživších",
+        "3. troskách",
+        "4. sesunout",
+        "5. konstrukce",
+        "6. vyztužené",
+        "7. evakuace",
+        "8. katarze"
+      ],
+      "Cvičení 3": [
+        "1. viděl",
+        "2. staví / bude stavět",
+        "3. ustála",
+        "4. vrátil",
+        "5. šel",
+        "6. potřebovali",
+        "7. umožnil",
+        "8. nezapomene"
+      ],
+      "Cvičení 4": [
+        "1. za",
+        "2. o",
+        "3. se",
+        "4. z / z důvodu",
+        "5. na",
+        "6. na",
+        "7. k",
+        "8. záchranářům"
+      ],
+      "Cvičení 5": [
+        "1. Ano",
+        "2. Ne",
+        "3. Ano",
+        "4. Ne",
+        "5. Ano",
+        "6. Ano",
+        "7. Ne",
+        "8. Ano",
+        "9. b",
+        "10. b",
+        "11. a",
+        "12. a"
+      ]
+    },
+    "C1": {
+      "Cvičení 1": [
+        "h",
+        "f",
+        "b",
+        "a",
+        "c",
+        "d",
+        "g",
+        "e"
+      ],
+      "Cvičení 2": [
+        "1. nejužšího týmu",
+        "2. stabilitu",
+        "3. vyztužení",
+        "4. zprostředkovat",
+        "5. následně",
+        "6. postupný",
+        "7. katarze",
+        "8. v důsledku"
+      ],
+      "Cvičení 3A": [
+        "1. na stavbě federálního soudu",
+        ">  když není chyba",
+        "3. osobně → varovat je osobně",
+        "4. na Manhattan",
+        "5. záchranářům",
+        "6. do března 2002",
+        "7. mohl se vrátit k normálnímu fungování",
+        "8. bez chyby / správně"
+      ],
+      "Cvičení 3B": [
+        "1. byla",
+        "2. byla",
+        "3. zjistil",
+        "4. umožnil",
+        "5. ustály",
+        "6. nemůže"
+      ],
+      "Cvičení 4": [
+        "1. extrémnímu zatížení → bez předložky",
+        "2. na organizaci",
+        "3. k postupnému kolapsu",
+        "4. k lepší orientaci",
+        "5. s traumatickou zkušeností",
+        "6. k běžnému fungování",
+        "7. s určitým rizikem",
+        "8. nebezpečné situaci"
+      ],
+      "Cvičení 5": [
+        "1. Ano",
+        "2. Ne",
+        "3. Ano",
+        "4. Ano",
+        "5. Ne",
+        "6. Ano",
+        "7. Ano",
+        "8. Ano",
+        "9. b",
+        "10. a",
+        "11. c",
+        "12. b",
+        "13. a, b, d",
+        "14. a, b"
+      ]
+    }
+  }
+}
