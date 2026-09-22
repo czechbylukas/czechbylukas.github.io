@@ -50,16 +50,9 @@
       "exercises": [
         {
           "title": "Cvičení 1 – Spoj výraz s významem",
-          "instructions": "",
+          "instructions": "Spojte výrazy s jejich významem.",
           "optionsList": [],
           "items": [
-            {
-              "section_title": "",
-              "prompt": "Spojte výrazy s jejich významem.",
-              "type": "single",
-              "is_multiselect": false,
-              "options": []
-            },
             {
               "section_title": "",
               "prompt": "rozpočet",
@@ -201,16 +194,9 @@
         },
         {
           "title": "Cvičení 3 – Gramatika",
-          "instructions": "",
+          "instructions": "Doplňte správný tvar slovesa.",
           "optionsList": [],
           "items": [
-            {
-              "section_title": "",
-              "prompt": "Doplňte správný tvar slovesa.",
-              "type": "single",
-              "is_multiselect": false,
-              "options": []
-            },
             {
               "section_title": "",
               "prompt": "Ekonomika __________ (růst).",
@@ -271,16 +257,18 @@
         },
         {
           "title": "Cvičení 4 – Slovní zásoba a předložky",
-          "instructions": "",
-          "optionsList": [],
+          "instructions": "Doplňte správnou předložku.\nSlova: o, o, od, do, na, na, za, na",
+          "optionsList": [
+            "o",
+            "o",
+            "od",
+            "do",
+            "na",
+            "na",
+            "za",
+            "na"
+          ],
           "items": [
-            {
-              "section_title": "",
-              "prompt": "Doplňte správnou předložku.",
-              "type": "single",
-              "is_multiselect": false,
-              "options": []
-            },
             {
               "section_title": "",
               "prompt": "růst ___ 1,9 %",
@@ -341,7 +329,7 @@
         },
         {
           "title": "Cvičení 5 – Porozumění textu",
-          "instructions": "A. Ano – Ne B. Vyberte správnou odpověď.",
+          "instructions": "",
           "optionsList": [],
           "items": [
             {
@@ -352,49 +340,49 @@
               "options": []
             },
             {
-              "section_title": "A. Ano – Ne",
+              "section_title": "",
               "prompt": "Navrhovaný schodek je nižší než 100 miliard korun.",
               "type": "single",
               "is_multiselect": false,
               "options": []
             },
             {
-              "section_title": "A. Ano – Ne",
+              "section_title": "",
               "prompt": "Ekonomika podle textu roste.",
               "type": "single",
               "is_multiselect": false,
               "options": []
             },
             {
-              "section_title": "A. Ano – Ne",
+              "section_title": "",
               "prompt": "Vláda plánuje investice do dopravy.",
               "type": "single",
               "is_multiselect": false,
               "options": []
             },
             {
-              "section_title": "A. Ano – Ne",
+              "section_title": "",
               "prompt": "Stát si podle textu půjčuje peníze zdarma.",
               "type": "single",
               "is_multiselect": false,
               "options": []
             },
             {
-              "section_title": "A. Ano – Ne",
+              "section_title": "",
               "prompt": "V textu se mluví také o důchodech.",
               "type": "single",
               "is_multiselect": false,
               "options": []
             },
             {
-              "section_title": "A. Ano – Ne",
+              "section_title": "",
               "prompt": "Rozhovor se zabývá také podporou v nezaměstnanosti.",
               "type": "single",
               "is_multiselect": false,
               "options": []
             },
             {
-              "section_title": "A. Ano – Ne",
+              "section_title": "",
               "prompt": "Na konci textu se říká, že přesná konečná výše schodku už je známá.",
               "type": "single",
               "is_multiselect": false,
@@ -412,7 +400,7 @@
               ]
             },
             {
-              "section_title": "B. Vyberte správnou odpověď.",
+              "section_title": "",
               "prompt": "O kolik podle textu roste ekonomika?",
               "type": "single",
               "is_multiselect": false,
@@ -423,7 +411,7 @@
               ]
             },
             {
-              "section_title": "B. Vyberte správnou odpověď.",
+              "section_title": "",
               "prompt": "Do čeho chce vláda podle rozhovoru investovat?",
               "type": "single",
               "is_multiselect": false,
@@ -434,7 +422,7 @@
               ]
             },
             {
-              "section_title": "B. Vyberte správnou odpověď.",
+              "section_title": "",
               "prompt": "Co se podle textu stane, když stát platí úroky z dluhu?",
               "type": "single",
               "is_multiselect": false,
@@ -638,16 +626,9 @@
         },
         {
           "title": "Cvičení 3 – Gramatika",
-          "instructions": "",
+          "instructions": "Doplňte správný tvar.",
           "optionsList": [],
           "items": [
-            {
-              "section_title": "",
-              "prompt": "Doplňte správný tvar.",
-              "type": "single",
-              "is_multiselect": false,
-              "options": []
-            },
             {
               "section_title": "",
               "prompt": "Kdyby stát méně __________ (utrácet), nemusel by si tolik půjčovat.",
@@ -708,16 +689,18 @@
         },
         {
           "title": "Cvičení 4 – Slovní zásoba a předložky",
-          "instructions": "",
-          "optionsList": [],
+          "instructions": "Doplňte správnou předložku.\nSlova: na, 3.7 %, na, k, k, na, do, s",
+          "optionsList": [
+            "na",
+            "3.7 %",
+            "na",
+            "k",
+            "k",
+            "na",
+            "do",
+            "s"
+          ],
           "items": [
-            {
-              "section_title": "",
-              "prompt": "Doplňte správnou předložku.",
-              "type": "single",
-              "is_multiselect": false,
-              "options": []
-            },
             {
               "section_title": "",
               "prompt": "upozorňovat ___ vysoký schodek",
@@ -778,7 +761,7 @@
         },
         {
           "title": "Cvičení 5 – Porozumění textu",
-          "instructions": "A. Ano – Ne B. Vyberte správnou odpověď.",
+          "instructions": "",
           "optionsList": [],
           "items": [
             {
@@ -789,49 +772,49 @@
               "options": []
             },
             {
-              "section_title": "A. Ano – Ne",
+              "section_title": "",
               "prompt": "Podle rozhovoru je možné výrazně zvýšit ekonomický růst pouze vyšším zadlužováním.",
               "type": "single",
               "is_multiselect": false,
               "options": []
             },
             {
-              "section_title": "A. Ano – Ne",
+              "section_title": "",
               "prompt": "V textu se uvádí, že rostoucí úrokové sazby zdražují státní dluh.",
               "type": "single",
               "is_multiselect": false,
               "options": []
             },
             {
-              "section_title": "A. Ano – Ne",
+              "section_title": "",
               "prompt": "Investice do dálnic podle autorky automaticky znamenají vyšší ekonomický růst.",
               "type": "single",
               "is_multiselect": false,
               "options": []
             },
             {
-              "section_title": "A. Ano – Ne",
+              "section_title": "",
               "prompt": "Omezený počet stavebních firem a pracovníků může podle rozhovoru způsobit problém při rychlém růstu veřejných investic.",
               "type": "single",
               "is_multiselect": false,
               "options": []
             },
             {
-              "section_title": "A. Ano – Ne",
+              "section_title": "",
               "prompt": "Autorka tvrdí, že žádná reforma české ekonomiky není potřeba.",
               "type": "single",
               "is_multiselect": false,
               "options": []
             },
             {
-              "section_title": "A. Ano – Ne",
+              "section_title": "",
               "prompt": "V rozhovoru se diskutuje také o důchodové reformě.",
               "type": "single",
               "is_multiselect": false,
               "options": []
             },
             {
-              "section_title": "A. Ano – Ne",
+              "section_title": "",
               "prompt": "Autorka očekává, že koalice kvůli rozpočtu určitě padne.",
               "type": "single",
               "is_multiselect": false,
@@ -849,7 +832,7 @@
               ]
             },
             {
-              "section_title": "B. Vyberte správnou odpověď.",
+              "section_title": "",
               "prompt": "Co podle rozhovoru znamenají mandatorní výdaje?",
               "type": "single",
               "is_multiselect": false,
@@ -860,7 +843,7 @@
               ]
             },
             {
-              "section_title": "B. Vyberte správnou odpověď.",
+              "section_title": "",
               "prompt": "Jaký problém autorka zmiňuje u růstu úrokových sazeb?",
               "type": "single",
               "is_multiselect": false,
@@ -871,7 +854,7 @@
               ]
             },
             {
-              "section_title": "B. Vyberte správnou odpověď.",
+              "section_title": "",
               "prompt": "Co by podle rozhovoru bylo potřeba k výraznějšímu růstu ekonomiky?",
               "type": "single",
               "is_multiselect": false,
@@ -1075,67 +1058,60 @@
         },
         {
           "title": "Cvičení 3 – Gramatika",
-          "instructions": "A. Opravte chybu B. Doplňte správný tvar",
+          "instructions": "",
           "optionsList": [],
           "items": [
             {
-              "section_title": "A. Opravte chybu",
-              "prompt": "V každé větě je jedna chyba.",
-              "type": "single",
-              "is_multiselect": false,
-              "options": []
-            },
-            {
-              "section_title": "A. Opravte chybu",
+              "section_title": "A. Opravte chybu\nV každé větě je jedna chyba.",
               "prompt": "Vláda musí počítat s rostoucími úrokové sazbami.",
               "type": "single",
               "is_multiselect": false,
               "options": []
             },
             {
-              "section_title": "A. Opravte chybu",
+              "section_title": "",
               "prompt": "Ekonomové upozorňují na riziko další zadlužování.",
               "type": "single",
               "is_multiselect": false,
               "options": []
             },
             {
-              "section_title": "A. Opravte chybu",
+              "section_title": "",
               "prompt": "Pokud budou sazby růst, stát bude platit za dluh více peněz.",
               "type": "single",
               "is_multiselect": false,
               "options": []
             },
             {
-              "section_title": "A. Opravte chybu",
+              "section_title": "",
               "prompt": "Investice do infrastruktury mohou mít pozitivní vliv na ekonomickému růstu.",
               "type": "single",
               "is_multiselect": false,
               "options": []
             },
             {
-              "section_title": "A. Opravte chybu",
+              "section_title": "",
               "prompt": "Bez strukturálních reforem bude obtížné schodek dlouhodobě snížit.",
               "type": "single",
               "is_multiselect": false,
               "options": []
             },
             {
-              "section_title": "A. Opravte chybu",
+              "section_title": "",
               "prompt": "Firmy mají problém zaměstnávat lidi nad padesát let, protože často mají daleko do důchodu.",
               "type": "single",
               "is_multiselect": false,
               "options": []
             },
             {
-              "section_title": "A. Opravte chybu",
+              "section_title": "",
               "prompt": "Důchodová reforma by měla být připravena tak, aby odpovídala demografickým změnám.",
               "type": "single",
               "is_multiselect": false,
               "options": []
             },
             {
-              "section_title": "A. Opravte chybu",
+              "section_title": "",
               "prompt": "Autorka upozorňuje, že vysoký schodek není možné jednoduše zaplatit z ekonomického růstu.",
               "type": "single",
               "is_multiselect": false,
@@ -1149,49 +1125,49 @@
               "options": []
             },
             {
-              "section_title": "B. Doplňte správný tvar",
+              "section_title": "",
               "prompt": "Pokud by stát více investoval do vzdělávání, ekonomika by v budoucnu __________ (moci) růst rychleji.",
               "type": "single",
               "is_multiselect": false,
               "options": []
             },
             {
-              "section_title": "B. Doplňte správný tvar",
+              "section_title": "",
               "prompt": "Přestože ekonomika __________ (růst), schodek zůstává vysoký.",
               "type": "single",
               "is_multiselect": false,
               "options": []
             },
             {
-              "section_title": "B. Doplňte správný tvar",
+              "section_title": "",
               "prompt": "Vláda tvrdí, že investice __________ (mít) prorůstový efekt.",
               "type": "single",
               "is_multiselect": false,
               "options": []
             },
             {
-              "section_title": "B. Doplňte správný tvar",
+              "section_title": "",
               "prompt": "Není jisté, zda se tento efekt skutečně __________ (projevit).",
               "type": "single",
               "is_multiselect": false,
               "options": []
             },
             {
-              "section_title": "B. Doplňte správný tvar",
+              "section_title": "",
               "prompt": "Kdyby byly reformy provedeny dříve, některé problémy __________ (být) dnes menší.",
               "type": "single",
               "is_multiselect": false,
               "options": []
             },
             {
-              "section_title": "B. Doplňte správný tvar",
+              "section_title": "",
               "prompt": "Ekonomika potřebuje změny, které __________ (zvýšit) její konkurenceschopnost.",
               "type": "single",
               "is_multiselect": false,
               "options": []
             },
             {
-              "section_title": "B. Doplňte správný tvar",
+              "section_title": "",
               "prompt": "Jakmile vláda __________ (představit) konkrétní reformy, bude možné posoudit jejich dopad.",
               "type": "single",
               "is_multiselect": false,
@@ -1201,16 +1177,18 @@
         },
         {
           "title": "Cvičení 4 – Slovní zásoba a předložky",
-          "instructions": "",
-          "optionsList": [],
+          "instructions": "Doplňte správnou předložku nebo vazbu.\nSlova: určité úrovně, k, tlaku, na, z, na, na, s",
+          "optionsList": [
+            "určité úrovně",
+            "k",
+            "tlaku",
+            "na",
+            "z",
+            "na",
+            "na",
+            "s"
+          ],
           "items": [
-            {
-              "section_title": "",
-              "prompt": "Doplňte správnou předložku nebo vazbu.",
-              "type": "single",
-              "is_multiselect": false,
-              "options": []
-            },
             {
               "section_title": "",
               "prompt": "dosáhnout ___ určité úrovně zadlužení",
@@ -1271,7 +1249,7 @@
         },
         {
           "title": "Cvičení 5 – Porozumění textu",
-          "instructions": "A. Ano – Ne B. Vyberte nejpřesnější odpověď. C. Co vyplývá z rozhovoru? Vyberte dvě správné možnosti.",
+          "instructions": "",
           "optionsList": [],
           "items": [
             {
@@ -1282,49 +1260,49 @@
               "options": []
             },
             {
-              "section_title": "A. Ano – Ne",
+              "section_title": "",
               "prompt": "Autorka tvrdí, že samotné veřejné investice automaticky zajistí výrazně vyšší hospodářský růst.",
               "type": "single",
               "is_multiselect": false,
               "options": []
             },
             {
-              "section_title": "A. Ano – Ne",
+              "section_title": "",
               "prompt": "Podle rozhovoru může vysoká poptávka státu po stavebních kapacitách ovlivnit dostupnost zdrojů pro soukromý sektor.",
               "type": "single",
               "is_multiselect": false,
               "options": []
             },
             {
-              "section_title": "A. Ano – Ne",
+              "section_title": "",
               "prompt": "Vysoké úrokové sazby jsou v textu spojovány pouze se státním dluhem, nikoli s hypotékami.",
               "type": "single",
               "is_multiselect": false,
               "options": []
             },
             {
-              "section_title": "A. Ano – Ne",
+              "section_title": "",
               "prompt": "Autorka považuje strukturální reformy za jednoduché a rychle proveditelné.",
               "type": "single",
               "is_multiselect": false,
               "options": []
             },
             {
-              "section_title": "A. Ano – Ne",
+              "section_title": "",
               "prompt": "V rozhovoru se upozorňuje na rozdíl mezi krátkodobým snížením schodku a dlouhodobou změnou struktury veřejných financí.",
               "type": "single",
               "is_multiselect": false,
               "options": []
             },
             {
-              "section_title": "A. Ano – Ne",
+              "section_title": "",
               "prompt": "U podpory v nezaměstnanosti se v rozhovoru diskutuje také její možný vliv na mobilitu pracovní síly.",
               "type": "single",
               "is_multiselect": false,
               "options": []
             },
             {
-              "section_title": "A. Ano – Ne",
+              "section_title": "",
               "prompt": "Autorka na konci rozhovoru uvádí přesnou částku, na které se podle ní konečný schodek určitě ustálí.",
               "type": "single",
               "is_multiselect": false,
@@ -1342,7 +1320,7 @@
               ]
             },
             {
-              "section_title": "B. Vyberte nejpřesnější odpověď.",
+              "section_title": "",
               "prompt": "Proč je podle rozhovoru obtížné rychle snížit schodek?",
               "type": "single",
               "is_multiselect": false,
@@ -1353,7 +1331,7 @@
               ]
             },
             {
-              "section_title": "B. Vyberte nejpřesnější odpověď.",
+              "section_title": "",
               "prompt": "Jaký problém je v rozhovoru zmíněn v souvislosti s lidmi nad padesát let?",
               "type": "single",
               "is_multiselect": false,
@@ -1364,7 +1342,7 @@
               ]
             },
             {
-              "section_title": "B. Vyberte nejpřesnější odpověď.",
+              "section_title": "",
               "prompt": "Jakou otázku rozhovor otevírá v souvislosti s podporou v nezaměstnanosti?",
               "type": "single",
               "is_multiselect": false,
@@ -1375,7 +1353,7 @@
               ]
             },
             {
-              "section_title": "C. Co vyplývá z rozhovoru? Vyberte dvě správné možnosti.",
+              "section_title": "C. Co vyplývá z rozhovoru?\nVyberte dvě správné možnosti.",
               "prompt": "Autorka upozorňuje, že:",
               "type": "checkbox",
               "is_multiselect": true,
@@ -1387,7 +1365,7 @@
               ]
             },
             {
-              "section_title": "C. Co vyplývá z rozhovoru? Vyberte dvě správné možnosti.",
+              "section_title": "",
               "prompt": "V rozhovoru se jako možné oblasti strukturálních změn objevují:",
               "type": "checkbox",
               "is_multiselect": true,

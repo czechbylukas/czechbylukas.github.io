@@ -42,16 +42,9 @@
       "exercises": [
         {
           "title": "Cvičení 1 – Spoj výraz s významem",
-          "instructions": "",
+          "instructions": "Spojte výrazy z levého sloupce s jejich významem.",
           "optionsList": [],
           "items": [
-            {
-              "section_title": "",
-              "prompt": "Spojte výrazy z levého sloupce s jejich významem.",
-              "type": "single",
-              "is_multiselect": false,
-              "options": []
-            },
             {
               "section_title": "",
               "prompt": "svědek",
@@ -121,7 +114,7 @@
         },
         {
           "title": "Cvičení 2 – Doplň do věty",
-          "instructions": "Slova: most, telefon, prach, práce, věže, rádio, bahno, schodiště",
+          "instructions": "Doplňte vhodné slovo.\nSlova: most, telefon, prach, práce, věže, rádio, bahno, schodiště",
           "optionsList": [
             "most",
             "telefon",
@@ -133,13 +126,6 @@
             "schodiště"
           ],
           "items": [
-            {
-              "section_title": "",
-              "prompt": "Doplňte vhodné slovo.",
-              "type": "single",
-              "is_multiselect": false,
-              "options": []
-            },
             {
               "section_title": "",
               "prompt": "Jiří Boudník pracoval jako projektový __________.",
@@ -200,16 +186,9 @@
         },
         {
           "title": "Cvičení 3 – Gramatika",
-          "instructions": "",
+          "instructions": "Doplňte správný tvar slovesa v minulém čase.",
           "optionsList": [],
           "items": [
-            {
-              "section_title": "",
-              "prompt": "Doplňte správný tvar slovesa v minulém čase.",
-              "type": "single",
-              "is_multiselect": false,
-              "options": []
-            },
             {
               "section_title": "",
               "prompt": "Boudník __________ (pracovat) na stavbě federálního soudu.",
@@ -270,16 +249,18 @@
         },
         {
           "title": "Cvičení 4 – Slovní zásoba a předložky",
-          "instructions": "",
-          "optionsList": [],
+          "instructions": "Doplňte správnou předložku. Z vybraných možnosti: …..\nSlova: na, do, přes, na\", v, s, na, na",
+          "optionsList": [
+            "na",
+            "do",
+            "přes",
+            "na\"",
+            "v",
+            "s",
+            "na",
+            "na"
+          ],
           "items": [
-            {
-              "section_title": "",
-              "prompt": "Doplňte správnou předložku. Z vybraných možnosti: …..",
-              "type": "single",
-              "is_multiselect": false,
-              "options": []
-            },
             {
               "section_title": "",
               "prompt": "pracovat ___ stavbě",
@@ -340,67 +321,60 @@
         },
         {
           "title": "Cvičení 5 – Porozumění textu",
-          "instructions": "A. Ano – Ne B. Vyberte správnou odpověď.",
+          "instructions": "",
           "optionsList": [],
           "items": [
             {
-              "section_title": "A. Ano – Ne",
-              "prompt": "Rozhodněte, zda je tvrzení podle textu ANO, nebo NE.",
-              "type": "single",
-              "is_multiselect": false,
-              "options": []
-            },
-            {
-              "section_title": "A. Ano – Ne",
+              "section_title": "A. Ano – Ne\nRozhodněte, zda je tvrzení podle textu ANO, nebo NE.",
               "prompt": "Boudník byl 11. září v New Yorku.",
               "type": "single",
               "is_multiselect": false,
               "options": []
             },
             {
-              "section_title": "A. Ano – Ne",
+              "section_title": "",
               "prompt": "Pracoval v nemocnici.",
               "type": "single",
               "is_multiselect": false,
               "options": []
             },
             {
-              "section_title": "A. Ano – Ne",
+              "section_title": "",
               "prompt": "První informaci o útoku dostal od kamarádky.",
               "type": "single",
               "is_multiselect": false,
               "options": []
             },
             {
-              "section_title": "A. Ano – Ne",
+              "section_title": "",
               "prompt": "Na Brooklynském mostě viděl, jak se Jižní věž začíná sesouvat.",
               "type": "single",
               "is_multiselect": false,
               "options": []
             },
             {
-              "section_title": "A. Ano – Ne",
+              "section_title": "",
               "prompt": "Policie ho okamžitě pustila do oblasti Ground Zero.",
               "type": "single",
               "is_multiselect": false,
               "options": []
             },
             {
-              "section_title": "A. Ano – Ne",
+              "section_title": "",
               "prompt": "Později se podílel na záchranných pracích.",
               "type": "single",
               "is_multiselect": false,
               "options": []
             },
             {
-              "section_title": "A. Ano – Ne",
+              "section_title": "",
               "prompt": "Vytvořil také model budov.",
               "type": "single",
               "is_multiselect": false,
               "options": []
             },
             {
-              "section_title": "A. Ano – Ne",
+              "section_title": "",
               "prompt": "Na Ground Zero pracoval až do roku 2005.",
               "type": "single",
               "is_multiselect": false,
@@ -418,7 +392,7 @@
               ]
             },
             {
-              "section_title": "B. Vyberte správnou odpověď.",
+              "section_title": "",
               "prompt": "Co si vzal, když šel pomáhat?",
               "type": "single",
               "is_multiselect": false,
@@ -429,7 +403,7 @@
               ]
             },
             {
-              "section_title": "B. Vyberte správnou odpověď.",
+              "section_title": "",
               "prompt": "Co vytvořil pro záchranáře?",
               "type": "single",
               "is_multiselect": false,
@@ -440,7 +414,7 @@
               ]
             },
             {
-              "section_title": "B. Vyberte správnou odpověď.",
+              "section_title": "",
               "prompt": "Proč podle Boudníka věže nakonec spadly?",
               "type": "single",
               "is_multiselect": false,
@@ -636,16 +610,9 @@
         },
         {
           "title": "Cvičení 3 – Gramatika",
-          "instructions": "",
+          "instructions": "Doplňte správný tvar slovesa. Rozhodněte, zda je vhodnější minulý, přítomný, nebo budoucí čas.",
           "optionsList": [],
           "items": [
-            {
-              "section_title": "",
-              "prompt": "Doplňte správný tvar slovesa. Rozhodněte, zda je vhodnější minulý, přítomný, nebo budoucí čas.",
-              "type": "single",
-              "is_multiselect": false,
-              "options": []
-            },
             {
               "section_title": "",
               "prompt": "Když Boudník __________ (vidět) druhé letadlo, pochopil, že situace je vážná.",
@@ -706,16 +673,18 @@
         },
         {
           "title": "Cvičení 4 – Slovní zásoba a předložky",
-          "instructions": "",
-          "optionsList": [],
+          "instructions": "Doplňte vhodnou předložku a případně správný pád.\nSlova: za, o, se, z / z důvodu, na, na, k, záchranářům",
+          "optionsList": [
+            "za",
+            "o",
+            "se",
+            "z / z důvodu",
+            "na",
+            "na",
+            "k",
+            "záchranářům"
+          ],
           "items": [
-            {
-              "section_title": "",
-              "prompt": "Doplňte vhodnou předložku a případně správný pád.",
-              "type": "single",
-              "is_multiselect": false,
-              "options": []
-            },
             {
               "section_title": "",
               "prompt": "být zodpovědný ___ organizaci práce",
@@ -776,7 +745,7 @@
         },
         {
           "title": "Cvičení 5 – Porozumění textu",
-          "instructions": "A. Ano – Ne B. Vyberte správnou odpověď.",
+          "instructions": "",
           "optionsList": [],
           "items": [
             {
@@ -787,49 +756,49 @@
               "options": []
             },
             {
-              "section_title": "A. Ano – Ne",
+              "section_title": "",
               "prompt": "Na mostě okamžitě slyšel zvuk pádu Jižní věže.",
               "type": "single",
               "is_multiselect": false,
               "options": []
             },
             {
-              "section_title": "A. Ano – Ne",
+              "section_title": "",
               "prompt": "Po příjezdu na Manhattan byla oblast podle jeho popisu zahalená prachem a tmou.",
               "type": "single",
               "is_multiselect": false,
               "options": []
             },
             {
-              "section_title": "A. Ano – Ne",
+              "section_title": "",
               "prompt": "Policie Boudníkovi a jeho skupině zabránila v práci na místě.",
               "type": "single",
               "is_multiselect": false,
               "options": []
             },
             {
-              "section_title": "A. Ano – Ne",
+              "section_title": "",
               "prompt": "Boudník se později podílel na tvorbě modelu Ground Zero.",
               "type": "single",
               "is_multiselect": false,
               "options": []
             },
             {
-              "section_title": "A. Ano – Ne",
+              "section_title": "",
               "prompt": "Model měl mimo jiné pomoci při hledání výtahových šachet.",
               "type": "single",
               "is_multiselect": false,
               "options": []
             },
             {
-              "section_title": "A. Ano – Ne",
+              "section_title": "",
               "prompt": "Boudník na Ground Zero pracoval pouze několik dní.",
               "type": "single",
               "is_multiselect": false,
               "options": []
             },
             {
-              "section_title": "A. Ano – Ne",
+              "section_title": "",
               "prompt": "Podle jeho vysvětlení hrálo při kolapsu budov roli palivo.",
               "type": "single",
               "is_multiselect": false,
@@ -847,7 +816,7 @@
               ]
             },
             {
-              "section_title": "B. Vyberte správnou odpověď.",
+              "section_title": "",
               "prompt": "Co umožňoval počítačový model?",
               "type": "single",
               "is_multiselect": false,
@@ -858,7 +827,7 @@
               ]
             },
             {
-              "section_title": "B. Vyberte správnou odpověď.",
+              "section_title": "",
               "prompt": "Co podle Boudníka pomohlo konstrukci věží krátkodobě odolat nárazu?",
               "type": "single",
               "is_multiselect": false,
@@ -869,7 +838,7 @@
               ]
             },
             {
-              "section_title": "B. Vyberte správnou odpověď.",
+              "section_title": "",
               "prompt": "Proč podle rozhovoru následoval později kolaps?",
               "type": "single",
               "is_multiselect": false,
@@ -1065,67 +1034,60 @@
         },
         {
           "title": "Cvičení 3 – Gramatika a transformace",
-          "instructions": "A. Opravte chybu B. Doplňte správný tvar",
+          "instructions": "",
           "optionsList": [],
           "items": [
             {
-              "section_title": "A. Opravte chybu",
-              "prompt": "V každé větě je jedna gramatická chyba. Pokud je text bez chyby, napiš: „správně“",
-              "type": "single",
-              "is_multiselect": false,
-              "options": []
-            },
-            {
-              "section_title": "A. Opravte chybu",
+              "section_title": "A. Opravte chybu\nV každé větě je jedna gramatická chyba. Pokud je text bez chyby, napiš: „správně“",
               "prompt": "Boudník pracoval na stavbu federálního soudu.",
               "type": "single",
               "is_multiselect": false,
               "options": []
             },
             {
-              "section_title": "A. Opravte chybu",
+              "section_title": "",
               "prompt": "Nemohl se dovolat svým známým, protože všechny linky byly přetížené.",
               "type": "single",
               "is_multiselect": false,
               "options": []
             },
             {
-              "section_title": "A. Opravte chybu",
+              "section_title": "",
               "prompt": "Rozhodl se, že je půjde varovat na osobně.",
               "type": "single",
               "is_multiselect": false,
               "options": []
             },
             {
-              "section_title": "A. Opravte chybu",
+              "section_title": "",
               "prompt": "Policie jim nedovolila vstoupit do Manhattan.",
               "type": "single",
               "is_multiselect": false,
               "options": []
             },
             {
-              "section_title": "A. Opravte chybu",
+              "section_title": "",
               "prompt": "Model měl pomoci záchranáři lépe se orientovat.",
               "type": "single",
               "is_multiselect": false,
               "options": []
             },
             {
-              "section_title": "A. Opravte chybu",
+              "section_title": "",
               "prompt": "Pracoval tam až do březen 2002.",
               "type": "single",
               "is_multiselect": false,
               "options": []
             },
             {
-              "section_title": "A. Opravte chybu",
+              "section_title": "",
               "prompt": "Knihu napsal, aby se z toho vypsal a mohl vrátit k normálnímu fungování.",
               "type": "single",
               "is_multiselect": false,
               "options": []
             },
             {
-              "section_title": "A. Opravte chybu",
+              "section_title": "",
               "prompt": "V dnešní době by budova podle něj náraz ustála lépe.",
               "type": "single",
               "is_multiselect": false,
@@ -1139,35 +1101,35 @@
               "options": []
             },
             {
-              "section_title": "B. Doplňte správný tvar",
+              "section_title": "",
               "prompt": "Kdyby konstrukce __________ (být) upravena podle dnešních předpisů, podle Boudníka by náraz pravděpodobně ustála.",
               "type": "single",
               "is_multiselect": false,
               "options": []
             },
             {
-              "section_title": "B. Doplňte správný tvar",
+              "section_title": "",
               "prompt": "Jakmile __________ (zjistit), že už nejsou žádní přeživší, začal situaci prožívat jinak.",
               "type": "single",
               "is_multiselect": false,
               "options": []
             },
             {
-              "section_title": "B. Doplňte správný tvar",
+              "section_title": "",
               "prompt": "Boudník vytvořil model, který __________ (umožnit) záchranářům lépe se orientovat.",
               "type": "single",
               "is_multiselect": false,
               "options": []
             },
             {
-              "section_title": "B. Doplňte správný tvar",
+              "section_title": "",
               "prompt": "Věže byly navrženy tak, aby __________ (ustát) náraz letadla.",
               "type": "single",
               "is_multiselect": false,
               "options": []
             },
             {
-              "section_title": "B. Doplňte správný tvar",
+              "section_title": "",
               "prompt": "Po několika měsících si uvědomil, že už dál __________ (nemoci) pokračovat.",
               "type": "single",
               "is_multiselect": false,
@@ -1177,16 +1139,17 @@
         },
         {
           "title": "Cvičení 4 – Slovní zásoba a předložky",
-          "instructions": "",
-          "optionsList": [],
+          "instructions": "Doplňte správnou předložku nebo výraz. Pokud je výraz bez předložky, nechte políčko prázdné.\nSlova: na organizaci, k postupnému kolapsu, k lepší orientaci, s traumatickou zkušeností, k běžnému fungování, s určitým rizikem, nebezpečné situaci",
+          "optionsList": [
+            "na organizaci",
+            "k postupnému kolapsu",
+            "k lepší orientaci",
+            "s traumatickou zkušeností",
+            "k běžnému fungování",
+            "s určitým rizikem",
+            "nebezpečné situaci"
+          ],
           "items": [
-            {
-              "section_title": "",
-              "prompt": "Doplňte správnou předložku nebo výraz. Pokud je výraz bez předložky, nechte políčko prázdné.",
-              "type": "single",
-              "is_multiselect": false,
-              "options": []
-            },
             {
               "section_title": "",
               "prompt": "být vystaven ___ extrémnímu zatížení",
@@ -1247,7 +1210,7 @@
         },
         {
           "title": "Cvičení 5 – Porozumění textu",
-          "instructions": "A. Ano – Ne B. Vyberte nejpřesnější odpověď. C. Co vyplývá z textu? Vyberte dvě správné možnosti.",
+          "instructions": "",
           "optionsList": [],
           "items": [
             {
@@ -1258,49 +1221,49 @@
               "options": []
             },
             {
-              "section_title": "A. Ano – Ne",
+              "section_title": "",
               "prompt": "Když začaly padat věže, věděl přesně, co se stane.",
               "type": "single",
               "is_multiselect": false,
               "options": []
             },
             {
-              "section_title": "A. Ano – Ne",
+              "section_title": "",
               "prompt": "Jeho první snaha po útoku byla mimo jiné varovat známé v budově.",
               "type": "single",
               "is_multiselect": false,
               "options": []
             },
             {
-              "section_title": "A. Ano – Ne",
+              "section_title": "",
               "prompt": "Jeho původní model měl záchranářům pomoci orientovat se v prostorovém uspořádání trosek.",
               "type": "single",
               "is_multiselect": false,
               "options": []
             },
             {
-              "section_title": "A. Ano – Ne",
+              "section_title": "",
               "prompt": "Po vytvoření prvního modelu už se na dalších projektech nepodílel.",
               "type": "single",
               "is_multiselect": false,
               "options": []
             },
             {
-              "section_title": "A. Ano – Ne",
+              "section_title": "",
               "prompt": "Podle jeho vysvětlení samotný náraz letadla nebyl jediným faktorem vedoucím ke kolapsu.",
               "type": "single",
               "is_multiselect": false,
               "options": []
             },
             {
-              "section_title": "A. Ano – Ne",
+              "section_title": "",
               "prompt": "Kniha pro něj představovala mimo jiné způsob, jak zpracovat vlastní zkušenost.",
               "type": "single",
               "is_multiselect": false,
               "options": []
             },
             {
-              "section_title": "A. Ano – Ne",
+              "section_title": "",
               "prompt": "V závěru rozhovoru Boudník interpretuje události také v širším politickém a ideologickém kontextu.",
               "type": "single",
               "is_multiselect": false,
@@ -1318,7 +1281,7 @@
               ]
             },
             {
-              "section_title": "B. Vyberte nejpřesnější odpověď.",
+              "section_title": "",
               "prompt": "Jak se v průběhu rozhovoru mění Boudníkova role?",
               "type": "single",
               "is_multiselect": false,
@@ -1329,7 +1292,7 @@
               ]
             },
             {
-              "section_title": "B. Vyberte nejpřesnější odpověď.",
+              "section_title": "",
               "prompt": "Jaký vztah mezi nárazem a kolapsem věží popisuje Boudník?",
               "type": "single",
               "is_multiselect": false,
@@ -1340,7 +1303,7 @@
               ]
             },
             {
-              "section_title": "B. Vyberte nejpřesnější odpověď.",
+              "section_title": "",
               "prompt": "Proč má pro Boudníka význam napsání knihy?",
               "type": "single",
               "is_multiselect": false,
@@ -1351,7 +1314,7 @@
               ]
             },
             {
-              "section_title": "C. Co vyplývá z textu? Vyberte dvě správné možnosti.",
+              "section_title": "C. Co vyplývá z textu?\nVyberte dvě správné možnosti.",
               "prompt": "Boudníkova zkušenost zahrnovala:",
               "type": "checkbox",
               "is_multiselect": true,
@@ -1363,7 +1326,7 @@
               ]
             },
             {
-              "section_title": "C. Co vyplývá z textu? Vyberte dvě správné možnosti.",
+              "section_title": "",
               "prompt": "Text ukazuje, že:",
               "type": "checkbox",
               "is_multiselect": true,
@@ -1514,7 +1477,7 @@
         "nemůže"
       ],
       "Cvičení 4": [
-        "extrémnímu zatížení → bez předložky",
+        "",
         "na organizaci",
         "k postupnému kolapsu",
         "k lepší orientaci",

@@ -44,13 +44,12 @@
             return;
         }
 
-        // 1. Předčištění běžných překlepů z kopírování
         let cleanText = rawText
             .replace(/Vybertedvě/gi, "Vyberte dvě")
             .replace(/Vybertetři/gi, "Vyberte tři");
 
         const rawLines = cleanText.split('\n')
-            .map(l => l.trim().replace(/^[*•\t\s]+/, "")) // Odstranění odrážek (•, *), tabulátorů a mezer na začátku řádku
+            .map(l => l.trim().replace(/^[*•\t\s]+/, ""))
             .filter(l => l.length > 0);
 
         let result = {
@@ -63,11 +62,7 @@
                 B2: { vocabulary: [], exercises: [] },
                 C1: { vocabulary: [], exercises: [] }
             },
-            answer_key: {
-                B1: {},
-                B2: {},
-                C1: {}
-            }
+            answer_key: { B1: {}, B2: {}, C1: {} }
         };
 
         let mode = "HEADER"; 
@@ -79,6 +74,7 @@
         let currentKeyEx = null;
         let activeSectionTitle = "";
         let isCurrentSectionMulti = false;
+        let isFirstItemInSection = false; 
 
         for (let i = 0; i < rawLines.length; i++) {
             const line = rawLines[i];
@@ -114,8 +110,14 @@
                 }
 
                 if (line.startsWith("Cvičení")) {
+                    let exTitle = line;
+                    if (i + 1 < rawLines.length && rawLines[i + 1].match(/^\d+[\s–-]/)) {
+                        exTitle += " " + rawLines[i + 1];
+                        i++;
+                    }
+
                     currentExercise = {
-                        title: line,
+                        title: exTitle,
                         instructions: "",
                         optionsList: [],
                         items: []
@@ -127,41 +129,31 @@
                 }
 
                 if (currentExercise) {
-                    // Banka slov / možností
-                    if (line.match(/^(Slova|Výrazy|Možnosti):/i)) {
-                        const wordsStr = line.replace(/^(Slova|Výrazy|Možnosti):\s*/i, "");
+                    const isNumbered = line.match(/^\d+[\.\s–-]\s*/);
+
+                    // 1. Banka slov / možností
+                    if (line.match(/^(Slova|Slovo|Výrazy):/i)) {
+                        const wordsStr = line.replace(/^(Slova|Slovo|Výrazy):\s*/i, "");
                         currentExercise.optionsList = wordsStr.split(",").map(w => w.trim());
-                        currentExercise.instructions += (currentExercise.instructions ? "\n" : "") + line;
+                        if (!activeSectionTitle) {
+                            currentExercise.instructions += (currentExercise.instructions ? "\n" : "") + line;
+                        }
                         continue;
                     }
 
-                    // Detekce nového podnadpisu sekce (A., B., C. atd.)
+                    // 2. Nová podsekce (A., B., C.)
                     if (line.match(/^[A-C]\.\s*/i)) {
-                        activeSectionTitle = line; // Zresetujeme na nový podnadpis (neakumulujeme)
-                        
-                        // Pokud nadpis pokračuje na dalším řádku (např. "Vyberte dvě...")
-                        if (i + 1 < rawLines.length && !rawLines[i + 1].match(/^[a-h]\)/i) && !rawLines[i + 1].match(/^\d+\./)) {
-                            if (rawLines[i + 1].toLowerCase().includes("vyberte") || rawLines[i + 1].toLowerCase().includes("co vyplývá")) {
-                                activeSectionTitle += " " + rawLines[i + 1];
-                                i++; // Posuneme index, jelikož jsme načetli další řádek
-                            }
-                        }
-
-                        currentExercise.instructions += (currentExercise.instructions ? " " : "") + activeSectionTitle;
+                        activeSectionTitle = line;
                         isCurrentSectionMulti = activeSectionTitle.toLowerCase().includes("dvě") || 
+                                                activeSectionTitle.toLowerCase().includes("dve") ||
+                                                activeSectionTitle.toLowerCase().includes("tři") ||
+                                                activeSectionTitle.toLowerCase().includes("tri") ||
                                                 activeSectionTitle.toLowerCase().includes("více") || 
                                                 activeSectionTitle.toLowerCase().includes("zaškrtněte");
                         continue;
                     }
 
-                    // Samostatné instrukční řádky typu "Vyberte dvě správné možnosti"
-                    if (line.toLowerCase().includes("vyberte dvě") || line.toLowerCase().includes("zaškrtněte")) {
-                        activeSectionTitle += " " + line;
-                        isCurrentSectionMulti = true;
-                        continue;
-                    }
-
-                    // Detekce Možností: a) text, b) text
+                    // 3. Možnosti a), b), c)
                     if (line.match(/^[a-h]\)\s*/i)) {
                         const optText = line.replace(/^[a-h]\)\s*/i, "").trim();
                         let lastItem = currentExercise.items[currentExercise.items.length - 1];
@@ -174,17 +166,38 @@
                         continue;
                     }
 
-                    // Otázka / Prompt
-                    const isNumbered = line.match(/^\d+\.\s*/);
-                    const promptText = isNumbered ? line.replace(/^\d+\.\s*/, "").trim() : line.trim();
+                    // 4. Otázka s číslem (1., 2., atd.)
+                    if (isNumbered) {
+                        const promptText = line.replace(/^\d+[\.\s–-]\s*/, "").trim();
 
-                    currentExercise.items.push({
-                        section_title: activeSectionTitle,
-                        prompt: promptText,
-                        type: isCurrentSectionMulti ? "checkbox" : "single",
-                        is_multiselect: isCurrentSectionMulti,
-                        options: []
-                    });
+                        currentExercise.items.push({
+                            section_title: activeSectionTitle, // Vloží "A. Opravte chybu\nV každé větě je..." nebo "B. Doplňte..."
+                            prompt: promptText,
+                            type: isCurrentSectionMulti ? "checkbox" : "single",
+                            is_multiselect: isCurrentSectionMulti,
+                            options: []
+                        });
+
+                        // Smažeme activeSectionTitle, aby se text neopakoval nad otázkami 2, 3, 4...
+                        activeSectionTitle = "";
+                    } else {
+                        // 5. Instrukční texty před první otázkou
+                        if (activeSectionTitle) {
+                            // Přidá vysvětlující text (např. "V každé větě je jedna...") k nadpisu sekce
+                            activeSectionTitle += "\n" + line;
+
+                            isCurrentSectionMulti = activeSectionTitle.toLowerCase().includes("dvě") || 
+                                                    activeSectionTitle.toLowerCase().includes("dve") ||
+                                                    activeSectionTitle.toLowerCase().includes("tři") ||
+                                                    activeSectionTitle.toLowerCase().includes("tri") ||
+                                                    activeSectionTitle.toLowerCase().includes("více") || 
+                                                    activeSectionTitle.toLowerCase().includes("zaškrtněte");
+                        } else {
+                            // Hlavní instrukce cvičení (před A.)
+                            currentExercise.instructions += (currentExercise.instructions ? "\n" : "") + line;
+                        }
+                    }
+                    continue;
                 }
             }
 

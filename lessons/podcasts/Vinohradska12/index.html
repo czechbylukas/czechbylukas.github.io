@@ -363,11 +363,15 @@
 
                 if (items.length > 0) {
                     html += `<form id="ex-form-${exIdx}">`;
+                    let currentSectionHeader = '';
                     items.forEach((item, itemIdx) => {
                         const promptText = typeof item === 'string' ? item : item.prompt;
                         const hasOwnOptions = (typeof item === 'object' && Array.isArray(item.options) && item.options.length > 0);
                         const itemOptions = hasOwnOptions ? item.options : sharedExerciseOptions;
-
+                        if (item.section_title && item.section_title !== currentSectionHeader) {
+                            currentSectionHeader = item.section_title;
+                            html += `<h4 style="color: #2f52b5; margin-top: 25px; margin-bottom: 12px; border-bottom: 2px solid #e2e8f0; padding-bottom: 6px; white-space: pre-line;">${currentSectionHeader}</h4>`;
+                        }
                         html += `<div class="item-row">`;
                         html += `<div class="item-left">${itemIdx + 1}. ${promptText}</div>`;
                         html += `<div class="item-right">`;
