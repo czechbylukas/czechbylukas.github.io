@@ -1,0 +1,1083 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HáCZech - Dům a Předložky Místa</title>
+
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+    <!-- FontAwesome Icons & Canvas Confetti -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+
+    <style>
+        :root {
+            --brand-navy: #1a365d;
+            --brand-blue: #2d6cdf;
+            --brand-dark-blue: #17479e;
+            --brand-light: #f0f4f9;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f8fafc;
+            color: #1e293b;
+            user-select: none;
+            -webkit-user-select: none;
+        }
+
+        /* Hover Translation Bridge System */
+        .tr-text {
+            cursor: help;
+            border-bottom: 1px dashed #2d6cdf;
+            transition: color 0.2s, border-color 0.2s;
+        }
+
+        .tr-text:hover {
+            color: #2d6cdf;
+            border-bottom-style: solid;
+        }
+
+        #translation-bridge {
+            position: fixed;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: none;
+            z-index: 9999;
+            background-color: #1a365d;
+            color: #ffffff;
+            padding: 8px 18px;
+            border-radius: 20px;
+            font-size: 0.875rem;
+            font-weight: 600;
+            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.3), 0 8px 10px -6px rgba(0, 0, 0, 0.2);
+            pointer-events: none;
+            transition: opacity 0.15s ease-in-out;
+            max-width: 90vw;
+            text-align: center;
+            border: 1px solid rgba(255,255,255,0.2);
+        }
+
+        /* UI Cards & Interactive Polish */
+        .card {
+            background-color: #ffffff;
+            border-radius: 14px;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -2px rgba(0, 0, 0, 0.05);
+            border: 1px solid #e2e8f0;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .game-btn {
+            background-color: #2d6cdf;
+            color: white;
+            font-weight: 600;
+            padding: 10px 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px -1px rgba(45, 108, 223, 0.3);
+            transition: all 0.2s ease;
+        }
+
+        .game-btn:hover {
+            background-color: #17479e;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 12px -2px rgba(23, 71, 158, 0.4);
+        }
+
+        .game-btn:active {
+            transform: translateY(0);
+        }
+
+        /* Animal Overlay Animation */
+        .animal-overlay {
+            position: absolute;
+            transition: all 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+            filter: drop-shadow(0px 8px 16px rgba(0,0,0,0.5));
+            cursor: pointer;
+        }
+
+        .animal-pop {
+            animation: popIn 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        .animal-vanish {
+            animation: vanishOut 0.4s forwards ease-in;
+        }
+
+        @keyframes popIn {
+            0% { transform: scale(0) rotate(-15deg); opacity: 0; }
+            100% { transform: scale(1) rotate(0deg); opacity: 1; }
+        }
+
+        @keyframes vanishOut {
+            0% { transform: scale(1) rotate(0deg); opacity: 1; }
+            50% { transform: scale(1.3) rotate(10deg); opacity: 0.8; }
+            100% { transform: scale(0) rotate(-20deg); opacity: 0; }
+        }
+
+        /* Glassmorphism elements */
+        .glass-panel {
+            background: rgba(255, 255, 255, 0.92);
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+            border: 1px solid rgba(255, 255, 255, 0.5);
+        }
+
+        /* Custom Scrollbars */
+        ::-webkit-scrollbar {
+            width: 6px;
+            height: 6px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #f1f5f9;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #cbd5e1;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #94a3b8;
+        }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col justify-between">
+
+    <!-- Floating Translation Bridge Popup Container -->
+    <div id="translation-bridge">
+        <span id="tb-text">Translation</span>
+    </div>
+
+    <!-- Navigation Header -->
+    <header class="bg-[#1a365d] text-white shadow-lg sticky top-0 z-40">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+            <div class="flex items-center space-x-3">
+                <div class="bg-[#2d6cdf] p-2.5 rounded-xl flex items-center justify-center shadow-md">
+                    <i class="fa-solid fa-paw text-white text-xl"></i>
+                </div>
+                <div>
+                    <h1 class="text-xl font-extrabold tracking-tight flex items-center gap-2">
+                        <span>HáCZech</span>
+                        <span class="text-xs bg-[#2d6cdf] px-2.5 py-0.5 rounded-full font-semibold uppercase tracking-wider">Hledání Zvířátek</span>
+                    </h1>
+                    <p class="text-xs text-blue-200">
+                        <span class="tr-text" onmouseover="showT('Type where the animal is hiding & solve follow-up clues!')" onmouseout="hideT()">Napište, kde se schovává zvířátko!</span>
+                    </p>
+                </div>
+            </div>
+
+            <!-- Stats & Preposition Badge -->
+            <div class="flex items-center space-x-3">
+                <div class="bg-blue-900/80 px-3.5 py-1.5 rounded-xl border border-blue-700/50 flex items-center space-x-2">
+                    <i class="fa-solid fa-fire text-amber-400"></i>
+                    <span id="streak-counter" class="font-extrabold text-sm text-white">0</span>
+                    <span class="text-xs text-blue-200 tr-text" onmouseover="showT('Current Streak')" onmouseout="hideT()">série</span>
+                </div>
+                <div class="bg-blue-900/80 px-3.5 py-1.5 rounded-xl border border-blue-700/50 flex items-center space-x-2">
+                    <i class="fa-solid fa-star text-yellow-400"></i>
+                    <span id="score-counter" class="font-extrabold text-sm text-white">0</span>
+                    <span class="text-xs text-blue-200 tr-text" onmouseover="showT('Points Score')" onmouseout="hideT()">bodů</span>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content Container -->
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 flex-grow w-full space-y-6">
+        
+        <!-- Mode Navigation Tabs -->
+        <div class="flex flex-wrap gap-2 border-b border-gray-200 pb-3">
+            <button id="tab-game" onclick="switchMode('game')" class="px-5 py-2.5 rounded-xl font-bold text-sm transition-all bg-[#1a365d] text-white flex items-center gap-2 shadow-sm">
+                <i class="fa-solid fa-keyboard"></i>
+                <span class="tr-text" onmouseover="showT('Interactive Typing Game')" onmouseout="hideT()">Hra & Psaní</span>
+            </button>
+            <button id="tab-dict" onclick="switchMode('dictionary')" class="px-5 py-2.5 rounded-xl font-bold text-sm transition-all bg-white text-gray-700 hover:bg-gray-100 flex items-center gap-2 border border-gray-200">
+                <i class="fa-solid fa-book-bookmark"></i>
+                <span class="tr-text" onmouseover="showT('All 31 Prepositions Dictionary')" onmouseout="hideT()">Všech 31 předložek</span>
+            </button>
+            <button id="tab-vocab" onclick="switchMode('vocab')" class="px-5 py-2.5 rounded-xl font-bold text-sm transition-all bg-white text-gray-700 hover:bg-gray-100 flex items-center gap-2 border border-gray-200">
+                <i class="fa-solid fa-couch"></i>
+                <span class="tr-text" onmouseover="showT('Room Furniture Vocabulary')" onmouseout="hideT()">Slovník pokojů</span>
+            </button>
+        </div>
+
+        <!-- ==================== MODE 1: GAMEPLAY WITH TYPING & FOLLOW-UP ==================== -->
+        <section id="mode-game" class="space-y-6">
+            
+            <!-- Room Selector & Shuffle -->
+            <div class="card p-4">
+                <div class="flex items-center justify-between mb-3">
+                    <h2 class="text-base font-bold text-[#1a365d] flex items-center gap-2">
+                        <i class="fa-solid fa-door-open text-[#2d6cdf]"></i>
+                        <span class="tr-text" onmouseover="showT('Select Room:')" onmouseout="hideT()">Vyberte místnost:</span>
+                    </h2>
+                    <div class="flex gap-2">
+                        <button onclick="skipToNextAnimal()" class="text-xs bg-emerald-50 text-emerald-700 hover:bg-emerald-100 px-3 py-1.5 rounded-lg font-bold border border-emerald-200 flex items-center gap-1.5 transition">
+                            <i class="fa-solid fa-shuffle"></i>
+                            <span class="tr-text" onmouseover="showT('Skip & Hide New Animal')" onmouseout="hideT()">Nové zvíře</span>
+                        </button>
+                        <button onclick="selectRandomRoom()" class="text-xs bg-blue-50 text-[#2d6cdf] hover:bg-blue-100 px-3 py-1.5 rounded-lg font-bold border border-blue-200 flex items-center gap-1.5 transition">
+                            <i class="fa-solid fa-dice"></i>
+                            <span class="tr-text" onmouseover="showT('Random Room')" onmouseout="hideT()">Náhodný pokoj</span>
+                        </button>
+                    </div>
+                </div>
+                
+                <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-6 gap-2">
+                    <button id="btn-room-living" onclick="loadRoom('living')" class="room-selector p-2.5 rounded-xl border text-center transition hover:border-[#2d6cdf] border-gray-200">
+                        <i class="fa-solid fa-couch text-xl text-gray-600 block mb-1"></i>
+                        <span class="text-xs font-semibold tr-text block truncate" onmouseover="showT('Living Room')" onmouseout="hideT()">Obývací pokoj</span>
+                    </button>
+                    <button id="btn-room-bedroom" onclick="loadRoom('bedroom')" class="room-selector p-2.5 rounded-xl border text-center transition hover:border-[#2d6cdf] border-gray-200">
+                        <i class="fa-solid fa-bed text-xl text-gray-600 block mb-1"></i>
+                        <span class="text-xs font-semibold tr-text block truncate" onmouseover="showT('Bedroom')" onmouseout="hideT()">Ložnice</span>
+                    </button>
+                    <button id="btn-room-kitchen" onclick="loadRoom('kitchen')" class="room-selector p-2.5 rounded-xl border text-center transition hover:border-[#2d6cdf] border-gray-200">
+                        <i class="fa-solid fa-utensils text-xl text-gray-600 block mb-1"></i>
+                        <span class="text-xs font-semibold tr-text block truncate" onmouseover="showT('Kitchen')" onmouseout="hideT()">Kuchyně</span>
+                    </button>
+                    <button id="btn-room-bathroom" onclick="loadRoom('bathroom')" class="room-selector p-2.5 rounded-xl border text-center transition hover:border-[#2d6cdf] border-gray-200">
+                        <i class="fa-solid fa-bath text-xl text-gray-600 block mb-1"></i>
+                        <span class="text-xs font-semibold tr-text block truncate" onmouseover="showT('Bathroom')" onmouseout="hideT()">Koupelna</span>
+                    </button>
+                    <button id="btn-room-office" onclick="loadRoom('office')" class="room-selector p-2.5 rounded-xl border text-center transition hover:border-[#2d6cdf] border-gray-200">
+                        <i class="fa-solid fa-laptop text-xl text-gray-600 block mb-1"></i>
+                        <span class="text-xs font-semibold tr-text block truncate" onmouseover="showT('Study / Office')" onmouseout="hideT()">Pracovna</span>
+                    </button>
+                    <button id="btn-room-dining" onclick="loadRoom('dining')" class="room-selector p-2.5 rounded-xl border text-center transition hover:border-[#2d6cdf] border-gray-200">
+                        <i class="fa-solid fa-chair text-xl text-gray-600 block mb-1"></i>
+                        <span class="text-xs font-semibold tr-text block truncate" onmouseover="showT('Dining Room')" onmouseout="hideT()">Jídelna</span>
+                    </button>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 items-start">
+                
+                <!-- Room Viewport Canvas (2/3 width) -->
+                <div class="lg:col-span-2 card overflow-hidden relative shadow-lg">
+                    
+                    <!-- Top Overlays -->
+                    <div class="absolute top-4 left-4 z-20 glass-panel px-4 py-2 rounded-full shadow-md flex items-center gap-2.5">
+                        <span class="w-3 h-3 rounded-full bg-emerald-500 animate-pulse"></span>
+                        <span id="current-room-title" class="text-sm font-extrabold text-[#1a365d] tr-text" onmouseover="showT('Current Room')" onmouseout="hideT()">Obývací pokoj</span>
+                    </div>
+
+                    <div class="absolute top-4 right-4 z-20 glass-panel px-3 py-1.5 rounded-full shadow-md text-xs font-bold text-[#2d6cdf] flex items-center gap-1.5">
+                        <i class="fa-solid fa-magnifying-glass"></i>
+                        <span id="current-animal-tag" class="tr-text" onmouseover="showT('Target Animal')" onmouseout="hideT()">Pes</span>
+                    </div>
+
+                    <!-- Room Image Container -->
+                    <div id="room-viewport" class="relative w-full h-[360px] sm:h-[460px] md:h-[520px] bg-slate-900 overflow-hidden">
+                        <img id="room-img" src="" alt="Místnost" class="w-full h-full object-cover transition-all duration-300">
+                        
+                        <!-- Visual Furniture Landmark Annotations (e.g., Chair WITH/WITHOUT flower) -->
+                        <div id="furniture-annotations" class="absolute inset-0 pointer-events-none"></div>
+
+                        <!-- Dynamic Animal Overlay Target -->
+                        <div id="animal-overlay" class="animal-overlay animal-pop z-10 flex items-center justify-center" onclick="focusInput()">
+                            <img id="animal-img" src="" alt="Zvíře" class="w-20 h-20 sm:w-24 sm:h-24 md:w-28 md:h-28 object-cover rounded-full border-4 border-white shadow-2xl">
+                        </div>
+                    </div>
+
+                    <!-- Room Bottom Information & Hint Bar -->
+                    <div class="p-3.5 bg-slate-50 border-t border-slate-200 text-xs text-slate-600 flex flex-wrap justify-between items-center gap-2">
+                        <span class="tr-text font-medium" onmouseover="showT('Look at the animal position in the picture and answer on the right!')" onmouseout="hideT()">
+                            <i class="fa-solid fa-eye text-[#2d6cdf] mr-1"></i> Sledujte obrázek a napište správnou odpověď vpravo!
+                        </span>
+                        <button onclick="giveHint()" class="font-bold text-[#2d6cdf] hover:text-[#17479e] bg-blue-100/80 px-3 py-1 rounded-lg transition flex items-center gap-1">
+                            <i class="fa-solid fa-lightbulb text-amber-500"></i>
+                            <span class="tr-text" onmouseover="showT('Get a helpful hint')" onmouseout="hideT()">Nápověda</span>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Right Side: PLAYFUL PROMPTS & TYPING STEP-BY-STEP INPUT -->
+                <div class="space-y-4">
+                    
+                    <!-- PLAYFUL I SPY PROMPTS DROPDOWN -->
+                    <details class="card p-4 bg-gradient-to-br from-blue-50/80 to-indigo-50/50 border-2 border-blue-200 shadow-sm transition-all group" open>
+                        <summary class="font-extrabold text-base text-[#1a365d] cursor-pointer flex items-center justify-between list-none">
+                            <span class="flex items-center gap-2">
+                                <i class="fa-solid fa-comments text-xl text-[#2d6cdf]"></i>
+                                <span class="tr-text" onmouseover="showT('Playful Classroom Dialogue Questions')" onmouseout="hideT()">💡 Hravé otázky k obrázku</span>
+                            </span>
+                            <i class="fa-solid fa-chevron-down text-blue-500 transition-transform group-open:rotate-180"></i>
+                        </summary>
+                        
+                        <div class="mt-3 pt-3 border-t border-blue-200/60 space-y-2 text-xs">
+                            <p class="text-gray-600 italic">
+                                <span class="tr-text" onmouseover="showT('Click any prompt to set as active question:')" onmouseout="hideT()">Klikněte na otázku pro aktivaci:</span>
+                            </p>
+
+                            <div class="space-y-2 max-h-[180px] overflow-y-auto pr-1">
+                                <div class="p-2.5 bg-white rounded-lg border border-blue-100 hover:border-blue-300 transition cursor-pointer" onclick="setPromptText(this)">
+                                    <span class="font-bold text-[#1a365d]">"Vidím, vidím něco... je to chlupaté a schovává se to! Kde to je?"</span>
+                                </div>
+                                <div class="p-2.5 bg-white rounded-lg border border-blue-100 hover:border-blue-300 transition cursor-pointer" onclick="setPromptText(this)">
+                                    <span class="font-bold text-[#1a365d]">"Moje oko vidí zvířátko... kdepak přesně leží?"</span>
+                                </div>
+                                <div class="p-2.5 bg-white rounded-lg border border-blue-100 hover:border-blue-300 transition cursor-pointer" onclick="setPromptText(this)">
+                                    <span class="font-bold text-[#1a365d]">"Kdopak to tam šustí? Kde se schovává?"</span>
+                                </div>
+                                <div class="p-2.5 bg-white rounded-lg border border-blue-100 hover:border-blue-300 transition cursor-pointer" onclick="setPromptText(this)">
+                                    <span class="font-bold text-[#1a365d]">"Najdi zvířátko a napište jeho přesnou polohu!"</span>
+                                </div>
+                            </div>
+                        </div>
+                    </details>
+
+                    <!-- ACTIVE TYPING & FOLLOW-UP STEP CARD -->
+                    <div id="game-card" class="card p-5 border-l-4 border-l-[#2d6cdf] space-y-4">
+                        
+                        <!-- Step Indicator Ribbon -->
+                        <div class="flex items-center justify-between">
+                            <span id="step-badge" class="text-xs uppercase font-extrabold tracking-wider bg-blue-100 text-[#2d6cdf] px-2.5 py-1 rounded-md">
+                                Krok 1 ze 2: Hlavní poloha
+                            </span>
+                            <span class="text-xs text-emerald-600 font-bold flex items-center gap-1">
+                                <i class="fa-solid fa-circle-check"></i> Aktivní úkol
+                            </span>
+                        </div>
+
+                        <!-- Main Prompt Text Display -->
+                        <div>
+                            <p id="active-prompt-display" class="text-base font-extrabold text-[#1a365d] leading-snug">
+                                Kde se schovává zvířátko?
+                            </p>
+                            <p id="sub-prompt-display" class="text-xs text-gray-500 mt-1 italic">
+                                Napište např: <span class="font-bold text-gray-700">pod židlí</span>, <span class="font-bold text-gray-700">na stole</span>, <span class="font-bold text-gray-700">vedle okna</span>
+                            </p>
+                        </div>
+
+                        <!-- Typing Input Form -->
+                        <form id="answer-form" onsubmit="handleAnswerSubmit(event)" class="space-y-3">
+                            <div class="relative">
+                                <input type="text" id="answer-input" autocomplete="off" placeholder="Napište pozici v češtině..." class="w-full pl-4 pr-10 py-3 border-2 border-slate-200 rounded-xl text-base font-bold text-[#1a365d] focus:outline-none focus:border-[#2d6cdf] transition shadow-inner">
+                                <i class="fa-solid fa-keyboard absolute right-3.5 top-4 text-slate-400"></i>
+                            </div>
+
+                            <div class="flex gap-2">
+                                <button type="submit" class="w-full game-btn py-3 flex items-center justify-center gap-2">
+                                    <span>Odeslat odpověď</span>
+                                    <i class="fa-solid fa-paper-plane text-xs"></i>
+                                </button>
+                            </div>
+                        </form>
+
+                        <!-- Feedback Message Box -->
+                        <div id="feedback-box" class="p-3.5 rounded-xl hidden text-xs font-bold flex items-start gap-2.5 transition-all">
+                            <i id="feedback-icon" class="fa-solid text-base mt-0.5"></i>
+                            <div>
+                                <p id="feedback-text" class="text-sm font-bold"></p>
+                                <p id="feedback-subtext" class="text-xs mt-0.5 opacity-90"></p>
+                            </div>
+                        </div>
+
+                        <!-- Hint Box -->
+                        <div id="hint-display-box" class="hidden p-3 bg-amber-50 border border-amber-200 rounded-xl text-xs text-amber-900 font-medium space-y-1">
+                            <div class="font-bold flex items-center gap-1.5">
+                                <i class="fa-solid fa-lightbulb text-amber-500"></i>
+                                <span>Nápověda pro předložku:</span>
+                            </div>
+                            <p id="hint-text" class="italic"></p>
+                        </div>
+
+                    </div>
+
+                    <!-- Rapid Preposition Helper Badge List -->
+                    <div class="card p-4 space-y-2 text-xs">
+                        <div class="font-bold text-[#1a365d] flex items-center justify-between">
+                            <span class="tr-text" onmouseover="showT('Prepositions used in this room:')" onmouseout="hideT()">Předložky pro tuto místnost:</span>
+                            <i class="fa-solid fa-compass text-[#2d6cdf]"></i>
+                        </div>
+                        <div id="quick-prep-tags" class="flex flex-wrap gap-1.5 pt-1">
+                            <!-- Injected by JS -->
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+        </section>
+
+        <!-- ==================== MODE 2: COMPLETE 31 PREPOSITIONS DICTIONARY ==================== -->
+        <section id="mode-dictionary" class="space-y-6 hidden">
+            <div class="card p-6 bg-white">
+                <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-6 pb-4 border-b border-gray-200">
+                    <div>
+                        <h2 class="text-2xl font-extrabold text-[#1a365d] flex items-center gap-2">
+                            <i class="fa-solid fa-book-bookmark text-[#2d6cdf]"></i>
+                            <span class="tr-text" onmouseover="showT('Complete Czech Spatial Prepositions Dictionary (31)')" onmouseout="hideT()">Všech 31 českých předložek s příklady</span>
+                        </h2>
+                        <p class="text-sm text-gray-600 mt-1">
+                            <span class="tr-text" onmouseover="showT('Explore all required prepositions with grammar cases and household examples!')" onmouseout="hideT()">
+                                Přehledný slovník předložek s pádovým určením a reálnými příklady (např. židle s kytkou / židle bez kytky).
+                            </span>
+                        </p>
+                    </div>
+
+                    <!-- Search Input -->
+                    <div class="relative min-w-[240px]">
+                        <i class="fa-solid fa-magnifying-glass absolute left-3.5 top-3 text-gray-400 text-sm"></i>
+                        <input type="text" id="prep-search" oninput="filterPrepositions()" placeholder="Hledat předložku..." class="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-xl text-sm focus:outline-none focus:border-[#2d6cdf]">
+                    </div>
+                </div>
+
+                <!-- Case Filter Chips -->
+                <div class="flex flex-wrap gap-2 mb-6">
+                    <button onclick="filterCase('all')" class="case-chip active px-3.5 py-1.5 rounded-lg text-xs font-bold bg-[#1a365d] text-white">Všechny (31)</button>
+                    <button onclick="filterCase('Genitiv')" class="case-chip px-3.5 py-1.5 rounded-lg text-xs font-bold bg-gray-100 text-gray-700 hover:bg-gray-200">2. pád (Genitiv)</button>
+                    <button onclick="filterCase('Dativ')" class="case-chip px-3.5 py-1.5 rounded-lg text-xs font-bold bg-gray-100 text-gray-700 hover:bg-gray-200">3. pád (Dativ)</button>
+                    <button onclick="filterCase('Akuzativ')" class="case-chip px-3.5 py-1.5 rounded-lg text-xs font-bold bg-gray-100 text-gray-700 hover:bg-gray-200">4. pád (Akuzativ)</button>
+                    <button onclick="filterCase('Lokál')" class="case-chip px-3.5 py-1.5 rounded-lg text-xs font-bold bg-gray-100 text-gray-700 hover:bg-gray-200">6. pád (Lokál)</button>
+                    <button onclick="filterCase('Instrumentál')" class="case-chip px-3.5 py-1.5 rounded-lg text-xs font-bold bg-gray-100 text-gray-700 hover:bg-gray-200">7. pád (Instrumentál)</button>
+                </div>
+
+                <!-- Prepositions Cards Grid -->
+                <div id="prep-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+                    <!-- Dynamic 31 Cards injected via JavaScript -->
+                </div>
+            </div>
+        </section>
+
+        <!-- ==================== MODE 3: ROOM VOCABULARY ==================== -->
+        <section id="mode-vocab" class="space-y-6 hidden">
+            <div class="card p-6 bg-white">
+                <div class="max-w-2xl mb-6">
+                    <h2 class="text-2xl font-extrabold text-[#1a365d] mb-2 flex items-center gap-2">
+                        <i class="fa-solid fa-couch text-[#2d6cdf]"></i>
+                        <span class="tr-text" onmouseover="showT('Household Furniture & Objects Vocabulary')" onmouseout="hideT()">Slovní zásoba: Pokoje a Nábytek</span>
+                    </h2>
+                    <p class="text-sm text-gray-600">
+                        <span class="tr-text" onmouseover="showT('Learn furniture vocabulary in locative case for accurate position answers.')" onmouseout="hideT()">Přehled nábytku a příslušných pádových tvarů pro správné odpovídání.</span>
+                    </p>
+                </div>
+
+                <div id="vocab-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                    <!-- Dynamic Furniture Grid injected via JavaScript -->
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-white border-t border-gray-200 mt-12 py-6 text-center text-xs text-gray-500">
+        <div class="max-w-7xl mx-auto px-4 flex flex-col sm:flex-row items-center justify-between gap-3">
+            <div class="flex items-center space-x-2">
+                <span class="font-extrabold text-[#1a365d]">HáCZech</span>
+                <span>—</span>
+                <span class="tr-text" onmouseover="showT('Interactive Czech Preposition Learning Platform')" onmouseout="hideT()">Interaktivní výuka českých předložek</span>
+            </div>
+            <div>
+                <span class="tr-text" onmouseover="showT('All 31 Czech prepositions with multi-step follow-up gameplay')" onmouseout="hideT()">© HáCZech Platform</span>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        /* ==========================================================================
+           1. HOVER TRANSLATION BRIDGE SYSTEM
+           ========================================================================== */
+        
+        function showT(text) {
+            const bridge = document.getElementById('translation-bridge');
+            const tbText = document.getElementById('tb-text');
+            if (bridge && tbText) {
+                tbText.innerText = text;
+                bridge.style.display = 'block';
+            }
+        }
+
+        function hideT() {
+            const bridge = document.getElementById('translation-bridge');
+            if (bridge) {
+                bridge.style.display = 'none';
+            }
+        }
+
+        /* ==========================================================================
+           2. ALL 31 REQUIRED PREPOSITIONS DATA STRUCTURE WITH REALISTIC EXAMPLES
+           ========================================================================== */
+
+        const ALL_31_PREPOSITIONS = [
+            { cz: 'bez', en: 'without', case: 'Genitiv', exCz: 'židle bez kytky / pes bez obojku', exEn: 'chair without a flower / dog without a collar' },
+            { cz: 'během', en: 'during / throughout', case: 'Genitiv', exCz: 'během dne spí na koberci', exEn: 'during the day it sleeps on the rug' },
+            { cz: 'blízko', en: 'near / close to', case: 'Genitiv', exCz: 'kočka sedí blízko okna', exEn: 'the cat sits near the window' },
+            { cz: 'do', en: 'into / to', case: 'Genitiv', exCz: 'myš vběhla do krabice', exEn: 'the mouse ran into the box' },
+            { cz: 'kolem', en: 'around / past', case: 'Genitiv', exCz: 'pes běhá kolem stolu', exEn: 'the dog runs around the table' },
+            { cz: 'kromě', en: 'except for / besides', case: 'Genitiv', exCz: 'všichni jsou v kuchyni kromě kočky', exEn: 'everyone is in the kitchen except the cat' },
+            { cz: 'místo', en: 'instead of', case: 'Genitiv', exCz: 'sedí na stole místo židle', exEn: 'it sits on the table instead of the chair' },
+            { cz: 'od', en: 'from / away from', case: 'Genitiv', exCz: 'odskočil od dveří', exEn: 'it jumped away from the door' },
+            { cz: 'podle', en: 'along / according to', case: 'Genitiv', exCz: 'chodí podle zdi', exEn: 'it walks along the wall' },
+            { cz: 'u', en: 'by / at / near', case: 'Genitiv', exCz: 'pavouk číhá u lampy', exEn: 'the spider lurks by the lamp' },
+            { cz: 'uprostřed', en: 'in the middle of', case: 'Genitiv', exCz: 'stůl stojí uprostřed pokoje', exEn: 'the table stands in the middle of the room' },
+            { cz: 'vedle', en: 'next to / beside', case: 'Genitiv', exCz: 'miska je vedle lednice', exEn: 'the bowl is next to the fridge' },
+            { cz: 'z / ze', en: 'from / out of', case: 'Genitiv', exCz: 'pes vykukuje z krabice', exEn: 'the dog peeks out of the box' },
+            { cz: 'pro', en: 'for', case: 'Akuzativ', exCz: 'hračka pro kočku', exEn: 'toy for the cat' },
+            { cz: 'skrz', en: 'through', case: 'Akuzativ', exCz: 'dívá se skrz okno', exEn: 'it looks through the window' },
+            { cz: 'přes', en: 'over / across', case: 'Akuzativ', exCz: 'kočka skočila přes křeslo', exEn: 'the cat leaped over the armchair' },
+            { cz: 'mezi', en: 'between / among', case: 'Instrumentál / Akuzativ', exCz: 'papoušek je mezi židlemi', exEn: 'the parrot is between the chairs' },
+            { cz: 'na', en: 'on / onto', case: 'Lokál / Akuzativ', exCz: 'žába sedí na koberci', exEn: 'the frog sits on the rug' },
+            { cz: 'nad', en: 'above / over', case: 'Instrumentál', exCz: 'lustr visí nad stolem', exEn: 'chandelier hangs above the table' },
+            { cz: 'pod', en: 'under / beneath', case: 'Instrumentál', exCz: 'králík je pod postelí', exEn: 'the rabbit is under the bed' },
+            { cz: 'před', en: 'in front of', case: 'Instrumentál', exCz: 'pes leží před dveřmi', exEn: 'the dog lies in front of the door' },
+            { cz: 'za', en: 'behind', case: 'Instrumentál', exCz: 'myš se schovala za skříň', exEn: 'the mouse hid behind the wardrobe' },
+            { cz: 'k / ke', en: 'towards / to', case: 'Dativ', exCz: 'běží ke dveřím', exEn: 'it runs towards the door' },
+            { cz: 'kvůli', en: 'because of', case: 'Dativ', exCz: 'mňouká kvůli jídlu', exEn: 'it meows because of food' },
+            { cz: 'naproti', en: 'opposite / facing', case: 'Dativ', exCz: 'křeslo stojí naproti televizi', exEn: 'armchair stands opposite the TV' },
+            { cz: 'proti', en: 'against', case: 'Dativ', exCz: 'opírá se proti zdi', exEn: 'it leans against the wall' },
+            { cz: 'díky', en: 'thanks to', case: 'Dativ', exCz: 'díky úkrytu ji nevidíme', exEn: 'thanks to the hiding spot we do not see it' },
+            { cz: 'o', en: 'about / against', case: 'Lokál / Akuzativ', exCz: 'otírá se o židli', exEn: 'it rubs against the chair' },
+            { cz: 'po', en: 'along / after', case: 'Lokál', exCz: 'pavouk leze po zdi', exEn: 'the spider climbs along the wall' },
+            { cz: 'při', en: 'by / during', case: 'Lokál', exCz: 'sedí při okně', exEn: 'it sits by the window' },
+            { cz: 'v / ve', en: 'in / inside', case: 'Lokál', exCz: 'ryba je ve vaně', exEn: 'the fish is in the bathtub' }
+        ];
+
+        const ROOMS_DATA = {
+            living: {
+                id: 'living',
+                czName: 'Obývací pokoj',
+                enName: 'Living Room',
+                icon: 'fa-couch',
+                bgUrl: 'https://images.unsplash.com/photo-1583847268964-b28dc8f51f92?q=80&w=1200&auto=format&fit=crop',
+                hotspots: [
+                    {
+                        id: 'chair_flower',
+                        nameCz: 'židle',
+                        step1Answers: ['pod židlí', 'pod zidli', 'na židli', 'na zidli', 'u židle', 'u zidle'],
+                        step1Hint: 'pod / na / u židlí',
+                        hasFollowUp: true,
+                        followUpQuestion: 'Výborně! Ale pod KTEROU židlí? Pod židlí S kytkou, nebo BEZ kytky?',
+                        step2Answers: ['s kytkou', 's kvetinou', 's květinou', 'pod židlí s kytkou', 'pod zidli s kytkou', 's kytkou na stole'],
+                        step2Hint: 'Použijte: "s kytkou" nebo "bez kytky"',
+                        prepTags: ['pod', 's', 'bez'],
+                        x: 28, y: 72
+                    },
+                    {
+                        id: 'sofa',
+                        nameCz: 'pohovka',
+                        step1Answers: ['na pohovce', 'na gauči', 'pod pohovkou', 'za pohovkou'],
+                        step1Hint: 'na / pod pohovce',
+                        hasFollowUp: true,
+                        followUpQuestion: 'Super! Ale na KTERÉ pohovce? Na té BLÍZKO okna, nebo DALEKO od okna?',
+                        step2Answers: ['blízko okna', 'blizko okna', 'u okna', 'na pohovce blizko okna'],
+                        step2Hint: 'Použijte: "blízko okna" nebo "u okna"',
+                        prepTags: ['na', 'blízko', 'u'],
+                        x: 58, y: 68
+                    },
+                    {
+                        id: 'table_lamp',
+                        nameCz: 'stolek',
+                        step1Answers: ['pod stolkem', 'na stolku', 'u stolku', 'pod stolem'],
+                        step1Hint: 'pod / na stolku',
+                        hasFollowUp: true,
+                        followUpQuestion: 'Skvěle! Pod kterým stolkem? Pod stolkem S lampou, nebo BEZ lampy?',
+                        step2Answers: ['s lampou', 'stolek s lampou', 'pod stolkem s lampou'],
+                        step2Hint: 'Použijte: "s lampou"',
+                        prepTags: ['pod', 's', 'u'],
+                        x: 82, y: 75
+                    }
+                ]
+            },
+            bedroom: {
+                id: 'bedroom',
+                czName: 'Ložnice',
+                enName: 'Bedroom',
+                icon: 'fa-bed',
+                bgUrl: 'https://images.unsplash.com/photo-1616594039964-ae9021a400a0?q=80&w=1200&auto=format&fit=crop',
+                hotspots: [
+                    {
+                        id: 'bed',
+                        nameCz: 'postel',
+                        step1Answers: ['pod postelí', 'pod posteli', 'na posteli'],
+                        step1Hint: 'pod / na posteli',
+                        hasFollowUp: true,
+                        followUpQuestion: 'Skvělá práce! A leží pod postelí BLÍZKO polštáře, nebo U nohou?',
+                        step2Answers: ['blízko polštáře', 'blizko polstare', 'u polštáře', 'u polstare'],
+                        step2Hint: 'Použijte: "blízko polštáře" nebo "u polštáře"',
+                        prepTags: ['pod', 'blízko', 'u'],
+                        x: 52, y: 68
+                    },
+                    {
+                        id: 'wardrobe',
+                        nameCz: 'skříň',
+                        step1Answers: ['za skříní', 'za skrini', 'vedle skříně', 'vedle skrine'],
+                        step1Hint: 'za / vedle skříně',
+                        hasFollowUp: false,
+                        prepTags: ['za', 'vedle', 'do'],
+                        x: 80, y: 45
+                    }
+                ]
+            },
+            kitchen: {
+                id: 'kitchen',
+                czName: 'Kuchyně',
+                enName: 'Kitchen',
+                icon: 'fa-utensils',
+                bgUrl: 'https://images.unsplash.com/photo-1556911220-e15b29be8c8f?q=80&w=1200&auto=format&fit=crop',
+                hotspots: [
+                    {
+                        id: 'kitchen_fridge',
+                        nameCz: 'lednice',
+                        step1Answers: ['vedle lednice', 'u lednice', 'naproti lednici'],
+                        step1Hint: 'vedle / u lednice',
+                        hasFollowUp: true,
+                        followUpQuestion: 'Výborně! Je vedle lednice S jídlem, nebo BEZ jídla?',
+                        step2Answers: ['s jídlem', 's jidlem', 'bez jídla', 'bez jidla'],
+                        step2Hint: 'Použijte: "s jídlem" nebo "bez jídla"',
+                        prepTags: ['vedle', 's', 'bez'],
+                        x: 78, y: 55
+                    },
+                    {
+                        id: 'kitchen_table',
+                        nameCz: 'stůl',
+                        step1Answers: ['pod stolem', 'na stole', 'u stolu'],
+                        step1Hint: 'pod / na stole',
+                        hasFollowUp: false,
+                        prepTags: ['pod', 'na', 'uprostřed'],
+                        x: 32, y: 75
+                    }
+                ]
+            },
+            bathroom: {
+                id: 'bathroom',
+                czName: 'Koupelna',
+                enName: 'Bathroom',
+                icon: 'fa-bath',
+                bgUrl: 'https://images.unsplash.com/photo-1584622650111-993a426fbf0a?q=80&w=1200&auto=format&fit=crop',
+                hotspots: [
+                    {
+                        id: 'bathtub',
+                        nameCz: 'vana',
+                        step1Answers: ['ve vaně', 've vane', 'v vaně', 'do vany'],
+                        step1Hint: 've vaně',
+                        hasFollowUp: true,
+                        followUpQuestion: 'Super! Ve vaně S vodou, nebo BEZ vody?',
+                        step2Answers: ['bez vody', 's vodou'],
+                        step2Hint: 'Použijte: "bez vody" nebo "s vodou"',
+                        prepTags: ['v', 'bez', 's'],
+                        x: 32, y: 72
+                    },
+                    {
+                        id: 'mirror',
+                        nameCz: 'zrcadlo',
+                        step1Answers: ['před zrcadlem', 'pred zrcadlem', 'nad zrcadlem'],
+                        step1Hint: 'před / nad zrcadlem',
+                        hasFollowUp: false,
+                        prepTags: ['před', 'nad', 'o'],
+                        x: 68, y: 38
+                    }
+                ]
+            },
+            office: {
+                id: 'office',
+                czName: 'Pracovna',
+                enName: 'Study / Office',
+                icon: 'fa-laptop',
+                bgUrl: 'https://images.unsplash.com/photo-1524758631624-e2822e304c36?q=80&w=1200&auto=format&fit=crop',
+                hotspots: [
+                    {
+                        id: 'desk',
+                        nameCz: 'psací stůl',
+                        step1Answers: ['pod psacím stolem', 'pod stolem', 'na stole', 'na psacím stole'],
+                        step1Hint: 'pod / na psacím stole',
+                        hasFollowUp: true,
+                        followUpQuestion: 'Skvělá trefa! Pod stolem S počítačem, nebo BEZ počítače?',
+                        step2Answers: ['s počítačem', 's pocitacem', 'bez počítače'],
+                        step2Hint: 'Použijte: "s počítačem"',
+                        prepTags: ['pod', 's', 'bez'],
+                        x: 50, y: 65
+                    }
+                ]
+            },
+            dining: {
+                id: 'dining',
+                czName: 'Jídelna',
+                enName: 'Dining Room',
+                icon: 'fa-chair',
+                bgUrl: 'https://images.unsplash.com/photo-1617806118233-18e1de247200?q=80&w=1200&auto=format&fit=crop',
+                hotspots: [
+                    {
+                        id: 'chandelier',
+                        nameCz: 'lustr',
+                        step1Answers: ['nad stolem', 'nad lustrem', 'na lustru'],
+                        step1Hint: 'nad stolem / na lustru',
+                        hasFollowUp: false,
+                        prepTags: ['nad', 'na', 'uprostřed'],
+                        x: 50, y: 25
+                    },
+                    {
+                        id: 'chairs_between',
+                        nameCz: 'židle',
+                        step1Answers: ['mezi židlemi', 'mezi zidleni', 'pod židlí', 'u židle'],
+                        step1Hint: 'mezi židlemi',
+                        hasFollowUp: true,
+                        followUpQuestion: 'Výborně! Mezi židlemi BLÍZKO okna, nebo U stolu?',
+                        step2Answers: ['u stolu', 'blízko okna', 'blizko okna'],
+                        step2Hint: 'Použijte: "u stolu" nebo "blízko okna"',
+                        prepTags: ['mezi', 'u', 'blízko'],
+                        x: 75, y: 72
+                    }
+                ]
+            }
+        };
+
+        const ANIMALS_DATA = [
+            { id: 'pes', czName: 'pes', enName: 'Dog', imgUrl: 'https://images.unsplash.com/photo-1543466835-00a7907e9de1?q=80&w=300&auto=format&fit=crop' },
+            { id: 'kocka', czName: 'kočka', enName: 'Cat', imgUrl: 'https://images.unsplash.com/photo-1514888286974-6c03e2ca1dba?q=80&w=300&auto=format&fit=crop' },
+            { id: 'pavouk', czName: 'pavouk', enName: 'Spider', imgUrl: 'https://images.unsplash.com/photo-1582234372722-50d7ccc30ebd?q=80&w=300&auto=format&fit=crop' },
+            { id: 'kon', czName: 'kůň', enName: 'Horse', imgUrl: 'https://images.unsplash.com/photo-1553284965-83fd3e82fa5a?q=80&w=300&auto=format&fit=crop' },
+            { id: 'mys', czName: 'myš', enName: 'Mouse', imgUrl: 'https://images.unsplash.com/photo-1425082661705-1834bfd09dca?q=80&w=300&auto=format&fit=crop' },
+            { id: 'papousek', czName: 'papoušek', enName: 'Parrot', imgUrl: 'https://images.unsplash.com/photo-1552728089-57bdde30beb3?q=80&w=300&auto=format&fit=crop' },
+            { id: 'kralik', czName: 'králík', enName: 'Rabbit', imgUrl: 'https://images.unsplash.com/photo-1585110396000-c9ffd4e4b308?q=80&w=300&auto=format&fit=crop' },
+            { id: 'zaba', czName: 'žába', enName: 'Frog', imgUrl: 'https://images.unsplash.com/photo-1559253664-ca249d4608c6?q=80&w=300&auto=format&fit=crop' }
+        ];
+
+        // Game State Variables
+        let currentRoomId = 'living';
+        let currentAnimal = ANIMALS_DATA[0];
+        let currentSpot = null;
+        let currentStep = 1; // Step 1: initial answer, Step 2: follow-up
+        let score = 0;
+        let streak = 0;
+
+        window.addEventListener('DOMContentLoaded', () => {
+            render31PrepositionsGrid(ALL_31_PREPOSITIONS);
+            renderVocab();
+            loadRoom('living');
+        });
+
+        function switchMode(mode) {
+            document.getElementById('mode-game').classList.add('hidden');
+            document.getElementById('mode-dictionary').classList.add('hidden');
+            document.getElementById('mode-vocab').classList.add('hidden');
+
+            document.getElementById('tab-game').className = "px-5 py-2.5 rounded-xl font-bold text-sm transition-all bg-white text-gray-700 hover:bg-gray-100 flex items-center gap-2 border border-gray-200";
+            document.getElementById('tab-dict').className = "px-5 py-2.5 rounded-xl font-bold text-sm transition-all bg-white text-gray-700 hover:bg-gray-100 flex items-center gap-2 border border-gray-200";
+            document.getElementById('tab-vocab').className = "px-5 py-2.5 rounded-xl font-bold text-sm transition-all bg-white text-gray-700 hover:bg-gray-100 flex items-center gap-2 border border-gray-200";
+
+            if (mode === 'game') {
+                document.getElementById('mode-game').classList.remove('hidden');
+                document.getElementById('tab-game').className = "px-5 py-2.5 rounded-xl font-bold text-sm transition-all bg-[#1a365d] text-white flex items-center gap-2 shadow-sm";
+            } else if (mode === 'dictionary') {
+                document.getElementById('mode-dictionary').classList.remove('hidden');
+                document.getElementById('tab-dict').className = "px-5 py-2.5 rounded-xl font-bold text-sm transition-all bg-[#1a365d] text-white flex items-center gap-2 shadow-sm";
+            } else if (mode === 'vocab') {
+                document.getElementById('mode-vocab').classList.remove('hidden');
+                document.getElementById('tab-vocab').className = "px-5 py-2.5 rounded-xl font-bold text-sm transition-all bg-[#1a365d] text-white flex items-center gap-2 shadow-sm";
+            }
+        }
+
+        function loadRoom(roomId) {
+            currentRoomId = roomId;
+            const room = ROOMS_DATA[roomId];
+
+            document.querySelectorAll('.room-selector').forEach(btn => {
+                btn.classList.remove('border-[#2d6cdf]', 'bg-blue-50', 'text-[#2d6cdf]');
+                btn.classList.add('border-gray-200');
+            });
+
+            const activeBtn = document.getElementById(`btn-room-${roomId}`);
+            if (activeBtn) {
+                activeBtn.classList.add('border-[#2d6cdf]', 'bg-blue-50', 'text-[#2d6cdf]');
+            }
+
+            document.getElementById('room-img').src = room.bgUrl;
+            document.getElementById('current-room-title').innerText = room.czName;
+            document.getElementById('current-room-title').setAttribute('onmouseover', `showT('${room.enName}')`);
+
+            spawnNewAnimalInRoom();
+        }
+
+        function selectRandomRoom() {
+            const keys = Object.keys(ROOMS_DATA);
+            const randomKey = keys[Math.floor(Math.random() * keys.length)];
+            loadRoom(randomKey);
+        }
+
+        function spawnNewAnimalInRoom() {
+            const room = ROOMS_DATA[currentRoomId];
+            currentAnimal = ANIMALS_DATA[Math.floor(Math.random() * ANIMALS_DATA.length)];
+            currentSpot = room.hotspots[Math.floor(Math.random() * room.hotspots.length)];
+            currentStep = 1;
+
+            const overlay = document.getElementById('animal-overlay');
+            const animalImg = document.getElementById('animal-img');
+
+            overlay.classList.remove('animal-vanish');
+            overlay.classList.add('animal-pop');
+            animalImg.src = currentAnimal.imgUrl;
+
+            overlay.style.left = `${currentSpot.x}%`;
+            overlay.style.top = `${currentSpot.y}%`;
+
+            document.getElementById('current-animal-tag').innerText = capitalize(currentAnimal.czName);
+            document.getElementById('current-animal-tag').setAttribute('onmouseover', `showT('${currentAnimal.enName}')`);
+
+            // Reset UI step display
+            resetStepUI();
+
+            // Quick preposition tags
+            const tagsContainer = document.getElementById('quick-prep-tags');
+            tagsContainer.innerHTML = '';
+            currentSpot.prepTags.forEach(p => {
+                const tag = document.createElement('span');
+                tag.className = 'px-2.5 py-1 bg-blue-50 text-[#2d6cdf] border border-blue-200 rounded-md font-bold text-xs tr-text';
+                tag.innerText = p;
+                
+                const prepObj = ALL_31_PREPOSITIONS.find(item => item.cz === p || item.cz.startsWith(p + ' '));
+                if (prepObj) {
+                    tag.setAttribute('onmouseover', `showT('${prepObj.en}')`);
+                    tag.setAttribute('onmouseout', 'hideT()');
+                }
+                tagsContainer.appendChild(tag);
+            });
+        }
+
+        function skipToNextAnimal() {
+            spawnNewAnimalInRoom();
+        }
+
+        function resetStepUI() {
+            currentStep = 1;
+            document.getElementById('step-badge').innerText = "Krok 1 ze 2: Hlavní poloha";
+            document.getElementById('active-prompt-display').innerText = `Kde se schovává ${currentAnimal.czName}?`;
+            document.getElementById('sub-prompt-display').innerHTML = `Napište např: <span class="font-bold text-gray-700">pod židlí</span>, <span class="font-bold text-gray-700">na stole</span>`;
+            
+            const input = document.getElementById('answer-input');
+            input.value = '';
+            input.placeholder = "Napište pozici v češtině...";
+            
+            hideFeedback();
+            hideHint();
+        }
+
+        function focusInput() {
+            document.getElementById('answer-input').focus();
+        }
+
+        // Diacritic-tolerant string normalization
+        function normalizeCzechText(str) {
+            return str
+                .toLowerCase()
+                .trim()
+                .normalize("NFD")
+                .replace(/[\u0300-\u036f]/g, "") // strip diacritics
+                .replace(/[.,/#!$%^&*;:{}=\-_`~()]/g,"");
+        }
+
+        function handleAnswerSubmit(event) {
+            event.preventDefault();
+            const userRaw = document.getElementById('answer-input').value;
+            const userNormalized = normalizeCzechText(userRaw);
+
+            if (!userNormalized) {
+                showFeedback(false, "Prosím napište odpoved!", "Vyplňte políčko před odesláním.");
+                return;
+            }
+
+            if (currentStep === 1) {
+                // Check Step 1 answers
+                const isCorrect = currentSpot.step1Answers.some(ans => normalizeCzechText(ans) === userNormalized || userNormalized.includes(normalizeCzechText(ans)));
+
+                if (isCorrect) {
+                    if (currentSpot.hasFollowUp) {
+                        // Advance to Step 2: Follow-Up Disambiguation Question!
+                        currentStep = 2;
+                        document.getElementById('step-badge').innerText = "Krok 2 ze 2: Upřesnění (Follow-up)";
+                        document.getElementById('active-prompt-display').innerText = currentSpot.followUpQuestion;
+                        document.getElementById('sub-prompt-display').innerText = `Nápověda pro výběr: ${currentSpot.step2Hint}`;
+                        
+                        document.getElementById('answer-input').value = '';
+                        document.getElementById('answer-input').placeholder = "Napište upřesnění...";
+                        showFeedback(true, "Výborně! První část je správně!", "Nyní odpovězte na doplňující otázku nahoru.");
+                    } else {
+                        // Complete success directly!
+                        completeAnimalSuccess();
+                    }
+                } else {
+                    showFeedback(false, "Zkuste to znovu!", `Zvířátko ${currentAnimal.czName} se schovává jinde nebo použijte jiný pád.`);
+                }
+            } else if (currentStep === 2) {
+                // Check Step 2 follow-up answer
+                const isCorrect = currentSpot.step2Answers.some(ans => normalizeCzechText(ans) === userNormalized || userNormalized.includes(normalizeCzechText(ans)));
+
+                if (isCorrect) {
+                    completeAnimalSuccess();
+                } else {
+                    showFeedback(false, "Těsně vedle!", currentSpot.step2Hint);
+                }
+            }
+        }
+
+        function completeAnimalSuccess() {
+            score += 10;
+            streak += 1;
+            document.getElementById('score-counter').innerText = score;
+            document.getElementById('streak-counter').innerText = streak;
+
+            showFeedback(true, "Skvělé! Zvířátko nalezeno! 🎉", "Zvířátko utíká a schovává se na novém místě...");
+
+            // Trigger confetti blast
+            confetti({
+                particleCount: 50,
+                spread: 60,
+                origin: { y: 0.7 }
+            });
+
+            // Animate vanish and switch to next animal automatically!
+            const overlay = document.getElementById('animal-overlay');
+            overlay.classList.remove('animal-pop');
+            overlay.classList.add('animal-vanish');
+
+            setTimeout(() => {
+                // Automatically spawn next animal
+                spawnNewAnimalInRoom();
+            }, 1200);
+        }
+
+        function showFeedback(isSuccess, title, subtitle) {
+            const box = document.getElementById('feedback-box');
+            const icon = document.getElementById('feedback-icon');
+            const text = document.getElementById('feedback-text');
+            const subtext = document.getElementById('feedback-subtext');
+
+            box.classList.remove('hidden', 'bg-emerald-50', 'text-emerald-900', 'border-emerald-200', 'bg-rose-50', 'text-rose-900', 'border-rose-200');
+
+            if (isSuccess) {
+                box.classList.add('bg-emerald-50', 'text-emerald-900', 'border', 'border-emerald-200');
+                icon.className = 'fa-solid fa-circle-check text-emerald-600 text-base mt-0.5';
+            } else {
+                box.classList.add('bg-rose-50', 'text-rose-900', 'border', 'border-rose-200');
+                icon.className = 'fa-solid fa-circle-xmark text-rose-600 text-base mt-0.5';
+                streak = 0; // Reset streak on error
+                document.getElementById('streak-counter').innerText = streak;
+            }
+
+            text.innerText = title;
+            subtext.innerText = subtitle;
+        }
+
+        function hideFeedback() {
+            document.getElementById('feedback-box').classList.add('hidden');
+        }
+
+        function giveHint() {
+            const hintBox = document.getElementById('hint-display-box');
+            const hintText = document.getElementById('hint-text');
+
+            if (currentStep === 1) {
+                hintText.innerText = `Užitečné spojení: "${currentSpot.step1Hint}"`;
+            } else {
+                hintText.innerText = currentSpot.step2Hint;
+            }
+            hintBox.classList.remove('hidden');
+        }
+
+        function hideHint() {
+            document.getElementById('hint-display-box').classList.add('hidden');
+        }
+
+        function setPromptText(element) {
+            const prompt = element.innerText;
+            document.getElementById('active-prompt-display').innerText = prompt;
+        }
+
+
+        /* ==========================================================================
+           3. DICTIONARY & VOCABULARY RENDERERS
+           ========================================================================== */
+
+        function render31PrepositionsGrid(items) {
+            const container = document.getElementById('prep-grid');
+            container.innerHTML = '';
+
+            items.forEach(item => {
+                const card = document.createElement('div');
+                card.className = 'p-4 rounded-xl border border-gray-200 bg-slate-50/50 hover:bg-white hover:border-[#2d6cdf] transition shadow-sm space-y-2.5';
+
+                card.innerHTML = `
+                    <div class="flex items-center justify-between">
+                        <span class="text-xl font-extrabold text-[#1a365d] tr-text" onmouseover="showT('${item.en}')" onmouseout="hideT()">${item.cz}</span>
+                        <span class="text-xs bg-blue-100 text-[#2d6cdf] px-2.5 py-1 rounded-full font-bold">${item.case}</span>
+                    </div>
+                    <p class="text-xs text-gray-600">
+                        <span class="tr-text" onmouseover="showT('English Meaning')" onmouseout="hideT()">Význam:</span> <b class="text-slate-800">${item.en}</b>
+                    </p>
+                    <div class="pt-2 border-t border-gray-100 text-xs text-slate-700">
+                        <i class="fa-solid fa-quote-left text-blue-400 mr-1"></i>
+                        <span class="tr-text font-medium italic" onmouseover="showT('${item.exEn}')" onmouseout="hideT()">${item.exCz}</span>
+                    </div>
+                `;
+                container.appendChild(card);
+            });
+        }
+
+        function filterPrepositions() {
+            const query = document.getElementById('prep-search').value.toLowerCase();
+            const filtered = ALL_31_PREPOSITIONS.filter(p => 
+                p.cz.toLowerCase().includes(query) || 
+                p.en.toLowerCase().includes(query) ||
+                p.exCz.toLowerCase().includes(query)
+            );
+            render31PrepositionsGrid(filtered);
+        }
+
+        function filterCase(c) {
+            document.querySelectorAll('.case-chip').forEach(btn => {
+                btn.className = 'case-chip px-3.5 py-1.5 rounded-lg text-xs font-bold bg-gray-100 text-gray-700 hover:bg-gray-200';
+            });
+            event.target.className = 'case-chip active px-3.5 py-1.5 rounded-lg text-xs font-bold bg-[#1a365d] text-white';
+
+            if (c === 'all') {
+                render31PrepositionsGrid(ALL_31_PREPOSITIONS);
+            } else {
+                const filtered = ALL_31_PREPOSITIONS.filter(p => p.case.includes(c));
+                render31PrepositionsGrid(filtered);
+            }
+        }
+
+        function renderVocab() {
+            const container = document.getElementById('vocab-grid');
+            container.innerHTML = '';
+
+            Object.values(ROOMS_DATA).forEach(room => {
+                const card = document.createElement('div');
+                card.className = 'card p-5 space-y-3';
+
+                let hotspotsList = room.hotspots.map(h => `
+                    <li class="flex items-center justify-between text-xs py-1.5 border-b border-slate-100 last:border-none">
+                        <span class="font-bold text-slate-800">${capitalize(h.nameCz)}</span>
+                        <span class="text-slate-500 italic tr-text" onmouseover="showT('Step 1 pattern: ${h.step1Hint}')" onmouseout="hideT()">${h.step1Hint}</span>
+                    </li>
+                `).join('');
+
+                card.innerHTML = `
+                    <div class="flex items-center space-x-3 pb-3 border-b border-gray-200">
+                        <div class="bg-blue-50 p-2.5 rounded-xl text-[#2d6cdf]">
+                            <i class="fa-solid ${room.icon} text-lg"></i>
+                        </div>
+                        <div>
+                            <h3 class="font-extrabold text-[#1a365d] tr-text" onmouseover="showT('${room.enName}')" onmouseout="hideT()">${room.czName}</h3>
+                            <p class="text-xs text-gray-400">${room.hotspots.length} mista pro úkryt</p>
+                        </div>
+                    </div>
+                    <ul>
+                        ${hotspotsList}
+                    </ul>
+                `;
+                container.appendChild(card);
+            });
+        }
+
+        function capitalize(str) {
+            if (!str) return '';
+            return str.charAt(0).toUpperCase() + str.slice(1);
+        }
+    </script>
+</body>
+</html>
