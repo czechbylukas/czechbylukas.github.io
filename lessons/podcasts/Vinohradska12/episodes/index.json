@@ -1,4 +1,12 @@
 [
-  "11-zari-2001-dvojcata-mizela-v-oblacich-prachu.json",
-  "extremni-schodek-pri-ekonomickem-rustu-je-to-zlocin.json"
+  {
+    "file": "11-zari-2001-dvojcata-mizela-v-oblacich-prachu.json",
+    "title": "Dvojčata mizela v oblacích prachu, tak běžel na pomoc. Dnes by náraz ustála, věří architekt",
+    "date": "11. 09. 2026"
+  },
+  {
+    "file": "extremni-schodek-pri-ekonomickem-rustu-je-to-zlocin.json",
+    "title": "Extrémní schodek? Při ekonomickém růstu je to zločin, kritizuje komentátorka a nevěří ve velké změny",
+    "date": "04. 09. 2026"
+  }
 ]
