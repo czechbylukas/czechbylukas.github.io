@@ -1,0 +1,1578 @@
+<!DOCTYPE html>
+<html lang="cs" class="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Czech Prepositions Studio</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            brand: {
+              50: '#fffbebe',
+              100: '#fef3c7',
+              500: '#f59e0b',
+              600: '#d97706',
+              900: '#78350f',
+            }
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    .grid-matrix {
+      display: grid;
+      grid-template-columns: 120px repeat(5, minmax(120px, 1fr));
+      gap: 0.75rem;
+    }
+  </style>
+</head>
+<body class="bg-slate-950 text-slate-100 font-sans min-h-screen flex flex-col">
+
+  <!-- Top Navigation Header -->
+  <header class="border-b border-slate-800 bg-slate-900/80 backdrop-blur sticky top-0 z-50">
+    <div class="max-w-7xl mx-auto px-4 h-16 flex items-center justify-between">
+      <div class="flex items-center gap-3">
+        <div class="bg-amber-500 text-slate-950 p-2 rounded-xl font-black text-xl tracking-wider">CPS</div>
+        <div>
+          <h1 class="font-bold text-slate-100 leading-none">Czech Prepositions Studio</h1>
+          <p class="text-xs text-slate-400 mt-1">Interaktivní editor předložek, zvířátek a nábytku</p>
+        </div>
+      </div>
+
+      <!-- Navigation Tabs -->
+      <nav class="flex gap-2 bg-slate-950 p-1 rounded-xl border border-slate-800">
+        <button id="tabBtn1" onclick="switchScene(1)" class="px-4 py-2 rounded-lg text-xs font-bold transition">1. Pokoj & Nábytek</button>
+        <button id="tabBtn2" onclick="switchScene(2)" class="px-4 py-2 rounded-lg text-xs font-bold transition">2. Matice Zvířátek</button>
+        <button id="tabBtn3" onclick="switchScene(3)" class="px-4 py-2 rounded-lg text-xs font-bold transition">3. Pravidla Předložek</button>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Main Content Container -->
+  <main class="flex-1 max-w-7xl w-full mx-auto p-4 space-y-6">
+
+    <!-- SCENE 1: ROOM & FURNITURE EDITOR -->
+    <section id="scene1" class="space-y-4">
+      <div class="flex flex-wrap items-center justify-between gap-4 bg-slate-900 p-4 rounded-2xl border border-slate-800">
+        <div class="flex items-center gap-3">
+          <label class="text-xs font-bold text-slate-400 uppercase tracking-wider">Vyberte Místnost:</label>
+          <select id="roomSelector" onchange="onRoomChange()" class="bg-slate-950 border border-slate-700 rounded-lg px-3 py-1.5 text-sm font-semibold text-amber-400 focus:outline-none focus:border-amber-500">
+            <option value="obyvak">Obývací Pokoj</option>
+            <option value="loznice">Ložnice</option>
+            <option value="kuchyn">Kuchyň</option>
+            <option value="koupelna">Koupelna</option>
+            <option value="zahrada">Zahrada</option>
+          </select>
+        </div>
+
+        <div id="furnitureControlOverlay" class="hidden flex flex-wrap items-center gap-2 bg-slate-950 px-3 py-1.5 rounded-xl border border-slate-800 text-xs">
+          <span id="selectedItemNameLabel" class="font-bold text-amber-400 mr-2">Objekt</span>
+          <button onclick="scaleSelectedFurniture(0.1)" class="bg-slate-800 hover:bg-slate-700 px-2 py-1 rounded font-bold text-slate-200">+</button>
+          <button onclick="scaleSelectedFurniture(-0.1)" class="bg-slate-800 hover:bg-slate-700 px-2 py-1 rounded font-bold text-slate-200">-</button>
+          <button id="toggleFurnitureStateButton" onclick="toggleSelectedFurnitureState()" class="bg-indigo-600 hover:bg-indigo-500 px-2 py-1 rounded font-bold text-white">Otevřít / zavřít</button>
+          <button onclick="deleteSelectedFurniture()" class="bg-rose-600 hover:bg-rose-500 px-2 py-1 rounded font-bold text-white">Smazat</button>
+        </div>
+      </div>
+
+      <!-- Room Canvas -->
+      <div class="relative bg-slate-900 rounded-2xl border border-slate-800 overflow-hidden shadow-2xl h-[450px]">
+        <svg id="roomSvg" class="w-full h-full select-none">
+          <g id="roomBackgroundGroup"></g>
+          <g id="placedFurnitureGroup"></g>
+        </svg>
+      </div>
+
+      <!-- Furniture Catalog -->
+      <div class="bg-slate-900 p-4 rounded-2xl border border-slate-800 space-y-3">
+        <h3 class="text-xs font-bold text-slate-400 uppercase tracking-wider">Katalog Nábytku (Kliknutím přidejte do pokoje)</h3>
+        <div id="furnitureCategoriesContainer" class="space-y-4"></div>
+      </div>
+    </section>
+
+    <!-- SCENE 2: CHARACTER & ACCESSORY MATRIX -->
+    <section id="scene2" class="space-y-4 hidden">
+      <div class="bg-slate-900 p-4 rounded-2xl border border-slate-800 flex flex-wrap items-center justify-between gap-4">
+        <div>
+          <h2 class="text-sm font-bold text-slate-200">Matice Zvířátek a Póz</h2>
+          <p class="text-xs text-slate-400">Předdefinované pózy pro psa, kočku, pavouka, myš a ptáka s nastavením doplňků</p>
+        </div>
+
+        <div class="flex items-center gap-2 bg-slate-950 p-1 rounded-xl border border-slate-800">
+          <button id="accModeBtn_none" onclick="setActiveAccessoryMode('none')" class="px-3 py-1.5 rounded-lg text-xs font-bold bg-amber-500 text-slate-950">Bez doplňku</button>
+          <button id="accModeBtn_glasses" onclick="setActiveAccessoryMode('glasses')" class="px-3 py-1.5 rounded-lg text-xs font-bold text-slate-400">Brýle</button>
+          <button id="accModeBtn_hat" onclick="setActiveAccessoryMode('hat')" class="px-3 py-1.5 rounded-lg text-xs font-bold text-slate-400">Klobouk</button>
+          <button id="accModeBtn_backpack" onclick="setActiveAccessoryMode('backpack')" class="px-3 py-1.5 rounded-lg text-xs font-bold text-slate-400">Batoh</button>
+        </div>
+      </div>
+
+      <div id="characterMatrixGrid" class="bg-slate-900 p-4 rounded-2xl border border-slate-800 space-y-4 overflow-x-auto"></div>
+    </section>
+
+    <!-- SCENE 3: PREPOSITION & TRAJECTORY WIZARD -->
+    <section id="scene3" class="space-y-4 hidden">
+      <div class="bg-slate-900 p-4 rounded-2xl border border-slate-800 space-y-4">
+        <div class="flex flex-wrap items-center justify-between gap-4">
+          <div>
+            <h2 class="text-sm font-bold text-slate-200">Průvodce Pravidly Předložek</h2>
+            <p class="text-xs text-slate-400">Schvalujte kombinace předložek, pohybů a prostorových vztahů a definujte jejich trajektorie</p>
+          </div>
+          <div class="flex items-center gap-2">
+            <span id="datasetLoadStatus" role="status" class="text-xs text-slate-400">Dataset se nenačetl</span>
+            <span id="pendingComboBadge" class="bg-amber-500/10 text-amber-400 border border-amber-500/20 text-xs font-bold px-3 py-1 rounded-full">Zbývá schválit: 0</span>
+          </div>
+        </div>
+
+        <!-- Add Preposition Bar -->
+        <div class="flex flex-wrap items-center gap-2">
+          <input type="text" id="newPrepInput" placeholder="Přidat novou předložku (např. vedle, pod)..." class="bg-slate-950 border border-slate-800 rounded-xl px-3 py-2 text-xs w-64 focus:outline-none focus:border-amber-500">
+          <button onclick="addNewPreposition()" class="bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold px-4 py-2 rounded-xl text-xs transition">Přidat Předložku</button>
+          <div id="prepPillsContainer" class="flex flex-wrap gap-1.5 ml-auto"></div>
+        </div>
+
+        <div id="newPrepSetupPanel" class="hidden bg-slate-950 p-4 rounded-xl border border-amber-500/30 space-y-3">
+          <div>
+            <h3 class="text-sm font-bold text-amber-300">Nastavení předložky „<span id="setupPrepositionLabel"></span>“</h3>
+            <p class="text-xs text-slate-400">Zaškrtněte pohyby (například pes běží nebo sedí), které se s předložkou pojí. Nezaškrtnuté pohyby budou vyřazeny.</p>
+          </div>
+          <div id="movementCompatibilityGrid" class="grid grid-cols-2 sm:grid-cols-3 gap-2"></div>
+          <fieldset class="space-y-2">
+            <legend class="text-xs font-bold text-slate-300">Jaký stav nábytku je potřeba?</legend>
+            <div class="flex flex-wrap gap-4 text-xs text-slate-300">
+              <label class="flex items-center gap-2"><input type="radio" name="newPrepFurnitureState" value="closed" checked> Zavřený</label>
+              <label class="flex items-center gap-2"><input type="radio" name="newPrepFurnitureState" value="open"> Otevřený</label>
+              <label class="flex items-center gap-2"><input type="radio" name="newPrepFurnitureState" value="both"> Otevřený i zavřený</label>
+            </div>
+          </fieldset>
+          <p id="prepositionSetupError" class="hidden text-xs font-semibold text-rose-400" role="alert"></p>
+          <div class="flex justify-end gap-2">
+            <button type="button" onclick="cancelPrepositionSetup()" class="bg-slate-800 hover:bg-slate-700 text-slate-200 font-bold px-3 py-2 rounded-lg text-xs">Zrušit</button>
+            <button type="button" onclick="confirmPrepositionSetup()" class="bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold px-3 py-2 rounded-lg text-xs">Vytvořit kombinace</button>
+          </div>
+        </div>
+
+        <!-- Current Combination Bar -->
+        <div class="bg-slate-950 p-4 rounded-xl border border-slate-800 grid grid-cols-1 md:grid-cols-8 gap-4 items-center">
+          <div class="md:col-span-2">
+            <label class="text-[10px] font-bold text-slate-500 uppercase">Kombinace k posouzení</label>
+            <input id="comboSearch" type="search" placeholder="Hledat předložku, sloveso, nábytek..." oninput="renderComboSelector()" class="w-full bg-slate-900 border border-slate-700 rounded-lg px-2.5 py-1.5 text-xs text-slate-200 mt-1 focus:outline-none">
+            <div class="flex gap-1.5 mt-1">
+              <select id="comboStatusFilter" onchange="renderComboSelector()" aria-label="Filtrovat podle stavu" class="min-w-0 flex-1 bg-slate-900 border border-slate-700 rounded-lg px-2 py-1 text-[10px] text-amber-300 focus:outline-none">
+                <option value="pending">Čeká na rozhodnutí</option>
+                <option value="all">Všechny stavy</option>
+                <option value="approved">Schválené</option>
+                <option value="declined">Zamítnuté</option>
+                <option value="disqualified">Automaticky vyřazené</option>
+              </select>
+              <select id="comboSelector" size="4" onchange="onComboSelectChange()" aria-label="Kombinace" class="min-w-0 flex-[2] bg-slate-900 border border-slate-700 rounded-lg px-2 py-1 text-[10px] text-amber-300 focus:outline-none"></select>
+            </div>
+          </div>
+          <div class="text-center">
+            <span class="text-[10px] font-bold text-slate-500 uppercase block">Předložka</span>
+            <span id="activePrepDisplay" class="text-sm font-black text-amber-400">--</span>
+          </div>
+          <div class="text-center md:col-span-2">
+            <span class="text-[10px] font-bold text-slate-500 uppercase block">Příklad otázky</span>
+            <span id="activeQuestionDisplay" class="text-xs font-bold text-slate-200">--</span>
+            <span id="activeQuestionFurnitureState" class="block text-[10px] font-bold text-indigo-300"></span>
+          </div>
+          <div class="text-center">
+            <span class="text-[10px] font-bold text-slate-500 uppercase block">Požadovaný stav (pro předložku)</span>
+            <span id="activeStateDisplay" class="text-xs font-bold text-indigo-400">--</span>
+            <span id="activeDecisionStatus" class="block text-[10px] font-bold text-slate-400"></span>
+          </div>
+          <div class="flex gap-2 md:col-span-2">
+            <button onclick="approveCombination(true)" class="flex-1 bg-emerald-600 hover:bg-emerald-500 font-bold py-2 rounded-xl text-xs text-white shadow-lg transition disabled:opacity-40 disabled:cursor-not-allowed">Schválit ✅</button>
+            <button onclick="approveCombination(false)" class="flex-1 bg-rose-600 hover:bg-rose-500 font-bold py-2 rounded-xl text-xs text-white shadow-lg transition disabled:opacity-40 disabled:cursor-not-allowed">Zamítnout ❌</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="bg-slate-950 px-4 py-3 rounded-xl border border-slate-800 text-xs text-slate-300">
+        <span class="font-bold text-amber-300">Vztah na obrázku:</span>
+        <span id="activeRelationDisplay">--</span>
+        <span id="activeObjectDisplay" class="text-slate-400"></span>
+        <span id="trajectoryHelpText" class="ml-2 text-slate-500">Polohu upravte přetažením bodů v obrázku.</span>
+      </div>
+
+      <details class="bg-slate-950 rounded-xl border border-slate-800">
+        <summary id="combinationOverviewSummary" class="cursor-pointer px-4 py-3 text-xs font-bold text-slate-300">Všechny kombinace</summary>
+        <div id="combinationOverview" class="max-h-64 overflow-auto border-t border-slate-800 p-3 text-xs"></div>
+      </details>
+
+      <!-- Interactive Trajectory Canvas -->
+      <div class="relative bg-slate-900 rounded-2xl border border-slate-800 overflow-hidden shadow-2xl h-[400px]">
+        <!-- Invalid Overlay Banner -->
+        <div id="invalidBanner" class="hidden absolute top-4 left-1/2 -translate-x-1/2 bg-rose-500/90 text-white font-black text-sm px-6 py-2 rounded-full border border-rose-400 shadow-xl z-20">
+        Tato kombinace byla zamítnuta
+        </div>
+
+        <svg id="trajSvg" class="w-full h-full select-none">
+          <g>
+            <!-- Furniture Center -->
+            <g id="trajFurnitureGroup" transform="translate(400, 195)"></g>
+            <!-- Animal Preview -->
+            <g id="trajAnimalGroup" transform="translate(150, 235)"></g>
+            <!-- Trajectory Paths -->
+            <path id="trajPath" fill="none" stroke="#f59e0b" stroke-width="3" stroke-dasharray="6,6"/>
+            <circle id="trajCirclePath" cx="400" cy="195" r="80" fill="none" stroke="#f59e0b" stroke-width="3" stroke-dasharray="6,6" class="hidden"/>
+
+            <!-- Trajectory Drag Handles -->
+            <g id="trajHandlesGroup">
+              <circle id="handleA" cx="150" cy="235" r="10" fill="#38bdf8" class="cursor-pointer stroke-2 stroke-white"/>
+              <text id="lblA" x="150" y="220" fill="#38bdf8" font-size="11" font-weight="bold" text-anchor="middle">Start (A)</text>
+
+              <circle id="handleC" cx="300" cy="75" r="10" fill="#f59e0b" class="cursor-pointer stroke-2 stroke-white"/>
+              <text id="lblC" x="300" y="60" fill="#f59e0b" font-size="11" font-weight="bold" text-anchor="middle">Oblouk (C)</text>
+
+              <circle id="handleB" cx="400" cy="195" r="10" fill="#10b981" class="cursor-pointer stroke-2 stroke-white"/>
+              <text id="lblB" x="400" y="180" fill="#10b981" font-size="11" font-weight="bold" text-anchor="middle">Cíl (B)</text>
+            </g>
+
+            <!-- Crossout Overlay -->
+            <g id="crossoutOverlay" class="hidden">
+              <line x1="100" y1="50" x2="700" y2="350" stroke="#ef4444" stroke-width="8" opacity="0.6"/>
+              <line x1="100" y1="350" x2="700" y2="50" stroke="#ef4444" stroke-width="8" opacity="0.6"/>
+            </g>
+          </g>
+        </svg>
+
+        <!-- Trajectory Toolbar -->
+        <div class="absolute bottom-4 left-4 right-4 bg-slate-950/90 backdrop-blur p-3 rounded-xl border border-slate-800 flex flex-wrap items-center justify-between gap-3">
+          <div class="flex flex-wrap items-center gap-3">
+            <label class="text-xs font-bold text-slate-400">Typ Trajektorie:</label>
+            <select id="trajTypeSelect" onchange="renderTrajScene()" class="bg-slate-900 border border-slate-700 rounded-lg px-3 py-1.5 text-xs text-amber-400 font-bold focus:outline-none disabled:opacity-40 disabled:cursor-not-allowed">
+              <option value="straight">Přímá Čára (A -> B)</option>
+              <option value="arc">Bézierův Oblouk (A -> C -> B)</option>
+              <option value="circle">Kruhová Dráha (Kolem cíle)</option>
+            </select>
+          </div>
+
+          <div class="flex flex-wrap items-center gap-2">
+            <button id="playTrajectoryButton" onclick="playTrajAnimation()" class="bg-indigo-600 hover:bg-indigo-500 text-white font-bold px-4 py-1.5 rounded-lg text-xs transition disabled:opacity-40 disabled:cursor-not-allowed">Přehrát Animaci ‣</button>
+            <button onclick="resetTrajHandles()" class="bg-slate-800 hover:bg-slate-700 text-slate-300 font-bold px-3 py-1.5 rounded-lg text-xs transition">Resetovat Body</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- MASTER DATASET JSON PREVIEW & EXPORT PANEL -->
+    <section class="bg-slate-900 p-4 rounded-2xl border border-slate-800 space-y-3">
+      <div class="flex items-center justify-between">
+        <div class="flex items-center gap-2">
+          <h3 class="text-xs font-bold text-slate-400 uppercase tracking-wider">Master Dataset JSON Output</h3>
+          <span id="definedRulesCount" class="bg-indigo-500/10 text-indigo-400 border border-indigo-500/20 text-[10px] font-bold px-2 py-0.5 rounded-full">0 Pravidel</span>
+        </div>
+
+        <div class="flex items-center gap-2">
+          <button onclick="exportFullJson()" class="bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold px-3 py-1.5 rounded-lg text-xs transition flex items-center gap-1">Exportovat JSON 💾</button>
+          <label class="bg-slate-800 hover:bg-slate-700 text-slate-200 font-bold px-3 py-1.5 rounded-lg text-xs transition cursor-pointer">
+            Načíst JSON 📂
+            <input type="file" accept=".json" onchange="importFullJson(event)" class="hidden"/>
+          </label>
+          <button onclick="clearDataset()" class="bg-rose-950 hover:bg-rose-900 text-rose-300 border border-rose-800/50 font-bold px-3 py-1.5 rounded-lg text-xs transition">Vyčistit Vše</button>
+        </div>
+      </div>
+
+      <textarea id="jsonPreview" readonly class="w-full h-36 bg-slate-950 text-slate-400 font-mono text-[11px] p-3 rounded-xl border border-slate-800 focus:outline-none resize-none"></textarea>
+    </section>
+
+  </main>
+
+  <script src="./animal_graphics.js"></script>
+  <script>
+    // GLOBAL STATE
+    let currentScene = 1;
+    let activeRoomKey = "obyvak";
+    let selectedPlacedItemIndex = null;
+    let activeAccessoryMode = "none";
+    let activeComboIndex = 0;
+    let activeTrajHandle = null;
+    let pendingNewPreposition = "";
+
+    // Trajectory Handles
+    let handleAPos = { x: 150, y: 235 };
+    let handleCPos = { x: 300, y: 75 };
+    let handleBPos = { x: 400, y: 195 };
+
+    // Master Data Objects
+    let roomLayouts = { obyvak: [], loznice: [], kuchyn: [], koupelna: [], zahrada: [] };
+    let accessoryOffsets = {};
+    let prepositionsList = [];
+    let spatialRelations = [];
+    let prepositionSettings = {};
+    let approvedRules = {};
+    let pendingCombinationsQueue = [];
+    let editorDatasetLoadPromise = null;
+
+    // CONSTANTS
+    const ANIMALS = { pes: "Pes", kocka: "Kočka", spider: "Pavouk", mys: "Myš", ptak: "Pták" };
+    const DEFAULT_MOVEMENTS = [
+      { key: "sitting", label: "Sedící", dynamic: false, verb: "sedí" },
+      { key: "standing", label: "Stojící", dynamic: false, verb: "stojí" },
+      { key: "running", label: "Běžící", dynamic: true, verb: "běží" },
+      { key: "jumping", label: "Skákající", dynamic: true, verb: "skáče" },
+      { key: "lying", label: "Ležící", dynamic: false, verb: "leží" }
+    ];
+    let movementTypes = [...DEFAULT_MOVEMENTS];
+    const DEFAULT_SPATIAL_RELATIONS = [
+      { key: "in", label: "Uvnitř" },
+      { key: "on_top", label: "Nahoře / na" },
+      { key: "next_to", label: "Vedle" },
+      { key: "above", label: "Nad" },
+      { key: "below", label: "Pod" },
+      { key: "between", label: "Mezi dvěma objekty" }
+    ];
+
+    const FURNITURE_CATALOG = [
+      {
+        category: "Nábytek & Sezení",
+        items: [
+          { type: "stul", label: "Stůl", openable: true },
+          { type: "zidle", label: "Židle", openable: false },
+          { type: "kreslo", label: "Křeslo", openable: false },
+          { type: "gauc", label: "Gauč", openable: false },
+          { type: "postel", label: "Postel", openable: false }
+        ]
+      },
+      {
+        category: "Úložné Prostory",
+        items: [
+          { type: "skrin", label: "Skříň", openable: true },
+          { type: "knihovna", label: "Knihovna", openable: false },
+          { type: "policka", label: "Polička", openable: false },
+          { type: "krabice", label: "Krabice", openable: true }
+        ]
+      },
+      {
+        category: "Stavební Prvky",
+        items: [
+          { type: "okno", label: "Okno", openable: true },
+          { type: "dvere", label: "Dveře", openable: true }
+        ]
+      },
+      {
+        category: "Kuchyň & Koupelna",
+        items: [
+          { type: "kuchynska_linka", label: "Kuchyňská Linka", openable: true },
+          { type: "drez", label: "Dřez", openable: false },
+          { type: "umyvadlo", label: "Umyvadlo", openable: false },
+          { type: "vana", label: "Vana", openable: false },
+          { type: "sprcha", label: "Sprcha", openable: false },
+          { type: "zachod", label: "Záchod", openable: true }
+        ]
+      },
+      {
+        category: "Spotřebiče & Doplňky",
+        items: [
+          { type: "lednicka", label: "Lednička", openable: true },
+          { type: "trouba", label: "Trouba", openable: true },
+          { type: "mikrovlnka", label: "Mikrovlnka", openable: true },
+          { type: "pracka", label: "Pračka", openable: true },
+          { type: "televizor", label: "Televizor", openable: false },
+          { type: "pocitac", label: "Počítač", openable: false },
+          { type: "lampa", label: "Lampa", openable: false },
+          { type: "krb", label: "Krb", openable: false }
+        ]
+      }
+    ];
+
+    function getFurnitureLabel(type) {
+      for (const cat of FURNITURE_CATALOG) {
+        const found = cat.items.find(i => i.type === type);
+        if (found) return found.label;
+      }
+      return type;
+    }
+
+    function isFurnitureOpenable(type) {
+      for (const category of FURNITURE_CATALOG) {
+        const item = category.items.find(furniture => furniture.type === type);
+        if (item) return item.openable;
+      }
+      return false;
+    }
+
+    const FURNITURE_FORMS = {
+      stul: { genitive: "stolu", accusative: "stůl", locative: "stole", instrumental: "stolem", instrumentalPlural: "stoly" },
+      zidle: { genitive: "židle", accusative: "židli", locative: "židli", instrumental: "židlí", instrumentalPlural: "židlemi" },
+      kreslo: { genitive: "křesla", accusative: "křeslo", locative: "křesle", instrumental: "křeslem", instrumentalPlural: "křesly" },
+      gauc: { genitive: "gauče", accusative: "gauč", locative: "gauči", instrumental: "gaučem", instrumentalPlural: "gauči" },
+      postel: { genitive: "postele", accusative: "postel", locative: "posteli", instrumental: "postelí", instrumentalPlural: "postelemi" },
+      skrin: { genitive: "skříně", accusative: "skříň", locative: "skříni", instrumental: "skříní", instrumentalPlural: "skříněmi" },
+      knihovna: { genitive: "knihovny", accusative: "knihovnu", locative: "knihovně", instrumental: "knihovnou", instrumentalPlural: "knihovnami" },
+      policka: { genitive: "poličky", accusative: "poličku", locative: "poličce", instrumental: "poličkou", instrumentalPlural: "poličkami" },
+      krabice: { genitive: "krabice", accusative: "krabici", locative: "krabici", instrumental: "krabicí", instrumentalPlural: "krabicemi" },
+      okno: { genitive: "okna", accusative: "okno", locative: "okně", instrumental: "oknem", instrumentalPlural: "okny" },
+      dvere: { genitive: "dveří", accusative: "dveře", locative: "dveřích", instrumental: "dveřmi", instrumentalPlural: "dveřmi" },
+      kuchynska_linka: { genitive: "kuchyňské linky", accusative: "kuchyňskou linku", locative: "kuchyňské lince", instrumental: "kuchyňskou linkou", instrumentalPlural: "kuchyňskými linkami" },
+      drez: { genitive: "dřezu", accusative: "dřez", locative: "dřezu", instrumental: "dřezem", instrumentalPlural: "dřezy" },
+      umyvadlo: { genitive: "umyvadla", accusative: "umyvadlo", locative: "umyvadle", instrumental: "umyvadlem", instrumentalPlural: "umyvadly" },
+      vana: { genitive: "vany", accusative: "vanu", locative: "vaně", instrumental: "vanou", instrumentalPlural: "vanami" },
+      sprcha: { genitive: "sprchy", accusative: "sprchu", locative: "sprše", instrumental: "sprchou", instrumentalPlural: "sprchami" },
+      zachod: { genitive: "záchodu", accusative: "záchod", locative: "záchodě", instrumental: "záchodem", instrumentalPlural: "záchody" },
+      lednicka: { genitive: "ledničky", accusative: "ledničku", locative: "ledničce", instrumental: "ledničkou", instrumentalPlural: "ledničkami" },
+      trouba: { genitive: "trouby", accusative: "troubu", locative: "troubě", instrumental: "troubou", instrumentalPlural: "troubami" },
+      sporak: { genitive: "sporáku", accusative: "sporák", locative: "sporáku", instrumental: "sporákem", instrumentalPlural: "sporáky" },
+      mikrovlnka: { genitive: "mikrovlnky", accusative: "mikrovlnku", locative: "mikrovlnce", instrumental: "mikrovlnkou", instrumentalPlural: "mikrovlnkami" },
+      pracka: { genitive: "pračky", accusative: "pračku", locative: "pračce", instrumental: "pračkou", instrumentalPlural: "pračkami" },
+      televizor: { genitive: "televizoru", accusative: "televizor", locative: "televizoru", instrumental: "televizorem", instrumentalPlural: "televizory" },
+      pocitac: { genitive: "počítače", accusative: "počítač", locative: "počítači", instrumental: "počítačem", instrumentalPlural: "počítači" },
+      lampa: { genitive: "lampy", accusative: "lampu", locative: "lampě", instrumental: "lampou", instrumentalPlural: "lampami" },
+      krb: { genitive: "krbu", accusative: "krb", locative: "krbu", instrumental: "krbem", instrumentalPlural: "krby" }
+    };
+
+    const VE_FURNITURE_TYPES = new Set(["stul", "skrin", "dvere", "drez", "vana", "sprcha"]);
+
+    function getQuestionPhrase(preposition, movementKey, furnitureType) {
+      const movement = movementTypes.find(item => item.key === movementKey);
+      const dynamic = movement?.dynamic === true;
+      const forms = FURNITURE_FORMS[furnitureType];
+      const normalizedPreposition = preposition.trim().toLocaleLowerCase("cs");
+      const isInPreposition = ["v", "ve"].includes(normalizedPreposition);
+      const phrasePreposition = normalizedPreposition === "v" && VE_FURNITURE_TYPES.has(furnitureType)
+        ? "ve"
+        : normalizedPreposition;
+      const itemName = forms
+        ? forms[isInPreposition ? "locative" : dynamic ? "accusative" : "locative"]
+        : getFurnitureLabel(furnitureType).toLocaleLowerCase("cs");
+      let caseKey = isInPreposition ? "locative" : dynamic ? "accusative" : "locative";
+      if (["do", "vedle", "bez"].includes(phrasePreposition)) caseKey = "genitive";
+      else if (["nad", "pod", "před", "za"].includes(phrasePreposition) && !dynamic) caseKey = "instrumental";
+      else if (phrasePreposition === "mezi" && !dynamic) caseKey = "instrumental";
+      if (phrasePreposition === "mezi") {
+        return `mezi dvěma ${forms?.instrumentalPlural || itemName}`;
+      }
+      const inflectedName = forms?.[caseKey] || itemName;
+      return `${phrasePreposition} ${inflectedName}`;
+    }
+
+    function getSampleQuestion(preposition, movementKey, furnitureType) {
+      const movement = movementTypes.find(item => item.key === movementKey);
+      return `Pes ${movement?.verb || "je"} ${getQuestionPhrase(preposition, movementKey, furnitureType)}?`;
+    }
+
+    function setFurnitureOpenable(type, openable) {
+      const item = FURNITURE_CATALOG.flatMap(category => category.items).find(entry => entry.type === type);
+      if (!item) return;
+      item.openable = openable;
+      if (!openable) {
+        Object.values(roomLayouts).flatMap(items => Array.isArray(items) ? items : []).forEach(placedItem => {
+          if (placedItem.type === type) placedItem.state = "closed";
+        });
+      }
+      generatePendingCombinationsQueue();
+      renderRoomScene();
+      renderTrajScene();
+      updateJsonDisplay();
+    }
+
+    function applyFurnitureTypes(items) {
+      if (!Array.isArray(items)) return;
+      items.forEach(savedItem => {
+        if (!savedItem || typeof savedItem.type !== "string" || typeof savedItem.openable !== "boolean") return;
+        const item = FURNITURE_CATALOG.flatMap(category => category.items).find(entry => entry.type === savedItem.type);
+        if (item) item.openable = savedItem.openable;
+      });
+    }
+
+    function migrateFurnitureCatalog(schemaVersion) {
+      if (schemaVersion >= 4) return;
+      const updatedOpenability = {
+        stul: true,
+        okno: true,
+        kuchynska_linka: true,
+        vana: false,
+        trouba: true,
+        mikrovlnka: true
+      };
+      FURNITURE_CATALOG.flatMap(category => category.items).forEach(item => {
+        if (Object.prototype.hasOwnProperty.call(updatedOpenability, item.type)) {
+          item.openable = updatedOpenability[item.type];
+        }
+      });
+    }
+
+    function migrateLegacyFurnitureTypes() {
+      Object.values(roomLayouts).forEach(items => {
+        if (Array.isArray(items)) items.forEach(item => {
+          if (item?.type === "sporak") item.type = "trouba";
+        });
+      });
+      const migratedRules = { ...approvedRules };
+      Object.entries(approvedRules).forEach(([oldKey, rule]) => {
+        if (rule?.furniture !== "sporak") return;
+        const updatedRule = { ...rule, furniture: "trouba" };
+        const newKey = createRuleKey(
+          updatedRule.preposition,
+          updatedRule.movement,
+          updatedRule.spatialRelation || updatedRule.relation,
+          "trouba",
+          updatedRule.furnitureState
+        );
+        delete migratedRules[oldKey];
+        migratedRules[newKey] = updatedRule;
+      });
+      approvedRules = migratedRules;
+    }
+
+    function removeLegacyFurnitureRotations() {
+      Object.values(roomLayouts).forEach(items => {
+        if (!Array.isArray(items)) return;
+        items.forEach(item => {
+          if (item && typeof item === "object") delete item.rotation;
+        });
+      });
+    }
+
+    // SCENE SWITCHING
+    function switchScene(sceneNum) {
+      currentScene = sceneNum;
+      [1, 2, 3].forEach(n => {
+        const sec = document.getElementById(`scene${n}`);
+        const btn = document.getElementById(`tabBtn${n}`);
+        if (n === sceneNum) {
+          sec.classList.remove("hidden");
+          btn.className = "px-4 py-2 rounded-lg text-xs font-bold bg-amber-500 text-slate-950 shadow-lg";
+        } else {
+          sec.classList.add("hidden");
+          btn.className = "px-4 py-2 rounded-lg text-xs font-bold text-slate-400 hover:text-slate-200";
+        }
+      });
+
+      if (sceneNum === 1) renderRoomScene();
+      if (sceneNum === 2) renderCharacterMatrix();
+      if (sceneNum === 3) {
+        ensureEditorDatasetLoaded().then(() => {
+          if (currentScene !== 3) return;
+          generatePendingCombinationsQueue();
+          renderTrajScene();
+        }).catch(error => {
+          document.getElementById("datasetLoadStatus").textContent = `Chyba načítání JSON: ${error.message}`;
+          document.getElementById("datasetLoadStatus").classList.add("text-rose-400");
+          console.error("Failed to load prepositions_data.json", error);
+        });
+      }
+    }
+
+    // SVG GRAPHICS GENERATORS
+    function getAnimalSvgGraphics(animalKey, pose, accessoryKey) {
+      const offset = accessoryKey && accessoryKey !== "none"
+        ? getAccessoryOffset(animalKey, pose, accessoryKey)
+        : { x: 0, y: 0 };
+      return window.renderAnimalSvgGraphics(animalKey, pose, accessoryKey, offset);
+    }
+    function getAccessoryOffset(animal, pose, acc) {
+      if (!accessoryOffsets[animal]) accessoryOffsets[animal] = {};
+      if (!accessoryOffsets[animal][pose]) accessoryOffsets[animal][pose] = {};
+      if (!accessoryOffsets[animal][pose][acc]) {
+        // Default offsets
+        let def = { x: 12, y: -12 };
+        if (acc === "hat") def = { x: 12, y: -22 };
+        if (acc === "backpack") def = { x: -10, y: -2 };
+        accessoryOffsets[animal][pose][acc] = def;
+      }
+      return accessoryOffsets[animal][pose][acc];
+    }
+
+    function getFurnitureSvgGraphics(type, state) {
+      return window.renderFurnitureSvgGraphics(type, state);
+    }
+
+    // SCENE 1: ROOMS
+    function renderRoomScene() {
+      const bgGroup = document.getElementById("roomBackgroundGroup");
+      const furnitureGroup = document.getElementById("placedFurnitureGroup");
+      const overlay = document.getElementById("furnitureControlOverlay");
+
+      // Soft Decent Room Backgrounds
+      if (activeRoomKey === "obyvak") {
+        bgGroup.innerHTML = `
+          <rect width="100%" height="70%" fill="#f1f5f9"/>
+          <!-- Wallpaper Stripes -->
+          <path d="M0,0 L1000,0" stroke="#e2e8f0" stroke-width="20" stroke-dasharray="10,30"/>
+          <rect y="70%" width="100%" height="30%" fill="#e2e8f0"/>
+          <!-- Soft Carpet -->
+          <ellipse cx="400" cy="380" rx="240" ry="45" fill="#cbd5e1" opacity="0.6"/>
+        `;
+      } else if (activeRoomKey === "loznice") {
+        bgGroup.innerHTML = `
+          <rect width="100%" height="70%" fill="#fef3c7"/>
+          <rect y="70%" width="100%" height="30%" fill="#d97706" opacity="0.2"/>
+        `;
+      } else if (activeRoomKey === "kuchyn") {
+        bgGroup.innerHTML = `
+          <rect width="100%" height="70%" fill="#ccfbf1"/>
+          <!-- Kitchen Tiles Grid -->
+          <path d="M0,0 L1000,0 M0,40 L1000,40 M0,80 L1000,80 M0,120 L1000,120 M0,160 L1000,160 M0,200 L1000,200 M0,240 L1000,240" stroke="#99f6e4" stroke-width="1.5"/>
+          <rect y="70%" width="100%" height="30%" fill="#5eead4" opacity="0.3"/>
+        `;
+      } else if (activeRoomKey === "koupelna") {
+        bgGroup.innerHTML = `
+          <rect width="100%" height="70%" fill="#e0f2fe"/>
+          <!-- Blue Tiles -->
+          <path d="M0,0 L1000,0 M0,50 L1000,50 M0,100 L1000,100 M0,150 L1000,150 M0,200 L1000,200" stroke="#bae6fd" stroke-width="2"/>
+          <rect y="70%" width="100%" height="30%" fill="#7dd3fc" opacity="0.4"/>
+        `;
+      } else { // zahrada
+        bgGroup.innerHTML = `
+          <rect width="100%" height="60%" fill="#bae6fd"/>
+          <rect y="60%" width="100%" height="40%" fill="#86efac"/>
+          <!-- Fence -->
+          <path d="M 0,220 L 1000,220" stroke="#fde047" stroke-width="6" stroke-dasharray="20,10"/>
+        `;
+      }
+
+      // Render Placed Items
+      const items = roomLayouts[activeRoomKey] || [];
+      let html = "";
+      items.forEach((item, index) => {
+        const isSel = index === selectedPlacedItemIndex;
+        html += `
+          <g transform="translate(${item.x}, ${item.y}) scale(${item.scale || 1})" class="cursor-move" onclick="selectPlacedFurniture(event, ${index})">
+            ${getFurnitureSvgGraphics(item.type, item.state)}
+            ${isSel ? `<rect x="-80" y="-100" width="160" height="150" fill="none" stroke="#f59e0b" stroke-width="2" stroke-dasharray="4,4" rx="8"/>` : ''}
+          </g>
+        `;
+      });
+      furnitureGroup.innerHTML = html;
+
+      if (selectedPlacedItemIndex !== null && items[selectedPlacedItemIndex]) {
+        overlay.classList.remove("hidden");
+        const selectedItem = items[selectedPlacedItemIndex];
+        document.getElementById("selectedItemNameLabel").textContent =
+          `${getFurnitureLabel(selectedItem.type)}${isFurnitureOpenable(selectedItem.type) ? ` (${selectedItem.state === 'open' ? 'Otevřeno' : 'Zavřeno'})` : ""}`;
+        document.getElementById("toggleFurnitureStateButton").classList.toggle("hidden", !isFurnitureOpenable(selectedItem.type));
+      } else {
+        overlay.classList.add("hidden");
+      }
+
+      // Render Catalog Categories
+      const catContainer = document.getElementById("furnitureCategoriesContainer");
+      catContainer.innerHTML = FURNITURE_CATALOG.map(cat => `
+        <div class="space-y-2">
+          <div class="text-[11px] font-bold text-amber-400 uppercase tracking-wide border-b border-slate-800 pb-1">${cat.category}</div>
+          <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-2">
+            ${cat.items.map(item => `
+              <div class="bg-slate-900 border border-slate-800 p-2 rounded-xl">
+                <button type="button" onclick="addFurnitureToRoom('${item.type}')" class="w-full text-left flex items-center justify-between group">
+                  <span class="text-xs font-bold text-slate-300 group-hover:text-amber-300">${item.label}</span>
+                  <span class="text-xs font-bold text-amber-500">+</span>
+                </button>
+                <label class="mt-1 flex items-center gap-1 text-[9px] text-slate-500">
+                  <input type="checkbox" ${item.openable ? "checked" : ""} onchange="setFurnitureOpenable('${item.type}', this.checked)">
+                  Otevřitelný
+                </label>
+              </div>
+            `).join('')}
+          </div>
+        </div>
+      `).join('');
+    }
+
+    function onRoomChange() {
+      activeRoomKey = document.getElementById("roomSelector").value;
+      selectedPlacedItemIndex = null;
+      renderRoomScene();
+    }
+
+    function addFurnitureToRoom(type) {
+      if (!roomLayouts[activeRoomKey]) roomLayouts[activeRoomKey] = [];
+      roomLayouts[activeRoomKey].push({ id: `${type}_${Date.now()}`, type, x: 400, y: 280, state: "closed", scale: 1 });
+      selectedPlacedItemIndex = roomLayouts[activeRoomKey].length - 1;
+      renderRoomScene();
+      updateJsonDisplay();
+    }
+
+    function selectPlacedFurniture(e, idx) {
+      e.stopPropagation();
+      selectedPlacedItemIndex = idx;
+      renderRoomScene();
+    }
+
+    function scaleSelectedFurniture(delta) {
+      if (selectedPlacedItemIndex === null) return;
+      let item = roomLayouts[activeRoomKey][selectedPlacedItemIndex];
+      item.scale = Math.max(0.4, Math.min(2.5, (item.scale || 1) + delta));
+      renderRoomScene();
+      updateJsonDisplay();
+    }
+
+    function toggleSelectedFurnitureState() {
+      if (selectedPlacedItemIndex === null) return;
+      let item = roomLayouts[activeRoomKey][selectedPlacedItemIndex];
+      if (!isFurnitureOpenable(item.type)) return;
+      item.state = item.state === "open" ? "closed" : "open";
+      renderRoomScene();
+      updateJsonDisplay();
+    }
+
+    function deleteSelectedFurniture() {
+      if (selectedPlacedItemIndex === null) return;
+      roomLayouts[activeRoomKey].splice(selectedPlacedItemIndex, 1);
+      selectedPlacedItemIndex = null;
+      renderRoomScene();
+      updateJsonDisplay();
+    }
+
+    // Room Dragging
+    const roomSvgElem = document.getElementById("roomSvg");
+    let isDraggingRoom = false;
+    roomSvgElem.addEventListener("mousedown", () => { if (selectedPlacedItemIndex !== null) isDraggingRoom = true; });
+    roomSvgElem.addEventListener("mousemove", (e) => {
+      if (!isDraggingRoom || selectedPlacedItemIndex === null) return;
+      const rect = roomSvgElem.getBoundingClientRect();
+      roomLayouts[activeRoomKey][selectedPlacedItemIndex].x = Math.round(e.clientX - rect.left);
+      roomLayouts[activeRoomKey][selectedPlacedItemIndex].y = Math.round(e.clientY - rect.top);
+      renderRoomScene();
+    });
+    window.addEventListener("mouseup", () => {
+      if (isDraggingRoom) updateJsonDisplay();
+      isDraggingRoom = false;
+    });
+
+    // SCENE 2: CHARACTER MATRIX
+    function renderCharacterMatrix() {
+      const grid = document.getElementById("characterMatrixGrid");
+
+      let html = `
+        <div class="grid-matrix items-center text-center font-bold text-xs text-amber-400 border-b border-slate-800 pb-2">
+          <div class="text-left text-slate-500 uppercase">PÓZA / ZVÍŘE</div>
+          ${Object.keys(ANIMALS).map(a => `<div>${ANIMALS[a]}</div>`).join('')}
+        </div>
+      `;
+
+      movementTypes.forEach(pose => {
+        html += `
+          <div class="grid-matrix items-center">
+            <div class="font-bold text-xs text-slate-300 bg-slate-950 p-3 rounded-xl border border-slate-800">${escapeHtml(pose.label)}</div>
+        `;
+
+        Object.keys(ANIMALS).forEach(animalKey => {
+          const off = getAccessoryOffset(animalKey, pose.key, activeAccessoryMode);
+
+          html += `
+            <div class="bg-slate-950 p-3 rounded-xl border border-slate-800 flex flex-col items-center justify-between h-36 relative">
+              <svg class="w-full h-20 ${activeAccessoryMode !== 'none' ? 'cursor-grab touch-none' : ''}" viewBox="0 0 170 90" role="img" aria-label="${escapeHtml(ANIMALS[animalKey])}, ${escapeHtml(pose.label)}" data-animal="${escapeHtml(animalKey)}" data-pose="${escapeHtml(pose.key)}">
+                <g transform="translate(85, 45)">
+                  ${getAnimalSvgGraphics(animalKey, pose.key, activeAccessoryMode)}
+                </g>
+              </svg>
+
+              ${activeAccessoryMode !== 'none' ? `
+                <div class="text-[10px] text-indigo-400 font-mono font-bold flex flex-col items-center gap-1">
+                  <span data-offset-label="${escapeHtml(animalKey)}-${escapeHtml(pose.key)}">Posun (${off.x},${off.y}) · přetáhněte doplněk</span>
+                </div>
+              ` : '<span class="text-[10px] text-slate-600">Bez doplňku</span>'}
+            </div>
+          `;
+        });
+
+        html += `</div>`;
+      });
+
+      grid.innerHTML = html;
+      grid.querySelectorAll("svg[data-animal][data-pose]").forEach(svg => {
+        const accessory = svg.querySelector(".accessory-art");
+        if (!accessory) return;
+
+        let dragStart = null;
+        svg.addEventListener("pointerdown", event => {
+          if (!accessory.contains(event.target)) return;
+          event.preventDefault();
+          const point = getSvgPoint(svg, event);
+          const offset = getAccessoryOffset(svg.dataset.animal, svg.dataset.pose, activeAccessoryMode);
+          dragStart = { pointerId: event.pointerId, x: point.x, y: point.y, offsetX: offset.x, offsetY: offset.y };
+          svg.setPointerCapture(event.pointerId);
+          svg.classList.add("cursor-grabbing");
+          svg.classList.remove("cursor-grab");
+        });
+        svg.addEventListener("pointermove", event => {
+          if (!dragStart || event.pointerId !== dragStart.pointerId) return;
+          const point = getSvgPoint(svg, event);
+          const offsetX = Math.round(dragStart.offsetX + point.x - dragStart.x);
+          const offsetY = Math.round(dragStart.offsetY + point.y - dragStart.y);
+          accessory.setAttribute("transform", `translate(${offsetX}, ${offsetY})`);
+          const label = grid.querySelector(`[data-offset-label="${svg.dataset.animal}-${svg.dataset.pose}"]`);
+          if (label) label.textContent = `Posun (${offsetX},${offsetY}) · přetáhněte doplněk`;
+        });
+        const finishDrag = event => {
+          if (!dragStart || event.pointerId !== dragStart.pointerId) return;
+          const point = getSvgPoint(svg, event);
+          const offset = getAccessoryOffset(svg.dataset.animal, svg.dataset.pose, activeAccessoryMode);
+          offset.x = Math.round(dragStart.offsetX + point.x - dragStart.x);
+          offset.y = Math.round(dragStart.offsetY + point.y - dragStart.y);
+          dragStart = null;
+          svg.classList.remove("cursor-grabbing");
+          svg.classList.add("cursor-grab");
+          updateJsonDisplay();
+        };
+        svg.addEventListener("pointerup", finishDrag);
+        svg.addEventListener("pointercancel", finishDrag);
+      });
+    }
+
+    function getSvgPoint(svg, event) {
+      const point = svg.createSVGPoint();
+      point.x = event.clientX;
+      point.y = event.clientY;
+      return point.matrixTransform(svg.getScreenCTM().inverse());
+    }
+
+    function setActiveAccessoryMode(mode) {
+      activeAccessoryMode = mode;
+      ['none', 'glasses', 'hat', 'backpack'].forEach(m => {
+        const btn = document.getElementById(`accModeBtn_${m}`);
+        if (m === mode) btn.className = "px-3 py-1.5 rounded-lg text-xs font-bold bg-amber-500 text-slate-950";
+        else btn.className = "px-3 py-1.5 rounded-lg text-xs font-bold text-slate-400";
+      });
+      renderCharacterMatrix();
+    }
+
+    function adjustCellOffset(animal, pose, dx, dy) {
+      if (activeAccessoryMode === 'none') return;
+      const off = getAccessoryOffset(animal, pose, activeAccessoryMode);
+      off.x += dx;
+      off.y += dy;
+      renderCharacterMatrix();
+      updateJsonDisplay();
+    }
+
+    function ensureEditorDatasetLoaded() {
+      if (editorDatasetLoadPromise) return editorDatasetLoadPromise;
+
+      const status = document.getElementById("datasetLoadStatus");
+      status.textContent = "Načítání prepositions_data.json...";
+      status.classList.remove("text-rose-400");
+      editorDatasetLoadPromise = fetch("prepositions_data.json", { cache: "no-store" })
+        .then(response => {
+          if (!response.ok) throw new Error(`HTTP ${response.status}`);
+          return response.json();
+        })
+        .then(dataset => {
+          if (!dataset || typeof dataset !== "object" || Array.isArray(dataset)) {
+            throw new Error("JSON musí obsahovat objekt datasetu.");
+          }
+          if (!Array.isArray(dataset.prepositionsList) || dataset.prepositionsList.some(prep => typeof prep !== "string")) {
+            throw new Error("JSON musí obsahovat pole prepositionsList.");
+          }
+          if (dataset.spatialRelations && (!Array.isArray(dataset.spatialRelations) ||
+              dataset.spatialRelations.some(item => !item || typeof item.key !== "string" || typeof item.label !== "string"))) {
+            throw new Error("Pole spatialRelations musí obsahovat položky s klíčem a názvem.");
+          }
+          if (!dataset.approvedRules || typeof dataset.approvedRules !== "object" || Array.isArray(dataset.approvedRules)) {
+            throw new Error("JSON musí obsahovat objekt approvedRules.");
+          }
+
+          roomLayouts = dataset.roomLayouts || { obyvak: [], loznice: [], kuchyn: [], koupelna: [], zahrada: [] };
+          removeLegacyFurnitureRotations();
+          accessoryOffsets = dataset.accessoryOffsets || {};
+          prepositionsList = [...new Set(dataset.prepositionsList.map(prep => prep.trim().toLowerCase()).filter(Boolean))];
+          movementTypes = [...DEFAULT_MOVEMENTS];
+          spatialRelations = Array.isArray(dataset.spatialRelations) && dataset.spatialRelations.length > 0
+            ? dataset.spatialRelations
+            : [...DEFAULT_SPATIAL_RELATIONS];
+          prepositionSettings = dataset.prepositionSettings && typeof dataset.prepositionSettings === "object" &&
+            !Array.isArray(dataset.prepositionSettings) ? dataset.prepositionSettings : Object.fromEntries(
+            prepositionsList.map(prep => [prep, {
+              compatibleMovements: movementTypes.map(movement => movement.key),
+              furnitureState: dataset.furnitureStateByPreposition?.[prep] || "closed"
+            }])
+          );
+          applyFurnitureTypes(dataset.furnitureTypes);
+          approvedRules = dataset.approvedRules || {};
+          migrateFurnitureCatalog(dataset.meta?.schemaVersion || 0);
+          migrateLegacyFurnitureTypes();
+          activeComboIndex = 0;
+          renderCharacterMatrix();
+          updateJsonDisplay();
+          status.textContent = `JSON načten · ${prepositionsList.length} předložek`;
+        })
+        .catch(error => {
+          editorDatasetLoadPromise = null;
+          throw error;
+        });
+
+      return editorDatasetLoadPromise;
+    }
+
+    function createTypeKey(label) {
+      return label.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase()
+        .replace(/[^a-z0-9]+/g, "_").replace(/^_+|_+$/g, "");
+    }
+
+    function escapeHtml(value) {
+      return String(value).replace(/[&<>"']/g, char => ({
+        "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;"
+      })[char]);
+    }
+
+    function getMovementLabel(key) {
+      return movementTypes.find(item => item.key === key)?.label || key;
+    }
+
+    function getSpatialRelationLabel(key) {
+      return spatialRelations.find(item => item.key === key)?.label || key;
+    }
+
+    function getTrajectoryTypeForMovement(movementKey, selectedType) {
+      return movementKey === "jumping" ? "arc" : selectedType;
+    }
+
+    function getSpatialRelationDescription(key) {
+      const descriptions = {
+        in: "uvnitř objektu",
+        on_top: "na objektu",
+        next_to: "vedle objektu",
+        above: "nad objektem",
+        below: "pod objektem",
+        between: "mezi dvěma objekty"
+      };
+      return descriptions[key] || getSpatialRelationLabel(key).toLocaleLowerCase("cs");
+    }
+
+    function getDefaultRelationsForPreposition(preposition) {
+      const relationByPreposition = {
+        do: ["in"],
+        v: ["in"],
+        ve: ["in"],
+        na: ["on_top"],
+        vedle: ["next_to"],
+        u: ["next_to"],
+        nad: ["above"],
+        pod: ["below"],
+        mezi: ["between"]
+      };
+      const normalizedPreposition = preposition.trim().toLocaleLowerCase("cs");
+      return (relationByPreposition[normalizedPreposition] || [])
+        .filter(key => spatialRelations.some(relation => relation.key === key));
+    }
+
+    function getCompatibleRelations(preposition, settings) {
+      if (Array.isArray(settings.compatibleRelations)) {
+        const configuredRelations = settings.compatibleRelations
+          .filter(key => spatialRelations.some(relation => relation.key === key));
+        if (configuredRelations.length > 0) return configuredRelations;
+      }
+      const defaults = getDefaultRelationsForPreposition(preposition);
+      return defaults.length > 0 ? defaults : spatialRelations.map(relation => relation.key);
+    }
+
+    function getDefaultTrajectoryPoints(relation) {
+      const targetByRelation = {
+        in: { x: 400, y: 195 },
+        on_top: { x: 400, y: 145 },
+        next_to: { x: 470, y: 195 },
+        above: { x: 400, y: 115 },
+        below: { x: 400, y: 265 },
+        between: { x: 400, y: 195 }
+      };
+      const target = targetByRelation[relation] || { x: 400, y: 195 };
+      return {
+        start: { x: 150, y: 235 },
+        arc: { x: 300, y: 75 },
+        target
+      };
+    }
+
+    function createRuleKey(preposition, movement, relation, furniture, furnitureState) {
+      return [preposition, movement, relation, furniture, furnitureState === "open" || furnitureState === "closed" ? furnitureState : "not-applicable"]
+        .map(encodeURIComponent).join("|");
+    }
+
+    function getFurnitureStatesForRule(item, requiredState) {
+      if (!item.openable) return ["not-applicable"];
+      if (requiredState === "both") return ["open", "closed"];
+      return [requiredState];
+    }
+
+    function getFurnitureStateLabel(state) {
+      if (state === "open") return "Otevřený";
+      if (state === "closed") return "Zavřený";
+      return "Nevztahuje se";
+    }
+
+    function addNewPreposition() {
+      const input = document.getElementById("newPrepInput");
+      const value = input.value.trim().toLowerCase();
+      if (!value || prepositionsList.includes(value)) return;
+      pendingNewPreposition = value;
+      document.getElementById("setupPrepositionLabel").textContent = value;
+      document.getElementById("movementCompatibilityGrid").innerHTML = movementTypes.map(movement => `
+        <label class="flex items-center gap-2 rounded-lg border border-slate-800 bg-slate-900 px-3 py-2 text-xs text-slate-200">
+          <input type="checkbox" name="compatibleMovement" value="${escapeHtml(movement.key)}">
+          ${escapeHtml(movement.label)}
+        </label>
+      `).join("");
+      document.getElementById("prepositionSetupError").classList.add("hidden");
+      document.querySelectorAll('input[name="compatibleMovement"]').forEach(input => {
+        input.addEventListener("change", () => document.getElementById("prepositionSetupError").classList.add("hidden"));
+      });
+      document.getElementById("newPrepSetupPanel").classList.remove("hidden");
+      document.getElementById("newPrepInput").disabled = true;
+      input.value = value;
+    }
+
+    function cancelPrepositionSetup() {
+      pendingNewPreposition = "";
+      document.getElementById("newPrepSetupPanel").classList.add("hidden");
+      document.getElementById("newPrepInput").disabled = false;
+      document.getElementById("newPrepInput").value = "";
+    }
+
+    function confirmPrepositionSetup() {
+      if (!pendingNewPreposition) return;
+      const compatibleMovements = [...document.querySelectorAll('input[name="compatibleMovement"]:checked')].map(input => input.value);
+      if (compatibleMovements.length === 0) {
+        const error = document.getElementById("prepositionSetupError");
+        error.textContent = "Zaškrtněte alespoň jeden pohyb.";
+        error.classList.remove("hidden");
+        return;
+      }
+      const furnitureState = document.querySelector('input[name="newPrepFurnitureState"]:checked').value;
+      const preposition = pendingNewPreposition;
+      prepositionsList.push(preposition);
+      prepositionSettings[preposition] = { compatibleMovements, furnitureState };
+      document.getElementById("newPrepInput").disabled = false;
+      document.getElementById("newPrepInput").value = "";
+      document.getElementById("newPrepSetupPanel").classList.add("hidden");
+      pendingNewPreposition = "";
+      activeComboIndex = 0;
+      generatePendingCombinationsQueue();
+      const firstForPreposition = pendingCombinationsQueue.findIndex(item => item.prep === preposition && item.status === "pending");
+      if (firstForPreposition >= 0) {
+        activeComboIndex = firstForPreposition;
+        document.getElementById("comboSelector").value = activeComboIndex;
+        updateActiveComboDisplay();
+      }
+      updateJsonDisplay();
+      renderTrajScene();
+    }
+
+    // SCENE 3: PREPOSITION WIZARD
+    function generatePendingCombinationsQueue() {
+      const previousItem = pendingCombinationsQueue[activeComboIndex];
+      const previousKey = previousItem?.key || null;
+      pendingCombinationsQueue = [];
+      prepositionsList.forEach(prep => {
+        const settings = prepositionSettings[prep] || {
+          compatibleMovements: movementTypes.map(movement => movement.key),
+          furnitureState: "closed"
+        };
+        const compatibleRelations = getCompatibleRelations(prep, settings);
+        movementTypes.forEach(movement => {
+          spatialRelations.filter(relation => compatibleRelations.includes(relation.key)).forEach(relation => {
+            FURNITURE_CATALOG.flatMap(category => category.items).forEach(furniture => {
+              getFurnitureStatesForRule(furniture, settings.furnitureState).forEach(furnitureState => {
+                const ruleKey = createRuleKey(prep, movement.key, relation.key, furniture.type, furnitureState);
+                const compatible = settings.compatibleMovements.includes(movement.key);
+                const openableRequirementMet = settings.furnitureState !== "open" || furniture.openable;
+                let existingRule = approvedRules[ruleKey];
+                if (!compatible || !openableRequirementMet) {
+                  existingRule = null;
+                } else if (existingRule?.autoDisqualified) {
+                  delete approvedRules[ruleKey];
+                  existingRule = null;
+                }
+
+                pendingCombinationsQueue.push({
+                  prep,
+                  movement: movement.key,
+                  relation: relation.key,
+                  furniture: furniture.type,
+                  furnitureState,
+                  key: ruleKey,
+                  compatible,
+                  openableRequirementMet,
+                  question: getSampleQuestion(prep, movement.key, furniture.type),
+                  status: !compatible || !openableRequirementMet ? "disqualified" : existingRule?.status ||
+                    (existingRule ? (existingRule.isValid ? "approved" : "declined") : "pending")
+                });
+              });
+            });
+          });
+        });
+      });
+
+      const pending = pendingCombinationsQueue.filter(q => q.status === "pending").length;
+      document.getElementById("pendingComboBadge").textContent = `Zbývá schválit: ${pending}`;
+      document.getElementById("combinationOverviewSummary").textContent =
+        `Všechny kombinace (${pendingCombinationsQueue.length}) · čeká na rozhodnutí: ${pending}`;
+      const statusFilter = document.getElementById("comboStatusFilter");
+      if (pending === 0 && statusFilter.value === "pending") statusFilter.value = "all";
+
+      renderComboSelector(previousKey);
+
+      document.getElementById("combinationOverview").innerHTML = pendingCombinationsQueue.map(item => {
+        const statusLabel = item.status === "approved" ? "Schváleno" :
+          item.status === "declined" ? "Zamítnuto" :
+            item.status === "disqualified" ? "Automaticky vyřazeno" : "Čeká";
+        return `<div class="grid grid-cols-[auto_1fr_auto] gap-x-3 border-b border-slate-800 py-1.5 last:border-0">
+          <span class="${item.status === "pending" ? "text-amber-300" : item.status === "approved" ? "text-emerald-400" : "text-slate-500"}">${statusLabel}</span>
+          <span>${escapeHtml(item.question)} <span class="text-slate-500">· poloha: ${escapeHtml(getSpatialRelationDescription(item.relation))}</span></span>
+          <span class="text-slate-500">${escapeHtml(getFurnitureLabel(item.furniture))} (${escapeHtml(getFurnitureStateLabel(item.furnitureState))})</span>
+        </div>`;
+      }).join("");
+
+      if (pendingCombinationsQueue.length > 0) {
+        const previousIndex = pendingCombinationsQueue.findIndex(item => item.key === previousKey);
+        activeComboIndex = previousIndex >= 0 ? previousIndex : pendingCombinationsQueue.findIndex(item => item.status === "pending");
+        if (activeComboIndex < 0) activeComboIndex = 0;
+        renderComboSelector(pendingCombinationsQueue[activeComboIndex].key);
+        updateActiveComboDisplay();
+      } else {
+        activeComboIndex = 0;
+        document.getElementById("comboSelector").innerHTML = "";
+        document.getElementById("datasetLoadStatus").textContent = prepositionsList.length
+          ? "Všechny kombinace jsou posouzeny."
+          : "Přidejte první předložku a začněte tvořit pravidla.";
+        document.getElementById("trajAnimalGroup").innerHTML = "";
+        document.getElementById("trajFurnitureGroup").innerHTML = "";
+        document.getElementById("trajPath").setAttribute("d", "");
+        document.getElementById("trajCirclePath").classList.add("hidden");
+        document.getElementById("activePrepDisplay").textContent = "--";
+        document.getElementById("activeQuestionDisplay").textContent = "--";
+        document.getElementById("activeQuestionFurnitureState").textContent = "";
+        document.getElementById("activeRelationDisplay").textContent = "--";
+        document.getElementById("activeObjectDisplay").textContent = "--";
+        document.getElementById("activeStateDisplay").textContent = "--";
+        document.getElementById("activeDecisionStatus").textContent = "";
+        document.getElementById("combinationOverview").innerHTML = "";
+        document.getElementById("combinationOverviewSummary").textContent = "Všechny kombinace";
+        document.querySelector('button[onclick="approveCombination(true)"]').disabled = true;
+        document.querySelector('button[onclick="approveCombination(false)"]').disabled = true;
+      }
+
+      // Preposition Pills
+      const prepPillsContainer = document.getElementById("prepPillsContainer");
+      prepPillsContainer.innerHTML = prepositionsList.map(p => `
+        <span class="bg-amber-500/20 text-amber-300 font-bold text-xs px-2.5 py-1 rounded-lg border border-amber-500/30 flex items-center gap-1">
+          ${escapeHtml(p)}
+          <button type="button" data-preposition="${escapeHtml(p)}" class="text-rose-400 hover:text-rose-200">×</button>
+        </span>
+      `).join('');
+      prepPillsContainer.querySelectorAll("button[data-preposition]").forEach(button => {
+        button.addEventListener("click", () => removePreposition(button.dataset.preposition));
+      });
+      updateJsonDisplay();
+    }
+
+    function renderComboSelector(preferredKey = pendingCombinationsQueue[activeComboIndex]?.key) {
+      const selector = document.getElementById("comboSelector");
+      if (!selector) return;
+      const statusFilter = document.getElementById("comboStatusFilter")?.value || "pending";
+      const search = (document.getElementById("comboSearch")?.value || "").trim().toLocaleLowerCase("cs");
+      const matches = pendingCombinationsQueue.map((item, index) => ({ item, index })).filter(({ item }) => {
+        if (statusFilter !== "all" && item.status !== statusFilter) return false;
+        if (!search) return true;
+        const searchableText = [
+          item.question,
+          item.prep,
+          item.movement,
+          getMovementLabel(item.movement),
+          item.furniture,
+          getFurnitureLabel(item.furniture),
+          getSpatialRelationDescription(item.relation),
+          getFurnitureStateLabel(item.furnitureState)
+        ].join(" ").toLocaleLowerCase("cs");
+        return searchableText.includes(search);
+      });
+
+      selector.innerHTML = matches.length
+        ? matches.map(({ item, index }) => `
+          <option value="${index}">
+            ${item.status === "approved" ? "✅ Schváleno" : item.status === "declined" ? "❌ Zamítnuto" : item.status === "disqualified" ? "🚫 Vyřazeno" : "⏳ Čeká"}
+            ${escapeHtml(item.question)} (${escapeHtml(getFurnitureStateLabel(item.furnitureState))}) · ${escapeHtml(getFurnitureLabel(item.furniture))}
+          </option>`).join("")
+        : '<option value="" disabled>Žádné odpovídající kombinace</option>';
+
+      const selected = matches.find(({ item }) => item.key === preferredKey);
+      if (selected) selector.value = String(selected.index);
+    }
+
+    function onComboSelectChange() {
+      const selectedIndex = Number.parseInt(document.getElementById("comboSelector").value, 10);
+      if (!Number.isInteger(selectedIndex) || !pendingCombinationsQueue[selectedIndex]) return;
+      activeComboIndex = selectedIndex;
+      updateActiveComboDisplay();
+      renderTrajScene();
+    }
+
+    function updateActiveComboDisplay() {
+      if (pendingCombinationsQueue.length === 0) return;
+      const current = pendingCombinationsQueue[activeComboIndex];
+      document.getElementById("activePrepDisplay").textContent = current.prep;
+      document.getElementById("activeQuestionDisplay").textContent = current.question;
+      document.getElementById("activeQuestionFurnitureState").textContent =
+        `(${getFurnitureStateLabel(current.furnitureState).toLocaleLowerCase("cs")})`;
+      document.getElementById("activeRelationDisplay").textContent = getSpatialRelationDescription(current.relation);
+      document.getElementById("activeObjectDisplay").textContent = ` · ${getFurnitureLabel(current.furniture)}`;
+      const settings = prepositionSettings[current.prep] || {
+        furnitureState: "closed",
+        compatibleMovements: movementTypes.map(movement => movement.key)
+      };
+      document.getElementById("activeStateDisplay").textContent =
+        settings.furnitureState === "both" ? `Otevřený i zavřený · nyní ${getFurnitureStateLabel(current.furnitureState).toLocaleLowerCase("cs")}` :
+          settings.furnitureState === "open" ? "Otevřený" : "Zavřený";
+      const statusLabels = {
+        pending: "Čeká na schválení",
+        approved: "Schváleno",
+        declined: "Zamítnuto",
+        disqualified: !current.compatible ? "Automaticky vyřazeno: tento pohyb není kompatibilní" :
+          !current.openableRequirementMet ? "Automaticky vyřazeno: objekt nelze otevřít" : "Automaticky vyřazeno"
+      };
+      document.getElementById("activeDecisionStatus").textContent = statusLabels[current.status];
+      const canDecide = current.status !== "disqualified";
+      document.querySelector('button[onclick="approveCombination(true)"]').disabled = !canDecide;
+      document.querySelector('button[onclick="approveCombination(false)"]').disabled = !canDecide;
+
+      const existingRule = approvedRules[current.key];
+      document.getElementById("trajTypeSelect").value = getTrajectoryTypeForMovement(
+        current.movement,
+        existingRule?.trajectoryType || "straight"
+      );
+      const defaults = getDefaultTrajectoryPoints(current.relation);
+      const points = existingRule?.points || defaults;
+      handleAPos = points.start;
+      handleCPos = points.arc;
+      handleBPos = points.target;
+      renderTrajScene();
+    }
+
+    function removePreposition(prep) {
+      prepositionsList = prepositionsList.filter(p => p !== prep);
+      delete prepositionSettings[prep];
+      Object.keys(approvedRules).forEach(key => {
+        if (approvedRules[key]?.preposition === prep) delete approvedRules[key];
+      });
+      generatePendingCombinationsQueue();
+      renderTrajScene();
+      updateJsonDisplay();
+    }
+
+    function approveCombination(isValid) {
+      if (pendingCombinationsQueue.length === 0) return;
+      const current = pendingCombinationsQueue[activeComboIndex];
+      if (current.status === "disqualified") return;
+      const wasPending = current.status === "pending";
+      const trajType = getTrajectoryTypeForMovement(
+        current.movement,
+        document.getElementById("trajTypeSelect").value
+      );
+
+      approvedRules[current.key] = {
+        status: isValid ? "approved" : "declined",
+        preposition: current.prep,
+        movement: current.movement,
+        spatialRelation: current.relation,
+        furniture: current.furniture,
+        furnitureState: current.furnitureState,
+        question: current.question,
+        positionDescription: getSpatialRelationDescription(current.relation),
+        isValid: isValid,
+        trajectoryType: isValid ? trajType : null,
+        points: isValid ? { start: handleAPos, arc: handleCPos, target: handleBPos } : null
+      };
+      current.status = isValid ? "approved" : "declined";
+
+      if (wasPending) {
+        const nextPendingIndex = pendingCombinationsQueue.findIndex((item, index) =>
+          index > activeComboIndex && item.status === "pending"
+        );
+        const firstPendingIndex = pendingCombinationsQueue.findIndex(item => item.status === "pending");
+        activeComboIndex = nextPendingIndex >= 0 ? nextPendingIndex : firstPendingIndex;
+        if (activeComboIndex < 0) activeComboIndex = 0;
+      }
+      generatePendingCombinationsQueue();
+      updateJsonDisplay();
+      renderTrajScene();
+    }
+
+    function renderTrajScene() {
+      if (pendingCombinationsQueue.length === 0) return;
+      const current = pendingCombinationsQueue[activeComboIndex];
+      const trajType = getTrajectoryTypeForMovement(
+        current.movement,
+        document.getElementById("trajTypeSelect").value
+      );
+
+      const furnitureGraphics = getFurnitureSvgGraphics(
+        current.furniture,
+        current.furnitureState === "open" ? "open" : "closed"
+      );
+      document.getElementById("trajFurnitureGroup").innerHTML = current.relation === "between"
+        ? `<g transform="translate(-78, 0)">${furnitureGraphics}</g><g transform="translate(78, 0)">${furnitureGraphics}</g>`
+        : furnitureGraphics;
+      document.getElementById("trajAnimalGroup").innerHTML = getAnimalSvgGraphics("pes", current.movement, "none");
+      const movement = movementTypes.find(item => item.key === current.movement);
+      const isDynamic = movement?.dynamic === true;
+      const animalPosition = isDynamic ? handleAPos : handleBPos;
+      document.getElementById("trajAnimalGroup").setAttribute("transform", `translate(${animalPosition.x}, ${animalPosition.y})`);
+      document.getElementById("trajectoryHelpText").textContent = isDynamic
+        ? "Přetáhněte bod A (začátek), B (cíl) nebo C (oblouk)."
+        : "Přetáhněte bod B a umístěte zvíře vůči objektu.";
+      document.getElementById("trajTypeSelect").disabled = !isDynamic || current.movement === "jumping";
+      document.getElementById("playTrajectoryButton").disabled = !isDynamic;
+
+      const pathEl = document.getElementById("trajPath");
+      const circleEl = document.getElementById("trajCirclePath");
+
+      if (!isDynamic) {
+        pathEl.setAttribute("d", "");
+        circleEl.classList.add("hidden");
+      } else if (trajType === "circle") {
+        pathEl.setAttribute("d", "");
+        circleEl.classList.remove("hidden");
+        circleEl.setAttribute("cx", handleBPos.x);
+        circleEl.setAttribute("cy", handleBPos.y);
+      } else {
+        circleEl.classList.add("hidden");
+        if (trajType === "straight") {
+          pathEl.setAttribute("d", `M ${handleAPos.x} ${handleAPos.y} L ${handleBPos.x} ${handleBPos.y}`);
+        } else if (trajType === "arc") {
+          pathEl.setAttribute("d", `M ${handleAPos.x} ${handleAPos.y} Q ${handleCPos.x} ${handleCPos.y} ${handleBPos.x} ${handleBPos.y}`);
+        } else {
+          pathEl.setAttribute("d", "");
+        }
+      }
+
+      // Handles
+      document.getElementById("handleA").classList.toggle("hidden", !isDynamic);
+      document.getElementById("lblA").classList.toggle("hidden", !isDynamic);
+      document.getElementById("handleC").classList.toggle("hidden", !isDynamic || trajType !== "arc");
+      document.getElementById("lblC").classList.toggle("hidden", !isDynamic || trajType !== "arc");
+      document.getElementById("handleA").setAttribute("cx", handleAPos.x);
+      document.getElementById("handleA").setAttribute("cy", handleAPos.y);
+      document.getElementById("lblA").setAttribute("x", handleAPos.x);
+      document.getElementById("lblA").setAttribute("y", handleAPos.y - 15);
+
+      document.getElementById("handleC").setAttribute("cx", handleCPos.x);
+      document.getElementById("handleC").setAttribute("cy", handleCPos.y);
+      document.getElementById("lblC").setAttribute("x", handleCPos.x);
+      document.getElementById("lblC").setAttribute("y", handleCPos.y - 15);
+
+      const visualHandleB = isDynamic
+        ? handleBPos
+        : { x: handleBPos.x + 36, y: handleBPos.y + 12 };
+      document.getElementById("handleB").setAttribute("cx", visualHandleB.x);
+      document.getElementById("handleB").setAttribute("cy", visualHandleB.y);
+      document.getElementById("lblB").textContent = isDynamic ? "Cíl (B)" : "Poloha (B)";
+      document.getElementById("lblB").setAttribute("x", visualHandleB.x);
+      document.getElementById("lblB").setAttribute("y", visualHandleB.y - 15);
+
+      // Check if invalid
+      const existing = approvedRules[current.key];
+      const isInvalid = existing?.status === "declined";
+      document.getElementById("crossoutOverlay").classList.toggle("hidden", !isInvalid);
+      document.getElementById("invalidBanner").classList.toggle("hidden", !isInvalid);
+    }
+
+    // Trajectory Handles Dragging
+    const trajSvg = document.getElementById("trajSvg");
+    trajSvg.addEventListener("mousedown", (e) => {
+      const pt = getSvgPt(trajSvg, e);
+      if (dist(pt, handleAPos) < 25) activeTrajHandle = 'A';
+      else if (dist(pt, handleCPos) < 25) activeTrajHandle = 'C';
+      else {
+        const current = pendingCombinationsQueue[activeComboIndex];
+        const isDynamic = movementTypes.find(item => item.key === current?.movement)?.dynamic === true;
+        const visualHandleB = isDynamic
+          ? handleBPos
+          : { x: handleBPos.x + 36, y: handleBPos.y + 12 };
+        if (dist(pt, visualHandleB) < 25) activeTrajHandle = 'B';
+      }
+    });
+    trajSvg.addEventListener("mousemove", (e) => {
+      if (!activeTrajHandle) return;
+      const pt = getSvgPt(trajSvg, e);
+      if (activeTrajHandle === 'A') handleAPos = pt;
+      if (activeTrajHandle === 'C') handleCPos = pt;
+      if (activeTrajHandle === 'B') {
+        const current = pendingCombinationsQueue[activeComboIndex];
+        const isDynamic = movementTypes.find(item => item.key === current?.movement)?.dynamic === true;
+        handleBPos = isDynamic ? pt : { x: pt.x - 36, y: pt.y - 12 };
+      }
+      renderTrajScene();
+    });
+    window.addEventListener("mouseup", () => activeTrajHandle = null);
+
+    function getSvgPt(svg, e) {
+      const rect = svg.getBoundingClientRect();
+      return { x: Math.round(e.clientX - rect.left), y: Math.round(e.clientY - rect.top) };
+    }
+    function dist(p1, p2) { return Math.sqrt((p1.x - p2.x)**2 + (p1.y - p2.y)**2); }
+
+    function playTrajAnimation() {
+      const current = pendingCombinationsQueue[activeComboIndex];
+      if (movementTypes.find(item => item.key === current?.movement)?.dynamic !== true) return;
+      const trajType = getTrajectoryTypeForMovement(
+        current.movement,
+        document.getElementById("trajTypeSelect").value
+      );
+      const animalG = document.getElementById("trajAnimalGroup");
+      let start = null;
+
+      function step(timestamp) {
+        if (!start) start = timestamp;
+        const progress = Math.min((timestamp - start) / 1000, 1);
+        let x = handleAPos.x, y = handleAPos.y;
+
+        if (trajType === "straight") {
+          x = handleAPos.x + progress * (handleBPos.x - handleAPos.x);
+          y = handleAPos.y + progress * (handleBPos.y - handleAPos.y);
+        } else if (trajType === "arc") {
+          const t = progress;
+          x = (1-t)**2 * handleAPos.x + 2*(1-t)*t * handleCPos.x + t**2 * handleBPos.x;
+          y = (1-t)**2 * handleAPos.y + 2*(1-t)*t * handleCPos.y + t**2 * handleBPos.y;
+        } else if (trajType === "circle") {
+          const angle = progress * Math.PI * 2;
+          x = handleBPos.x + Math.cos(angle) * 80;
+          y = handleBPos.y + Math.sin(angle) * 80;
+        }
+
+        animalG.setAttribute("transform", `translate(${x}, ${y})`);
+        if (progress < 1) requestAnimationFrame(step);
+        else renderTrajScene();
+      }
+      requestAnimationFrame(step);
+    }
+
+    function resetTrajHandles() {
+      const current = pendingCombinationsQueue[activeComboIndex];
+      const points = getDefaultTrajectoryPoints(current?.relation);
+      handleAPos = points.start;
+      handleCPos = points.arc;
+      handleBPos = points.target;
+      renderTrajScene();
+    }
+
+    // JSON DISPLAY & EXPORT/IMPORT
+    function getCompactAccessoryOffsets() {
+      const compact = {};
+      const defaults = {
+        glasses: { x: 12, y: -12 },
+        hat: { x: 12, y: -22 },
+        backpack: { x: -10, y: -2 }
+      };
+      Object.entries(accessoryOffsets).forEach(([animal, poses]) => {
+        Object.entries(poses || {}).forEach(([pose, accessories]) => {
+          Object.entries(accessories || {}).forEach(([accessory, offset]) => {
+            const fallback = defaults[accessory];
+            if (!fallback || !offset || (offset.x === fallback.x && offset.y === fallback.y)) return;
+            (((compact[animal] ||= {})[pose] ||= {})[accessory] = { x: offset.x, y: offset.y });
+          });
+        });
+      });
+      return compact;
+    }
+
+    function getCompactApprovedRules() {
+      return Object.fromEntries(Object.entries(approvedRules).filter(([, rule]) =>
+        rule && rule.status !== "disqualified" && !rule.autoDisqualified
+      ));
+    }
+
+    function getCompactRoomLayouts() {
+      return Object.fromEntries(Object.entries(roomLayouts).map(([room, items]) => [
+        room,
+        Array.isArray(items) ? items.map(({ type, x, y, state, scale }) => ({ type, x, y, state, scale })) : []
+      ]));
+    }
+
+    function updateJsonDisplay() {
+      removeLegacyFurnitureRotations();
+      const masterDataset = {
+        meta: { title: "Czech Prepositions Studio Dataset", schemaVersion: 4, generatedAt: new Date().toISOString() },
+        roomLayouts: getCompactRoomLayouts(),
+        accessoryOffsets: getCompactAccessoryOffsets(),
+        prepositionsList: prepositionsList,
+        movementTypes: movementTypes,
+        spatialRelations: spatialRelations,
+        furnitureTypes: FURNITURE_CATALOG.flatMap(category => category.items),
+        prepositionSettings: prepositionSettings,
+        approvedRules: getCompactApprovedRules()
+      };
+
+      document.getElementById("definedRulesCount").textContent = Object.keys(masterDataset.approvedRules).length;
+      document.getElementById("jsonPreview").value = JSON.stringify(masterDataset, null, 2);
+    }
+
+    function clearDataset() {
+      roomLayouts = { obyvak: [], loznice: [], kuchyn: [], koupelna: [], zahrada: [] };
+      accessoryOffsets = {};
+      prepositionsList = [];
+      prepositionSettings = {};
+      approvedRules = {};
+      pendingNewPreposition = "";
+      document.getElementById("newPrepSetupPanel").classList.add("hidden");
+      document.getElementById("newPrepInput").disabled = false;
+      generatePendingCombinationsQueue();
+      updateJsonDisplay();
+      renderRoomScene();
+    }
+
+    function exportFullJson() {
+      const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(document.getElementById("jsonPreview").value);
+      const dlAnchor = document.createElement('a');
+      dlAnchor.setAttribute("href", dataStr);
+      dlAnchor.setAttribute("download", "prepositions_data.json");
+      document.body.appendChild(dlAnchor);
+      dlAnchor.click();
+      dlAnchor.remove();
+    }
+
+    function importFullJson(event) {
+      const file = event.target.files[0];
+      if (!file) return;
+      const reader = new FileReader();
+      reader.onload = function(e) {
+        try {
+          const imported = JSON.parse(e.target.result);
+          if (imported.roomLayouts) roomLayouts = imported.roomLayouts;
+          removeLegacyFurnitureRotations();
+          if (imported.accessoryOffsets) accessoryOffsets = imported.accessoryOffsets;
+          if (imported.prepositionsList) prepositionsList = imported.prepositionsList;
+          movementTypes = [...DEFAULT_MOVEMENTS];
+          if (imported.spatialRelations) spatialRelations = imported.spatialRelations;
+          if (imported.prepositionSettings) prepositionSettings = imported.prepositionSettings;
+          else if (imported.furnitureStateByPreposition) {
+            prepositionSettings = Object.fromEntries(
+              prepositionsList.map(prep => [prep, {
+                compatibleMovements: movementTypes.map(movement => movement.key),
+                furnitureState: imported.furnitureStateByPreposition[prep] || "closed"
+              }])
+            );
+          }
+          applyFurnitureTypes(imported.furnitureTypes);
+          if (imported.approvedRules) approvedRules = imported.approvedRules;
+          migrateFurnitureCatalog(imported.meta?.schemaVersion || 0);
+          migrateLegacyFurnitureTypes();
+
+          updateJsonDisplay();
+          switchScene(currentScene);
+          alert("JSON byl úspěšně načten!");
+        } catch (err) {
+          alert("Chyba při čtení JSON: " + err.message);
+        }
+      };
+      reader.readAsText(file);
+    }
+
+    // INIT
+    switchScene(1);
+    updateJsonDisplay();
+    ensureEditorDatasetLoaded().then(() => {
+      if (currentScene === 1) renderRoomScene();
+    }).catch(error => {
+      const status = document.getElementById("datasetLoadStatus");
+      status.textContent = `Chyba načítání JSON: ${error.message}`;
+      status.classList.add("text-rose-400");
+      console.error("Failed to load prepositions_data.json", error);
+    });
+  </script>
+</body>
+</html>

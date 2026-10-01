@@ -1,0 +1,6773 @@
+{
+  "meta": {
+    "title": "Czech Prepositions Studio Dataset",
+    "schemaVersion": 4,
+    "generatedAt": "2026-10-01T22:57:59.901Z"
+  },
+  "roomLayouts": {
+    "obyvak": [
+      {
+        "type": "stul",
+        "x": 732,
+        "y": 374,
+        "state": "closed",
+        "scale": 1
+      },
+      {
+        "type": "kreslo",
+        "x": 875,
+        "y": 221,
+        "state": "closed",
+        "scale": 1
+      },
+      {
+        "type": "kreslo",
+        "x": 619,
+        "y": 225,
+        "state": "closed",
+        "scale": 1
+      },
+      {
+        "type": "gauc",
+        "x": 743,
+        "y": 179,
+        "state": "closed",
+        "scale": 1
+      },
+      {
+        "type": "krabice",
+        "x": 933,
+        "y": 373,
+        "state": "closed",
+        "scale": 1
+      },
+      {
+        "type": "policka",
+        "x": 552,
+        "y": 92,
+        "state": "closed",
+        "scale": 1
+      },
+      {
+        "type": "knihovna",
+        "x": 1101,
+        "y": 197,
+        "state": "closed",
+        "scale": 1
+      },
+      {
+        "type": "okno",
+        "x": 291,
+        "y": 123,
+        "state": "closed",
+        "scale": 1
+      },
+      {
+        "type": "dvere",
+        "x": 107,
+        "y": 223,
+        "state": "closed",
+        "scale": 1.4000000000000004
+      },
+      {
+        "type": "pocitac",
+        "x": 353,
+        "y": 330,
+        "state": "closed",
+        "scale": 1
+      },
+      {
+        "type": "lampa",
+        "x": 920,
+        "y": 113,
+        "state": "closed",
+        "scale": 1
+      },
+      {
+        "type": "krb",
+        "x": 1111,
+        "y": 370,
+        "state": "closed",
+        "scale": 1
+      },
+      {
+        "type": "televizor",
+        "x": 735,
+        "y": 335,
+        "state": "closed",
+        "scale": 1
+      },
+      {
+        "type": "stul",
+        "x": 355,
+        "y": 372,
+        "state": "closed",
+        "scale": 1
+      }
+    ],
+    "loznice": [],
+    "kuchyn": [],
+    "koupelna": [],
+    "zahrada": []
+  },
+  "accessoryOffsets": {
+    "pes": {
+      "sitting": {
+        "glasses": {
+          "x": 23,
+          "y": -12
+        }
+      },
+      "standing": {
+        "glasses": {
+          "x": 26,
+          "y": -12
+        },
+        "hat": {
+          "x": 17,
+          "y": -22
+        }
+      },
+      "running": {
+        "glasses": {
+          "x": 27,
+          "y": -12
+        },
+        "hat": {
+          "x": 18,
+          "y": -22
+        }
+      },
+      "jumping": {
+        "glasses": {
+          "x": 23,
+          "y": -15
+        },
+        "hat": {
+          "x": 18,
+          "y": -24
+        }
+      },
+      "lying": {
+        "glasses": {
+          "x": 23,
+          "y": -1
+        },
+        "hat": {
+          "x": 19,
+          "y": -7
+        }
+      }
+    },
+    "kocka": {
+      "sitting": {
+        "glasses": {
+          "x": 2,
+          "y": -12
+        },
+        "hat": {
+          "x": 4,
+          "y": -22
+        },
+        "backpack": {
+          "x": -17,
+          "y": 4
+        }
+      },
+      "standing": {
+        "glasses": {
+          "x": 25,
+          "y": -12
+        },
+        "hat": {
+          "x": 17,
+          "y": -22
+        }
+      },
+      "running": {
+        "glasses": {
+          "x": 25,
+          "y": -11
+        },
+        "hat": {
+          "x": 20,
+          "y": -21
+        }
+      },
+      "jumping": {
+        "glasses": {
+          "x": 17,
+          "y": -20
+        },
+        "hat": {
+          "x": 9,
+          "y": -25
+        }
+      },
+      "lying": {
+        "glasses": {
+          "x": 15,
+          "y": 2
+        },
+        "hat": {
+          "x": 18,
+          "y": -5
+        }
+      }
+    },
+    "spider": {
+      "sitting": {
+        "glasses": {
+          "x": 0,
+          "y": -9
+        },
+        "hat": {
+          "x": 2,
+          "y": -16
+        },
+        "backpack": {
+          "x": 4,
+          "y": 22
+        }
+      },
+      "standing": {
+        "glasses": {
+          "x": 1,
+          "y": -9
+        },
+        "hat": {
+          "x": 2,
+          "y": -17
+        },
+        "backpack": {
+          "x": 0,
+          "y": 15
+        }
+      },
+      "running": {
+        "glasses": {
+          "x": -2,
+          "y": -9
+        },
+        "hat": {
+          "x": -3,
+          "y": -17
+        },
+        "backpack": {
+          "x": 6,
+          "y": 18
+        }
+      },
+      "jumping": {
+        "glasses": {
+          "x": -4,
+          "y": -7
+        },
+        "hat": {
+          "x": -6,
+          "y": -15
+        },
+        "backpack": {
+          "x": 10,
+          "y": 14
+        }
+      },
+      "lying": {
+        "glasses": {
+          "x": 8,
+          "y": 0
+        },
+        "hat": {
+          "x": 15,
+          "y": -6
+        }
+      }
+    },
+    "mys": {
+      "sitting": {
+        "glasses": {
+          "x": 19,
+          "y": -11
+        }
+      },
+      "standing": {
+        "glasses": {
+          "x": 20,
+          "y": -11
+        }
+      },
+      "running": {
+        "glasses": {
+          "x": 17,
+          "y": -10
+        }
+      },
+      "jumping": {
+        "glasses": {
+          "x": 20,
+          "y": -12
+        }
+      },
+      "lying": {
+        "glasses": {
+          "x": 17,
+          "y": -12
+        }
+      }
+    },
+    "ptak": {
+      "sitting": {
+        "glasses": {
+          "x": 17,
+          "y": -12
+        },
+        "hat": {
+          "x": 11,
+          "y": -20
+        }
+      },
+      "standing": {
+        "glasses": {
+          "x": 15,
+          "y": -16
+        }
+      },
+      "running": {
+        "glasses": {
+          "x": 17,
+          "y": -10
+        },
+        "hat": {
+          "x": 12,
+          "y": -19
+        }
+      },
+      "jumping": {
+        "glasses": {
+          "x": 14,
+          "y": -13
+        }
+      },
+      "lying": {
+        "glasses": {
+          "x": 12,
+          "y": 4
+        },
+        "hat": {
+          "x": 15,
+          "y": -4
+        }
+      }
+    }
+  },
+  "prepositionsList": [
+    "do",
+    "na",
+    "v",
+    "blízko",
+    "pod",
+    "nad",
+    "mezi",
+    "před",
+    "za",
+    "k",
+    "od",
+    "z",
+    "přes",
+    "naproti",
+    "proti"
+  ],
+  "movementTypes": [
+    {
+      "key": "sitting",
+      "label": "Sedící",
+      "dynamic": false,
+      "verb": "sedí"
+    },
+    {
+      "key": "standing",
+      "label": "Stojící",
+      "dynamic": false,
+      "verb": "stojí"
+    },
+    {
+      "key": "running",
+      "label": "Běžící",
+      "dynamic": true,
+      "verb": "běží"
+    },
+    {
+      "key": "jumping",
+      "label": "Skákající",
+      "dynamic": true,
+      "verb": "skáče"
+    },
+    {
+      "key": "lying",
+      "label": "Ležící",
+      "dynamic": false,
+      "verb": "leží"
+    }
+  ],
+  "spatialRelations": [
+    {
+      "key": "in",
+      "label": "Uvnitř"
+    },
+    {
+      "key": "on_top",
+      "label": "Nahoře / na"
+    },
+    {
+      "key": "next_to",
+      "label": "Vedle"
+    },
+    {
+      "key": "above",
+      "label": "Nad"
+    },
+    {
+      "key": "below",
+      "label": "Pod"
+    },
+    {
+      "key": "between",
+      "label": "Mezi dvěma objekty"
+    }
+  ],
+  "furnitureTypes": [
+    {
+      "type": "stul",
+      "label": "Stůl",
+      "openable": true
+    },
+    {
+      "type": "zidle",
+      "label": "Židle",
+      "openable": false
+    },
+    {
+      "type": "kreslo",
+      "label": "Křeslo",
+      "openable": false
+    },
+    {
+      "type": "gauc",
+      "label": "Gauč",
+      "openable": false
+    },
+    {
+      "type": "postel",
+      "label": "Postel",
+      "openable": false
+    },
+    {
+      "type": "skrin",
+      "label": "Skříň",
+      "openable": true
+    },
+    {
+      "type": "knihovna",
+      "label": "Knihovna",
+      "openable": false
+    },
+    {
+      "type": "policka",
+      "label": "Polička",
+      "openable": false
+    },
+    {
+      "type": "krabice",
+      "label": "Krabice",
+      "openable": true
+    },
+    {
+      "type": "okno",
+      "label": "Okno",
+      "openable": true
+    },
+    {
+      "type": "dvere",
+      "label": "Dveře",
+      "openable": true
+    },
+    {
+      "type": "kuchynska_linka",
+      "label": "Kuchyňská Linka",
+      "openable": true
+    },
+    {
+      "type": "drez",
+      "label": "Dřez",
+      "openable": false
+    },
+    {
+      "type": "umyvadlo",
+      "label": "Umyvadlo",
+      "openable": false
+    },
+    {
+      "type": "vana",
+      "label": "Vana",
+      "openable": false
+    },
+    {
+      "type": "sprcha",
+      "label": "Sprcha",
+      "openable": false
+    },
+    {
+      "type": "zachod",
+      "label": "Záchod",
+      "openable": true
+    },
+    {
+      "type": "lednicka",
+      "label": "Lednička",
+      "openable": true
+    },
+    {
+      "type": "trouba",
+      "label": "Trouba",
+      "openable": true
+    },
+    {
+      "type": "mikrovlnka",
+      "label": "Mikrovlnka",
+      "openable": true
+    },
+    {
+      "type": "pracka",
+      "label": "Pračka",
+      "openable": true
+    },
+    {
+      "type": "televizor",
+      "label": "Televizor",
+      "openable": false
+    },
+    {
+      "type": "pocitac",
+      "label": "Počítač",
+      "openable": false
+    },
+    {
+      "type": "lampa",
+      "label": "Lampa",
+      "openable": false
+    },
+    {
+      "type": "krb",
+      "label": "Krb",
+      "openable": false
+    }
+  ],
+  "prepositionSettings": {
+    "do": {
+      "compatibleMovements": [
+        "running",
+        "jumping"
+      ],
+      "furnitureState": "open"
+    },
+    "na": {
+      "compatibleMovements": [
+        "sitting",
+        "standing",
+        "running",
+        "jumping",
+        "lying"
+      ],
+      "furnitureState": "both"
+    },
+    "v": {
+      "compatibleMovements": [
+        "sitting",
+        "standing",
+        "running",
+        "jumping",
+        "lying"
+      ],
+      "furnitureState": "open"
+    },
+    "blízko": {
+      "compatibleMovements": [
+        "sitting",
+        "standing",
+        "jumping",
+        "lying"
+      ],
+      "furnitureState": "both"
+    },
+    "pod": {
+      "compatibleMovements": [
+        "sitting",
+        "standing",
+        "running",
+        "jumping",
+        "lying"
+      ],
+      "furnitureState": "open"
+    },
+    "nad": {
+      "compatibleMovements": [
+        "jumping"
+      ],
+      "furnitureState": "both"
+    },
+    "mezi": {
+      "compatibleMovements": [
+        "sitting",
+        "standing",
+        "running",
+        "jumping",
+        "lying"
+      ],
+      "furnitureState": "both"
+    },
+    "před": {
+      "compatibleMovements": [
+        "sitting",
+        "standing",
+        "running",
+        "jumping",
+        "lying"
+      ],
+      "furnitureState": "both"
+    },
+    "za": {
+      "compatibleMovements": [
+        "sitting",
+        "standing",
+        "running",
+        "jumping",
+        "lying"
+      ],
+      "furnitureState": "both"
+    },
+    "k": {
+      "compatibleMovements": [
+        "running"
+      ],
+      "furnitureState": "both"
+    },
+    "od": {
+      "compatibleMovements": [
+        "running"
+      ],
+      "furnitureState": "both"
+    },
+    "z": {
+      "compatibleMovements": [
+        "running"
+      ],
+      "furnitureState": "both"
+    },
+    "přes": {
+      "compatibleMovements": [
+        "jumping"
+      ],
+      "furnitureState": "both"
+    },
+    "naproti": {
+      "compatibleMovements": [
+        "sitting",
+        "standing",
+        "lying"
+      ],
+      "furnitureState": "both"
+    },
+    "proti": {
+      "compatibleMovements": [
+        "running"
+      ],
+      "furnitureState": "both"
+    }
+  },
+  "approvedRules": {
+    "do|running|in|stul|open": {
+      "status": "approved",
+      "preposition": "do",
+      "movement": "running",
+      "spatialRelation": "in",
+      "furniture": "stul",
+      "furnitureState": "open",
+      "question": "Pes běží do stolu?",
+      "positionDescription": "uvnitř objektu",
+      "isValid": true,
+      "trajectoryType": "straight",
+      "points": {
+        "start": {
+          "x": 150,
+          "y": 235
+        },
+        "arc": {
+          "x": 300,
+          "y": 75
+        },
+        "target": {
+          "x": 400,
+          "y": 223
+        }
+      }
+    },
+    "do|running|in|skrin|open": {
+      "status": "approved",
+      "preposition": "do",
+      "movement": "running",
+      "spatialRelation": "in",
+      "furniture": "skrin",
+      "furnitureState": "open",
+      "question": "Pes běží do skříně?",
+      "positionDescription": "uvnitř objektu",
+      "isValid": true,
+      "trajectoryType": "straight",
+      "points": {
+        "start": {
+          "x": 150,
+          "y": 235
+        },
+        "arc": {
+          "x": 300,
+          "y": 75
+        },
+        "target": {
+          "x": 410,
+          "y": 213
+        }
+      }
+    },
+    "do|running|in|krabice|open": {
+      "status": "approved",
+      "preposition": "do",
+      "movement": "running",
+      "spatialRelation": "in",
+      "furniture": "krabice",
+      "furnitureState": "open",
+      "question": "Pes běží do krabice?",
+      "positionDescription": "uvnitř objektu",
+      "isValid": true,
+      "trajectoryType": "straight",
+      "points": {
+        "start": {
+          "x": 150,
+          "y": 235
+        },
+        "arc": {
+          "x": 300,
+          "y": 75
+        },
+        "target": {
+          "x": 400,
+          "y": 195
+        }
+      }
+    },
+    "do|running|in|okno|open": {
+      "status": "declined",
+      "preposition": "do",
+      "movement": "running",
+      "spatialRelation": "in",
+      "furniture": "okno",
+      "furnitureState": "open",
+      "question": "Pes běží do okna?",
+      "positionDescription": "uvnitř objektu",
+      "isValid": false,
+      "trajectoryType": null,
+      "points": null
+    },
+    "do|running|in|dvere|open": {
+      "status": "declined",
+      "preposition": "do",
+      "movement": "running",
+      "spatialRelation": "in",
+      "furniture": "dvere",
+      "furnitureState": "open",
+      "question": "Pes běží do dveří?",
+      "positionDescription": "uvnitř objektu",
+      "isValid": false,
+      "trajectoryType": null,
+      "points": null
+    },
+    "do|running|in|kuchynska_linka|open": {
+      "status": "approved",
+      "preposition": "do",
+      "movement": "running",
+      "spatialRelation": "in",
+      "furniture": "kuchynska_linka",
+      "furnitureState": "open",
+      "question": "Pes běží do kuchyňské linky?",
+      "positionDescription": "uvnitř objektu",
+      "isValid": true,
+      "trajectoryType": "straight",
+      "points": {
+        "start": {
+          "x": 150,
+          "y": 235
+        },
+        "arc": {
+          "x": 300,
+          "y": 75
+        },
+        "target": {
+          "x": 426,
+          "y": 215
+        }
+      }
+    },
+    "do|running|in|zachod|open": {
+      "status": "declined",
+      "preposition": "do",
+      "movement": "running",
+      "spatialRelation": "in",
+      "furniture": "zachod",
+      "furnitureState": "open",
+      "question": "Pes běží do záchodu?",
+      "positionDescription": "uvnitř objektu",
+      "isValid": false,
+      "trajectoryType": null,
+      "points": null
+    },
+    "do|running|in|lednicka|open": {
+      "status": "approved",
+      "preposition": "do",
+      "movement": "running",
+      "spatialRelation": "in",
+      "furniture": "lednicka",
+      "furnitureState": "open",
+      "question": "Pes běží do ledničky?",
+      "positionDescription": "uvnitř objektu",
+      "isValid": true,
+      "trajectoryType": "straight",
+      "points": {
+        "start": {
+          "x": 150,
+          "y": 235
+        },
+        "arc": {
+          "x": 300,
+          "y": 75
+        },
+        "target": {
+          "x": 399,
+          "y": 223
+        }
+      }
+    },
+    "do|running|in|trouba|open": {
+      "status": "approved",
+      "preposition": "do",
+      "movement": "running",
+      "spatialRelation": "in",
+      "furniture": "trouba",
+      "furnitureState": "open",
+      "question": "Pes běží do trouby?",
+      "positionDescription": "uvnitř objektu",
+      "isValid": true,
+      "trajectoryType": "straight",
+      "points": {
+        "start": {
+          "x": 150,
+          "y": 235
+        },
+        "arc": {
+          "x": 300,
+          "y": 75
+        },
+        "target": {
+          "x": 400,
+          "y": 195
+        }
+      }
+    },
+    "do|running|in|mikrovlnka|open": {
+      "status": "approved",
+      "preposition": "do",
+      "movement": "running",
+      "spatialRelation": "in",
+      "furniture": "mikrovlnka",
+      "furnitureState": "open",
+      "question": "Pes běží do mikrovlnky?",
+      "positionDescription": "uvnitř objektu",
+      "isValid": true,
+      "trajectoryType": "straight",
+      "points": {
+        "start": {
+          "x": 150,
+          "y": 235
+        },
+        "arc": {
+          "x": 300,
+          "y": 75
+        },
+        "target": {
+          "x": 400,
+          "y": 195
+        }
+      }
+    },
+    "do|running|in|pracka|open": {
+      "status": "approved",
+      "preposition": "do",
+      "movement": "running",
+      "spatialRelation": "in",
+      "furniture": "pracka",
+      "furnitureState": "open",
+      "question": "Pes běží do pračky?",
+      "positionDescription": "uvnitř objektu",
+      "isValid": true,
+      "trajectoryType": "straight",
+      "points": {
+        "start": {
+          "x": 150,
+          "y": 235
+        },
+        "arc": {
+          "x": 300,
+          "y": 75
+        },
+        "target": {
+          "x": 400,
+          "y": 195
+        }
+      }
+    },
+    "do|jumping|in|stul|open": {
+      "status": "approved",
+      "preposition": "do",
+      "movement": "jumping",
+      "spatialRelation": "in",
+      "furniture": "stul",
+      "furnitureState": "open",
+      "question": "Pes skáče do stolu?",
+      "positionDescription": "uvnitř objektu",
+      "isValid": true,
+      "trajectoryType": "arc",
+      "points": {
+        "start": {
+          "x": 150,
+          "y": 235
+        },
+        "arc": {
+          "x": 300,
+          "y": 75
+        },
+        "target": {
+          "x": 395,
+          "y": 219
+        }
+      }
+    },
+    "do|jumping|in|skrin|open": {
+      "status": "approved",
+      "preposition": "do",
+      "movement": "jumping",
+      "spatialRelation": "in",
+      "furniture": "skrin",
+      "furnitureState": "open",
+      "question": "Pes skáče do skříně?",
+      "positionDescription": "uvnitř objektu",
+      "isValid": true,
+      "trajectoryType": "arc",
+      "points": {
+        "start": {
+          "x": 150,
+          "y": 235
+        },
+        "arc": {
+          "x": 300,
+          "y": 75
+        },
+        "target": {
+          "x": 399,
+          "y": 214
+        }
+      }
+    },
+    "do|jumping|in|krabice|open": {
+      "status": "approved",
+      "preposition": "do",
+      "movement": "jumping",
+      "spatialRelation": "in",
+      "furniture": "krabice",
+      "furnitureState": "open",
+      "question": "Pes skáče do krabice?",
+      "positionDescription": "uvnitř objektu",
+      "isValid": true,
+      "trajectoryType": "arc",
+      "points": {
+        "start": {
+          "x": 150,
+          "y": 235
+        },
+        "arc": {
+          "x": 300,
+          "y": 75
+        },
+        "target": {
+          "x": 400,
+          "y": 195
+        }
+      }
+    },
+    "do|jumping|in|okno|open": {
+      "status": "declined",
+      "preposition": "do",
+      "movement": "jumping",
+      "spatialRelation": "in",
+      "furniture": "okno",
+      "furnitureState": "open",
+      "question": "Pes skáče do okna?",
+      "positionDescription": "uvnitř objektu",
+      "isValid": false,
+      "trajectoryType": null,
+      "points": null
+    },
+    "do|jumping|in|dvere|open": {
+      "status": "declined",
+      "preposition": "do",
+      "movement": "jumping",
+      "spatialRelation": "in",
+      "furniture": "dvere",
+      "furnitureState": "open",
+      "question": "Pes skáče do dveří?",
+      "positionDescription": "uvnitř objektu",
+      "isValid": false,
+      "trajectoryType": null,
+      "points": null
+    },
+    "do|jumping|in|kuchynska_linka|open": {
+      "status": "approved",
+      "preposition": "do",
+      "movement": "jumping",
+      "spatialRelation": "in",
+      "furniture": "kuchynska_linka",
+      "furnitureState": "open",
+      "question": "Pes skáče do kuchyňské linky?",
+      "positionDescription": "uvnitř objektu",
+      "isValid": true,
+      "trajectoryType": "arc",
+      "points": {
+        "start": {
+          "x": 150,
+          "y": 235
+        },
+        "arc": {
+          "x": 300,
+          "y": 75
+        },
+        "target": {
+          "x": 431,
+          "y": 212
+        }
+      }
+    },
+    "do|jumping|in|zachod|open": {
+      "status": "declined",
+      "preposition": "do",
+      "movement": "jumping",
+      "spatialRelation": "in",
+      "furniture": "zachod",
+      "furnitureState": "open",
+      "question": "Pes skáče do záchodu?",
+      "positionDescription": "uvnitř objektu",
+      "isValid": false,
+      "trajectoryType": null,
+      "points": null
+    },
+    "do|jumping|in|lednicka|open": {
+      "status": "approved",
+      "preposition": "do",
+      "movement": "jumping",
+      "spatialRelation": "in",
+      "furniture": "lednicka",
+      "furnitureState": "open",
+      "question": "Pes skáče do ledničky?",
+      "positionDescription": "uvnitř objektu",
+      "isValid": true,
+      "trajectoryType": "arc",
+      "points": {
+        "start": {
+          "x": 150,
+          "y": 235
+        },
+        "arc": {
+          "x": 300,
+          "y": 75
+        },
+        "target": {
+          "x": 398,
+          "y": 217
+        }
+      }
+    },
+    "do|jumping|in|trouba|open": {
+      "status": "approved",
+      "preposition": "do",
+      "movement": "jumping",
+      "spatialRelation": "in",
+      "furniture": "trouba",
+      "furnitureState": "open",
+      "question": "Pes skáče do trouby?",
+      "positionDescription": "uvnitř objektu",
+      "isValid": true,
+      "trajectoryType": "arc",
+      "points": {
+        "start": {
+          "x": 150,
+          "y": 235
+        },
+        "arc": {
+          "x": 300,
+          "y": 75
+        },
+        "target": {
+          "x": 400,
+          "y": 195
+        }
+      }
+    },
+    "do|jumping|in|mikrovlnka|open": {
+      "status": "approved",
+      "preposition": "do",
+      "movement": "jumping",
+      "spatialRelation": "in",
+      "furniture": "mikrovlnka",
+      "furnitureState": "open",
+      "question": "Pes skáče do mikrovlnky?",
+      "positionDescription": "uvnitř objektu",
+      "isValid": true,
+      "trajectoryType": "arc",
+      "points": {
+        "start": {
+          "x": 150,
+          "y": 235
+        },
+        "arc": {
+          "x": 300,
+          "y": 75
+        },
+        "target": {
+          "x": 400,
+          "y": 195
+        }
+      }
+    },
+    "do|jumping|in|pracka|open": {
+      "status": "approved",
+      "preposition": "do",
+      "movement": "jumping",
+      "spatialRelation": "in",
+      "furniture": "pracka",
+      "furnitureState": "open",
+      "question": "Pes skáče do pračky?",
+      "positionDescription": "uvnitř objektu",
+      "isValid": true,
+      "trajectoryType": "arc",
+      "points": {
+        "start": {
+          "x": 150,
+          "y": 235
+        },
+        "arc": {
+          "x": 300,
+          "y": 75
+        },
+        "target": {
+          "x": 400,
+          "y": 195
+        }
+      }
+    },
+    "na|sitting|on_top|stul|open": {
+      "status": "approved",
+      "preposition": "na",
+      "movement": "sitting",
+      "spatialRelation": "on_top",
+      "furniture": "stul",
+      "furnitureState": "open",
+      "question": "Pes sedí na stole?",
+      "positionDescription": "na objektu",
+      "isValid": true,
+      "trajectoryType": "straight",
+      "points": {
+        "start": {
+          "x": 150,
+          "y": 235
+        },
+        "arc": {
+          "x": 300,
+          "y": 75
+        },
+        "target": {
+          "x": 401,
+          "y": 158
+        }
+      }
+    },
+    "na|sitting|on_top|stul|closed": {
+      "status": "approved",
+      "preposition": "na",
+      "movement": "sitting",
+      "spatialRelation": "on_top",
+      "furniture": "stul",
+      "furnitureState": "closed",
+      "question": "Pes sedí na stole?",
+      "positionDescription": "na objektu",
+      "isValid": true,
+      "trajectoryType": "straight",
+      "points": {
+        "start": {
+          "x": 150,
+          "y": 235
+        },
+        "arc": {
+          "x": 300,
+          "y": 75
+        },
+        "target": {
+          "x": 399,
+          "y": 163
+        }
+      }
+    },
+    "na|sitting|on_top|zidle|not-applicable": {
+      "status": "approved",
+      "preposition": "na",
+      "movement": "sitting",
+      "spatialRelation": "on_top",
+      "furniture": "zidle",
+      "furnitureState": "not-applicable",
+      "question": "Pes sedí na židli?",
+      "positionDescription": "na objektu",
+      "isValid": true,
+      "trajectoryType": "straight",
+      "points": {
+        "start": {
+          "x": 150,
+          "y": 235
+        },
+        "arc": {
+          "x": 300,
+          "y": 75
+        },
+        "target": {
+          "x": 402,
+          "y": 164
+        }
+      }
+    },
+    "na|sitting|on_top|kreslo|not-applicable": {
+      "status": "approved",
+      "preposition": "na",
+      "movement": "sitting",
+      "spatialRelation": "on_top",
+      "furniture": "kreslo",
+      "furnitureState": "not-applicable",
+      "question": "Pes sedí na křesle?",
+      "positionDescription": "na objektu",
+      "isValid": true,
+      "trajectoryType": "straight",
+      "points": {
+        "start": {
+          "x": 150,
+          "y": 235
+        },
+        "arc": {
+          "x": 300,
+          "y": 75
+        },
+        "target": {
+          "x": 398,
+          "y": 173
+        }
+      }
+    },
+    "na|sitting|on_top|gauc|not-applicable": {
+      "status": "approved",
+      "preposition": "na",
+      "movement": "sitting",
+      "spatialRelation": "on_top",
+      "furniture": "gauc",
+      "furnitureState": "not-applicable",
+      "question": "Pes sedí na gauči?",
+      "positionDescription": "na objektu",
+      "isValid": true,
+      "trajectoryType": "straight",
+      "points": {
+        "start": {
+          "x": 150,
+          "y": 235
+        },
+        "arc": {
+          "x": 300,
+          "y": 75
+        },
+        "target": {
+          "x": 403,
+          "y": 173
+        }
+      }
+    },
+    "na|sitting|on_top|postel|not-applicable": {
+      "status": "approved",
+      "preposition": "na",
+      "movement": "sitting",
+      "spatialRelation": "on_top",
+      "furniture": "postel",
+      "furnitureState": "not-applicable",
+      "question": "Pes sedí na posteli?",
+      "positionDescription": "na objektu",
+      "isValid": true,
+      "trajectoryType": "straight",
+      "points": {
+        "start": {
+          "x": 150,
+          "y": 235
+        },
+        "arc": {
+          "x": 300,
+          "y": 75
+        },
+        "target": {
+          "x": 403,
+          "y": 162
+        }
+      }
+    },
+    "na|sitting|on_top|skrin|open": {
+      "status": "approved",
+      "preposition": "na",
+      "movement": "sitting",
+      "spatialRelation": "on_top",
+      "furniture": "skrin",
+      "furnitureState": "open",
+      "question": "Pes sedí na skříni?",
+      "positionDescription": "na objektu",
+      "isValid": true,
+      "trajectoryType": "straight",
+      "points": {
+        "start": {
+          "x": 150,
+          "y": 235
+        },
+        "arc": {
+          "x": 300,
+          "y": 75
+        },
+        "target": {
+          "x": 399,
+          "y": 78
+        }
+      }
+    },
+    "na|sitting|on_top|skrin|closed": {
+      "status": "approved",
+      "preposition": "na",
+      "movement": "sitting",
+      "spatialRelation": "on_top",
+      "furniture": "skrin",
+      "furnitureState": "closed",
+      "question": "Pes sedí na skříni?",
+      "positionDescription": "na objektu",
+      "isValid": true,
+      "trajectoryType": "straight",
+      "points": {
+        "start": {
+          "x": 150,
+          "y": 235
+        },
+        "arc": {
+          "x": 300,
+          "y": 75
+        },
+        "target": {
+          "x": 400,
+          "y": 79
+        }
+      }
+    },
+    "na|sitting|on_top|knihovna|not-applicable": {
+      "status": "approved",
+      "preposition": "na",
+      "movement": "sitting",
+      "spatialRelation": "on_top",
+      "furniture": "knihovna",
+      "furnitureState": "not-applicable",
+      "question": "Pes sedí na knihovně?",
+      "positionDescription": "na objektu",
+      "isValid": true,
+      "trajectoryType": "straight",
+      "points": {
+        "start": {
+          "x": 150,
+          "y": 235
+        },
+        "arc": {
+          "x": 300,
+          "y": 75
+        },
+        "target": {
+          "x": 398,
+          "y": 84
+        }
+      }
+    },
+    "na|sitting|on_top|policka|not-applicable": {
+      "status": "approved",
+      "preposition": "na",
+      "movement": "sitting",
+      "spatialRelation": "on_top",
+      "furniture": "policka",
+      "furnitureState": "not-applicable",
+      "question": "Pes sedí na poličce?",
+      "positionDescription": "na objektu",
+      "isValid": true,
+      "trajectoryType": "straight",
+      "points": {
+        "start": {
+          "x": 150,
+          "y": 235
+        },
+        "arc": {
+          "x": 300,
+          "y": 75
+        },
+        "target": {
+          "x": 404,
+          "y": 163
+        }
+      }
+    },
+    "na|sitting|on_top|krabice|open": {
+      "status": "approved",
+      "preposition": "na",
+      "movement": "sitting",
+      "spatialRelation": "on_top",
+      "furniture": "krabice",
+      "furnitureState": "open",
+      "question": "Pes sedí na krabici?",
+      "positionDescription": "na objektu",
+      "isValid": true,
+      "trajectoryType": "straight",
+      "points": {
+        "start": {
+          "x": 150,
+          "y": 235
+        },
+        "arc": {
+          "x": 300,
+          "y": 75
+        },
+        "target": {
+          "x": 400,
+          "y": 145
+        }
+      }
+    },
+    "na|sitting|on_top|krabice|closed": {
+      "status": "approved",
+      "preposition": "na",
+      "movement": "sitting",
+      "spatialRelation": "on_top",
+      "furniture": "krabice",
+      "furnitureState": "closed",
+      "question": "Pes sedí na krabici?",
+      "positionDescription": "na objektu",
+      "isValid": true,
+      "trajectoryType": "straight",
+      "points": {
+        "start": {
+          "x": 150,
+          "y": 235
+        },
+        "arc": {
+          "x": 300,
+          "y": 75
+        },
+        "target": {
+          "x": 400,
+          "y": 145
+        }
+      }
+    },
+    "na|sitting|on_top|okno|open": {
+      "status": "declined",
+      "preposition": "na",
+      "movement": "sitting",
+      "spatialRelation": "on_top",
+      "furniture": "okno",
+      "furnitureState": "open",
+      "question": "Pes sedí na okně?",
+      "positionDescription": "na objektu",
+      "isValid": false,
+      "trajectoryType": null,
+      "points": null
+    },
+    "na|sitting|on_top|okno|closed": {
+      "status": "declined",
+      "preposition": "na",
+      "movement": "sitting",
+      "spatialRelation": "on_top",
+      "furniture": "okno",
+      "furnitureState": "closed",
+      "question": "Pes sedí na okně?",
+      "positionDescription": "na objektu",
+      "isValid": false,
+      "trajectoryType": null,
+      "points": null
+    },
+    "na|sitting|on_top|dvere|open": {
+      "status": "declined",
+      "preposition": "na",
+      "movement": "sitting",
+      "spatialRelation": "on_top",
+      "furniture": "dvere",
+      "furnitureState": "open",
+      "question": "Pes sedí na dveřích?",
+      "positionDescription": "na objektu",
+      "isValid": false,
+      "trajectoryType": null,
+      "points": null
+    },
+    "na|sitting|on_top|dvere|closed": {
+      "status": "declined",
+      "preposition": "na",
+      "movement": "sitting",
+      "spatialRelation": "on_top",
+      "furniture": "dvere",
+      "furnitureState": "closed",
+      "question": "Pes sedí na dveřích?",
+      "positionDescription": "na objektu",
+      "isValid": false,
+      "trajectoryType": null,
+      "points": null
+    },
+    "na|sitting|on_top|kuchynska_linka|open": {
+      "status": "approved",
+      "preposition": "na",
+      "movement": "sitting",
+      "spatialRelation": "on_top",
+      "furniture": "kuchynska_linka",
+      "furnitureState": "open",
+      "question": "Pes sedí na kuchyňské lince?",
+      "positionDescription": "na objektu",
+      "isValid": true,
+      "trajectoryType": "straight",
+      "points": {
+        "start": {
+          "x": 150,
+          "y": 235
+        },
+        "arc": {
+          "x": 300,
+          "y": 75
+        },
+        "target": {
+          "x": 404,
+          "y": 131
+        }
+      }
+    },
+    "na|sitting|on_top|kuchynska_linka|closed": {
+      "status": "approved",
+      "preposition": "na",
+      "movement": "sitting",
+      "spatialRelation": "on_top",
+      "furniture": "kuchynska_linka",
+      "furnitureState": "closed",
+      "question": "Pes sedí na kuchyňské lince?",
+      "positionDescription": "na objektu",
+      "isValid": true,
+      "trajectoryType": "straight",
+      "points": {
+        "start": {
+          "x": 150,
+          "y": 235
+        },
+        "arc": {
+          "x": 300,
+          "y": 75
+        },
+        "target": {
+          "x": 399,
+          "y": 134
+        }
+      }
+    },
+    "na|sitting|on_top|drez|not-applicable": {
+      "status": "approved",
+      "preposition": "na",
+      "movement": "sitting",
+      "spatialRelation": "on_top",
+      "furniture": "drez",
+      "furnitureState": "not-applicable",
+      "question": "Pes sedí na dřezu?",
+      "positionDescription": "na objektu",
+      "isValid": true,
+      "trajectoryType": "straight",
+      "points": {
+        "start": {
+          "x": 150,
+          "y": 235
+        },
+        "arc": {
+          "x": 300,
+          "y": 75
+        },
+        "target": {
+          "x": 400,
+          "y": 145
+        }
+      }
+    },
+    "na|sitting|on_top|umyvadlo|not-applicable": {
+      "status": "approved",
+      "preposition": "na",
+      "movement": "sitting",
+      "spatialRelation": "on_top",
+      "furniture": "umyvadlo",
+      "furnitureState": "not-applicable",
+      "question": "Pes sedí na umyvadle?",
+      "positionDescription": "na objektu",
+      "isValid": true,
+      "trajectoryType": "straight",
+      "points": {
+        "start": {
+          "x": 150,
+          "y": 235
+        },
+        "arc": {
+          "x": 300,
+          "y": 75
+        },
+        "target": {
+          "x": 400,
+          "y": 145
+        }
+      }
+    },
+    "na|sitting|on_top|vana|not-applicable": {
+      "status": "approved",
+      "preposition": "na",
+      "movement": "sitting",
+      "spatialRelation": "on_top",
+      "furniture": "vana",
+      "furnitureState": "not-applicable",
+      "question": "Pes sedí na vaně?",
+      "positionDescription": "na objektu",
+      "isValid": true,
+      "trajectoryType": "straight",
+      "points": {
+        "start": {
+          "x": 150,
+          "y": 235
+        },
+        "arc": {
+          "x": 300,
+          "y": 75
+        },
+        "target": {
+          "x": 400,
+          "y": 145
+        }
+      }
+    },
+    "na|sitting|on_top|sprcha|not-applicable": {
+      "status": "declined",
+      "preposition": "na",
+      "movement": "sitting",
+      "spatialRelation": "on_top",
+      "furniture": "sprcha",
+      "furnitureState": "not-applicable",
+      "question": "Pes sedí na sprše?",
+      "positionDescription": "na objektu",
+      "isValid": false,
+      "trajectoryType": null,
+      "points": null
+    },
+    "na|sitting|on_top|zachod|open": {
+      "status": "approved",
+      "preposition": "na",
+      "movement": "sitting",
+      "spatialRelation": "on_top",
+      "furniture": "zachod",
+      "furnitureState": "open",
+      "question": "Pes sedí na záchodě?",
+      "positionDescription": "na objektu",
+      "isValid": true,
+      "trajectoryType": "straight",
+      "points": {
+        "start": {
+          "x": 150,
+          "y": 235
+        },
+        "arc": {
+          "x": 300,
+          "y": 75
+        },
+        "target": {
+          "x": 403,
+          "y": 159
+        }
+      }
+    },
+    "na|sitting|on_top|zachod|closed": {
+      "status": "approved",
+      "preposition": "na",
+      "movement": "sitting",
+      "spatialRelation": "on_top",
+      "furniture": "zachod",
+      "furnitureState": "closed",
+      "question": "Pes sedí na záchodě?",
+      "positionDescription": "na objektu",
+      "isValid": true,
+      "trajectoryType": "straight",
+      "points": {
+        "start": {
+          "x": 150,
+          "y": 235
+        },
+        "arc": {
+          "x": 300,
+          "y": 75
+        },
+        "target": {
+          "x": 401,
+          "y": 156
+        }
+      }
+    },
+    "na|sitting|on_top|lednicka|open": {
+      "status": "approved",
+      "preposition": "na",
+      "movement": "sitting",
+      "spatialRelation": "on_top",
+      "furniture": "lednicka",
+      "furnitureState": "open",
+      "question": "Pes sedí na ledničce?",
+      "positionDescription": "na objektu",
+      "isValid": true,
+      "trajectoryType": "straight",
+      "points": {
+        "start": {
+          "x": 150,
+          "y": 235
+        },
+        "arc": {
+          "x": 300,
+          "y": 75
+        },
+        "target": {
+          "x": 399,
+          "y": 84
+        }
+      }
+    },
+    "na|sitting|on_top|lednicka|closed": {
+      "status": "approved",
+      "preposition": "na",
+      "movement": "sitting",
+      "spatialRelation": "on_top",
+      "furniture": "lednicka",
+      "furnitureState": "closed",
+      "question": "Pes sedí na ledničce?",
+      "positionDescription": "na objektu",
+      "isValid": true,
+      "trajectoryType": "straight",
+      "points": {
+        "start": {
+          "x": 150,
+          "y": 235
+        },
+        "arc": {
+          "x": 300,
+          "y": 75
+        },
+        "target": {
+          "x": 399,
+          "y": 83
+        }
+      }
+    },
+    "na|sitting|on_top|trouba|open": {
+      "status": "approved",
+      "preposition": "na",
+      "movement": "sitting",
+      "spatialRelation": "on_top",
+      "furniture": "trouba",
+      "furnitureState": "open",
+      "question": "Pes sedí na troubě?",
+      "positionDescription": "na objektu",
+      "isValid": true,
+      "trajectoryType": "straight",
+      "points": {
+        "start": {
+          "x": 150,
+          "y": 235
+        },
+        "arc": {
+          "x": 300,
+          "y": 75
+        },
+        "target": {
+          "x": 400,
+          "y": 119
+        }
+      }
+    },
+    "na|sitting|on_top|trouba|closed": {
+      "status": "approved",
+      "preposition": "na",
+      "movement": "sitting",
+      "spatialRelation": "on_top",
+      "furniture": "trouba",
+      "furnitureState": "closed",
+      "question": "Pes sedí na troubě?",
+      "positionDescription": "na objektu",
+      "isValid": true,
+      "trajectoryType": "straight",
+      "points": {
+        "start": {
+          "x": 150,
+          "y": 235
+        },
+        "arc": {
+          "x": 300,
+          "y": 75
+        },
+        "target": {
+          "x": 403,
+          "y": 123
+        }
+      }
+    },
+    "na|sitting|on_top|mikrovlnka|open": {
+      "status": "approved",
+      "preposition": "na",
+      "movement": "sitting",
+      "spatialRelation": "on_top",
+      "furniture": "mikrovlnka",
+      "furnitureState": "open",
+      "question": "Pes sedí na mikrovlnce?",
+      "positionDescription": "na objektu",
+      "isValid": true,
+      "trajectoryType": "straight",
+      "points": {
+        "start": {
+          "x": 150,
+          "y": 235
+        },
+        "arc": {
+          "x": 300,
+          "y": 75
+        },
+        "target": {
+          "x": 400,
+          "y": 145
+        }
+      }
+    },
+    "na|sitting|on_top|mikrovlnka|closed": {
+      "status": "approved",
+      "preposition": "na",
+      "movement": "sitting",
+      "spatialRelation": "on_top",
+      "furniture": "mikrovlnka",
+      "furnitureState": "closed",
+      "question": "Pes sedí na mikrovlnce?",
+      "positionDescription": "na objektu",
+      "isValid": true,
+      "trajectoryType": "straight",
+      "points": {
+        "start": {
+          "x": 150,
+          "y": 235
+        },
+        "arc": {
+          "x": 300,
+          "y": 75
+        },
+        "target": {
+          "x": 400,
+          "y": 145
+        }
+      }
+    },
+    "na|sitting|on_top|pracka|open": {
+      "status": "approved",
+      "preposition": "na",
+      "movement": "sitting",
+      "spatialRelation": "on_top",
+      "furniture": "pracka",
+      "furnitureState": "open",
+      "question": "Pes sedí na pračce?",
+      "positionDescription": "na objektu",
+      "isValid": true,
+      "trajectoryType": "straight",
+      "points": {
+        "start": {
+          "x": 150,
+          "y": 235
+        },
+        "arc": {
+          "x": 300,
+          "y": 75
+        },
+        "target": {
+          "x": 399,
+          "y": 121
+        }
+      }
+    },
+    "na|sitting|on_top|pracka|closed": {
+      "status": "approved",
+      "preposition": "na",
+      "movement": "sitting",
+      "spatialRelation": "on_top",
+      "furniture": "pracka",
+      "furnitureState": "closed",
+      "question": "Pes sedí na pračce?",
+      "positionDescription": "na objektu",
+      "isValid": true,
+      "trajectoryType": "straight",
+      "points": {
+        "start": {
+          "x": 150,
+          "y": 235
+        },
+        "arc": {
+          "x": 300,
+          "y": 75
+        },
+        "target": {
+          "x": 402,
+          "y": 120
+        }
+      }
+    },
+    "na|sitting|on_top|televizor|not-applicable": {
+      "status": "approved",
+      "preposition": "na",
+      "movement": "sitting",
+      "spatialRelation": "on_top",
+      "furniture": "televizor",
+      "furnitureState": "not-applicable",
+      "question": "Pes sedí na televizoru?",
+      "positionDescription": "na objektu",
+      "isValid": true,
+      "trajectoryType": "straight",
+      "points": {
+        "start": {
+          "x": 150,
+          "y": 235
+        },
+        "arc": {
+          "x": 300,
+          "y": 75
+        },
+        "target": {
+          "x": 398,
+          "y": 130
+        }
+      }
+    },
+    "na|sitting|on_top|pocitac|not-applicable": {
+      "status": "approved",
+      "preposition": "na",
+      "movement": "sitting",
+      "spatialRelation": "on_top",
+      "furniture": "pocitac",
+      "furnitureState": "not-applicable",
+      "question": "Pes sedí na počítači?",
+      "positionDescription": "na objektu",
+      "isValid": true,
+      "trajectoryType": "straight",
+      "points": {
+        "start": {
+          "x": 150,
+          "y": 235
+        },
+        "arc": {
+          "x": 300,
+          "y": 75
+        },
+        "target": {
+          "x": 399,
+          "y": 127
+        }
+      }
+    },
+    "na|sitting|on_top|lampa|not-applicable": {
+      "status": "approved",
+      "preposition": "na",
+      "movement": "sitting",
+      "spatialRelation": "on_top",
+      "furniture": "lampa",
+      "furnitureState": "not-applicable",
+      "question": "Pes sedí na lampě?",
+      "positionDescription": "na objektu",
+      "isValid": true,
+      "trajectoryType": "straight",
+      "points": {
+        "start": {
+          "x": 150,
+          "y": 235
+        },
+        "arc": {
+          "x": 300,
+          "y": 75
+        },
+        "target": {
+          "x": 402,
+          "y": 159
+        }
+      }
+    },
+    "na|sitting|on_top|krb|not-applicable": {
+      "status": "approved",
+      "preposition": "na",
+      "movement": "sitting",
+      "spatialRelation": "on_top",
+      "furniture": "krb",
+      "furnitureState": "not-applicable",
+      "question": "Pes sedí na krbu?",
+      "positionDescription": "na objektu",
+      "isValid": true,
+      "trajectoryType": "straight",
+      "points": {
+        "start": {
+          "x": 150,
+          "y": 235
+        },
+        "arc": {
+          "x": 300,
+          "y": 75
+        },
+        "target": {
+          "x": 401,
+          "y": 118
+        }
+      }
+    },
+    "na|standing|on_top|stul|open": {
+      "status": "approved",
+      "preposition": "na",
+      "movement": "standing",
+      "spatialRelation": "on_top",
+      "furniture": "stul",
+      "furnitureState": "open",
+      "question": "Pes stojí na stole?",
+      "positionDescription": "na objektu",
+      "isValid": true,
+      "trajectoryType": "straight",
+      "points": {
+        "start": {
+          "x": 150,
+          "y": 235
+        },
+        "arc": {
+          "x": 300,
+          "y": 75
+        },
+        "target": {
+          "x": 397,
+          "y": 161
+        }
+      }
+    },
+    "na|standing|on_top|stul|closed": {
+      "status": "approved",
+      "preposition": "na",
+      "movement": "standing",
+      "spatialRelation": "on_top",
+      "furniture": "stul",
+      "furnitureState": "closed",
+      "question": "Pes stojí na stole?",
+      "positionDescription": "na objektu",
+      "isValid": true,
+      "trajectoryType": "straight",
+      "points": {
+        "start": {
+          "x": 150,
+          "y": 235
+        },
+        "arc": {
+          "x": 300,
+          "y": 75
+        },
+        "target": {
+          "x": 390,
+          "y": 161
+        }
+      }
+    },
+    "na|standing|on_top|zidle|not-applicable": {
+      "status": "approved",
+      "preposition": "na",
+      "movement": "standing",
+      "spatialRelation": "on_top",
+      "furniture": "zidle",
+      "furnitureState": "not-applicable",
+      "question": "Pes stojí na židli?",
+      "positionDescription": "na objektu",
+      "isValid": true,
+      "trajectoryType": "straight",
+      "points": {
+        "start": {
+          "x": 150,
+          "y": 235
+        },
+        "arc": {
+          "x": 300,
+          "y": 75
+        },
+        "target": {
+          "x": 399,
+          "y": 168
+        }
+      }
+    },
+    "na|standing|on_top|kreslo|not-applicable": {
+      "status": "approved",
+      "preposition": "na",
+      "movement": "standing",
+      "spatialRelation": "on_top",
+      "furniture": "kreslo",
+      "furnitureState": "not-applicable",
+      "question": "Pes stojí na křesle?",
+      "positionDescription": "na objektu",
+      "isValid": true,
+      "trajectoryType": "straight",
+      "points": {
+        "start": {
+          "x": 150,
+          "y": 235
+        },
+        "arc": {
+          "x": 300,
+          "y": 75
+        },
+        "target": {
+          "x": 400,
+          "y": 145
+        }
+      }
+    },
+    "na|standing|on_top|gauc|not-applicable": {
+      "status": "approved",
+      "preposition": "na",
+      "movement": "standing",
+      "spatialRelation": "on_top",
+      "furniture": "gauc",
+      "furnitureState": "not-applicable",
+      "question": "Pes stojí na gauči?",
+      "positionDescription": "na objektu",
+      "isValid": true,
+      "trajectoryType": "straight",
+      "points": {
+        "start": {
+          "x": 150,
+          "y": 235
+        },
+        "arc": {
+          "x": 300,
+          "y": 75
+        },
+        "target": {
+          "x": 400,
+          "y": 145
+        }
+      }
+    },
+    "na|standing|on_top|postel|not-applicable": {
+      "status": "approved",
+      "preposition": "na",
+      "movement": "standing",
+      "spatialRelation": "on_top",
+      "furniture": "postel",
+      "furnitureState": "not-applicable",
+      "question": "Pes stojí na posteli?",
+      "positionDescription": "na objektu",
+      "isValid": true,
+      "trajectoryType": "straight",
+      "points": {
+        "start": {
+          "x": 150,
+          "y": 235
+        },
+        "arc": {
+          "x": 300,
+          "y": 75
+        },
+        "target": {
+          "x": 393,
+          "y": 163
+        }
+      }
+    },
+    "na|standing|on_top|skrin|open": {
+      "status": "approved",
+      "preposition": "na",
+      "movement": "standing",
+      "spatialRelation": "on_top",
+      "furniture": "skrin",
+      "furnitureState": "open",
+      "question": "Pes stojí na skříni?",
+      "positionDescription": "na objektu",
+      "isValid": true,
+      "trajectoryType": "straight",
+      "points": {
+        "start": {
+          "x": 150,
+          "y": 235
+        },
+        "arc": {
+          "x": 300,
+          "y": 75
+        },
+        "target": {
+          "x": 391,
+          "y": 83
+        }
+      }
+    },
+    "na|standing|on_top|skrin|closed": {
+      "status": "approved",
+      "preposition": "na",
+      "movement": "standing",
+      "spatialRelation": "on_top",
+      "furniture": "skrin",
+      "furnitureState": "closed",
+      "question": "Pes stojí na skříni?",
+      "positionDescription": "na objektu",
+      "isValid": true,
+      "trajectoryType": "straight",
+      "points": {
+        "start": {
+          "x": 150,
+          "y": 235
+        },
+        "arc": {
+          "x": 300,
+          "y": 75
+        },
+        "target": {
+          "x": 396,
+          "y": 83
+        }
+      }
+    },
+    "na|standing|on_top|knihovna|not-applicable": {
+      "status": "approved",
+      "preposition": "na",
+      "movement": "standing",
+      "spatialRelation": "on_top",
+      "furniture": "knihovna",
+      "furnitureState": "not-applicable",
+      "question": "Pes stojí na knihovně?",
+      "positionDescription": "na objektu",
+      "isValid": true,
+      "trajectoryType": "straight",
+      "points": {
+        "start": {
+          "x": 150,
+          "y": 235
+        },
+        "arc": {
+          "x": 300,
+          "y": 75
+        },
+        "target": {
+          "x": 395,
+          "y": 89
+        }
+      }
+    },
+    "na|standing|on_top|policka|not-applicable": {
+      "status": "approved",
+      "preposition": "na",
+      "movement": "standing",
+      "spatialRelation": "on_top",
+      "furniture": "policka",
+      "furnitureState": "not-applicable",
+      "question": "Pes stojí na poličce?",
+      "positionDescription": "na objektu",
+      "isValid": true,
+      "trajectoryType": "straight",
+      "points": {
+        "start": {
+          "x": 150,
+          "y": 235
+        },
+        "arc": {
+          "x": 300,
+          "y": 75
+        },
+        "target": {
+          "x": 395,
+          "y": 164
+        }
+      }
+    },
+    "na|standing|on_top|krabice|open": {
+      "status": "approved",
+      "preposition": "na",
+      "movement": "standing",
+      "spatialRelation": "on_top",
+      "furniture": "krabice",
+      "furnitureState": "open",
+      "question": "Pes stojí na krabici?",
+      "positionDescription": "na objektu",
+      "isValid": true,
+      "trajectoryType": "straight",
+      "points": {
+        "start": {
+          "x": 150,
+          "y": 235
+        },
+        "arc": {
+          "x": 300,
+          "y": 75
+        },
+        "target": {
+          "x": 400,
+          "y": 145
+        }
+      }
+    },
+    "na|standing|on_top|krabice|closed": {
+      "status": "approved",
+      "preposition": "na",
+      "movement": "standing",
+      "spatialRelation": "on_top",
+      "furniture": "krabice",
+      "furnitureState": "closed",
+      "question": "Pes stojí na krabici?",
+      "positionDescription": "na objektu",
+      "isValid": true,
+      "trajectoryType": "straight",
+      "points": {
+        "start": {
+          "x": 150,
+          "y": 235
+        },
+        "arc": {
+          "x": 300,
+          "y": 75
+        },
+        "target": {
+          "x": 400,
+          "y": 145
+        }
+      }
+    },
+    "na|standing|on_top|okno|open": {
+      "status": "declined",
+      "preposition": "na",
+      "movement": "standing",
+      "spatialRelation": "on_top",
+      "furniture": "okno",
+      "furnitureState": "open",
+      "question": "Pes stojí na okně?",
+      "positionDescription": "na objektu",
+      "isValid": false,
+      "trajectoryType": null,
+      "points": null
+    },
+    "na|standing|on_top|okno|closed": {
+      "status": "declined",
+      "preposition": "na",
+      "movement": "standing",
+      "spatialRelation": "on_top",
+      "furniture": "okno",
+      "furnitureState": "closed",
+      "question": "Pes stojí na okně?",
+      "positionDescription": "na objektu",
+      "isValid": false,
+      "trajectoryType": null,
+      "points": null
+    },
+    "na|standing|on_top|dvere|open": {
+      "status": "declined",
+      "preposition": "na",
+      "movement": "standing",
+      "spatialRelation": "on_top",
+      "furniture": "dvere",
+      "furnitureState": "open",
+      "question": "Pes stojí na dveřích?",
+      "positionDescription": "na objektu",
+      "isValid": false,
+      "trajectoryType": null,
+      "points": null
+    },
+    "na|standing|on_top|dvere|closed": {
+      "status": "declined",
+      "preposition": "na",
+      "movement": "standing",
+      "spatialRelation": "on_top",
+      "furniture": "dvere",
+      "furnitureState": "closed",
+      "question": "Pes stojí na dveřích?",
+      "positionDescription": "na objektu",
+      "isValid": false,
+      "trajectoryType": null,
+      "points": null
+    },
+    "na|standing|on_top|kuchynska_linka|open": {
+      "status": "approved",
+      "preposition": "na",
+      "movement": "standing",
+      "spatialRelation": "on_top",
+      "furniture": "kuchynska_linka",
+      "furnitureState": "open",
+      "question": "Pes stojí na kuchyňské lince?",
+      "positionDescription": "na objektu",
+      "isValid": true,
+      "trajectoryType": "straight",
+      "points": {
+        "start": {
+          "x": 150,
+          "y": 235
+        },
+        "arc": {
+          "x": 300,
+          "y": 75
+        },
+        "target": {
+          "x": 399,
+          "y": 137
+        }
+      }
+    },
+    "na|standing|on_top|kuchynska_linka|closed": {
+      "status": "approved",
+      "preposition": "na",
+      "movement": "standing",
+      "spatialRelation": "on_top",
+      "furniture": "kuchynska_linka",
+      "furnitureState": "closed",
+      "question": "Pes stojí na kuchyňské lince?",
+      "positionDescription": "na objektu",
+      "isValid": true,
+      "trajectoryType": "straight",
+      "points": {
+        "start": {
+          "x": 150,
+          "y": 235
+        },
+        "arc": {
+          "x": 300,
+          "y": 75
+        },
+        "target": {
+          "x": 403,
+          "y": 139
+        }
+      }
+    },
+    "na|standing|on_top|drez|not-applicable": {
+      "status": "approved",
+      "preposition": "na",
+      "movement": "standing",
+      "spatialRelation": "on_top",
+      "furniture": "drez",
+      "furnitureState": "not-applicable",
+      "question": "Pes stojí na dřezu?",
+      "positionDescription": "na objektu",
+      "isValid": true,
+      "trajectoryType": "straight",
+      "points": {
+        "start": {
+          "x": 150,
+          "y": 235
+        },
+        "arc": {
+          "x": 300,
+          "y": 75
+        },
+        "target": {
+          "x": 400,
+          "y": 145
+        }
+      }
+    },
+    "na|standing|on_top|umyvadlo|not-applicable": {
+      "status": "approved",
+      "preposition": "na",
+      "movement": "standing",
+      "spatialRelation": "on_top",
+      "furniture": "umyvadlo",
+      "furnitureState": "not-applicable",
+      "question": "Pes stojí na umyvadle?",
+      "positionDescription": "na objektu",
+      "isValid": true,
+      "trajectoryType": "straight",
+      "points": {
+        "start": {
+          "x": 150,
+          "y": 235
+        },
+        "arc": {
+          "x": 300,
+          "y": 75
+        },
+        "target": {
+          "x": 400,
+          "y": 145
+        }
+      }
+    },
+    "na|standing|on_top|vana|not-applicable": {
+      "status": "approved",
+      "preposition": "na",
+      "movement": "standing",
+      "spatialRelation": "on_top",
+      "furniture": "vana",
+      "furnitureState": "not-applicable",
+      "question": "Pes stojí na vaně?",
+      "positionDescription": "na objektu",
+      "isValid": true,
+      "trajectoryType": "straight",
+      "points": {
+        "start": {
+          "x": 150,
+          "y": 235
+        },
+        "arc": {
+          "x": 300,
+          "y": 75
+        },
+        "target": {
+          "x": 400,
+          "y": 145
+        }
+      }
+    },
+    "na|standing|on_top|sprcha|not-applicable": {
+      "status": "declined",
+      "preposition": "na",
+      "movement": "standing",
+      "spatialRelation": "on_top",
+      "furniture": "sprcha",
+      "furnitureState": "not-applicable",
+      "question": "Pes stojí na sprše?",
+      "positionDescription": "na objektu",
+      "isValid": false,
+      "trajectoryType": null,
+      "points": null
+    },
+    "na|standing|on_top|zachod|open": {
+      "status": "declined",
+      "preposition": "na",
+      "movement": "standing",
+      "spatialRelation": "on_top",
+      "furniture": "zachod",
+      "furnitureState": "open",
+      "question": "Pes stojí na záchodě?",
+      "positionDescription": "na objektu",
+      "isValid": false,
+      "trajectoryType": null,
+      "points": null
+    },
+    "na|standing|on_top|zachod|closed": {
+      "status": "approved",
+      "preposition": "na",
+      "movement": "standing",
+      "spatialRelation": "on_top",
+      "furniture": "zachod",
+      "furnitureState": "closed",
+      "question": "Pes stojí na záchodě?",
+      "positionDescription": "na objektu",
+      "isValid": true,
+      "trajectoryType": "straight",
+      "points": {
+        "start": {
+          "x": 150,
+          "y": 235
+        },
+        "arc": {
+          "x": 300,
+          "y": 75
+        },
+        "target": {
+          "x": 396,
+          "y": 165
+        }
+      }
+    },
+    "na|standing|on_top|lednicka|open": {
+      "status": "approved",
+      "preposition": "na",
+      "movement": "standing",
+      "spatialRelation": "on_top",
+      "furniture": "lednicka",
+      "furnitureState": "open",
+      "question": "Pes stojí na ledničce?",
+      "positionDescription": "na objektu",
+      "isValid": true,
+      "trajectoryType": "straight",
+      "points": {
+        "start": {
+          "x": 150,
+          "y": 235
+        },
+        "arc": {
+          "x": 300,
+          "y": 75
+        },
+        "target": {
+          "x": 395,
+          "y": 91
+        }
+      }
+    },
+    "na|standing|on_top|lednicka|closed": {
+      "status": "approved",
+      "preposition": "na",
+      "movement": "standing",
+      "spatialRelation": "on_top",
+      "furniture": "lednicka",
+      "furnitureState": "closed",
+      "question": "Pes stojí na ledničce?",
+      "positionDescription": "na objektu",
+      "isValid": true,
+      "trajectoryType": "straight",
+      "points": {
+        "start": {
+          "x": 150,
+          "y": 235
+        },
+        "arc": {
+          "x": 300,
+          "y": 75
+        },
+        "target": {
+          "x": 394,
+          "y": 91
+        }
+      }
+    },
+    "na|standing|on_top|trouba|open": {
+      "status": "approved",
+      "preposition": "na",
+      "movement": "standing",
+      "spatialRelation": "on_top",
+      "furniture": "trouba",
+      "furnitureState": "open",
+      "question": "Pes stojí na troubě?",
+      "positionDescription": "na objektu",
+      "isValid": true,
+      "trajectoryType": "straight",
+      "points": {
+        "start": {
+          "x": 150,
+          "y": 235
+        },
+        "arc": {
+          "x": 300,
+          "y": 75
+        },
+        "target": {
+          "x": 396,
+          "y": 127
+        }
+      }
+    },
+    "na|standing|on_top|trouba|closed": {
+      "status": "approved",
+      "preposition": "na",
+      "movement": "standing",
+      "spatialRelation": "on_top",
+      "furniture": "trouba",
+      "furnitureState": "closed",
+      "question": "Pes stojí na troubě?",
+      "positionDescription": "na objektu",
+      "isValid": true,
+      "trajectoryType": "straight",
+      "points": {
+        "start": {
+          "x": 150,
+          "y": 235
+        },
+        "arc": {
+          "x": 300,
+          "y": 75
+        },
+        "target": {
+          "x": 395,
+          "y": 126
+        }
+      }
+    },
+    "na|standing|on_top|mikrovlnka|open": {
+      "status": "approved",
+      "preposition": "na",
+      "movement": "standing",
+      "spatialRelation": "on_top",
+      "furniture": "mikrovlnka",
+      "furnitureState": "open",
+      "question": "Pes stojí na mikrovlnce?",
+      "positionDescription": "na objektu",
+      "isValid": true,
+      "trajectoryType": "straight",
+      "points": {
+        "start": {
+          "x": 150,
+          "y": 235
+        },
+        "arc": {
+          "x": 300,
+          "y": 75
+        },
+        "target": {
+          "x": 400,
+          "y": 145
+        }
+      }
+    },
+    "na|standing|on_top|mikrovlnka|closed": {
+      "status": "approved",
+      "preposition": "na",
+      "movement": "standing",
+      "spatialRelation": "on_top",
+      "furniture": "mikrovlnka",
+      "furnitureState": "closed",
+      "question": "Pes stojí na mikrovlnce?",
+      "positionDescription": "na objektu",
+      "isValid": true,
+      "trajectoryType": "straight",
+      "points": {
+        "start": {
+          "x": 150,
+          "y": 235
+        },
+        "arc": {
+          "x": 300,
+          "y": 75
+        },
+        "target": {
+          "x": 400,
+          "y": 145
+        }
+      }
+    },
+    "na|standing|on_top|pracka|open": {
+      "status": "approved",
+      "preposition": "na",
+      "movement": "standing",
+      "spatialRelation": "on_top",
+      "furniture": "pracka",
+      "furnitureState": "open",
+      "question": "Pes stojí na pračce?",
+      "positionDescription": "na objektu",
+      "isValid": true,
+      "trajectoryType": "straight",
+      "points": {
+        "start": {
+          "x": 150,
+          "y": 235
+        },
+        "arc": {
+          "x": 300,
+          "y": 75
+        },
+        "target": {
+          "x": 398,
+          "y": 122
+        }
+      }
+    },
+    "na|standing|on_top|pracka|closed": {
+      "status": "approved",
+      "preposition": "na",
+      "movement": "standing",
+      "spatialRelation": "on_top",
+      "furniture": "pracka",
+      "furnitureState": "closed",
+      "question": "Pes stojí na pračce?",
+      "positionDescription": "na objektu",
+      "isValid": true,
+      "trajectoryType": "straight",
+      "points": {
+        "start": {
+          "x": 150,
+          "y": 235
+        },
+        "arc": {
+          "x": 300,
+          "y": 75
+        },
+        "target": {
+          "x": 399,
+          "y": 121
+        }
+      }
+    },
+    "na|standing|on_top|televizor|not-applicable": {
+      "status": "approved",
+      "preposition": "na",
+      "movement": "standing",
+      "spatialRelation": "on_top",
+      "furniture": "televizor",
+      "furnitureState": "not-applicable",
+      "question": "Pes stojí na televizoru?",
+      "positionDescription": "na objektu",
+      "isValid": true,
+      "trajectoryType": "straight",
+      "points": {
+        "start": {
+          "x": 150,
+          "y": 235
+        },
+        "arc": {
+          "x": 300,
+          "y": 75
+        },
+        "target": {
+          "x": 396,
+          "y": 131
+        }
+      }
+    },
+    "na|standing|on_top|pocitac|not-applicable": {
+      "status": "approved",
+      "preposition": "na",
+      "movement": "standing",
+      "spatialRelation": "on_top",
+      "furniture": "pocitac",
+      "furnitureState": "not-applicable",
+      "question": "Pes stojí na počítači?",
+      "positionDescription": "na objektu",
+      "isValid": true,
+      "trajectoryType": "straight",
+      "points": {
+        "start": {
+          "x": 150,
+          "y": 235
+        },
+        "arc": {
+          "x": 300,
+          "y": 75
+        },
+        "target": {
+          "x": 399,
+          "y": 129
+        }
+      }
+    },
+    "na|standing|on_top|lampa|not-applicable": {
+      "status": "approved",
+      "preposition": "na",
+      "movement": "standing",
+      "spatialRelation": "on_top",
+      "furniture": "lampa",
+      "furnitureState": "not-applicable",
+      "question": "Pes stojí na lampě?",
+      "positionDescription": "na objektu",
+      "isValid": true,
+      "trajectoryType": "straight",
+      "points": {
+        "start": {
+          "x": 150,
+          "y": 235
+        },
+        "arc": {
+          "x": 300,
+          "y": 75
+        },
+        "target": {
+          "x": 396,
+          "y": 162
+        }
+      }
+    },
+    "na|standing|on_top|krb|not-applicable": {
+      "status": "approved",
+      "preposition": "na",
+      "movement": "standing",
+      "spatialRelation": "on_top",
+      "furniture": "krb",
+      "furnitureState": "not-applicable",
+      "question": "Pes stojí na krbu?",
+      "positionDescription": "na objektu",
+      "isValid": true,
+      "trajectoryType": "straight",
+      "points": {
+        "start": {
+          "x": 150,
+          "y": 235
+        },
+        "arc": {
+          "x": 300,
+          "y": 75
+        },
+        "target": {
+          "x": 398,
+          "y": 119
+        }
+      }
+    },
+    "na|running|on_top|stul|open": {
+      "status": "approved",
+      "preposition": "na",
+      "movement": "running",
+      "spatialRelation": "on_top",
+      "furniture": "stul",
+      "furnitureState": "open",
+      "question": "Pes běží na stůl?",
+      "positionDescription": "na objektu",
+      "isValid": true,
+      "trajectoryType": "straight",
+      "points": {
+        "start": {
+          "x": 150,
+          "y": 235
+        },
+        "arc": {
+          "x": 300,
+          "y": 75
+        },
+        "target": {
+          "x": 393,
+          "y": 178
+        }
+      }
+    },
+    "na|running|on_top|stul|closed": {
+      "status": "approved",
+      "preposition": "na",
+      "movement": "running",
+      "spatialRelation": "on_top",
+      "furniture": "stul",
+      "furnitureState": "closed",
+      "question": "Pes běží na stůl?",
+      "positionDescription": "na objektu",
+      "isValid": true,
+      "trajectoryType": "straight",
+      "points": {
+        "start": {
+          "x": 150,
+          "y": 235
+        },
+        "arc": {
+          "x": 300,
+          "y": 75
+        },
+        "target": {
+          "x": 398,
+          "y": 180
+        }
+      }
+    },
+    "na|running|on_top|zidle|not-applicable": {
+      "status": "approved",
+      "preposition": "na",
+      "movement": "running",
+      "spatialRelation": "on_top",
+      "furniture": "zidle",
+      "furnitureState": "not-applicable",
+      "question": "Pes běží na židli?",
+      "positionDescription": "na objektu",
+      "isValid": true,
+      "trajectoryType": "straight",
+      "points": {
+        "start": {
+          "x": 150,
+          "y": 235
+        },
+        "arc": {
+          "x": 300,
+          "y": 75
+        },
+        "target": {
+          "x": 400,
+          "y": 145
+        }
+      }
+    },
+    "na|running|on_top|kreslo|not-applicable": {
+      "status": "approved",
+      "preposition": "na",
+      "movement": "running",
+      "spatialRelation": "on_top",
+      "furniture": "kreslo",
+      "furnitureState": "not-applicable",
+      "question": "Pes běží na křeslo?",
+      "positionDescription": "na objektu",
+      "isValid": true,
+      "trajectoryType": "straight",
+      "points": {
+        "start": {
+          "x": 150,
+          "y": 235
+        },
+        "arc": {
+          "x": 300,
+          "y": 75
+        },
+        "target": {
+          "x": 394,
+          "y": 190
+        }
+      }
+    },
+    "na|running|on_top|gauc|not-applicable": {
+      "status": "approved",
+      "preposition": "na",
+      "movement": "running",
+      "spatialRelation": "on_top",
+      "furniture": "gauc",
+      "furnitureState": "not-applicable",
+      "question": "Pes běží na gauč?",
+      "positionDescription": "na objektu",
+      "isValid": true,
+      "trajectoryType": "straight",
+      "points": {
+        "start": {
+          "x": 150,
+          "y": 235
+        },
+        "arc": {
+          "x": 300,
+          "y": 75
+        },
+        "target": {
+          "x": 398,
+          "y": 193
+        }
+      }
+    },
+    "na|running|on_top|postel|not-applicable": {
+      "status": "approved",
+      "preposition": "na",
+      "movement": "running",
+      "spatialRelation": "on_top",
+      "furniture": "postel",
+      "furnitureState": "not-applicable",
+      "question": "Pes běží na postel?",
+      "positionDescription": "na objektu",
+      "isValid": true,
+      "trajectoryType": "straight",
+      "points": {
+        "start": {
+          "x": 150,
+          "y": 235
+        },
+        "arc": {
+          "x": 300,
+          "y": 75
+        },
+        "target": {
+          "x": 398,
+          "y": 179
+        }
+      }
+    },
+    "na|running|on_top|skrin|open": {
+      "status": "approved",
+      "preposition": "na",
+      "movement": "running",
+      "spatialRelation": "on_top",
+      "furniture": "skrin",
+      "furnitureState": "open",
+      "question": "Pes běží na skříň?",
+      "positionDescription": "na objektu",
+      "isValid": true,
+      "trajectoryType": "straight",
+      "points": {
+        "start": {
+          "x": 150,
+          "y": 235
+        },
+        "arc": {
+          "x": 300,
+          "y": 75
+        },
+        "target": {
+          "x": 394,
+          "y": 101
+        }
+      }
+    },
+    "na|running|on_top|skrin|closed": {
+      "status": "approved",
+      "preposition": "na",
+      "movement": "running",
+      "spatialRelation": "on_top",
+      "furniture": "skrin",
+      "furnitureState": "closed",
+      "question": "Pes běží na skříň?",
+      "positionDescription": "na objektu",
+      "isValid": true,
+      "trajectoryType": "straight",
+      "points": {
+        "start": {
+          "x": 150,
+          "y": 235
+        },
+        "arc": {
+          "x": 300,
+          "y": 75
+        },
+        "target": {
+          "x": 397,
+          "y": 100
+        }
+      }
+    },
+    "na|running|on_top|knihovna|not-applicable": {
+      "status": "approved",
+      "preposition": "na",
+      "movement": "running",
+      "spatialRelation": "on_top",
+      "furniture": "knihovna",
+      "furnitureState": "not-applicable",
+      "question": "Pes běží na knihovnu?",
+      "positionDescription": "na objektu",
+      "isValid": true,
+      "trajectoryType": "straight",
+      "points": {
+        "start": {
+          "x": 150,
+          "y": 235
+        },
+        "arc": {
+          "x": 300,
+          "y": 75
+        },
+        "target": {
+          "x": 402,
+          "y": 100
+        }
+      }
+    },
+    "na|running|on_top|policka|not-applicable": {
+      "status": "declined",
+      "preposition": "na",
+      "movement": "running",
+      "spatialRelation": "on_top",
+      "furniture": "policka",
+      "furnitureState": "not-applicable",
+      "question": "Pes běží na poličku?",
+      "positionDescription": "na objektu",
+      "isValid": false,
+      "trajectoryType": null,
+      "points": null
+    },
+    "na|running|on_top|krabice|open": {
+      "status": "approved",
+      "preposition": "na",
+      "movement": "running",
+      "spatialRelation": "on_top",
+      "furniture": "krabice",
+      "furnitureState": "open",
+      "question": "Pes běží na krabici?",
+      "positionDescription": "na objektu",
+      "isValid": true,
+      "trajectoryType": "straight",
+      "points": {
+        "start": {
+          "x": 150,
+          "y": 235
+        },
+        "arc": {
+          "x": 300,
+          "y": 75
+        },
+        "target": {
+          "x": 398,
+          "y": 160
+        }
+      }
+    },
+    "na|running|on_top|krabice|closed": {
+      "status": "approved",
+      "preposition": "na",
+      "movement": "running",
+      "spatialRelation": "on_top",
+      "furniture": "krabice",
+      "furnitureState": "closed",
+      "question": "Pes běží na krabici?",
+      "positionDescription": "na objektu",
+      "isValid": true,
+      "trajectoryType": "straight",
+      "points": {
+        "start": {
+          "x": 150,
+          "y": 235
+        },
+        "arc": {
+          "x": 300,
+          "y": 75
+        },
+        "target": {
+          "x": 401,
+          "y": 153
+        }
+      }
+    },
+    "na|running|on_top|okno|open": {
+      "status": "declined",
+      "preposition": "na",
+      "movement": "running",
+      "spatialRelation": "on_top",
+      "furniture": "okno",
+      "furnitureState": "open",
+      "question": "Pes běží na okno?",
+      "positionDescription": "na objektu",
+      "isValid": false,
+      "trajectoryType": null,
+      "points": null
+    },
+    "na|running|on_top|okno|closed": {
+      "status": "declined",
+      "preposition": "na",
+      "movement": "running",
+      "spatialRelation": "on_top",
+      "furniture": "okno",
+      "furnitureState": "closed",
+      "question": "Pes běží na okno?",
+      "positionDescription": "na objektu",
+      "isValid": false,
+      "trajectoryType": null,
+      "points": null
+    },
+    "na|running|on_top|dvere|open": {
+      "status": "declined",
+      "preposition": "na",
+      "movement": "running",
+      "spatialRelation": "on_top",
+      "furniture": "dvere",
+      "furnitureState": "open",
+      "question": "Pes běží na dveře?",
+      "positionDescription": "na objektu",
+      "isValid": false,
+      "trajectoryType": null,
+      "points": null
+    },
+    "na|running|on_top|dvere|closed": {
+      "status": "declined",
+      "preposition": "na",
+      "movement": "running",
+      "spatialRelation": "on_top",
+      "furniture": "dvere",
+      "furnitureState": "closed",
+      "question": "Pes běží na dveře?",
+      "positionDescription": "na objektu",
+      "isValid": false,
+      "trajectoryType": null,
+      "points": null
+    },
+    "na|running|on_top|kuchynska_linka|open": {
+      "status": "approved",
+      "preposition": "na",
+      "movement": "running",
+      "spatialRelation": "on_top",
+      "furniture": "kuchynska_linka",
+      "furnitureState": "open",
+      "question": "Pes běží na kuchyňskou linku?",
+      "positionDescription": "na objektu",
+      "isValid": true,
+      "trajectoryType": "straight",
+      "points": {
+        "start": {
+          "x": 150,
+          "y": 235
+        },
+        "arc": {
+          "x": 300,
+          "y": 75
+        },
+        "target": {
+          "x": 400,
+          "y": 145
+        }
+      }
+    },
+    "na|running|on_top|kuchynska_linka|closed": {
+      "status": "approved",
+      "preposition": "na",
+      "movement": "running",
+      "spatialRelation": "on_top",
+      "furniture": "kuchynska_linka",
+      "furnitureState": "closed",
+      "question": "Pes běží na kuchyňskou linku?",
+      "positionDescription": "na objektu",
+      "isValid": true,
+      "trajectoryType": "straight",
+      "points": {
+        "start": {
+          "x": 150,
+          "y": 235
+        },
+        "arc": {
+          "x": 300,
+          "y": 75
+        },
+        "target": {
+          "x": 400,
+          "y": 145
+        }
+      }
+    },
+    "na|running|on_top|drez|not-applicable": {
+      "status": "declined",
+      "preposition": "na",
+      "movement": "running",
+      "spatialRelation": "on_top",
+      "furniture": "drez",
+      "furnitureState": "not-applicable",
+      "question": "Pes běží na dřez?",
+      "positionDescription": "na objektu",
+      "isValid": false,
+      "trajectoryType": null,
+      "points": null
+    },
+    "na|running|on_top|umyvadlo|not-applicable": {
+      "status": "declined",
+      "preposition": "na",
+      "movement": "running",
+      "spatialRelation": "on_top",
+      "furniture": "umyvadlo",
+      "furnitureState": "not-applicable",
+      "question": "Pes běží na umyvadlo?",
+      "positionDescription": "na objektu",
+      "isValid": false,
+      "trajectoryType": null,
+      "points": null
+    },
+    "na|running|on_top|vana|not-applicable": {
+      "status": "declined",
+      "preposition": "na",
+      "movement": "running",
+      "spatialRelation": "on_top",
+      "furniture": "vana",
+      "furnitureState": "not-applicable",
+      "question": "Pes běží na vanu?",
+      "positionDescription": "na objektu",
+      "isValid": false,
+      "trajectoryType": null,
+      "points": null
+    },
+    "na|running|on_top|sprcha|not-applicable": {
+      "status": "declined",
+      "preposition": "na",
+      "movement": "running",
+      "spatialRelation": "on_top",
+      "furniture": "sprcha",
+      "furnitureState": "not-applicable",
+      "question": "Pes běží na sprchu?",
+      "positionDescription": "na objektu",
+      "isValid": false,
+      "trajectoryType": null,
+      "points": null
+    },
+    "na|running|on_top|zachod|open": {
+      "status": "approved",
+      "preposition": "na",
+      "movement": "running",
+      "spatialRelation": "on_top",
+      "furniture": "zachod",
+      "furnitureState": "open",
+      "question": "Pes běží na záchod?",
+      "positionDescription": "na objektu",
+      "isValid": true,
+      "trajectoryType": "straight",
+      "points": {
+        "start": {
+          "x": 150,
+          "y": 235
+        },
+        "arc": {
+          "x": 300,
+          "y": 75
+        },
+        "target": {
+          "x": 398,
+          "y": 179
+        }
+      }
+    },
+    "na|running|on_top|zachod|closed": {
+      "status": "declined",
+      "preposition": "na",
+      "movement": "running",
+      "spatialRelation": "on_top",
+      "furniture": "zachod",
+      "furnitureState": "closed",
+      "question": "Pes běží na záchod?",
+      "positionDescription": "na objektu",
+      "isValid": false,
+      "trajectoryType": null,
+      "points": null
+    },
+    "na|running|on_top|lednicka|open": {
+      "status": "approved",
+      "preposition": "na",
+      "movement": "running",
+      "spatialRelation": "on_top",
+      "furniture": "lednicka",
+      "furnitureState": "open",
+      "question": "Pes běží na ledničku?",
+      "positionDescription": "na objektu",
+      "isValid": true,
+      "trajectoryType": "straight",
+      "points": {
+        "start": {
+          "x": 150,
+          "y": 235
+        },
+        "arc": {
+          "x": 300,
+          "y": 75
+        },
+        "target": {
+          "x": 395,
+          "y": 101
+        }
+      }
+    },
+    "na|running|on_top|lednicka|closed": {
+      "status": "approved",
+      "preposition": "na",
+      "movement": "running",
+      "spatialRelation": "on_top",
+      "furniture": "lednicka",
+      "furnitureState": "closed",
+      "question": "Pes běží na ledničku?",
+      "positionDescription": "na objektu",
+      "isValid": true,
+      "trajectoryType": "straight",
+      "points": {
+        "start": {
+          "x": 150,
+          "y": 235
+        },
+        "arc": {
+          "x": 300,
+          "y": 75
+        },
+        "target": {
+          "x": 399,
+          "y": 104
+        }
+      }
+    },
+    "na|running|on_top|trouba|open": {
+      "status": "approved",
+      "preposition": "na",
+      "movement": "running",
+      "spatialRelation": "on_top",
+      "furniture": "trouba",
+      "furnitureState": "open",
+      "question": "Pes běží na troubu?",
+      "positionDescription": "na objektu",
+      "isValid": true,
+      "trajectoryType": "straight",
+      "points": {
+        "start": {
+          "x": 150,
+          "y": 235
+        },
+        "arc": {
+          "x": 300,
+          "y": 75
+        },
+        "target": {
+          "x": 400,
+          "y": 145
+        }
+      }
+    },
+    "na|running|on_top|trouba|closed": {
+      "status": "approved",
+      "preposition": "na",
+      "movement": "running",
+      "spatialRelation": "on_top",
+      "furniture": "trouba",
+      "furnitureState": "closed",
+      "question": "Pes běží na troubu?",
+      "positionDescription": "na objektu",
+      "isValid": true,
+      "trajectoryType": "straight",
+      "points": {
+        "start": {
+          "x": 150,
+          "y": 235
+        },
+        "arc": {
+          "x": 300,
+          "y": 75
+        },
+        "target": {
+          "x": 400,
+          "y": 145
+        }
+      }
+    },
+    "na|running|on_top|mikrovlnka|open": {
+      "status": "approved",
+      "preposition": "na",
+      "movement": "running",
+      "spatialRelation": "on_top",
+      "furniture": "mikrovlnka",
+      "furnitureState": "open",
+      "question": "Pes běží na mikrovlnku?",
+      "positionDescription": "na objektu",
+      "isValid": true,
+      "trajectoryType": "straight",
+      "points": {
+        "start": {
+          "x": 150,
+          "y": 235
+        },
+        "arc": {
+          "x": 300,
+          "y": 75
+        },
+        "target": {
+          "x": 389,
+          "y": 158
+        }
+      }
+    },
+    "na|running|on_top|mikrovlnka|closed": {
+      "status": "approved",
+      "preposition": "na",
+      "movement": "running",
+      "spatialRelation": "on_top",
+      "furniture": "mikrovlnka",
+      "furnitureState": "closed",
+      "question": "Pes běží na mikrovlnku?",
+      "positionDescription": "na objektu",
+      "isValid": true,
+      "trajectoryType": "straight",
+      "points": {
+        "start": {
+          "x": 150,
+          "y": 235
+        },
+        "arc": {
+          "x": 300,
+          "y": 75
+        },
+        "target": {
+          "x": 395,
+          "y": 161
+        }
+      }
+    },
+    "na|running|on_top|pracka|open": {
+      "status": "approved",
+      "preposition": "na",
+      "movement": "running",
+      "spatialRelation": "on_top",
+      "furniture": "pracka",
+      "furnitureState": "open",
+      "question": "Pes běží na pračku?",
+      "positionDescription": "na objektu",
+      "isValid": true,
+      "trajectoryType": "straight",
+      "points": {
+        "start": {
+          "x": 150,
+          "y": 235
+        },
+        "arc": {
+          "x": 300,
+          "y": 75
+        },
+        "target": {
+          "x": 400,
+          "y": 145
+        }
+      }
+    },
+    "na|running|on_top|pracka|closed": {
+      "status": "approved",
+      "preposition": "na",
+      "movement": "running",
+      "spatialRelation": "on_top",
+      "furniture": "pracka",
+      "furnitureState": "closed",
+      "question": "Pes běží na pračku?",
+      "positionDescription": "na objektu",
+      "isValid": true,
+      "trajectoryType": "straight",
+      "points": {
+        "start": {
+          "x": 150,
+          "y": 235
+        },
+        "arc": {
+          "x": 300,
+          "y": 75
+        },
+        "target": {
+          "x": 400,
+          "y": 145
+        }
+      }
+    },
+    "na|running|on_top|televizor|not-applicable": {
+      "status": "approved",
+      "preposition": "na",
+      "movement": "running",
+      "spatialRelation": "on_top",
+      "furniture": "televizor",
+      "furnitureState": "not-applicable",
+      "question": "Pes běží na televizor?",
+      "positionDescription": "na objektu",
+      "isValid": true,
+      "trajectoryType": "straight",
+      "points": {
+        "start": {
+          "x": 150,
+          "y": 235
+        },
+        "arc": {
+          "x": 300,
+          "y": 75
+        },
+        "target": {
+          "x": 400,
+          "y": 145
+        }
+      }
+    },
+    "na|running|on_top|pocitac|not-applicable": {
+      "status": "approved",
+      "preposition": "na",
+      "movement": "running",
+      "spatialRelation": "on_top",
+      "furniture": "pocitac",
+      "furnitureState": "not-applicable",
+      "question": "Pes běží na počítač?",
+      "positionDescription": "na objektu",
+      "isValid": true,
+      "trajectoryType": "straight",
+      "points": {
+        "start": {
+          "x": 150,
+          "y": 235
+        },
+        "arc": {
+          "x": 300,
+          "y": 75
+        },
+        "target": {
+          "x": 400,
+          "y": 145
+        }
+      }
+    },
+    "na|running|on_top|lampa|not-applicable": {
+      "status": "approved",
+      "preposition": "na",
+      "movement": "running",
+      "spatialRelation": "on_top",
+      "furniture": "lampa",
+      "furnitureState": "not-applicable",
+      "question": "Pes běží na lampu?",
+      "positionDescription": "na objektu",
+      "isValid": true,
+      "trajectoryType": "straight",
+      "points": {
+        "start": {
+          "x": 150,
+          "y": 235
+        },
+        "arc": {
+          "x": 300,
+          "y": 75
+        },
+        "target": {
+          "x": 394,
+          "y": 173
+        }
+      }
+    },
+    "na|running|on_top|krb|not-applicable": {
+      "status": "approved",
+      "preposition": "na",
+      "movement": "running",
+      "spatialRelation": "on_top",
+      "furniture": "krb",
+      "furnitureState": "not-applicable",
+      "question": "Pes běží na krb?",
+      "positionDescription": "na objektu",
+      "isValid": true,
+      "trajectoryType": "straight",
+      "points": {
+        "start": {
+          "x": 150,
+          "y": 235
+        },
+        "arc": {
+          "x": 300,
+          "y": 75
+        },
+        "target": {
+          "x": 402,
+          "y": 135
+        }
+      }
+    },
+    "na|jumping|on_top|stul|open": {
+      "status": "approved",
+      "preposition": "na",
+      "movement": "jumping",
+      "spatialRelation": "on_top",
+      "furniture": "stul",
+      "furnitureState": "open",
+      "question": "Pes skáče na stůl?",
+      "positionDescription": "na objektu",
+      "isValid": true,
+      "trajectoryType": "arc",
+      "points": {
+        "start": {
+          "x": 150,
+          "y": 235
+        },
+        "arc": {
+          "x": 296,
+          "y": 25
+        },
+        "target": {
+          "x": 396,
+          "y": 177
+        }
+      }
+    },
+    "na|jumping|on_top|stul|closed": {
+      "status": "approved",
+      "preposition": "na",
+      "movement": "jumping",
+      "spatialRelation": "on_top",
+      "furniture": "stul",
+      "furnitureState": "closed",
+      "question": "Pes skáče na stůl?",
+      "positionDescription": "na objektu",
+      "isValid": true,
+      "trajectoryType": "arc",
+      "points": {
+        "start": {
+          "x": 150,
+          "y": 235
+        },
+        "arc": {
+          "x": 294,
+          "y": 9
+        },
+        "target": {
+          "x": 395,
+          "y": 179
+        }
+      }
+    },
+    "na|jumping|on_top|zidle|not-applicable": {
+      "status": "approved",
+      "preposition": "na",
+      "movement": "jumping",
+      "spatialRelation": "on_top",
+      "furniture": "zidle",
+      "furnitureState": "not-applicable",
+      "question": "Pes skáče na židli?",
+      "positionDescription": "na objektu",
+      "isValid": true,
+      "trajectoryType": "arc",
+      "points": {
+        "start": {
+          "x": 150,
+          "y": 235
+        },
+        "arc": {
+          "x": 300,
+          "y": 75
+        },
+        "target": {
+          "x": 397,
+          "y": 186
+        }
+      }
+    },
+    "na|jumping|on_top|kreslo|not-applicable": {
+      "status": "approved",
+      "preposition": "na",
+      "movement": "jumping",
+      "spatialRelation": "on_top",
+      "furniture": "kreslo",
+      "furnitureState": "not-applicable",
+      "question": "Pes skáče na křeslo?",
+      "positionDescription": "na objektu",
+      "isValid": true,
+      "trajectoryType": "arc",
+      "points": {
+        "start": {
+          "x": 150,
+          "y": 235
+        },
+        "arc": {
+          "x": 300,
+          "y": 75
+        },
+        "target": {
+          "x": 395,
+          "y": 196
+        }
+      }
+    },
+    "na|jumping|on_top|gauc|not-applicable": {
+      "status": "approved",
+      "preposition": "na",
+      "movement": "jumping",
+      "spatialRelation": "on_top",
+      "furniture": "gauc",
+      "furnitureState": "not-applicable",
+      "question": "Pes skáče na gauč?",
+      "positionDescription": "na objektu",
+      "isValid": true,
+      "trajectoryType": "arc",
+      "points": {
+        "start": {
+          "x": 150,
+          "y": 235
+        },
+        "arc": {
+          "x": 300,
+          "y": 75
+        },
+        "target": {
+          "x": 403,
+          "y": 191
+        }
+      }
+    },
+    "na|jumping|on_top|postel|not-applicable": {
+      "status": "approved",
+      "preposition": "na",
+      "movement": "jumping",
+      "spatialRelation": "on_top",
+      "furniture": "postel",
+      "furnitureState": "not-applicable",
+      "question": "Pes skáče na postel?",
+      "positionDescription": "na objektu",
+      "isValid": true,
+      "trajectoryType": "arc",
+      "points": {
+        "start": {
+          "x": 150,
+          "y": 235
+        },
+        "arc": {
+          "x": 300,
+          "y": 75
+        },
+        "target": {
+          "x": 398,
+          "y": 178
+        }
+      }
+    },
+    "na|jumping|on_top|skrin|open": {
+      "status": "approved",
+      "preposition": "na",
+      "movement": "jumping",
+      "spatialRelation": "on_top",
+      "furniture": "skrin",
+      "furnitureState": "open",
+      "question": "Pes skáče na skříň?",
+      "positionDescription": "na objektu",
+      "isValid": true,
+      "trajectoryType": "arc",
+      "points": {
+        "start": {
+          "x": 150,
+          "y": 235
+        },
+        "arc": {
+          "x": 300,
+          "y": 75
+        },
+        "target": {
+          "x": 399,
+          "y": 99
+        }
+      }
+    },
+    "na|jumping|on_top|skrin|closed": {
+      "status": "approved",
+      "preposition": "na",
+      "movement": "jumping",
+      "spatialRelation": "on_top",
+      "furniture": "skrin",
+      "furnitureState": "closed",
+      "question": "Pes skáče na skříň?",
+      "positionDescription": "na objektu",
+      "isValid": true,
+      "trajectoryType": "arc",
+      "points": {
+        "start": {
+          "x": 150,
+          "y": 235
+        },
+        "arc": {
+          "x": 300,
+          "y": 75
+        },
+        "target": {
+          "x": 395,
+          "y": 94
+        }
+      }
+    },
+    "na|jumping|on_top|knihovna|not-applicable": {
+      "status": "approved",
+      "preposition": "na",
+      "movement": "jumping",
+      "spatialRelation": "on_top",
+      "furniture": "knihovna",
+      "furnitureState": "not-applicable",
+      "question": "Pes skáče na knihovnu?",
+      "positionDescription": "na objektu",
+      "isValid": true,
+      "trajectoryType": "arc",
+      "points": {
+        "start": {
+          "x": 150,
+          "y": 235
+        },
+        "arc": {
+          "x": 300,
+          "y": 75
+        },
+        "target": {
+          "x": 397,
+          "y": 103
+        }
+      }
+    },
+    "na|jumping|on_top|policka|not-applicable": {
+      "status": "approved",
+      "preposition": "na",
+      "movement": "jumping",
+      "spatialRelation": "on_top",
+      "furniture": "policka",
+      "furnitureState": "not-applicable",
+      "question": "Pes skáče na poličku?",
+      "positionDescription": "na objektu",
+      "isValid": true,
+      "trajectoryType": "arc",
+      "points": {
+        "start": {
+          "x": 150,
+          "y": 235
+        },
+        "arc": {
+          "x": 300,
+          "y": 75
+        },
+        "target": {
+          "x": 395,
+          "y": 183
+        }
+      }
+    },
+    "na|jumping|on_top|krabice|open": {
+      "status": "approved",
+      "preposition": "na",
+      "movement": "jumping",
+      "spatialRelation": "on_top",
+      "furniture": "krabice",
+      "furnitureState": "open",
+      "question": "Pes skáče na krabici?",
+      "positionDescription": "na objektu",
+      "isValid": true,
+      "trajectoryType": "arc",
+      "points": {
+        "start": {
+          "x": 150,
+          "y": 235
+        },
+        "arc": {
+          "x": 300,
+          "y": 75
+        },
+        "target": {
+          "x": 396,
+          "y": 162
+        }
+      }
+    },
+    "na|jumping|on_top|krabice|closed": {
+      "status": "approved",
+      "preposition": "na",
+      "movement": "jumping",
+      "spatialRelation": "on_top",
+      "furniture": "krabice",
+      "furnitureState": "closed",
+      "question": "Pes skáče na krabici?",
+      "positionDescription": "na objektu",
+      "isValid": true,
+      "trajectoryType": "arc",
+      "points": {
+        "start": {
+          "x": 150,
+          "y": 235
+        },
+        "arc": {
+          "x": 300,
+          "y": 75
+        },
+        "target": {
+          "x": 394,
+          "y": 161
+        }
+      }
+    },
+    "na|jumping|on_top|okno|open": {
+      "status": "approved",
+      "preposition": "na",
+      "movement": "jumping",
+      "spatialRelation": "on_top",
+      "furniture": "okno",
+      "furnitureState": "open",
+      "question": "Pes skáče na okno?",
+      "positionDescription": "na objektu",
+      "isValid": true,
+      "trajectoryType": "arc",
+      "points": {
+        "start": {
+          "x": 339,
+          "y": 305
+        },
+        "arc": {
+          "x": 358,
+          "y": 214
+        },
+        "target": {
+          "x": 391,
+          "y": 237
+        }
+      }
+    },
+    "na|jumping|on_top|okno|closed": {
+      "status": "approved",
+      "preposition": "na",
+      "movement": "jumping",
+      "spatialRelation": "on_top",
+      "furniture": "okno",
+      "furnitureState": "closed",
+      "question": "Pes skáče na okno?",
+      "positionDescription": "na objektu",
+      "isValid": true,
+      "trajectoryType": "arc",
+      "points": {
+        "start": {
+          "x": 361,
+          "y": 313
+        },
+        "arc": {
+          "x": 358,
+          "y": 217
+        },
+        "target": {
+          "x": 395,
+          "y": 233
+        }
+      }
+    },
+    "na|jumping|on_top|dvere|open": {
+      "status": "declined",
+      "preposition": "na",
+      "movement": "jumping",
+      "spatialRelation": "on_top",
+      "furniture": "dvere",
+      "furnitureState": "open",
+      "question": "Pes skáče na dveře?",
+      "positionDescription": "na objektu",
+      "isValid": false,
+      "trajectoryType": null,
+      "points": null
+    },
+    "na|jumping|on_top|dvere|closed": {
+      "status": "approved",
+      "preposition": "na",
+      "movement": "jumping",
+      "spatialRelation": "on_top",
+      "furniture": "dvere",
+      "furnitureState": "closed",
+      "question": "Pes skáče na dveře?",
+      "positionDescription": "na objektu",
+      "isValid": true,
+      "trajectoryType": "arc",
+      "points": {
+        "start": {
+          "x": 336,
+          "y": 305
+        },
+        "arc": {
+          "x": 371,
+          "y": 197
+        },
+        "target": {
+          "x": 399,
+          "y": 194
+        }
+      }
+    },
+    "na|jumping|on_top|kuchynska_linka|open": {
+      "status": "approved",
+      "preposition": "na",
+      "movement": "jumping",
+      "spatialRelation": "on_top",
+      "furniture": "kuchynska_linka",
+      "furnitureState": "open",
+      "question": "Pes skáče na kuchyňskou linku?",
+      "positionDescription": "na objektu",
+      "isValid": true,
+      "trajectoryType": "arc",
+      "points": {
+        "start": {
+          "x": 150,
+          "y": 235
+        },
+        "arc": {
+          "x": 300,
+          "y": 75
+        },
+        "target": {
+          "x": 400,
+          "y": 145
+        }
+      }
+    },
+    "na|jumping|on_top|kuchynska_linka|closed": {
+      "status": "approved",
+      "preposition": "na",
+      "movement": "jumping",
+      "spatialRelation": "on_top",
+      "furniture": "kuchynska_linka",
+      "furnitureState": "closed",
+      "question": "Pes skáče na kuchyňskou linku?",
+      "positionDescription": "na objektu",
+      "isValid": true,
+      "trajectoryType": "arc",
+      "points": {
+        "start": {
+          "x": 150,
+          "y": 235
+        },
+        "arc": {
+          "x": 300,
+          "y": 75
+        },
+        "target": {
+          "x": 400,
+          "y": 145
+        }
+      }
+    },
+    "na|jumping|on_top|drez|not-applicable": {
+      "status": "approved",
+      "preposition": "na",
+      "movement": "jumping",
+      "spatialRelation": "on_top",
+      "furniture": "drez",
+      "furnitureState": "not-applicable",
+      "question": "Pes skáče na dřez?",
+      "positionDescription": "na objektu",
+      "isValid": true,
+      "trajectoryType": "arc",
+      "points": {
+        "start": {
+          "x": 357,
+          "y": 296
+        },
+        "arc": {
+          "x": 352,
+          "y": 188
+        },
+        "target": {
+          "x": 398,
+          "y": 199
+        }
+      }
+    },
+    "na|jumping|on_top|umyvadlo|not-applicable": {
+      "status": "approved",
+      "preposition": "na",
+      "movement": "jumping",
+      "spatialRelation": "on_top",
+      "furniture": "umyvadlo",
+      "furnitureState": "not-applicable",
+      "question": "Pes skáče na umyvadlo?",
+      "positionDescription": "na objektu",
+      "isValid": true,
+      "trajectoryType": "arc",
+      "points": {
+        "start": {
+          "x": 387,
+          "y": 297
+        },
+        "arc": {
+          "x": 371,
+          "y": 175
+        },
+        "target": {
+          "x": 398,
+          "y": 176
+        }
+      }
+    },
+    "na|jumping|on_top|vana|not-applicable": {
+      "status": "approved",
+      "preposition": "na",
+      "movement": "jumping",
+      "spatialRelation": "on_top",
+      "furniture": "vana",
+      "furnitureState": "not-applicable",
+      "question": "Pes skáče na vanu?",
+      "positionDescription": "na objektu",
+      "isValid": true,
+      "trajectoryType": "arc",
+      "points": {
+        "start": {
+          "x": 249,
+          "y": 232
+        },
+        "arc": {
+          "x": 300,
+          "y": 75
+        },
+        "target": {
+          "x": 343,
+          "y": 200
+        }
+      }
+    },
+    "na|jumping|on_top|sprcha|not-applicable": {
+      "status": "declined",
+      "preposition": "na",
+      "movement": "jumping",
+      "spatialRelation": "on_top",
+      "furniture": "sprcha",
+      "furnitureState": "not-applicable",
+      "question": "Pes skáče na sprchu?",
+      "positionDescription": "na objektu",
+      "isValid": false,
+      "trajectoryType": null,
+      "points": null
+    },
+    "na|jumping|on_top|zachod|open": {
+      "status": "declined",
+      "preposition": "na",
+      "movement": "jumping",
+      "spatialRelation": "on_top",
+      "furniture": "zachod",
+      "furnitureState": "open",
+      "question": "Pes skáče na záchod?",
+      "positionDescription": "na objektu",
+      "isValid": false,
+      "trajectoryType": null,
+      "points": null
+    },
+    "na|jumping|on_top|zachod|closed": {
+      "status": "approved",
+      "preposition": "na",
+      "movement": "jumping",
+      "spatialRelation": "on_top",
+      "furniture": "zachod",
+      "furnitureState": "closed",
+      "question": "Pes skáče na záchod?",
+      "positionDescription": "na objektu",
+      "isValid": true,
+      "trajectoryType": "arc",
+      "points": {
+        "start": {
+          "x": 150,
+          "y": 235
+        },
+        "arc": {
+          "x": 300,
+          "y": 75
+        },
+        "target": {
+          "x": 402,
+          "y": 178
+        }
+      }
+    },
+    "na|jumping|on_top|lednicka|open": {
+      "status": "approved",
+      "preposition": "na",
+      "movement": "jumping",
+      "spatialRelation": "on_top",
+      "furniture": "lednicka",
+      "furnitureState": "open",
+      "question": "Pes skáče na ledničku?",
+      "positionDescription": "na objektu",
+      "isValid": true,
+      "trajectoryType": "arc",
+      "points": {
+        "start": {
+          "x": 150,
+          "y": 235
+        },
+        "arc": {
+          "x": 300,
+          "y": 75
+        },
+        "target": {
+          "x": 403,
+          "y": 104
+        }
+      }
+    },
+    "na|jumping|on_top|lednicka|closed": {
+      "status": "approved",
+      "preposition": "na",
+      "movement": "jumping",
+      "spatialRelation": "on_top",
+      "furniture": "lednicka",
+      "furnitureState": "closed",
+      "question": "Pes skáče na ledničku?",
+      "positionDescription": "na objektu",
+      "isValid": true,
+      "trajectoryType": "arc",
+      "points": {
+        "start": {
+          "x": 150,
+          "y": 235
+        },
+        "arc": {
+          "x": 300,
+          "y": 75
+        },
+        "target": {
+          "x": 399,
+          "y": 105
+        }
+      }
+    },
+    "na|jumping|on_top|trouba|open": {
+      "status": "approved",
+      "preposition": "na",
+      "movement": "jumping",
+      "spatialRelation": "on_top",
+      "furniture": "trouba",
+      "furnitureState": "open",
+      "question": "Pes skáče na troubu?",
+      "positionDescription": "na objektu",
+      "isValid": true,
+      "trajectoryType": "arc",
+      "points": {
+        "start": {
+          "x": 150,
+          "y": 235
+        },
+        "arc": {
+          "x": 300,
+          "y": 75
+        },
+        "target": {
+          "x": 400,
+          "y": 145
+        }
+      }
+    },
+    "na|jumping|on_top|trouba|closed": {
+      "status": "approved",
+      "preposition": "na",
+      "movement": "jumping",
+      "spatialRelation": "on_top",
+      "furniture": "trouba",
+      "furnitureState": "closed",
+      "question": "Pes skáče na troubu?",
+      "positionDescription": "na objektu",
+      "isValid": true,
+      "trajectoryType": "arc",
+      "points": {
+        "start": {
+          "x": 150,
+          "y": 235
+        },
+        "arc": {
+          "x": 300,
+          "y": 75
+        },
+        "target": {
+          "x": 400,
+          "y": 145
+        }
+      }
+    },
+    "na|jumping|on_top|mikrovlnka|open": {
+      "status": "approved",
+      "preposition": "na",
+      "movement": "jumping",
+      "spatialRelation": "on_top",
+      "furniture": "mikrovlnka",
+      "furnitureState": "open",
+      "question": "Pes skáče na mikrovlnku?",
+      "positionDescription": "na objektu",
+      "isValid": true,
+      "trajectoryType": "arc",
+      "points": {
+        "start": {
+          "x": 150,
+          "y": 235
+        },
+        "arc": {
+          "x": 300,
+          "y": 75
+        },
+        "target": {
+          "x": 390,
+          "y": 162
+        }
+      }
+    },
+    "na|jumping|on_top|mikrovlnka|closed": {
+      "status": "approved",
+      "preposition": "na",
+      "movement": "jumping",
+      "spatialRelation": "on_top",
+      "furniture": "mikrovlnka",
+      "furnitureState": "closed",
+      "question": "Pes skáče na mikrovlnku?",
+      "positionDescription": "na objektu",
+      "isValid": true,
+      "trajectoryType": "arc",
+      "points": {
+        "start": {
+          "x": 150,
+          "y": 235
+        },
+        "arc": {
+          "x": 300,
+          "y": 75
+        },
+        "target": {
+          "x": 396,
+          "y": 161
+        }
+      }
+    },
+    "na|jumping|on_top|pracka|open": {
+      "status": "approved",
+      "preposition": "na",
+      "movement": "jumping",
+      "spatialRelation": "on_top",
+      "furniture": "pracka",
+      "furnitureState": "open",
+      "question": "Pes skáče na pračku?",
+      "positionDescription": "na objektu",
+      "isValid": true,
+      "trajectoryType": "arc",
+      "points": {
+        "start": {
+          "x": 150,
+          "y": 235
+        },
+        "arc": {
+          "x": 300,
+          "y": 75
+        },
+        "target": {
+          "x": 400,
+          "y": 145
+        }
+      }
+    },
+    "na|jumping|on_top|pracka|closed": {
+      "status": "approved",
+      "preposition": "na",
+      "movement": "jumping",
+      "spatialRelation": "on_top",
+      "furniture": "pracka",
+      "furnitureState": "closed",
+      "question": "Pes skáče na pračku?",
+      "positionDescription": "na objektu",
+      "isValid": true,
+      "trajectoryType": "arc",
+      "points": {
+        "start": {
+          "x": 150,
+          "y": 235
+        },
+        "arc": {
+          "x": 300,
+          "y": 75
+        },
+        "target": {
+          "x": 400,
+          "y": 145
+        }
+      }
+    },
+    "na|jumping|on_top|televizor|not-applicable": {
+      "status": "approved",
+      "preposition": "na",
+      "movement": "jumping",
+      "spatialRelation": "on_top",
+      "furniture": "televizor",
+      "furnitureState": "not-applicable",
+      "question": "Pes skáče na televizor?",
+      "positionDescription": "na objektu",
+      "isValid": true,
+      "trajectoryType": "arc",
+      "points": {
+        "start": {
+          "x": 150,
+          "y": 235
+        },
+        "arc": {
+          "x": 300,
+          "y": 75
+        },
+        "target": {
+          "x": 400,
+          "y": 145
+        }
+      }
+    },
+    "na|jumping|on_top|pocitac|not-applicable": {
+      "status": "approved",
+      "preposition": "na",
+      "movement": "jumping",
+      "spatialRelation": "on_top",
+      "furniture": "pocitac",
+      "furnitureState": "not-applicable",
+      "question": "Pes skáče na počítač?",
+      "positionDescription": "na objektu",
+      "isValid": true,
+      "trajectoryType": "arc",
+      "points": {
+        "start": {
+          "x": 150,
+          "y": 235
+        },
+        "arc": {
+          "x": 300,
+          "y": 75
+        },
+        "target": {
+          "x": 400,
+          "y": 145
+        }
+      }
+    },
+    "na|jumping|on_top|lampa|not-applicable": {
+      "status": "approved",
+      "preposition": "na",
+      "movement": "jumping",
+      "spatialRelation": "on_top",
+      "furniture": "lampa",
+      "furnitureState": "not-applicable",
+      "question": "Pes skáče na lampu?",
+      "positionDescription": "na objektu",
+      "isValid": true,
+      "trajectoryType": "arc",
+      "points": {
+        "start": {
+          "x": 150,
+          "y": 235
+        },
+        "arc": {
+          "x": 300,
+          "y": 75
+        },
+        "target": {
+          "x": 399,
+          "y": 173
+        }
+      }
+    },
+    "na|jumping|on_top|krb|not-applicable": {
+      "status": "approved",
+      "preposition": "na",
+      "movement": "jumping",
+      "spatialRelation": "on_top",
+      "furniture": "krb",
+      "furnitureState": "not-applicable",
+      "question": "Pes skáče na krb?",
+      "positionDescription": "na objektu",
+      "isValid": true,
+      "trajectoryType": "arc",
+      "points": {
+        "start": {
+          "x": 150,
+          "y": 235
+        },
+        "arc": {
+          "x": 300,
+          "y": 75
+        },
+        "target": {
+          "x": 402,
+          "y": 133
+        }
+      }
+    },
+    "na|lying|on_top|stul|open": {
+      "status": "approved",
+      "preposition": "na",
+      "movement": "lying",
+      "spatialRelation": "on_top",
+      "furniture": "stul",
+      "furnitureState": "open",
+      "question": "Pes leží na stole?",
+      "positionDescription": "na objektu",
+      "isValid": true,
+      "trajectoryType": "straight",
+      "points": {
+        "start": {
+          "x": 150,
+          "y": 235
+        },
+        "arc": {
+          "x": 300,
+          "y": 75
+        },
+        "target": {
+          "x": 391,
+          "y": 166
+        }
+      }
+    },
+    "na|lying|on_top|stul|closed": {
+      "status": "approved",
+      "preposition": "na",
+      "movement": "lying",
+      "spatialRelation": "on_top",
+      "furniture": "stul",
+      "furnitureState": "closed",
+      "question": "Pes leží na stole?",
+      "positionDescription": "na objektu",
+      "isValid": true,
+      "trajectoryType": "straight",
+      "points": {
+        "start": {
+          "x": 150,
+          "y": 235
+        },
+        "arc": {
+          "x": 300,
+          "y": 75
+        },
+        "target": {
+          "x": 398,
+          "y": 164
+        }
+      }
+    },
+    "na|lying|on_top|zidle|not-applicable": {
+      "status": "approved",
+      "preposition": "na",
+      "movement": "lying",
+      "spatialRelation": "on_top",
+      "furniture": "zidle",
+      "furnitureState": "not-applicable",
+      "question": "Pes leží na židli?",
+      "positionDescription": "na objektu",
+      "isValid": true,
+      "trajectoryType": "straight",
+      "points": {
+        "start": {
+          "x": 150,
+          "y": 235
+        },
+        "arc": {
+          "x": 300,
+          "y": 75
+        },
+        "target": {
+          "x": 396,
+          "y": 170
+        }
+      }
+    },
+    "na|lying|on_top|kreslo|not-applicable": {
+      "status": "approved",
+      "preposition": "na",
+      "movement": "lying",
+      "spatialRelation": "on_top",
+      "furniture": "kreslo",
+      "furnitureState": "not-applicable",
+      "question": "Pes leží na křesle?",
+      "positionDescription": "na objektu",
+      "isValid": true,
+      "trajectoryType": "straight",
+      "points": {
+        "start": {
+          "x": 150,
+          "y": 235
+        },
+        "arc": {
+          "x": 300,
+          "y": 75
+        },
+        "target": {
+          "x": 395,
+          "y": 185
+        }
+      }
+    },
+    "na|lying|on_top|gauc|not-applicable": {
+      "status": "approved",
+      "preposition": "na",
+      "movement": "lying",
+      "spatialRelation": "on_top",
+      "furniture": "gauc",
+      "furnitureState": "not-applicable",
+      "question": "Pes leží na gauči?",
+      "positionDescription": "na objektu",
+      "isValid": true,
+      "trajectoryType": "straight",
+      "points": {
+        "start": {
+          "x": 150,
+          "y": 235
+        },
+        "arc": {
+          "x": 300,
+          "y": 75
+        },
+        "target": {
+          "x": 393,
+          "y": 180
+        }
+      }
+    },
+    "na|lying|on_top|postel|not-applicable": {
+      "status": "approved",
+      "preposition": "na",
+      "movement": "lying",
+      "spatialRelation": "on_top",
+      "furniture": "postel",
+      "furnitureState": "not-applicable",
+      "question": "Pes leží na posteli?",
+      "positionDescription": "na objektu",
+      "isValid": true,
+      "trajectoryType": "straight",
+      "points": {
+        "start": {
+          "x": 150,
+          "y": 235
+        },
+        "arc": {
+          "x": 300,
+          "y": 75
+        },
+        "target": {
+          "x": 398,
+          "y": 169
+        }
+      }
+    },
+    "na|lying|on_top|skrin|open": {
+      "status": "approved",
+      "preposition": "na",
+      "movement": "lying",
+      "spatialRelation": "on_top",
+      "furniture": "skrin",
+      "furnitureState": "open",
+      "question": "Pes leží na skříni?",
+      "positionDescription": "na objektu",
+      "isValid": true,
+      "trajectoryType": "straight",
+      "points": {
+        "start": {
+          "x": 150,
+          "y": 235
+        },
+        "arc": {
+          "x": 300,
+          "y": 75
+        },
+        "target": {
+          "x": 393,
+          "y": 89
+        }
+      }
+    },
+    "na|lying|on_top|skrin|closed": {
+      "status": "approved",
+      "preposition": "na",
+      "movement": "lying",
+      "spatialRelation": "on_top",
+      "furniture": "skrin",
+      "furnitureState": "closed",
+      "question": "Pes leží na skříni?",
+      "positionDescription": "na objektu",
+      "isValid": true,
+      "trajectoryType": "straight",
+      "points": {
+        "start": {
+          "x": 150,
+          "y": 235
+        },
+        "arc": {
+          "x": 300,
+          "y": 75
+        },
+        "target": {
+          "x": 398,
+          "y": 87
+        }
+      }
+    },
+    "na|lying|on_top|knihovna|not-applicable": {
+      "status": "approved",
+      "preposition": "na",
+      "movement": "lying",
+      "spatialRelation": "on_top",
+      "furniture": "knihovna",
+      "furnitureState": "not-applicable",
+      "question": "Pes leží na knihovně?",
+      "positionDescription": "na objektu",
+      "isValid": true,
+      "trajectoryType": "straight",
+      "points": {
+        "start": {
+          "x": 150,
+          "y": 235
+        },
+        "arc": {
+          "x": 300,
+          "y": 75
+        },
+        "target": {
+          "x": 395,
+          "y": 92
+        }
+      }
+    },
+    "na|lying|on_top|policka|not-applicable": {
+      "status": "approved",
+      "preposition": "na",
+      "movement": "lying",
+      "spatialRelation": "on_top",
+      "furniture": "policka",
+      "furnitureState": "not-applicable",
+      "question": "Pes leží na poličce?",
+      "positionDescription": "na objektu",
+      "isValid": true,
+      "trajectoryType": "straight",
+      "points": {
+        "start": {
+          "x": 150,
+          "y": 235
+        },
+        "arc": {
+          "x": 300,
+          "y": 75
+        },
+        "target": {
+          "x": 392,
+          "y": 171
+        }
+      }
+    },
+    "na|lying|on_top|krabice|open": {
+      "status": "approved",
+      "preposition": "na",
+      "movement": "lying",
+      "spatialRelation": "on_top",
+      "furniture": "krabice",
+      "furnitureState": "open",
+      "question": "Pes leží na krabici?",
+      "positionDescription": "na objektu",
+      "isValid": true,
+      "trajectoryType": "straight",
+      "points": {
+        "start": {
+          "x": 150,
+          "y": 235
+        },
+        "arc": {
+          "x": 300,
+          "y": 75
+        },
+        "target": {
+          "x": 399,
+          "y": 152
+        }
+      }
+    },
+    "na|lying|on_top|krabice|closed": {
+      "status": "approved",
+      "preposition": "na",
+      "movement": "lying",
+      "spatialRelation": "on_top",
+      "furniture": "krabice",
+      "furnitureState": "closed",
+      "question": "Pes leží na krabici?",
+      "positionDescription": "na objektu",
+      "isValid": true,
+      "trajectoryType": "straight",
+      "points": {
+        "start": {
+          "x": 150,
+          "y": 235
+        },
+        "arc": {
+          "x": 300,
+          "y": 75
+        },
+        "target": {
+          "x": 395,
+          "y": 149
+        }
+      }
+    },
+    "na|lying|on_top|okno|open": {
+      "status": "declined",
+      "preposition": "na",
+      "movement": "lying",
+      "spatialRelation": "on_top",
+      "furniture": "okno",
+      "furnitureState": "open",
+      "question": "Pes leží na okně?",
+      "positionDescription": "na objektu",
+      "isValid": false,
+      "trajectoryType": null,
+      "points": null
+    },
+    "na|lying|on_top|okno|closed": {
+      "status": "declined",
+      "preposition": "na",
+      "movement": "lying",
+      "spatialRelation": "on_top",
+      "furniture": "okno",
+      "furnitureState": "closed",
+      "question": "Pes leží na okně?",
+      "positionDescription": "na objektu",
+      "isValid": false,
+      "trajectoryType": null,
+      "points": null
+    },
+    "na|lying|on_top|dvere|open": {
+      "status": "declined",
+      "preposition": "na",
+      "movement": "lying",
+      "spatialRelation": "on_top",
+      "furniture": "dvere",
+      "furnitureState": "open",
+      "question": "Pes leží na dveřích?",
+      "positionDescription": "na objektu",
+      "isValid": false,
+      "trajectoryType": null,
+      "points": null
+    },
+    "na|lying|on_top|dvere|closed": {
+      "status": "declined",
+      "preposition": "na",
+      "movement": "lying",
+      "spatialRelation": "on_top",
+      "furniture": "dvere",
+      "furnitureState": "closed",
+      "question": "Pes leží na dveřích?",
+      "positionDescription": "na objektu",
+      "isValid": false,
+      "trajectoryType": null,
+      "points": null
+    },
+    "na|lying|on_top|kuchynska_linka|open": {
+      "status": "approved",
+      "preposition": "na",
+      "movement": "lying",
+      "spatialRelation": "on_top",
+      "furniture": "kuchynska_linka",
+      "furnitureState": "open",
+      "question": "Pes leží na kuchyňské lince?",
+      "positionDescription": "na objektu",
+      "isValid": true,
+      "trajectoryType": "straight",
+      "points": {
+        "start": {
+          "x": 150,
+          "y": 235
+        },
+        "arc": {
+          "x": 300,
+          "y": 75
+        },
+        "target": {
+          "x": 400,
+          "y": 145
+        }
+      }
+    },
+    "na|lying|on_top|kuchynska_linka|closed": {
+      "status": "approved",
+      "preposition": "na",
+      "movement": "lying",
+      "spatialRelation": "on_top",
+      "furniture": "kuchynska_linka",
+      "furnitureState": "closed",
+      "question": "Pes leží na kuchyňské lince?",
+      "positionDescription": "na objektu",
+      "isValid": true,
+      "trajectoryType": "straight",
+      "points": {
+        "start": {
+          "x": 150,
+          "y": 235
+        },
+        "arc": {
+          "x": 300,
+          "y": 75
+        },
+        "target": {
+          "x": 400,
+          "y": 145
+        }
+      }
+    },
+    "na|lying|on_top|drez|not-applicable": {
+      "status": "approved",
+      "preposition": "na",
+      "movement": "lying",
+      "spatialRelation": "on_top",
+      "furniture": "drez",
+      "furnitureState": "not-applicable",
+      "question": "Pes leží na dřezu?",
+      "positionDescription": "na objektu",
+      "isValid": true,
+      "trajectoryType": "straight",
+      "points": {
+        "start": {
+          "x": 150,
+          "y": 235
+        },
+        "arc": {
+          "x": 300,
+          "y": 75
+        },
+        "target": {
+          "x": 430,
+          "y": 182
+        }
+      }
+    },
+    "na|lying|on_top|umyvadlo|not-applicable": {
+      "status": "declined",
+      "preposition": "na",
+      "movement": "lying",
+      "spatialRelation": "on_top",
+      "furniture": "umyvadlo",
+      "furnitureState": "not-applicable",
+      "question": "Pes leží na umyvadle?",
+      "positionDescription": "na objektu",
+      "isValid": false,
+      "trajectoryType": null,
+      "points": null
+    },
+    "na|lying|on_top|vana|not-applicable": {
+      "status": "approved",
+      "preposition": "na",
+      "movement": "lying",
+      "spatialRelation": "on_top",
+      "furniture": "vana",
+      "furnitureState": "not-applicable",
+      "question": "Pes leží na vaně?",
+      "positionDescription": "na objektu",
+      "isValid": true,
+      "trajectoryType": "straight",
+      "points": {
+        "start": {
+          "x": 150,
+          "y": 235
+        },
+        "arc": {
+          "x": 300,
+          "y": 75
+        },
+        "target": {
+          "x": 362,
+          "y": 203
+        }
+      }
+    },
+    "na|lying|on_top|sprcha|not-applicable": {
+      "status": "declined",
+      "preposition": "na",
+      "movement": "lying",
+      "spatialRelation": "on_top",
+      "furniture": "sprcha",
+      "furnitureState": "not-applicable",
+      "question": "Pes leží na sprše?",
+      "positionDescription": "na objektu",
+      "isValid": false,
+      "trajectoryType": null,
+      "points": null
+    },
+    "na|lying|on_top|zachod|open": {
+      "status": "declined",
+      "preposition": "na",
+      "movement": "lying",
+      "spatialRelation": "on_top",
+      "furniture": "zachod",
+      "furnitureState": "open",
+      "question": "Pes leží na záchodě?",
+      "positionDescription": "na objektu",
+      "isValid": false,
+      "trajectoryType": null,
+      "points": null
+    },
+    "na|lying|on_top|zachod|closed": {
+      "status": "approved",
+      "preposition": "na",
+      "movement": "lying",
+      "spatialRelation": "on_top",
+      "furniture": "zachod",
+      "furnitureState": "closed",
+      "question": "Pes leží na záchodě?",
+      "positionDescription": "na objektu",
+      "isValid": true,
+      "trajectoryType": "straight",
+      "points": {
+        "start": {
+          "x": 150,
+          "y": 235
+        },
+        "arc": {
+          "x": 300,
+          "y": 75
+        },
+        "target": {
+          "x": 395,
+          "y": 171
+        }
+      }
+    },
+    "na|lying|on_top|lednicka|open": {
+      "status": "approved",
+      "preposition": "na",
+      "movement": "lying",
+      "spatialRelation": "on_top",
+      "furniture": "lednicka",
+      "furnitureState": "open",
+      "question": "Pes leží na ledničce?",
+      "positionDescription": "na objektu",
+      "isValid": true,
+      "trajectoryType": "straight",
+      "points": {
+        "start": {
+          "x": 150,
+          "y": 235
+        },
+        "arc": {
+          "x": 300,
+          "y": 75
+        },
+        "target": {
+          "x": 400,
+          "y": 94
+        }
+      }
+    },
+    "na|lying|on_top|lednicka|closed": {
+      "status": "approved",
+      "preposition": "na",
+      "movement": "lying",
+      "spatialRelation": "on_top",
+      "furniture": "lednicka",
+      "furnitureState": "closed",
+      "question": "Pes leží na ledničce?",
+      "positionDescription": "na objektu",
+      "isValid": true,
+      "trajectoryType": "straight",
+      "points": {
+        "start": {
+          "x": 150,
+          "y": 235
+        },
+        "arc": {
+          "x": 300,
+          "y": 75
+        },
+        "target": {
+          "x": 393,
+          "y": 94
+        }
+      }
+    },
+    "na|lying|on_top|trouba|open": {
+      "status": "approved",
+      "preposition": "na",
+      "movement": "lying",
+      "spatialRelation": "on_top",
+      "furniture": "trouba",
+      "furnitureState": "open",
+      "question": "Pes leží na troubě?",
+      "positionDescription": "na objektu",
+      "isValid": true,
+      "trajectoryType": "straight",
+      "points": {
+        "start": {
+          "x": 150,
+          "y": 235
+        },
+        "arc": {
+          "x": 300,
+          "y": 75
+        },
+        "target": {
+          "x": 401,
+          "y": 130
+        }
+      }
+    },
+    "na|lying|on_top|trouba|closed": {
+      "status": "approved",
+      "preposition": "na",
+      "movement": "lying",
+      "spatialRelation": "on_top",
+      "furniture": "trouba",
+      "furnitureState": "closed",
+      "question": "Pes leží na troubě?",
+      "positionDescription": "na objektu",
+      "isValid": true,
+      "trajectoryType": "straight",
+      "points": {
+        "start": {
+          "x": 150,
+          "y": 235
+        },
+        "arc": {
+          "x": 300,
+          "y": 75
+        },
+        "target": {
+          "x": 397,
+          "y": 130
+        }
+      }
+    },
+    "na|lying|on_top|mikrovlnka|open": {
+      "status": "approved",
+      "preposition": "na",
+      "movement": "lying",
+      "spatialRelation": "on_top",
+      "furniture": "mikrovlnka",
+      "furnitureState": "open",
+      "question": "Pes leží na mikrovlnce?",
+      "positionDescription": "na objektu",
+      "isValid": true,
+      "trajectoryType": "straight",
+      "points": {
+        "start": {
+          "x": 150,
+          "y": 235
+        },
+        "arc": {
+          "x": 300,
+          "y": 75
+        },
+        "target": {
+          "x": 397,
+          "y": 147
+        }
+      }
+    },
+    "na|lying|on_top|mikrovlnka|closed": {
+      "status": "approved",
+      "preposition": "na",
+      "movement": "lying",
+      "spatialRelation": "on_top",
+      "furniture": "mikrovlnka",
+      "furnitureState": "closed",
+      "question": "Pes leží na mikrovlnce?",
+      "positionDescription": "na objektu",
+      "isValid": true,
+      "trajectoryType": "straight",
+      "points": {
+        "start": {
+          "x": 150,
+          "y": 235
+        },
+        "arc": {
+          "x": 300,
+          "y": 75
+        },
+        "target": {
+          "x": 400,
+          "y": 145
+        }
+      }
+    },
+    "na|lying|on_top|pracka|open": {
+      "status": "approved",
+      "preposition": "na",
+      "movement": "lying",
+      "spatialRelation": "on_top",
+      "furniture": "pracka",
+      "furnitureState": "open",
+      "question": "Pes leží na pračce?",
+      "positionDescription": "na objektu",
+      "isValid": true,
+      "trajectoryType": "straight",
+      "points": {
+        "start": {
+          "x": 150,
+          "y": 235
+        },
+        "arc": {
+          "x": 300,
+          "y": 75
+        },
+        "target": {
+          "x": 392,
+          "y": 129
+        }
+      }
+    },
+    "na|lying|on_top|pracka|closed": {
+      "status": "approved",
+      "preposition": "na",
+      "movement": "lying",
+      "spatialRelation": "on_top",
+      "furniture": "pracka",
+      "furnitureState": "closed",
+      "question": "Pes leží na pračce?",
+      "positionDescription": "na objektu",
+      "isValid": true,
+      "trajectoryType": "straight",
+      "points": {
+        "start": {
+          "x": 150,
+          "y": 235
+        },
+        "arc": {
+          "x": 300,
+          "y": 75
+        },
+        "target": {
+          "x": 395,
+          "y": 127
+        }
+      }
+    },
+    "na|lying|on_top|televizor|not-applicable": {
+      "status": "approved",
+      "preposition": "na",
+      "movement": "lying",
+      "spatialRelation": "on_top",
+      "furniture": "televizor",
+      "furnitureState": "not-applicable",
+      "question": "Pes leží na televizoru?",
+      "positionDescription": "na objektu",
+      "isValid": true,
+      "trajectoryType": "straight",
+      "points": {
+        "start": {
+          "x": 150,
+          "y": 235
+        },
+        "arc": {
+          "x": 300,
+          "y": 75
+        },
+        "target": {
+          "x": 399,
+          "y": 136
+        }
+      }
+    },
+    "na|lying|on_top|pocitac|not-applicable": {
+      "status": "approved",
+      "preposition": "na",
+      "movement": "lying",
+      "spatialRelation": "on_top",
+      "furniture": "pocitac",
+      "furnitureState": "not-applicable",
+      "question": "Pes leží na počítači?",
+      "positionDescription": "na objektu",
+      "isValid": true,
+      "trajectoryType": "straight",
+      "points": {
+        "start": {
+          "x": 150,
+          "y": 235
+        },
+        "arc": {
+          "x": 300,
+          "y": 75
+        },
+        "target": {
+          "x": 402,
+          "y": 135
+        }
+      }
+    },
+    "na|lying|on_top|lampa|not-applicable": {
+      "status": "approved",
+      "preposition": "na",
+      "movement": "lying",
+      "spatialRelation": "on_top",
+      "furniture": "lampa",
+      "furnitureState": "not-applicable",
+      "question": "Pes leží na lampě?",
+      "positionDescription": "na objektu",
+      "isValid": true,
+      "trajectoryType": "straight",
+      "points": {
+        "start": {
+          "x": 150,
+          "y": 235
+        },
+        "arc": {
+          "x": 300,
+          "y": 75
+        },
+        "target": {
+          "x": 401,
+          "y": 166
+        }
+      }
+    },
+    "na|lying|on_top|krb|not-applicable": {
+      "status": "approved",
+      "preposition": "na",
+      "movement": "lying",
+      "spatialRelation": "on_top",
+      "furniture": "krb",
+      "furnitureState": "not-applicable",
+      "question": "Pes leží na krbu?",
+      "positionDescription": "na objektu",
+      "isValid": true,
+      "trajectoryType": "straight",
+      "points": {
+        "start": {
+          "x": 150,
+          "y": 235
+        },
+        "arc": {
+          "x": 300,
+          "y": 75
+        },
+        "target": {
+          "x": 399,
+          "y": 124
+        }
+      }
+    },
+    "v|sitting|in|stul|open": {
+      "status": "approved",
+      "preposition": "v",
+      "movement": "sitting",
+      "spatialRelation": "in",
+      "furniture": "stul",
+      "furnitureState": "open",
+      "question": "Pes sedí ve stole?",
+      "positionDescription": "uvnitř objektu",
+      "isValid": true,
+      "trajectoryType": "straight",
+      "points": {
+        "start": {
+          "x": 150,
+          "y": 235
+        },
+        "arc": {
+          "x": 300,
+          "y": 75
+        },
+        "target": {
+          "x": 400,
+          "y": 195
+        }
+      }
+    },
+    "v|sitting|in|skrin|open": {
+      "status": "approved",
+      "preposition": "v",
+      "movement": "sitting",
+      "spatialRelation": "in",
+      "furniture": "skrin",
+      "furnitureState": "open",
+      "question": "Pes sedí ve skříni?",
+      "positionDescription": "uvnitř objektu",
+      "isValid": true,
+      "trajectoryType": "straight",
+      "points": {
+        "start": {
+          "x": 150,
+          "y": 235
+        },
+        "arc": {
+          "x": 300,
+          "y": 75
+        },
+        "target": {
+          "x": 400,
+          "y": 195
+        }
+      }
+    },
+    "v|sitting|in|krabice|open": {
+      "status": "approved",
+      "preposition": "v",
+      "movement": "sitting",
+      "spatialRelation": "in",
+      "furniture": "krabice",
+      "furnitureState": "open",
+      "question": "Pes sedí v krabici?",
+      "positionDescription": "uvnitř objektu",
+      "isValid": true,
+      "trajectoryType": "straight",
+      "points": {
+        "start": {
+          "x": 150,
+          "y": 235
+        },
+        "arc": {
+          "x": 300,
+          "y": 75
+        },
+        "target": {
+          "x": 400,
+          "y": 195
+        }
+      }
+    },
+    "v|sitting|in|okno|open": {
+      "status": "approved",
+      "preposition": "v",
+      "movement": "sitting",
+      "spatialRelation": "in",
+      "furniture": "okno",
+      "furnitureState": "open",
+      "question": "Pes sedí v okně?",
+      "positionDescription": "uvnitř objektu",
+      "isValid": true,
+      "trajectoryType": "straight",
+      "points": {
+        "start": {
+          "x": 150,
+          "y": 235
+        },
+        "arc": {
+          "x": 300,
+          "y": 75
+        },
+        "target": {
+          "x": 400,
+          "y": 195
+        }
+      }
+    },
+    "v|sitting|in|dvere|open": {
+      "status": "approved",
+      "preposition": "v",
+      "movement": "sitting",
+      "spatialRelation": "in",
+      "furniture": "dvere",
+      "furnitureState": "open",
+      "question": "Pes sedí ve dveřích?",
+      "positionDescription": "uvnitř objektu",
+      "isValid": true,
+      "trajectoryType": "straight",
+      "points": {
+        "start": {
+          "x": 150,
+          "y": 235
+        },
+        "arc": {
+          "x": 300,
+          "y": 75
+        },
+        "target": {
+          "x": 400,
+          "y": 195
+        }
+      }
+    },
+    "v|sitting|in|kuchynska_linka|open": {
+      "status": "approved",
+      "preposition": "v",
+      "movement": "sitting",
+      "spatialRelation": "in",
+      "furniture": "kuchynska_linka",
+      "furnitureState": "open",
+      "question": "Pes sedí v kuchyňské lince?",
+      "positionDescription": "uvnitř objektu",
+      "isValid": true,
+      "trajectoryType": "straight",
+      "points": {
+        "start": {
+          "x": 150,
+          "y": 235
+        },
+        "arc": {
+          "x": 300,
+          "y": 75
+        },
+        "target": {
+          "x": 431,
+          "y": 195
+        }
+      }
+    },
+    "v|sitting|in|zachod|open": {
+      "status": "declined",
+      "preposition": "v",
+      "movement": "sitting",
+      "spatialRelation": "in",
+      "furniture": "zachod",
+      "furnitureState": "open",
+      "question": "Pes sedí v záchodě?",
+      "positionDescription": "uvnitř objektu",
+      "isValid": false,
+      "trajectoryType": null,
+      "points": null
+    },
+    "v|sitting|in|lednicka|open": {
+      "status": "approved",
+      "preposition": "v",
+      "movement": "sitting",
+      "spatialRelation": "in",
+      "furniture": "lednicka",
+      "furnitureState": "open",
+      "question": "Pes sedí v ledničce?",
+      "positionDescription": "uvnitř objektu",
+      "isValid": true,
+      "trajectoryType": "straight",
+      "points": {
+        "start": {
+          "x": 150,
+          "y": 235
+        },
+        "arc": {
+          "x": 300,
+          "y": 75
+        },
+        "target": {
+          "x": 401,
+          "y": 206
+        }
+      }
+    },
+    "v|sitting|in|trouba|open": {
+      "status": "approved",
+      "preposition": "v",
+      "movement": "sitting",
+      "spatialRelation": "in",
+      "furniture": "trouba",
+      "furnitureState": "open",
+      "question": "Pes sedí v troubě?",
+      "positionDescription": "uvnitř objektu",
+      "isValid": true,
+      "trajectoryType": "straight",
+      "points": {
+        "start": {
+          "x": 150,
+          "y": 235
+        },
+        "arc": {
+          "x": 300,
+          "y": 75
+        },
+        "target": {
+          "x": 400,
+          "y": 195
+        }
+      }
+    },
+    "v|sitting|in|mikrovlnka|open": {
+      "status": "approved",
+      "preposition": "v",
+      "movement": "sitting",
+      "spatialRelation": "in",
+      "furniture": "mikrovlnka",
+      "furnitureState": "open",
+      "question": "Pes sedí v mikrovlnce?",
+      "positionDescription": "uvnitř objektu",
+      "isValid": true,
+      "trajectoryType": "straight",
+      "points": {
+        "start": {
+          "x": 150,
+          "y": 235
+        },
+        "arc": {
+          "x": 300,
+          "y": 75
+        },
+        "target": {
+          "x": 400,
+          "y": 195
+        }
+      }
+    },
+    "v|sitting|in|pracka|open": {
+      "status": "approved",
+      "preposition": "v",
+      "movement": "sitting",
+      "spatialRelation": "in",
+      "furniture": "pracka",
+      "furnitureState": "open",
+      "question": "Pes sedí v pračce?",
+      "positionDescription": "uvnitř objektu",
+      "isValid": true,
+      "trajectoryType": "straight",
+      "points": {
+        "start": {
+          "x": 150,
+          "y": 235
+        },
+        "arc": {
+          "x": 300,
+          "y": 75
+        },
+        "target": {
+          "x": 400,
+          "y": 195
+        }
+      }
+    },
+    "v|standing|in|stul|open": {
+      "status": "approved",
+      "preposition": "v",
+      "movement": "standing",
+      "spatialRelation": "in",
+      "furniture": "stul",
+      "furnitureState": "open",
+      "question": "Pes stojí ve stole?",
+      "positionDescription": "uvnitř objektu",
+      "isValid": true,
+      "trajectoryType": "straight",
+      "points": {
+        "start": {
+          "x": 150,
+          "y": 235
+        },
+        "arc": {
+          "x": 300,
+          "y": 75
+        },
+        "target": {
+          "x": 400,
+          "y": 195
+        }
+      }
+    },
+    "v|standing|in|skrin|open": {
+      "status": "approved",
+      "preposition": "v",
+      "movement": "standing",
+      "spatialRelation": "in",
+      "furniture": "skrin",
+      "furnitureState": "open",
+      "question": "Pes stojí ve skříni?",
+      "positionDescription": "uvnitř objektu",
+      "isValid": true,
+      "trajectoryType": "straight",
+      "points": {
+        "start": {
+          "x": 150,
+          "y": 235
+        },
+        "arc": {
+          "x": 300,
+          "y": 75
+        },
+        "target": {
+          "x": 395,
+          "y": 201
+        }
+      }
+    },
+    "v|standing|in|krabice|open": {
+      "status": "approved",
+      "preposition": "v",
+      "movement": "standing",
+      "spatialRelation": "in",
+      "furniture": "krabice",
+      "furnitureState": "open",
+      "question": "Pes stojí v krabici?",
+      "positionDescription": "uvnitř objektu",
+      "isValid": true,
+      "trajectoryType": "straight",
+      "points": {
+        "start": {
+          "x": 150,
+          "y": 235
+        },
+        "arc": {
+          "x": 300,
+          "y": 75
+        },
+        "target": {
+          "x": 400,
+          "y": 195
+        }
+      }
+    },
+    "v|standing|in|okno|open": {
+      "status": "approved",
+      "preposition": "v",
+      "movement": "standing",
+      "spatialRelation": "in",
+      "furniture": "okno",
+      "furnitureState": "open",
+      "question": "Pes stojí v okně?",
+      "positionDescription": "uvnitř objektu",
+      "isValid": true,
+      "trajectoryType": "straight",
+      "points": {
+        "start": {
+          "x": 150,
+          "y": 235
+        },
+        "arc": {
+          "x": 300,
+          "y": 75
+        },
+        "target": {
+          "x": 407,
+          "y": 218
+        }
+      }
+    },
+    "v|standing|in|dvere|open": {
+      "status": "approved",
+      "preposition": "v",
+      "movement": "standing",
+      "spatialRelation": "in",
+      "furniture": "dvere",
+      "furnitureState": "open",
+      "question": "Pes stojí ve dveřích?",
+      "positionDescription": "uvnitř objektu",
+      "isValid": true,
+      "trajectoryType": "straight",
+      "points": {
+        "start": {
+          "x": 150,
+          "y": 235
+        },
+        "arc": {
+          "x": 300,
+          "y": 75
+        },
+        "target": {
+          "x": 391,
+          "y": 206
+        }
+      }
+    },
+    "v|standing|in|kuchynska_linka|open": {
+      "status": "approved",
+      "preposition": "v",
+      "movement": "standing",
+      "spatialRelation": "in",
+      "furniture": "kuchynska_linka",
+      "furnitureState": "open",
+      "question": "Pes stojí v kuchyňské lince?",
+      "positionDescription": "uvnitř objektu",
+      "isValid": true,
+      "trajectoryType": "straight",
+      "points": {
+        "start": {
+          "x": 150,
+          "y": 235
+        },
+        "arc": {
+          "x": 300,
+          "y": 75
+        },
+        "target": {
+          "x": 370,
+          "y": 202
+        }
+      }
+    },
+    "v|standing|in|zachod|open": {
+      "status": "declined",
+      "preposition": "v",
+      "movement": "standing",
+      "spatialRelation": "in",
+      "furniture": "zachod",
+      "furnitureState": "open",
+      "question": "Pes stojí v záchodě?",
+      "positionDescription": "uvnitř objektu",
+      "isValid": false,
+      "trajectoryType": null,
+      "points": null
+    },
+    "v|standing|in|lednicka|open": {
+      "status": "approved",
+      "preposition": "v",
+      "movement": "standing",
+      "spatialRelation": "in",
+      "furniture": "lednicka",
+      "furnitureState": "open",
+      "question": "Pes stojí v ledničce?",
+      "positionDescription": "uvnitř objektu",
+      "isValid": true,
+      "trajectoryType": "straight",
+      "points": {
+        "start": {
+          "x": 150,
+          "y": 235
+        },
+        "arc": {
+          "x": 300,
+          "y": 75
+        },
+        "target": {
+          "x": 395,
+          "y": 207
+        }
+      }
+    },
+    "v|standing|in|trouba|open": {
+      "status": "approved",
+      "preposition": "v",
+      "movement": "standing",
+      "spatialRelation": "in",
+      "furniture": "trouba",
+      "furnitureState": "open",
+      "question": "Pes stojí v troubě?",
+      "positionDescription": "uvnitř objektu",
+      "isValid": true,
+      "trajectoryType": "straight",
+      "points": {
+        "start": {
+          "x": 150,
+          "y": 235
+        },
+        "arc": {
+          "x": 300,
+          "y": 75
+        },
+        "target": {
+          "x": 400,
+          "y": 195
+        }
+      }
+    },
+    "v|standing|in|mikrovlnka|open": {
+      "status": "approved",
+      "preposition": "v",
+      "movement": "standing",
+      "spatialRelation": "in",
+      "furniture": "mikrovlnka",
+      "furnitureState": "open",
+      "question": "Pes stojí v mikrovlnce?",
+      "positionDescription": "uvnitř objektu",
+      "isValid": true,
+      "trajectoryType": "straight",
+      "points": {
+        "start": {
+          "x": 150,
+          "y": 235
+        },
+        "arc": {
+          "x": 300,
+          "y": 75
+        },
+        "target": {
+          "x": 400,
+          "y": 195
+        }
+      }
+    },
+    "v|standing|in|pracka|open": {
+      "status": "approved",
+      "preposition": "v",
+      "movement": "standing",
+      "spatialRelation": "in",
+      "furniture": "pracka",
+      "furnitureState": "open",
+      "question": "Pes stojí v pračce?",
+      "positionDescription": "uvnitř objektu",
+      "isValid": true,
+      "trajectoryType": "straight",
+      "points": {
+        "start": {
+          "x": 150,
+          "y": 235
+        },
+        "arc": {
+          "x": 300,
+          "y": 75
+        },
+        "target": {
+          "x": 400,
+          "y": 195
+        }
+      }
+    },
+    "v|running|in|stul|open": {
+      "status": "approved",
+      "preposition": "v",
+      "movement": "running",
+      "spatialRelation": "in",
+      "furniture": "stul",
+      "furnitureState": "open",
+      "question": "Pes běží ve stole?",
+      "positionDescription": "uvnitř objektu",
+      "isValid": true,
+      "trajectoryType": "straight",
+      "points": {
+        "start": {
+          "x": 392,
+          "y": 214
+        },
+        "arc": {
+          "x": 300,
+          "y": 75
+        },
+        "target": {
+          "x": 415,
+          "y": 215
+        }
+      }
+    },
+    "v|running|in|skrin|open": {
+      "status": "approved",
+      "preposition": "v",
+      "movement": "running",
+      "spatialRelation": "in",
+      "furniture": "skrin",
+      "furnitureState": "open",
+      "question": "Pes běží ve skříni?",
+      "positionDescription": "uvnitř objektu",
+      "isValid": true,
+      "trajectoryType": "straight",
+      "points": {
+        "start": {
+          "x": 371,
+          "y": 205
+        },
+        "arc": {
+          "x": 300,
+          "y": 75
+        },
+        "target": {
+          "x": 430,
+          "y": 210
+        }
+      }
+    },
+    "v|running|in|krabice|open": {
+      "status": "approved",
+      "preposition": "v",
+      "movement": "running",
+      "spatialRelation": "in",
+      "furniture": "krabice",
+      "furnitureState": "open",
+      "question": "Pes běží v krabici?",
+      "positionDescription": "uvnitř objektu",
+      "isValid": true,
+      "trajectoryType": "straight",
+      "points": {
+        "start": {
+          "x": 368,
+          "y": 202
+        },
+        "arc": {
+          "x": 300,
+          "y": 75
+        },
+        "target": {
+          "x": 426,
+          "y": 203
+        }
+      }
+    },
+    "v|running|in|okno|open": {
+      "status": "declined",
+      "preposition": "v",
+      "movement": "running",
+      "spatialRelation": "in",
+      "furniture": "okno",
+      "furnitureState": "open",
+      "question": "Pes běží v okně?",
+      "positionDescription": "uvnitř objektu",
+      "isValid": false,
+      "trajectoryType": null,
+      "points": null
+    },
+    "v|running|in|dvere|open": {
+      "status": "declined",
+      "preposition": "v",
+      "movement": "running",
+      "spatialRelation": "in",
+      "furniture": "dvere",
+      "furnitureState": "open",
+      "question": "Pes běží ve dveřích?",
+      "positionDescription": "uvnitř objektu",
+      "isValid": false,
+      "trajectoryType": null,
+      "points": null
+    },
+    "v|running|in|kuchynska_linka|open": {
+      "status": "approved",
+      "preposition": "v",
+      "movement": "running",
+      "spatialRelation": "in",
+      "furniture": "kuchynska_linka",
+      "furnitureState": "open",
+      "question": "Pes běží v kuchyňské lince?",
+      "positionDescription": "uvnitř objektu",
+      "isValid": true,
+      "trajectoryType": "straight",
+      "points": {
+        "start": {
+          "x": 360,
+          "y": 203
+        },
+        "arc": {
+          "x": 300,
+          "y": 75
+        },
+        "target": {
+          "x": 451,
+          "y": 206
+        }
+      }
+    },
+    "v|running|in|zachod|open": {
+      "status": "declined",
+      "preposition": "v",
+      "movement": "running",
+      "spatialRelation": "in",
+      "furniture": "zachod",
+      "furnitureState": "open",
+      "question": "Pes běží v záchodě?",
+      "positionDescription": "uvnitř objektu",
+      "isValid": false,
+      "trajectoryType": null,
+      "points": null
+    },
+    "v|running|in|lednicka|open": {
+      "status": "approved",
+      "preposition": "v",
+      "movement": "running",
+      "spatialRelation": "in",
+      "furniture": "lednicka",
+      "furnitureState": "open",
+      "question": "Pes běží v ledničce?",
+      "positionDescription": "uvnitř objektu",
+      "isValid": true,
+      "trajectoryType": "straight",
+      "points": {
+        "start": {
+          "x": 380,
+          "y": 218
+        },
+        "arc": {
+          "x": 300,
+          "y": 75
+        },
+        "target": {
+          "x": 427,
+          "y": 219
+        }
+      }
+    },
+    "v|running|in|trouba|open": {
+      "status": "approved",
+      "preposition": "v",
+      "movement": "running",
+      "spatialRelation": "in",
+      "furniture": "trouba",
+      "furnitureState": "open",
+      "question": "Pes běží v troubě?",
+      "positionDescription": "uvnitř objektu",
+      "isValid": true,
+      "trajectoryType": "straight",
+      "points": {
+        "start": {
+          "x": 375,
+          "y": 195
+        },
+        "arc": {
+          "x": 300,
+          "y": 75
+        },
+        "target": {
+          "x": 428,
+          "y": 202
+        }
+      }
+    },
+    "v|running|in|mikrovlnka|open": {
+      "status": "approved",
+      "preposition": "v",
+      "movement": "running",
+      "spatialRelation": "in",
+      "furniture": "mikrovlnka",
+      "furnitureState": "open",
+      "question": "Pes běží v mikrovlnce?",
+      "positionDescription": "uvnitř objektu",
+      "isValid": true,
+      "trajectoryType": "straight",
+      "points": {
+        "start": {
+          "x": 372,
+          "y": 199
+        },
+        "arc": {
+          "x": 300,
+          "y": 75
+        },
+        "target": {
+          "x": 412,
+          "y": 200
+        }
+      }
+    },
+    "v|running|in|pracka|open": {
+      "status": "approved",
+      "preposition": "v",
+      "movement": "running",
+      "spatialRelation": "in",
+      "furniture": "pracka",
+      "furnitureState": "open",
+      "question": "Pes běží v pračce?",
+      "positionDescription": "uvnitř objektu",
+      "isValid": true,
+      "trajectoryType": "straight",
+      "points": {
+        "start": {
+          "x": 391,
+          "y": 203
+        },
+        "arc": {
+          "x": 300,
+          "y": 75
+        },
+        "target": {
+          "x": 419,
+          "y": 203
+        }
+      }
+    },
+    "v|jumping|in|stul|open": {
+      "status": "approved",
+      "preposition": "v",
+      "movement": "jumping",
+      "spatialRelation": "in",
+      "furniture": "stul",
+      "furnitureState": "open",
+      "question": "Pes skáče ve stole?",
+      "positionDescription": "uvnitř objektu",
+      "isValid": true,
+      "trajectoryType": "arc",
+      "points": {
+        "start": {
+          "x": 382,
+          "y": 216
+        },
+        "arc": {
+          "x": 411,
+          "y": 171
+        },
+        "target": {
+          "x": 424,
+          "y": 218
+        }
+      }
+    },
+    "v|jumping|in|skrin|open": {
+      "status": "approved",
+      "preposition": "v",
+      "movement": "jumping",
+      "spatialRelation": "in",
+      "furniture": "skrin",
+      "furnitureState": "open",
+      "question": "Pes skáče ve skříni?",
+      "positionDescription": "uvnitř objektu",
+      "isValid": true,
+      "trajectoryType": "arc",
+      "points": {
+        "start": {
+          "x": 371,
+          "y": 228
+        },
+        "arc": {
+          "x": 402,
+          "y": 165
+        },
+        "target": {
+          "x": 436,
+          "y": 223
+        }
+      }
+    },
+    "v|jumping|in|krabice|open": {
+      "status": "approved",
+      "preposition": "v",
+      "movement": "jumping",
+      "spatialRelation": "in",
+      "furniture": "krabice",
+      "furnitureState": "open",
+      "question": "Pes skáče v krabici?",
+      "positionDescription": "uvnitř objektu",
+      "isValid": true,
+      "trajectoryType": "arc",
+      "points": {
+        "start": {
+          "x": 371,
+          "y": 212
+        },
+        "arc": {
+          "x": 401,
+          "y": 131
+        },
+        "target": {
+          "x": 434,
+          "y": 215
+        }
+      }
+    },
+    "v|jumping|in|okno|open": {
+      "status": "declined",
+      "preposition": "v",
+      "movement": "jumping",
+      "spatialRelation": "in",
+      "furniture": "okno",
+      "furnitureState": "open",
+      "question": "Pes skáče v okně?",
+      "positionDescription": "uvnitř objektu",
+      "isValid": false,
+      "trajectoryType": null,
+      "points": null
+    },
+    "v|jumping|in|dvere|open": {
+      "status": "declined",
+      "preposition": "v",
+      "movement": "jumping",
+      "spatialRelation": "in",
+      "furniture": "dvere",
+      "furnitureState": "open",
+      "question": "Pes skáče ve dveřích?",
+      "positionDescription": "uvnitř objektu",
+      "isValid": false,
+      "trajectoryType": null,
+      "points": null
+    },
+    "v|jumping|in|kuchynska_linka|open": {
+      "status": "approved",
+      "preposition": "v",
+      "movement": "jumping",
+      "spatialRelation": "in",
+      "furniture": "kuchynska_linka",
+      "furnitureState": "open",
+      "question": "Pes skáče v kuchyňské lince?",
+      "positionDescription": "uvnitř objektu",
+      "isValid": true,
+      "trajectoryType": "arc",
+      "points": {
+        "start": {
+          "x": 347,
+          "y": 222
+        },
+        "arc": {
+          "x": 407,
+          "y": 145
+        },
+        "target": {
+          "x": 453,
+          "y": 223
+        }
+      }
+    },
+    "v|jumping|in|zachod|open": {
+      "status": "declined",
+      "preposition": "v",
+      "movement": "jumping",
+      "spatialRelation": "in",
+      "furniture": "zachod",
+      "furnitureState": "open",
+      "question": "Pes skáče v záchodě?",
+      "positionDescription": "uvnitř objektu",
+      "isValid": false,
+      "trajectoryType": null,
+      "points": null
+    },
+    "v|jumping|in|lednicka|open": {
+      "status": "approved",
+      "preposition": "v",
+      "movement": "jumping",
+      "spatialRelation": "in",
+      "furniture": "lednicka",
+      "furnitureState": "open",
+      "question": "Pes skáče v ledničce?",
+      "positionDescription": "uvnitř objektu",
+      "isValid": true,
+      "trajectoryType": "arc",
+      "points": {
+        "start": {
+          "x": 376,
+          "y": 230
+        },
+        "arc": {
+          "x": 407,
+          "y": 156
+        },
+        "target": {
+          "x": 431,
+          "y": 229
+        }
+      }
+    },
+    "v|jumping|in|trouba|open": {
+      "status": "approved",
+      "preposition": "v",
+      "movement": "jumping",
+      "spatialRelation": "in",
+      "furniture": "trouba",
+      "furnitureState": "open",
+      "question": "Pes skáče v troubě?",
+      "positionDescription": "uvnitř objektu",
+      "isValid": true,
+      "trajectoryType": "arc",
+      "points": {
+        "start": {
+          "x": 370,
+          "y": 198
+        },
+        "arc": {
+          "x": 408,
+          "y": 147
+        },
+        "target": {
+          "x": 433,
+          "y": 205
+        }
+      }
+    },
+    "v|jumping|in|mikrovlnka|open": {
+      "status": "approved",
+      "preposition": "v",
+      "movement": "jumping",
+      "spatialRelation": "in",
+      "furniture": "mikrovlnka",
+      "furnitureState": "open",
+      "question": "Pes skáče v mikrovlnce?",
+      "positionDescription": "uvnitř objektu",
+      "isValid": true,
+      "trajectoryType": "arc",
+      "points": {
+        "start": {
+          "x": 375,
+          "y": 214
+        },
+        "arc": {
+          "x": 395,
+          "y": 174
+        },
+        "target": {
+          "x": 420,
+          "y": 209
+        }
+      }
+    },
+    "v|jumping|in|pracka|open": {
+      "status": "approved",
+      "preposition": "v",
+      "movement": "jumping",
+      "spatialRelation": "in",
+      "furniture": "pracka",
+      "furnitureState": "open",
+      "question": "Pes skáče v pračce?",
+      "positionDescription": "uvnitř objektu",
+      "isValid": true,
+      "trajectoryType": "arc",
+      "points": {
+        "start": {
+          "x": 383,
+          "y": 204
+        },
+        "arc": {
+          "x": 400,
+          "y": 154
+        },
+        "target": {
+          "x": 422,
+          "y": 207
+        }
+      }
+    },
+    "v|lying|in|stul|open": {
+      "status": "approved",
+      "preposition": "v",
+      "movement": "lying",
+      "spatialRelation": "in",
+      "furniture": "stul",
+      "furnitureState": "open",
+      "question": "Pes leží ve stole?",
+      "positionDescription": "uvnitř objektu",
+      "isValid": true,
+      "trajectoryType": "straight",
+      "points": {
+        "start": {
+          "x": 150,
+          "y": 235
+        },
+        "arc": {
+          "x": 300,
+          "y": 75
+        },
+        "target": {
+          "x": 400,
+          "y": 198
+        }
+      }
+    },
+    "v|lying|in|skrin|open": {
+      "status": "approved",
+      "preposition": "v",
+      "movement": "lying",
+      "spatialRelation": "in",
+      "furniture": "skrin",
+      "furnitureState": "open",
+      "question": "Pes leží ve skříni?",
+      "positionDescription": "uvnitř objektu",
+      "isValid": true,
+      "trajectoryType": "straight",
+      "points": {
+        "start": {
+          "x": 150,
+          "y": 235
+        },
+        "arc": {
+          "x": 300,
+          "y": 75
+        },
+        "target": {
+          "x": 398,
+          "y": 208
+        }
+      }
+    },
+    "v|lying|in|krabice|open": {
+      "status": "approved",
+      "preposition": "v",
+      "movement": "lying",
+      "spatialRelation": "in",
+      "furniture": "krabice",
+      "furnitureState": "open",
+      "question": "Pes leží v krabici?",
+      "positionDescription": "uvnitř objektu",
+      "isValid": true,
+      "trajectoryType": "straight",
+      "points": {
+        "start": {
+          "x": 150,
+          "y": 235
+        },
+        "arc": {
+          "x": 300,
+          "y": 75
+        },
+        "target": {
+          "x": 400,
+          "y": 195
+        }
+      }
+    },
+    "v|lying|in|okno|open": {
+      "status": "approved",
+      "preposition": "v",
+      "movement": "lying",
+      "spatialRelation": "in",
+      "furniture": "okno",
+      "furnitureState": "open",
+      "question": "Pes leží v okně?",
+      "positionDescription": "uvnitř objektu",
+      "isValid": true,
+      "trajectoryType": "straight",
+      "points": {
+        "start": {
+          "x": 150,
+          "y": 235
+        },
+        "arc": {
+          "x": 300,
+          "y": 75
+        },
+        "target": {
+          "x": 403,
+          "y": 228
+        }
+      }
+    },
+    "v|lying|in|dvere|open": {
+      "status": "approved",
+      "preposition": "v",
+      "movement": "lying",
+      "spatialRelation": "in",
+      "furniture": "dvere",
+      "furnitureState": "open",
+      "question": "Pes leží ve dveřích?",
+      "positionDescription": "uvnitř objektu",
+      "isValid": true,
+      "trajectoryType": "straight",
+      "points": {
+        "start": {
+          "x": 150,
+          "y": 235
+        },
+        "arc": {
+          "x": 300,
+          "y": 75
+        },
+        "target": {
+          "x": 397,
+          "y": 215
+        }
+      }
+    },
+    "v|lying|in|kuchynska_linka|open": {
+      "status": "approved",
+      "preposition": "v",
+      "movement": "lying",
+      "spatialRelation": "in",
+      "furniture": "kuchynska_linka",
+      "furnitureState": "open",
+      "question": "Pes leží v kuchyňské lince?",
+      "positionDescription": "uvnitř objektu",
+      "isValid": true,
+      "trajectoryType": "straight",
+      "points": {
+        "start": {
+          "x": 150,
+          "y": 235
+        },
+        "arc": {
+          "x": 300,
+          "y": 75
+        },
+        "target": {
+          "x": 371,
+          "y": 207
+        }
+      }
+    },
+    "v|lying|in|zachod|open": {
+      "status": "declined",
+      "preposition": "v",
+      "movement": "lying",
+      "spatialRelation": "in",
+      "furniture": "zachod",
+      "furnitureState": "open",
+      "question": "Pes leží v záchodě?",
+      "positionDescription": "uvnitř objektu",
+      "isValid": false,
+      "trajectoryType": null,
+      "points": null
+    },
+    "v|lying|in|lednicka|open": {
+      "status": "approved",
+      "preposition": "v",
+      "movement": "lying",
+      "spatialRelation": "in",
+      "furniture": "lednicka",
+      "furnitureState": "open",
+      "question": "Pes leží v ledničce?",
+      "positionDescription": "uvnitř objektu",
+      "isValid": true,
+      "trajectoryType": "straight",
+      "points": {
+        "start": {
+          "x": 150,
+          "y": 235
+        },
+        "arc": {
+          "x": 300,
+          "y": 75
+        },
+        "target": {
+          "x": 403,
+          "y": 212
+        }
+      }
+    },
+    "v|lying|in|trouba|open": {
+      "status": "approved",
+      "preposition": "v",
+      "movement": "lying",
+      "spatialRelation": "in",
+      "furniture": "trouba",
+      "furnitureState": "open",
+      "question": "Pes leží v troubě?",
+      "positionDescription": "uvnitř objektu",
+      "isValid": true,
+      "trajectoryType": "straight",
+      "points": {
+        "start": {
+          "x": 150,
+          "y": 235
+        },
+        "arc": {
+          "x": 300,
+          "y": 75
+        },
+        "target": {
+          "x": 400,
+          "y": 195
+        }
+      }
+    },
+    "v|lying|in|mikrovlnka|open": {
+      "status": "approved",
+      "preposition": "v",
+      "movement": "lying",
+      "spatialRelation": "in",
+      "furniture": "mikrovlnka",
+      "furnitureState": "open",
+      "question": "Pes leží v mikrovlnce?",
+      "positionDescription": "uvnitř objektu",
+      "isValid": true,
+      "trajectoryType": "straight",
+      "points": {
+        "start": {
+          "x": 150,
+          "y": 235
+        },
+        "arc": {
+          "x": 300,
+          "y": 75
+        },
+        "target": {
+          "x": 391,
+          "y": 195
+        }
+      }
+    },
+    "v|lying|in|pracka|open": {
+      "status": "approved",
+      "preposition": "v",
+      "movement": "lying",
+      "spatialRelation": "in",
+      "furniture": "pracka",
+      "furnitureState": "open",
+      "question": "Pes leží v pračce?",
+      "positionDescription": "uvnitř objektu",
+      "isValid": true,
+      "trajectoryType": "straight",
+      "points": {
+        "start": {
+          "x": 150,
+          "y": 235
+        },
+        "arc": {
+          "x": 300,
+          "y": 75
+        },
+        "target": {
+          "x": 400,
+          "y": 195
+        }
+      }
+    }
+  }
+}

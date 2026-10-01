@@ -1,0 +1,504 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+  <meta charset="UTF-8">
+  <title>Find the Animal - České Předložky</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    @media (max-width: 1023px) {
+      body {
+        height: auto;
+        min-height: 100svh;
+        overflow-y: auto;
+      }
+
+      #quizApp {
+        height: auto;
+        min-height: calc(100svh - 1rem);
+      }
+
+      #quizMain {
+        grid-template-rows: minmax(40svh, 1fr) auto;
+      }
+
+      #quizStage {
+        min-height: 40svh;
+      }
+    }
+  </style>
+</head>
+<body class="bg-slate-100 text-slate-800 h-screen overflow-hidden p-2 font-sans flex flex-col items-center">
+  <div id="quizApp" class="w-full max-w-7xl h-full min-h-0 flex flex-col gap-2">
+    <!-- Header -->
+    <header class="shrink-0 flex justify-between items-center bg-white px-4 py-2 rounded-xl shadow-sm border border-slate-200">
+      <div class="flex items-center gap-3">
+        <h1 class="text-lg font-black text-slate-900">Find the Animal</h1>
+        <p class="text-slate-500 text-xs">Procvičování českých předložek</p>
+      </div>
+      <div class="flex items-center gap-3">
+        <span id="sceneCategory" class="text-xs font-bold uppercase tracking-wider text-slate-400">Scéna 1</span>
+        <label class="flex items-center gap-1 text-xs font-bold text-slate-500">
+          Místnost
+          <select id="roomSelect" onchange="onRoomSelectChange()" class="max-w-40 bg-slate-100 border border-slate-200 rounded-lg px-2 py-1.5 text-xs text-slate-700"></select>
+        </label>
+        <span id="statusMessage" class="text-xs font-bold text-slate-400">Načítání datasetu...</span>
+        <span id="scoreBadge" class="text-sm font-extrabold bg-amber-100 text-amber-800 px-3 py-1.5 rounded-lg">Skóre: 0</span>
+      </div>
+    </header>
+
+    <main id="quizMain" class="flex-1 min-h-0 grid grid-cols-1 lg:grid-cols-[minmax(0,1.45fr)_minmax(320px,1fr)] gap-2">
+      <!-- Visual Scene Stage -->
+      <section id="quizStage" class="min-h-0 bg-white rounded-xl shadow-sm border border-slate-200 p-2 flex items-center justify-center">
+        <div class="w-full h-full min-h-0 bg-slate-900 rounded-lg overflow-hidden border border-slate-200 shadow-inner">
+          <svg id="quizSvg" class="w-full h-full" viewBox="0 0 800 450" role="img" aria-label="Scéna s nábytkem a zvířetem" preserveAspectRatio="xMidYMid meet">
+            <rect id="quizWall" width="800" height="320" fill="#f1f5f9"/>
+            <rect id="quizFloor" y="320" width="800" height="130" fill="#e2e8f0"/>
+            <g id="quizRoomDecoration"></g>
+            <g id="quizRoomFurniture"></g>
+            <g id="quizFurniture" transform="translate(400, 195)"></g>
+            <path id="quizPath" d="" stroke="#f59e0b" stroke-width="3" stroke-dasharray="6,6" fill="none"/>
+            <g id="quizAnimal" transform="translate(150, 235)"></g>
+          </svg>
+        </div>
+      </section>
+
+      <!-- Question & Options Box -->
+      <section class="min-h-0 bg-white p-4 rounded-xl shadow-sm border border-slate-200 flex flex-col justify-center gap-3">
+        <div class="text-center">
+          <p id="promptText" class="text-xl font-black text-slate-800">Načítání...</p>
+        </div>
+
+        <div id="optionsGrid" class="grid grid-cols-2 gap-2"></div>
+
+        <button id="nextBtn" onclick="nextQuestion()" class="w-full bg-indigo-600 hover:bg-indigo-500 text-white font-bold py-2.5 rounded-lg transition hidden">
+          Další Otázka &rarr;
+        </button>
+      </section>
+    </main>
+  </div>
+
+  <script src="./animal_graphics.js"></script>
+  <script>
+    let approvedRules = [];
+    let currentQuestionIndex = 0;
+    let score = 0;
+    let currentRule = null;
+    let currentAnimal = null;
+    let currentAccessory = null;
+    let currentAccessoryTarget = null;
+    let currentAccessoryPresent = false;
+    let currentQuestionKind = 'relation';
+    let currentRoom = null;
+    let selectedRoomKey = null;
+    let roomRules = [];
+    let targetFurniturePosition = { x: 400, y: 195 };
+    let animationFrameId = null;
+
+    async function loadDataset() {
+      try {
+        const response = await fetch('prepositions_data.json', { cache: 'no-store' });
+        if (!response.ok) throw new Error(`HTTP ${response.status}`);
+        const loadedDataset = await response.json();
+        if (!loadedDataset || typeof loadedDataset !== 'object' || Array.isArray(loadedDataset) ||
+            !loadedDataset.approvedRules || typeof loadedDataset.approvedRules !== 'object' ||
+            Array.isArray(loadedDataset.approvedRules)) {
+          throw new Error('JSON neobsahuje platný objekt approvedRules.');
+        }
+
+        approvedRules = Object.values(loadedDataset.approvedRules).filter(rule =>
+          rule && typeof rule === 'object' && rule.status === 'approved' && rule.isValid !== false &&
+          typeof rule.preposition === 'string' && typeof rule.movement === 'string' &&
+          typeof rule.furniture === 'string'
+        );
+        window.quizDataset = loadedDataset;
+        populateRoomSelector();
+        document.getElementById('statusMessage').textContent = `JSON načten · schválené kombinace: ${approvedRules.length}`;
+        if (approvedRules.length === 0) {
+          document.getElementById('promptText').textContent = "Zatím nejsou schválené žádné kombinace. Schvalte je v editoru a exportujte JSON.";
+          document.getElementById('optionsGrid').innerHTML = '';
+          return;
+        }
+        onRoomSelectChange();
+      } catch (err) {
+        document.getElementById('promptText').textContent = "Nepodařilo se načíst pravidla z JSON.";
+        document.getElementById('statusMessage').textContent = `Chyba datasetu: ${err.message}`;
+        document.getElementById('optionsGrid').innerHTML = '';
+        console.error('Failed to load prepositions_data.json for the quiz', err);
+      }
+    }
+
+    function nextQuestion() {
+      roomRules = getRulesForSelectedRoom();
+      if (roomRules.length === 0) {
+        showNoRoomRulesMessage();
+        return;
+      }
+      if (animationFrameId !== null) cancelAnimationFrame(animationFrameId);
+      animationFrameId = null;
+
+      document.getElementById('nextBtn').classList.add('hidden');
+      currentRule = randomItem(roomRules);
+      currentAnimal = randomItem(Object.keys(ANIMALS));
+      currentQuestionKind = Math.random() < 0.35 ? 'accessory' : 'relation';
+      currentAccessoryTarget = randomItem(['glasses', 'hat', 'backpack']);
+      currentAccessoryPresent = currentQuestionKind === 'accessory'
+        ? Math.random() < 0.5
+        : Math.random() < 0.5;
+      currentAccessory = currentAccessoryPresent ? currentAccessoryTarget : 'none';
+      currentRoom = getSelectedRoom();
+      currentQuestionIndex++;
+
+      document.getElementById('sceneCategory').textContent =
+        `Otázka #${currentQuestionIndex}`;
+      document.getElementById('promptText').textContent = getRuleQuestion(currentRule);
+
+      renderQuizStage();
+      buildOptions();
+    }
+
+    function getRuleQuestion(rule) {
+      const movements = window.quizDataset?.movementTypes || [];
+      const verb = movements.find(movement => movement.key === rule.movement)?.verb || rule.movement;
+      const animalName = ANIMALS[currentAnimal] || 'Pes';
+      const locationAnswer = getRuleAnswer(rule);
+      const accessoryPhrase = currentAccessoryPresent
+        ? getAccessoryPhrase(currentAccessoryTarget, true)
+        : getAccessoryPhrase(currentAccessoryTarget, false);
+      if (currentQuestionKind === 'accessory') {
+        return `${animalName} ___ ${verb} ${locationAnswer}?`;
+      }
+      return `${animalName} ${accessoryPhrase} ${verb} ___?`;
+    }
+
+    function getRuleAnswer(rule) {
+      const movements = window.quizDataset?.movementTypes || [];
+      const verb = movements.find(movement => movement.key === rule.movement)?.verb || rule.movement;
+      const savedQuestionPrefix = `Pes ${verb} `;
+      if (typeof rule.question === 'string' && rule.question.startsWith(savedQuestionPrefix) && rule.question.endsWith('?')) {
+        return rule.question.slice(savedQuestionPrefix.length, -1);
+      }
+
+      const forms = FURNITURE_FORMS[rule.furniture];
+      const preposition = rule.preposition.trim().toLocaleLowerCase('cs');
+      const isIn = ['v', 've'].includes(preposition);
+      const dynamic = movements.find(item => item.key === rule.movement)?.dynamic;
+      const caseKey = isIn ? 'locative' :
+        ['do', 'vedle', 'bez'].includes(preposition) ? 'genitive' :
+          ['nad', 'pod', 'před', 'za', 'mezi'].includes(preposition) && !dynamic ? 'instrumental' :
+            dynamic ? 'accusative' : 'locative';
+      const itemForm = forms?.[caseKey] || getFurnitureForm(rule.furniture, preposition, rule.movement);
+      const veTypes = ['stul', 'skrin', 'dvere', 'drez', 'vana', 'sprcha'];
+      const surfacePreposition = preposition === 'v' && veTypes.includes(rule.furniture) ? 've' : preposition;
+      return `${surfacePreposition} ${itemForm}`;
+    }
+
+    const ANIMALS = { pes: 'Pes', kocka: 'Kočka', spider: 'Pavouk', mys: 'Myš', ptak: 'Pták' };
+
+    function randomItem(items) {
+      return items[Math.floor(Math.random() * items.length)];
+    }
+
+    function getAccessoryPhrase(accessory, present) {
+      const phrases = {
+        glasses: { with: 's brýlemi', without: 'bez brýlí' },
+        hat: { with: 's kloboukem', without: 'bez klobouku' },
+        backpack: { with: 's batohem', without: 'bez batohu' }
+      };
+      return phrases[accessory]?.[present ? 'with' : 'without'] || 'bez doplňku';
+    }
+
+    const FURNITURE_FORMS = {
+      stul: { genitive: 'stolu', accusative: 'stůl', locative: 'stole', instrumental: 'stolem' },
+      zidle: { genitive: 'židle', accusative: 'židli', locative: 'židli', instrumental: 'židlí' },
+      kreslo: { genitive: 'křesla', accusative: 'křeslo', locative: 'křesle', instrumental: 'křeslem' },
+      gauc: { genitive: 'gauče', accusative: 'gauč', locative: 'gauči', instrumental: 'gaučem' },
+      postel: { genitive: 'postele', accusative: 'postel', locative: 'posteli', instrumental: 'postelí' },
+      skrin: { genitive: 'skříně', accusative: 'skříň', locative: 'skříni', instrumental: 'skříní' },
+      knihovna: { genitive: 'knihovny', accusative: 'knihovnu', locative: 'knihovně', instrumental: 'knihovnou' },
+      policka: { genitive: 'poličky', accusative: 'poličku', locative: 'poličce', instrumental: 'poličkou' },
+      krabice: { genitive: 'krabice', accusative: 'krabici', locative: 'krabici', instrumental: 'krabicí' },
+      okno: { genitive: 'okna', accusative: 'okno', locative: 'okně', instrumental: 'oknem' },
+      dvere: { genitive: 'dveří', accusative: 'dveře', locative: 'dveřích', instrumental: 'dveřmi' },
+      drez: { genitive: 'dřezu', accusative: 'dřez', locative: 'dřezu', instrumental: 'dřezem' },
+      vana: { genitive: 'vany', accusative: 'vanu', locative: 'vaně', instrumental: 'vanou' },
+      sprcha: { genitive: 'sprchy', accusative: 'sprchu', locative: 'sprše', instrumental: 'sprchou' },
+      kuchynska_linka: { genitive: 'kuchyňské linky', accusative: 'kuchyňskou linku', locative: 'kuchyňské lince', instrumental: 'kuchyňskou linkou' },
+      umyvadlo: { genitive: 'umyvadla', accusative: 'umyvadlo', locative: 'umyvadle', instrumental: 'umyvadlem' },
+      zachod: { genitive: 'záchodu', accusative: 'záchod', locative: 'záchodě', instrumental: 'záchodem' },
+      lednicka: { genitive: 'lednice', accusative: 'lednici', locative: 'lednici', instrumental: 'lednicí' },
+      sporak: { genitive: 'sporáku', accusative: 'sporák', locative: 'sporáku', instrumental: 'sporákem' },
+      trouba: { genitive: 'trouby', accusative: 'troubu', locative: 'troubě', instrumental: 'troubou' },
+      mikrovlnka: { genitive: 'mikrovlnky', accusative: 'mikrovlnku', locative: 'mikrovlnce', instrumental: 'mikrovlnkou' },
+      pracka: { genitive: 'pračky', accusative: 'pračku', locative: 'pračce', instrumental: 'pračkou' },
+      televizor: { genitive: 'televizoru', accusative: 'televizor', locative: 'televizoru', instrumental: 'televizorem' },
+      pocitac: { genitive: 'počítače', accusative: 'počítač', locative: 'počítači', instrumental: 'počítačem' },
+      lampa: { genitive: 'lampy', accusative: 'lampu', locative: 'lampě', instrumental: 'lampou' },
+      krb: { genitive: 'krbu', accusative: 'krb', locative: 'krbu', instrumental: 'krbem' }
+    };
+
+    function getFurnitureForm(type, preposition, movement) {
+      const forms = FURNITURE_FORMS[type];
+      if (!forms) {
+        const item = (window.quizDataset?.furnitureTypes || []).find(furniture => furniture.type === type);
+        return (item?.label || type).toLocaleLowerCase('cs');
+      }
+      const isIn = ['v', 've'].includes(preposition);
+      const dynamic = (window.quizDataset?.movementTypes || []).find(item => item.key === movement)?.dynamic;
+      const caseKey = isIn ? 'locative' :
+        ['do', 'vedle', 'bez'].includes(preposition) ? 'genitive' :
+          ['nad', 'pod', 'před', 'za', 'mezi'].includes(preposition) && !dynamic ? 'instrumental' :
+            dynamic ? 'accusative' : 'locative';
+      return forms[caseKey] || forms.locative;
+    }
+
+    function populateRoomSelector() {
+      const selector = document.getElementById('roomSelect');
+      const layouts = window.quizDataset?.roomLayouts || {};
+      const roomKeys = Object.keys(layouts);
+      selector.innerHTML = '';
+      roomKeys.forEach(key => {
+        const option = document.createElement('option');
+        option.value = key;
+        option.textContent = getRoomLabel(key);
+        selector.appendChild(option);
+      });
+      selectedRoomKey = roomKeys.find(key => Array.isArray(layouts[key]) && layouts[key].length > 0) || roomKeys[0] || null;
+      if (selectedRoomKey) selector.value = selectedRoomKey;
+    }
+
+    function getSelectedRoom() {
+      const items = window.quizDataset?.roomLayouts?.[selectedRoomKey];
+      if (!Array.isArray(items)) return null;
+      const rightEdge = Math.max(800, ...items.map(item => (Number(item.x) || 400) + 80));
+      const bottomEdge = Math.max(450, ...items.map(item => (Number(item.y) || 195) + 100));
+      return {
+        key: selectedRoomKey,
+        items,
+        coordinateScale: Math.min(1, 800 / rightEdge, 450 / bottomEdge)
+      };
+    }
+
+    function getRulesForSelectedRoom() {
+      const room = getSelectedRoom();
+      if (!room) return [];
+      return approvedRules.filter(rule => room.items.some(item => {
+        return item.type === rule.furniture && furnitureStateMatches(rule, item);
+      }));
+    }
+
+    function furnitureStateMatches(rule, item) {
+      if (!rule.furnitureState || ['both', 'not-applicable'].includes(rule.furnitureState)) return true;
+      if (rule.furnitureState === 'open') return item.state === 'open';
+      return item.state !== 'open';
+    }
+
+    function onRoomSelectChange() {
+      selectedRoomKey = document.getElementById('roomSelect').value || null;
+      roomRules = getRulesForSelectedRoom();
+      if (roomRules.length) {
+        nextQuestion();
+      } else {
+        currentRule = null;
+        currentRoom = getSelectedRoom();
+        showNoRoomRulesMessage();
+        renderQuizStage();
+      }
+    }
+
+    function showNoRoomRulesMessage() {
+      if (animationFrameId !== null) cancelAnimationFrame(animationFrameId);
+      animationFrameId = null;
+      const room = getSelectedRoom();
+      document.getElementById('sceneCategory').textContent = room ? getRoomLabel(room.key) : 'Místnost';
+      document.getElementById('statusMessage').textContent =
+        `Schválené kombinace: ${approvedRules.length} · V této místnosti: 0`;
+      document.getElementById('promptText').textContent = room
+        ? 'V této místnosti nejsou žádné objekty odpovídající schváleným kombinacím.'
+        : 'V JSON zatím nejsou definované žádné místnosti.';
+      document.getElementById('optionsGrid').innerHTML = '';
+      document.getElementById('nextBtn').classList.add('hidden');
+    }
+
+    function getRoomLabel(roomKey) {
+      return ({ obyvak: 'Obývací pokoj', loznice: 'Ložnice', kuchyn: 'Kuchyň', koupelna: 'Koupelna', zahrada: 'Zahrada' })[roomKey] || roomKey;
+    }
+
+    function renderRoomBackground(roomKey) {
+      const wallColors = { obyvak: '#f1f5f9', loznice: '#fef3c7', kuchyn: '#ccfbf1', koupelna: '#e0f2fe', zahrada: '#bae6fd' };
+      const floorColors = { obyvak: '#e2e8f0', loznice: '#d97706', kuchyn: '#5eead4', koupelna: '#7dd3fc', zahrada: '#86efac' };
+      document.getElementById('quizWall').setAttribute('fill', wallColors[roomKey] || wallColors.obyvak);
+      document.getElementById('quizFloor').setAttribute('fill', floorColors[roomKey] || floorColors.obyvak);
+      const decoration = {
+        obyvak: '<path d="M0,0 H800" stroke="#e2e8f0" stroke-width="12" stroke-dasharray="8,24"/><ellipse cx="400" cy="385" rx="220" ry="35" fill="#cbd5e1" opacity="0.5"/>',
+        loznice: '<path d="M0,318 H800" stroke="#b45309" stroke-width="4" opacity="0.35"/>',
+        kuchyn: '<path d="M0,0 H800 M0,45 H800 M0,90 H800 M0,135 H800 M0,180 H800 M0,225 H800 M0,270 H800 M0,315 H800" stroke="#99f6e4" stroke-width="1.5"/>',
+        koupelna: '<path d="M0,0 H800 M0,50 H800 M0,100 H800 M0,150 H800 M0,200 H800 M0,250 H800 M0,300 H800" stroke="#bae6fd" stroke-width="2"/>',
+        zahrada: '<path d="M0,270 H800" stroke="#fde047" stroke-width="6" stroke-dasharray="20,10"/>'
+      };
+      document.getElementById('quizRoomDecoration').innerHTML = decoration[roomKey] || decoration.obyvak;
+    }
+
+    function renderQuizStage() {
+      renderRoomBackground(currentRoom?.key);
+      const furnitureG = document.getElementById('quizFurniture');
+      const targetItem = currentRoom?.items.find(item =>
+        item.type === currentRule?.furniture && furnitureStateMatches(currentRule, item)
+      );
+      const coordinateScale = currentRoom?.coordinateScale || 1;
+      targetFurniturePosition = targetItem
+        ? {
+            x: (targetItem.x ?? 400) * coordinateScale,
+            y: (targetItem.y ?? 195) * coordinateScale,
+            scale: (targetItem.scale || 1) * coordinateScale
+          }
+        : { x: 400, y: 195, scale: 1 };
+      furnitureG.setAttribute('transform', `translate(${targetFurniturePosition.x}, ${targetFurniturePosition.y}) scale(${targetFurniturePosition.scale})`);
+      furnitureG.innerHTML = '';
+      const roomFurnitureG = document.getElementById('quizRoomFurniture');
+      roomFurnitureG.innerHTML = currentRoom
+        ? currentRoom.items.map(item => `
+          <g transform="translate(${(Number(item.x) || 400) * coordinateScale}, ${(Number(item.y) || 195) * coordinateScale}) scale(${(Number(item.scale) || 1) * coordinateScale})">
+            ${getFurnitureSvg(item.type, item.state === 'open')}
+          </g>`).join('')
+        : '';
+      if (!currentRule) {
+        document.getElementById('quizAnimal').innerHTML = '';
+        document.getElementById('quizPath').setAttribute('d', '');
+        return;
+      }
+      const animalG = document.getElementById('quizAnimal');
+      animalG.innerHTML = getAnimalSvg(currentAnimal, currentRule.movement, currentAccessory);
+      const pathElem = document.getElementById('quizPath');
+      const movement = (window.quizDataset?.movementTypes || []).find(item => item.key === currentRule.movement);
+      const points = getAdjustedPoints(currentRule.points);
+      pathElem.setAttribute('d', '');
+      if (movement?.dynamic && points?.start && points?.target) {
+        const trajectoryType = currentRule.trajectoryType || 'straight';
+        const arc = points.arc || {
+          x: (points.start.x + points.target.x) / 2,
+          y: Math.min(points.start.y, points.target.y) - 80
+        };
+        if (trajectoryType === 'arc') {
+          pathElem.setAttribute('d', `M ${points.start.x} ${points.start.y} Q ${arc.x} ${arc.y} ${points.target.x} ${points.target.y}`);
+        } else if (trajectoryType === 'circle') {
+          pathElem.setAttribute('d', `M ${points.target.x} ${points.target.y - 80} A 80 80 0 1 1 ${points.target.x} ${points.target.y + 80} A 80 80 0 1 1 ${points.target.x} ${points.target.y - 80}`);
+        } else {
+          pathElem.setAttribute('d', `M ${points.start.x} ${points.start.y} L ${points.target.x} ${points.target.y}`);
+        }
+        animateAnimal(animalG, currentRule);
+      } else {
+        animalG.setAttribute('transform', `translate(${points?.target?.x ?? 400}, ${points?.target?.y ?? 195})`);
+      }
+    }
+
+    function getAdjustedPoints(points) {
+      if (!points) return null;
+      const scale = currentRoom?.coordinateScale || 1;
+      const dx = targetFurniturePosition.x - 400 * scale;
+      const dy = targetFurniturePosition.y - 195 * scale;
+      const shift = point => point ? { x: point.x * scale + dx, y: point.y * scale + dy } : point;
+      return { start: shift(points.start), arc: shift(points.arc), target: shift(points.target) };
+    }
+
+    function animateAnimal(animal, rule) {
+      const points = getAdjustedPoints(rule.points);
+      const trajectoryType = rule.trajectoryType || 'straight';
+      let startTime = null;
+      function step(timestamp) {
+        if (startTime === null) startTime = timestamp;
+        const progress = Math.min((timestamp - startTime) / 1200, 1);
+        let x, y;
+        if (trajectoryType === 'arc') {
+          const control = points.arc || { x: (points.start.x + points.target.x) / 2, y: Math.min(points.start.y, points.target.y) - 80 };
+          x = (1-progress) ** 2 * points.start.x + 2 * (1-progress) * progress * control.x + progress ** 2 * points.target.x;
+          y = (1-progress) ** 2 * points.start.y + 2 * (1-progress) * progress * control.y + progress ** 2 * points.target.y;
+        } else if (trajectoryType === 'circle') {
+          const angle = progress * Math.PI * 2;
+          x = points.target.x + Math.cos(angle) * 80;
+          y = points.target.y + Math.sin(angle) * 80;
+        } else {
+          x = points.start.x + progress * (points.target.x - points.start.x);
+          y = points.start.y + progress * (points.target.y - points.start.y);
+        }
+        animal.setAttribute('transform', `translate(${x}, ${y})`);
+        if (progress < 1) animationFrameId = requestAnimationFrame(step);
+        else animationFrameId = null;
+      }
+      animationFrameId = requestAnimationFrame(step);
+    }
+
+    function getAnimalSvg(animal, movement, accessory) {
+      const offsets = window.quizDataset?.accessoryOffsets?.[animal]?.[movement]?.[accessory];
+      const fallbackOffset = accessory === 'hat' ? { x: 12, y: -22 } : accessory === 'backpack' ? { x: -10, y: -2 } : { x: 12, y: -12 };
+      const offset = accessory === 'none' ? { x: 0, y: 0 } : offsets || fallbackOffset;
+      return window.renderAnimalSvgGraphics(animal, movement, accessory, offset);
+    }
+    function getFurnitureSvg(type, isOpen) {
+      const state = isOpen ? 'open' : 'closed';
+      return `<g>${window.renderFurnitureSvgGraphics(type, state)}</g>`;
+    }
+
+    function buildOptions() {
+      const grid = document.getElementById('optionsGrid');
+      grid.innerHTML = "";
+      const correctAnswer = currentQuestionKind === 'accessory'
+        ? getAccessoryPhrase(currentAccessoryTarget, currentAccessoryPresent)
+        : getRuleAnswer(currentRule);
+      const distractors = currentQuestionKind === 'accessory'
+        ? getAccessoryDistractors(currentAccessoryTarget, correctAnswer)
+        : [...new Set(roomRules.map(getRuleAnswer).filter(answer => answer !== correctAnswer))];
+      const choices = [correctAnswer, ...shuffle(distractors).slice(0, 3)];
+      shuffle(choices);
+
+      choices.forEach(opt => {
+        const btn = document.createElement('button');
+        btn.className = "p-4 bg-slate-50 hover:bg-slate-100 border-2 border-slate-200 rounded-xl font-bold text-slate-700 transition text-center";
+        btn.textContent = opt;
+        btn.onclick = () => checkAnswer(btn, opt, correctAnswer);
+        grid.appendChild(btn);
+      });
+    }
+
+    function getAccessoryDistractors(accessory, correctAnswer) {
+      const wrongForms = {
+        glasses: ['s brýlí', 'bez brýlemi', 's brýlema', 'bez brýle'],
+        hat: ['s klobouku', 'bez kloboukem', 's klobokem', 'bez klobokou'],
+        backpack: ['s batohu', 'bez batohem', 's batohe', 'bez batohe']
+      };
+      return [getAccessoryPhrase(accessory, !currentAccessoryPresent), ...(wrongForms[accessory] || [])]
+        .filter(answer => answer !== correctAnswer);
+    }
+
+    function shuffle(items) {
+      const shuffled = [...items];
+      for (let index = shuffled.length - 1; index > 0; index--) {
+        const swapIndex = Math.floor(Math.random() * (index + 1));
+        [shuffled[index], shuffled[swapIndex]] = [shuffled[swapIndex], shuffled[index]];
+      }
+      return shuffled;
+    }
+
+    function checkAnswer(btn, selected, correctAnswer) {
+      const allBtns = document.querySelectorAll('#optionsGrid button');
+      allBtns.forEach(b => b.disabled = true);
+
+      if (selected === correctAnswer) {
+        btn.classList.add('bg-emerald-100', 'border-emerald-500', 'text-emerald-800');
+        score += 10;
+        document.getElementById('scoreBadge').textContent = `Skóre: ${score}`;
+      } else {
+        btn.classList.add('bg-rose-100', 'border-rose-500', 'text-rose-800');
+        allBtns.forEach(b => {
+          if (b.textContent === correctAnswer) {
+            b.classList.add('bg-emerald-100', 'border-emerald-500', 'text-emerald-800');
+          }
+        });
+      }
+
+      document.getElementById('nextBtn').classList.remove('hidden');
+    }
+
+    window.onload = loadDataset;
+  </script>
+</body>
+</html>
