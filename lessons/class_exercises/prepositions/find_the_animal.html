@@ -441,7 +441,7 @@
     function buildOptions() {
       const grid = document.getElementById('optionsGrid');
       grid.innerHTML = "";
-      
+
       const correctAnswer = currentQuestionKind === 'accessory'
         ? getAccessoryPhrase(currentAccessoryTarget, currentAccessoryPresent)
         : getRuleAnswer(currentRule);
@@ -451,24 +451,16 @@
       if (currentQuestionKind === 'accessory') {
         distractors = getAccessoryDistractors(currentAccessoryTarget, correctAnswer);
       } else {
-        // 1. Gather potential answers from current room rules
         const roomAnswers = roomRules.map(getRuleAnswer);
-        
-        // 2. Fall back to all approved rules if room rules don't yield enough options
         const globalAnswers = approvedRules.map(getRuleAnswer);
-        
-        // Combine and deduplicate excluding the correct answer
         distractors = [...new Set([...roomAnswers, ...globalAnswers])].filter(answer => answer !== correctAnswer);
       }
 
-      // Shuffle distractors and take up to 3
+      // Shuffle distractors and pick 3
       const selectedDistractors = shuffle(distractors).slice(0, 3);
 
-      // Combine correct answer with chosen distractors
-      const choices = [correctAnswer, ...selectedDistractors];
-
-      // Shuffle all choices so the correct answer is in a random position (A, B, C, or D)
-      shuffle(choices);
+      // Reassign 'choices' with the returned shuffled array!
+      const choices = shuffle([correctAnswer, ...selectedDistractors]);
 
       choices.forEach(opt => {
         const btn = document.createElement('button');
