@@ -2,7 +2,7 @@
   "meta": {
     "title": "Czech Prepositions Studio Dataset",
     "schemaVersion": 4,
-    "generatedAt": "2026-10-01T22:57:59.901Z"
+    "generatedAt": "2026-10-04T12:13:14.342Z"
   },
   "roomLayouts": {
     "obyvak": [
@@ -6766,6 +6766,2372 @@
         "target": {
           "x": 400,
           "y": 195
+        }
+      }
+    },
+    "pod|sitting|below|stul|open": {
+      "status": "approved",
+      "preposition": "pod",
+      "movement": "sitting",
+      "spatialRelation": "below",
+      "furniture": "stul",
+      "furnitureState": "open",
+      "question": "Pes sedí pod stolem?",
+      "positionDescription": "pod objektem",
+      "isValid": true,
+      "trajectoryType": "straight",
+      "points": {
+        "start": {
+          "x": 150,
+          "y": 235
+        },
+        "arc": {
+          "x": 300,
+          "y": 75
+        },
+        "target": {
+          "x": 400,
+          "y": 265
+        }
+      }
+    },
+    "pod|sitting|below|skrin|open": {
+      "status": "approved",
+      "preposition": "pod",
+      "movement": "sitting",
+      "spatialRelation": "below",
+      "furniture": "skrin",
+      "furnitureState": "open",
+      "question": "Pes sedí pod skříní?",
+      "positionDescription": "pod objektem",
+      "isValid": true,
+      "trajectoryType": "straight",
+      "points": {
+        "start": {
+          "x": 150,
+          "y": 235
+        },
+        "arc": {
+          "x": 300,
+          "y": 75
+        },
+        "target": {
+          "x": 400,
+          "y": 265
+        }
+      }
+    },
+    "pod|sitting|below|krabice|open": {
+      "status": "approved",
+      "preposition": "pod",
+      "movement": "sitting",
+      "spatialRelation": "below",
+      "furniture": "krabice",
+      "furnitureState": "open",
+      "question": "Pes sedí pod krabicí?",
+      "positionDescription": "pod objektem",
+      "isValid": true,
+      "trajectoryType": "straight",
+      "points": {
+        "start": {
+          "x": 150,
+          "y": 235
+        },
+        "arc": {
+          "x": 300,
+          "y": 75
+        },
+        "target": {
+          "x": 400,
+          "y": 265
+        }
+      }
+    },
+    "pod|sitting|below|okno|open": {
+      "status": "approved",
+      "preposition": "pod",
+      "movement": "sitting",
+      "spatialRelation": "below",
+      "furniture": "okno",
+      "furnitureState": "open",
+      "question": "Pes sedí pod oknem?",
+      "positionDescription": "pod objektem",
+      "isValid": true,
+      "trajectoryType": "straight",
+      "points": {
+        "start": {
+          "x": 150,
+          "y": 235
+        },
+        "arc": {
+          "x": 300,
+          "y": 75
+        },
+        "target": {
+          "x": 400,
+          "y": 265
+        }
+      }
+    },
+    "pod|sitting|below|dvere|open": {
+      "status": "approved",
+      "preposition": "pod",
+      "movement": "sitting",
+      "spatialRelation": "below",
+      "furniture": "dvere",
+      "furnitureState": "open",
+      "question": "Pes sedí pod dveřmi?",
+      "positionDescription": "pod objektem",
+      "isValid": true,
+      "trajectoryType": "straight",
+      "points": {
+        "start": {
+          "x": 150,
+          "y": 235
+        },
+        "arc": {
+          "x": 300,
+          "y": 75
+        },
+        "target": {
+          "x": 400,
+          "y": 265
+        }
+      }
+    },
+    "pod|sitting|below|kuchynska_linka|open": {
+      "status": "approved",
+      "preposition": "pod",
+      "movement": "sitting",
+      "spatialRelation": "below",
+      "furniture": "kuchynska_linka",
+      "furnitureState": "open",
+      "question": "Pes sedí pod kuchyňskou linkou?",
+      "positionDescription": "pod objektem",
+      "isValid": true,
+      "trajectoryType": "straight",
+      "points": {
+        "start": {
+          "x": 150,
+          "y": 235
+        },
+        "arc": {
+          "x": 300,
+          "y": 75
+        },
+        "target": {
+          "x": 400,
+          "y": 265
+        }
+      }
+    },
+    "pod|sitting|below|zachod|open": {
+      "status": "approved",
+      "preposition": "pod",
+      "movement": "sitting",
+      "spatialRelation": "below",
+      "furniture": "zachod",
+      "furnitureState": "open",
+      "question": "Pes sedí pod záchodem?",
+      "positionDescription": "pod objektem",
+      "isValid": true,
+      "trajectoryType": "straight",
+      "points": {
+        "start": {
+          "x": 150,
+          "y": 235
+        },
+        "arc": {
+          "x": 300,
+          "y": 75
+        },
+        "target": {
+          "x": 400,
+          "y": 265
+        }
+      }
+    },
+    "pod|sitting|below|lednicka|open": {
+      "status": "approved",
+      "preposition": "pod",
+      "movement": "sitting",
+      "spatialRelation": "below",
+      "furniture": "lednicka",
+      "furnitureState": "open",
+      "question": "Pes sedí pod ledničkou?",
+      "positionDescription": "pod objektem",
+      "isValid": true,
+      "trajectoryType": "straight",
+      "points": {
+        "start": {
+          "x": 150,
+          "y": 235
+        },
+        "arc": {
+          "x": 300,
+          "y": 75
+        },
+        "target": {
+          "x": 400,
+          "y": 265
+        }
+      }
+    },
+    "pod|sitting|below|trouba|open": {
+      "status": "approved",
+      "preposition": "pod",
+      "movement": "sitting",
+      "spatialRelation": "below",
+      "furniture": "trouba",
+      "furnitureState": "open",
+      "question": "Pes sedí pod troubou?",
+      "positionDescription": "pod objektem",
+      "isValid": true,
+      "trajectoryType": "straight",
+      "points": {
+        "start": {
+          "x": 150,
+          "y": 235
+        },
+        "arc": {
+          "x": 300,
+          "y": 75
+        },
+        "target": {
+          "x": 400,
+          "y": 265
+        }
+      }
+    },
+    "pod|sitting|below|mikrovlnka|open": {
+      "status": "approved",
+      "preposition": "pod",
+      "movement": "sitting",
+      "spatialRelation": "below",
+      "furniture": "mikrovlnka",
+      "furnitureState": "open",
+      "question": "Pes sedí pod mikrovlnkou?",
+      "positionDescription": "pod objektem",
+      "isValid": true,
+      "trajectoryType": "straight",
+      "points": {
+        "start": {
+          "x": 150,
+          "y": 235
+        },
+        "arc": {
+          "x": 300,
+          "y": 75
+        },
+        "target": {
+          "x": 400,
+          "y": 265
+        }
+      }
+    },
+    "pod|sitting|below|pracka|open": {
+      "status": "approved",
+      "preposition": "pod",
+      "movement": "sitting",
+      "spatialRelation": "below",
+      "furniture": "pracka",
+      "furnitureState": "open",
+      "question": "Pes sedí pod pračkou?",
+      "positionDescription": "pod objektem",
+      "isValid": true,
+      "trajectoryType": "straight",
+      "points": {
+        "start": {
+          "x": 150,
+          "y": 235
+        },
+        "arc": {
+          "x": 300,
+          "y": 75
+        },
+        "target": {
+          "x": 400,
+          "y": 265
+        }
+      }
+    },
+    "pod|standing|below|stul|open": {
+      "status": "approved",
+      "preposition": "pod",
+      "movement": "standing",
+      "spatialRelation": "below",
+      "furniture": "stul",
+      "furnitureState": "open",
+      "question": "Pes stojí pod stolem?",
+      "positionDescription": "pod objektem",
+      "isValid": true,
+      "trajectoryType": "straight",
+      "points": {
+        "start": {
+          "x": 150,
+          "y": 235
+        },
+        "arc": {
+          "x": 300,
+          "y": 75
+        },
+        "target": {
+          "x": 400,
+          "y": 265
+        }
+      }
+    },
+    "pod|standing|below|skrin|open": {
+      "status": "approved",
+      "preposition": "pod",
+      "movement": "standing",
+      "spatialRelation": "below",
+      "furniture": "skrin",
+      "furnitureState": "open",
+      "question": "Pes stojí pod skříní?",
+      "positionDescription": "pod objektem",
+      "isValid": true,
+      "trajectoryType": "straight",
+      "points": {
+        "start": {
+          "x": 150,
+          "y": 235
+        },
+        "arc": {
+          "x": 300,
+          "y": 75
+        },
+        "target": {
+          "x": 400,
+          "y": 265
+        }
+      }
+    },
+    "pod|standing|below|krabice|open": {
+      "status": "approved",
+      "preposition": "pod",
+      "movement": "standing",
+      "spatialRelation": "below",
+      "furniture": "krabice",
+      "furnitureState": "open",
+      "question": "Pes stojí pod krabicí?",
+      "positionDescription": "pod objektem",
+      "isValid": true,
+      "trajectoryType": "straight",
+      "points": {
+        "start": {
+          "x": 150,
+          "y": 235
+        },
+        "arc": {
+          "x": 300,
+          "y": 75
+        },
+        "target": {
+          "x": 400,
+          "y": 265
+        }
+      }
+    },
+    "pod|standing|below|okno|open": {
+      "status": "approved",
+      "preposition": "pod",
+      "movement": "standing",
+      "spatialRelation": "below",
+      "furniture": "okno",
+      "furnitureState": "open",
+      "question": "Pes stojí pod oknem?",
+      "positionDescription": "pod objektem",
+      "isValid": true,
+      "trajectoryType": "straight",
+      "points": {
+        "start": {
+          "x": 150,
+          "y": 235
+        },
+        "arc": {
+          "x": 300,
+          "y": 75
+        },
+        "target": {
+          "x": 400,
+          "y": 265
+        }
+      }
+    },
+    "pod|standing|below|dvere|open": {
+      "status": "approved",
+      "preposition": "pod",
+      "movement": "standing",
+      "spatialRelation": "below",
+      "furniture": "dvere",
+      "furnitureState": "open",
+      "question": "Pes stojí pod dveřmi?",
+      "positionDescription": "pod objektem",
+      "isValid": true,
+      "trajectoryType": "straight",
+      "points": {
+        "start": {
+          "x": 150,
+          "y": 235
+        },
+        "arc": {
+          "x": 300,
+          "y": 75
+        },
+        "target": {
+          "x": 400,
+          "y": 265
+        }
+      }
+    },
+    "pod|standing|below|kuchynska_linka|open": {
+      "status": "approved",
+      "preposition": "pod",
+      "movement": "standing",
+      "spatialRelation": "below",
+      "furniture": "kuchynska_linka",
+      "furnitureState": "open",
+      "question": "Pes stojí pod kuchyňskou linkou?",
+      "positionDescription": "pod objektem",
+      "isValid": true,
+      "trajectoryType": "straight",
+      "points": {
+        "start": {
+          "x": 150,
+          "y": 235
+        },
+        "arc": {
+          "x": 300,
+          "y": 75
+        },
+        "target": {
+          "x": 400,
+          "y": 265
+        }
+      }
+    },
+    "pod|standing|below|zachod|open": {
+      "status": "approved",
+      "preposition": "pod",
+      "movement": "standing",
+      "spatialRelation": "below",
+      "furniture": "zachod",
+      "furnitureState": "open",
+      "question": "Pes stojí pod záchodem?",
+      "positionDescription": "pod objektem",
+      "isValid": true,
+      "trajectoryType": "straight",
+      "points": {
+        "start": {
+          "x": 150,
+          "y": 235
+        },
+        "arc": {
+          "x": 300,
+          "y": 75
+        },
+        "target": {
+          "x": 400,
+          "y": 265
+        }
+      }
+    },
+    "pod|standing|below|lednicka|open": {
+      "status": "approved",
+      "preposition": "pod",
+      "movement": "standing",
+      "spatialRelation": "below",
+      "furniture": "lednicka",
+      "furnitureState": "open",
+      "question": "Pes stojí pod ledničkou?",
+      "positionDescription": "pod objektem",
+      "isValid": true,
+      "trajectoryType": "straight",
+      "points": {
+        "start": {
+          "x": 150,
+          "y": 235
+        },
+        "arc": {
+          "x": 300,
+          "y": 75
+        },
+        "target": {
+          "x": 400,
+          "y": 265
+        }
+      }
+    },
+    "pod|standing|below|trouba|open": {
+      "status": "approved",
+      "preposition": "pod",
+      "movement": "standing",
+      "spatialRelation": "below",
+      "furniture": "trouba",
+      "furnitureState": "open",
+      "question": "Pes stojí pod troubou?",
+      "positionDescription": "pod objektem",
+      "isValid": true,
+      "trajectoryType": "straight",
+      "points": {
+        "start": {
+          "x": 150,
+          "y": 235
+        },
+        "arc": {
+          "x": 300,
+          "y": 75
+        },
+        "target": {
+          "x": 400,
+          "y": 265
+        }
+      }
+    },
+    "pod|standing|below|mikrovlnka|open": {
+      "status": "approved",
+      "preposition": "pod",
+      "movement": "standing",
+      "spatialRelation": "below",
+      "furniture": "mikrovlnka",
+      "furnitureState": "open",
+      "question": "Pes stojí pod mikrovlnkou?",
+      "positionDescription": "pod objektem",
+      "isValid": true,
+      "trajectoryType": "straight",
+      "points": {
+        "start": {
+          "x": 150,
+          "y": 235
+        },
+        "arc": {
+          "x": 300,
+          "y": 75
+        },
+        "target": {
+          "x": 400,
+          "y": 265
+        }
+      }
+    },
+    "pod|standing|below|pracka|open": {
+      "status": "approved",
+      "preposition": "pod",
+      "movement": "standing",
+      "spatialRelation": "below",
+      "furniture": "pracka",
+      "furnitureState": "open",
+      "question": "Pes stojí pod pračkou?",
+      "positionDescription": "pod objektem",
+      "isValid": true,
+      "trajectoryType": "straight",
+      "points": {
+        "start": {
+          "x": 150,
+          "y": 235
+        },
+        "arc": {
+          "x": 300,
+          "y": 75
+        },
+        "target": {
+          "x": 400,
+          "y": 265
+        }
+      }
+    },
+    "pod|running|below|stul|open": {
+      "status": "approved",
+      "preposition": "pod",
+      "movement": "running",
+      "spatialRelation": "below",
+      "furniture": "stul",
+      "furnitureState": "open",
+      "question": "Pes běží pod stůl?",
+      "positionDescription": "pod objektem",
+      "isValid": true,
+      "trajectoryType": "straight",
+      "points": {
+        "start": {
+          "x": 150,
+          "y": 235
+        },
+        "arc": {
+          "x": 300,
+          "y": 75
+        },
+        "target": {
+          "x": 400,
+          "y": 265
+        }
+      }
+    },
+    "pod|running|below|skrin|open": {
+      "status": "approved",
+      "preposition": "pod",
+      "movement": "running",
+      "spatialRelation": "below",
+      "furniture": "skrin",
+      "furnitureState": "open",
+      "question": "Pes běží pod skříň?",
+      "positionDescription": "pod objektem",
+      "isValid": true,
+      "trajectoryType": "straight",
+      "points": {
+        "start": {
+          "x": 150,
+          "y": 235
+        },
+        "arc": {
+          "x": 300,
+          "y": 75
+        },
+        "target": {
+          "x": 400,
+          "y": 265
+        }
+      }
+    },
+    "pod|running|below|krabice|open": {
+      "status": "approved",
+      "preposition": "pod",
+      "movement": "running",
+      "spatialRelation": "below",
+      "furniture": "krabice",
+      "furnitureState": "open",
+      "question": "Pes běží pod krabici?",
+      "positionDescription": "pod objektem",
+      "isValid": true,
+      "trajectoryType": "straight",
+      "points": {
+        "start": {
+          "x": 150,
+          "y": 235
+        },
+        "arc": {
+          "x": 300,
+          "y": 75
+        },
+        "target": {
+          "x": 400,
+          "y": 265
+        }
+      }
+    },
+    "pod|running|below|okno|open": {
+      "status": "approved",
+      "preposition": "pod",
+      "movement": "running",
+      "spatialRelation": "below",
+      "furniture": "okno",
+      "furnitureState": "open",
+      "question": "Pes běží pod okno?",
+      "positionDescription": "pod objektem",
+      "isValid": true,
+      "trajectoryType": "straight",
+      "points": {
+        "start": {
+          "x": 150,
+          "y": 235
+        },
+        "arc": {
+          "x": 300,
+          "y": 75
+        },
+        "target": {
+          "x": 398,
+          "y": 288
+        }
+      }
+    },
+    "pod|running|below|dvere|open": {
+      "status": "approved",
+      "preposition": "pod",
+      "movement": "running",
+      "spatialRelation": "below",
+      "furniture": "dvere",
+      "furnitureState": "open",
+      "question": "Pes běží pod dveře?",
+      "positionDescription": "pod objektem",
+      "isValid": true,
+      "trajectoryType": "straight",
+      "points": {
+        "start": {
+          "x": 150,
+          "y": 235
+        },
+        "arc": {
+          "x": 300,
+          "y": 75
+        },
+        "target": {
+          "x": 400,
+          "y": 265
+        }
+      }
+    },
+    "pod|running|below|kuchynska_linka|open": {
+      "status": "approved",
+      "preposition": "pod",
+      "movement": "running",
+      "spatialRelation": "below",
+      "furniture": "kuchynska_linka",
+      "furnitureState": "open",
+      "question": "Pes běží pod kuchyňskou linku?",
+      "positionDescription": "pod objektem",
+      "isValid": true,
+      "trajectoryType": "straight",
+      "points": {
+        "start": {
+          "x": 150,
+          "y": 235
+        },
+        "arc": {
+          "x": 300,
+          "y": 75
+        },
+        "target": {
+          "x": 400,
+          "y": 265
+        }
+      }
+    },
+    "pod|running|below|zachod|open": {
+      "status": "approved",
+      "preposition": "pod",
+      "movement": "running",
+      "spatialRelation": "below",
+      "furniture": "zachod",
+      "furnitureState": "open",
+      "question": "Pes běží pod záchod?",
+      "positionDescription": "pod objektem",
+      "isValid": true,
+      "trajectoryType": "straight",
+      "points": {
+        "start": {
+          "x": 150,
+          "y": 235
+        },
+        "arc": {
+          "x": 300,
+          "y": 75
+        },
+        "target": {
+          "x": 400,
+          "y": 265
+        }
+      }
+    },
+    "pod|running|below|lednicka|open": {
+      "status": "approved",
+      "preposition": "pod",
+      "movement": "running",
+      "spatialRelation": "below",
+      "furniture": "lednicka",
+      "furnitureState": "open",
+      "question": "Pes běží pod ledničku?",
+      "positionDescription": "pod objektem",
+      "isValid": true,
+      "trajectoryType": "straight",
+      "points": {
+        "start": {
+          "x": 150,
+          "y": 235
+        },
+        "arc": {
+          "x": 300,
+          "y": 75
+        },
+        "target": {
+          "x": 400,
+          "y": 265
+        }
+      }
+    },
+    "pod|running|below|trouba|open": {
+      "status": "approved",
+      "preposition": "pod",
+      "movement": "running",
+      "spatialRelation": "below",
+      "furniture": "trouba",
+      "furnitureState": "open",
+      "question": "Pes běží pod troubu?",
+      "positionDescription": "pod objektem",
+      "isValid": true,
+      "trajectoryType": "straight",
+      "points": {
+        "start": {
+          "x": 150,
+          "y": 235
+        },
+        "arc": {
+          "x": 300,
+          "y": 75
+        },
+        "target": {
+          "x": 400,
+          "y": 265
+        }
+      }
+    },
+    "pod|running|below|mikrovlnka|open": {
+      "status": "approved",
+      "preposition": "pod",
+      "movement": "running",
+      "spatialRelation": "below",
+      "furniture": "mikrovlnka",
+      "furnitureState": "open",
+      "question": "Pes běží pod mikrovlnku?",
+      "positionDescription": "pod objektem",
+      "isValid": true,
+      "trajectoryType": "straight",
+      "points": {
+        "start": {
+          "x": 150,
+          "y": 235
+        },
+        "arc": {
+          "x": 300,
+          "y": 75
+        },
+        "target": {
+          "x": 400,
+          "y": 265
+        }
+      }
+    },
+    "pod|running|below|pracka|open": {
+      "status": "approved",
+      "preposition": "pod",
+      "movement": "running",
+      "spatialRelation": "below",
+      "furniture": "pracka",
+      "furnitureState": "open",
+      "question": "Pes běží pod pračku?",
+      "positionDescription": "pod objektem",
+      "isValid": true,
+      "trajectoryType": "straight",
+      "points": {
+        "start": {
+          "x": 150,
+          "y": 235
+        },
+        "arc": {
+          "x": 300,
+          "y": 75
+        },
+        "target": {
+          "x": 400,
+          "y": 265
+        }
+      }
+    },
+    "pod|jumping|below|stul|open": {
+      "status": "approved",
+      "preposition": "pod",
+      "movement": "jumping",
+      "spatialRelation": "below",
+      "furniture": "stul",
+      "furnitureState": "open",
+      "question": "Pes skáče pod stůl?",
+      "positionDescription": "pod objektem",
+      "isValid": true,
+      "trajectoryType": "arc",
+      "points": {
+        "start": {
+          "x": 150,
+          "y": 235
+        },
+        "arc": {
+          "x": 300,
+          "y": 75
+        },
+        "target": {
+          "x": 400,
+          "y": 265
+        }
+      }
+    },
+    "pod|jumping|below|skrin|open": {
+      "status": "approved",
+      "preposition": "pod",
+      "movement": "jumping",
+      "spatialRelation": "below",
+      "furniture": "skrin",
+      "furnitureState": "open",
+      "question": "Pes skáče pod skříň?",
+      "positionDescription": "pod objektem",
+      "isValid": true,
+      "trajectoryType": "arc",
+      "points": {
+        "start": {
+          "x": 150,
+          "y": 235
+        },
+        "arc": {
+          "x": 300,
+          "y": 75
+        },
+        "target": {
+          "x": 400,
+          "y": 265
+        }
+      }
+    },
+    "pod|jumping|below|krabice|open": {
+      "status": "approved",
+      "preposition": "pod",
+      "movement": "jumping",
+      "spatialRelation": "below",
+      "furniture": "krabice",
+      "furnitureState": "open",
+      "question": "Pes skáče pod krabici?",
+      "positionDescription": "pod objektem",
+      "isValid": true,
+      "trajectoryType": "arc",
+      "points": {
+        "start": {
+          "x": 150,
+          "y": 235
+        },
+        "arc": {
+          "x": 300,
+          "y": 75
+        },
+        "target": {
+          "x": 400,
+          "y": 265
+        }
+      }
+    },
+    "pod|jumping|below|okno|open": {
+      "status": "approved",
+      "preposition": "pod",
+      "movement": "jumping",
+      "spatialRelation": "below",
+      "furniture": "okno",
+      "furnitureState": "open",
+      "question": "Pes skáče pod okno?",
+      "positionDescription": "pod objektem",
+      "isValid": true,
+      "trajectoryType": "arc",
+      "points": {
+        "start": {
+          "x": 150,
+          "y": 235
+        },
+        "arc": {
+          "x": 300,
+          "y": 75
+        },
+        "target": {
+          "x": 400,
+          "y": 265
+        }
+      }
+    },
+    "pod|jumping|below|dvere|open": {
+      "status": "approved",
+      "preposition": "pod",
+      "movement": "jumping",
+      "spatialRelation": "below",
+      "furniture": "dvere",
+      "furnitureState": "open",
+      "question": "Pes skáče pod dveře?",
+      "positionDescription": "pod objektem",
+      "isValid": true,
+      "trajectoryType": "arc",
+      "points": {
+        "start": {
+          "x": 150,
+          "y": 235
+        },
+        "arc": {
+          "x": 300,
+          "y": 75
+        },
+        "target": {
+          "x": 400,
+          "y": 265
+        }
+      }
+    },
+    "pod|jumping|below|kuchynska_linka|open": {
+      "status": "approved",
+      "preposition": "pod",
+      "movement": "jumping",
+      "spatialRelation": "below",
+      "furniture": "kuchynska_linka",
+      "furnitureState": "open",
+      "question": "Pes skáče pod kuchyňskou linku?",
+      "positionDescription": "pod objektem",
+      "isValid": true,
+      "trajectoryType": "arc",
+      "points": {
+        "start": {
+          "x": 150,
+          "y": 235
+        },
+        "arc": {
+          "x": 300,
+          "y": 75
+        },
+        "target": {
+          "x": 400,
+          "y": 265
+        }
+      }
+    },
+    "pod|jumping|below|zachod|open": {
+      "status": "approved",
+      "preposition": "pod",
+      "movement": "jumping",
+      "spatialRelation": "below",
+      "furniture": "zachod",
+      "furnitureState": "open",
+      "question": "Pes skáče pod záchod?",
+      "positionDescription": "pod objektem",
+      "isValid": true,
+      "trajectoryType": "arc",
+      "points": {
+        "start": {
+          "x": 150,
+          "y": 235
+        },
+        "arc": {
+          "x": 300,
+          "y": 75
+        },
+        "target": {
+          "x": 400,
+          "y": 265
+        }
+      }
+    },
+    "pod|jumping|below|lednicka|open": {
+      "status": "approved",
+      "preposition": "pod",
+      "movement": "jumping",
+      "spatialRelation": "below",
+      "furniture": "lednicka",
+      "furnitureState": "open",
+      "question": "Pes skáče pod ledničku?",
+      "positionDescription": "pod objektem",
+      "isValid": true,
+      "trajectoryType": "arc",
+      "points": {
+        "start": {
+          "x": 150,
+          "y": 235
+        },
+        "arc": {
+          "x": 300,
+          "y": 75
+        },
+        "target": {
+          "x": 400,
+          "y": 265
+        }
+      }
+    },
+    "pod|jumping|below|trouba|open": {
+      "status": "approved",
+      "preposition": "pod",
+      "movement": "jumping",
+      "spatialRelation": "below",
+      "furniture": "trouba",
+      "furnitureState": "open",
+      "question": "Pes skáče pod troubu?",
+      "positionDescription": "pod objektem",
+      "isValid": true,
+      "trajectoryType": "arc",
+      "points": {
+        "start": {
+          "x": 150,
+          "y": 235
+        },
+        "arc": {
+          "x": 300,
+          "y": 75
+        },
+        "target": {
+          "x": 400,
+          "y": 265
+        }
+      }
+    },
+    "pod|jumping|below|mikrovlnka|open": {
+      "status": "approved",
+      "preposition": "pod",
+      "movement": "jumping",
+      "spatialRelation": "below",
+      "furniture": "mikrovlnka",
+      "furnitureState": "open",
+      "question": "Pes skáče pod mikrovlnku?",
+      "positionDescription": "pod objektem",
+      "isValid": true,
+      "trajectoryType": "arc",
+      "points": {
+        "start": {
+          "x": 150,
+          "y": 235
+        },
+        "arc": {
+          "x": 300,
+          "y": 75
+        },
+        "target": {
+          "x": 400,
+          "y": 265
+        }
+      }
+    },
+    "pod|jumping|below|pracka|open": {
+      "status": "approved",
+      "preposition": "pod",
+      "movement": "jumping",
+      "spatialRelation": "below",
+      "furniture": "pracka",
+      "furnitureState": "open",
+      "question": "Pes skáče pod pračku?",
+      "positionDescription": "pod objektem",
+      "isValid": true,
+      "trajectoryType": "arc",
+      "points": {
+        "start": {
+          "x": 150,
+          "y": 235
+        },
+        "arc": {
+          "x": 300,
+          "y": 75
+        },
+        "target": {
+          "x": 400,
+          "y": 265
+        }
+      }
+    },
+    "pod|lying|below|stul|open": {
+      "status": "approved",
+      "preposition": "pod",
+      "movement": "lying",
+      "spatialRelation": "below",
+      "furniture": "stul",
+      "furnitureState": "open",
+      "question": "Pes leží pod stolem?",
+      "positionDescription": "pod objektem",
+      "isValid": true,
+      "trajectoryType": "straight",
+      "points": {
+        "start": {
+          "x": 150,
+          "y": 235
+        },
+        "arc": {
+          "x": 300,
+          "y": 75
+        },
+        "target": {
+          "x": 400,
+          "y": 265
+        }
+      }
+    },
+    "pod|lying|below|skrin|open": {
+      "status": "approved",
+      "preposition": "pod",
+      "movement": "lying",
+      "spatialRelation": "below",
+      "furniture": "skrin",
+      "furnitureState": "open",
+      "question": "Pes leží pod skříní?",
+      "positionDescription": "pod objektem",
+      "isValid": true,
+      "trajectoryType": "straight",
+      "points": {
+        "start": {
+          "x": 150,
+          "y": 235
+        },
+        "arc": {
+          "x": 300,
+          "y": 75
+        },
+        "target": {
+          "x": 400,
+          "y": 265
+        }
+      }
+    },
+    "pod|lying|below|krabice|open": {
+      "status": "approved",
+      "preposition": "pod",
+      "movement": "lying",
+      "spatialRelation": "below",
+      "furniture": "krabice",
+      "furnitureState": "open",
+      "question": "Pes leží pod krabicí?",
+      "positionDescription": "pod objektem",
+      "isValid": true,
+      "trajectoryType": "straight",
+      "points": {
+        "start": {
+          "x": 150,
+          "y": 235
+        },
+        "arc": {
+          "x": 300,
+          "y": 75
+        },
+        "target": {
+          "x": 400,
+          "y": 265
+        }
+      }
+    },
+    "pod|lying|below|okno|open": {
+      "status": "approved",
+      "preposition": "pod",
+      "movement": "lying",
+      "spatialRelation": "below",
+      "furniture": "okno",
+      "furnitureState": "open",
+      "question": "Pes leží pod oknem?",
+      "positionDescription": "pod objektem",
+      "isValid": true,
+      "trajectoryType": "straight",
+      "points": {
+        "start": {
+          "x": 150,
+          "y": 235
+        },
+        "arc": {
+          "x": 300,
+          "y": 75
+        },
+        "target": {
+          "x": 400,
+          "y": 265
+        }
+      }
+    },
+    "pod|lying|below|dvere|open": {
+      "status": "approved",
+      "preposition": "pod",
+      "movement": "lying",
+      "spatialRelation": "below",
+      "furniture": "dvere",
+      "furnitureState": "open",
+      "question": "Pes leží pod dveřmi?",
+      "positionDescription": "pod objektem",
+      "isValid": true,
+      "trajectoryType": "straight",
+      "points": {
+        "start": {
+          "x": 150,
+          "y": 235
+        },
+        "arc": {
+          "x": 300,
+          "y": 75
+        },
+        "target": {
+          "x": 400,
+          "y": 265
+        }
+      }
+    },
+    "pod|lying|below|kuchynska_linka|open": {
+      "status": "approved",
+      "preposition": "pod",
+      "movement": "lying",
+      "spatialRelation": "below",
+      "furniture": "kuchynska_linka",
+      "furnitureState": "open",
+      "question": "Pes leží pod kuchyňskou linkou?",
+      "positionDescription": "pod objektem",
+      "isValid": true,
+      "trajectoryType": "straight",
+      "points": {
+        "start": {
+          "x": 150,
+          "y": 235
+        },
+        "arc": {
+          "x": 300,
+          "y": 75
+        },
+        "target": {
+          "x": 400,
+          "y": 265
+        }
+      }
+    },
+    "pod|lying|below|zachod|open": {
+      "status": "approved",
+      "preposition": "pod",
+      "movement": "lying",
+      "spatialRelation": "below",
+      "furniture": "zachod",
+      "furnitureState": "open",
+      "question": "Pes leží pod záchodem?",
+      "positionDescription": "pod objektem",
+      "isValid": true,
+      "trajectoryType": "straight",
+      "points": {
+        "start": {
+          "x": 150,
+          "y": 235
+        },
+        "arc": {
+          "x": 300,
+          "y": 75
+        },
+        "target": {
+          "x": 400,
+          "y": 265
+        }
+      }
+    },
+    "pod|lying|below|lednicka|open": {
+      "status": "approved",
+      "preposition": "pod",
+      "movement": "lying",
+      "spatialRelation": "below",
+      "furniture": "lednicka",
+      "furnitureState": "open",
+      "question": "Pes leží pod ledničkou?",
+      "positionDescription": "pod objektem",
+      "isValid": true,
+      "trajectoryType": "straight",
+      "points": {
+        "start": {
+          "x": 150,
+          "y": 235
+        },
+        "arc": {
+          "x": 300,
+          "y": 75
+        },
+        "target": {
+          "x": 400,
+          "y": 265
+        }
+      }
+    },
+    "pod|lying|below|trouba|open": {
+      "status": "approved",
+      "preposition": "pod",
+      "movement": "lying",
+      "spatialRelation": "below",
+      "furniture": "trouba",
+      "furnitureState": "open",
+      "question": "Pes leží pod troubou?",
+      "positionDescription": "pod objektem",
+      "isValid": true,
+      "trajectoryType": "straight",
+      "points": {
+        "start": {
+          "x": 150,
+          "y": 235
+        },
+        "arc": {
+          "x": 300,
+          "y": 75
+        },
+        "target": {
+          "x": 400,
+          "y": 265
+        }
+      }
+    },
+    "pod|lying|below|mikrovlnka|open": {
+      "status": "approved",
+      "preposition": "pod",
+      "movement": "lying",
+      "spatialRelation": "below",
+      "furniture": "mikrovlnka",
+      "furnitureState": "open",
+      "question": "Pes leží pod mikrovlnkou?",
+      "positionDescription": "pod objektem",
+      "isValid": true,
+      "trajectoryType": "straight",
+      "points": {
+        "start": {
+          "x": 150,
+          "y": 235
+        },
+        "arc": {
+          "x": 300,
+          "y": 75
+        },
+        "target": {
+          "x": 400,
+          "y": 265
+        }
+      }
+    },
+    "pod|lying|below|pracka|open": {
+      "status": "approved",
+      "preposition": "pod",
+      "movement": "lying",
+      "spatialRelation": "below",
+      "furniture": "pracka",
+      "furnitureState": "open",
+      "question": "Pes leží pod pračkou?",
+      "positionDescription": "pod objektem",
+      "isValid": true,
+      "trajectoryType": "straight",
+      "points": {
+        "start": {
+          "x": 150,
+          "y": 235
+        },
+        "arc": {
+          "x": 300,
+          "y": 75
+        },
+        "target": {
+          "x": 400,
+          "y": 265
+        }
+      }
+    },
+    "nad|jumping|above|stul|open": {
+      "status": "approved",
+      "preposition": "nad",
+      "movement": "jumping",
+      "spatialRelation": "above",
+      "furniture": "stul",
+      "furnitureState": "open",
+      "question": "Pes skáče nad stůl?",
+      "positionDescription": "nad objektem",
+      "isValid": true,
+      "trajectoryType": "arc",
+      "points": {
+        "start": {
+          "x": 310,
+          "y": 253
+        },
+        "arc": {
+          "x": 318,
+          "y": 81
+        },
+        "target": {
+          "x": 321,
+          "y": 136
+        }
+      }
+    },
+    "nad|jumping|above|stul|closed": {
+      "status": "approved",
+      "preposition": "nad",
+      "movement": "jumping",
+      "spatialRelation": "above",
+      "furniture": "stul",
+      "furnitureState": "closed",
+      "question": "Pes skáče nad stůl?",
+      "positionDescription": "nad objektem",
+      "isValid": true,
+      "trajectoryType": "arc",
+      "points": {
+        "start": {
+          "x": 313,
+          "y": 241
+        },
+        "arc": {
+          "x": 327,
+          "y": 68
+        },
+        "target": {
+          "x": 326,
+          "y": 125
+        }
+      }
+    },
+    "nad|jumping|above|zidle|not-applicable": {
+      "status": "approved",
+      "preposition": "nad",
+      "movement": "jumping",
+      "spatialRelation": "above",
+      "furniture": "zidle",
+      "furnitureState": "not-applicable",
+      "question": "Pes skáče nad židli?",
+      "positionDescription": "nad objektem",
+      "isValid": true,
+      "trajectoryType": "arc",
+      "points": {
+        "start": {
+          "x": 334,
+          "y": 244
+        },
+        "arc": {
+          "x": 344,
+          "y": 79
+        },
+        "target": {
+          "x": 345,
+          "y": 107
+        }
+      }
+    },
+    "nad|jumping|above|kreslo|not-applicable": {
+      "status": "approved",
+      "preposition": "nad",
+      "movement": "jumping",
+      "spatialRelation": "above",
+      "furniture": "kreslo",
+      "furnitureState": "not-applicable",
+      "question": "Pes skáče nad křeslo?",
+      "positionDescription": "nad objektem",
+      "isValid": true,
+      "trajectoryType": "arc",
+      "points": {
+        "start": {
+          "x": 326,
+          "y": 216
+        },
+        "arc": {
+          "x": 323,
+          "y": 62
+        },
+        "target": {
+          "x": 321,
+          "y": 105
+        }
+      }
+    },
+    "nad|jumping|above|gauc|not-applicable": {
+      "status": "approved",
+      "preposition": "nad",
+      "movement": "jumping",
+      "spatialRelation": "above",
+      "furniture": "gauc",
+      "furnitureState": "not-applicable",
+      "question": "Pes skáče nad gauč?",
+      "positionDescription": "nad objektem",
+      "isValid": true,
+      "trajectoryType": "arc",
+      "points": {
+        "start": {
+          "x": 293,
+          "y": 227
+        },
+        "arc": {
+          "x": 300,
+          "y": 75
+        },
+        "target": {
+          "x": 302,
+          "y": 71
+        }
+      }
+    },
+    "nad|jumping|above|postel|not-applicable": {
+      "status": "approved",
+      "preposition": "nad",
+      "movement": "jumping",
+      "spatialRelation": "above",
+      "furniture": "postel",
+      "furnitureState": "not-applicable",
+      "question": "Pes skáče nad postel?",
+      "positionDescription": "nad objektem",
+      "isValid": true,
+      "trajectoryType": "arc",
+      "points": {
+        "start": {
+          "x": 313,
+          "y": 218
+        },
+        "arc": {
+          "x": 318,
+          "y": 89
+        },
+        "target": {
+          "x": 313,
+          "y": 105
+        }
+      }
+    },
+    "nad|jumping|above|skrin|open": {
+      "status": "approved",
+      "preposition": "nad",
+      "movement": "jumping",
+      "spatialRelation": "above",
+      "furniture": "skrin",
+      "furnitureState": "open",
+      "question": "Pes skáče nad skříň?",
+      "positionDescription": "nad objektem",
+      "isValid": true,
+      "trajectoryType": "arc",
+      "points": {
+        "start": {
+          "x": 298,
+          "y": 233
+        },
+        "arc": {
+          "x": 308,
+          "y": 39
+        },
+        "target": {
+          "x": 309,
+          "y": 39
+        }
+      }
+    },
+    "nad|jumping|above|okno|open": {
+      "status": "approved",
+      "preposition": "nad",
+      "movement": "jumping",
+      "spatialRelation": "above",
+      "furniture": "okno",
+      "furnitureState": "open",
+      "question": "Pes skáče nad okno?",
+      "positionDescription": "nad objektem",
+      "isValid": true,
+      "trajectoryType": "arc",
+      "points": {
+        "start": {
+          "x": 316,
+          "y": 252
+        },
+        "arc": {
+          "x": 311,
+          "y": 47
+        },
+        "target": {
+          "x": 310,
+          "y": 52
+        }
+      }
+    },
+    "nad|jumping|above|okno|closed": {
+      "status": "approved",
+      "preposition": "nad",
+      "movement": "jumping",
+      "spatialRelation": "above",
+      "furniture": "okno",
+      "furnitureState": "closed",
+      "question": "Pes skáče nad okno?",
+      "positionDescription": "nad objektem",
+      "isValid": true,
+      "trajectoryType": "arc",
+      "points": {
+        "start": {
+          "x": 300,
+          "y": 239
+        },
+        "arc": {
+          "x": 300,
+          "y": 52
+        },
+        "target": {
+          "x": 301,
+          "y": 53
+        }
+      }
+    },
+    "nad|jumping|above|skrin|closed": {
+      "status": "approved",
+      "preposition": "nad",
+      "movement": "jumping",
+      "spatialRelation": "above",
+      "furniture": "skrin",
+      "furnitureState": "closed",
+      "question": "Pes skáče nad skříň?",
+      "positionDescription": "nad objektem",
+      "isValid": true,
+      "trajectoryType": "arc",
+      "points": {
+        "start": {
+          "x": 310,
+          "y": 230
+        },
+        "arc": {
+          "x": 310,
+          "y": 36
+        },
+        "target": {
+          "x": 315,
+          "y": 33
+        }
+      }
+    },
+    "nad|jumping|above|knihovna|not-applicable": {
+      "status": "approved",
+      "preposition": "nad",
+      "movement": "jumping",
+      "spatialRelation": "above",
+      "furniture": "knihovna",
+      "furnitureState": "not-applicable",
+      "question": "Pes skáče nad knihovnu?",
+      "positionDescription": "nad objektem",
+      "isValid": true,
+      "trajectoryType": "arc",
+      "points": {
+        "start": {
+          "x": 317,
+          "y": 223
+        },
+        "arc": {
+          "x": 316,
+          "y": 31
+        },
+        "target": {
+          "x": 316,
+          "y": 33
+        }
+      }
+    },
+    "nad|jumping|above|policka|not-applicable": {
+      "status": "approved",
+      "preposition": "nad",
+      "movement": "jumping",
+      "spatialRelation": "above",
+      "furniture": "policka",
+      "furnitureState": "not-applicable",
+      "question": "Pes skáče nad poličku?",
+      "positionDescription": "nad objektem",
+      "isValid": true,
+      "trajectoryType": "arc",
+      "points": {
+        "start": {
+          "x": 302,
+          "y": 224
+        },
+        "arc": {
+          "x": 300,
+          "y": 75
+        },
+        "target": {
+          "x": 305,
+          "y": 71
+        }
+      }
+    },
+    "nad|jumping|above|krabice|open": {
+      "status": "approved",
+      "preposition": "nad",
+      "movement": "jumping",
+      "spatialRelation": "above",
+      "furniture": "krabice",
+      "furnitureState": "open",
+      "question": "Pes skáče nad krabici?",
+      "positionDescription": "nad objektem",
+      "isValid": true,
+      "trajectoryType": "arc",
+      "points": {
+        "start": {
+          "x": 311,
+          "y": 218
+        },
+        "arc": {
+          "x": 313,
+          "y": 52
+        },
+        "target": {
+          "x": 308,
+          "y": 58
+        }
+      }
+    },
+    "nad|jumping|above|krabice|closed": {
+      "status": "approved",
+      "preposition": "nad",
+      "movement": "jumping",
+      "spatialRelation": "above",
+      "furniture": "krabice",
+      "furnitureState": "closed",
+      "question": "Pes skáče nad krabici?",
+      "positionDescription": "nad objektem",
+      "isValid": true,
+      "trajectoryType": "arc",
+      "points": {
+        "start": {
+          "x": 300,
+          "y": 226
+        },
+        "arc": {
+          "x": 300,
+          "y": 75
+        },
+        "target": {
+          "x": 301,
+          "y": 70
+        }
+      }
+    },
+    "nad|jumping|above|dvere|open": {
+      "status": "approved",
+      "preposition": "nad",
+      "movement": "jumping",
+      "spatialRelation": "above",
+      "furniture": "dvere",
+      "furnitureState": "open",
+      "question": "Pes skáče nad dveře?",
+      "positionDescription": "nad objektem",
+      "isValid": true,
+      "trajectoryType": "arc",
+      "points": {
+        "start": {
+          "x": 292,
+          "y": 239
+        },
+        "arc": {
+          "x": 302,
+          "y": 35
+        },
+        "target": {
+          "x": 301,
+          "y": 36
+        }
+      }
+    },
+    "nad|jumping|above|dvere|closed": {
+      "status": "approved",
+      "preposition": "nad",
+      "movement": "jumping",
+      "spatialRelation": "above",
+      "furniture": "dvere",
+      "furnitureState": "closed",
+      "question": "Pes skáče nad dveře?",
+      "positionDescription": "nad objektem",
+      "isValid": true,
+      "trajectoryType": "arc",
+      "points": {
+        "start": {
+          "x": 303,
+          "y": 228
+        },
+        "arc": {
+          "x": 313,
+          "y": 36
+        },
+        "target": {
+          "x": 308,
+          "y": 41
+        }
+      }
+    },
+    "nad|jumping|above|kuchynska_linka|open": {
+      "status": "approved",
+      "preposition": "nad",
+      "movement": "jumping",
+      "spatialRelation": "above",
+      "furniture": "kuchynska_linka",
+      "furnitureState": "open",
+      "question": "Pes skáče nad kuchyňskou linku?",
+      "positionDescription": "nad objektem",
+      "isValid": true,
+      "trajectoryType": "arc",
+      "points": {
+        "start": {
+          "x": 294,
+          "y": 220
+        },
+        "arc": {
+          "x": 300,
+          "y": 75
+        },
+        "target": {
+          "x": 302,
+          "y": 73
+        }
+      }
+    },
+    "nad|jumping|above|kuchynska_linka|closed": {
+      "status": "approved",
+      "preposition": "nad",
+      "movement": "jumping",
+      "spatialRelation": "above",
+      "furniture": "kuchynska_linka",
+      "furnitureState": "closed",
+      "question": "Pes skáče nad kuchyňskou linku?",
+      "positionDescription": "nad objektem",
+      "isValid": true,
+      "trajectoryType": "arc",
+      "points": {
+        "start": {
+          "x": 307,
+          "y": 229
+        },
+        "arc": {
+          "x": 308,
+          "y": 53
+        },
+        "target": {
+          "x": 307,
+          "y": 53
+        }
+      }
+    },
+    "nad|jumping|above|drez|not-applicable": {
+      "status": "approved",
+      "preposition": "nad",
+      "movement": "jumping",
+      "spatialRelation": "above",
+      "furniture": "drez",
+      "furnitureState": "not-applicable",
+      "question": "Pes skáče nad dřez?",
+      "positionDescription": "nad objektem",
+      "isValid": true,
+      "trajectoryType": "arc",
+      "points": {
+        "start": {
+          "x": 300,
+          "y": 221
+        },
+        "arc": {
+          "x": 299,
+          "y": 49
+        },
+        "target": {
+          "x": 300,
+          "y": 47
+        }
+      }
+    },
+    "nad|jumping|above|umyvadlo|not-applicable": {
+      "status": "approved",
+      "preposition": "nad",
+      "movement": "jumping",
+      "spatialRelation": "above",
+      "furniture": "umyvadlo",
+      "furnitureState": "not-applicable",
+      "question": "Pes skáče nad umyvadlo?",
+      "positionDescription": "nad objektem",
+      "isValid": true,
+      "trajectoryType": "arc",
+      "points": {
+        "start": {
+          "x": 308,
+          "y": 216
+        },
+        "arc": {
+          "x": 310,
+          "y": 33
+        },
+        "target": {
+          "x": 308,
+          "y": 31
+        }
+      }
+    },
+    "nad|jumping|above|trouba|open": {
+      "status": "approved",
+      "preposition": "nad",
+      "movement": "jumping",
+      "spatialRelation": "above",
+      "furniture": "trouba",
+      "furnitureState": "open",
+      "question": "Pes skáče nad troubu?",
+      "positionDescription": "nad objektem",
+      "isValid": true,
+      "trajectoryType": "arc",
+      "points": {
+        "start": {
+          "x": 307,
+          "y": 228
+        },
+        "arc": {
+          "x": 306,
+          "y": 30
+        },
+        "target": {
+          "x": 305,
+          "y": 31
+        }
+      }
+    },
+    "nad|jumping|above|trouba|closed": {
+      "status": "approved",
+      "preposition": "nad",
+      "movement": "jumping",
+      "spatialRelation": "above",
+      "furniture": "trouba",
+      "furnitureState": "closed",
+      "question": "Pes skáče nad troubu?",
+      "positionDescription": "nad objektem",
+      "isValid": true,
+      "trajectoryType": "arc",
+      "points": {
+        "start": {
+          "x": 294,
+          "y": 237
+        },
+        "arc": {
+          "x": 300,
+          "y": 55
+        },
+        "target": {
+          "x": 300,
+          "y": 51
+        }
+      }
+    },
+    "nad|jumping|above|mikrovlnka|open": {
+      "status": "approved",
+      "preposition": "nad",
+      "movement": "jumping",
+      "spatialRelation": "above",
+      "furniture": "mikrovlnka",
+      "furnitureState": "open",
+      "question": "Pes skáče nad mikrovlnku?",
+      "positionDescription": "nad objektem",
+      "isValid": true,
+      "trajectoryType": "arc",
+      "points": {
+        "start": {
+          "x": 300,
+          "y": 217
+        },
+        "arc": {
+          "x": 300,
+          "y": 75
+        },
+        "target": {
+          "x": 300,
+          "y": 74
+        }
+      }
+    },
+    "nad|jumping|above|mikrovlnka|closed": {
+      "status": "approved",
+      "preposition": "nad",
+      "movement": "jumping",
+      "spatialRelation": "above",
+      "furniture": "mikrovlnka",
+      "furnitureState": "closed",
+      "question": "Pes skáče nad mikrovlnku?",
+      "positionDescription": "nad objektem",
+      "isValid": true,
+      "trajectoryType": "arc",
+      "points": {
+        "start": {
+          "x": 296,
+          "y": 214
+        },
+        "arc": {
+          "x": 300,
+          "y": 75
+        },
+        "target": {
+          "x": 302,
+          "y": 73
+        }
+      }
+    },
+    "nad|jumping|above|pracka|open": {
+      "status": "approved",
+      "preposition": "nad",
+      "movement": "jumping",
+      "spatialRelation": "above",
+      "furniture": "pracka",
+      "furnitureState": "open",
+      "question": "Pes skáče nad pračku?",
+      "positionDescription": "nad objektem",
+      "isValid": true,
+      "trajectoryType": "arc",
+      "points": {
+        "start": {
+          "x": 327,
+          "y": 231
+        },
+        "arc": {
+          "x": 326,
+          "y": 60
+        },
+        "target": {
+          "x": 331,
+          "y": 64
+        }
+      }
+    },
+    "nad|jumping|above|pracka|closed": {
+      "status": "approved",
+      "preposition": "nad",
+      "movement": "jumping",
+      "spatialRelation": "above",
+      "furniture": "pracka",
+      "furnitureState": "closed",
+      "question": "Pes skáče nad pračku?",
+      "positionDescription": "nad objektem",
+      "isValid": true,
+      "trajectoryType": "arc",
+      "points": {
+        "start": {
+          "x": 332,
+          "y": 233
+        },
+        "arc": {
+          "x": 341,
+          "y": 61
+        },
+        "target": {
+          "x": 341,
+          "y": 61
+        }
+      }
+    },
+    "nad|jumping|above|televizor|not-applicable": {
+      "status": "approved",
+      "preposition": "nad",
+      "movement": "jumping",
+      "spatialRelation": "above",
+      "furniture": "televizor",
+      "furnitureState": "not-applicable",
+      "question": "Pes skáče nad televizor?",
+      "positionDescription": "nad objektem",
+      "isValid": true,
+      "trajectoryType": "arc",
+      "points": {
+        "start": {
+          "x": 300,
+          "y": 219
+        },
+        "arc": {
+          "x": 300,
+          "y": 75
+        },
+        "target": {
+          "x": 303,
+          "y": 75
+        }
+      }
+    },
+    "nad|jumping|above|pocitac|not-applicable": {
+      "status": "approved",
+      "preposition": "nad",
+      "movement": "jumping",
+      "spatialRelation": "above",
+      "furniture": "pocitac",
+      "furnitureState": "not-applicable",
+      "question": "Pes skáče nad počítač?",
+      "positionDescription": "nad objektem",
+      "isValid": true,
+      "trajectoryType": "arc",
+      "points": {
+        "start": {
+          "x": 338,
+          "y": 211
+        },
+        "arc": {
+          "x": 342,
+          "y": 81
+        },
+        "target": {
+          "x": 343,
+          "y": 81
+        }
+      }
+    },
+    "nad|jumping|above|lampa|not-applicable": {
+      "status": "approved",
+      "preposition": "nad",
+      "movement": "jumping",
+      "spatialRelation": "above",
+      "furniture": "lampa",
+      "furnitureState": "not-applicable",
+      "question": "Pes skáče nad lampu?",
+      "positionDescription": "nad objektem",
+      "isValid": true,
+      "trajectoryType": "arc",
+      "points": {
+        "start": {
+          "x": 329,
+          "y": 246
+        },
+        "arc": {
+          "x": 353,
+          "y": 107
+        },
+        "target": {
+          "x": 350,
+          "y": 104
+        }
+      }
+    },
+    "nad|jumping|above|krb|not-applicable": {
+      "status": "approved",
+      "preposition": "nad",
+      "movement": "jumping",
+      "spatialRelation": "above",
+      "furniture": "krb",
+      "furnitureState": "not-applicable",
+      "question": "Pes skáče nad krb?",
+      "positionDescription": "nad objektem",
+      "isValid": true,
+      "trajectoryType": "arc",
+      "points": {
+        "start": {
+          "x": 318,
+          "y": 227
+        },
+        "arc": {
+          "x": 325,
+          "y": 75
+        },
+        "target": {
+          "x": 323,
+          "y": 74
+        }
+      }
+    },
+    "nad|jumping|above|vana|not-applicable": {
+      "status": "approved",
+      "preposition": "nad",
+      "movement": "jumping",
+      "spatialRelation": "above",
+      "furniture": "vana",
+      "furnitureState": "not-applicable",
+      "question": "Pes skáče nad vanu?",
+      "positionDescription": "nad objektem",
+      "isValid": true,
+      "trajectoryType": "arc",
+      "points": {
+        "start": {
+          "x": 287,
+          "y": 211
+        },
+        "arc": {
+          "x": 300,
+          "y": 75
+        },
+        "target": {
+          "x": 300,
+          "y": 73
+        }
+      }
+    },
+    "nad|jumping|above|sprcha|not-applicable": {
+      "status": "approved",
+      "preposition": "nad",
+      "movement": "jumping",
+      "spatialRelation": "above",
+      "furniture": "sprcha",
+      "furnitureState": "not-applicable",
+      "question": "Pes skáče nad sprchu?",
+      "positionDescription": "nad objektem",
+      "isValid": true,
+      "trajectoryType": "arc",
+      "points": {
+        "start": {
+          "x": 324,
+          "y": 225
+        },
+        "arc": {
+          "x": 343,
+          "y": 44
+        },
+        "target": {
+          "x": 340,
+          "y": 42
+        }
+      }
+    },
+    "nad|jumping|above|zachod|open": {
+      "status": "approved",
+      "preposition": "nad",
+      "movement": "jumping",
+      "spatialRelation": "above",
+      "furniture": "zachod",
+      "furnitureState": "open",
+      "question": "Pes skáče nad záchod?",
+      "positionDescription": "nad objektem",
+      "isValid": true,
+      "trajectoryType": "arc",
+      "points": {
+        "start": {
+          "x": 336,
+          "y": 236
+        },
+        "arc": {
+          "x": 339,
+          "y": 45
+        },
+        "target": {
+          "x": 340,
+          "y": 45
+        }
+      }
+    },
+    "nad|jumping|above|zachod|closed": {
+      "status": "approved",
+      "preposition": "nad",
+      "movement": "jumping",
+      "spatialRelation": "above",
+      "furniture": "zachod",
+      "furnitureState": "closed",
+      "question": "Pes skáče nad záchod?",
+      "positionDescription": "nad objektem",
+      "isValid": true,
+      "trajectoryType": "arc",
+      "points": {
+        "start": {
+          "x": 347,
+          "y": 235
+        },
+        "arc": {
+          "x": 367,
+          "y": 54
+        },
+        "target": {
+          "x": 365,
+          "y": 51
+        }
+      }
+    },
+    "nad|jumping|above|lednicka|open": {
+      "status": "approved",
+      "preposition": "nad",
+      "movement": "jumping",
+      "spatialRelation": "above",
+      "furniture": "lednicka",
+      "furnitureState": "open",
+      "question": "Pes skáče nad ledničku?",
+      "positionDescription": "nad objektem",
+      "isValid": true,
+      "trajectoryType": "arc",
+      "points": {
+        "start": {
+          "x": 310,
+          "y": 227
+        },
+        "arc": {
+          "x": 345,
+          "y": 34
+        },
+        "target": {
+          "x": 348,
+          "y": 33
+        }
+      }
+    },
+    "nad|jumping|above|lednicka|closed": {
+      "status": "approved",
+      "preposition": "nad",
+      "movement": "jumping",
+      "spatialRelation": "above",
+      "furniture": "lednicka",
+      "furnitureState": "closed",
+      "question": "Pes skáče nad ledničku?",
+      "positionDescription": "nad objektem",
+      "isValid": true,
+      "trajectoryType": "arc",
+      "points": {
+        "start": {
+          "x": 325,
+          "y": 242
+        },
+        "arc": {
+          "x": 344,
+          "y": 32
+        },
+        "target": {
+          "x": 343,
+          "y": 35
         }
       }
     }
