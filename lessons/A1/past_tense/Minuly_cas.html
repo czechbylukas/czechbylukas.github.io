@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="en" class="h-full">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Czech Past Tense Practice</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-slate-900 text-slate-100 h-full w-full flex items-center justify-center p-3 sm:p-6 overflow-hidden">
+
+    <!-- Fixed App Window Frame -->
+    <div class="w-full max-w-2xl h-[92vh] max-h-[700px] min-h-[580px] bg-slate-800 border border-slate-700 rounded-2xl p-4 sm:p-6 shadow-2xl flex flex-col justify-between overflow-hidden">
+        
+        <!-- TOP: Level Name Banner -->
+        <div class="flex items-center justify-between border-b border-slate-700/80 pb-3 h-10 shrink-0">
+            <span id="levelName" class="text-xs sm:text-sm font-bold tracking-wider text-amber-400 uppercase">
+                Level 1: Choice
+            </span>
+            <span class="text-xs text-slate-400 font-semibold">Minulý čas</span>
+        </div>
+
+        <!-- MIDDLE WORKSPACE -->
+        <div class="flex-1 my-3 flex flex-col justify-around gap-3 overflow-hidden">
+            
+            <!-- Picture & Subject Line -->
+            <div class="grid grid-cols-3 gap-3 items-center h-36 shrink-0">
+                <div class="col-span-1 bg-slate-900 border border-slate-700 rounded-xl overflow-hidden h-full flex items-center justify-center">
+                    <img id="verbImage" src="" alt="Verb Visual" class="w-full h-full object-cover">
+                </div>
+
+                <div class="col-span-2 bg-slate-900 border border-slate-700 rounded-xl p-3 h-full flex flex-col justify-center space-y-1">
+                    <div class="flex items-center space-x-2">
+                        <span id="genderBadge" class="border border-slate-700 text-lg px-2 py-0.5 rounded-lg font-bold">☯</span>
+                        <span id="subjectText" class="text-slate-300 font-semibold text-sm">Dítě (Ono)</span>
+                    </div>
+                    <div id="verbStemHint" class="text-amber-400 font-bold text-sm hidden"></div>
+                </div>
+            </div>
+
+            <!-- Sentence Display Card -->
+            <div class="bg-slate-900 border border-slate-700 rounded-xl p-4 min-h-[85px] flex items-center justify-center text-center shrink-0">
+                <div id="sentenceDisplay" class="text-lg sm:text-xl font-medium text-slate-100"></div>
+            </div>
+
+            <!-- Interactive Workspace Slot -->
+            <div id="inputWorkspace" class="min-h-[110px] flex items-center justify-center shrink-0"></div>
+
+        </div>
+
+        <!-- BOTTOM FOOTER SLOT -->
+        <div class="h-28 shrink-0 flex flex-col justify-end space-y-2 border-t border-slate-700/50 pt-2">
+            <div id="feedbackBox" class="min-h-[40px] py-1.5 rounded-xl border text-sm font-bold flex items-center justify-center px-4 transition-all opacity-0 invisible text-center"></div>
+
+            <button id="nextBtn" class="w-full h-10 bg-blue-600 hover:bg-blue-500 text-white font-bold rounded-xl transition invisible active:scale-[0.99]">
+                Další
+            </button>
+        </div>
+
+    </div>
+
+    <script src="combinations.js"></script>
+
+    <script>
+        let exerciseLevel = 1;
+        let exerciseStreak = 0;
+
+        let verbTier = 1;
+        let verbStreak = 0;
+
+        let firstPersonUnlocked = false;
+        let firstPersonStreak = 0;
+
+        let currentQuestion = null;
+
+        const levelName = document.getElementById('levelName');
+        const verbImage = document.getElementById('verbImage');
+        const genderBadge = document.getElementById('genderBadge');
+        const subjectText = document.getElementById('subjectText');
+        const verbStemHint = document.getElementById('verbStemHint');
+        const sentenceDisplay = document.getElementById('sentenceDisplay');
+        const inputWorkspace = document.getElementById('inputWorkspace');
+        const feedbackBox = document.getElementById('feedbackBox');
+        const nextBtn = document.getElementById('nextBtn');
+
+        const levelTitles = {
+            1: "Level 1: Choice",
+            2: "Level 2: Yes / No",
+            3: "Level 3: Fix Mistake",
+            4: "Level 4: Fill Gap"
+        };
+
+        window.addEventListener('load', function() {
+            if (window.generateCombinationQuestion) {
+                loadNextQuestion();
+            } else {
+                alert("Error: combinations.js file was not loaded!");
+            }
+        });
+
+        function loadNextQuestion() {
+            feedbackBox.className = "min-h-[40px] py-1.5 rounded-xl border text-sm font-bold flex items-center justify-center px-4 transition-all opacity-0 invisible text-center";
+            nextBtn.classList.add('invisible');
+
+            levelName.textContent = levelTitles[exerciseLevel];
+
+            const restrictToFirstPerson = !firstPersonUnlocked;
+            currentQuestion = window.generateCombinationQuestion(verbTier, restrictToFirstPerson);
+            
+            renderUI();
+        }
+
+        function renderUI() {
+            verbImage.src = currentQuestion.verbImage;
+            genderBadge.textContent = currentQuestion.subjectSymbol;
+            genderBadge.className = `border border-slate-700 text-lg px-2 py-0.5 rounded-lg font-bold ${currentQuestion.subjectColor}`;
+            subjectText.textContent = currentQuestion.subjectLabel;
+
+            if (exerciseLevel === 4) {
+                verbStemHint.textContent = `(doplňte sloveso: ${currentQuestion.firstTwoChars}...)`;
+                verbStemHint.classList.remove('hidden');
+            } else {
+                verbStemHint.classList.add('hidden');
+            }
+
+            inputWorkspace.innerHTML = '';
+            const template = currentQuestion.sentenceTemplate;
+
+            if (exerciseLevel === 1) {
+                sentenceDisplay.textContent = template.replace('[___]', '___');
+                
+                const grid = document.createElement('div');
+                grid.className = "grid grid-cols-2 gap-2.5 w-full";
+                
+                currentQuestion.options.forEach(opt => {
+                    const btn = document.createElement('button');
+                    btn.className = "bg-slate-900 hover:bg-blue-600/30 border-2 border-slate-700 hover:border-blue-500 font-bold py-2.5 px-3 rounded-xl text-base transition active:scale-95 text-slate-100";
+                    btn.textContent = opt || "—";
+                    btn.onclick = () => handleAnswer(opt === currentQuestion.correctPastForm);
+                    grid.appendChild(btn);
+                });
+                inputWorkspace.appendChild(grid);
+
+            } else if (exerciseLevel === 2) {
+                const isSentenceCorrect = Math.random() > 0.5;
+                const verbForm = isSentenceCorrect ? currentQuestion.correctPastForm : getDistractor(currentQuestion);
+                
+                sentenceDisplay.textContent = template.replace('[___]', verbForm);
+
+                const grid = document.createElement('div');
+                grid.className = "grid grid-cols-2 gap-3 w-full";
+
+                const yesBtn = document.createElement('button');
+                yesBtn.className = "bg-green-900/40 hover:bg-green-600 border-2 border-green-600 text-green-100 font-bold py-3 rounded-xl text-base transition active:scale-95";
+                yesBtn.textContent = "Správně";
+                // Student clicked "Správně" -> answer is correct if sentence was correct
+                yesBtn.onclick = () => handleAnswer(isSentenceCorrect);
+
+                const noBtn = document.createElement('button');
+                noBtn.className = "bg-red-900/40 hover:bg-red-600 border-2 border-red-600 text-red-100 font-bold py-3 rounded-xl text-base transition active:scale-95";
+                noBtn.textContent = "Špatně";
+                // Student clicked "Špatně" -> answer is correct if sentence was wrong
+                noBtn.onclick = () => handleAnswer(!isSentenceCorrect);
+
+                grid.appendChild(yesBtn);
+                grid.appendChild(noBtn);
+                inputWorkspace.appendChild(grid);
+
+            } else if (exerciseLevel === 3) {
+                const isAuxError = Math.random() > 0.5 && currentQuestion.auxiliary;
+                let brokenSentence = "";
+                let optionsToDisplay = [];
+
+                if (isAuxError) {
+                    // Chyba je v pomocném slovesu (např. "jsem" místo "jsme")
+                    brokenSentence = `${currentQuestion.timeMarker} ${currentQuestion.wrongAuxiliary} ${currentQuestion.reflexive || ''} ${currentQuestion.actualPastVerb} ${currentQuestion.targetItem}.`;
+                    
+                    // Nabídka tlačítek musí obsahovat pomocná slovesa (jsem, jsi, jsme, jste)
+                    optionsToDisplay = ["jsem", "jsi", "jsme", "jste"];
+                } else {
+                    // Chyba je v hlavním slovesu (např. "telefonovaly" místo "telefonovali")
+                    brokenSentence = template.replace('[___]', getDistractor(currentQuestion));
+                    
+                    // Nabídka tlačítek obsahuje tvary slovesa
+                    optionsToDisplay = currentQuestion.options;
+                }
+
+                sentenceDisplay.textContent = brokenSentence.replace(/\s+/g, ' ').trim();
+
+                const grid = document.createElement('div');
+                grid.className = "grid grid-cols-2 gap-2.5 w-full";
+
+                optionsToDisplay.forEach(opt => {
+                    const btn = document.createElement('button');
+                    btn.className = "bg-slate-900 hover:bg-blue-600/30 border-2 border-slate-700 hover:border-blue-500 font-bold py-2.5 px-3 rounded-xl text-base transition active:scale-95 text-slate-100";
+                    btn.textContent = opt || "—";
+                    // Vyhodnocuje se oproti targetCorrectAnswer (což je správné pomocné sloveso NEBO tvar slovesa)
+                    btn.onclick = () => handleAnswer(opt === currentQuestion.correctPastForm);
+                    grid.appendChild(btn);
+                });
+                inputWorkspace.appendChild(grid);
+
+
+            } else if (exerciseLevel === 4) {
+                sentenceDisplay.textContent = template.replace('[___]', '___');
+
+                const wrapper = document.createElement('div');
+                wrapper.className = "flex space-x-2 w-full";
+
+                const input = document.createElement('input');
+                input.type = "text";
+                input.id = "typeInput";
+                input.placeholder = `Začněte: ${currentQuestion.firstTwoChars}...`;
+                input.className = "w-full bg-slate-900 border-2 border-slate-700 focus:border-amber-400 rounded-xl px-4 py-2.5 text-slate-100 font-bold outline-none text-center text-lg";
+
+                const submitBtn = document.createElement('button');
+                submitBtn.className = "bg-amber-500 hover:bg-amber-400 text-slate-900 font-extrabold px-5 rounded-xl text-base transition active:scale-95 shrink-0";
+                submitBtn.textContent = "Zkontrolovat";
+                
+                const check = () => {
+                    const val = input.value.trim().toLowerCase();
+                    const target = currentQuestion.correctPastForm.trim().toLowerCase();
+                    handleAnswer(val === target);
+                };
+
+                submitBtn.onclick = check;
+                input.onkeydown = (e) => { if (e.key === 'Enter') check(); };
+
+                wrapper.appendChild(input);
+                wrapper.appendChild(submitBtn);
+                inputWorkspace.appendChild(wrapper);
+
+                setTimeout(() => input.focus(), 50);
+            }
+        }
+
+        function handleAnswer(isStudentRight) {
+            inputWorkspace.querySelectorAll('button, input').forEach(el => el.disabled = true);
+
+            if (!firstPersonUnlocked) {
+                if (isStudentRight) {
+                    firstPersonStreak++;
+                    if (firstPersonStreak >= 3) firstPersonUnlocked = true;
+                } else {
+                    firstPersonStreak = 0;
+                }
+            }
+
+            if (isStudentRight) {
+                exerciseStreak++;
+                if (exerciseStreak >= 4) {
+                    exerciseStreak = 0;
+                    if (exerciseLevel < 4) exerciseLevel++;
+                }
+
+                verbStreak++;
+                if (verbStreak >= 3) {
+                    verbStreak = 0;
+                    verbTier++;
+                }
+            } else {
+                exerciseStreak = 0;
+                verbStreak = 0;
+
+                if (exerciseLevel > 1) exerciseLevel--;
+                if (verbTier > 1) verbTier--;
+            }
+
+            // Display standard outcome box with tick or cross
+            feedbackBox.className = "min-h-[40px] py-1.5 rounded-xl border text-sm font-bold flex items-center justify-center px-4 transition-all opacity-100 visible text-center ";
+
+            if (isStudentRight) {
+                feedbackBox.classList.add('bg-green-950/80', 'border-green-600', 'text-green-200');
+                feedbackBox.textContent = "✔ Správně!";
+            } else {
+                feedbackBox.classList.add('bg-red-950/80', 'border-red-600', 'text-red-200');
+                feedbackBox.textContent = `✖ Špatně. Správná věta: ${currentQuestion.fullCorrectSentence}`;
+            }
+
+            nextBtn.classList.remove('invisible');
+        }
+
+        function getDistractor(q) {
+            const wrong = q.options.filter(o => o.trim().toLowerCase() !== q.correctPastForm.trim().toLowerCase());
+            return wrong.length > 0 ? wrong[Math.floor(Math.random() * wrong.length)] : q.correctPastForm + "i";
+        }
+
+        nextBtn.onclick = loadNextQuestion;
+    </script>
+</body>
+</html>
