@@ -13,22 +13,14 @@
 
         <!-- LEVEL SELECTION & DEMO VOCABULARY OVERLAY -->
         <div id="demoModal" class="absolute inset-0 bg-slate-900/95 backdrop-blur-md z-40 p-6 flex flex-col justify-between overflow-y-auto rounded-2xl">
+            
+            <!-- STEP 1: LEVEL SELECTION SCREEN -->
             <div id="levelSelectStep" class="flex flex-col h-full justify-between items-center text-center overflow-y-auto">
                 <div class="w-full h-24 rounded-xl overflow-hidden border border-slate-700 relative shrink-0 mb-2">
                     <img src="https://images.unsplash.com/photo-1534447677768-be436bb09401?auto=format&fit=crop&w=800&q=80" class="w-full h-full object-cover opacity-60">
                     <div class="absolute inset-0 flex items-center justify-center bg-slate-900/40">
                         <span class="text-2xl font-extrabold text-amber-400 tracking-wider">🇨🇿 🐾</span>
                     </div>
-                </div>
-
-                <!-- Mode Selector -->
-                <div class="w-full bg-slate-900/80 p-1.5 rounded-xl border border-slate-700 flex gap-1 mb-3 shrink-0">
-                    <button id="modeVocabBtn" onclick="setAppGameMode('vocab')" class="flex-1 py-1.5 rounded-lg text-xs font-extrabold transition bg-amber-500 text-slate-900 shadow-md">
-                        🌱 Slovíčka (Lehká)
-                    </button>
-                    <button id="modeGrammarBtn" onclick="setAppGameMode('grammar')" class="flex-1 py-1.5 rounded-lg text-xs font-extrabold transition bg-slate-800 text-slate-400 hover:text-slate-200">
-                        🧠 Skloňování (Pokročilá)
-                    </button>
                 </div>
 
                 <!-- Level Grid -->
@@ -60,6 +52,7 @@
                 </div>
             </div>
 
+            <!-- STEP 2: VOCABULARY PREVIEW & MODE SELECTOR SCREEN -->
             <div id="demoVocabStep" class="hidden flex flex-col h-full justify-between">
                 <div>
                     <div id="mistakeWarningBanner" class="hidden bg-amber-500/20 border-2 border-amber-400 rounded-xl p-3 mb-3 text-center animate-bounce">
@@ -70,7 +63,18 @@
                     <div class="flex justify-between items-center border-b border-slate-700 pb-2 mb-3">
                         <h2 id="demoTitle" class="text-lg font-bold text-amber-400"></h2>
                     </div>
-                    <div id="demoCardsGrid" class="grid grid-cols-2 gap-3 max-h-[380px] overflow-y-auto pr-1"></div>
+
+                    <!-- Mode Selector moved here right under the level header -->
+                    <div class="w-full bg-slate-900/80 p-1.5 rounded-xl border border-slate-700 flex gap-1 mb-3 shrink-0">
+                        <button id="modeVocabBtn" onclick="setAppGameMode('vocab')" class="flex-1 py-1.5 rounded-lg text-xs font-extrabold transition bg-amber-500 text-slate-900 shadow-md">
+                            🌱 Slovíčka (Lehká)
+                        </button>
+                        <button id="modeGrammarBtn" onclick="setAppGameMode('grammar')" class="flex-1 py-1.5 rounded-lg text-xs font-extrabold transition bg-slate-800 text-slate-400 hover:text-slate-200">
+                            🧠 Skloňování (Pokročilá)
+                        </button>
+                    </div>
+
+                    <div id="demoCardsGrid" class="grid grid-cols-2 gap-3 max-h-[320px] overflow-y-auto pr-1"></div>
                 </div>
 
                 <div class="pt-3 border-t border-slate-700 flex gap-2">
@@ -82,6 +86,7 @@
                     </button>
                 </div>
             </div>
+
         </div>
 
         <!-- SECOND CHANCE / NEAR MISS CONFIRMATION MODAL -->

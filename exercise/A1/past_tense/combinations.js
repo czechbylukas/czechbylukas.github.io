@@ -12,21 +12,21 @@ window.CZECH_GRAMMAR_DB = {
   ],
 
   subjects: [
-    { label: "Muž (Já)", symbol: "♂", color: "text-blue-400", gender: "M", number: "SG", aux: "jsem" },
-    { label: "Žena (Já)", symbol: "♀", color: "text-rose-400", gender: "F", number: "SG", aux: "jsem" },
-    { label: "Muž (Ty)", symbol: "♂", color: "text-blue-400", gender: "M", number: "SG", aux: "jsi" },
-    { label: "Žena (Ty)", symbol: "♀", color: "text-rose-400", gender: "F", number: "SG", aux: "jsi" },
-    { label: "On", symbol: "♂", color: "text-blue-400", gender: "M", number: "SG", aux: "" },
-    { label: "Ona", symbol: "♀", color: "text-rose-400", gender: "F", number: "SG", aux: "" },
-    { label: "Dítě (Ono)", symbol: "☯", color: "text-amber-400", gender: "N", number: "SG", aux: "" },
+    { label: "Muž (Já)", pronoun: "Já", symbol: "♂", color: "text-blue-400", gender: "M", number: "SG", aux: "jsem" },
+    { label: "Žena (Já)", pronoun: "Já", symbol: "♀", color: "text-rose-400", gender: "F", number: "SG", aux: "jsem" },
+    { label: "Muž (Ty)", pronoun: "Ty", symbol: "♂", color: "text-blue-400", gender: "M", number: "SG", aux: "jsi" },
+    { label: "Žena (Ty)", pronoun: "Ty", symbol: "♀", color: "text-rose-400", gender: "F", number: "SG", aux: "jsi" },
+    { label: "On", pronoun: "On", symbol: "♂", color: "text-blue-400", gender: "M", number: "SG", aux: "" },
+    { label: "Ona", pronoun: "Ona", symbol: "♀", color: "text-rose-400", gender: "F", number: "SG", aux: "" },
+    { label: "Dítě (Ono)", pronoun: "Ono", symbol: "☯", color: "text-amber-400", gender: "N", number: "SG", aux: "" },
 
-    { label: "Muži (My)", symbol: "♂♂", color: "text-blue-400", gender: "M_ANIM", number: "PL", aux: "jsme" },
-    { label: "Ženy (My)", symbol: "♀♀", color: "text-rose-400", gender: "F", number: "PL", aux: "jsme" },
-    { label: "Muži (Vy)", symbol: "♂♂", color: "text-blue-400", gender: "M_ANIM", number: "PL", aux: "jste" },
-    { label: "Ženy (Vy)", symbol: "♀♀", color: "text-rose-400", gender: "F", number: "PL", aux: "jste" },
-    { label: "Oni (Muži)", symbol: "♂♂", color: "text-blue-400", gender: "M_ANIM", number: "PL", aux: "" },
-    { label: "Zvířata", symbol: "☯☯", color: "text-amber-400", gender: "N", number: "PL", aux: "" },
-    { label: "Smíšená skupina", symbol: "♂♀", color: "text-purple-400", gender: "M_ANIM", number: "PL", aux: "" }
+    { label: "Muži (My)", pronoun: "My", symbol: "♂♂", color: "text-blue-400", gender: "M_ANIM", number: "PL", aux: "jsme" },
+    { label: "Ženy (My)", pronoun: "My", symbol: "♀♀", color: "text-rose-400", gender: "F", number: "PL", aux: "jsme" },
+    { label: "Muži (Vy)", pronoun: "Vy", symbol: "♂♂", color: "text-blue-400", gender: "M_ANIM", number: "PL", aux: "jste" },
+    { label: "Ženy (Vy)", pronoun: "Vy", symbol: "♀♀", color: "text-rose-400", gender: "F", number: "PL", aux: "jste" },
+    { label: "Oni (Muži)", pronoun: "Oni", symbol: "♂♂", color: "text-blue-400", gender: "M_ANIM", number: "PL", aux: "" },
+    { label: "Zvířata", pronoun: "Ona", symbol: "☯☯", color: "text-amber-400", gender: "N", number: "PL", aux: "" },
+    { label: "Smíšená skupina", pronoun: "Oni", symbol: "♂♀", color: "text-purple-400", gender: "M_ANIM", number: "PL", aux: "" }
   ],
 
   categories: {
@@ -35,7 +35,7 @@ window.CZECH_GRAMMAR_DB = {
     workPlaces: ["v kanceláři", "v práci", "doma", "na počítači"],
     media: ["na televizi", "na film", "na zprávy", "na seriál"],
     sleepPlaces: ["v posteli", "v hotelu", "doma"],
-    foodAndDrink: ["oběd", "večeři", "polévku", "chléb", "pizzu"],
+    foodAndDrink: ["oběd", "večeři", "polévku", "chléb", "pizzu", "kuře"],
     relaxPlaces: ["v parku", "na zahradě", "v sauně", "na gauči"],
     sports: ["fotbal", "tenis", "basketbal", "hokej"],
     studySubjects: ["češtinu", "angličtinu", "matematiku", "historii"],
@@ -50,6 +50,7 @@ window.CZECH_GRAMMAR_DB = {
   verbs: [
     {
       infinitive: "DĚLAT",
+      translation: "to do",
       level: 1,
       image: "https://images.unsplash.com/photo-1484480974693-6ca0a78fb36b?auto=format&fit=crop&w=600&q=80",
       reflexive: false,
@@ -61,6 +62,7 @@ window.CZECH_GRAMMAR_DB = {
     },
     {
       infinitive: "PLAVAT",
+      translation: "to swim",
       level: 1,
       image: "https://images.unsplash.com/photo-1600965962361-9035dbfd1c50?auto=format&fit=crop&w=600&q=80",
       reflexive: false,
@@ -72,6 +74,7 @@ window.CZECH_GRAMMAR_DB = {
     },
     {
       infinitive: "PRACOVAT",
+      translation: "to work",
       level: 1,
       image: "https://images.unsplash.com/photo-1497215728101-856f4ea42174?auto=format&fit=crop&w=600&q=80",
       reflexive: false,
@@ -83,6 +86,7 @@ window.CZECH_GRAMMAR_DB = {
     },
     {
       infinitive: "DÍVAT SE",
+      translation: "to watch",
       level: 1,
       image: "https://images.unsplash.com/photo-1593359677879-a4bb92f829d1?auto=format&fit=crop&w=600&q=80",
       reflexive: "se",
@@ -94,6 +98,7 @@ window.CZECH_GRAMMAR_DB = {
     },
     {
       infinitive: "SPÁT",
+      translation: "to sleep",
       level: 1,
       image: "https://images.unsplash.com/photo-1541781774459-bb2af2f05b55?auto=format&fit=crop&w=600&q=80",
       reflexive: false,
@@ -105,6 +110,7 @@ window.CZECH_GRAMMAR_DB = {
     },
     {
       infinitive: "VAŘIT",
+      translation: "to cook",
       level: 1,
       image: "https://images.unsplash.com/photo-1556910103-1c02745aae4d?auto=format&fit=crop&w=600&q=80",
       reflexive: false,
@@ -116,6 +122,7 @@ window.CZECH_GRAMMAR_DB = {
     },
     {
       infinitive: "ODPOČÍVAT",
+      translation: "to rest",
       level: 1,
       image: "https://images.unsplash.com/photo-1506126613408-eca07ce68773?auto=format&fit=crop&w=600&q=80",
       reflexive: false,
@@ -127,6 +134,7 @@ window.CZECH_GRAMMAR_DB = {
     },
     {
       infinitive: "STUDOVAT",
+      translation: "to study",
       level: 1,
       image: "https://images.unsplash.com/photo-1434030216411-0b793f4b4173?auto=format&fit=crop&w=600&q=80",
       reflexive: false,
@@ -138,6 +146,7 @@ window.CZECH_GRAMMAR_DB = {
     },
     {
       infinitive: "UČIT SE",
+      translation: "to learn",
       level: 1,
       image: "https://images.unsplash.com/photo-1523240795612-9a054b0db644?auto=format&fit=crop&w=600&q=80",
       reflexive: "se",
@@ -149,6 +158,7 @@ window.CZECH_GRAMMAR_DB = {
     },
     {
       infinitive: "TELEFONOVAT",
+      translation: "to call",
       level: 1,
       image: "https://images.unsplash.com/photo-1534536281715-e28d76689b4d?auto=format&fit=crop&w=600&q=80",
       reflexive: false,
@@ -160,6 +170,7 @@ window.CZECH_GRAMMAR_DB = {
     },
     {
       infinitive: "JÍST",
+      translation: "to eat",
       level: 2,
       image: "https://images.unsplash.com/photo-1504674900247-0877df9cc836?auto=format&fit=crop&w=600&q=80",
       reflexive: false,
@@ -171,6 +182,7 @@ window.CZECH_GRAMMAR_DB = {
     },
     {
       infinitive: "MÍT",
+      translation: "to have",
       level: 2,
       image: "https://images.unsplash.com/photo-1513151233558-d860c5398176?auto=format&fit=crop&w=600&q=80",
       reflexive: false,
@@ -182,6 +194,7 @@ window.CZECH_GRAMMAR_DB = {
     },
     {
       infinitive: "JÍT",
+      translation: "to go",
       level: 2,
       image: "https://images.unsplash.com/photo-1476480862126-209bfaa8edc8?auto=format&fit=crop&w=600&q=80",
       reflexive: false,
@@ -193,6 +206,7 @@ window.CZECH_GRAMMAR_DB = {
     },
     {
       infinitive: "ČÍST",
+      translation: "to read",
       level: 2,
       image: "https://images.unsplash.com/photo-1512820790803-83ca734da794?auto=format&fit=crop&w=600&q=80",
       reflexive: false,
@@ -204,6 +218,7 @@ window.CZECH_GRAMMAR_DB = {
     },
     {
       infinitive: "CHTÍT",
+      translation: "to want",
       level: 2,
       image: "https://images.unsplash.com/photo-1517841905240-472988babdf9?auto=format&fit=crop&w=600&q=80",
       reflexive: false,
@@ -216,7 +231,7 @@ window.CZECH_GRAMMAR_DB = {
   ]
 };
 
-window.generateCombinationQuestion = function(targetDifficulty, restrictToFirstPerson) {
+window.generateCombinationQuestion = function(targetDifficulty, restrictToFirstPerson, mode = "grammar") {
   const db = window.CZECH_GRAMMAR_DB;
 
   let eligibleVerbs = db.verbs.filter(v => v.level === targetDifficulty);
@@ -241,7 +256,8 @@ window.generateCombinationQuestion = function(targetDifficulty, restrictToFirstP
   const verbPastForm = verbObj.forms[subjectObj.number][subjectObj.gender];
   const firstTwoChars = verbPastForm.substring(0, 2);
 
-  const isAuxiliaryQuestion = subjectObj.aux !== "" && Math.random() < 0.3;
+  const isVocabularyQuestion = mode === "vocab";
+  const isAuxiliaryQuestion = !isVocabularyQuestion && subjectObj.aux !== "" && Math.random() < 0.3;
 
   let gapTemplateParts = [timeMarkerObj.text];
   let fullSentenceParts = [timeMarkerObj.text];
@@ -262,14 +278,16 @@ window.generateCombinationQuestion = function(targetDifficulty, restrictToFirstP
       gapTemplateParts.push(subjectObj.aux);
       fullSentenceParts.push(subjectObj.aux);
     }
-    if (verbObj.reflexive) {
+    if (verbObj.reflexive && !isVocabularyQuestion) {
       gapTemplateParts.push(verbObj.reflexive);
-      fullSentenceParts.push(verbObj.reflexive);
     }
     gapTemplateParts.push("[___]");
+    if (verbObj.reflexive) fullSentenceParts.push(verbObj.reflexive);
     fullSentenceParts.push(verbPastForm);
 
-    targetCorrectAnswer = verbPastForm;
+    targetCorrectAnswer = isVocabularyQuestion
+      ? `${verbObj.reflexive ? `${verbObj.reflexive} ` : ""}${verbPastForm}`
+      : verbPastForm;
   }
 
   gapTemplateParts.push(targetItem + ".");
@@ -281,6 +299,20 @@ window.generateCombinationQuestion = function(targetDifficulty, restrictToFirstP
   let finalOptions = [];
   if (isAuxiliaryQuestion) {
     finalOptions = ["jsem", "jsi", "jsme", "jste"];
+  } else if (isVocabularyQuestion) {
+    const shuffleVerbs = verbs => [...verbs].sort(() => Math.random() - 0.5);
+    const distinctDistractors = shuffleVerbs(eligibleVerbs.filter(optionVerb =>
+      optionVerb !== verbObj &&
+      !optionVerb.compatibleCategories.some(category => verbObj.compatibleCategories.includes(category))
+    ));
+    const remainingDistractors = shuffleVerbs(eligibleVerbs.filter(optionVerb =>
+      optionVerb !== verbObj && !distinctDistractors.includes(optionVerb)
+    ));
+    const vocabularyVerbs = [verbObj, ...distinctDistractors, ...remainingDistractors].slice(0, 4);
+    finalOptions = vocabularyVerbs.map(optionVerb => {
+      const form = optionVerb.forms[subjectObj.number][subjectObj.gender];
+      return `${optionVerb.reflexive ? `${optionVerb.reflexive} ` : ""}${form}`;
+    }).sort(() => Math.random() - 0.5);
   } else {
     const verbOptionsSet = new Set();
     verbOptionsSet.add(verbPastForm);
@@ -300,10 +332,12 @@ window.generateCombinationQuestion = function(targetDifficulty, restrictToFirstP
   return {
     isAuxQuestion: isAuxiliaryQuestion,
     verbInfinitive: verbObj.infinitive,
+    verbTranslation: verbObj.translation,
     verbImage: verbObj.image,
     subjectSymbol: subjectObj.symbol,
     subjectColor: subjectObj.color,
     subjectLabel: subjectObj.label,
+    subjectPronoun: subjectObj.pronoun,
     sentenceTemplate: sentenceTemplate,
     fullCorrectSentence: fullCorrectSentence,
     correctPastForm: targetCorrectAnswer,

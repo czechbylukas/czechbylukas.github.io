@@ -1,294 +1,445 @@
 <!DOCTYPE html>
-<html lang="en" class="h-full">
+<html lang="cs" class="h-full">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Czech Past Tense Practice</title>
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
-<body class="bg-slate-900 text-slate-100 h-full w-full flex items-center justify-center p-3 sm:p-6 overflow-hidden">
-
-    <!-- Fixed App Window Frame -->
-    <!-- Fixed App Window Frame (Kept original frame styling) -->
-    <div class="w-full max-w-2xl h-[92vh] max-h-[700px] min-h-[580px] bg-slate-800 border border-slate-700 rounded-2xl p-4 sm:p-6 shadow-2xl flex flex-col justify-between overflow-hidden">
-        
-        <!-- TOP: Level Name Banner -->
-        <div class="flex items-center justify-between border-b border-slate-700/80 pb-2 h-8 shrink-0">
-            <span id="levelName" class="text-xs sm:text-sm font-bold tracking-wider text-amber-400 uppercase">
-                Level 1: Choice
-            </span>
-            <span class="text-xs text-slate-400 font-semibold">Minulý čas</span>
-        </div>
-
-        <!-- MIDDLE WORKSPACE -->
-        <div class="flex-1 my-2 flex flex-col justify-between gap-2 overflow-hidden">
-            
-            <!-- Picture & Subject Line (Slightly reduced to h-28/32 so buttons fit) -->
-            <div class="grid grid-cols-3 gap-3 items-center h-28 sm:h-32 shrink-0">
-                <div class="col-span-1 bg-slate-900 border border-slate-700 rounded-xl overflow-hidden h-full flex items-center justify-center">
-                    <img id="verbImage" src="" alt="Verb Visual" class="w-full h-full object-cover">
-                </div>
-
-                <div class="col-span-2 bg-slate-900 border border-slate-700 rounded-xl p-3 h-full flex flex-col justify-center space-y-1">
-                    <div class="flex items-center space-x-2">
-                        <span id="genderBadge" class="border border-slate-700 text-lg px-2 py-0.5 rounded-lg font-bold">☯</span>
-                        <span id="subjectText" class="text-slate-300 font-semibold text-sm">Dítě (Ono)</span>
+<body class="bg-slate-900 text-slate-100 min-h-screen w-full flex flex-col items-center justify-center p-2 sm:p-6 overflow-hidden">
+    <div class="relative w-full max-w-2xl h-[88vh] max-h-[720px] min-h-[600px] bg-slate-800 border border-slate-700 rounded-2xl p-4 sm:p-6 shadow-2xl flex flex-col justify-between overflow-hidden">
+        <div id="demoModal" class="absolute inset-0 bg-slate-900/95 backdrop-blur-md z-40 p-6 flex flex-col justify-between overflow-y-auto rounded-2xl">
+            <div id="levelSelectStep" class="flex flex-col h-full justify-between items-center text-center overflow-y-auto">
+                <div class="w-full h-24 rounded-xl overflow-hidden border border-slate-700 relative shrink-0 mb-2">
+                    <img src="https://images.unsplash.com/photo-1534447677768-be436bb09401?auto=format&fit=crop&w=800&q=80" alt="" class="w-full h-full object-cover opacity-60">
+                    <div class="absolute inset-0 flex items-center justify-center bg-slate-900/40">
+                        <span class="text-2xl font-extrabold text-amber-400 tracking-wider">🇨🇿 ⏳</span>
                     </div>
-                    <div id="verbStemHint" class="text-amber-400 font-bold text-sm hidden"></div>
+                </div>
+                <div>
+                    <h1 class="text-xl font-extrabold text-amber-400">Procvičování minulého času</h1>
+                    <p class="text-slate-400 text-sm mt-1">Nejprve si vyberte úroveň.</p>
+                </div>
+                <div id="levelCards" class="grid grid-cols-2 gap-2.5 w-full my-auto py-3"></div>
+            </div>
+
+            <div id="demoVocabStep" class="hidden flex flex-col h-full justify-between">
+                <div class="min-h-0 flex flex-col">
+                    <div id="mistakeWarningBanner" class="hidden bg-amber-500/20 border-2 border-amber-400 rounded-xl p-3 mb-3 text-center">
+                        <div class="text-amber-300 font-extrabold text-base">🙈 Zkusme si slovíčka ještě jednou</div>
+                        <div class="text-amber-200 text-xs font-medium">Prohlédni si tvary a pak pokračuj v procvičování.</div>
+                    </div>
+                    <div class="flex justify-between items-center border-b border-slate-700 pb-2 mb-3 shrink-0">
+                        <h2 id="demoTitle" class="text-lg font-bold text-amber-400"></h2>
+                    </div>
+                    <div class="w-full bg-slate-900/80 p-1.5 rounded-xl border border-slate-700 flex gap-1 mb-3 shrink-0">
+                        <button id="modeVocabBtn" onclick="setAppGameMode('vocab')" class="flex-1 py-1.5 rounded-lg text-xs font-extrabold transition">
+                            🌱 Slovíčka (Lehká)
+                        </button>
+                        <button id="modeGrammarBtn" onclick="setAppGameMode('grammar')" class="flex-1 py-1.5 rounded-lg text-xs font-extrabold transition">
+                            🧠 Časování (Pokročilá)
+                        </button>
+                    </div>
+                    <div id="demoCardsGrid" class="grid grid-cols-2 gap-3 overflow-y-auto pr-1 pb-2"></div>
+                </div>
+                <div class="pt-3 border-t border-slate-700 flex gap-2 shrink-0">
+                    <button onclick="resetLevelSelection()" class="w-1/3 bg-slate-700 hover:bg-slate-600 text-slate-200 font-bold py-2.5 rounded-xl text-sm transition">
+                        Zpět
+                    </button>
+                    <button id="startPracticeButton" onclick="startPracticeApp()" class="w-2/3 bg-blue-600 hover:bg-blue-500 text-white font-bold py-2.5 rounded-xl text-sm transition">
+                        Start
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <div id="verbFormsModal" class="hidden absolute inset-0 bg-slate-950/95 backdrop-blur-md z-50 p-4 flex flex-col rounded-2xl">
+            <div class="flex justify-between items-center border-b border-slate-700 pb-2 mb-3 shrink-0">
+                <div>
+                    <div id="modalVerbTitle" class="text-lg font-bold text-amber-400"></div>
+                    <div class="text-xs text-slate-400">Tvary minulého času</div>
+                </div>
+                <button onclick="closeVerbFormsModal()" class="text-slate-400 hover:text-slate-100 font-bold text-lg px-2" aria-label="Zavřít">✕</button>
+            </div>
+            <div id="modalVerbForms" class="grid grid-cols-1 sm:grid-cols-2 gap-3 overflow-y-auto pr-1"></div>
+            <button onclick="closeVerbFormsModal()" class="w-full bg-slate-700 hover:bg-slate-600 text-white font-bold py-2 rounded-xl text-sm transition mt-3 shrink-0">
+                Zavřít
+            </button>
+        </div>
+
+        <div id="gameScreen" class="hidden h-full flex flex-col justify-between overflow-hidden">
+            <div class="flex items-center justify-between border-b border-slate-700/80 pb-2 h-9 shrink-0">
+                <div class="flex items-center space-x-2 min-w-0">
+                    <button onclick="showLevelSelection()" class="text-xs bg-slate-700 hover:bg-slate-600 text-slate-200 px-2 py-1 rounded-md border border-slate-600 transition shrink-0">
+                        🏠 Úrovně
+                    </button>
+                    <span id="levelName" class="text-xs sm:text-sm font-bold tracking-wider text-amber-400 uppercase truncate"></span>
+                </div>
+                <div class="flex items-center space-x-2 text-[11px] sm:text-xs font-semibold text-slate-300 shrink-0">
+                    <span id="scoreCounter" class="bg-slate-900 border border-slate-700 px-2 py-1 rounded-md text-blue-300">⭐ Skóre: 0/0</span>
+                    <span id="streakCounter" class="bg-slate-900 border border-slate-700 px-2 py-1 rounded-md text-amber-400">🔥 Streak: 0/5</span>
                 </div>
             </div>
 
-            <!-- Sentence Display Card -->
-            <div class="bg-slate-900 border border-slate-700 rounded-xl p-3 sm:p-4 min-h-[75px] flex items-center justify-center text-center shrink-0">
-                <div id="sentenceDisplay" class="text-lg sm:text-xl font-medium text-slate-100"></div>
+            <div class="flex-1 my-2 flex flex-col justify-between gap-2 overflow-hidden">
+                <div class="grid grid-cols-3 gap-3 items-center h-28 sm:h-32 shrink-0">
+                    <div id="verbImagePanel" class="col-span-1 bg-slate-900 border border-slate-700 rounded-xl overflow-hidden h-full flex items-center justify-center relative">
+                        <img id="verbImage" src="" alt="Ilustrace slovesa" class="w-full h-full object-cover">
+                        <span id="genderBadge" class="absolute bottom-1 left-1 border border-slate-700/80 bg-slate-900/80 text-xs px-1.5 py-0.5 rounded font-bold"></span>
+                    </div>
+                    <div id="questionDetails" class="col-span-2 bg-slate-900 border border-slate-700 rounded-xl p-3 h-full flex flex-col justify-center">
+                        <div id="verbInfinitive" class="text-amber-400 font-extrabold text-lg"></div>
+                        <div id="subjectText" class="text-slate-300 font-semibold text-sm"></div>
+                        <div id="verbStemHint" class="text-slate-400 text-xs mt-1 hidden"></div>
+                    </div>
+                </div>
+
+                <div class="bg-slate-900 border border-slate-700 rounded-xl p-3 sm:p-4 min-h-[75px] flex items-center justify-center text-center shrink-0">
+                    <div id="sentenceDisplay" class="text-lg sm:text-xl font-medium text-slate-100"></div>
+                </div>
+                <div id="inputWorkspace" class="flex-1 flex items-center justify-center min-h-[100px]"></div>
             </div>
 
-            <!-- Interactive Workspace Slot -->
-            <div id="inputWorkspace" class="flex-1 flex items-center justify-center min-h-[100px]"></div>
-
-        </div>
-
-        <!-- BOTTOM FOOTER SLOT -->
-        <div class="shrink-0 flex flex-col justify-end space-y-2 border-t border-slate-700/50 pt-2 mt-auto">
-            <div id="feedbackBox" class="min-h-[36px] py-1 rounded-xl border text-sm font-bold flex items-center justify-center px-4 transition-all opacity-0 invisible text-center"></div>
-
-            <button id="nextBtn" class="w-full h-10 bg-blue-600 hover:bg-blue-500 text-white font-bold rounded-xl transition invisible active:scale-[0.99]">
-                Další
-            </button>
-
-            <!-- FOOTER WITH SOURCE REFERENCE & HOME WEBSITE LINK -->
-            <div class="flex items-center justify-between text-[11px] text-slate-400 pt-1 border-t border-slate-700/40 px-1">
-                <span>Fotky z <a href="https://unsplash.com" target="_blank" rel="noopener noreferrer" class="text-amber-400 hover:underline">Unsplash</a></span>
-                <a href="https://www.hackczech.com" target="_blank" rel="noopener noreferrer" class="inline-flex items-center space-x-1 text-slate-300 hover:text-amber-400 bg-slate-900/60 hover:bg-slate-900 px-2.5 py-1 rounded-md border border-slate-700/80 transition">
-                    <span>🌐</span>
-                    <span class="font-semibold">Learn more of Czech @ HackCzech´s Home Page</span>
-                </a>
+            <div class="shrink-0 flex flex-col justify-end space-y-2 border-t border-slate-700/50 pt-2 mt-auto">
+                <div id="feedbackBox" class="min-h-[36px] py-1 rounded-xl border text-sm font-bold flex items-center justify-center px-4 transition-all opacity-0 invisible text-center"></div>
+                <button id="nextBtn" class="w-full h-10 bg-blue-600 hover:bg-blue-500 text-white font-bold rounded-xl transition invisible active:scale-[0.99]">
+                    Další
+                </button>
+                <footer class="flex items-center justify-between text-[11px] text-slate-400 pt-1 border-t border-slate-700/40 px-1">
+                    <span>Fotky z <a href="https://unsplash.com" target="_blank" rel="noopener noreferrer" class="text-amber-400 hover:underline">Unsplash</a></span>
+                    <a href="https://www.hackczech.com" target="_blank" rel="noopener noreferrer" class="inline-flex items-center space-x-1 text-slate-300 hover:text-amber-400 bg-slate-900/60 hover:bg-slate-900 px-2.5 py-1 rounded-md border border-slate-700/80 transition">
+                        <span>🌐</span>
+                        <span class="font-semibold">HackCzech</span>
+                    </a>
+                </footer>
             </div>
         </div>
-
     </div>
 
     <script src="combinations.js"></script>
-
     <script>
-        let exerciseLevel = 1;
-        let exerciseStreak = 0;
-
-        let verbTier = 1;
-        let verbStreak = 0;
-
-        let firstPersonUnlocked = false;
-        let firstPersonStreak = 0;
-
+        let selectedLevel = 1;
+        let exerciseModeLevel = 1;
+        let correctCount = 0;
+        let answeredCount = 0;
+        let successStreak = 0;
+        let errorStreak = 0;
         let currentQuestion = null;
+        let appGameMode = 'vocab';
 
-        const levelName = document.getElementById('levelName');
-        const verbImage = document.getElementById('verbImage');
-        const genderBadge = document.getElementById('genderBadge');
-        const subjectText = document.getElementById('subjectText');
-        const verbStemHint = document.getElementById('verbStemHint');
-        const sentenceDisplay = document.getElementById('sentenceDisplay');
+        const levelNames = {
+            1: { icon: '🌱', name: 'Začátečník' },
+            2: { icon: '🌿', name: 'Mírně pokročilý' },
+            3: { icon: '🌳', name: 'Středně pokročilý' },
+            4: { icon: '🦅', name: 'Vyšší střední' },
+            5: { icon: '👑', name: 'Pokročilý' },
+            6: { icon: '🐉', name: 'Mistr' }
+        };
+        const availableLevels = Object.keys(levelNames).map(Number);
         const inputWorkspace = document.getElementById('inputWorkspace');
         const feedbackBox = document.getElementById('feedbackBox');
         const nextBtn = document.getElementById('nextBtn');
 
-        const levelTitles = {
-            1: "Level 1: Choice",
-            2: "Level 2: Yes / No",
-            3: "Level 3: Fix Mistake",
-            4: "Level 4: Fill Gap"
-        };
+        function renderLevelCards() {
+            const grid = document.getElementById('levelCards');
+            grid.replaceChildren();
+            availableLevels.forEach(level => {
+                const levelInfo = levelNames[level] || { icon: '📚', name: `Level ${level}` };
+                const button = document.createElement('button');
+                button.className = 'bg-slate-800 hover:bg-slate-700 border border-slate-600 p-3 rounded-xl flex flex-col items-center justify-center space-y-1 transition active:scale-95';
+                button.innerHTML = `<span class="text-2xl">${levelInfo.icon}</span><span class="font-bold text-amber-400 text-xs">${levelInfo.name}</span>`;
+                button.onclick = () => selectStartingLevel(level);
+                grid.appendChild(button);
+            });
+        }
 
-        window.addEventListener('load', function() {
-            if (window.generateCombinationQuestion) {
-                loadNextQuestion();
-            } else {
-                alert("Error: combinations.js file was not loaded!");
+        function selectStartingLevel(level, isMistakeRecall = false) {
+            selectedLevel = level;
+            document.getElementById('levelSelectStep').classList.add('hidden');
+            document.getElementById('demoVocabStep').classList.remove('hidden');
+            document.getElementById('mistakeWarningBanner').classList.toggle('hidden', !isMistakeRecall);
+
+            const levelInfo = levelNames[level] || { icon: '📚', name: `Level ${level}` };
+            document.getElementById('demoTitle').textContent = `${levelInfo.icon} ${levelInfo.name}`;
+            renderVerbCards();
+            const hasVerbs = window.CZECH_GRAMMAR_DB.verbs.some(verb => verb.level === selectedLevel);
+            const startButton = document.getElementById('startPracticeButton');
+            startButton.disabled = !hasVerbs;
+            startButton.textContent = hasVerbs ? 'Start' : 'Slovní zásoba se připravuje';
+            startButton.classList.toggle('opacity-50', !hasVerbs);
+            startButton.classList.toggle('cursor-not-allowed', !hasVerbs);
+            setAppGameMode(appGameMode);
+        }
+
+        function renderVerbCards() {
+            const grid = document.getElementById('demoCardsGrid');
+            grid.replaceChildren();
+            const verbs = window.CZECH_GRAMMAR_DB.verbs.filter(verb => verb.level === selectedLevel);
+            if (verbs.length === 0) {
+                const emptyMessage = document.createElement('p');
+                emptyMessage.className = 'col-span-2 text-center text-sm text-slate-400 py-8';
+                emptyMessage.textContent = 'Slovní zásoba pro tuto úroveň se připravuje.';
+                grid.appendChild(emptyMessage);
             }
-        });
+
+            verbs.forEach(verb => {
+                const card = document.createElement('div');
+                card.className = 'bg-slate-800 hover:bg-slate-700 border border-slate-700 rounded-xl p-3 flex items-center justify-between cursor-pointer transition active:scale-95 group';
+                card.onclick = () => openVerbFormsModal(verb);
+
+                const details = document.createElement('div');
+                details.className = 'flex items-center space-x-3 overflow-hidden';
+                const image = document.createElement('img');
+                image.src = verb.image;
+                image.alt = '';
+                image.className = 'w-12 h-12 rounded-lg object-cover border border-slate-600 shrink-0';
+                const text = document.createElement('div');
+                text.className = 'overflow-hidden';
+                const infinitive = document.createElement('div');
+                infinitive.className = 'font-bold text-slate-100 text-sm truncate';
+                infinitive.textContent = verb.infinitive;
+                const translation = document.createElement('div');
+                translation.className = 'text-xs text-amber-400';
+                translation.textContent = verb.translation;
+                text.append(infinitive, translation);
+                details.append(image, text);
+
+                const audioButton = document.createElement('button');
+                audioButton.type = 'button';
+                audioButton.title = 'Přehrát výslovnost';
+                audioButton.setAttribute('aria-label', `Přehrát ${verb.infinitive}`);
+                audioButton.className = 'p-2 ml-2 rounded-lg bg-slate-900/60 hover:bg-amber-500 hover:text-slate-900 text-slate-300 border border-slate-700 transition flex items-center justify-center shrink-0';
+                audioButton.textContent = '🔊';
+                audioButton.onclick = event => speakCzech(verb.infinitive.toLocaleLowerCase('cs'), event);
+                card.append(details, audioButton);
+                grid.appendChild(card);
+            });
+        }
+
+        function openVerbFormsModal(verb) {
+            document.getElementById('modalVerbTitle').textContent = verb.infinitive;
+            const formsGrid = document.getElementById('modalVerbForms');
+            formsGrid.replaceChildren();
+            window.CZECH_GRAMMAR_DB.subjects.forEach(subject => {
+                const form = verb.forms[subject.number][subject.gender];
+                const conjugatedPhrase = [subject.pronoun, subject.aux, verb.reflexive, form].filter(Boolean).join(' ');
+                const row = document.createElement('div');
+                row.className = 'bg-slate-900 border border-slate-700 rounded-xl p-3 flex items-center justify-between gap-2';
+                const label = document.createElement('span');
+                label.className = 'text-xs text-slate-400';
+                label.textContent = `${subject.symbol} ${subject.label}`;
+                const value = document.createElement('span');
+                value.className = 'flex items-center gap-2 font-bold text-amber-300 text-sm';
+                const word = document.createElement('span');
+                word.textContent = conjugatedPhrase;
+                const audioButton = document.createElement('button');
+                audioButton.type = 'button';
+                audioButton.title = `Přehrát ${conjugatedPhrase}`;
+                audioButton.className = 'text-amber-400 bg-slate-800 hover:bg-slate-700 p-1.5 rounded-lg border border-slate-700 text-xs transition shrink-0';
+                audioButton.textContent = '🔊';
+                audioButton.onclick = event => speakCzech(conjugatedPhrase, event);
+                value.append(word, audioButton);
+                row.append(label, value);
+                formsGrid.appendChild(row);
+            });
+            document.getElementById('verbFormsModal').classList.remove('hidden');
+        }
+
+        function closeVerbFormsModal() {
+            document.getElementById('verbFormsModal').classList.add('hidden');
+        }
+
+        function setAppGameMode(mode) {
+            appGameMode = mode;
+            const active = 'flex-1 py-1.5 rounded-lg text-xs font-extrabold transition bg-amber-500 text-slate-900 shadow-md';
+            const inactive = 'flex-1 py-1.5 rounded-lg text-xs font-extrabold transition bg-slate-800 text-slate-400 hover:text-slate-200';
+            document.getElementById('modeVocabBtn').className = mode === 'vocab' ? active : inactive;
+            document.getElementById('modeGrammarBtn').className = mode === 'grammar' ? active : inactive;
+        }
+
+        function resetLevelSelection() {
+            document.getElementById('demoVocabStep').classList.add('hidden');
+            document.getElementById('levelSelectStep').classList.remove('hidden');
+        }
+
+        function startPracticeApp() {
+            correctCount = 0;
+            answeredCount = 0;
+            successStreak = 0;
+            errorStreak = 0;
+            exerciseModeLevel = 1;
+            document.getElementById('demoModal').classList.add('hidden');
+            document.getElementById('gameScreen').classList.remove('hidden');
+            loadNextQuestion();
+        }
+
+        function showLevelSelection() {
+            document.getElementById('gameScreen').classList.add('hidden');
+            document.getElementById('demoModal').classList.remove('hidden');
+            document.getElementById('demoVocabStep').classList.add('hidden');
+            document.getElementById('levelSelectStep').classList.remove('hidden');
+        }
 
         function loadNextQuestion() {
-            feedbackBox.className = "min-h-[40px] py-1.5 rounded-xl border text-sm font-bold flex items-center justify-center px-4 transition-all opacity-0 invisible text-center";
+            feedbackBox.className = 'min-h-[40px] py-1.5 rounded-xl border text-sm font-bold flex items-center justify-center px-4 transition-all opacity-0 invisible text-center';
             nextBtn.classList.add('invisible');
-
-            levelName.textContent = levelTitles[exerciseLevel];
-
-            const restrictToFirstPerson = !firstPersonUnlocked;
-            currentQuestion = window.generateCombinationQuestion(verbTier, restrictToFirstPerson);
-            
+            const levelInfo = levelNames[selectedLevel] || { icon: '📚', name: `Level ${selectedLevel}` };
+            levelName.textContent = `${levelInfo.icon} ${levelInfo.name} · ${appGameMode === 'vocab' ? `Slovíčka ${exerciseModeLevel}/4` : `Časování ${exerciseModeLevel}/4`}`;
+            document.getElementById('scoreCounter').textContent = `⭐ Skóre: ${correctCount}/${answeredCount}`;
+            document.getElementById('streakCounter').textContent = `🔥 Streak: ${successStreak}/5`;
+            currentQuestion = window.generateCombinationQuestion(selectedLevel, false, appGameMode);
             renderUI();
         }
 
         function renderUI() {
-            verbImage.src = currentQuestion.verbImage;
-            genderBadge.textContent = currentQuestion.subjectSymbol;
-            genderBadge.className = `border border-slate-700 text-lg px-2 py-0.5 rounded-lg font-bold ${currentQuestion.subjectColor}`;
-            subjectText.textContent = currentQuestion.subjectLabel;
+            const isVocabularyQuiz = appGameMode === 'vocab';
+            document.getElementById('verbImagePanel').classList.remove('hidden');
+            document.getElementById('questionDetails').classList.remove('col-span-3');
+            document.getElementById('verbImage').src = currentQuestion.verbImage;
+            document.getElementById('genderBadge').textContent = currentQuestion.subjectSymbol;
+            document.getElementById('genderBadge').className = `absolute bottom-1 left-1 border border-slate-700/80 bg-slate-900/80 text-xs px-1.5 py-0.5 rounded font-bold ${currentQuestion.subjectColor}`;
+            document.getElementById('verbInfinitive').textContent = isVocabularyQuiz ? currentQuestion.verbTranslation : currentQuestion.verbInfinitive;
+            document.getElementById('subjectText').textContent = `${currentQuestion.subjectSymbol} ${currentQuestion.subjectLabel}`;
+            const hint = document.getElementById('verbStemHint');
+            hint.textContent = exerciseModeLevel === 4 && appGameMode === 'grammar' ? `Začni: ${currentQuestion.firstTwoChars}…` : '';
+            hint.classList.toggle('hidden', !hint.textContent);
 
-            if (exerciseLevel === 4) {
-                verbStemHint.textContent = `(doplňte sloveso: ${currentQuestion.firstTwoChars}...)`;
-                verbStemHint.classList.remove('hidden');
-            } else {
-                verbStemHint.classList.add('hidden');
-            }
-
-            inputWorkspace.innerHTML = '';
-            const template = currentQuestion.sentenceTemplate;
-
-            if (exerciseLevel === 1) {
-                sentenceDisplay.textContent = template.replace('[___]', '___');
-                
+            inputWorkspace.replaceChildren();
+            const stage = exerciseModeLevel;
+            if (stage === 1) {
+                sentenceDisplay.textContent = currentQuestion.sentenceTemplate.replace('[___]', '___');
                 const grid = document.createElement('div');
-                grid.className = "grid grid-cols-2 gap-2.5 w-full";
-                
-                currentQuestion.options.forEach(opt => {
-                    const btn = document.createElement('button');
-                    btn.className = "bg-slate-900 hover:bg-blue-600/30 border-2 border-slate-700 hover:border-blue-500 font-bold py-2.5 px-3 rounded-xl text-base transition active:scale-95 text-slate-100";
-                    btn.textContent = opt || "—";
-                    btn.onclick = () => handleAnswer(opt === currentQuestion.correctPastForm);
-                    grid.appendChild(btn);
+                grid.className = 'grid grid-cols-2 gap-2.5 w-full';
+                const letters = ['A', 'B', 'C', 'D'];
+                currentQuestion.options.forEach((option, index) => {
+                    const button = document.createElement('button');
+                    button.className = 'bg-slate-900 hover:bg-blue-600/30 border-2 border-slate-700 hover:border-blue-500 font-bold py-2 px-3 rounded-xl text-sm transition active:scale-95 text-slate-100 flex items-center space-x-2 justify-start';
+                    button.innerHTML = `<span class="bg-slate-800 text-amber-400 border border-slate-600 text-xs px-2 py-0.5 rounded-md font-extrabold shrink-0">${letters[index]}</span><span class="truncate">${option || '—'}</span>`;
+                    button.onclick = () => handleAnswer(option === currentQuestion.correctPastForm);
+                    grid.appendChild(button);
                 });
                 inputWorkspace.appendChild(grid);
-
-            } else if (exerciseLevel === 2) {
+            } else if (stage === 2) {
                 const isSentenceCorrect = Math.random() > 0.5;
-                const verbForm = isSentenceCorrect ? currentQuestion.correctPastForm : getDistractor(currentQuestion);
-                
-                sentenceDisplay.textContent = template.replace('[___]', verbForm);
-
+                const displayedForm = isSentenceCorrect ? currentQuestion.correctPastForm : getDistractor(currentQuestion);
+                sentenceDisplay.textContent = currentQuestion.sentenceTemplate.replace('[___]', displayedForm);
                 const grid = document.createElement('div');
-                grid.className = "grid grid-cols-2 gap-3 w-full";
-
-                const yesBtn = document.createElement('button');
-                yesBtn.className = "bg-green-900/40 hover:bg-green-600 border-2 border-green-600 text-green-100 font-bold py-3 rounded-xl text-base transition active:scale-95";
-                yesBtn.textContent = "Správně";
-                // Student clicked "Správně" -> answer is correct if sentence was correct
-                yesBtn.onclick = () => handleAnswer(isSentenceCorrect);
-
-                const noBtn = document.createElement('button');
-                noBtn.className = "bg-red-900/40 hover:bg-red-600 border-2 border-red-600 text-red-100 font-bold py-3 rounded-xl text-base transition active:scale-95";
-                noBtn.textContent = "Špatně";
-                // Student clicked "Špatně" -> answer is correct if sentence was wrong
-                noBtn.onclick = () => handleAnswer(!isSentenceCorrect);
-
-                grid.appendChild(yesBtn);
-                grid.appendChild(noBtn);
+                grid.className = 'grid grid-cols-2 gap-3 w-full';
+                const yesButton = document.createElement('button');
+                yesButton.className = 'bg-green-900/40 hover:bg-green-600 border-2 border-green-600 text-green-100 font-bold py-3 rounded-xl text-base transition active:scale-95';
+                yesButton.textContent = 'Správně';
+                yesButton.onclick = () => handleAnswer(isSentenceCorrect);
+                const noButton = document.createElement('button');
+                noButton.className = 'bg-red-900/40 hover:bg-red-600 border-2 border-red-600 text-red-100 font-bold py-3 rounded-xl text-base transition active:scale-95';
+                noButton.textContent = 'Špatně';
+                noButton.onclick = () => handleAnswer(!isSentenceCorrect);
+                grid.append(yesButton, noButton);
                 inputWorkspace.appendChild(grid);
-
-            } else if (exerciseLevel === 3) {
-                const isAuxError = Math.random() > 0.5 && currentQuestion.auxiliary;
-                let brokenSentence = "";
-                let optionsToDisplay = [];
-                let expectedAnswer = currentQuestion.correctPastForm; // Default to main verb form
-
-                if (isAuxError) {
-                    brokenSentence = `${currentQuestion.timeMarker} ${currentQuestion.wrongAuxiliary} ${currentQuestion.reflexive || ''} ${currentQuestion.actualPastVerb} ${currentQuestion.targetItem}.`;
-                    optionsToDisplay = ["jsem", "jsi", "jsme", "jste"];
-                    expectedAnswer = currentQuestion.auxiliary; // Set target answer to the auxiliary verb
-                } else {
-                    brokenSentence = template.replace('[___]', getDistractor(currentQuestion));
-                    optionsToDisplay = currentQuestion.options;
-                }
-
-                sentenceDisplay.textContent = brokenSentence.replace(/\s+/g, ' ').trim();
-
+            } else if (stage === 3) {
+                const isAuxiliaryError = !isVocabularyQuiz && Boolean(currentQuestion.auxiliary) && Math.random() > 0.5;
+                const expectedAnswer = isAuxiliaryError ? currentQuestion.auxiliary : currentQuestion.correctPastForm;
+                const displayedSentence = isAuxiliaryError
+                    ? `${currentQuestion.timeMarker} ${currentQuestion.wrongAuxiliary} ${currentQuestion.reflexive || ''} ${currentQuestion.actualPastVerb} ${currentQuestion.targetItem}.`
+                    : currentQuestion.sentenceTemplate.replace('[___]', getDistractor(currentQuestion));
+                sentenceDisplay.textContent = displayedSentence.replace(/\s+/g, ' ').trim();
+                const options = isAuxiliaryError ? ['jsem', 'jsi', 'jsme', 'jste'] : currentQuestion.options;
                 const grid = document.createElement('div');
-                grid.className = "grid grid-cols-2 gap-2.5 w-full";
-
-                optionsToDisplay.forEach(opt => {
-                    const btn = document.createElement('button');
-                    btn.className = "bg-slate-900 hover:bg-blue-600/30 border-2 border-slate-700 hover:border-blue-500 font-bold py-2.5 px-3 rounded-xl text-base transition active:scale-95 text-slate-100";
-                    btn.textContent = opt || "—";
-                    btn.onclick = () => handleAnswer(opt === expectedAnswer); // Evaluates against expectedAnswer
-                    grid.appendChild(btn);
+                grid.className = 'grid grid-cols-2 gap-2.5 w-full';
+                const letters = ['A', 'B', 'C', 'D'];
+                options.forEach((option, index) => {
+                    const button = document.createElement('button');
+                    button.className = 'bg-slate-900 hover:bg-blue-600/30 border-2 border-slate-700 hover:border-blue-500 font-bold py-2 px-3 rounded-xl text-sm transition active:scale-95 text-slate-100 flex items-center space-x-2 justify-start';
+                    button.innerHTML = `<span class="bg-slate-800 text-amber-400 border border-slate-600 text-xs px-2 py-0.5 rounded-md font-extrabold shrink-0">${letters[index]}</span><span class="truncate">${option || '—'}</span>`;
+                    button.onclick = () => handleAnswer(option === expectedAnswer);
+                    grid.appendChild(button);
                 });
                 inputWorkspace.appendChild(grid);
-            
-
-            } else if (exerciseLevel === 4) {
-                sentenceDisplay.textContent = template.replace('[___]', '___');
-
-                const wrapper = document.createElement('div');
-                wrapper.className = "flex space-x-2 w-full";
-
+            } else {
+                sentenceDisplay.textContent = currentQuestion.sentenceTemplate.replace('[___]', '___');
+                const wrapper = document.createElement('form');
+                wrapper.className = 'flex space-x-2 w-full';
                 const input = document.createElement('input');
-                input.type = "text";
-                input.id = "typeInput";
-                input.placeholder = `Začněte: ${currentQuestion.firstTwoChars}...`;
-                input.className = "w-full bg-slate-900 border-2 border-slate-700 focus:border-amber-400 rounded-xl px-4 py-2.5 text-slate-100 font-bold outline-none text-center text-lg";
-
-                const submitBtn = document.createElement('button');
-                submitBtn.className = "bg-amber-500 hover:bg-amber-400 text-slate-900 font-extrabold px-5 rounded-xl text-base transition active:scale-95 shrink-0";
-                submitBtn.textContent = "Zkontrolovat";
-                
-                const check = () => {
-                    const val = input.value.trim().toLowerCase();
-                    const target = currentQuestion.correctPastForm.trim().toLowerCase();
-                    handleAnswer(val === target);
+                input.type = 'text';
+                input.id = 'typeInput';
+                input.autocomplete = 'off';
+                input.placeholder = isVocabularyQuiz ? 'Doplňte správné sloveso…' : `Tvar slovesa (${currentQuestion.firstTwoChars}…)`;
+                input.className = 'w-full bg-slate-900 border-2 border-slate-700 focus:border-amber-400 rounded-xl px-4 py-2.5 text-slate-100 font-bold outline-none text-center text-lg';
+                const submitButton = document.createElement('button');
+                submitButton.type = 'submit';
+                submitButton.className = 'bg-amber-500 hover:bg-amber-400 text-slate-900 font-extrabold px-5 rounded-xl text-base transition active:scale-95 shrink-0';
+                submitButton.textContent = 'Zkontrolovat';
+                wrapper.onsubmit = event => {
+                    event.preventDefault();
+                    const answer = input.value.trim().toLocaleLowerCase('cs');
+                    if (answer) handleAnswer(answer === currentQuestion.correctPastForm.toLocaleLowerCase('cs'));
                 };
-
-                submitBtn.onclick = check;
-                input.onkeydown = (e) => { if (e.key === 'Enter') check(); };
-
-                wrapper.appendChild(input);
-                wrapper.appendChild(submitBtn);
+                wrapper.append(input, submitButton);
                 inputWorkspace.appendChild(wrapper);
-
                 setTimeout(() => input.focus(), 50);
             }
         }
 
-        function handleAnswer(isStudentRight) {
-            inputWorkspace.querySelectorAll('button, input').forEach(el => el.disabled = true);
+        function handleAnswer(isCorrect) {
+            if (nextBtn.classList.contains('invisible') === false) return;
+            inputWorkspace.querySelectorAll('button, input').forEach(element => element.disabled = true);
+            answeredCount++;
 
-            if (!firstPersonUnlocked) {
-                if (isStudentRight) {
-                    firstPersonStreak++;
-                    if (firstPersonStreak >= 3) firstPersonUnlocked = true;
-                } else {
-                    firstPersonStreak = 0;
-                }
-            }
-
-            if (isStudentRight) {
-                exerciseStreak++;
-                if (exerciseStreak >= 4) {
-                    exerciseStreak = 0;
-                    if (exerciseLevel < 4) exerciseLevel++;
-                }
-
-                verbStreak++;
-                if (verbStreak >= 3) {
-                    verbStreak = 0;
-                    verbTier++;
+            if (isCorrect) {
+                correctCount++;
+                successStreak++;
+                errorStreak = 0;
+                if (successStreak >= 5) {
+                    successStreak = 0;
+                    exerciseModeLevel = Math.min(exerciseModeLevel + 1, 4);
                 }
             } else {
-                exerciseStreak = 0;
-                verbStreak = 0;
-
-                if (exerciseLevel > 1) exerciseLevel--;
-                if (verbTier > 1) verbTier--;
+                successStreak = 0;
+                errorStreak++;
+                if (exerciseModeLevel > 1) exerciseModeLevel--;
+                else if (errorStreak >= 2) {
+                    errorStreak = 0;
+                    document.getElementById('gameScreen').classList.add('hidden');
+                    document.getElementById('demoModal').classList.remove('hidden');
+                    selectStartingLevel(selectedLevel, true);
+                }
             }
 
-            // Display standard outcome box with tick or cross
-            feedbackBox.className = "min-h-[40px] py-1.5 rounded-xl border text-sm font-bold flex items-center justify-center px-4 transition-all opacity-100 visible text-center ";
-
-            if (isStudentRight) {
+            document.getElementById('scoreCounter').textContent = `⭐ Skóre: ${correctCount}/${answeredCount}`;
+            document.getElementById('streakCounter').textContent = `🔥 Streak: ${successStreak}/5`;
+            feedbackBox.className = 'min-h-[40px] py-1.5 rounded-xl border text-sm font-bold flex items-center justify-center px-4 transition-all opacity-100 visible text-center';
+            if (isCorrect) {
                 feedbackBox.classList.add('bg-green-950/80', 'border-green-600', 'text-green-200');
-                feedbackBox.textContent = "✔ Správně!";
+                feedbackBox.textContent = '✔ Správně!';
             } else {
                 feedbackBox.classList.add('bg-red-950/80', 'border-red-600', 'text-red-200');
                 feedbackBox.textContent = `✖ Špatně. Správná věta: ${currentQuestion.fullCorrectSentence}`;
             }
-
             nextBtn.classList.remove('invisible');
         }
 
-        function getDistractor(q) {
-            const wrong = q.options.filter(o => o.trim().toLowerCase() !== q.correctPastForm.trim().toLowerCase());
-            return wrong.length > 0 ? wrong[Math.floor(Math.random() * wrong.length)] : q.correctPastForm + "i";
+        function getDistractor(question) {
+            const incorrectOptions = question.options.filter(option => option.trim().toLocaleLowerCase('cs') !== question.correctPastForm.trim().toLocaleLowerCase('cs'));
+            return incorrectOptions.length > 0 ? incorrectOptions[Math.floor(Math.random() * incorrectOptions.length)] : `${question.correctPastForm}i`;
         }
 
+        function speakCzech(text, event) {
+            if (event) event.stopPropagation();
+            if (!window.speechSynthesis) {
+                feedbackBox.textContent = 'Přehrávání zvuku tento prohlížeč nepodporuje.';
+                feedbackBox.className = 'min-h-[40px] py-1.5 rounded-xl border text-sm font-bold flex items-center justify-center px-4 text-center bg-amber-950/80 border-amber-600 text-amber-200';
+                return;
+            }
+            const utterance = new SpeechSynthesisUtterance(text);
+            const czechVoice = window.speechSynthesis.getVoices().find(voice => voice.lang === 'cs-CZ' || voice.lang === 'cs_CZ');
+            if (czechVoice) utterance.voice = czechVoice;
+            utterance.lang = 'cs-CZ';
+            utterance.rate = 0.9;
+            window.speechSynthesis.cancel();
+            window.speechSynthesis.speak(utterance);
+        }
+
+        renderLevelCards();
+        setAppGameMode(appGameMode);
         nextBtn.onclick = loadNextQuestion;
     </script>
 </body>
