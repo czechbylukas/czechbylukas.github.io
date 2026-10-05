@@ -135,7 +135,7 @@ window.ANIMAL_DATABASE = {
         },
         {
           id: "mys", approved: true, nominative: "myš", english: "Mouse", gender: "F", symbol: "♀", color: "text-rose-400",
-          image: "https://images.unsplash.com/photo-1425082661705-1834bfd09dca?auto=format&fit=crop&w=600&q=80",
+          image: "https://images.unsplash.com/photo-1624116518496-993146f67f4a?auto=format&fit=crop&w=600&q=80",
           declension: { singular: { nom: "myš", gen: "myši", dat: "myši", acc: "myš", voc: "myši", loc: "myši", inst: "myší" }, plural: { nom: "myši", gen: "myší", dat: "myším", acc: "myši", voc: "myši", loc: "myších", inst: "myšmi" } }
         },
         {
