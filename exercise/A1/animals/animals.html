@@ -1,0 +1,468 @@
+<!DOCTYPE html>
+<html lang="cs" class="h-full">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Czech Animals & Declension Practice</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-slate-900 text-slate-100 h-full w-full flex items-center justify-center p-3 sm:p-6 overflow-hidden">
+
+    <!-- App Container -->
+    <div class="w-full max-w-2xl h-[95vh] max-h-[760px] min-h-[620px] bg-slate-800 border border-slate-700 rounded-2xl p-4 sm:p-6 shadow-2xl flex flex-col justify-between overflow-hidden relative">
+        
+        <!-- LEVEL SELECTION & DEMO VOCABULARY OVERLAY -->
+        <div id="demoModal" class="absolute inset-0 bg-slate-900/95 backdrop-blur-md z-40 p-6 flex flex-col justify-between overflow-y-auto rounded-2xl">
+            <div id="levelSelectStep" class="flex flex-col h-full justify-between items-center text-center">
+                <div class="w-full h-32 rounded-xl overflow-hidden border border-slate-700 relative shrink-0">
+                    <img src="https://images.unsplash.com/photo-1534447677768-be436bb09401?auto=format&fit=crop&w=800&q=80" class="w-full h-full object-cover opacity-60">
+                    <div class="absolute inset-0 flex items-center justify-center bg-slate-900/40">
+                        <span class="text-3xl font-extrabold text-amber-400 tracking-wider">🇨🇿 🐾</span>
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-2 sm:grid-cols-3 gap-3 w-full my-auto py-2">
+                    <button onclick="selectStartingLevel(1)" class="bg-slate-800 hover:bg-slate-700 border border-slate-600 p-4 rounded-xl flex flex-col items-center justify-center space-y-1 transition active:scale-95">
+                        <span class="text-3xl">🌱</span>
+                        <span class="font-bold text-amber-400 text-sm">Začátečník</span>
+                    </button>
+                    <button onclick="selectStartingLevel(2)" class="bg-slate-800 hover:bg-slate-700 border border-slate-600 p-4 rounded-xl flex flex-col items-center justify-center space-y-1 transition active:scale-95">
+                        <span class="text-3xl">🌿</span>
+                        <span class="font-bold text-amber-400 text-sm">Mírně pokročilý</span>
+                    </button>
+                    <button onclick="selectStartingLevel(3)" class="bg-slate-800 hover:bg-slate-700 border border-slate-600 p-4 rounded-xl flex flex-col items-center justify-center space-y-1 transition active:scale-95">
+                        <span class="text-3xl">🌳</span>
+                        <span class="font-bold text-amber-400 text-sm">Středně pokročilý</span>
+                    </button>
+                    <button onclick="selectStartingLevel(4)" class="bg-slate-800 hover:bg-slate-700 border border-slate-600 p-4 rounded-xl flex flex-col items-center justify-center space-y-1 transition active:scale-95">
+                        <span class="text-3xl">🦅</span>
+                        <span class="font-bold text-amber-400 text-sm">Vyšší střední</span>
+                    </button>
+                    <button onclick="selectStartingLevel(5)" class="bg-slate-800 hover:bg-slate-700 border border-slate-600 p-4 rounded-xl flex flex-col items-center justify-center space-y-1 transition active:scale-95">
+                        <span class="text-3xl">👑</span>
+                        <span class="font-bold text-amber-400 text-sm">Pokročilý</span>
+                    </button>
+                    <button onclick="selectStartingLevel(6)" class="bg-slate-800 hover:bg-slate-700 border border-slate-600 p-4 rounded-xl flex flex-col items-center justify-center space-y-1 transition active:scale-95">
+                        <span class="text-3xl">🐉</span>
+                        <span class="font-bold text-amber-400 text-sm">Mistr</span>
+                    </button>
+                </div>
+            </div>
+
+            <div id="demoVocabStep" class="hidden flex flex-col h-full justify-between">
+                <div>
+                    <div id="mistakeWarningBanner" class="hidden bg-amber-500/20 border-2 border-amber-400 rounded-xl p-3 mb-3 text-center animate-bounce">
+                        <div class="text-amber-300 font-extrabold text-base">🙈 Ojojoj... Moc chyb!</div>
+                        <div class="text-amber-200 text-xs font-medium">Koukni se na tahák a osvěž si slovíčka!</div>
+                    </div>
+
+                    <div class="flex justify-between items-center border-b border-slate-700 pb-2 mb-3">
+                        <h2 id="demoTitle" class="text-lg font-bold text-amber-400"></h2>
+                    </div>
+                    <div id="demoCardsGrid" class="grid grid-cols-2 gap-3 max-h-[380px] overflow-y-auto pr-1"></div>
+                </div>
+
+                <div class="pt-3 border-t border-slate-700 flex gap-2">
+                    <button onclick="resetLevelSelection()" class="w-1/3 bg-slate-700 hover:bg-slate-600 text-slate-200 font-bold py-2.5 rounded-xl text-sm transition">
+                        Zpět
+                    </button>
+                    <button onclick="startPracticeApp()" class="w-2/3 bg-blue-600 hover:bg-blue-500 text-white font-bold py-2.5 rounded-xl text-sm transition">
+                        Start
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- SECOND CHANCE / NEAR MISS CONFIRMATION MODAL -->
+        <div id="secondChanceModal" class="hidden absolute inset-0 bg-slate-950/90 backdrop-blur-md z-50 p-6 flex flex-col justify-center items-center rounded-2xl text-center space-y-4">
+            <div class="text-4xl">🤔</div>
+            <h3 class="text-xl font-extrabold text-amber-400">Jsi si jistý/á pádem?</h3>
+            <p id="secondChanceText" class="text-sm text-slate-300 max-w-xs">Zadal/a jsi základní tvar (nominativ) nebo velmi podobné slovo. Chceš to změnit nebo odeslat?</p>
+            <div class="flex flex-col space-y-2 w-full max-w-xs">
+                <button onclick="confirmSecondChance(true)" class="w-full bg-slate-700 hover:bg-slate-600 text-white font-bold py-3 rounded-xl transition">
+                    ✏️ Opravit odpověď
+                </button>
+                <button onclick="confirmSecondChance(false)" class="w-full bg-amber-500 hover:bg-amber-400 text-slate-900 font-extrabold py-3 rounded-xl transition">
+                    👍 Ano, jsem si jistý/á
+                </button>
+            </div>
+        </div>
+
+        <!-- FULL DECLENSION TABLE MODAL -->
+        <div id="declensionModal" class="hidden absolute inset-0 bg-slate-950/90 backdrop-blur-md z-50 p-4 flex flex-col justify-between rounded-2xl">
+            <div class="flex justify-between items-center border-b border-slate-700 pb-2">
+                <div class="flex items-center space-x-2">
+                    <span id="modalAnimalSymbol" class="text-xl"></span>
+                    <h3 id="modalAnimalTitle" class="text-xl font-extrabold text-amber-400"></h3>
+                </div>
+                <button onclick="closeDeclensionModal()" class="text-slate-400 hover:text-white font-bold text-xl px-2">✕</button>
+            </div>
+
+            <div class="overflow-y-auto my-2 pr-1">
+                <table class="w-full text-xs sm:text-sm text-left text-slate-300">
+                    <thead class="text-xs uppercase bg-slate-800 text-slate-400 sticky top-0">
+                        <tr>
+                            <th class="p-2">Pád (Case)</th>
+                            <th class="p-2">Singulár</th>
+                            <th class="p-2">Plurál</th>
+                        </tr>
+                    </thead>
+                    <tbody id="declensionTableBody" class="divide-y divide-slate-700/60"></tbody>
+                </table>
+            </div>
+
+            <button onclick="closeDeclensionModal()" class="w-full bg-slate-700 hover:bg-slate-600 text-white font-bold py-2 rounded-xl text-sm transition shrink-0">
+                Zavřít
+            </button>
+        </div>
+
+        <!-- TOP BAR: Progress & Streaks -->
+        <div class="flex items-center justify-between border-b border-slate-700/80 pb-3 h-10 shrink-0">
+            <span id="levelName" class="text-xs sm:text-sm font-bold tracking-wider text-amber-400 uppercase"></span>
+            <div class="flex items-center space-x-2">
+                <span id="streakCounter" class="text-xs bg-amber-500/20 text-amber-300 px-2.5 py-0.5 rounded-full font-bold border border-amber-500/40">🔥 Streak: 0/5</span>
+            </div>
+        </div>
+
+        <!-- WORKSPACE -->
+        <div class="flex-1 my-3 flex flex-col justify-around gap-3 overflow-hidden">
+            <div class="grid grid-cols-3 gap-3 items-center h-36 shrink-0">
+                <div class="col-span-1 bg-slate-900 border border-slate-700 rounded-xl overflow-hidden h-full flex items-center justify-center relative">
+                    <img id="animalImage" src="" alt="Animal" class="w-full h-full object-cover">
+                    <span id="genderBadge" class="absolute bottom-1 left-1 border border-slate-700/80 bg-slate-900/80 text-xs px-1.5 py-0.5 rounded font-bold"></span>
+                </div>
+
+                <div class="col-span-2 bg-slate-900 border border-slate-700 rounded-xl p-3 h-full flex flex-col justify-center space-y-1">
+                    <div class="text-slate-400 text-xs uppercase font-bold tracking-wider">Cílový tvar</div>
+                    <div class="flex items-center space-x-2">
+                        <div id="targetWordPrompt" class="text-amber-400 font-extrabold text-lg"></div>
+                        <span id="numberBadge" class="text-xs bg-slate-800 border border-slate-600 text-amber-300 px-2 py-0.5 rounded-full font-bold"></span>
+                    </div>
+                    <div id="animalHintText" class="text-slate-300 text-xs font-semibold"></div>
+                </div>
+            </div>
+
+            <div class="bg-slate-900 border border-slate-700 rounded-xl p-4 min-h-[85px] flex items-center justify-center text-center shrink-0">
+                <div id="sentenceDisplay" class="text-lg sm:text-xl font-medium text-slate-100"></div>
+            </div>
+
+            <div id="inputWorkspace" class="min-h-[110px] flex items-center justify-center shrink-0"></div>
+        </div>
+
+        <!-- CONTROLS & FOOTER AREA -->
+        <div class="shrink-0 flex flex-col space-y-2 border-t border-slate-700/50 pt-2">
+            <div id="feedbackBox" class="min-h-[40px] py-1.5 rounded-xl border text-sm font-bold flex items-center justify-center px-4 transition-all opacity-0 invisible text-center"></div>
+
+            <button id="nextBtn" class="w-full h-10 bg-blue-600 hover:bg-blue-500 text-white font-bold rounded-xl transition invisible active:scale-[0.99]">
+                Další
+            </button>
+
+            <!-- FOOTER WITH SOURCE REFERENCE & HOME WEBSITE LINK -->
+            <div class="flex items-center justify-between text-[11px] text-slate-400 pt-1 border-t border-slate-700/40 px-1">
+                <span>Fotky z <a href="https://unsplash.com" target="_blank" rel="noopener noreferrer" class="text-amber-400 hover:underline">Unsplash</a></span>
+                <a href="https://www.hackczech.com" target="_blank" rel="noopener noreferrer" class="inline-flex items-center space-x-1 text-slate-300 hover:text-amber-400 bg-slate-900/60 hover:bg-slate-900 px-2.5 py-1 rounded-md border border-slate-700/80 transition">
+                    <span>🌐</span>
+                    <span class="font-semibold">www.hackczech.com</span>
+                </a>
+            </div>
+        </div>
+
+    </div>
+
+    <script src="combinations.js"></script>
+
+    <script>
+        let selectedLevel = 1;
+        let exerciseModeLevel = 1;
+        let successStreak = 0;
+        let errorStreak = 0;
+        let currentQuestion = null;
+        let pendingTypedAnswer = "";
+
+        const levelName = document.getElementById('levelName');
+        const streakCounter = document.getElementById('streakCounter');
+        const animalImage = document.getElementById('animalImage');
+        const genderBadge = document.getElementById('genderBadge');
+        const targetWordPrompt = document.getElementById('targetWordPrompt');
+        const numberBadge = document.getElementById('numberBadge');
+        const animalHintText = document.getElementById('animalHintText');
+        const sentenceDisplay = document.getElementById('sentenceDisplay');
+        const inputWorkspace = document.getElementById('inputWorkspace');
+        const feedbackBox = document.getElementById('feedbackBox');
+        const nextBtn = document.getElementById('nextBtn');
+
+        function levenshteinDistance(a, b) {
+            const matrix = [];
+            for (let i = 0; i <= b.length; i++) matrix[i] = [i];
+            for (let j = 0; j <= a.length; j++) matrix[0][j] = j;
+
+            for (let i = 1; i <= b.length; i++) {
+                for (let j = 1; j <= a.length; j++) {
+                    if (b.charAt(i - 1) === a.charAt(j - 1)) {
+                        matrix[i][j] = matrix[i - 1][j - 1];
+                    } else {
+                        matrix[i][j] = Math.min(
+                            matrix[i - 1][j - 1] + 1,
+                            matrix[i][j - 1] + 1,
+                            matrix[i - 1][j] + 1
+                        );
+                    }
+                }
+            }
+            return matrix[b.length][a.length];
+        }
+
+        function selectStartingLevel(lvl, isMistakeRecall = false) {
+            selectedLevel = lvl;
+            document.getElementById('levelSelectStep').classList.add('hidden');
+            document.getElementById('demoVocabStep').classList.remove('hidden');
+
+            const banner = document.getElementById('mistakeWarningBanner');
+            if (isMistakeRecall) {
+                banner.classList.remove('hidden');
+            } else {
+                banner.classList.add('hidden');
+            }
+
+            const lvlData = window.ANIMAL_DATABASE.levels[lvl];
+            document.getElementById('demoTitle').textContent = `${lvlData.icon} ${lvlData.name}`;
+
+            const vocabList = window.getAnimalsForLevel(lvl);
+            const grid = document.getElementById('demoCardsGrid');
+            grid.innerHTML = '';
+
+            vocabList.forEach(item => {
+                const card = document.createElement('div');
+                card.className = "bg-slate-800 hover:bg-slate-700 border border-slate-700 rounded-xl p-3 flex items-center space-x-3 cursor-pointer transition active:scale-95";
+                card.onclick = () => openDeclensionModal(item);
+                card.innerHTML = `
+                    <img src="${item.image}" class="w-12 h-12 rounded-lg object-cover border border-slate-600 shrink-0">
+                    <div class="overflow-hidden">
+                        <div class="font-bold text-slate-100 text-sm truncate">${item.nominative}</div>
+                        <div class="text-xs text-amber-400">${item.english}</div>
+                    </div>
+                `;
+                grid.appendChild(card);
+            });
+        }
+
+        function openDeclensionModal(animal) {
+            document.getElementById('modalAnimalSymbol').textContent = animal.symbol;
+            document.getElementById('modalAnimalTitle').textContent = `${animal.nominative} (${animal.english})`;
+
+            const caseLabels = [
+                { k: 'nom', n: '1. Nominativ' },
+                { k: 'gen', n: '2. Genitiv' },
+                { k: 'dat', n: '3. Dativ' },
+                { k: 'acc', n: '4. Akuzativ' },
+                { k: 'voc', n: '5. Vokativ' },
+                { k: 'loc', n: '6. Lokál' },
+                { k: 'inst', n: '7. Instrumentál' }
+            ];
+
+            const tbody = document.getElementById('declensionTableBody');
+            tbody.innerHTML = '';
+
+            caseLabels.forEach(c => {
+                const tr = document.createElement('tr');
+                tr.className = "hover:bg-slate-800/50";
+                tr.innerHTML = `
+                    <td class="p-2 font-semibold text-slate-400">${c.n}</td>
+                    <td class="p-2 font-bold text-amber-300">${animal.declension.singular[c.k]}</td>
+                    <td class="p-2 font-bold text-slate-200">${animal.declension.plural[c.k]}</td>
+                `;
+                tbody.appendChild(tr);
+            });
+
+            document.getElementById('declensionModal').classList.remove('hidden');
+        }
+
+        function closeDeclensionModal() {
+            document.getElementById('declensionModal').classList.add('hidden');
+        }
+
+        function resetLevelSelection() {
+            document.getElementById('demoVocabStep').classList.add('hidden');
+            document.getElementById('levelSelectStep').classList.remove('hidden');
+        }
+
+        function startPracticeApp() {
+            document.getElementById('demoModal').classList.add('hidden');
+            loadNextQuestion();
+        }
+
+        function loadNextQuestion() {
+            feedbackBox.className = "min-h-[40px] py-1.5 rounded-xl border text-sm font-bold flex items-center justify-center px-4 transition-all opacity-0 invisible text-center";
+            nextBtn.classList.add('invisible');
+
+            const lvlData = window.ANIMAL_DATABASE.levels[selectedLevel];
+            levelName.textContent = `${lvlData.icon} ${lvlData.name}`;
+            streakCounter.textContent = `🔥 Streak: ${successStreak}/5`;
+
+            currentQuestion = window.generateAnimalQuestion(selectedLevel);
+            renderUI();
+        }
+
+        function renderUI() {
+            animalImage.src = currentQuestion.animal.image;
+            genderBadge.textContent = currentQuestion.animal.symbol;
+            genderBadge.className = `absolute bottom-1 left-1 border border-slate-700/80 bg-slate-900/80 text-xs px-1.5 py-0.5 rounded font-bold ${currentQuestion.animal.color}`;
+            
+            numberBadge.textContent = currentQuestion.isPlural ? "👥 2+" : "👤 1x";
+
+            if (exerciseModeLevel === 2) {
+                targetWordPrompt.textContent = "Je věta správně?";
+            } else {
+                targetWordPrompt.textContent = `"${currentQuestion.animal.english}"`;
+            }
+
+            animalHintText.textContent = currentQuestion.template.caseName;
+
+            inputWorkspace.innerHTML = '';
+            const template = currentQuestion.sentenceTemplate;
+
+            if (exerciseModeLevel === 1) {
+                sentenceDisplay.textContent = template.replace('[___]', '___');
+                
+                const grid = document.createElement('div');
+                grid.className = "grid grid-cols-2 gap-2.5 w-full";
+                
+                currentQuestion.options.forEach(opt => {
+                    const btn = document.createElement('button');
+                    btn.className = "bg-slate-900 hover:bg-blue-600/30 border-2 border-slate-700 hover:border-blue-500 font-bold py-2.5 px-3 rounded-xl text-base transition active:scale-95 text-slate-100";
+                    btn.textContent = opt;
+                    btn.onclick = () => handleAnswer(opt.toLowerCase() === currentQuestion.correctTarget.toLowerCase());
+                    grid.appendChild(btn);
+                });
+                inputWorkspace.appendChild(grid);
+
+            } else if (exerciseModeLevel === 2) {
+                const isSentenceCorrect = Math.random() > 0.5;
+                const displayForm = isSentenceCorrect ? currentQuestion.correctTarget : currentQuestion.distractor;
+                
+                sentenceDisplay.textContent = template.replace('[___]', displayForm);
+
+                const grid = document.createElement('div');
+                grid.className = "grid grid-cols-2 gap-3 w-full";
+
+                const yesBtn = document.createElement('button');
+                yesBtn.className = "bg-green-900/40 hover:bg-green-600 border-2 border-green-600 text-green-100 font-bold py-3 rounded-xl text-base transition active:scale-95";
+                yesBtn.textContent = "Správně";
+                yesBtn.onclick = () => handleAnswer(isSentenceCorrect);
+
+                const noBtn = document.createElement('button');
+                noBtn.className = "bg-red-900/40 hover:bg-red-600 border-2 border-red-600 text-red-100 font-bold py-3 rounded-xl text-base transition active:scale-95";
+                noBtn.textContent = "Špatně";
+                noBtn.onclick = () => handleAnswer(!isSentenceCorrect);
+
+                grid.appendChild(yesBtn);
+                grid.appendChild(noBtn);
+                inputWorkspace.appendChild(grid);
+
+            } else if (exerciseModeLevel === 3) {
+                sentenceDisplay.textContent = template.replace('[___]', '___');
+
+                const wrapper = document.createElement('div');
+                wrapper.className = "flex space-x-2 w-full";
+
+                const input = document.createElement('input');
+                input.type = "text";
+                input.id = "typeInput";
+                input.placeholder = `Tvar pro ${currentQuestion.template.caseName}...`;
+                input.className = "w-full bg-slate-900 border-2 border-slate-700 focus:border-amber-400 rounded-xl px-4 py-2.5 text-slate-100 font-bold outline-none text-center text-lg";
+
+                const submitBtn = document.createElement('button');
+                submitBtn.className = "bg-amber-500 hover:bg-amber-400 text-slate-900 font-extrabold px-5 rounded-xl text-base transition active:scale-95 shrink-0";
+                submitBtn.textContent = "OK";
+                
+                const processTypingAnswer = () => {
+                    const val = input.value.trim().toLowerCase();
+                    const target = currentQuestion.correctTarget.trim().toLowerCase();
+                    const nominative = currentQuestion.animal.nominative.trim().toLowerCase();
+
+                    if (!val) return;
+
+                    if (val !== target) {
+                        const dist = levenshteinDistance(val, target);
+                        const isNom = (val === nominative);
+
+                        if (isNom || dist <= 2) {
+                            pendingTypedAnswer = val;
+                            document.getElementById('secondChanceModal').classList.remove('hidden');
+                            return;
+                        }
+                    }
+
+                    handleAnswer(val === target);
+                };
+
+                submitBtn.onclick = processTypingAnswer;
+                input.onkeydown = (e) => { if (e.key === 'Enter') processTypingAnswer(); };
+
+                wrapper.appendChild(input);
+                wrapper.appendChild(submitBtn);
+                inputWorkspace.appendChild(wrapper);
+                setTimeout(() => input.focus(), 50);
+            }
+        }
+
+        function confirmSecondChance(wantToEdit) {
+            document.getElementById('secondChanceModal').classList.add('hidden');
+            if (wantToEdit) {
+                const input = document.getElementById('typeInput');
+                if (input) {
+                    input.focus();
+                    input.select();
+                }
+            } else {
+                const target = currentQuestion.correctTarget.trim().toLowerCase();
+                handleAnswer(pendingTypedAnswer === target);
+            }
+        }
+
+        function handleAnswer(isStudentRight) {
+            inputWorkspace.querySelectorAll('button, input').forEach(el => el.disabled = true);
+
+            if (isStudentRight) {
+                successStreak++;
+                errorStreak = 0;
+
+                if (successStreak >= 5) {
+                    successStreak = 0;
+                    if (exerciseModeLevel < 3) {
+                        exerciseModeLevel++;
+                    } else {
+                        exerciseModeLevel = 1;
+                        if (selectedLevel < 6) selectedLevel++;
+                    }
+                }
+            } else {
+                successStreak = 0;
+                errorStreak++;
+
+                if (exerciseModeLevel > 1) {
+                    exerciseModeLevel--;
+                } else if (errorStreak >= 2) {
+                    errorStreak = 0;
+                    selectStartingLevel(selectedLevel, true);
+                    document.getElementById('demoModal').classList.remove('hidden');
+                }
+            }
+
+            feedbackBox.className = "min-h-[40px] py-1.5 rounded-xl border text-sm font-bold flex items-center justify-center px-4 transition-all opacity-100 visible text-center ";
+
+            if (isStudentRight) {
+                feedbackBox.classList.add('bg-green-950/80', 'border-green-600', 'text-green-200');
+                feedbackBox.textContent = "✔ Správně!";
+            } else {
+                feedbackBox.classList.add('bg-red-950/80', 'border-red-600', 'text-red-200');
+                feedbackBox.textContent = `✖ Špatně. Správně: ${currentQuestion.fullCorrectSentence}`;
+            }
+
+            nextBtn.classList.remove('invisible');
+        }
+
+        nextBtn.onclick = loadNextQuestion;
+    </script>
+</body>
+</html>
