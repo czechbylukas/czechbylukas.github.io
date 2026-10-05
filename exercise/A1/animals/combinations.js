@@ -105,7 +105,7 @@ window.ANIMAL_DATABASE = {
         },
         {
           id: "ovce", approved: true, nominative: "ovce", english: "Sheep", gender: "F", symbol: "♀", color: "text-rose-400",
-          image: "https://images.unsplash.com/photo-1484557052118-f32bd25b45b5?auto=format&fit=crop&w=600&q=80",
+          image: "https://images.unsplash.com/photo-1533415648777-407b626eb0fa?auto=format&fit=crop&w=800&q=80",
           declension: { singular: { nom: "ovce", gen: "ovce", dat: "ovci", acc: "ovci", voc: "ovce", loc: "ovci", inst: "ovcí" }, plural: { nom: "ovce", gen: "ovcí", dat: "ovcím", acc: "ovce", voc: "ovce", loc: "ovcích", inst: "ovcemi" } }
         },
         {
