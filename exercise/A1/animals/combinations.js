@@ -91,7 +91,7 @@ window.ANIMAL_DATABASE = {
         {
           id: "krava", approved: true, nominative: "kráva", english: "Cow", gender: "F", symbol: "♀", color: "text-rose-400",
           image: "https://images.unsplash.com/photo-1570042225831-d98fa7577f1e?auto=format&fit=crop&w=600&q=80",
-          declension: { singular: { nom: "kráva", gen: "krávy", dat: "krávě", acc: "krávu", voc: "krávo", loc: "krávě", inst: "právou" }, plural: { nom: "krávy", gen: "krav", dat: "kravám", acc: "krávy", voc: "krávy", loc: "kravách", inst: "kravami" } }
+          declension: { singular: { nom: "kráva", gen: "krávy", dat: "krávě", acc: "krávu", voc: "krávo", loc: "krávě", inst: "krávou" }, plural: { nom: "krávy", gen: "krav", dat: "kravám", acc: "krávy", voc: "krávy", loc: "kravách", inst: "kravami" } }
         },
         {
           id: "byk", approved: false, nominative: "býk", english: "Bull", gender: "M_ANIM", symbol: "♂", color: "text-blue-400",
