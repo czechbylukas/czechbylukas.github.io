@@ -48,15 +48,22 @@
         </div>
 
         <!-- BOTTOM FOOTER SLOT -->
-        <div class="h-28 shrink-0 flex flex-col justify-end space-y-2 border-t border-slate-700/50 pt-2">
+        <div class="shrink-0 flex flex-col justify-end space-y-2 border-t border-slate-700/50 pt-2 mt-auto">
             <div id="feedbackBox" class="min-h-[40px] py-1.5 rounded-xl border text-sm font-bold flex items-center justify-center px-4 transition-all opacity-0 invisible text-center"></div>
 
             <button id="nextBtn" class="w-full h-10 bg-blue-600 hover:bg-blue-500 text-white font-bold rounded-xl transition invisible active:scale-[0.99]">
                 Další
             </button>
-        </div>
 
-    </div>
+            <!-- FOOTER WITH SOURCE REFERENCE & HOME WEBSITE LINK -->
+            <div class="flex items-center justify-between text-[11px] text-slate-400 pt-1 border-t border-slate-700/40 px-1">
+                <span>Fotky z <a href="https://unsplash.com" target="_blank" rel="noopener noreferrer" class="text-amber-400 hover:underline">Unsplash</a></span>
+                <a href="https://www.hackczech.com" target="_blank" rel="noopener noreferrer" class="inline-flex items-center space-x-1 text-slate-300 hover:text-amber-400 bg-slate-900/60 hover:bg-slate-900 px-2.5 py-1 rounded-md border border-slate-700/80 transition">
+                    <span>🌐</span>
+                    <span class="font-semibold">Learn more of Czech @ HackCzech´s Home Page</span>
+                </a>
+            </div>
+        </div>
 
     <script src="combinations.js"></script>
 
