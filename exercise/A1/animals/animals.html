@@ -13,38 +13,49 @@
 
         <!-- LEVEL SELECTION & DEMO VOCABULARY OVERLAY -->
         <div id="demoModal" class="absolute inset-0 bg-slate-900/95 backdrop-blur-md z-40 p-6 flex flex-col justify-between overflow-y-auto rounded-2xl">
-            <div id="levelSelectStep" class="flex flex-col h-full justify-between items-center text-center">
-                <div class="w-full h-32 rounded-xl overflow-hidden border border-slate-700 relative shrink-0">
+            <div id="levelSelectStep" class="flex flex-col h-full justify-between items-center text-center overflow-y-auto">
+                <div class="w-full h-24 rounded-xl overflow-hidden border border-slate-700 relative shrink-0 mb-2">
                     <img src="https://images.unsplash.com/photo-1534447677768-be436bb09401?auto=format&fit=crop&w=800&q=80" class="w-full h-full object-cover opacity-60">
                     <div class="absolute inset-0 flex items-center justify-center bg-slate-900/40">
-                        <span class="text-3xl font-extrabold text-amber-400 tracking-wider">🇨🇿 🐾</span>
+                        <span class="text-2xl font-extrabold text-amber-400 tracking-wider">🇨🇿 🐾</span>
                     </div>
                 </div>
 
-                <div class="grid grid-cols-2 sm:grid-cols-3 gap-3 w-full my-auto py-2">
-                    <button onclick="selectStartingLevel(1)" class="bg-slate-800 hover:bg-slate-700 border border-slate-600 p-4 rounded-xl flex flex-col items-center justify-center space-y-1 transition active:scale-95">
-                        <span class="text-3xl">🌱</span>
-                        <span class="font-bold text-amber-400 text-sm">Začátečník</span>
+                <!-- Mode Selector -->
+                <div class="w-full bg-slate-900/80 p-1.5 rounded-xl border border-slate-700 flex gap-1 mb-3 shrink-0">
+                    <button id="modeVocabBtn" onclick="setAppGameMode('vocab')" class="flex-1 py-1.5 rounded-lg text-xs font-extrabold transition bg-amber-500 text-slate-900 shadow-md">
+                        🌱 Slovíčka (Lehká)
                     </button>
-                    <button onclick="selectStartingLevel(2)" class="bg-slate-800 hover:bg-slate-700 border border-slate-600 p-4 rounded-xl flex flex-col items-center justify-center space-y-1 transition active:scale-95">
-                        <span class="text-3xl">🌿</span>
-                        <span class="font-bold text-amber-400 text-sm">Mírně pokročilý</span>
+                    <button id="modeGrammarBtn" onclick="setAppGameMode('grammar')" class="flex-1 py-1.5 rounded-lg text-xs font-extrabold transition bg-slate-800 text-slate-400 hover:text-slate-200">
+                        🧠 Skloňování (Pokročilá)
                     </button>
-                    <button onclick="selectStartingLevel(3)" class="bg-slate-800 hover:bg-slate-700 border border-slate-600 p-4 rounded-xl flex flex-col items-center justify-center space-y-1 transition active:scale-95">
-                        <span class="text-3xl">🌳</span>
-                        <span class="font-bold text-amber-400 text-sm">Středně pokročilý</span>
+                </div>
+
+                <!-- Level Grid -->
+                <div class="grid grid-cols-2 sm:grid-cols-3 gap-2.5 w-full my-auto py-1">
+                    <button onclick="selectStartingLevel(1)" class="bg-slate-800 hover:bg-slate-700 border border-slate-600 p-3 rounded-xl flex flex-col items-center justify-center space-y-1 transition active:scale-95">
+                        <span class="text-2xl">🌱</span>
+                        <span class="font-bold text-amber-400 text-xs">Začátečník</span>
                     </button>
-                    <button onclick="selectStartingLevel(4)" class="bg-slate-800 hover:bg-slate-700 border border-slate-600 p-4 rounded-xl flex flex-col items-center justify-center space-y-1 transition active:scale-95">
-                        <span class="text-3xl">🦅</span>
-                        <span class="font-bold text-amber-400 text-sm">Vyšší střední</span>
+                    <button onclick="selectStartingLevel(2)" class="bg-slate-800 hover:bg-slate-700 border border-slate-600 p-3 rounded-xl flex flex-col items-center justify-center space-y-1 transition active:scale-95">
+                        <span class="text-2xl">🌿</span>
+                        <span class="font-bold text-amber-400 text-xs">Mírně pokročilý</span>
                     </button>
-                    <button onclick="selectStartingLevel(5)" class="bg-slate-800 hover:bg-slate-700 border border-slate-600 p-4 rounded-xl flex flex-col items-center justify-center space-y-1 transition active:scale-95">
-                        <span class="text-3xl">👑</span>
-                        <span class="font-bold text-amber-400 text-sm">Pokročilý</span>
+                    <button onclick="selectStartingLevel(3)" class="bg-slate-800 hover:bg-slate-700 border border-slate-600 p-3 rounded-xl flex flex-col items-center justify-center space-y-1 transition active:scale-95">
+                        <span class="text-2xl">🌳</span>
+                        <span class="font-bold text-amber-400 text-xs">Středně pokročilý</span>
                     </button>
-                    <button onclick="selectStartingLevel(6)" class="bg-slate-800 hover:bg-slate-700 border border-slate-600 p-4 rounded-xl flex flex-col items-center justify-center space-y-1 transition active:scale-95">
-                        <span class="text-3xl">🐉</span>
-                        <span class="font-bold text-amber-400 text-sm">Mistr</span>
+                    <button onclick="selectStartingLevel(4)" class="bg-slate-800 hover:bg-slate-700 border border-slate-600 p-3 rounded-xl flex flex-col items-center justify-center space-y-1 transition active:scale-95">
+                        <span class="text-2xl">🦅</span>
+                        <span class="font-bold text-amber-400 text-xs">Vyšší střední</span>
+                    </button>
+                    <button onclick="selectStartingLevel(5)" class="bg-slate-800 hover:bg-slate-700 border border-slate-600 p-3 rounded-xl flex flex-col items-center justify-center space-y-1 transition active:scale-95">
+                        <span class="text-2xl">👑</span>
+                        <span class="font-bold text-amber-400 text-xs">Pokročilý</span>
+                    </button>
+                    <button onclick="selectStartingLevel(6)" class="bg-slate-800 hover:bg-slate-700 border border-slate-600 p-3 rounded-xl flex flex-col items-center justify-center space-y-1 transition active:scale-95">
+                        <span class="text-2xl">🐉</span>
+                        <span class="font-bold text-amber-400 text-xs">Mistr</span>
                     </button>
                 </div>
             </div>
@@ -176,6 +187,9 @@
         let errorStreak = 0;
         let currentQuestion = null;
         let pendingTypedAnswer = "";
+        let appGameMode = 'vocab'; // 'vocab' (Easy Mode) or 'grammar' (Declension Mode)
+
+
 
         const levelName = document.getElementById('levelName');
         const streakCounter = document.getElementById('streakCounter');
@@ -231,14 +245,22 @@
 
             vocabList.forEach(item => {
                 const card = document.createElement('div');
-                card.className = "bg-slate-800 hover:bg-slate-700 border border-slate-700 rounded-xl p-3 flex items-center space-x-3 cursor-pointer transition active:scale-95";
+                card.className = "bg-slate-800 hover:bg-slate-700 border border-slate-700 rounded-xl p-3 flex items-center justify-between cursor-pointer transition active:scale-95 group";
                 card.onclick = () => openDeclensionModal(item);
+
                 card.innerHTML = `
-                    <img src="${item.image}" class="w-12 h-12 rounded-lg object-cover border border-slate-600 shrink-0">
-                    <div class="overflow-hidden">
-                        <div class="font-bold text-slate-100 text-sm truncate">${item.nominative}</div>
-                        <div class="text-xs text-amber-400">${item.english}</div>
+                    <div class="flex items-center space-x-3 overflow-hidden">
+                        <img src="${item.image}" class="w-12 h-12 rounded-lg object-cover border border-slate-600 shrink-0">
+                        <div class="overflow-hidden">
+                            <div class="font-bold text-slate-100 text-sm truncate">${item.nominative}</div>
+                            <div class="text-xs text-amber-400">${item.english}</div>
+                        </div>
                     </div>
+                    <button onclick="speakCzech('${item.nominative}', event)" 
+                            title="Přehrát výslovnost"
+                            class="p-2 ml-2 rounded-lg bg-slate-900/60 hover:bg-amber-500 hover:text-slate-900 text-slate-300 border border-slate-700 transition flex items-center justify-center shrink-0">
+                        🔊
+                    </button>
                 `;
                 grid.appendChild(card);
             });
@@ -275,6 +297,24 @@
             document.getElementById('declensionModal').classList.remove('hidden');
         }
 
+
+
+        function setAppGameMode(mode) {
+            appGameMode = mode;
+            const vocabBtn = document.getElementById('modeVocabBtn');
+            const grammarBtn = document.getElementById('modeGrammarBtn');
+
+            if (mode === 'vocab') {
+                vocabBtn.className = "flex-1 py-1.5 rounded-lg text-xs font-extrabold transition bg-amber-500 text-slate-900 shadow-md";
+                grammarBtn.className = "flex-1 py-1.5 rounded-lg text-xs font-extrabold transition bg-slate-800 text-slate-400 hover:text-slate-200";
+            } else {
+                grammarBtn.className = "flex-1 py-1.5 rounded-lg text-xs font-extrabold transition bg-amber-500 text-slate-900 shadow-md";
+                vocabBtn.className = "flex-1 py-1.5 rounded-lg text-xs font-extrabold transition bg-slate-800 text-slate-400 hover:text-slate-200";
+            }
+        }
+
+
+
         function closeDeclensionModal() {
             document.getElementById('declensionModal').classList.add('hidden');
         }
@@ -294,10 +334,36 @@
             nextBtn.classList.add('invisible');
 
             const lvlData = window.ANIMAL_DATABASE.levels[selectedLevel];
-            levelName.textContent = `${lvlData.icon} ${lvlData.name}`;
+            levelName.textContent = `${lvlData.icon} ${lvlData.name} ${appGameMode === 'vocab' ? '(Slovíčka)' : '(Skloňování)'}`;
             streakCounter.textContent = `🔥 Streak: ${successStreak}/5`;
 
-            currentQuestion = window.generateAnimalQuestion(selectedLevel);
+            if (appGameMode === 'grammar') {
+                currentQuestion = window.generateAnimalQuestion(selectedLevel);
+            } else {
+                const baseQ = window.generateAnimalQuestion(selectedLevel);
+                const levelAnimals = window.getAnimalsForLevel(selectedLevel);
+                const targetCaseKey = baseQ.template.caseKey; 
+                const isPlural = baseQ.isPlural;
+                const numberKey = isPlural ? 'plural' : 'singular';
+
+                const correctTarget = baseQ.animal.declension[numberKey][targetCaseKey];
+                const distractorAnimals = levelAnimals.filter(a => a.nominative !== baseQ.animal.nominative);
+                const shuffled = [...distractorAnimals].sort(() => 0.5 - Math.random()).slice(0, 3);
+                
+                const distractorForms = shuffled.map(a => a.declension[numberKey][targetCaseKey]);
+                const options = [...distractorForms, correctTarget].sort(() => 0.5 - Math.random());
+
+                const distractor = distractorForms[0] || "jiné zvíře";
+
+                currentQuestion = {
+                    ...baseQ,
+                    correctTarget: correctTarget,
+                    distractor: distractor,
+                    options: options,
+                    fullCorrectSentence: baseQ.sentenceTemplate.replace('[___]', correctTarget)
+                };
+            }
+
             renderUI();
         }
 
@@ -325,14 +391,23 @@
                 const grid = document.createElement('div');
                 grid.className = "grid grid-cols-2 gap-2.5 w-full";
                 
-                currentQuestion.options.forEach(opt => {
+                const letters = ['A', 'B', 'C', 'D'];
+
+                currentQuestion.options.forEach((opt, index) => {
                     const btn = document.createElement('button');
-                    btn.className = "bg-slate-900 hover:bg-blue-600/30 border-2 border-slate-700 hover:border-blue-500 font-bold py-2 px-3 rounded-xl text-sm transition active:scale-95 text-slate-100";
-                    btn.textContent = opt;
+                    btn.className = "bg-slate-900 hover:bg-blue-600/30 border-2 border-slate-700 hover:border-blue-500 font-bold py-2 px-3 rounded-xl text-sm transition active:scale-95 text-slate-100 flex items-center space-x-2 justify-start";
+                    
+                    btn.innerHTML = `
+                        <span class="bg-slate-800 text-amber-400 border border-slate-600 text-xs px-2 py-0.5 rounded-md font-extrabold shrink-0">${letters[index]}</span>
+                        <span class="truncate">${opt}</span>
+                    `;
+                    
                     btn.onclick = () => handleAnswer(opt.toLowerCase() === currentQuestion.correctTarget.toLowerCase());
                     grid.appendChild(btn);
                 });
+                
                 inputWorkspace.appendChild(grid);
+
 
             } else if (exerciseModeLevel === 2) {
                 const isSentenceCorrect = Math.random() > 0.5;
@@ -380,18 +455,28 @@
 
                     if (!val) return;
 
-                    if (val !== target) {
-                        const dist = levenshteinDistance(val, target);
-                        const isNom = (val === nominative);
+                    if (appGameMode === 'vocab') {
+                        // In Easy/Vocab Mode: Accept ANY valid case form OR nominative of this animal
+                        const allSingular = Object.values(currentQuestion.animal.declension.singular).map(v => v.toLowerCase());
+                        const allPlural = Object.values(currentQuestion.animal.declension.plural).map(v => v.toLowerCase());
+                        const validForms = [...allSingular, ...allPlural, nominative];
 
-                        if (isNom || dist <= 2) {
-                            pendingTypedAnswer = val;
-                            document.getElementById('secondChanceModal').classList.remove('hidden');
-                            return;
+                        const isExactMatch = validForms.includes(val);
+                        handleAnswer(isExactMatch);
+                    } else {
+                        // In Grammar Mode: Enforce exact declined target or trigger second chance for near misses
+                        if (val !== target) {
+                            const dist = levenshteinDistance(val, target);
+                            const isNom = (val === nominative);
+
+                            if (isNom || dist <= 2) {
+                                pendingTypedAnswer = val;
+                                document.getElementById('secondChanceModal').classList.remove('hidden');
+                                return;
+                            }
                         }
+                        handleAnswer(val === target);
                     }
-
-                    handleAnswer(val === target);
                 };
 
                 submitBtn.onclick = processTypingAnswer;
@@ -461,6 +546,39 @@
         }
 
         nextBtn.onclick = loadNextQuestion;
+
+
+
+        function speakCzech(text, event) {
+            if (event) event.stopPropagation(); // Stops the modal from opening on audio click
+
+            if (!window.speechSynthesis) return;
+
+            const voices = window.speechSynthesis.getVoices();
+            const czechVoice = voices.find(v => v.lang === 'cs-CZ' || v.lang === 'cs_CZ');
+
+            const utterance = new SpeechSynthesisUtterance(text);
+            
+            if (czechVoice) {
+                utterance.voice = czechVoice;
+            }
+
+            utterance.lang = 'cs-CZ';
+            utterance.rate = 0.9;
+
+            window.speechSynthesis.cancel();
+            window.speechSynthesis.speak(utterance);
+        }
+
+        // Force load browser voices on startup
+        if (window.speechSynthesis) {
+            window.speechSynthesis.getVoices();
+            if (speechSynthesis.onvoiceschanged !== undefined) {
+                speechSynthesis.onvoiceschanged = () => speechSynthesis.getVoices();
+            }
+        }
+
+
     </script>
 </body>
 </html>
