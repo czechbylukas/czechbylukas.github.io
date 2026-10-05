@@ -150,7 +150,7 @@ window.ANIMAL_DATABASE = {
       icon: "🌿",
       animals: [
         {
-          id: "vlk", approved: false, nominative: "vlk", english: "Wolf", gender: "M_ANIM", symbol: "♂", color: "text-blue-400",
+          id: "vlk", approved: true, nominative: "vlk", english: "Wolf", gender: "M_ANIM", symbol: "♂", color: "text-blue-400",
           image: "https://images.unsplash.com/photo-1691433790054-5b3821080f4f?auto=format&fit=crop&w=600&q=80",
           declension: { singular: { nom: "vlk", gen: "vlka", dat: "vlkovi", acc: "vlka", voc: "vlku", loc: "vlkovi", inst: "vlkem" }, plural: { nom: "vlci", gen: "vlků", dat: "vlkům", acc: "vlky", voc: "vlci", loc: "vlcích", inst: "vlky" } }
         },
@@ -708,23 +708,16 @@ window.ANIMAL_DATABASE = {
   }
 };
 
-window.getAnimalsForLevel = function(targetLevel, cumulative = false) {
-  let list = [];
-  const levels = window.ANIMAL_DATABASE.levels;
-  if (cumulative) {
-    for (let i = 1; i <= targetLevel; i++) {
-      if (levels[i]) {
-        // Filter out animals that are not approved
-        const approvedAnimals = levels[i].animals.filter(a => a.approved === true);
-        list = list.concat(approvedAnimals);
-      }
+window.getAnimalsForLevel = function(lvl) {
+    const levelData = window.ANIMAL_DATABASE.levels[lvl];
+    
+    // If the requested level exists and has animals, return them
+    if (levelData && levelData.animals) {
+        return levelData.animals.filter(a => a.approved);
     }
-  } else {
-    if (levels[targetLevel]) {
-      list = levels[targetLevel].animals.filter(a => a.approved === true);
-    }
-  }
-  return list.length ? list : levels[1].animals.filter(a => a.approved === true);
+    
+    // Otherwise return an empty array so other levels don't show A1 animals
+    return [];
 };
 
 window.generateAnimalQuestion = function(userLevel) {
