@@ -143,7 +143,24 @@
         function renderLevelCards() {
             const grid = document.getElementById('levelCards');
             grid.replaceChildren();
-            availableLevels.forEach(level => {
+
+            // Get list of unique levels that actually contain at least one verb
+            const verbs = (window.CZECH_GRAMMAR_DB && window.CZECH_GRAMMAR_DB.verbs) ? window.CZECH_GRAMMAR_DB.verbs : [];
+            const levelsWithVerbs = [...new Set(verbs.map(verb => verb.level))];
+
+            // Filter available levels to only those present in the database
+            const activeLevels = availableLevels.filter(level => levelsWithVerbs.includes(level));
+
+            // Fallback if no levels have verbs loaded
+            if (activeLevels.length === 0) {
+                const emptyMsg = document.createElement('div');
+                emptyMsg.className = 'col-span-2 text-center text-slate-400 text-sm py-4';
+                emptyMsg.textContent = 'Žádné dostupné úrovně. Přidejte slovesa do databáze.';
+                grid.appendChild(emptyMsg);
+                return;
+            }
+
+            activeLevels.forEach(level => {
                 const levelInfo = levelNames[level] || { icon: '📚', name: `Level ${level}` };
                 const button = document.createElement('button');
                 button.className = 'bg-slate-800 hover:bg-slate-700 border border-slate-600 p-3 rounded-xl flex flex-col items-center justify-center space-y-1 transition active:scale-95';

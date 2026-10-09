@@ -24,32 +24,7 @@
                 </div>
 
                 <!-- Level Grid -->
-                <div class="grid grid-cols-2 sm:grid-cols-3 gap-2.5 w-full my-auto py-1">
-                    <button onclick="selectStartingLevel(1)" class="bg-slate-800 hover:bg-slate-700 border border-slate-600 p-3 rounded-xl flex flex-col items-center justify-center space-y-1 transition active:scale-95">
-                        <span class="text-2xl">🌱</span>
-                        <span class="font-bold text-amber-400 text-xs">Začátečník</span>
-                    </button>
-                    <button onclick="selectStartingLevel(2)" class="bg-slate-800 hover:bg-slate-700 border border-slate-600 p-3 rounded-xl flex flex-col items-center justify-center space-y-1 transition active:scale-95">
-                        <span class="text-2xl">🌿</span>
-                        <span class="font-bold text-amber-400 text-xs">Mírně pokročilý</span>
-                    </button>
-                    <button onclick="selectStartingLevel(3)" class="bg-slate-800 hover:bg-slate-700 border border-slate-600 p-3 rounded-xl flex flex-col items-center justify-center space-y-1 transition active:scale-95">
-                        <span class="text-2xl">🌳</span>
-                        <span class="font-bold text-amber-400 text-xs">Středně pokročilý</span>
-                    </button>
-                    <button onclick="selectStartingLevel(4)" class="bg-slate-800 hover:bg-slate-700 border border-slate-600 p-3 rounded-xl flex flex-col items-center justify-center space-y-1 transition active:scale-95">
-                        <span class="text-2xl">🦅</span>
-                        <span class="font-bold text-amber-400 text-xs">Vyšší střední</span>
-                    </button>
-                    <button onclick="selectStartingLevel(5)" class="bg-slate-800 hover:bg-slate-700 border border-slate-600 p-3 rounded-xl flex flex-col items-center justify-center space-y-1 transition active:scale-95">
-                        <span class="text-2xl">👑</span>
-                        <span class="font-bold text-amber-400 text-xs">Pokročilý</span>
-                    </button>
-                    <button onclick="selectStartingLevel(6)" class="bg-slate-800 hover:bg-slate-700 border border-slate-600 p-3 rounded-xl flex flex-col items-center justify-center space-y-1 transition active:scale-95">
-                        <span class="text-2xl">🐉</span>
-                        <span class="font-bold text-amber-400 text-xs">Mistr</span>
-                    </button>
-                </div>
+                <div id="levelCards" class="grid grid-cols-2 sm:grid-cols-3 gap-2.5 w-full my-auto py-1"></div>
             </div>
 
             <!-- STEP 2: VOCABULARY PREVIEW & MODE SELECTOR SCREEN -->
@@ -228,6 +203,64 @@
             }
             return matrix[b.length][a.length];
         }
+
+
+
+        // Add metadata for level icons and names
+const levelNames = {
+    1: { icon: '🌱', name: 'Začátečník' },
+    2: { icon: '🌿', name: 'Mírně pokročilý' },
+    3: { icon: '🌳', name: 'Středně pokročilý' },
+    4: { icon: '🦅', name: 'Vyšší střední' },
+    5: { icon: '👑', name: 'Pokročilý' },
+    6: { icon: '🐉', name: 'Mistr' }
+};
+
+function renderLevelCards() {
+    const grid = document.getElementById('levelCards');
+    if (!grid) return;
+    grid.innerHTML = '';
+
+    const allLevels = [1, 2, 3, 4, 5, 6];
+    
+    // Filter levels that actually contain animals in ANIMAL_DATABASE
+    const activeLevels = allLevels.filter(lvl => {
+        const animals = typeof window.getAnimalsForLevel === 'function' ? window.getAnimalsForLevel(lvl) : [];
+        return animals && animals.length > 0;
+    });
+
+    if (activeLevels.length === 0) {
+        const emptyMsg = document.createElement('div');
+        emptyMsg.className = 'col-span-2 sm:col-span-3 text-center text-slate-400 text-sm py-4';
+        emptyMsg.textContent = 'Žádné dostupné úrovně. Přidejte zvířata do databáze.';
+        grid.appendChild(emptyMsg);
+        return;
+    }
+
+    activeLevels.forEach(lvl => {
+        const lvlMeta = levelNames[lvl] || { icon: '📚', name: `Level ${lvl}` };
+        const button = document.createElement('button');
+        button.className = 'bg-slate-800 hover:bg-slate-700 border border-slate-600 p-3 rounded-xl flex flex-col items-center justify-center space-y-1 transition active:scale-95';
+        button.onclick = () => selectStartingLevel(lvl);
+        button.innerHTML = `
+            <span class="text-2xl">${lvlMeta.icon}</span>
+            <span class="font-bold text-amber-400 text-xs">${lvlMeta.name}</span>
+        `;
+        grid.appendChild(button);
+    });
+}
+
+// Update reset function to re-render cards
+function resetLevelSelection() {
+    document.getElementById('demoVocabStep').classList.add('hidden');
+    document.getElementById('levelSelectStep').classList.remove('hidden');
+    renderLevelCards();
+}
+
+// Initial render call when script loads
+renderLevelCards();
+
+
 
         function selectStartingLevel(lvl, isMistakeRecall = false) {
             selectedLevel = lvl;

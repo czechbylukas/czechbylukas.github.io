@@ -52,7 +52,7 @@ window.CZECH_GRAMMAR_DB = {
       infinitive: "DĚLAT",
       translation: "to do",
       level: 1,
-      image: "https://images.unsplash.com/photo-1484480974693-6ca0a78fb36b?auto=format&fit=crop&w=600&q=80",
+      image: "https://images.unsplash.com/photo-1712000155290-ee65c0a82eda?auto=format&fit=crop&w=600&q=80",
       reflexive: false,
       compatibleCategories: ["generalWhat"],
       forms: {
@@ -76,7 +76,7 @@ window.CZECH_GRAMMAR_DB = {
       infinitive: "PRACOVAT",
       translation: "to work",
       level: 1,
-      image: "https://images.unsplash.com/photo-1497215728101-856f4ea42174?auto=format&fit=crop&w=600&q=80",
+      image: "https://images.unsplash.com/photo-1553877522-43269d4ea984?auto=format&fit=crop&w=600&q=80",
       reflexive: false,
       compatibleCategories: ["workPlaces"],
       forms: {
@@ -88,7 +88,7 @@ window.CZECH_GRAMMAR_DB = {
       infinitive: "DÍVAT SE",
       translation: "to watch",
       level: 1,
-      image: "https://images.unsplash.com/photo-1593359677879-a4bb92f829d1?auto=format&fit=crop&w=600&q=80",
+      image: "https://images.unsplash.com/photo-1692188071339-2825a8a997f1?auto=format&fit=crop&w=600&q=80",
       reflexive: "se",
       compatibleCategories: ["media"],
       forms: {
@@ -112,7 +112,7 @@ window.CZECH_GRAMMAR_DB = {
       infinitive: "VAŘIT",
       translation: "to cook",
       level: 1,
-      image: "https://images.unsplash.com/photo-1556910103-1c02745aae4d?auto=format&fit=crop&w=600&q=80",
+      image: "https://images.unsplash.com/photo-1556911220-e15b29be8c8f?auto=format&fit=crop&w=600&q=80",
       reflexive: false,
       compatibleCategories: ["foodAndDrink"],
       forms: {
@@ -124,7 +124,7 @@ window.CZECH_GRAMMAR_DB = {
       infinitive: "ODPOČÍVAT",
       translation: "to rest",
       level: 1,
-      image: "https://images.unsplash.com/photo-1506126613408-eca07ce68773?auto=format&fit=crop&w=600&q=80",
+      image: "https://images.unsplash.com/photo-1568617935424-49ab968826d7?auto=format&fit=crop&w=600&q=80",
       reflexive: false,
       compatibleCategories: ["relaxPlaces"],
       forms: {
@@ -136,7 +136,7 @@ window.CZECH_GRAMMAR_DB = {
       infinitive: "STUDOVAT",
       translation: "to study",
       level: 1,
-      image: "https://images.unsplash.com/photo-1434030216411-0b793f4b4173?auto=format&fit=crop&w=600&q=80",
+      image: "https://images.unsplash.com/photo-1616400619175-5beda3a17896?auto=format&fit=crop&w=600&q=80",
       reflexive: false,
       compatibleCategories: ["studySubjects"],
       forms: {
@@ -148,7 +148,7 @@ window.CZECH_GRAMMAR_DB = {
       infinitive: "UČIT SE",
       translation: "to learn",
       level: 1,
-      image: "https://images.unsplash.com/photo-1523240795612-9a054b0db644?auto=format&fit=crop&w=600&q=80",
+      image: "https://images.unsplash.com/photo-1610484826967-09c5720778c7?auto=format&fit=crop&w=600&q=80",
       reflexive: "se",
       compatibleCategories: ["studySubjects", "studyPlaces"],
       forms: {
@@ -172,7 +172,7 @@ window.CZECH_GRAMMAR_DB = {
       infinitive: "JÍST",
       translation: "to eat",
       level: 2,
-      image: "https://images.unsplash.com/photo-1504674900247-0877df9cc836?auto=format&fit=crop&w=600&q=80",
+      image: "https://images.unsplash.com/photo-1533777857889-4be7c70b33f7?auto=format&fit=crop&w=600&q=80",
       reflexive: false,
       compatibleCategories: ["foodAndDrink"],
       forms: {
@@ -184,7 +184,7 @@ window.CZECH_GRAMMAR_DB = {
       infinitive: "MÍT",
       translation: "to have",
       level: 2,
-      image: "https://images.unsplash.com/photo-1513151233558-d860c5398176?auto=format&fit=crop&w=600&q=80",
+      image: "https://images.unsplash.com/photo-1598099326472-924ef29b8413?auto=format&fit=crop&w=600&q=80",
       reflexive: false,
       compatibleCategories: ["thingsToHave"],
       forms: {
@@ -220,7 +220,7 @@ window.CZECH_GRAMMAR_DB = {
       infinitive: "CHTÍT",
       translation: "to want",
       level: 2,
-      image: "https://images.unsplash.com/photo-1517841905240-472988babdf9?auto=format&fit=crop&w=600&q=80",
+      image: "https://images.unsplash.com/photo-1511028897949-27b3f9f7924d?auto=format&fit=crop&w=600&q=80",
       reflexive: false,
       compatibleCategories: ["thingsToWant"],
       forms: {
