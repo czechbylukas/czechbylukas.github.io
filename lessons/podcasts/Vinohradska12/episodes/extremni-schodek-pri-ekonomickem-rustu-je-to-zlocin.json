@@ -121,8 +121,8 @@
           ]
         },
         {
-          "title": "Cvičení 2 – Doplňte do věty",
-          "instructions": "Slova: rozpočet, schodek, ekonomika, investice, daně, důchody, půjčovat, úroky",
+          "title": "Cvičení 2 – Doplňte do věty (ve správném tvaru)",
+          "instructions": "Slova: daně, ekonomika, schodek, rozpočet, půjčovat, důchody, úroky, investice",
           "optionsList": [
             "rozpočet",
             "schodek",
@@ -194,7 +194,7 @@
         },
         {
           "title": "Cvičení 3 – Gramatika",
-          "instructions": "Doplňte správný tvar slovesa.",
+          "instructions": "Doplňte správný tvar slovesa v přítomném čase, pokud není uvedeno jinak.",
           "optionsList": [],
           "items": [
             {
@@ -227,7 +227,7 @@
             },
             {
               "section_title": "",
-              "prompt": "Ministryně __________ (představit) návrh rozpočtu.",
+              "prompt": "Ministryně __________ (představit, minulý čas) návrh rozpočtu.",
               "type": "single",
               "is_multiselect": false,
               "options": []
@@ -241,14 +241,14 @@
             },
             {
               "section_title": "",
-              "prompt": "Vláda bude rozpočet __________ (schvalovat) na konci září.",
+              "prompt": "Vláda bude rozpočet __________ (schvalovat, budoucí čas) na konci září.",
               "type": "single",
               "is_multiselect": false,
               "options": []
             },
             {
               "section_title": "",
-              "prompt": "Sněmovna ho bude v říjnu __________ (projednávat).",
+              "prompt": "Sněmovna ho bude v říjnu __________ (projednávat, budoucí čas).",
               "type": "single",
               "is_multiselect": false,
               "options": []
@@ -257,7 +257,7 @@
         },
         {
           "title": "Cvičení 4 – Slovní zásoba a předložky",
-          "instructions": "Doplňte správnou předložku.\nSlova: o, o, od, do, na, na, za, na",
+          "instructions": "Doplňte správnou předložku.\nSlova: od, do, na, o, za, bez předložky",
           "optionsList": [
             "o",
             "o",
@@ -299,7 +299,7 @@
             },
             {
               "section_title": "",
-              "prompt": "zaplatit ___ úroky",
+              "prompt": "zaplatit ___ úrocích",
               "type": "single",
               "is_multiselect": false,
               "options": []
@@ -553,8 +553,8 @@
           ]
         },
         {
-          "title": "Cvičení 2 – Doplňte vhodný výraz",
-          "instructions": "Výrazy: schodek, úrokové sazby, stavebnictví, pracovní síla, stagnace, konsolidace, dotace, reforma",
+          "title": "Cvičení 2 – Doplňte vhodný výraz (ve správném tvaru)",
+          "instructions": "Výrazy: stagnace, úrokové sazby, dotace, pracovní síla, konsolidace, schodek, reforma, stavebnictví",
           "optionsList": [
             "schodek",
             "úrokové sazby",
@@ -645,7 +645,7 @@
             },
             {
               "section_title": "",
-              "prompt": "Vláda tvrdí, že deficit __________ (podporovat) ekonomický růst.",
+              "prompt": "Vláda tvrdí, že deficit __________ (podporovat, přítomný čas) ekonomický růst.",
               "type": "single",
               "is_multiselect": false,
               "options": []
@@ -659,28 +659,28 @@
             },
             {
               "section_title": "",
-              "prompt": "Investice, které stát __________ (plánovat), mohou ovlivnit stavební sektor.",
+              "prompt": "Investice, které stát __________ (plánovat, přítomný čas), mohou ovlivnit stavební sektor.",
               "type": "single",
               "is_multiselect": false,
               "options": []
             },
             {
               "section_title": "",
-              "prompt": "Ekonomové se zatím neshodli, zda návrh skutečně __________ (přinést) vyšší růst.",
+              "prompt": "Ekonomové se zatím neshodli, zda návrh skutečně __________ (přinést, budoucí čas) vyšší růst.",
               "type": "single",
               "is_multiselect": false,
               "options": []
             },
             {
               "section_title": "",
-              "prompt": "Pokud se reforma __________ (uskutečnit), mohla by změnit strukturu ekonomiky.",
+              "prompt": "Pokud se reforma __________ (uskutečnit, budoucí čas), mohla by změnit strukturu ekonomiky.",
               "type": "single",
               "is_multiselect": false,
               "options": []
             },
             {
               "section_title": "",
-              "prompt": "O návrhu rozpočtu se __________ (jednat) v Poslanecké sněmovně.",
+              "prompt": "O návrhu rozpočtu se __________ (jednat, přítomný čas) v Poslanecké sněmovně.",
               "type": "single",
               "is_multiselect": false,
               "options": []
@@ -689,10 +689,10 @@
         },
         {
           "title": "Cvičení 4 – Slovní zásoba a předložky",
-          "instructions": "Doplňte správnou předložku.\nSlova: na, 3.7 %, na, k, k, na, do, s",
+          "instructions": "Doplňte správnou předložku.\nSlova: do, k, na, s, bez předložky",
           "optionsList": [
             "na",
-            "3.7 %",
+            "bez předložky",
             "na",
             "k",
             "k",
@@ -985,7 +985,7 @@
           ]
         },
         {
-          "title": "Cvičení 2 – Doplňte výraz do věty",
+          "title": "Cvičení 2 – Doplňte výraz do věty (ve správném tvaru)",
           "instructions": "Výrazy: fiskální, mandatorní, strukturální, konsolidovat, valorizace, stagnace, transformace, konkurenceschopnost",
           "optionsList": [
             "fiskální",
@@ -1062,7 +1062,7 @@
           "optionsList": [],
           "items": [
             {
-              "section_title": "A. Opravte chybu\nV každé větě je jedna chyba.",
+              "section_title": "A. Opravte chybu\nV každé větě je jedna chyba. (napiště správný tvar chybně uvedeného slova. Pokud ve větě není chyba napište: bez chyby)",
               "prompt": "Vláda musí počítat s rostoucími úrokové sazbami.",
               "type": "single",
               "is_multiselect": false,
@@ -1098,7 +1098,7 @@
             },
             {
               "section_title": "",
-              "prompt": "Firmy mají problém zaměstnávat lidi nad padesát let, protože často mají daleko do důchodu.",
+              "prompt": "Firmy mají problém zaměstnávat lidi nad padesát let, protože často mají dalece do důchodu.",
               "type": "single",
               "is_multiselect": false,
               "options": []
@@ -1161,7 +1161,7 @@
             },
             {
               "section_title": "",
-              "prompt": "Ekonomika potřebuje změny, které __________ (zvýšit) její konkurenceschopnost.",
+              "prompt": "Ekonomika potřebuje změny, které __________ (zvyšovat) její konkurenceschopnost.",
               "type": "single",
               "is_multiselect": false,
               "options": []
@@ -1177,7 +1177,7 @@
         },
         {
           "title": "Cvičení 4 – Slovní zásoba a předložky",
-          "instructions": "Doplňte správnou předložku nebo vazbu.\nSlova: určité úrovně, k, tlaku, na, z, na, na, s",
+          "instructions": "Doplňte správnou předložku nebo vazbu.\nSlova: z, s, na, k, bez předložky",
           "optionsList": [
             "určité úrovně",
             "k",
@@ -1314,8 +1314,8 @@
               "type": "single",
               "is_multiselect": false,
               "options": [
-                "Samotné zvýšení investic podle ní nemusí vést k dostatečnému růstu, pokud chybí strukturální změny a zároveň jsou omezené kapacity ekonomiky.",
                 "Veřejné investice podle ní nikdy nemají žádný ekonomický přínos.",
+                "Samotné zvýšení investic podle ní nemusí vést k dostatečnému růstu, pokud chybí strukturální změny a zároveň jsou omezené kapacity ekonomiky.",
                 "Investice lze financovat pouze z evropských fondů."
               ]
             },
@@ -1336,9 +1336,9 @@
               "type": "single",
               "is_multiselect": false,
               "options": [
-                "Firmy je podle popisu často obtížně zaměstnávají, přestože české podniky potřebují pracovní sílu.",
                 "Většina z nich podle textu pracuje v zahraničí.",
-                "Nemohou pobírat důchod."
+                "Nemohou pobírat důchod.",
+                "Firmy je podle popisu často obtížně zaměstnávají, přestože české podniky potřebují pracovní sílu."
               ]
             },
             {
@@ -1498,32 +1498,28 @@
         "konkurenceschopnost"
       ],
       "Cvičení 3A": [
-        "úrokovými sazbami",
-        "na další zadlužování",
-        "Pokud budou sazby růst → bez chyby",
-        "na ekonomický růst",
-        "Bez strukturálních reforem → bez chyby",
-        [
-          "protože často mají daleko do důchodu → gramaticky správně; věta je podle kontextu možná",
-          "ale významově lze lépe: „přestože mají do důchodu daleko“"
-        ],
+        "úrokovými",
+        "dalšího",
         "bez chyby",
-        "bez chyby"
-      ],
-      "Cvičení 3B": [
+        "ekonomický",
+        "bez chyby",
+        "daleko",
+        "bez chyby",
+        "bez chyby",
+
         "omezila",
         "mohla",
         "roste",
         "mají",
         "projeví",
-        "byly",
-        "zvýší",
+        "by byly",
+        "zvyšují",
         "představí"
       ],
       "Cvičení 4": [
-        "určité úrovně",
+        "bez předložky",
         "k",
-        "tlaku",
+        "bez předložky",
         "na",
         "z",
         "na",
@@ -1539,9 +1535,9 @@
         "Ano",
         "Ano",
         "Ne",
+        "b",
         "a",
-        "a",
-        "a",
+        "c",
         "a",
         [
           "a",

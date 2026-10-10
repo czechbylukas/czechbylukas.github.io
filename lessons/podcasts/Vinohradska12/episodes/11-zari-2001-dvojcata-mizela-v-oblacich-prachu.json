@@ -100,13 +100,13 @@
               "type": "single",
               "is_multiselect": false,
               "options": [
-                "člověk, který přežil neštěstí",
+                "člověk, který neumřel při neštěstí",
                 "člověk, který viděl nějakou událost",
                 "část budovy, která je velmi vysoká",
                 "odstranit lidi z nebezpečného místa",
                 "člověk, který zasahuje například při požáru",
                 "zničené části budovy",
-                "situace, kdy do něčeho něco silně narazí",
+                "situace, kdy do něčeho něco silně nabourá",
                 "šedý nebo černý plyn, který vzniká například při požáru"
               ]
             }
@@ -114,7 +114,7 @@
         },
         {
           "title": "Cvičení 2 – Doplň do věty",
-          "instructions": "Doplňte vhodné slovo.\nSlova: most, telefon, prach, práce, věže, rádio, bahno, schodiště",
+          "instructions": "Doplňte vhodné slovo.\nSlova: most, telefon, prach, manažer, kouř, rádio, bahno, schodiště",
           "optionsList": [
             "most",
             "telefon",
@@ -249,7 +249,7 @@
         },
         {
           "title": "Cvičení 4 – Slovní zásoba a předložky",
-          "instructions": "Doplňte správnou předložku. Z vybraných možnosti: …..\nSlova: na, do, přes, na\", v, s, na, na",
+          "instructions": "Doplňte správnou předložku. Z vybraných možnosti: …..\nSlova: do, na, přes, s, v",
           "optionsList": [
             "na",
             "do",
@@ -284,14 +284,14 @@
             },
             {
               "section_title": "",
-              "prompt": "vrátit se ___ Manhattanu",
+              "prompt": "vrátit se ___ Manhattan",
               "type": "single",
               "is_multiselect": false,
               "options": []
             },
             {
               "section_title": "",
-              "prompt": "pomáhat ___ troskách",
+              "prompt": "pátrat ___ troskách",
               "type": "single",
               "is_multiselect": false,
               "options": []
@@ -387,8 +387,8 @@
               "is_multiselect": false,
               "options": [
                 "Chtěl se podívat na požár.",
-                "Chtěl varovat známé, kterým se nemohl dovolat.",
-                "Chtěl najít práci."
+                "Chtěl najít práci.",
+                "Chtěl varovat známé, kterým se nemohl dovolat."
               ]
             },
             {
@@ -537,8 +537,8 @@
           ]
         },
         {
-          "title": "Cvičení 2 – Doplňte vhodné slovo",
-          "instructions": "Slova: evakuace, přetížené, sesunout, konstrukce, přeživší, trosky, vyztužené, katarze",
+          "title": "Cvičení 2 – Doplňte vhodné slovo (ve správném tvaru)",
+          "instructions": "Slova: evakuace, přetížený, sesunout, konstrukce, přeživší, trosky, vyztužený, katarze",
           "optionsList": [
             "evakuace",
             "přetížené",
@@ -629,7 +629,7 @@
             },
             {
               "section_title": "",
-              "prompt": "Kdyby se podobná situace opakovala, moderní konstrukce ji podle něj __________ (ustát).",
+              "prompt": "Kdyby se podobná situace opakovala, moderní konstrukce by ji podle něj __________ (ustát).",
               "type": "single",
               "is_multiselect": false,
               "options": []
@@ -673,12 +673,12 @@
         },
         {
           "title": "Cvičení 4 – Slovní zásoba a předložky",
-          "instructions": "Doplňte vhodnou předložku a případně správný pád.\nSlova: za, o, se, z / z důvodu, na, na, k, záchranářům",
+          "instructions": "Doplňte vhodnou předložku a případně správný pád.\nSlova: k, na, o, s/se, z, za, bez předložky",
           "optionsList": [
             "za",
             "o",
             "se",
-            "z / z důvodu",
+            "z",
             "na",
             "na",
             "k",
@@ -715,7 +715,7 @@
             },
             {
               "section_title": "",
-              "prompt": "dostat se ___ místa nehody",
+              "prompt": "dostat se ___ místo nehody",
               "type": "single",
               "is_multiselect": false,
               "options": []
@@ -930,7 +930,7 @@
             },
             {
               "section_title": "",
-              "prompt": "být něč zaskočen",
+              "prompt": "být něčím zaskočen",
               "type": "single",
               "is_multiselect": false,
               "options": []
@@ -961,12 +961,12 @@
           ]
         },
         {
-          "title": "Cvičení 2 – Doplňte vhodný výraz",
-          "instructions": "Výrazy: následně, v důsledku, postupný kolaps, stabilita, vyztužení, zprostředkovat, nejužší tým, katarze",
+          "title": "Cvičení 2 – Doplňte vhodný výraz (ve správném tvaru)",
+          "instructions": "Výrazy: následně, v důsledku, postupný, stabilita, vyztužení, zprostředkovat, nejužší tým, katarze",
           "optionsList": [
             "následně",
             "v důsledku",
-            "postupný kolaps",
+            "postupný",
             "stabilita",
             "vyztužení",
             "zprostředkovat",
@@ -1053,7 +1053,7 @@
             },
             {
               "section_title": "",
-              "prompt": "Rozhodl se, že je půjde varovat na osobně.",
+              "prompt": "Rozhodl se, že je půjde varovat osobní.",
               "type": "single",
               "is_multiselect": false,
               "options": []
@@ -1067,7 +1067,7 @@
             },
             {
               "section_title": "",
-              "prompt": "Model měl pomoci záchranáři lépe se orientovat.",
+              "prompt": "Model měl pomoci záchranářím lépe se orientovat.",
               "type": "single",
               "is_multiselect": false,
               "options": []
@@ -1081,7 +1081,7 @@
             },
             {
               "section_title": "",
-              "prompt": "Knihu napsal, aby se z toho vypsal a mohl vrátit k normálnímu fungování.",
+              "prompt": "Knihu napsal, aby se z toho vypsal a se mohl vrátit k normálnímu fungování.",
               "type": "single",
               "is_multiselect": false,
               "options": []
@@ -1094,7 +1094,7 @@
               "options": []
             },
             {
-              "section_title": "B. Doplňte správný tvar",
+              "section_title": "B. Doplňte správný tvar v minulém čase, pokud není uvedeno jinak.",
               "prompt": "Přestože __________ (být) situace velmi nebezpečná, rozhodl se pomáhat.",
               "type": "single",
               "is_multiselect": false,
@@ -1130,7 +1130,7 @@
             },
             {
               "section_title": "",
-              "prompt": "Po několika měsících si uvědomil, že už dál __________ (nemoci) pokračovat.",
+              "prompt": "Po několika měsících si uvědomil, že už dál __________ (nemoct, přítomný čas) pokračovat.",
               "type": "single",
               "is_multiselect": false,
               "options": []
@@ -1139,7 +1139,7 @@
         },
         {
           "title": "Cvičení 4 – Slovní zásoba a předložky",
-          "instructions": "Doplňte správnou předložku nebo výraz. Pokud je výraz bez předložky, nechte políčko prázdné.\nSlova: na organizaci, k postupnému kolapsu, k lepší orientaci, s traumatickou zkušeností, k běžnému fungování, s určitým rizikem, nebezpečné situaci",
+          "instructions": "Doplňte správnou předložku nebo výraz. Pokud je výraz bez předložky, nechte políčko prázdné.\nSlova: na, k, s, bez předložky",
           "optionsList": [
             "na organizaci",
             "k postupnému kolapsu",
@@ -1386,7 +1386,7 @@
         "Ano",
         "Ano",
         "Ne",
-        "b",
+        "c",
         "a",
         "b",
         "b"
@@ -1402,13 +1402,13 @@
         "troskách",
         "sesunout",
         "konstrukce",
-        "vyztužené",
+        "vyztužená",
         "evakuace",
         "katarze"
       ],
       "Cvičení 3": [
         "viděl",
-        "staví / bude stavět",
+        "staví",
         "ustála",
         "vrátil",
         "šel",
@@ -1420,11 +1420,11 @@
         "za",
         "o",
         "se",
-        "z / z důvodu",
+        "z",
         "na",
         "na",
         "k",
-        "záchranářům"
+        "bez předložky"
       ],
       "Cvičení 5": [
         "Ano",
@@ -1456,19 +1456,15 @@
         "v důsledku"
       ],
       "Cvičení 3A": [
-        "na stavbě federálního soudu",
-        [
-          "bez chyby / správně ->  když není chyba",
-          "napsat bez chyby →do zadání"
-        ],
-        "osobně → varovat je osobně",
-        "na Manhattan",
+        "stavbě",
+        "správně",
+        "osobně",
+        "na",
         "záchranářům",
-        "do března 2002",
-        "mohl se vrátit k normálnímu fungování",
-        "bez chyby / správně"
-      ],
-      "Cvičení 3B": [
+        "března",
+        "mohl se",
+        "správně",
+
         "byla",
         "byla",
         "zjistil",
@@ -1477,14 +1473,14 @@
         "nemůže"
       ],
       "Cvičení 4": [
-        "",
-        "na organizaci",
-        "k postupnému kolapsu",
-        "k lepší orientaci",
-        "s traumatickou zkušeností",
-        "k běžnému fungování",
-        "s určitým rizikem",
-        "nebezpečné situaci"
+        "bez předložky",
+        "na",
+        "k",
+        "k",
+        "s",
+        "k",
+        "s",
+        "bez předložky"
       ],
       "Cvičení 5": [
         "Ano",
