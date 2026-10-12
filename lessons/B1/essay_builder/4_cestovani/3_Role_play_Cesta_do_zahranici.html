@@ -1,0 +1,934 @@
+<!DOCTYPE html>
+<html lang="cs" class="h-full bg-slate-900 text-slate-100">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Czech B1 Mastery: Lesson 3 – Role Play: Cesta do zahraničí</title>
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- FontAwesome Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <!-- Google Fonts: Inter -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Inter', 'sans-serif'],
+          },
+          colors: {
+            brand: {
+              50: '#f0f9ff',
+              100: '#e0f2fe',
+              500: '#0284c7',
+              600: '#0284c7',
+              700: '#0369a1',
+            }
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    ::-webkit-scrollbar {
+      width: 8px;
+      height: 8px;
+    }
+    ::-webkit-scrollbar-track {
+      background: rgba(15, 23, 42, 0.6);
+    }
+    ::-webkit-scrollbar-thumb {
+      background: rgba(51, 65, 85, 0.8);
+      border-radius: 4px;
+    }
+    ::-webkit-scrollbar-thumb:hover {
+      background: rgba(71, 85, 105, 1);
+    }
+    .glass-card {
+      background: rgba(30, 41, 59, 0.7);
+      backdrop-filter: blur(12px);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+    }
+    .glass-card-hover:hover {
+      background: rgba(30, 41, 59, 0.9);
+      border-color: rgba(56, 189, 248, 0.3);
+    }
+  </style>
+</head>
+<body class="h-full flex flex-col font-sans bg-slate-950 text-slate-100 overflow-x-hidden">
+
+  <!-- HEADER & NAVBAR -->
+  <header class="sticky top-0 z-50 bg-slate-900/90 backdrop-blur-md border-b border-slate-800 shadow-lg">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex items-center justify-between h-16">
+        <!-- Logo / Title -->
+        <div class="flex items-center space-x-3">
+          <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-sky-500 to-indigo-600 flex items-center justify-center text-white shadow-lg shadow-sky-500/20 font-bold text-xl">
+            <i class="fa-solid fa-train-subway"></i>
+          </div>
+          <div>
+            <h1 class="text-lg font-bold text-white leading-tight">Czech B1 Mastery</h1>
+            <p class="text-xs text-sky-400 font-medium">Lesson 3: Role Play – Cesta do zahraničí &amp; 2. pád</p>
+          </div>
+        </div>
+
+        <!-- Quick Info / Audio Check -->
+        <div class="hidden md:flex items-center space-x-4 text-xs font-medium">
+          <span class="px-3 py-1.5 rounded-full bg-slate-800 border border-slate-700 text-slate-300 flex items-center gap-2">
+            <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+            Class &amp; Self-Study Mode
+          </span>
+          <button id="ttsTestBtn" onclick="speakText('Dobrý den, jak vám mohu pomoci s jízdenkou do Vídně?')" class="px-3 py-1.5 rounded-lg bg-sky-600/20 hover:bg-sky-600/30 text-sky-300 border border-sky-500/30 transition flex items-center gap-1.5">
+            <i class="fa-solid fa-volume-high"></i> Audio Check
+          </button>
+        </div>
+      </div>
+
+      <!-- Navigation Tabs -->
+      <nav class="flex space-x-1 overflow-x-auto no-scrollbar border-t border-slate-800/80 py-2" id="mainTabs">
+        <button onclick="switchTab('tab-vocab')" id="btn-tab-vocab" class="tab-btn active px-4 py-2 text-xs sm:text-sm font-semibold rounded-lg text-white bg-sky-600 shadow-md shadow-sky-600/20 transition flex items-center gap-2 whitespace-nowrap">
+          <i class="fa-solid fa-book"></i> 1. Místa a Města (20)
+        </button>
+        <button onclick="switchTab('tab-exA')" id="btn-tab-exA" class="tab-btn px-4 py-2 text-xs sm:text-sm font-semibold rounded-lg text-slate-400 hover:text-slate-200 hover:bg-slate-800 transition flex items-center gap-2 whitespace-nowrap">
+          <i class="fa-solid fa-pen-to-square"></i> 2. Exercise A: 25 Gap-Fills
+        </button>
+        <button onclick="switchTab('tab-exB')" id="btn-tab-exB" class="tab-btn px-4 py-2 text-xs sm:text-sm font-semibold rounded-lg text-slate-400 hover:text-slate-200 hover:bg-slate-800 transition flex items-center gap-2 whitespace-nowrap">
+          <i class="fa-solid fa-wand-magic-sparkles"></i> 3. Exercise B: Upgrade
+        </button>
+        <button onclick="switchTab('tab-exC')" id="btn-tab-exC" class="tab-btn px-4 py-2 text-xs sm:text-sm font-semibold rounded-lg text-slate-400 hover:text-slate-200 hover:bg-slate-800 transition flex items-center gap-2 whitespace-nowrap">
+          <i class="fa-solid fa-comments"></i> 4. Interactive Role Play
+        </button>
+        <button onclick="switchTab('tab-homework')" id="btn-tab-homework" class="tab-btn px-4 py-2 text-xs sm:text-sm font-semibold rounded-lg text-slate-400 hover:text-slate-200 hover:bg-slate-800 transition flex items-center gap-2 whitespace-nowrap">
+          <i class="fa-solid fa-paper-plane"></i> 5. Homework &amp; Pack
+        </button>
+      </nav>
+    </div>
+  </header>
+
+  <!-- MAIN CONTAINER -->
+  <main class="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-6">
+
+    <!-- TAB 1: CORE VOCAB & PLACES IN 2. PÁD -->
+    <section id="tab-vocab" class="tab-content block space-y-6">
+      <div class="glass-card rounded-2xl p-5 border border-slate-800 flex flex-col md:flex-row gap-4 items-center justify-between">
+        <div>
+          <h2 class="text-xl font-bold text-white flex items-center gap-2">
+            <i class="fa-solid fa-location-dot text-sky-400"></i> Destinations, Places &amp; Stations in 2. pád
+          </h2>
+          <p class="text-xs text-slate-400 mt-1">
+            Core travel vocabulary, prepositions (`z/ze`, `do`, `od`, `u`), and required Genitive declensions.
+          </p>
+        </div>
+        
+        <div class="flex flex-wrap items-center gap-3 w-full md:w-auto">
+          <div class="relative flex-1 md:w-64">
+            <i class="fa-solid fa-magnifying-glass absolute left-3 top-1/2 -translate-y-1/2 text-slate-500 text-sm"></i>
+            <input type="text" id="vocabSearch" oninput="filterVocab()" placeholder="Search place or phrase..." class="w-full bg-slate-900 border border-slate-700 text-slate-200 text-xs rounded-xl pl-9 pr-3 py-2 focus:outline-none focus:border-sky-500">
+          </div>
+          <div class="flex items-center bg-slate-900 border border-slate-800 p-1 rounded-xl text-xs">
+            <button onclick="setVocabFilter('all')" id="vfilter-all" class="vfilter-btn px-3 py-1 rounded-lg text-white bg-sky-600 font-medium">All</button>
+            <button onclick="setVocabFilter('city')" id="vfilter-city" class="vfilter-btn px-3 py-1 rounded-lg text-slate-400 hover:text-slate-200">Cities</button>
+            <button onclick="setVocabFilter('country')" id="vfilter-country" class="vfilter-btn px-3 py-1 rounded-lg text-slate-400 hover:text-slate-200">Countries</button>
+            <button onclick="setVocabFilter('place')" id="vfilter-place" class="vfilter-btn px-3 py-1 rounded-lg text-slate-400 hover:text-slate-200">Stations/Places</button>
+          </div>
+        </div>
+      </div>
+
+      <div id="vocabGrid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+        <!-- JS Rendered -->
+      </div>
+    </section>
+
+    <!-- TAB 2: EXERCISE A - 25 GAP-FILL DRILLS -->
+    <section id="tab-exA" class="tab-content hidden space-y-6">
+      <div class="glass-card rounded-2xl p-5 border border-slate-800 space-y-4">
+        <div class="flex flex-col md:flex-row md:items-center justify-between gap-4">
+          <div>
+            <h2 class="text-xl font-bold text-white flex items-center gap-2">
+              <i class="fa-solid fa-pen-ruler text-emerald-400"></i> Exercise A: 25 Travel &amp; Ticket Drills
+            </h2>
+            <p class="text-xs text-slate-400 mt-1">
+              Decline destinations, cities, countries, and station terms into 2. pád after `do`, `z/ze`, `od`, and `u`.
+            </p>
+          </div>
+
+          <div class="flex items-center gap-2">
+            <button onclick="checkAllExA()" class="px-3 py-1.5 bg-emerald-600/30 hover:bg-emerald-600/50 border border-emerald-500/40 text-emerald-300 rounded-xl text-xs font-semibold transition flex items-center gap-1.5">
+              <i class="fa-solid fa-check-double"></i> Check All
+            </button>
+            <button onclick="revealAllExA()" class="px-3 py-1.5 bg-sky-600/30 hover:bg-sky-600/50 border border-sky-500/40 text-sky-300 rounded-xl text-xs font-semibold transition flex items-center gap-1.5">
+              <i class="fa-solid fa-eye"></i> Reveal All
+            </button>
+            <button onclick="resetExA()" class="px-3 py-1.5 bg-slate-800 hover:bg-slate-700 text-slate-300 border border-slate-700 rounded-xl text-xs font-semibold transition flex items-center gap-1.5">
+              <i class="fa-solid fa-rotate-left"></i> Reset
+            </button>
+          </div>
+        </div>
+
+        <div class="flex items-center gap-4 bg-slate-900/80 p-3 rounded-xl border border-slate-800">
+          <div class="flex-1 bg-slate-800 h-2.5 rounded-full overflow-hidden">
+            <div id="exAProgressBar" class="bg-gradient-to-r from-emerald-500 to-teal-400 h-full w-0 transition-all duration-300"></div>
+          </div>
+          <span id="exAScoreText" class="text-xs font-bold text-emerald-400 whitespace-nowrap">0 / 25 Correct</span>
+        </div>
+      </div>
+
+      <div id="exAList" class="space-y-3">
+        <!-- JS Rendered -->
+      </div>
+    </section>
+
+    <!-- TAB 3: EXERCISE B - SENTENCE UPGRADE -->
+    <section id="tab-exB" class="tab-content hidden space-y-6">
+      <div class="glass-card rounded-2xl p-5 border border-slate-800">
+        <h2 class="text-xl font-bold text-white flex items-center gap-2">
+          <i class="fa-solid fa-wand-magic-sparkles text-amber-400"></i> Exercise B: Ticket Office Dialogue Upgrade
+        </h2>
+        <p class="text-xs text-slate-400 mt-1">
+          Transform blunt, basic questions into polite B1 conversation phrases required at station ticket desks and airports.
+        </p>
+      </div>
+
+      <div id="exBGrid" class="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <!-- JS Rendered -->
+      </div>
+    </section>
+
+    <!-- TAB 4: EXERCISE C - INTERACTIVE ROLE PLAY BOARD -->
+    <section id="tab-exC" class="tab-content hidden space-y-6">
+      <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+        
+        <!-- Left 2 Cols: Role Play Station -->
+        <div class="lg:col-span-2 space-y-6">
+          <div class="glass-card rounded-2xl p-5 border border-slate-800 space-y-4">
+            <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+              <div>
+                <h2 class="text-xl font-bold text-white flex items-center gap-2">
+                  <i class="fa-solid fa-comments text-indigo-400"></i> Role Play: „Cesta do zahraničí“
+                </h2>
+                <p class="text-xs text-slate-400 mt-1">
+                  Practice ticket buying and airport check-in. Use both live pair-work mode or Self-Study AI Partner mode!
+                </p>
+              </div>
+
+              <!-- Speaker Timer -->
+              <div class="flex items-center gap-3 bg-slate-900 border border-slate-800 px-4 py-2 rounded-xl">
+                <i class="fa-solid fa-stopwatch text-indigo-400 text-lg"></i>
+                <div>
+                  <div id="timerDisplay" class="text-lg font-mono font-bold text-white leading-tight">02:00</div>
+                  <p class="text-[10px] text-slate-500 uppercase tracking-wider">Timer</p>
+                </div>
+                <div class="flex items-center gap-1 ml-2">
+                  <button onclick="toggleTimer()" id="timerToggleBtn" class="p-1.5 bg-indigo-600 hover:bg-indigo-500 text-white rounded-lg text-xs transition">
+                    <i class="fa-solid fa-play"></i>
+                  </button>
+                  <button onclick="resetTimer()" class="p-1.5 bg-slate-800 hover:bg-slate-700 text-slate-300 rounded-lg text-xs transition">
+                    <i class="fa-solid fa-rotate-left"></i>
+                  </button>
+                </div>
+              </div>
+            </div>
+
+            <!-- Role Selector Bar -->
+            <div class="flex flex-wrap items-center gap-3 pt-2 border-t border-slate-800">
+              <span class="text-xs font-bold text-slate-300">My Role:</span>
+              <button onclick="setMyRole('student')" id="roleBtnStudent" class="px-3 py-1.5 rounded-xl text-xs font-bold bg-sky-600 text-white shadow-md shadow-sky-600/20">
+                <i class="fa-solid fa-user-graduate mr-1"></i> Student (Cestující)
+              </button>
+              <button onclick="setMyRole('clerk')" id="roleBtnClerk" class="px-3 py-1.5 rounded-xl text-xs font-bold bg-slate-800 text-slate-400 hover:text-slate-200">
+                <i class="fa-solid fa-user-tie mr-1"></i> Teacher / Clerk (Pokladník / Agent)
+              </button>
+              
+              <div class="ml-auto flex items-center gap-2">
+                <span class="text-xs text-slate-400">Mode:</span>
+                <button onclick="toggleStudyMode('partner')" id="modeBtnPartner" class="px-2.5 py-1 rounded-lg text-xs font-bold bg-indigo-600 text-white">Live Class</button>
+                <button onclick="toggleStudyMode('self')" id="modeBtnSelf" class="px-2.5 py-1 rounded-lg text-xs font-bold bg-slate-800 text-slate-400 hover:text-slate-200">Self-Study AI Partner</button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Scenario Stage Buttons -->
+          <div class="flex space-x-2 overflow-x-auto pb-1" id="roleStageTabs">
+            <!-- JS Rendered -->
+          </div>
+
+          <!-- Quick Destination Insertion Chips (2. pád) -->
+          <div class="glass-card rounded-2xl p-4 border border-slate-800">
+            <span class="text-xs font-bold text-sky-400 uppercase tracking-wider block mb-2">
+              <i class="fa-solid fa-location-arrow mr-1"></i> Quick Insert 2. pád Destinations:
+            </span>
+            <div class="flex flex-wrap gap-1.5" id="destinationChips">
+              <!-- JS Rendered -->
+            </div>
+          </div>
+
+          <!-- Dialogue Stages Container -->
+          <div id="rolePlayStageContent" class="space-y-4">
+            <!-- JS Rendered -->
+          </div>
+        </div>
+
+        <!-- Right Col: Live Teacher & Self-Study Notes -->
+        <div class="glass-card rounded-2xl p-5 border border-slate-800 flex flex-col h-full min-h-[500px]">
+          <div class="flex items-center justify-between pb-3 border-b border-slate-800 mb-4">
+            <h3 class="font-bold text-white text-sm flex items-center gap-2">
+              <i class="fa-solid fa-clipboard-user text-sky-400"></i> Dialogue Notes &amp; Corrections
+            </h3>
+            <span class="text-[10px] text-slate-500">Auto-saved</span>
+          </div>
+
+          <p class="text-xs text-slate-400 mb-3">
+            Write down destination corrections (e.g., <em>do Vídně</em>, <em>z Paříže</em>), price phrases, or railway terms during roleplay!
+          </p>
+
+          <textarea id="teacherNotes" oninput="saveTeacherNotes()" placeholder="e.g.
++ Great phrase: 'Odkud odjíždí rychlík do Berlína?'
+- Correction: 'do Londýn' -> 'do Londýna' (2. pád)
+- Note: 'z Nádraží' -> 'z Hlavního nádraží'"
+ class="w-full flex-1 bg-slate-900 border border-slate-800 rounded-xl p-3 text-xs text-slate-200 focus:outline-none focus:border-sky-500 resize-none font-mono"></textarea>
+
+          <button onclick="appendNotesToHomework()" class="mt-4 w-full py-2 bg-slate-800 hover:bg-slate-700 border border-slate-700 text-slate-200 text-xs font-semibold rounded-xl transition flex items-center justify-center gap-2">
+            <i class="fa-solid fa-arrow-right"></i> Add Notes to Homework Pack
+          </button>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- TAB 5: HOMEWORK & PRE-CLASS PACK GENERATOR -->
+    <section id="tab-homework" class="tab-content hidden space-y-6">
+      <div class="glass-card rounded-2xl p-5 border border-slate-800">
+        <h2 class="text-xl font-bold text-white flex items-center gap-2">
+          <i class="fa-solid fa-paper-plane text-emerald-400"></i> Student Follow-Up &amp; Homework Generator
+        </h2>
+        <p class="text-xs text-slate-400 mt-1">
+          Generate a structured follow-up message with class corrections and a 15-minute home assignment.
+        </p>
+      </div>
+
+      <div class="glass-card rounded-2xl p-5 border border-slate-800 space-y-4">
+        <div class="flex items-center justify-between">
+          <span class="text-xs font-bold text-slate-300 uppercase tracking-wider">Generated Email / Message Preview</span>
+          <button onclick="copyHomeworkToClipboard()" class="px-4 py-2 bg-emerald-600 hover:bg-emerald-500 text-white rounded-xl text-xs font-bold shadow-lg shadow-emerald-600/20 transition flex items-center gap-2">
+            <i class="fa-solid fa-copy"></i> Copy to Clipboard
+          </button>
+        </div>
+
+        <textarea id="homeworkTextarea" rows="18" class="w-full bg-slate-950 border border-slate-800 rounded-xl p-4 text-xs text-slate-300 font-mono focus:outline-none focus:border-emerald-500"></textarea>
+      </div>
+    </section>
+
+  </main>
+
+  <script>
+    /* ==========================================================================
+       DATA STRUCTURES: VOCABULARY, DRILLS, SCENARIOS, ROLEPLAY
+       ========================================================================== */
+
+    const VOCAB_DATA = [
+      { id: 1, category: "city", cz: "Z Prahy / do Prahy", pos: "Město (fem)", en: "from / to Prague", gen: "Prahy", ex: "Vlak z Prahy do Brna odjíždí v 10:15." },
+      { id: 2, category: "city", cz: "Z Brna / do Brna", pos: "Město (neut)", en: "from / to Brno", gen: "Brna", ex: "Rychlík do Brna jede z kolejí číslo 3." },
+      { id: 3, category: "city", cz: "Z Vídně / do Vídně", pos: "Město (fem)", en: "from / to Vienna", gen: "Vídně", ex: "Jízdenka do Vídně stojí 450 korun." },
+      { id: 4, category: "city", cz: "Z Berlína / do Berlína", pos: "Město (masc inanim)", en: "from / to Berlin", gen: "Berlína", ex: "Odbavení do Berlína je u přepážky 5." },
+      { id: 5, category: "city", cz: "Z Londýna / do Londýna", pos: "Město (masc inanim - hard)", en: "from / to London", gen: "Londýna", ex: "Letadlo do Londýna má zpoždění." },
+      { id: 6, category: "city", cz: "Z Paříže / do Paříže", pos: "Město (fem soft)", en: "from / to Paris", gen: "Paříže", ex: "Přestupujeme na let do Paříže." },
+      { id: 7, category: "city", cz: "Z Říma / do Říma", pos: "Město (masc inanim)", en: "from / to Rome", gen: "Říma", ex: "Přímý spoj z Říma přistál včas." },
+      { id: 8, category: "city", cz: "Z Varšavy / do Varšavy", pos: "Město (fem)", en: "from / to Warsaw", gen: "Varšavy", ex: "Cesta z Varšavy trvala pět hodin." },
+      
+      { id: 9, category: "country", cz: "Z České republiky / do ČR", pos: "Země (fem)", en: "from / to Czech Rep.", gen: "České republiky", ex: "Návrat do České republiky." },
+      { id: 10, category: "country", cz: "Ze Slovenska / do SR", pos: "Země (neut)", en: "from / to Slovakia", gen: "Slovenska", ex: "Vlak ze Slovenska má zpoždění." },
+      { id: 11, category: "country", cz: "Z Německa / do Německa", pos: "Země (neut)", en: "from / to Germany", gen: "Německa", ex: "Cesta do Německa bez přestupu." },
+      { id: 12, category: "country", cz: "Z Francie / do Francie", pos: "Země (fem soft)", en: "from / to France", gen: "Francie", ex: "Letenka do Francie je draho." },
+      { id: 13, category: "country", cz: "Z Itálie / do Itálie", pos: "Země (fem soft)", en: "from / to Italy", gen: "Itálie", ex: "Dovolená do Itálie s rodinou." },
+      { id: 14, category: "country", cz: "Ze Španělska / do Španělska", pos: "Země (neut)", en: "from / to Spain", gen: "Španělska", ex: "Odbavení na cestu do Španělska." },
+
+      { id: 15, category: "place", cz: "Z nádraží / do nádraží", pos: "Stanice (neut)", en: "from / to railway station", gen: "nádraží", ex: "Odchod z hlavní budovy nádraží." },
+      { id: 16, category: "place", cz: "Z letiště / do letiště", pos: "Letiště (neut)", en: "from / to airport", gen: "letiště", ex: "Autobus z letiště do centra." },
+      { id: 17, category: "place", cz: "Ze stanice metra", pos: "Městská doprava (fem)", en: "from metro station", gen: "stanice metra", ex: "Vchod do stanice metra." },
+      { id: 18, category: "place", cz: "Z centra města", pos: "Místo (neut)", en: "from city center", gen: "centra města", ex: "Odjezd z centra města v 8:00." },
+      { id: 19, category: "place", cz: "U přepážky číslo...", pos: "Přepážka (fem)", en: "at counter number...", gen: "přepážky", ex: "Odbavení je u přepážky číslo 12." },
+      { id: 20, category: "place", cz: "Bez bezpečnostní prohlídky", pos: "Kontrola (fem)", en: "without security check", gen: "bezpečnostní prohlídky", ex: "Vstup do gatu je hned za prohlídkou." }
+    ];
+
+    const DRILLS_EX_A = [
+      { prompt: "Nemůžu najít vlak do ____ (Vídeň), můžete mi poradit?", base: "Vídeň", ans: "Vídně", hint: "fem soft: do Vídně" },
+      { prompt: "Vlak do ____ (Německo) odjíždí v 10:15 z Hlavního nádraží.", base: "Německo", ans: "Německa", hint: "neut: do Německa" },
+      { prompt: "Chtěl bych jednu zpáteční jízdenku do ____ (Berlín).", base: "Berlín", ans: "Berlína", hint: "masc inanim: do Berlína" },
+      { prompt: "Kolik stojí jízdenka z ____ (Brno) do ____ (Praha)?", base: "Brno / Praha", isDouble: true, ans1: "Brna", ans2: "Prahy", hint: "neut / fem: z Brna do Prahy" },
+      { prompt: "Nástupiště pro vlak do ____ (Paříž) je u kolejí číslo 3.", base: "Paříž", ans: "Paříže", hint: "fem soft: do Paříže" },
+      { prompt: "V ____ (Břeclav) musíte přestoupit do rychlíku směrem do Vídně.", base: "Břeclav", ans: "Břeclavi", hint: "6. pád (v Břeclavi)" },
+      { prompt: "Hledám odbavení na let do ____ (Londýn).", base: "Londýn", ans: "Londýna", hint: "masc inanim: do Londýna" },
+      { prompt: "Odbavení do ____ (Řím) je u přepážky číslo 12.", base: "Řím", ans: "Říma", hint: "masc inanim: do Říma" },
+      { prompt: "Kontrola zavazadel je hned za pasovou kontrolou u vchodu do ____ (letadlo).", base: "letadlo", ans: "letadla", hint: "neut: do letadla" },
+      { prompt: "Můžu si vzít dvě příruční zavazadla na cestu do ____ (Španělsko)?", base: "Španělsko", ans: "Španělska", hint: "neut: do Španělska" },
+      { prompt: "Autobus odjíždí přímo z autobusového ____ (nádraží).", base: "nádraží", ans: "nádraží", hint: "neut: z nádraží" },
+      { prompt: "Vstup do ____ (metro) je hned vedle hlavní budovy.", base: "metro", ans: "metra", hint: "neut: do metra" },
+      { prompt: "Cesta z ____ (Slovensko) trvala o hodinu déle kvůli zpoždění.", base: "Slovensko", ans: "Slovenska", hint: "neut: ze Slovenska" },
+      { prompt: "Máte nějaké přímé spojení z ____ (Ostrava) do ____ (Polsko)?", base: "Ostrava / Polsko", isDouble: true, ans1: "Ostravy", ans2: "Polska", hint: "fem / neut: z Ostravy do Polska" },
+      { prompt: "Můžete mi ukázat cestu do centrálního ____ (park)?", base: "park", ans: "parku", hint: "masc inanim: do parku" },
+      { prompt: "Cestujeme bez mého velkého ____ (kufr).", base: "kufr", ans: "kufru", hint: "masc inanim: bez kufru" },
+      { prompt: "Dostali jsme informace u informační ____ (přepážka).", base: "přepážka", ans: "přepážky", hint: "fem: u přepážky" },
+      { prompt: "Letadlo přistálo kousek od ____ (Madrid).", base: "Madrid", ans: "Madridu", hint: "masc inanim: od Madridu" },
+      { prompt: "Přejezd ____ (hranice - pl.) byl velmi rychlý.", base: "hranice", ans: "hranic", hint: "fem plural genitive: přejezd hranic" },
+      { prompt: "Kde je zastávka pro autobusy z ____ (letiště)?", base: "letiště", ans: "letiště", hint: "neut: z letiště" },
+      { prompt: "Musím si koupit jízdenku z ____ (automat).", base: "automat", ans: "automatu", hint: "masc inanim: z automatu" },
+      { prompt: "Odbavení probíhá u vedlejší ____ (stanice).", base: "stanice", ans: "stanice", hint: "fem: u stanice" },
+      { prompt: "Cesta do ____ (Itálie) byla bez jakéhokoli problému.", base: "Itálie", ans: "Itálie", hint: "fem soft: do Itálie" },
+      { prompt: "Vlak ze ____ (Švýcarsko) přijede na kolej číslo 2.", base: "Švýcarsko", ans: "Švýcarska", hint: "neut: ze Švýcarska" },
+      { prompt: "Odjíždíme přímo z hlavního ____ (nádraží).", base: "nádraží", ans: "nádraží", hint: "neut: z nádraží" }
+    ];
+
+    const SCENARIOS_EX_B = [
+      { q: "1. Jak se zeptáš na vlak do Vídně?", a2: "Kde je vlak Vídeň?", targets: "prosím vás / nemůžu najít / do Vídně (2. pád)", b1: "Dobrý den, prosím vás, nemůžu najít vlak do Vídně, můžete mi poradit?" },
+      { q: "2. Jak si koupíš lístek na vlak?", a2: "Chci lístek do Berlína.", targets: "chtěl/a bych / jednosměrný nebo zpáteční / do Berlína", b1: "Dobrý den, chtěl/a bych jednu zpáteční jízdenku do Berlína na zítra ráno." },
+      { q: "3. Jak se zeptáš na nástupiště?", a2: "Kde jede vlak?", targets: "odkud odjíždí / nástupiště / kolej číslo", b1: "Promiňte, ze kterého nástupiště a koleje odjíždí vlak do Paříže?" },
+      { q: "4. Jak se zeptáš na přestupování?", a2: "Musím přestoupit?", targets: "jestli musím cestou / měnit vlak / přestupovat", b1: "Chtěl/a jsem se zeptat, jestli musím cestou do Říma někde přestupovat?" },
+      { q: "5. Jak se zeptáš na cenu zpožděného lístku?", a2: "Kolik to stojí?", targets: "kolik stojí jízdenka / do (2. pád) / sleva", b1: "Prosím vás, kolik stojí zpáteční jízdenka z Brna do Vídně?" },
+      { q: "6. Jak hledáš odbavení na letišti?", a2: "Kde je check-in?", targets: "hledám odbavení do / přepážka číslo", b1: "Dobrý den, hledám odbavení na let do Londýna. Která je to přepážka?" },
+      { q: "7. Jak se zeptáš na kontrolu zavazadel?", a2: "Kde je kontrola?", targets: "kontrola zavazadel / před vchodem do / bezpečnostní prohlídka", b1: "Promiňte, kde přesně najdu kontrolu zavazadel před vstupem do letadla?" },
+      { q: "8. Jak se zeptáš na příruční zavazadlo?", a2: "Můžu mít dvě tašky?", targets: "více než jedno / příruční zavazadlo / na cestu do", b1: "Můžu si vzít více než jedno příruční zavazadlo na cestu do Španělska?" },
+      { q: "9. Jak se zeptáš na přímý spoj?", a2: "Je to přímý vlak?", targets: "přímý spoj z / do (2. pád) / bez přestupu", b1: "Existuje nějaký přímý spoj z Prahy do Varšavy bez přestupování?" },
+      { q: "10. Jak reakce u pokladny na čas odjezdu?", a2: "Kdy to jede?", targets: "v kolik hodin odjíždí / rychlík do / z jakého nádraží", b1: "V kolik hodin přesně odjíždí ten rychlík do Německa z Hlavního nádraží?" },
+      { q: "11. Jak požádáš o ukázání cesty?", a2: "Kde je stanice?", targets: "můžete mi ukázat cestu do / stanice metra", b1: "Můžete mi prosím ukázat cestu do nejbližší stanice metra?" },
+      { q: "12. Jak se zeptáš na zpoždění vlaku?", a2: "Má vlak zpoždění?", targets: "má spoj do / zpoždění z důvodu", b1: "Prosím vás, má ten vlak z Prahy do Bratislavy nějaké zpoždění?" }
+    ];
+
+    const ROLEPLAY_STAGES = [
+      {
+        id: "s1",
+        title: "1. U pokladny",
+        icon: "fa-circle-question",
+        pA: "Dobrý den, prosím vás, nemůžu najít vlak do [DESTINATION], můžete mi poradit?",
+        pB: "Dobrý den! Do [DESTINATION] jede vlak v 10:15 z Hlavního nádraží. Chcete koupit jízdenku?",
+        hintA: "Použij 2. pád po 'do' (např. do Vídně, do Berlína, do Německa).",
+        hintB: "Uveď čas odjezdu, kolej nebo nabídni jízdenku z (2. pád)."
+      },
+      {
+        id: "s2",
+        title: "2. Nákup lístku",
+        icon: "fa-ticket",
+        pA: "Ano, chtěl/a bych jednu jízdenku do [DESTINATION]. Kolik stojí?",
+        pB: "Chcete jednosměrnou, nebo zpáteční? Cena zpáteční jízdenky do [DESTINATION] je 450 korun.",
+        hintA: "Upřesni, zda chceš 2. třídu, nebo zpáteční lístek z (2. pád).",
+        hintB: "Zeptej se na druh jízdenky a řekni cenu v korunách/eurech."
+      },
+      {
+        id: "s3",
+        title: "3. Informace & Přestup",
+        icon: "fa-right-left",
+        pA: "A kde najdu nástupiště a musím cestou do [DESTINATION] přestupovat?",
+        pB: "Vlak do [DESTINATION] odjíždí z nástupiště 2. V Břeclavi přestoupíte do rychlíku ve směru do [DESTINATION].",
+        hintA: "Ptej se na kolej, nástupiště a přestupování (v 6. pádě).",
+        hintB: "Vysvětli místo přestupu a směru (směr 1. pád nebo do + 2. pád)."
+      },
+      {
+        id: "s4",
+        title: "4. Na letišti (Varianta)",
+        icon: "fa-plane-departure",
+        pA: "Dobrý den, hledám odbavení na let do [DESTINATION] a kontrolu zavazadel.",
+        pB: "Odbavení do [DESTINATION] je u přepážky číslo 12. Kontrola je hned za pasovou kontrolou.",
+        hintA: "Ptej se na odbavení (check-in) a příruční zavazadlo do (2. pád).",
+        hintB: "Uveď číslo přepážky u (2. pád) a pravidla pro zavazadla."
+      }
+    ];
+
+    const CHIP_DESTINATIONS = [
+      "Vídně", "Berlína", "Londýna", "Paříže", "Říma", "Varšavy", "Prahy", "Brna",
+      "Německa", "Slovenska", "Rakouska", "Francie", "Itálie", "Španělska"
+    ];
+
+    /* ==========================================================================
+       STATE MANAGEMENT
+       ========================================================================== */
+    let currentVocabCategory = 'all';
+    let currentRoleStage = 's1';
+    let myRole = 'student'; // 'student' or 'clerk'
+    let studyMode = 'partner'; // 'partner' or 'self'
+    let timerInterval = null;
+    let timerSeconds = 120;
+    let isTimerRunning = false;
+    let activeDestination = "Vídně";
+
+    /* ==========================================================================
+       TAB NAVIGATION & INIT
+       ========================================================================== */
+    function switchTab(tabId) {
+      document.querySelectorAll('.tab-content').forEach(el => el.classList.add('hidden'));
+      document.querySelectorAll('.tab-btn').forEach(btn => {
+        btn.classList.remove('bg-sky-600', 'text-white', 'shadow-md');
+        btn.classList.add('text-slate-400');
+      });
+
+      document.getElementById(tabId).classList.remove('hidden');
+      const activeBtn = document.getElementById('btn-' + tabId);
+      if (activeBtn) {
+        activeBtn.classList.add('bg-sky-600', 'text-white', 'shadow-md');
+        activeBtn.classList.remove('text-slate-400');
+      }
+    }
+
+    /* ==========================================================================
+       TTS AUDIO
+       ========================================================================== */
+    function speakText(text) {
+      if ('speechSynthesis' in window) {
+        window.speechSynthesis.cancel();
+        const utterance = new SpeechSynthesisUtterance(text);
+        utterance.lang = 'cs-CZ';
+        utterance.rate = 0.9;
+        window.speechSynthesis.speak(utterance);
+      } else {
+        alert('Speech synthesis is not supported in this browser.');
+      }
+    }
+
+    /* ==========================================================================
+       TAB 1: VOCABULARY HUB LOGIC
+       ========================================================================== */
+    function setVocabFilter(cat) {
+      currentVocabCategory = cat;
+      document.querySelectorAll('.vfilter-btn').forEach(btn => {
+        btn.classList.remove('bg-sky-600', 'text-white');
+        btn.classList.add('text-slate-400');
+      });
+      const active = document.getElementById('vfilter-' + cat);
+      if (active) {
+        active.classList.add('bg-sky-600', 'text-white');
+        active.classList.remove('text-slate-400');
+      }
+      renderVocab();
+    }
+
+    function renderVocab() {
+      const grid = document.getElementById('vocabGrid');
+      const query = document.getElementById('vocabSearch').value.toLowerCase().trim();
+
+      const filtered = VOCAB_DATA.filter(item => {
+        const matchesCategory = (currentVocabCategory === 'all') || (item.category === currentVocabCategory);
+        const matchesSearch = item.cz.toLowerCase().includes(query) || 
+                              item.en.toLowerCase().includes(query) || 
+                              item.ex.toLowerCase().includes(query);
+        return matchesCategory && matchesSearch;
+      });
+
+      if (filtered.length === 0) {
+        grid.innerHTML = `<div class="col-span-full py-12 text-center text-slate-500 text-xs">Žádná slovíčka neodpovídají hledání.</div>`;
+        return;
+      }
+
+      grid.innerHTML = filtered.map(item => `
+        <div class="glass-card glass-card-hover rounded-2xl p-4 border border-slate-800 transition flex flex-col justify-between space-y-3">
+          <div>
+            <div class="flex items-start justify-between gap-2">
+              <div class="flex items-center gap-2">
+                <button onclick="speakText('${item.cz}')" class="w-8 h-8 rounded-lg bg-sky-500/20 hover:bg-sky-500/40 text-sky-400 border border-sky-500/30 transition flex items-center justify-center flex-shrink-0" title="Přehrát">
+                  <i class="fa-solid fa-volume-high text-xs"></i>
+                </button>
+                <h3 class="font-bold text-white text-sm sm:text-base leading-snug">${item.cz}</h3>
+              </div>
+              <span class="text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded-full bg-slate-800 text-slate-400 border border-slate-700">${item.pos}</span>
+            </div>
+            <p class="text-xs text-sky-300 font-medium mt-1.5">${item.en}</p>
+          </div>
+
+          <div class="bg-slate-900/90 rounded-xl p-2.5 border border-slate-800/80 text-xs space-y-1">
+            <div class="text-slate-400 font-mono text-[11px]"><strong class="text-amber-400">2. pád:</strong> ${item.gen}</div>
+            <div class="text-slate-300 italic">"${item.ex}"</div>
+          </div>
+        </div>
+      `).join('');
+    }
+
+    function filterVocab() {
+      renderVocab();
+    }
+
+    /* ==========================================================================
+       TAB 2: EXERCISE A LOGIC
+       ========================================================================== */
+    function renderExerciseA() {
+      const list = document.getElementById('exAList');
+      list.innerHTML = DRILLS_EX_A.map((item, idx) => {
+        if (item.isDouble) {
+          const parts = item.prompt.split('____');
+          return `
+            <div class="glass-card rounded-xl p-3 sm:p-4 border border-slate-800 flex flex-col sm:flex-row sm:items-center justify-between gap-3" id="exA_card_${idx}">
+              <div class="text-xs sm:text-sm text-slate-200 leading-relaxed flex-1">
+                <span class="font-bold text-sky-400 mr-1.5">${idx + 1}.</span>
+                ${parts[0]}
+                <input type="text" id="exA_input_${idx}_1" data-ans="${item.ans1}" class="bg-slate-900 border border-slate-700 rounded-lg px-2.5 py-1 text-xs text-sky-300 font-bold w-28 text-center focus:outline-none focus:border-sky-500" placeholder="...">
+                ${parts[1]}
+                <input type="text" id="exA_input_${idx}_2" data-ans="${item.ans2}" class="bg-slate-900 border border-slate-700 rounded-lg px-2.5 py-1 text-xs text-sky-300 font-bold w-28 text-center focus:outline-none focus:border-sky-500" placeholder="...">
+                ${parts[2]}
+              </div>
+              <div class="flex items-center gap-2 self-end sm:self-center">
+                <button onclick="speakText('${item.prompt.replace('____', item.ans1).replace('____', item.ans2)}')" class="p-1.5 text-slate-400 hover:text-sky-400 transition" title="Listen">
+                  <i class="fa-solid fa-volume-high text-xs"></i>
+                </button>
+                <span class="text-[10px] text-slate-500 italic" title="${item.hint}">[${item.base}]</span>
+              </div>
+            </div>
+          `;
+        } else {
+          const parts = item.prompt.split('____');
+          return `
+            <div class="glass-card rounded-xl p-3 sm:p-4 border border-slate-800 flex flex-col sm:flex-row sm:items-center justify-between gap-3" id="exA_card_${idx}">
+              <div class="text-xs sm:text-sm text-slate-200 leading-relaxed flex-1">
+                <span class="font-bold text-sky-400 mr-1.5">${idx + 1}.</span>
+                ${parts[0]}
+                <input type="text" id="exA_input_${idx}" data-ans="${item.ans}" class="bg-slate-900 border border-slate-700 rounded-lg px-2.5 py-1 text-xs text-sky-300 font-bold w-32 text-center focus:outline-none focus:border-sky-500" placeholder="...">
+                ${parts[1]}
+              </div>
+              <div class="flex items-center gap-2 self-end sm:self-center">
+                <button onclick="speakText('${item.prompt.replace('____', item.ans)}')" class="p-1.5 text-slate-400 hover:text-sky-400 transition" title="Listen">
+                  <i class="fa-solid fa-volume-high text-xs"></i>
+                </button>
+                <span class="text-[10px] text-slate-500 italic" title="${item.hint}">[${item.base}]</span>
+              </div>
+            </div>
+          `;
+        }
+      }).join('');
+    }
+
+    function checkAllExA() {
+      let correct = 0;
+      DRILLS_EX_A.forEach((item, idx) => {
+        if (item.isDouble) {
+          const inp1 = document.getElementById(`exA_input_${idx}_1`);
+          const inp2 = document.getElementById(`exA_input_${idx}_2`);
+          const val1 = inp1.value.trim().toLowerCase();
+          const val2 = inp2.value.trim().toLowerCase();
+          const ans1 = item.ans1.toLowerCase();
+          const ans2 = item.ans2.toLowerCase();
+
+          let ok1 = (val1 === ans1);
+          let ok2 = (val2 === ans2);
+
+          inp1.className = ok1 ? "bg-emerald-950 border border-emerald-500 text-emerald-300 rounded-lg px-2.5 py-1 text-xs font-bold w-28 text-center" : "bg-rose-950 border border-rose-500 text-rose-300 rounded-lg px-2.5 py-1 text-xs font-bold w-28 text-center";
+          inp2.className = ok2 ? "bg-emerald-950 border border-emerald-500 text-emerald-300 rounded-lg px-2.5 py-1 text-xs font-bold w-28 text-center" : "bg-rose-950 border border-rose-500 text-rose-300 rounded-lg px-2.5 py-1 text-xs font-bold w-28 text-center";
+
+          if (ok1 && ok2) correct++;
+        } else {
+          const inp = document.getElementById(`exA_input_${idx}`);
+          const val = inp.value.trim().toLowerCase();
+          const ans = item.ans.toLowerCase();
+
+          if (val === ans) {
+            inp.className = "bg-emerald-950 border border-emerald-500 text-emerald-300 rounded-lg px-2.5 py-1 text-xs font-bold w-32 text-center";
+            correct++;
+          } else {
+            inp.className = "bg-rose-950 border border-rose-500 text-rose-300 rounded-lg px-2.5 py-1 text-xs font-bold w-32 text-center";
+          }
+        }
+      });
+
+      const total = DRILLS_EX_A.length;
+      const pct = Math.round((correct / total) * 100);
+      document.getElementById('exAProgressBar').style.width = pct + '%';
+      document.getElementById('exAScoreText').innerText = `${correct} / ${total} Correct (${pct}%)`;
+    }
+
+    function revealAllExA() {
+      DRILLS_EX_A.forEach((item, idx) => {
+        if (item.isDouble) {
+          const inp1 = document.getElementById(`exA_input_${idx}_1`);
+          const inp2 = document.getElementById(`exA_input_${idx}_2`);
+          inp1.value = item.ans1;
+          inp2.value = item.ans2;
+          inp1.className = "bg-emerald-950 border border-emerald-500 text-emerald-300 rounded-lg px-2.5 py-1 text-xs font-bold w-28 text-center";
+          inp2.className = "bg-emerald-950 border border-emerald-500 text-emerald-300 rounded-lg px-2.5 py-1 text-xs font-bold w-28 text-center";
+        } else {
+          const inp = document.getElementById(`exA_input_${idx}`);
+          inp.value = item.ans;
+          inp.className = "bg-emerald-950 border border-emerald-500 text-emerald-300 rounded-lg px-2.5 py-1 text-xs font-bold w-32 text-center";
+        }
+      });
+      document.getElementById('exAProgressBar').style.width = '100%';
+      document.getElementById('exAScoreText').innerText = `25 / 25 Correct (100%)`;
+    }
+
+    function resetExA() {
+      DRILLS_EX_A.forEach((item, idx) => {
+        if (item.isDouble) {
+          const inp1 = document.getElementById(`exA_input_${idx}_1`);
+          const inp2 = document.getElementById(`exA_input_${idx}_2`);
+          inp1.value = '';
+          inp2.value = '';
+          inp1.className = "bg-slate-900 border border-slate-700 rounded-lg px-2.5 py-1 text-xs text-sky-300 font-bold w-28 text-center focus:outline-none focus:border-sky-500";
+          inp2.className = "bg-slate-900 border border-slate-700 rounded-lg px-2.5 py-1 text-xs text-sky-300 font-bold w-28 text-center focus:outline-none focus:border-sky-500";
+        } else {
+          const inp = document.getElementById(`exA_input_${idx}`);
+          inp.value = '';
+          inp.className = "bg-slate-900 border border-slate-700 rounded-lg px-2.5 py-1 text-xs text-sky-300 font-bold w-32 text-center focus:outline-none focus:border-sky-500";
+        }
+      });
+      document.getElementById('exAProgressBar').style.width = '0%';
+      document.getElementById('exAScoreText').innerText = `0 / 25 Correct`;
+    }
+
+    /* ==========================================================================
+       TAB 3: EXERCISE B LOGIC
+       ========================================================================== */
+    function renderExerciseB() {
+      const grid = document.getElementById('exBGrid');
+      grid.innerHTML = SCENARIOS_EX_B.map((item, idx) => `
+        <div class="glass-card rounded-2xl p-4 border border-slate-800 space-y-3">
+          <div class="flex items-center justify-between">
+            <h3 class="font-bold text-white text-sm">${item.q}</h3>
+            <button onclick="speakText('${item.b1}')" class="p-1.5 text-slate-400 hover:text-sky-400 transition" title="Listen B1 model">
+              <i class="fa-solid fa-volume-high text-xs"></i>
+            </button>
+          </div>
+
+          <div class="text-xs text-rose-300/80 bg-rose-950/30 p-2 rounded-xl border border-rose-900/30">
+            <strong>A2 Basic:</strong> "${item.a2}"
+          </div>
+
+          <div class="text-[11px] text-amber-300/90 font-medium">
+            <i class="fa-solid fa-bullseye mr-1"></i> B1 Targets: ${item.targets}
+          </div>
+
+          <textarea id="exB_user_${idx}" rows="2" placeholder="Write upgraded B1 response..." class="w-full bg-slate-900 border border-slate-800 rounded-xl p-2.5 text-xs text-slate-200 focus:outline-none focus:border-sky-500 font-mono"></textarea>
+
+          <button onclick="toggleExBModel(${idx})" class="text-[11px] font-semibold text-sky-400 hover:text-sky-300 flex items-center gap-1">
+            <i class="fa-solid fa-eye"></i> Toggle Model B1 Answer
+          </button>
+
+          <div id="exB_model_${idx}" class="hidden text-xs text-emerald-300 bg-emerald-950/40 p-2.5 rounded-xl border border-emerald-800/40 font-mono">
+            <strong>Model B1:</strong> "${item.b1}"
+          </div>
+        </div>
+      `).join('');
+    }
+
+    function toggleExBModel(idx) {
+      const el = document.getElementById(`exB_model_${idx}`);
+      el.classList.toggle('hidden');
+    }
+
+    /* ==========================================================================
+       TAB 4: ROLE PLAY BOARD LOGIC
+       ========================================================================== */
+    function renderRoleplayTabs() {
+      const container = document.getElementById('roleStageTabs');
+      container.innerHTML = ROLEPLAY_STAGES.map(s => `
+        <button onclick="switchRoleStage('${s.id}')" id="btn-stage-${s.id}" class="stage-tab-btn px-3 py-2 text-xs font-semibold rounded-xl border border-slate-800 transition whitespace-nowrap flex items-center gap-1.5 ${s.id === currentRoleStage ? 'bg-indigo-600 text-white border-indigo-500' : 'bg-slate-900 text-slate-400 hover:text-slate-200'}">
+          <i class="fa-solid ${s.icon}"></i> ${s.title}
+        </button>
+      `).join('');
+    }
+
+    function renderDestinationChips() {
+      const container = document.getElementById('destinationChips');
+      container.innerHTML = CHIP_DESTINATIONS.map(d => `
+        <button onclick="selectDestination('${d}')" class="chip-btn px-2.5 py-1 rounded-lg text-xs font-medium border transition ${d === activeDestination ? 'bg-sky-600 text-white border-sky-400 shadow-sm' : 'bg-slate-900 text-slate-300 border-slate-800 hover:border-slate-700'}">
+          ${d}
+        </button>
+      `).join('');
+    }
+
+    function selectDestination(dest) {
+      activeDestination = dest;
+      renderDestinationChips();
+      renderRolePlayContent();
+    }
+
+    function setMyRole(r) {
+      myRole = r;
+      document.getElementById('roleBtnStudent').className = (r === 'student') ? "px-3 py-1.5 rounded-xl text-xs font-bold bg-sky-600 text-white shadow-md shadow-sky-600/20" : "px-3 py-1.5 rounded-xl text-xs font-bold bg-slate-800 text-slate-400 hover:text-slate-200";
+      document.getElementById('roleBtnClerk').className = (r === 'clerk') ? "px-3 py-1.5 rounded-xl text-xs font-bold bg-sky-600 text-white shadow-md shadow-sky-600/20" : "px-3 py-1.5 rounded-xl text-xs font-bold bg-slate-800 text-slate-400 hover:text-slate-200";
+      renderRolePlayContent();
+    }
+
+    function toggleStudyMode(m) {
+      studyMode = m;
+      document.getElementById('modeBtnPartner').className = (m === 'partner') ? "px-2.5 py-1 rounded-lg text-xs font-bold bg-indigo-600 text-white" : "px-2.5 py-1 rounded-lg text-xs font-bold bg-slate-800 text-slate-400 hover:text-slate-200";
+      document.getElementById('modeBtnSelf').className = (m === 'self') ? "px-2.5 py-1 rounded-lg text-xs font-bold bg-indigo-600 text-white" : "px-2.5 py-1 rounded-lg text-xs font-bold bg-slate-800 text-slate-400 hover:text-slate-200";
+      renderRolePlayContent();
+    }
+
+    function switchRoleStage(sId) {
+      currentRoleStage = sId;
+      document.querySelectorAll('.stage-tab-btn').forEach(btn => {
+        btn.classList.remove('bg-indigo-600', 'text-white', 'border-indigo-500');
+        btn.classList.add('bg-slate-900', 'text-slate-400');
+      });
+      const active = document.getElementById('btn-stage-' + sId);
+      if (active) {
+        active.classList.add('bg-indigo-600', 'text-white', 'border-indigo-500');
+        active.classList.remove('bg-slate-900', 'text-slate-400');
+      }
+      renderRolePlayContent();
+    }
+
+    function renderRolePlayContent() {
+      const container = document.getElementById('rolePlayStageContent');
+      const stage = ROLEPLAY_STAGES.find(s => s.id === currentRoleStage);
+
+      const promptA = stage.pA.replace(/[DESTINATION]/g, activeDestination);
+      const promptB = stage.pB.replace(/[DESTINATION]/g, activeDestination);
+
+      const isStudentRole = (myRole === 'student');
+
+      container.innerHTML = `
+        <div class="glass-card rounded-2xl p-5 border border-slate-800 space-y-5">
+          <div class="flex items-center justify-between border-b border-slate-800 pb-3">
+            <h3 class="font-bold text-white text-base">${stage.title}</h3>
+            <span class="text-xs font-mono text-sky-400">Destination: <strong>${activeDestination}</strong></span>
+          </div>
+
+          <!-- Passenger Side -->
+          <div class="p-4 rounded-xl border ${isStudentRole ? 'bg-sky-950/40 border-sky-500/50' : 'bg-slate-900/60 border-slate-800'} space-y-2">
+            <div class="flex items-center justify-between">
+              <span class="text-xs font-bold ${isStudentRole ? 'text-sky-300' : 'text-slate-400'} uppercase">
+                <i class="fa-solid fa-user-graduate mr-1"></i> Student (Cestující) ${isStudentRole ? '(YOU)' : ''}
+              </span>
+              <button onclick="speakText('${promptA}')" class="p-1 text-slate-400 hover:text-sky-400 transition" title="Audio">
+                <i class="fa-solid fa-volume-high text-xs"></i>
+              </button>
+            </div>
+            <p class="text-sm font-medium text-slate-100">"${promptA}"</p>
+            <p class="text-[11px] text-slate-400 italic">💡 Hint: ${stage.hintA}</p>
+          </div>
+
+          <!-- Clerk Side -->
+          <div class="p-4 rounded-xl border ${!isStudentRole ? 'bg-sky-950/40 border-sky-500/50' : 'bg-slate-900/60 border-slate-800'} space-y-2">
+            <div class="flex items-center justify-between">
+              <span class="text-xs font-bold ${!isStudentRole ? 'text-sky-300' : 'text-slate-400'} uppercase">
+                <i class="fa-solid fa-user-tie mr-1"></i> Clerk / Agent (Pokladník) ${!isStudentRole ? '(YOU)' : ''}
+              </span>
+              <button onclick="speakText('${promptB}')" class="p-1 text-slate-400 hover:text-sky-400 transition" title="Audio">
+                <i class="fa-solid fa-volume-high text-xs"></i>
+              </button>
+            </div>
+            <p class="text-sm font-medium text-slate-100">"${promptB}"</p>
+            <p class="text-[11px] text-slate-400 italic">💡 Hint: ${stage.hintB}</p>
+          </div>
+
+          ${studyMode === 'self' ? `
+            <div class="bg-indigo-950/30 border border-indigo-800/40 rounded-xl p-4 space-y-2">
+              <h4 class="text-xs font-bold text-indigo-300 flex items-center gap-1.5">
+                <i class="fa-solid fa-robot"></i> Self-Study Interactive Practice
+              </h4>
+              <p class="text-xs text-slate-300">
+                Click 🔊 audio to listen to your AI partner's line above, then practice saying your response aloud or typing it below:
+              </p>
+              <textarea id="selfStudyInput" rows="2" placeholder="Type your spoken answer here to practice writing..." class="w-full bg-slate-900 border border-slate-800 rounded-lg p-2.5 text-xs text-slate-200 focus:outline-none focus:border-indigo-500 font-mono"></textarea>
+            </div>
+          ` : ''}
+        </div>
+      `;
+    }
+
+    /* TIMER LOGIC */
+    function toggleTimer() {
+      if (isTimerRunning) {
+        clearInterval(timerInterval);
+        isTimerRunning = false;
+        document.getElementById('timerToggleBtn').innerHTML = `<i class="fa-solid fa-play"></i>`;
+      } else {
+        isTimerRunning = true;
+        document.getElementById('timerToggleBtn').innerHTML = `<i class="fa-solid fa-pause"></i>`;
+        timerInterval = setInterval(() => {
+          if (timerSeconds > 0) {
+            timerSeconds--;
+            updateTimerDisplay();
+          } else {
+            clearInterval(timerInterval);
+            isTimerRunning = false;
+            document.getElementById('timerToggleBtn').innerHTML = `<i class="fa-solid fa-play"></i>`;
+            alert("Speaker timer finished!");
+          }
+        }, 1000);
+      }
+    }
+
+    function resetTimer() {
+      clearInterval(timerInterval);
+      isTimerRunning = false;
+      timerSeconds = 120;
+      updateTimerDisplay();
+      document.getElementById('timerToggleBtn').innerHTML = `<i class="fa-solid fa-play"></i>`;
+    }
+
+    function updateTimerDisplay() {
+      const m = Math.floor(timerSeconds / 60).toString().padStart(2, '0');
+      const s = (timerSeconds % 60).toString().padStart(2, '0');
+      document.getElementById('timerDisplay').innerText = `${m}:${s}`;
+    }
+
+    /* NOTES & HOMEWORK */
+    function saveTeacherNotes() {
+      const notes = document.getElementById('teacherNotes').value;
+      localStorage.setItem('cz_b1_l3_notes', notes);
+      updateHomeworkPack();
+    }
+
+    function appendNotesToHomework() {
+      switchTab('tab-homework');
+      updateHomeworkPack();
+    }
+
+    function updateHomeworkPack() {
+      const notes = document.getElementById('teacherNotes').value || "No specific corrections logged.";
+      const pack = `CZECH B1 MASTERY - LESSON 3 FOLLOW-UP & HOMEWORK
+Topic: Role Play „Cesta do zahraničí“ & Genitive Case (2. pád)
+Student: B1 Level Bridge
+
+==================================================
+1. CLASS REVIEW & TEACHER CORRECTIONS:
+${notes}
+
+==================================================
+2. KEY 2. PÁD PREPOSITIONAL PATTERNS TO REMEMBER:
+- do + Genitive: do Vídně, do Berlína, do Německa, do Paříže
+- z / ze + Genitive: z Prahy, ze Slovenska, z nádraží
+- u + Genitive: u pokladny, u přepážky číslo 5
+- bez + Genitive: bez zpoždění, bez kufru
+
+==================================================
+3. 15-MINUTE HOMEWORK ASSIGNMENT:
+Task 1: Complete these 3 travel sentences in 2. pád:
+1. Chtěl/a bych jízdenku do _______ (Paříž) z _______ (Praha).
+2. Odbavení do _______ (Londýn) je u přepážky číslo 12.
+3. Vlak z _______ (Brno) přijede bez _______ (zpoždění).
+
+Task 2: Write a short 5-sentence dialogue at the ticket counter for a trip to Rome (do Říma).
+
+Send your completed answers before our next class!`;
+
+      document.getElementById('homeworkTextarea').value = pack;
+    }
+
+    function copyHomeworkToClipboard() {
+      const textarea = document.getElementById('homeworkTextarea');
+      textarea.select();
+      document.execCommand('copy');
+      alert('Homework pack copied to clipboard!');
+    }
+
+    /* ==========================================================================
+       INITIALIZATION
+       ========================================================================== */
+    window.onload = () => {
+      renderVocab();
+      renderExerciseA();
+      renderExerciseB();
+      renderRoleplayTabs();
+      renderDestinationChips();
+      renderRolePlayContent();
+
+      const savedNotes = localStorage.getItem('cz_b1_l3_notes');
+      if (savedNotes) {
+        document.getElementById('teacherNotes').value = savedNotes;
+      }
+      updateHomeworkPack();
+    };
+  </script>
+</body>
+</html>
