@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="cs" class="h-full bg-slate-900 text-slate-100">
+<html lang="en" class="h-full bg-slate-900 text-slate-100">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -439,17 +439,17 @@
     { prompt: "Náš vlak odjíždí přesně podle ____ (letový řád).", ans: "letového řádu", hint: "podle + 2. pád (mladý hrad)" },
     { prompt: "Informace se nacházejí uprostřed ____ (odletová hala).", ans: "odletové haly", hint: "uprostřed + 2. pád (mladá žena)" },
     { prompt: "Koupil jsem na cestu dvě láhve ____ (čistá voda).", ans: "čisté vody", hint: "partitiv + 2. pád (mladá žena)" },
-    { prompt: "Nesu těžké zavazadlo ____ (můj mladší bratr).", ans: "mého mladšího bratra", hint: "posesivní (můj mladý muž)" },
-    { prompt: "U odbavovací přepážky stojí skupina pěti ____ (nový pasažér - pl.).", ans: "nových pasažérů", hint: "genitiv plurál pro 5+ (mladý muž)" },
+    { prompt: "Nesu těžké zavazadlo ____ (můj mladší bratr).", ans: "mého mladšího bratra", hint: "posesivní (můj jarní muž)" },
+    { prompt: "U odbavovací přepážky stojí skupina ____ (pět nový pasažér - pl.).", ans: "pěti nových pasažérů", hint: "genitiv plurál pro 5+ (mladý muž)" },
     { prompt: "Odbavení probíhá vedle ____ (bezpečnostní prohlídka).", ans: "bezpečnostní prohlídky", hint: "vedle + 2. pád (jarní žena)" },
     { prompt: "Nepustí vás ke gatu bez ____ (palubní lístek).", ans: "palubního lístku", hint: "bez + 2. pád (jarní hrad)" },
     { prompt: "Kromě ____ (mé příruční zavazadlo) mám ještě batoh.", ans: "mého příručního zavazadla", hint: "kromě + 2. pád (moje jarní město)" },
-    { prompt: "Během dlouhého zpoždění z důvodu ____ (špatné počasí) jsme čekali v kavárně.", ans: "špatného počasí", hint: "z důvodu + 2. pád (mladé stavení)" },
+    { prompt: "Během dlouhého zpoždění z důvodu ____ (špatné počasí) jsme čekali v kavárně.", ans: "špatného počasí", hint: "partitive + 2. pád (mladé stavení)" },
     { prompt: "Bydlíme v hotelu blízko ____ (Hlavní nádraží).", ans: "Hlavního nádraží", hint: "blízko + 2. pád (jarní stavení)" },
     { prompt: "Procházeli jsme kolem vstupu do ____ (první gate).", ans: "prvního gatu", hint: "do + 2. pád (jarní hrad)" },
     { prompt: "Všichni cestující kromě ____ (můj nejlepší kamarád) měli jízdenku.", ans: "mého nejlepšího kamaráda", hint: "kromě + 2. pád (můj jarní pán)" },
     { prompt: "Místo ____ (osobní vlak) musíme jet rychlíkem.", ans: "osobního vlaku", hint: "místo + 2. pád (jarní hrad)" },
-    { prompt: "Informace jsme dostali od ____ (zákaznická přepážka).", ans: "zákaznické přepážky", hint: "od + 2. pád (mladá žena)" },
+    { prompt: "Informace jsme dostali od pracovnice ____ (zákaznická přepážka).", ans: "zákaznické přepážky", hint: "partitive + 2. pád (mladá žena)" },
     { prompt: "Stanice metra se nachází uprostřed ____ (staré město).", ans: "starého města", hint: "uprostřed + 2. pád (mladé město)" },
     { prompt: "Vyzvedl jsem si kufr z úschovny ____ (ztracená zavazadla - pl.).", ans: "ztracených zavazadel", hint: "z + 2. pád plural (mladé město, pl)" },
     { prompt: "Vlak přijel bez ____ (jakékoli zpoždění).", ans: "jakéhokoli zpoždění", hint: "bez + 2. pád (mladé stavení)" },
@@ -464,7 +464,7 @@
   ];
 
     const SCENARIOS_EX_B = [
-  { q: "1. Zeptat se na odjezd vlaku podle řádu", a2: "Kdy jede vlak do Vídně?", blocks: "přímý vlak / do (2. pád) / Vídeň / přesně / podle (2. pád) / jízdní řádu / v 10:00", structure: "Pozdrav + sloveso + subjekt + kam + přesně + podle čeho + čas?", b1: "Dobrý den, odjíždí přímý vlak do Vídně přesně podle jízdního řádu v 10:00?" },
+  { q: "1. Zeptat se na odjezd vlaku podle řádu", a2: "Kdy jede vlak do Vídně?", blocks: "přímý vlak / do (2. pád) / Vídeň / přesně / podle (2. pád) / jízdní řád / v 10:00", structure: "Pozdrav + sloveso + subjekt + kam + přesně + podle čeho + čas?", b1: "Dobrý den, odjíždí přímý vlak do Vídně přesně podle jízdního řádu v 10:00?" },
   { q: "2. Zeptat se na umístění přepážky v hale", a2: "Kde je přepážka?", blocks: "nacházet se / odbavovací přepážka / hned / uprostřed (2. pád) / hlavní hala", structure: "Omluva + sloveso + subjekt + hned + uprostřed čeho?", b1: "Promiňte, nachází se odbavovací přepážka hned uprostřed hlavní haly?" },
   { q: "3. Koupit jízdenky pro skupinu 5 lidí", a2: "Chci 5 lístků do Berlína.", blocks: "chtít / koupit / zpáteční jízdenka / pro (akuzativ) / skupina / 5 (genitiv pl.) / pasažér / do (2. pád) / Berlín", structure: "Sloveso (přání) + předmět + pro koho + kolik pasažérů + kam?", b1: "Chtěl/a bych koupit zpáteční jízdenky pro skupinu pěti pasažérů do Berlína." },
   { q: "4. Vysvětlit, že cestuješ bez tašky bratra", a2: "Nemám kufr bratra.", blocks: "cestovat / bez (2. pád) / velká taška / můj bratr / mít / jen / svůj / malé příruční zavazadlo", structure: "Sloveso + bez čeho + koho + sloveso + jen + předmět?", b1: "Cestuji bez velké tašky mého bratra, mám jen své malé příruční zavazadlo." },
@@ -774,7 +774,7 @@
             clerkResponse: `Rozumím, místenka je připravena. Přejete si platit kartou nebo hotově?`
           },
           { 
-            task: `Zeptat se na odjezd náhradní autobus z důvodu oprava trati u stanice.`,
+            task: `Zeptat se na místo odjezdu náhradní autobus z důvodu opravy trati u stanice.`,
             studentHint: "odjezd / náhradní autobus / z důvodu (2. pád) / oprava trati / u (2. pád) / stanice",
             studentModel: `Zaplatím kartou. Odjíždí náhradní autobus z důvodu opravy trati hned u stanice?`,
             clerkResponse: `Ano, autobusy odjíždějí přímo u hlavního vchodu vedle stanice metra. Šťastnou cestu!`
