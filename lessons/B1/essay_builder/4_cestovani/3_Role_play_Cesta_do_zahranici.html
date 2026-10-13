@@ -94,7 +94,7 @@
           <i class="fa-solid fa-book"></i> 1. B1 Vocab &amp; Text (21)
         </button>
         <button onclick="switchTab('tab-exA')" id="btn-tab-exA" class="tab-btn px-4 py-2 text-xs sm:text-sm font-semibold rounded-lg text-slate-400 hover:text-slate-200 hover:bg-slate-800 transition flex items-center gap-2 whitespace-nowrap">
-          <i class="fa-solid fa-pen-to-square"></i> 2. Exercise A: 25 Gap-Fills
+          <i class="fa-solid fa-pen-to-square"></i> 2. Exercise A: Gap-Fills
         </button>
         <button onclick="switchTab('tab-exB')" id="btn-tab-exB" class="tab-btn px-4 py-2 text-xs sm:text-sm font-semibold rounded-lg text-slate-400 hover:text-slate-200 hover:bg-slate-800 transition flex items-center gap-2 whitespace-nowrap">
           <i class="fa-solid fa-wand-magic-sparkles"></i> 3. Exercise B: Sentence Upgrade
@@ -183,158 +183,193 @@
       </div>
     </section>
 
-    <!-- TAB 2: EXERCISE A - 25 GAP FILLS -->
-    <section id="tab-exA" class="tab-content hidden space-y-6">
-      <div class="glass-card rounded-2xl p-5 border border-slate-800 space-y-4">
-        <div class="flex flex-col md:flex-row md:items-center justify-between gap-4">
-          <div>
-            <h2 class="text-xl font-bold text-white flex items-center gap-2">
-              <i class="fa-solid fa-pen-ruler text-emerald-400"></i> Exercise A: 25 Drills on 2. pád Prepositions &amp; Forms
-            </h2>
-            <p class="text-xs text-slate-400 mt-1">
-              Decline nouns/adjectives after prepositions (bez, během, blízko, kolem, kromě, místo, podle, uprostřed, vedle), quantities, and possessives.
-            </p>
+    <!-- TAB 2: EXERCISE A (GAP-FILLS) -->
+    <section id="tab-exA" class="tab-content hidden space-y-8">
+      <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+        
+        <!-- Left 2 Cols: Main Drills -->
+        <div class="lg:col-span-2 space-y-6">
+          <div class="glass-card rounded-2xl p-6 border border-slate-800 flex flex-col sm:flex-row items-center justify-between gap-4">
+            <div>
+              <h2 class="text-xl sm:text-2xl font-bold text-white">Exercise A: Genitive Gap-Fills</h2>
+              <p class="text-sm text-slate-400 mt-1">Fill in the missing Genitive forms for travel contexts.</p>
+            </div>
+            <div class="flex items-center gap-2">
+              <button onclick="checkAllExA()" class="px-4 py-2 bg-sky-600 hover:bg-sky-500 text-white font-bold rounded-xl text-sm transition">Check Answers</button>
+              <button onclick="revealAllExA()" class="px-4 py-2 bg-slate-800 hover:bg-slate-700 text-slate-300 font-bold rounded-xl text-sm border border-slate-700 transition">Reveal All</button>
+              <button onclick="resetExA()" class="px-3 py-2 bg-slate-900 hover:bg-slate-800 text-slate-400 rounded-xl text-sm border border-slate-800 transition"><i class="fa-solid fa-rotate-right"></i></button>
+            </div>
           </div>
 
-          <div class="flex items-center gap-2">
-            <button onclick="checkAllExA()" class="px-3 py-1.5 bg-emerald-600/30 hover:bg-emerald-600/50 border border-emerald-500/40 text-emerald-300 rounded-xl text-xs font-semibold transition flex items-center gap-1.5">
-              <i class="fa-solid fa-check-double"></i> Check All
-            </button>
-            <button onclick="revealAllExA()" class="px-3 py-1.5 bg-sky-600/30 hover:bg-sky-600/50 border border-sky-500/40 text-sky-300 rounded-xl text-xs font-semibold transition flex items-center gap-1.5">
-              <i class="fa-solid fa-eye"></i> Reveal All
-            </button>
-            <button onclick="resetExA()" class="px-3 py-1.5 bg-slate-800 hover:bg-slate-700 text-slate-300 border border-slate-700 rounded-xl text-xs font-semibold transition flex items-center gap-1.5">
-              <i class="fa-solid fa-rotate-left"></i> Reset
-            </button>
-          </div>
+          <!-- Drills List Container -->
+          <div id="exAList" class="space-y-4"></div>
         </div>
 
-        <div class="flex items-center gap-4 bg-slate-900/80 p-3 rounded-xl border border-slate-800">
-          <div class="flex-1 bg-slate-800 h-2.5 rounded-full overflow-hidden">
-            <div id="exAProgressBar" class="bg-gradient-to-r from-emerald-500 to-teal-400 h-full w-0 transition-all duration-300"></div>
+        <!-- Right Col: Compact Teacher Live Notes -->
+        <div class="glass-card rounded-2xl p-4 border border-slate-800 flex flex-col h-[280px]">
+          <div class="flex items-center justify-between pb-2 border-b border-slate-800 mb-2">
+            <h3 class="font-bold text-white text-xs sm:text-sm flex items-center gap-1.5">
+              <i class="fa-solid fa-pen-to-square text-sky-400"></i> Teacher Live Notes
+            </h3>
+            <span class="text-[10px] text-slate-400 font-bold">Auto-saved</span>
           </div>
-          <span id="exAScoreText" class="text-xs font-bold text-emerald-400 whitespace-nowrap">0 / 25 Correct</span>
-        </div>
-      </div>
 
-      <div id="exAList" class="space-y-3">
-        <!-- JS Rendered -->
+          <textarea class="teacherNotesArea w-full flex-1 bg-slate-900 border border-slate-800 rounded-xl p-4 text-slate-100 focus:outline-none focus:border-sky-500 resize-none font-mono" 
+                    oninput="syncTeacherNotes(this)" 
+                    placeholder="e.g.&#10;+ Great phrase: 'Přestoupili jsme do rychlíku.'&#10;- Correction: 'místo vlak' -> 'místo vlaku' (2. pád)"></textarea>
+
+                    
+          <button onclick="switchTab('tab-homework')" class="mt-2.5 w-full py-1.5 bg-slate-800 hover:bg-slate-700 border border-slate-700 text-slate-200 text-xs font-bold rounded-lg transition flex items-center justify-center gap-1.5">
+            <i class="fa-solid fa-arrow-right"></i> Homework Pack
+          </button>
+        </div>
+
       </div>
     </section>
 
-    <!-- TAB 3: EXERCISE B - SENTENCE UPGRADE -->
-    <section id="tab-exB" class="tab-content hidden space-y-6">
-      <div class="glass-card rounded-2xl p-5 border border-slate-800">
-        <h2 class="text-xl font-bold text-white flex items-center gap-2">
-          <i class="fa-solid fa-wand-magic-sparkles text-amber-400"></i> Exercise B: A2 $\rightarrow$ B1 Travel Dialogue Upgrades
-        </h2>
-        <p class="text-xs text-slate-400 mt-1">
-          Upgrade short, simple requests into complex B1 structures using varied 2. pád prepositions.
-        </p>
-      </div>
+    <!-- TAB 3: EXERCISE B (SENTENCE UPGRADE) -->
+    <section id="tab-exB" class="tab-content hidden space-y-8">
+      <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+        
+        <!-- Left 2 Cols: Main Scenarios -->
+        <div class="lg:col-span-2 space-y-6">
+          <div class="glass-card rounded-2xl p-5 border border-slate-800">
+            <h2 class="text-xl sm:text-2xl font-bold text-white flex items-center gap-2">
+              <i class="fa-solid fa-wand-magic-sparkles text-amber-400"></i> Exercise B: A2 &rarr; B1 Pokročilé konverzace
+            </h2>
+            <p class="text-sm text-slate-400 mt-1">
+              Převeďte jednoduché A2 věty do plynulých B1 formulací s využitím správných předložek a tvarů 2. pádu.
+            </p>
+          </div>
 
-      <div id="exBGrid" class="grid grid-cols-1 md:grid-cols-2 gap-4">
-        <!-- JS Rendered -->
+          <!-- Scenarios Grid -->
+          <div id="exBGrid" class="space-y-4"></div>
+        </div>
+
+        <!-- Right Col: Compact Teacher Live Notes -->
+        <div class="glass-card rounded-2xl p-4 border border-slate-800 flex flex-col h-[280px]">
+          <div class="flex items-center justify-between pb-2 border-b border-slate-800 mb-2">
+            <h3 class="font-bold text-white text-xs sm:text-sm flex items-center gap-1.5">
+              <i class="fa-solid fa-pen-to-square text-sky-400"></i> Teacher Live Notes
+            </h3>
+            <span class="text-[10px] text-slate-400 font-bold">Auto-saved</span>
+          </div>
+
+          <textarea class="teacherNotesArea w-full flex-1 bg-slate-900 border border-slate-800 rounded-xl p-4 text-slate-100 focus:outline-none focus:border-sky-500 resize-none font-mono" 
+                    oninput="syncTeacherNotes(this)" 
+                    placeholder="e.g.&#10;+ Great phrase: 'Přestoupili jsme do rychlíku.'&#10;- Correction: 'místo vlak' -> 'místo vlaku' (2. pád)"></textarea>
+
+                    
+          <button onclick="switchTab('tab-homework')" class="mt-2.5 w-full py-1.5 bg-slate-800 hover:bg-slate-700 border border-slate-700 text-slate-200 text-xs font-bold rounded-lg transition flex items-center justify-center gap-1.5">
+            <i class="fa-solid fa-arrow-right"></i> Homework Pack
+          </button>
+        </div>
+
       </div>
     </section>
 
     <!-- TAB 4: DYNAMIC ROLE PLAY SIMULATOR -->
-    <section id="tab-exC" class="tab-content hidden space-y-6">
-      <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+    <section id="tab-exC" class="tab-content hidden space-y-8">
+      <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
         
-        <div class="lg:col-span-2 space-y-6">
-          <div class="glass-card rounded-2xl p-5 border border-slate-800 space-y-4">
-            <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+        <div class="lg:col-span-2 space-y-8">
+          <!-- Controls Container -->
+          <div class="glass-card rounded-2xl p-6 border border-slate-800 space-y-5">
+            <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-5">
               <div>
-                <h2 class="text-xl font-bold text-white flex items-center gap-2">
+                <h2 class="text-2xl sm:text-3xl font-bold text-white flex items-center gap-3">
                   <i class="fa-solid fa-comments text-indigo-400"></i> Dynamic Role Play Generator
                 </h2>
-                <p class="text-xs text-slate-400 mt-1">
-                  Customizable travel scenarios with varied 2. pád preposition targets.
+                <p class="text-base text-slate-300 mt-1">
+                  Interaktivní trenažér konverzace s automatickým časovačem a zpětnou vazbou.
                 </p>
               </div>
 
               <!-- Speaker Timer -->
-              <div class="flex items-center gap-3 bg-slate-900 border border-slate-800 px-4 py-2 rounded-xl">
-                <i class="fa-solid fa-stopwatch text-indigo-400 text-lg"></i>
+              <div class="flex items-center gap-4 bg-slate-900 border border-slate-800 px-5 py-3 rounded-xl">
+                <i class="fa-solid fa-stopwatch text-indigo-400 text-2xl"></i>
                 <div>
-                  <div id="timerDisplay" class="text-lg font-mono font-bold text-white leading-tight">02:00</div>
-                  <p class="text-[10px] text-slate-500 uppercase tracking-wider">Timer</p>
-                </div>
-                <div class="flex items-center gap-1 ml-2">
-                  <button onclick="toggleTimer()" id="timerToggleBtn" class="p-1.5 bg-indigo-600 hover:bg-indigo-500 text-white rounded-lg text-xs transition">
-                    <i class="fa-solid fa-play"></i>
-                  </button>
-                  <button onclick="resetTimer()" class="p-1.5 bg-slate-800 hover:bg-slate-700 text-slate-300 rounded-lg text-xs transition">
-                    <i class="fa-solid fa-rotate-left"></i>
-                  </button>
+                  <div id="timerDisplay" class="text-2xl font-mono font-bold text-white leading-tight">01:00</div>
+                  <p class="text-xs text-slate-400 uppercase tracking-wider font-bold">Časovač</p>
                 </div>
               </div>
             </div>
 
-            <!-- Roleplay Controls Generator -->
-            <div class="grid grid-cols-1 sm:grid-cols-3 gap-3 pt-3 border-t border-slate-800 text-xs">
+            <!-- Filters Grid -->
+            <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 pt-4 border-t border-slate-800 text-sm sm:text-base">
               <div>
-                <label class="block text-slate-400 font-bold mb-1">1. Cílová destinace (2. pád):</label>
-                <select id="rpDest" onchange="generateRolePlay()" class="w-full bg-slate-900 border border-slate-700 rounded-xl p-2 text-slate-200 focus:outline-none focus:border-sky-500">
-                  <option value="do Vídně">do Vídně (Vienna)</option>
-                  <option value="do Berlína">do Berlína (Berlin)</option>
-                  <option value="do Londýna">do Londýna (London)</option>
-                  <option value="do Paříže">do Paříže (Paris)</option>
-                  <option value="do Říma">do Říma (Rome)</option>
-                  <option value="do Německa">do Německa (Germany)</option>
-                  <option value="do Francie">do Francie (France)</option>
-                  <option value="do Itálie">do Itálie (Italy)</option>
+                <label class="block text-slate-300 font-bold mb-1.5">1. Cílová destinace:</label>
+                <select id="rpDest" class="w-full bg-slate-900 border border-slate-700 rounded-xl p-3 text-slate-100 focus:outline-none focus:border-sky-500">
+                  <option value="" disabled selected>Vyberte destinaci...</option>
+                  <option value="Vídeň">Vídeň (do + 2. pád)</option>
+                  <option value="Berlín">Berlín (do + 2. pád)</option>
+                  <option value="Londýn">Londýn (do + 2. pád)</option>
+                  <option value="Paříž">Paříž (do + 2. pád)</option>
+                  <option value="Německo">Německo (do + 2. pád)</option>
+                  <option value="Slovensko">Slovensko (na + 4. pád)</option>
+                  <option value="Ukrajina">Ukrajina (na + 4. pád)</option>
+                  <option value="Polsko">Polsko (do + 2. pád)</option>
+                  <option value="Itálie">Itálie (do + 2. pád)</option>
                 </select>
               </div>
 
               <div>
-                <label class="block text-slate-400 font-bold mb-1">2. Cestovní scenář:</label>
-                <select id="rpType" onchange="generateRolePlay()" class="w-full bg-slate-900 border border-slate-700 rounded-xl p-2 text-slate-200 focus:outline-none focus:border-sky-500">
-                  <option value="train_ticket">Na nádraží: Nákup lístku bez zpoždění</option>
-                  <option value="train_info">Na nádraží: Přestup vedle stanice &amp; podle řádu</option>
-                  <option value="airport_checkin">Na letišti: Odbavení bez zavazadla bratra</option>
-                  <option value="airport_security">Na letišti: Pasová kontrola kolem gatu</option>
+                <label class="block text-slate-300 font-bold mb-1.5">2. Cestovní scenář:</label>
+                <select id="rpType" class="w-full bg-slate-900 border border-slate-700 rounded-xl p-3 text-slate-100 focus:outline-none focus:border-sky-500">
+                  <option value="" disabled selected>Vyberte scenář...</option>
+                  <option value="ticket_purchase">Nádraží: Nákup jízdenky a informace o řádu/zpoždění</option>
+                  <option value="transfer_info">Nádraží: Dotaz na přestup a polohu nástupiště</option>
+                  <option value="airport_checkin">Letiště: Odbavení a zavazadla</option>
+                  <option value="airport_security">Letiště: Pasová a bezpečnostní kontrola</option>
+                  <option value="lost_property">Informace: Ztracená zavazadla a úschovna</option>
                 </select>
               </div>
 
               <div>
-                <label class="block text-slate-400 font-bold mb-1">3. Množství / Volby:</label>
-                <select id="rpClass" onchange="generateRolePlay()" class="w-full bg-slate-900 border border-slate-700 rounded-xl p-2 text-slate-200 focus:outline-none focus:border-sky-500">
-                  <option value="zpáteční jízdenka pro 5 pasažérů">pro 5 pasažérů (Genitiv plural)</option>
-                  <option value="jednosměrná s místenkou blízko okna">blízko okna (blízko + Genitiv)</option>
-                  <option value="letenka s 2 litry vody v kufru">dva litry vody (partitiv)</option>
+                <label class="block text-slate-300 font-bold mb-1.5">3. Volby:</label>
+                <select id="rpClass" class="w-full bg-slate-900 border border-slate-700 rounded-xl p-3 text-slate-100 focus:outline-none focus:border-sky-500">
+                  <option value="" disabled selected>Vyberte volbu...</option>
+                  <option value="passengers_5">Skupina 5 pasažérů (Genitiv plural)</option>
+                  <option value="window_seat">Místenka blízko okna (blízko + 2. pád)</option>
+                  <option value="water_liters">2 litry vody v tašce (partitiv)</option>
+                  <option value="brother_luggage">Zavazadlo mého bratra (posesiv)</option>
+                  <option value="no_delay">Cesta bez zpoždění (bez + 2. pád)</option>
                 </select>
               </div>
             </div>
+
+            <button onclick="startRolePlaySession()" class="w-full py-3.5 bg-indigo-600 hover:bg-indigo-500 text-white font-bold rounded-xl text-base sm:text-lg transition flex items-center justify-center gap-2 shadow-lg shadow-indigo-600/25">
+              <i class="fa-solid fa-play"></i> Spustit simulaci (Start Role Play)
+            </button>
           </div>
 
-          <!-- Generated Roleplay Conversation Canvas -->
-          <div id="roleplayOutput" class="space-y-4">
-            <!-- Rendered by JS -->
+          <!-- Roleplay Canvas Output -->
+          <div id="roleplayOutput" class="space-y-5">
+            <div class="glass-card rounded-2xl p-8 border border-slate-800 text-center text-slate-400">
+              <i class="fa-solid fa-comments text-4xl mb-3 text-slate-600"></i>
+              <p class="text-base font-medium">Vyberte 3 filtry nahoře a klikněte na <strong>„Spustit simulaci“</strong> pro zahájení rozhovoru.</p>
+            </div>
           </div>
         </div>
 
         <!-- Right Col: Teacher Live Notes Pad -->
-        <div class="glass-card rounded-2xl p-5 border border-slate-800 flex flex-col h-full min-h-[450px]">
-          <div class="flex items-center justify-between pb-3 border-b border-slate-800 mb-4">
-            <h3 class="font-bold text-white text-sm flex items-center gap-2">
+        <div class="glass-card rounded-2xl p-6 border border-slate-800 flex flex-col h-full min-h-[500px]">
+          <div class="flex items-center justify-between pb-4 border-b border-slate-800 mb-4">
+            <h3 class="font-bold text-white text-lg flex items-center gap-2">
               <i class="fa-solid fa-pen-to-square text-sky-400"></i> Teacher Live Notes
             </h3>
-            <span class="text-[10px] text-slate-500">Auto-saved</span>
+            <span class="text-xs text-slate-400 font-bold">Auto-saved</span>
           </div>
 
-          <p class="text-xs text-slate-400 mb-3">
-            Write student corrections or great 2. pád phrases during class (e.g., <em>uprostřed haly</em>, <em>přestoupit do rychlíku</em>).
+          <p class="text-base text-slate-300 mb-4">
+            Write student corrections or great 2. pád phrases during class.
           </p>
 
-          <textarea id="teacherNotes" oninput="saveTeacherNotes()" placeholder="e.g.
-+ Great phrase: 'Přestoupili jsme do rychlíku.'
-- Correction: 'místo vlak' -> 'místo vlaku' (2. pád)
-- Preposition: 'uprostřed haly'"
- class="w-full flex-1 bg-slate-900 border border-slate-800 rounded-xl p-3 text-xs text-slate-200 focus:outline-none focus:border-sky-500 resize-none font-mono"></textarea>
+          <textarea class="teacherNotesArea w-full flex-1 bg-slate-900 border border-slate-800 rounded-xl p-4 text-slate-100 focus:outline-none focus:border-sky-500 resize-none font-mono" 
+                    oninput="syncTeacherNotes(this)" 
+                    placeholder="e.g.&#10;+ Great phrase: 'Přestoupili jsme do rychlíku.'&#10;- Correction: 'místo vlak' -> 'místo vlaku' (2. pád)"></textarea>
 
-          <button onclick="switchTab('tab-homework')" class="mt-4 w-full py-2 bg-slate-800 hover:bg-slate-700 border border-slate-700 text-slate-200 text-xs font-semibold rounded-xl transition flex items-center justify-center gap-2">
+          <button onclick="switchTab('tab-homework')" class="mt-5 w-full py-3 bg-slate-800 hover:bg-slate-700 border border-slate-700 text-slate-100 text-base font-bold rounded-xl transition flex items-center justify-center gap-2">
             <i class="fa-solid fa-arrow-right"></i> View Formatted Homework Pack
           </button>
         </div>
@@ -342,6 +377,7 @@
       </div>
     </section>
 
+    
     <!-- TAB 5: HOMEWORK & SUMMARY GUIDE -->
     <section id="tab-homework" class="tab-content hidden space-y-6">
       <div class="glass-card rounded-2xl p-5 border border-slate-800 space-y-2">
@@ -400,53 +436,54 @@
     ];
 
     const DRILLS_EX_A = [
-      { prompt: "Náš vlak odjíždí přesně podle letového ____ (řád).", base: "řád", ans: "řádu", hint: "podle + 2. pád: řádu" },
-      { prompt: "Informace se nacházejí uprostřed ____ (hala).", base: "hala", ans: "haly", hint: "uprostřed + 2. pád: haly" },
-      { prompt: "Koupil jsem na cestu dvě láhve čisté ____ (voda).", base: "voda", ans: "vody", hint: "partitive: vody" },
-      { prompt: "Nesu těžké zavazadlo mého mladšího ____ (bratr).", base: "bratr", ans: "bratra", hint: "possessive: bratra" },
-      { prompt: "U odbavovací přepážky stojí skupina pěti ____ (pasažér - pl.).", base: "pasažér", ans: "pasažérů", hint: "genitive plural (5+): pasažérů" },
-      { prompt: "Odbavení probíhá u bezpečnostní ____ (prohlídka).", base: "prohlídka", ans: "prohlídky", hint: "u + 2. pád: prohlídky" },
-      { prompt: "Nepustí vás ke gatu bez palubního ____ (lístek).", base: "lístek", ans: "lístku", hint: "bez + 2. pád: lístku" },
-      { prompt: "Kromě mého příručního ____ (zavazadlo) mám ještě batoh.", base: "zavazadlo", ans: "zavazadla", hint: "kromě + 2. pád: zavazadla" },
-      { prompt: "Během dlouhého zpoždění z důvodu špatného ____ (počasí) jsme čekali v kavárně.", base: "počasí", ans: "počasí", hint: "z důvodu + 2. pád: počasí" },
-      { prompt: "Bydlíme v hotelu blízko Hlavního ____ (nádraží).", base: "nádraží", ans: "nádraží", hint: "blízko + 2. pád: nádraží" },
-      { prompt: "Procházeli jsme kolem vstupu do ____ (gate / gat).", base: "gat", ans: "gatu", hint: "do + 2. pád: gatu" },
-      { prompt: "Všichni cestující kromě mého ____ (kamarád) měli jízdenku.", base: "kamarád", ans: "kamaráda", hint: "kromě + 2. pád: kamaráda" },
-      { prompt: "Místo osobního ____ (vlak) musíme jet rychlíkem.", base: "vlak", ans: "vlaku", hint: "místo + 2. pád: vlaku" },
-      { prompt: "Informace jsme dostali od zákaznické ____ (přepážka).", base: "přepážka", ans: "přepážky", hint: "od + 2. pád: přepážky" },
-      { prompt: "Stanice metra se nachází uprostřed ____ (město).", base: "město", ans: "města", hint: "uprostřed + 2. pád: města" },
-      { prompt: "Vyzvedl jsem si kufr z úschovny ____ (zavazadlo - pl.).", base: "zavazadlo", ans: "zavazadel", hint: "genitive plural: zavazadel" },
-      { prompt: "Vlak přijel bez jakéhokoli ____ (zpoždění).", base: "zpoždění", ans: "zpoždění", hint: "bez + 2. pád: zpoždění" },
-      { prompt: "Jedeme na dovolenou do ____ (Itálie).", base: "Itálie", ans: "Itálie", hint: "do + 2. pád: Itálie" },
-      { prompt: "Vrátili jsme se z cesty do ____ (Německo).", base: "Německo", ans: "Německa", hint: "do + 2. pád: Německa" },
-      { prompt: "Na letišti bylo více než deset ____ (letadlo - pl.).", base: "letadlo", ans: "letadel", hint: "genitive plural (10+): letadel" },
-      { prompt: "Mám v tašce pět velkých ____ (jablko - pl.).", base: "jablko", ans: "jablek", hint: "genitive plural: jablek" },
-      { prompt: "Autobus odjíždí z autobusového ____ (nádraží).", base: "nádraží", ans: "nádraží", hint: "z + 2. pád: nádraží" },
-      { prompt: "Přestoupili jsme do ____ (rychlík) směrem do Vídně.", base: "rychlík", ans: "rychlíku", hint: "do + 2. pád: rychlíku" },
-      { prompt: "Odbavení probíhá u přepážky číslo ____ (pět).", base: "pět", ans: "pěti", hint: "u + 2. pád číslovky: pěti" },
-      { prompt: "Cestujeme bez zpáteční ____ (jízdenka).", base: "jízdenka", ans: "jízdenky", hint: "bez + 2. pád: jízdenky" }
-    ];
+    { prompt: "Náš vlak odjíždí přesně podle ____ (letový řád).", ans: "letového řádu", hint: "podle + 2. pád (mladý hrad)" },
+    { prompt: "Informace se nacházejí uprostřed ____ (odletová hala).", ans: "odletové haly", hint: "uprostřed + 2. pád (mladá žena)" },
+    { prompt: "Koupil jsem na cestu dvě láhve ____ (čistá voda).", ans: "čisté vody", hint: "partitiv + 2. pád (mladá žena)" },
+    { prompt: "Nesu těžké zavazadlo ____ (můj mladší bratr).", ans: "mého mladšího bratra", hint: "posesivní (můj mladý muž)" },
+    { prompt: "U odbavovací přepážky stojí skupina pěti ____ (nový pasažér - pl.).", ans: "nových pasažérů", hint: "genitiv plurál pro 5+ (mladý muž)" },
+    { prompt: "Odbavení probíhá vedle ____ (bezpečnostní prohlídka).", ans: "bezpečnostní prohlídky", hint: "vedle + 2. pád (jarní žena)" },
+    { prompt: "Nepustí vás ke gatu bez ____ (palubní lístek).", ans: "palubního lístku", hint: "bez + 2. pád (jarní hrad)" },
+    { prompt: "Kromě ____ (mé příruční zavazadlo) mám ještě batoh.", ans: "mého příručního zavazadla", hint: "kromě + 2. pád (moje jarní město)" },
+    { prompt: "Během dlouhého zpoždění z důvodu ____ (špatné počasí) jsme čekali v kavárně.", ans: "špatného počasí", hint: "z důvodu + 2. pád (mladé stavení)" },
+    { prompt: "Bydlíme v hotelu blízko ____ (Hlavní nádraží).", ans: "Hlavního nádraží", hint: "blízko + 2. pád (jarní stavení)" },
+    { prompt: "Procházeli jsme kolem vstupu do ____ (první gate).", ans: "prvního gatu", hint: "do + 2. pád (jarní hrad)" },
+    { prompt: "Všichni cestující kromě ____ (můj nejlepší kamarád) měli jízdenku.", ans: "mého nejlepšího kamaráda", hint: "kromě + 2. pád (můj jarní pán)" },
+    { prompt: "Místo ____ (osobní vlak) musíme jet rychlíkem.", ans: "osobního vlaku", hint: "místo + 2. pád (jarní hrad)" },
+    { prompt: "Informace jsme dostali od ____ (zákaznická přepážka).", ans: "zákaznické přepážky", hint: "od + 2. pád (mladá žena)" },
+    { prompt: "Stanice metra se nachází uprostřed ____ (staré město).", ans: "starého města", hint: "uprostřed + 2. pád (mladé město)" },
+    { prompt: "Vyzvedl jsem si kufr z úschovny ____ (ztracená zavazadla - pl.).", ans: "ztracených zavazadel", hint: "z + 2. pád plural (mladé město, pl)" },
+    { prompt: "Vlak přijel bez ____ (jakékoli zpoždění).", ans: "jakéhokoli zpoždění", hint: "bez + 2. pád (mladé stavení)" },
+    { prompt: "Jedeme na dovolenou do ____ (slunná Itálie).", ans: "slunné Itálie", hint: "do + 2. pád (mladá růže)" },
+    { prompt: "Vrátili jsme se z dovolené ze ____ (severní Německo).", ans: "severního Německa", hint: "z + 2. pád (jarní město)" },
+    { prompt: "Na letišti bylo více než deset ____ (velké letadlo - pl.).", ans: "velkých letadel", hint: "genitiv plural pro 5+ (mladé město)" },
+    { prompt: "Mám v tašce pět ____ (velké jablko - pl.).", ans: "velkých jablek", hint: "genitiv plural pro 5+ (mladé město)" },
+    { prompt: "Autobus odjíždí z ____ (autobusové nádraží).", ans: "autobusového nádraží", hint: "z + 2. pád (mladé stavení)" },
+    { prompt: "Přestoupili jsme do ____ (druhý rychlík) směrem do Vídně.", ans: "druhého rychlíku", hint: "do + 2. pád (mladý hrad)" },
+    { prompt: "Odbavení probíhá u ____ (odbavovací přepážka) číslo pět.", ans: "odbavovací přepážky", hint: "u + 2. pád (jarní žena)" },
+    { prompt: "Cestujeme bez ____ (zpáteční jízdenka).", ans: "zpáteční jízdenky", hint: "bez + 2. pád (jarní žena)" }
+  ];
 
     const SCENARIOS_EX_B = [
-      { q: "1. Jak si koupíš lístek bez zpoždění podle řádu?", a2: "Chci lístek do Vídně.", targets: "podle letového řádu / bez zpoždění / do Vídně", b1: "Dobrý den, podle letového řádu odjíždí přímý vlak do Vídně v 10:00. Chci jízdenku bez zpoždění." },
-      { q: "2. Jak se zeptáš na přepážku uprostřed haly?", a2: "Kde je přepážka?", targets: "uprostřed haly / u odbavovací přepážky", b1: "Promiňte, je odbavovací přepážka hned uprostřed haly?" },
-      { q: "3. Jak požádáš o jízdenku pro 5 osob?", a2: "Chci 5 lístků.", targets: "skupina 5 pasažérů / zpáteční jízdenky do (2. pád)", b1: "Chtěl/a bych koupit zpáteční jízdenky pro skupinu pěti pasažérů do Berlína." },
-      { q: "4. Jak vysvětlíš, že cestuješ bez tašky bratra?", a2: "Nemám kufr bratra.", targets: "zavazadlo mého bratra / bez příručního zavazadla", b1: "Cestuji bez příručního zavazadla mého bratra, mám jen svůj malý batoh." },
-      { q: "5. Jak se zeptáš na úschovnu u nádraží?", a2: "Kde je úschovna?", targets: "z úschovny zavazadel / blízko stanice", b1: "Kde přesně vyzvednu kufr z úschovny zavazadel blízko stanice metra?" },
-      { q: "6. Jak se zeptáš na pasovou kontrolu kolem gatu?", a2: "Kde je gate?", targets: "kolem vstupu do gatu / uprostřed haly", b1: "Nachází se pasová kontrola uprostřed haly kolem vstupu do gatu B4?" },
-      { q: "7. Jak koupíš pití v množství 2 litry?", a2: "Chci vodu.", targets: "dva litry vody / na cestu do (2. pád)", b1: "Koupil jsem si dva litry vody na dlouhou cestu do Německa." },
-      { q: "8. Jak se zeptáš na cestu bez přestupování?", a2: "Je to přímý spoj?", targets: "kromě jednoho přestupu / bez zpoždění", b1: "Je to přímý spoj bez přestupování a bez drobného zpoždění?" },
-      { q: "9. Jak vysvětlíš odjezd z centra města?", a2: "Jedu z centra.", targets: "z centra města / do Německa", b1: "Odjíždíme přímo z centra města do Německa autobusovým spojem." },
-      { q: "10. Jak se zeptáš na zpoždění z důvodu nehody?", a2: "Proč má vlak zpoždění?", targets: "zpoždění z důvodu... / u stanice", b1: "Má vlak zpoždění z důvodu poruchy u vedlejší stanice?" },
-      { q: "11. Jak požádáš o místenku blízko okna?", a2: "Chci sedadlo u okna.", targets: "místenka / blízko okna / do Vídně", b1: "Mohl bych dostat jízdenku do Vídně s místenkou blízko okna?" },
-      { q: "12. Jak se zeptáš na pravidla během cesty?", a2: "Co dělat v letadle?", targets: "během cesty do... / bez palubního lístku", b1: "Co všechno musím mít u sebe během cesty do Paříže kromě palubního lístku?" }
-    ];
+  { q: "1. Zeptat se na odjezd vlaku podle řádu", a2: "Kdy jede vlak do Vídně?", blocks: "přímý vlak / do (2. pád) / Vídeň / přesně / podle (2. pád) / jízdní řádu / v 10:00", structure: "Pozdrav + sloveso + subjekt + kam + přesně + podle čeho + čas?", b1: "Dobrý den, odjíždí přímý vlak do Vídně přesně podle jízdního řádu v 10:00?" },
+  { q: "2. Zeptat se na umístění přepážky v hale", a2: "Kde je přepážka?", blocks: "nacházet se / odbavovací přepážka / hned / uprostřed (2. pád) / hlavní hala", structure: "Omluva + sloveso + subjekt + hned + uprostřed čeho?", b1: "Promiňte, nachází se odbavovací přepážka hned uprostřed hlavní haly?" },
+  { q: "3. Koupit jízdenky pro skupinu 5 lidí", a2: "Chci 5 lístků do Berlína.", blocks: "chtít / koupit / zpáteční jízdenka / pro (akuzativ) / skupina / 5 (genitiv pl.) / pasažér / do (2. pád) / Berlín", structure: "Sloveso (přání) + předmět + pro koho + kolik pasažérů + kam?", b1: "Chtěl/a bych koupit zpáteční jízdenky pro skupinu pěti pasažérů do Berlína." },
+  { q: "4. Vysvětlit, že cestuješ bez tašky bratra", a2: "Nemám kufr bratra.", blocks: "cestovat / bez (2. pád) / velká taška / můj bratr / mít / jen / svůj / malé příruční zavazadlo", structure: "Sloveso + bez čeho + koho + sloveso + jen + předmět?", b1: "Cestuji bez velké tašky mého bratra, mám jen své malé příruční zavazadlo." },
+  { q: "5. Zeptat se na úschovnu u metra", a2: "Kde je úschovna?", blocks: "kde přesně / moct / vyzvednout / kufr / z (2. pád) / úschovna zavazadel / blízko (2. pád) / stanice metra", structure: "Kde přesně + sloveso + předmět + z čeho + blízko čeho?", b1: "Kde přesně si mohu vyzvednout kufr z úschovny zavazadel blízko stanice metra?" },
+  { q: "6. Zeptat se na pasovou kontrolu u gatu", a2: "Kde je gate?", blocks: "procházet se / přes (akuzativ) / pasová kontrola / až / kolem (2. pád) / vstup / do (2. pád) / gate B4", structure: "Sloveso + přes co + až + kolem čeho + do čeho?", b1: "Prochází se přes pasovou kontrolu až kolem vstupu do gatu B4?" },
+  { q: "7. Koupit pití v množství 2 litry na cestu", a2: "Chci vodu na cestu.", blocks: "koupit si / 2 litry (partitiv 2. pád) / čistá voda / na (akuzativ) / dlouhá cesta / do (2. pád) / Německo", structure: "Sloveso + kolik čisté vody + na co + kam?", b1: "Koupil/a jsem si dva litry čisté vody na dlouhou cestu do Německa." },
+  { q: "8. Zeptat se na cestu bez přestupování", a2: "Je to přímý vlak?", blocks: "být / přímý spoj / bez (2. pád) / přestupování / a / jet / dnes / bez (2. pád) / zpoždění", structure: "Je to + subjekt + bez čeho + a + sloveso + dnes + bez čeho?", b1: "Je to přímý spoj bez přestupování a jede dnes bez zpoždění?" },
+  { q: "9. Vysvětlit odjezd autobusu z centra města", a2: "Jedu z centra.", blocks: "náš autobus / odjíždět / přímo / z (2. pád) / centrum města / směrem do (2. pád) / Rakousko", structure: "Subjekt + sloveso + přímo + odkud + směrem kam?", b1: "Náš autobus odjíždí přímo z centra města směrem do Rakouska." },
+  { q: "10. Zeptat se na zpoždění kvůli počasí", a2: "Proč má vlak zpoždění?", blocks: "mít / náš vlak / zpoždění / z důvodu (2. pád) / špatné počasí / na trati", structure: "Sloveso + subjekt + předmět + z důvodu čeho + kde?", b1: "Má náš vlak zpoždění z důvodu špatného počasí na trati?" },
+  { q: "11. Požádat o místenku u okna", a2: "Chci sedadlo u okna.", blocks: "moct / dostat / místenka / do (2. pád) / rychlík / na (akuzativ) / sedadlo / blízko (2. pád) / okno", structure: "Sloveso (prosba) + předmět + do čeho + na co + blízko čeho?", b1: "Mohl/a bych dostat místenku do rychlíku na sedadlo blízko okna?" },
+  { q: "12. Zeptat se na doklady během cesty", a2: "Co potřebuji v letadle?", blocks: "co všechno / muset / mít u sebe / během (2. pád) / cesta / do (2. pád) / Paříž / kromě (2. pád) / palubní lístek", structure: "Co všechno + sloveso + mít u sebe + během čeho + kromě čeho?", b1: "Co všechno musím mít u sebe během cesty do Paříže kromě palubního lístku?" }
+];
 
     /* STATE & INIT */
     let currentVocabCategory = 'all';
+    let currentStep = 0;
+    let currentDialogue = [];
     let timerInterval = null;
-    let timerSeconds = 120;
-    let isTimerRunning = false;
+    let timerSeconds = 60;
 
     function switchTab(tabId) {
       document.querySelectorAll('.tab-content').forEach(el => el.classList.add('hidden'));
@@ -545,19 +582,27 @@
       const list = document.getElementById('exAList');
       list.innerHTML = DRILLS_EX_A.map((item, idx) => {
         const parts = item.prompt.split('____');
+        const cleanAudioSentence = parts[0] + item.ans + parts[1].replace(/\s*\([^)]*\)/, '');
+        
+        // Výpočet šířky pole s větším pínem (dynamická šířka)
+        const dynamicWidth = Math.max(160, item.ans.length * 11);
+
         return `
-          <div class="glass-card rounded-xl p-3 sm:p-4 border border-slate-800 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
-            <div class="text-xs sm:text-sm text-slate-200 leading-relaxed flex-1">
-              <span class="font-bold text-sky-400 mr-1.5">${idx + 1}.</span>
+          <div class="glass-card rounded-xl p-4 sm:p-5 border border-slate-800 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+            <div class="text-sm sm:text-base text-slate-100 leading-relaxed flex-1">
+              <span class="font-bold text-sky-400 mr-2 text-base sm:text-lg">${idx + 1}.</span>
               ${parts[0]}
-              <input type="text" id="exA_input_${idx}" data-ans="${item.ans}" class="bg-slate-900 border border-slate-700 rounded-lg px-2.5 py-1 text-xs text-sky-300 font-bold w-32 text-center focus:outline-none focus:border-sky-500" placeholder="...">
+              <input type="text" id="exA_input_${idx}" data-ans="${item.ans}" 
+                    style="width: ${dynamicWidth}px;" 
+                    class="bg-slate-900 border border-slate-700 rounded-xl px-3 py-1.5 text-sm sm:text-base text-sky-300 font-bold text-center focus:outline-none focus:border-sky-500 max-w-[320px] shadow-inner my-1" 
+                    placeholder="...">
               ${parts[1]}
             </div>
-            <div class="flex items-center gap-2 self-end sm:self-center">
-              <button onclick="speakText('${item.prompt.replace('____', item.ans)}')" class="p-1.5 text-slate-400 hover:text-sky-400 transition">
-                <i class="fa-solid fa-volume-high text-xs"></i>
+            <div class="flex items-center gap-3 self-end sm:self-center flex-shrink-0">
+              <span class="text-xs sm:text-sm text-amber-400/90 font-mono bg-slate-900/90 px-3 py-1.5 rounded-lg border border-slate-800 shadow-sm">${item.hint}</span>
+              <button onclick="speakText('${cleanAudioSentence.replace(/'/g, "\\'")}')" class="w-9 h-9 rounded-lg bg-slate-800 hover:bg-sky-600/30 text-slate-300 hover:text-sky-300 border border-slate-700 transition flex items-center justify-center" title="Přehrát celou větu">
+                <i class="fa-solid fa-volume-high text-sm"></i>
               </button>
-              <span class="text-[10px] text-slate-500 italic" title="${item.hint}">[${item.base}]</span>
             </div>
           </div>
         `;
@@ -603,33 +648,54 @@
     function renderExerciseB() {
       const grid = document.getElementById('exBGrid');
       grid.innerHTML = SCENARIOS_EX_B.map((item, idx) => `
-        <div class="glass-card rounded-2xl p-4 border border-slate-800 space-y-3">
-          <div class="flex items-center justify-between">
-            <h3 class="font-bold text-white text-sm">${item.q}</h3>
-            <button onclick="speakText('${item.b1}')" class="p-1.5 text-slate-400 hover:text-sky-400 transition">
-              <i class="fa-solid fa-volume-high text-xs"></i>
+        <div class="glass-card rounded-2xl p-6 border border-slate-800 space-y-4">
+          <!-- Nadpis & Zvuk -->
+          <div class="flex items-center justify-between gap-2">
+            <h3 class="font-bold text-white text-lg sm:text-xl leading-snug">${item.q}</h3>
+            <button onclick="speakText('${item.b1.replace(/'/g, "\\'")}')" class="w-10 h-10 rounded-xl bg-slate-800 hover:bg-sky-600/30 text-slate-300 hover:text-sky-300 border border-slate-700 transition flex items-center justify-center flex-shrink-0" title="Přehrát B1 větu">
+              <i class="fa-solid fa-volume-high text-base"></i>
             </button>
           </div>
 
-          <div class="text-xs text-rose-300/80 bg-rose-950/30 p-2 rounded-xl border border-rose-900/30">
-            <strong>A2 Basic:</strong> "${item.a2}"
+          <!-- A2 Základ -->
+          <div class="text-base text-rose-300/90 bg-rose-950/40 p-3.5 rounded-xl border border-rose-900/40">
+            <strong>A2 Základ:</strong> "${item.a2}"
           </div>
 
-          <div class="text-[11px] text-amber-300/90 font-medium">
-            <i class="fa-solid fa-bullseye mr-1"></i> B1 Targets: ${item.targets}
+          <!-- Struktura věty (viditelná) -->
+          <div class="text-sm sm:text-base text-sky-300/90 font-mono bg-sky-950/30 p-3 rounded-xl border border-sky-900/40">
+            <i class="fa-solid fa-sitemap mr-1.5"></i> <strong>Struktura věty:</strong> ${item.structure}
           </div>
 
-          <textarea id="exB_user_${idx}" rows="2" placeholder="Napište pokročilou B1 větu..." class="w-full bg-slate-900 border border-slate-800 rounded-xl p-2.5 text-xs text-slate-200 focus:outline-none focus:border-sky-500 font-mono"></textarea>
-
-          <button onclick="toggleExBModel(${idx})" class="text-[11px] font-semibold text-sky-400 hover:text-sky-300 flex items-center gap-1">
-            <i class="fa-solid fa-eye"></i> Show Model B1 Sentence
+          <!-- Tlačítko pro skrytí / odkrytí slovíček -->
+          <button onclick="toggleExBBlocks(${idx})" class="text-xs sm:text-sm font-semibold text-amber-400 hover:text-amber-300 flex items-center gap-1.5 py-1">
+            <i class="fa-solid fa-lightbulb"></i> 💡 Ukázat / skrýt nápovědu (Slovíčka)
           </button>
 
-          <div id="exB_model_${idx}" class="hidden text-xs text-emerald-300 bg-emerald-950/40 p-2.5 rounded-xl border border-emerald-800/40 font-mono">
-            <strong>Model B1:</strong> "${item.b1}"
+          <!-- Skrytá slovní zásoba (původní tvary) -->
+          <div id="exB_blocks_${idx}" class="hidden text-sm sm:text-base text-amber-300/90 font-medium bg-amber-950/40 p-3.5 rounded-xl border border-amber-900/40">
+            <i class="fa-solid fa-cubes mr-1.5"></i> <strong>Slovní zásoba (základní tvary):</strong> ${item.blocks}
+          </div>
+
+          <!-- Textarea pro odpověď -->
+          <textarea id="exB_user_${idx}" rows="3" placeholder="Napište větu podle struktury..." class="w-full bg-slate-900 border border-slate-700 rounded-xl p-4 text-base text-slate-100 focus:outline-none focus:border-sky-500 font-mono leading-relaxed shadow-inner"></textarea>
+
+          <!-- Tlačítko pro vzorovou větu -->
+          <button onclick="toggleExBModel(${idx})" class="text-sm font-semibold text-sky-400 hover:text-sky-300 flex items-center gap-1.5 py-1">
+            <i class="fa-solid fa-eye"></i> Ukázat modelovou B1 větu
+          </button>
+
+          <!-- Modelová B1 věta -->
+          <div id="exB_model_${idx}" class="hidden text-base text-emerald-300 bg-emerald-950/50 p-4 rounded-xl border border-emerald-800/50 font-mono leading-relaxed">
+            <strong>Vzorová B1 věta:</strong> "${item.b1}"
           </div>
         </div>
       `).join('');
+    }
+
+    // Pomocná funkce pro zapnutí/vypnutí slovíček
+    function toggleExBBlocks(idx) {
+      document.getElementById(`exB_blocks_${idx}`).classList.toggle('hidden');
     }
 
     function toggleExBModel(idx) {
@@ -637,90 +703,233 @@
     }
 
     /* DYNAMIC ROLEPLAY GENERATOR */
+    function startRolePlaySession() {
+      generateRolePlay();
+    }
+
+    let completedSteps = []; // Ukládá historii předchozích kroků
+
     function generateRolePlay() {
-      const dest = document.getElementById('rpDest').value;
+      const destName = document.getElementById('rpDest').value;
       const type = document.getElementById('rpType').value;
-      const classPref = document.getElementById('rpClass').value;
+      const option = document.getElementById('rpClass').value;
 
-      const container = document.getElementById('roleplayOutput');
+      // Kontrola, zda uživatel vybral všechny 3 filtry
+      if (!destName || !type || !option) {
+        alert("Prosím vyberte všechny 3 parametry (Destinaci, Scenář i Volbu) před spuštěním simulace.");
+        return;
+      }
 
-      let dialogue = [];
+      currentStep = 0;
+      completedSteps = [];
 
-      if (type === 'train_ticket') {
-        dialogue = [
-          { speaker: "Student (Cestující)", text: `Dobrý den, prosím vás, podle letového řádu odjíždí přímý spoj ${dest} v 10:00. Chci jízdenku ${classPref}.`, hint: "Use 'podle letového řádu' + 'bez zpoždění'." },
-          { speaker: "Clerk (Pokladník)", text: `Dobrý den! Ano, rychlík jede přesně podle řádu bez drobného zpoždění. Chcete jízdenku s místenkou blízko okna?`, hint: "Offer seat reservation blízko okna." },
-          { speaker: "Student (Cestující)", text: `Ano, prosím blízko okna. Cestujeme bez velkého kufru, máme jen tašku mého bratra.`, hint: "Use possessive 'zavazadlo mého bratra'." },
-          { speaker: "Clerk (Pokladník)", text: `Rozumím, jízdenka platí pro skupinu 5 pasažérů. Celková cena je 850 Kč.`, hint: "State price for 5 pasažérů." }
+      const prep = (destName === 'Slovensko' || destName === 'Ukrajina') ? 'na' : 'do';
+      let destGen = destName;
+      if (destName === 'Vídeň') destGen = 'Vídně';
+      else if (destName === 'Berlín') destGen = 'Berlína';
+      else if (destName === 'Londýn') destGen = 'Londýna';
+      else if (destName === 'Paříž') destGen = 'Paříže';
+      else if (destName === 'Německo') destGen = 'Německa';
+      else if (destName === 'Slovensko') destGen = 'Slovensko';
+      else if (destName === 'Ukrajina') destGen = 'Ukrajinu';
+      else if (destName === 'Polsko') destGen = 'Polska';
+      else if (destName === 'Itálie') destGen = 'Itálie';
+
+      const fullDest = `${prep} ${destGen}`;
+
+      let optTaskText = "zpáteční jízdenka pro 5 pasažérů";
+      let optHintText = "zpáteční jízdenka / pro (akuzativ) / 5 (genitiv pl.) / pasažér";
+      let optStudentModel = "zpáteční jízdenky pro skupinu pěti pasažérů";
+
+      if (option === 'window_seat') {
+        optTaskText = "jednosměrná jízdenka + místenka blízko okno";
+        optHintText = "jednosměrná jízdenka / místenka / blízko (2. pád) / okno";
+        optStudentModel = "jednosměrnou jízdenku s místenkou blízko okna";
+      } else if (option === 'water_liters') {
+        optTaskText = "jízdenka + mít v taška 2 litry čistá voda";
+        optHintText = "jízdenka / mít v tašce / 2 litry (partitiv 2. pád) / čistá voda";
+        optStudentModel = "jízdenku a zeptat se, zda si mohu vzít dva litry čisté vody";
+      } else if (option === 'brother_luggage') {
+        optTaskText = "jízdenka + cestovat bez velký kufr (mít jen taška mého bratra)";
+        optHintText = "jízdenka / bez (2. pád) / velký kufr / taška mého bratra";
+        optStudentModel = "jízdenku s tím, že cestujeme bez velkého kufru, máme jen tašku mého bratra";
+      } else if (option === 'no_delay') {
+        optTaskText = "jízdenka + zeptat se, zda vlak jet bez zpoždění";
+        optHintText = "jízdenka / zeptat se / vlak / jet / bez (2. pád) / zpoždění";
+        optStudentModel = "jízdenku a ujištění, že vlak jede bez zpoždění";
+      }
+
+      if (type === 'ticket_purchase') {
+        currentDialogue = [
+          { 
+            task: `Pozdravit a požádat o: ${optTaskText} / cílová stanice: ${destName} / podle: jízdní řád.`,
+            studentHint: `podle (2. pád) / jízdní řád / ${prep} (2./4. pád) / ${optHintText}`,
+            studentModel: `Dobrý den, chtěl/a bych ${optStudentModel} ${fullDest} přesně podle jízdního řádu.`,
+            clerkResponse: `Dobrý den! Ano, spoj ${fullDest} odjíždí v 10:00 přesně podle řádu. Mám vám vypsat místenku?`
+          },
+          { 
+            task: `Odpovědět na místenku a vysvětlit, že cestovat bez: velký kufr (mít jen taška mého bratra).`,
+            studentHint: "blízko (2. pád) / okno / bez (2. pád) / velký kufr / taška mého bratra",
+            studentModel: `Ano, prosím místenku blízko okna. Cestujeme bez velkého kufru, máme jen tašku mého bratra.`,
+            clerkResponse: `Rozumím, místenka je připravena. Přejete si platit kartou nebo hotově?`
+          },
+          { 
+            task: `Zeptat se na odjezd náhradní autobus z důvodu oprava trati u stanice.`,
+            studentHint: "odjezd / náhradní autobus / z důvodu (2. pád) / oprava trati / u (2. pád) / stanice",
+            studentModel: `Zaplatím kartou. Odjíždí náhradní autobus z důvodu opravy trati hned u stanice?`,
+            clerkResponse: `Ano, autobusy odjíždějí přímo u hlavního vchodu vedle stanice metra. Šťastnou cestu!`
+          }
         ];
-      } else if (type === 'train_info') {
-        dialogue = [
-          { speaker: "Student (Cestující)", text: `Dobrý den, kde přesně najdu stanici rychlíku uprostřed haly?`, hint: "Ask location using 'uprostřed' + Genitive." },
-          { speaker: "Clerk (Pokladník)", text: `Nástupiště je hned vedle hlavního nádraží, vedle stanice metra.`, hint: "Direct passenger using 'vedle'." },
-          { speaker: "Student (Cestující)", text: `A musíme během cesty ${dest} někde přestupovat?`, hint: "Ask about transfers using 'během cesty'." },
-          { speaker: "Clerk (Pokladník)", text: `Ne, je to přímý spoj až ${dest} bez jakéhokoli přestupování.`, hint: "Confirm direct connection bez přestupování." }
-        ];
-      } else if (type === 'airport_checkin') {
-        dialogue = [
-          { speaker: "Student (Cestující)", text: `Dobrý den, hledám odbavovací přepážku na let ${dest}. Cestuji bez příručního zavazadla.`, hint: "Use 'bez příručního zavazadla'." },
-          { speaker: "Clerk (Agent)", text: `Dobrý den, odbavení pro let ${dest} je u přepážky číslo 5 uprostřed haly.`, hint: "State desk location." },
-          { speaker: "Student (Cestující)", text: `Děkuji. Mám v tašce dva litry vody, můžu projít přes kontrolu?`, hint: "Ask about 'dva litry vody'." },
-          { speaker: "Clerk (Agent)", text: `Bohužel, dva litry vody musíte nechat před vstupem do bezpečnostní prohlídky.`, hint: "Explain security rules." }
+      } else if (type === 'transfer_info') {
+        currentDialogue = [
+          { 
+            task: `Zeptat se na: poloha / nástupiště pro vlak / ${destName} / uprostřed: hlavní hala.`,
+            studentHint: `nástupiště / pro vlak / ${prep} (2./4. pád) / uprostřed (2. pád) / hlavní hala`,
+            studentModel: `Dobrý den, kde přesně najdu nástupiště pro vlak ${fullDest} uprostřed hlavní haly?`,
+            clerkResponse: `Dobrý den, nástupiště se nachází na konci haly, hned vedle zákaznické přepážky.`
+          },
+          { 
+            task: `Zeptat se, zda muset: během cesta / někde / přestupovat do druhý rychlík.`,
+            studentHint: "během (2. pád) / cesta / přestupovat / do (2. pád) / druhý rychlík",
+            studentModel: `Děkuji. A musíme během cesty ${fullDest} přestupovat do druhého rychlíku?`,
+            clerkResponse: `Ne, je to přímý spoj bez jakéhokoli přestupování až do cíle.`
+          },
+          { 
+            task: `Zeptat se na možnost koupit pití (2 litry čistá voda) blízko nástupiště.`,
+            studentHint: "koupit / 2 litry (partitiv 2. pád) / čistá voda / blízko (2. pád) / nástupiště",
+            studentModel: `To je skvělé. Je možné si koupit dva litry čisté vody ještě blízko nástupiště?`,
+            clerkResponse: `Ano, hned vedle vstupu na nástupiště je malý obchod s občerstvením. Šťastnou cestu!`
+          }
         ];
       } else {
-        dialogue = [
-          { speaker: "Student (Cestující)", text: `Promiňte, kde je pasová kontrola před vstupem do gatu u letiště?`, hint: "Ask for passport control." },
-          { speaker: "Clerk (Agent)", text: `Pasová kontrola je umístěna uprostřed haly kolem vstupu do gatu B4.`, hint: "Use 'uprostřed haly kolem vstupu do gatu'." },
-          { speaker: "Student (Cestující)", text: `Děkuji! Všichni cestující kromě mého bratra mají palubní lístek.`, hint: "Use 'kromě mého bratra'." },
-          { speaker: "Clerk (Agent)", text: `Váš bratr si musí vyzvednout lístek u odbavovací přepážky hned vedle kontroly.`, hint: "Direct to check-in desk." }
+        currentDialogue = [
+          { 
+            task: `Vysvětlit: hledat / odbavovací přepážka / let / ${destName} / a cestovat / bez: příruční zavazadlo.`,
+            studentHint: `odbavovací přepážka / let / ${prep} (2./4. pád) / bez (2. pád) / příruční zavazadlo`,
+            studentModel: `Dobrý den, hledám odbavovací přepážku na let ${fullDest}. Cestuji bez příručního zavazadla.`,
+            clerkResponse: `Dobrý den, odbavení pro váš let probíhá u přepážky číslo 5 uprostřed haly.`
+          },
+          { 
+            task: `Zeptat se na: mít v taška / 2 litry / čistá voda / před: bezpečnostní prohlídka.`,
+            studentHint: "mít v tašce / 2 litry (partitiv 2. pád) / čistá voda / před (instrumentál) / bezpečnostní prohlídka",
+            studentModel: `Děkuji. Mám v tašce dva litry čisté vody. Mohu s tím projít přes kontrolu?`,
+            clerkResponse: `Bohužel ne, dva litry vody musíte nechat před vstupem do bezpečnostní prohlídky.`
+          },
+          { 
+            task: `Vysvětlit, že váš mladší bratr zapomenout kufr v úschovna zavazadel blízko vchod.`,
+            studentHint: "můj mladší bratr / zapomenout kufr / v (lokál) / úschovna zavazadel / blízko (2. pád) / vchod",
+            studentModel: `Aha, rozumím. Můj mladší bratr ještě zapomněl kufr v úschovně zavazadel blízko vchodu.`,
+            clerkResponse: `Pospěšte si, úschovna zavazadel zavírá za 10 minut. Na shledanou u gatu!`
+          }
         ];
       }
 
-      container.innerHTML = dialogue.map((line, i) => `
-        <div class="glass-card rounded-2xl p-4 border ${i % 2 === 0 ? 'border-sky-500/40 bg-sky-950/20' : 'border-indigo-500/40 bg-indigo-950/20'} space-y-2">
-          <div class="flex items-center justify-between">
-            <span class="text-xs font-bold ${i % 2 === 0 ? 'text-sky-300' : 'text-indigo-300'} uppercase">
-              ${line.speaker}
-            </span>
-            <button onclick="speakText('${line.text}')" class="p-1 text-slate-400 hover:text-sky-400 transition" title="Listen">
-              <i class="fa-solid fa-volume-high text-xs"></i>
-            </button>
-          </div>
-          <p class="text-sm font-medium text-slate-100">"${line.text}"</p>
-          <p class="text-[11px] text-slate-400 italic">💡 Target: ${line.hint}</p>
+      renderStepByStepDialogue();
+    }
+
+    function renderStepByStepDialogue() {
+      const container = document.getElementById('roleplayOutput');
+      const step = currentDialogue[currentStep];
+
+      // Generování předchozích hotových kroků
+      const historyHtml = completedSteps.map((s, idx) => `
+        <div class="p-4 bg-slate-900/60 rounded-xl border border-slate-800 space-y-2 opacity-80">
+          <div class="text-xs font-bold text-slate-500 uppercase">Krok ${idx + 1} - Dokončeno</div>
+          <p class="text-sm text-emerald-400 font-medium">💬 Student: "${s.studentModel}"</p>
+          <p class="text-sm text-indigo-300 font-medium">🗣️ Přepážka: "${s.clerkResponse}"</p>
         </div>
       `).join('');
+
+      container.innerHTML = `
+        <!-- Historie rozhovoru -->
+        ${historyHtml ? `<div class="space-y-3 mb-4">${historyHtml}</div>` : ''}
+
+        <!-- Aktuální aktivní krok -->
+        <div class="glass-card rounded-2xl p-6 border border-sky-500/40 bg-sky-950/20 space-y-4">
+          <div class="flex items-center justify-between border-b border-slate-800 pb-3">
+            <span class="text-sm font-bold text-sky-400 uppercase tracking-wider flex items-center gap-2">
+              <i class="fa-solid fa-user-pen"></i> Úkol pro studenta (Krok ${currentStep + 1} / ${currentDialogue.length})
+            </span>
+            <span class="text-xs bg-slate-800 text-slate-300 px-3 py-1 rounded-full font-mono font-bold">1 min na odpověď</span>
+          </div>
+
+          <div class="bg-slate-900/90 p-4 rounded-xl border border-slate-700">
+            <div class="text-xs font-bold text-slate-400 uppercase mb-1">Instrukce (Základní tvary):</div>
+            <p class="text-base sm:text-lg font-bold text-white leading-relaxed">${step.task}</p>
+          </div>
+          
+          <div class="text-sm text-amber-300 bg-amber-950/40 p-3 rounded-xl border border-amber-900/40 font-mono">
+            💡 <strong>Cílové gramatické tvary (2. pád):</strong> ${step.studentHint}
+          </div>
+
+          <button onclick="revealRolePlayAnswer()" id="revealRpBtn" class="w-full py-3 bg-emerald-600 hover:bg-emerald-500 text-white rounded-xl text-base font-bold transition flex items-center justify-center gap-2 shadow-lg shadow-emerald-600/20">
+            <i class="fa-solid fa-check-circle"></i> Zkontrolovat studenta & Odpověď zaměstnance
+          </button>
+
+          <div id="rpAnswerBox" class="hidden space-y-4 pt-3 border-t border-slate-800">
+            <div class="p-4 bg-slate-900/90 rounded-xl border border-emerald-500/40 space-y-1">
+              <div class="text-xs font-bold text-emerald-400 uppercase">Modelová formulace studenta:</div>
+              <p class="text-base text-slate-100 font-medium">"${step.studentModel}"</p>
+            </div>
+
+            <div class="p-4 bg-indigo-950/40 rounded-xl border border-indigo-500/40 space-y-2">
+              <div class="flex items-center justify-between">
+                <span class="text-xs font-bold text-indigo-300 uppercase">Zaměstnanec přepážky:</span>
+                <button onclick="speakText('${step.clerkResponse.replace(/'/g, "\\'")}')" class="p-1 text-slate-400 hover:text-sky-400 transition">
+                  <i class="fa-solid fa-volume-high text-sm"></i>
+                </button>
+              </div>
+              <p class="text-base font-medium text-slate-100">"${step.clerkResponse}"</p>
+            </div>
+
+            ${currentStep < currentDialogue.length - 1 ? `
+              <button onclick="nextRolePlayStep()" class="w-full py-3 bg-indigo-600 hover:bg-indigo-500 text-white rounded-xl text-base font-bold transition flex items-center justify-center gap-2">
+                <i class="fa-solid fa-arrow-right"></i> Pokračovat na krok ${currentStep + 2}
+              </button>
+            ` : `
+              <div class="p-3 bg-emerald-950/60 border border-emerald-800 rounded-xl text-center text-emerald-300 text-sm font-bold">
+                🎉 Dialog dokončen! Můžete vygenerovat nový scénář nahoře.
+              </div>
+            `}
+          </div>
+        </div>
+      `;
+
+      startOneMinuteTimer();
     }
 
-    /* TIMER LOGIC */
-    function toggleTimer() {
-      if (isTimerRunning) {
-        clearInterval(timerInterval);
-        isTimerRunning = false;
-        document.getElementById('timerToggleBtn').innerHTML = `<i class="fa-solid fa-play"></i>`;
-      } else {
-        isTimerRunning = true;
-        document.getElementById('timerToggleBtn').innerHTML = `<i class="fa-solid fa-pause"></i>`;
-        timerInterval = setInterval(() => {
-          if (timerSeconds > 0) {
-            timerSeconds--;
-            updateTimerDisplay();
-          } else {
-            clearInterval(timerInterval);
-            isTimerRunning = false;
-            document.getElementById('timerToggleBtn').innerHTML = `<i class="fa-solid fa-play"></i>`;
-            alert("Speaker timer finished!");
-          }
-        }, 1000);
-      }
+    function revealRolePlayAnswer() {
+      document.getElementById('rpAnswerBox').classList.remove('hidden');
+      document.getElementById('revealRpBtn').classList.add('hidden');
+      stopTimer();
     }
 
-    function resetTimer() {
+    function nextRolePlayStep() {
+      // Uložit dokončený krok do historie
+      completedSteps.push(currentDialogue[currentStep]);
+      currentStep++;
+      renderStepByStepDialogue();
+    }
+
+    /* TIMER LOGIKA */
+    function startOneMinuteTimer() {
       clearInterval(timerInterval);
-      isTimerRunning = false;
-      timerSeconds = 120;
+      timerSeconds = 60;
       updateTimerDisplay();
-      document.getElementById('timerToggleBtn').innerHTML = `<i class="fa-solid fa-play"></i>`;
+
+      timerInterval = setInterval(() => {
+        if (timerSeconds > 0) {
+          timerSeconds--;
+          updateTimerDisplay();
+        } else {
+          clearInterval(timerInterval);
+          alert("Čas 1 minuta vypršel! Zkontrolujte větu studenta.");
+        }
+      }, 1000);
+    }
+
+    function stopTimer() {
+      clearInterval(timerInterval);
     }
 
     function updateTimerDisplay() {
@@ -729,54 +938,66 @@
       document.getElementById('timerDisplay').innerText = `${m}:${s}`;
     }
 
-    /* NOTES & HOMEWORK */
-    function saveTeacherNotes() {
-      const notes = document.getElementById('teacherNotes').value;
-      localStorage.setItem('cz_b1_l3_notes', notes);
+    /* TEACHER NOTES SYNC (ALL TABS) */
+    function syncTeacherNotes(sender) {
+      const text = sender.value;
+      localStorage.setItem('cz_b1_l3_notes', text);
+      
+      // Mirror text instantly across all textareas in Tab 2, Tab 3, and Tab 4
+      document.querySelectorAll('.teacherNotesArea').forEach(area => {
+        if (area !== sender) {
+          area.value = text;
+        }
+      });
       updateHomeworkPack();
     }
 
     function updateHomeworkPack() {
-      const notes = document.getElementById('teacherNotes').value || "žádné konkrétní chyby nezaznamenány";
+      const savedNotes = localStorage.getItem('cz_b1_l3_notes');
+      const notes = (savedNotes && savedNotes.trim() !== '') ? savedNotes : "žádné konkrétní chyby nezaznamenány";
+      
       const pack = `CZECH B1 MASTERY - LESSON 3 SUMMARY & HOMEWORK
-Téma: Cesta do zahraničí & Kompletní 2. pád (21 výrazů)
+    Téma: Cesta do zahraničí & Kompletní 2. pád (21 výrazů)
 
-==================================================
-1. CHYBY A POZNÁMKY Z HODINY (TEACHER NOTES):
-${notes}
+    ==================================================
+    1. CHYBY A POZNÁMKY Z HODINY (TEACHER NOTES):
+    ${notes}
 
-==================================================
-2. PREPOSITIONS & GENITIVE PATTERNS REVIEW:
-- bez: bez palubního lístku, bez jednosměrné jízdenky, bez místenky
-- během: během bezpečnostní prohlídky, během zpoždění z důvodu
-- blízko: blízko stanice metra
-- do: do Vídně, do Německa, přestoupit do rychlíku
-- kolem: kolem vstupu do gatu B4
-- kromě: kromě příručního zavazadla, kromě mého bratra
-- místo: místo zpáteční jízdenky, místo rychlíku
-- od: od pasové kontroly
-- podle: podle letového řádu
-- u: u odbavovací přepážky
-- uprostřed: uprostřed haly
-- vedle: vedle pasové kontroly
-- z / ze: z Prahy, ze Slovenska, z úschovny zavazadel, vlak z Brna
-- Genitive Plural (5+): skupina 5 pasažérů, 10 minut zpoždění
-- Partitive: dva litry vody, odjezd přímého spoje
-- Possessive: zavazadlo mého bratra
+    ==================================================
+    2. PREPOSITIONS & GENITIVE PATTERNS REVIEW:
+    - bez: bez palubního lístku, bez jednosměrné jízdenky, bez místenky
+    - během: během bezpečnostní prohlídky, během zpoždění z důvodu
+    - blízko: blízko stanice metra
+    - do: do Vídně, do Německa, přestoupit do rychlíku
+    - kolem: kolem vstupu do gatu B4
+    - kromě: kromě příručního zavazadla, kromě mého bratra
+    - místo: místo zpáteční jízdenky, místo rychlíku
+    - od: od pasové kontroly
+    - podle: podle letového řádu
+    - u: u odbavovací přepážky
+    - uprostřed: uprostřed haly
+    - vedle: vedle pasové kontroly
+    - z / ze: z Prahy, ze Slovenska, z úschovny zavazadel, vlak z Brna
+    - Genitive Plural (5+): skupina 5 pasažérů, 10 minut zpoždění
+    - Partitive: dva litry vody, odjezd přímého spoje
+    - Possessive: zavazadlo mého bratra
 
-==================================================
-3. DOMÁCÍ ÚKOL (15 MINUT):
-Cvičení 1: Doplňte správné tvary 2. pádu:
-1. Odletíme přesně podle letového _______ (řád).
-2. Informace se nacházejí uprostřed _______ (hala).
-3. Přestoupili jsme do _______ (rychlík) směrem do Vídně.
-4. Na letišti stála skupina pěti _______ (pasažér - pl.).
+    ==================================================
+    3. DOMÁCÍ ÚKOL (15 MINUT):
+    Cvičení 1: Doplňte správné tvary 2. pádu:
+    1. Odletíme přesně podle letového _______ (řád).
+    2. Informace se nacházejí uprostřed _______ (hala).
+    3. Přestoupili jsme do _______ (rychlík) směrem do Vídně.
+    4. Na letišti stála skupina pěti _______ (pasažér - pl.).
 
-Cvičení 2: Přečtěte si krátký text v aplikaci („Dobrodružná cesta na letiště v Paříži“) a napište 3-4 věty o vašem posledním letu nebo cestě vlakem s použitím předložek 2. pádu.
+    Cvičení 2: Přečtěte si krátký text v aplikaci („Dobrodružná cesta na letiště v Paříži“) a napište 3-4 věty o vašem posledním letu nebo cestě vlakem s použitím předložek 2. pádu.
 
-Pošlete odpovědi před příští hodinou!`;
+    Pošlete odpovědi před příští hodinou!`;
 
-      document.getElementById('homeworkTextarea').value = pack;
+      const hwElem = document.getElementById('homeworkTextarea');
+      if (hwElem) {
+        hwElem.value = pack;
+      }
     }
 
     function copyHomeworkToClipboard() {
@@ -791,14 +1012,19 @@ Pošlete odpovědi před příští hodinou!`;
       renderVocab();
       renderExerciseA();
       renderExerciseB();
-      generateRolePlay();
 
+      // Pre-load saved notes into all live note textareas across all tabs
       const savedNotes = localStorage.getItem('cz_b1_l3_notes');
       if (savedNotes) {
-        document.getElementById('teacherNotes').value = savedNotes;
+        document.querySelectorAll('.teacherNotesArea').forEach(area => {
+          area.value = savedNotes;
+        });
       }
       updateHomeworkPack();
     };
+
+
+
   </script>
 </body>
 </html>

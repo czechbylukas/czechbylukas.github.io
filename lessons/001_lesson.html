@@ -305,7 +305,7 @@ async function getRandomVerbFromDB() {
 
             console.log("All accepted answers:", validAnswers);
 
-            document.getElementById('translation-prompt').innerText = `Přelož: ${translation}`;
+            document.getElementById('translation-prompt').innerText = `Translate to Czech: ${translation}`;
             const input = document.getElementById('verb-input');
             input.value = "";
             input.focus();

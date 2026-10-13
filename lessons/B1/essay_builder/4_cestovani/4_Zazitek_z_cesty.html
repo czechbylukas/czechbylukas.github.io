@@ -1,0 +1,1009 @@
+<!DOCTYPE html>
+<html lang="cs" class="h-full bg-slate-900 text-slate-100">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Czech B1 Mastery: Moje poslední cesta &amp; Ztracený kufr (2. pád)</title>
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- FontAwesome Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <!-- Google Fonts: Inter -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Inter', 'sans-serif'],
+          },
+          colors: {
+            brand: {
+              50: '#f0f9ff',
+              100: '#e0f2fe',
+              500: '#0284c7',
+              600: '#0284c7',
+              700: '#0369a1',
+            }
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    ::-webkit-scrollbar {
+      width: 8px;
+      height: 8px;
+    }
+    ::-webkit-scrollbar-track {
+      background: rgba(15, 23, 42, 0.6);
+    }
+    ::-webkit-scrollbar-thumb {
+      background: rgba(51, 65, 85, 0.8);
+      border-radius: 4px;
+    }
+    ::-webkit-scrollbar-thumb:hover {
+      background: rgba(71, 85, 105, 1);
+    }
+    .glass-card {
+      background: rgba(30, 41, 59, 0.7);
+      backdrop-filter: blur(12px);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+    }
+    .glass-card-hover:hover {
+      background: rgba(30, 41, 59, 0.9);
+      border-color: rgba(56, 189, 248, 0.3);
+    }
+  </style>
+</head>
+<body class="h-full flex flex-col font-sans bg-slate-950 text-slate-100 overflow-x-hidden">
+
+  <!-- HEADER & NAVBAR -->
+  <header class="sticky top-0 z-50 bg-slate-900/90 backdrop-blur-md border-b border-slate-800 shadow-lg">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex items-center justify-between h-16">
+        <!-- Logo / Title -->
+        <div class="flex items-center space-x-3">
+          <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-sky-500 to-indigo-600 flex items-center justify-center text-white shadow-lg shadow-sky-500/20 font-bold text-xl">
+            <i class="fa-solid fa-suitcase-rolling"></i>
+          </div>
+          <div>
+            <h1 class="text-lg font-bold text-white leading-tight">Czech B1 Mastery</h1>
+            <p class="text-xs text-sky-400 font-medium">Lekce 4: Moje poslední cesta &amp; Ztracený kufr (Kompletní 2. pád)</p>
+          </div>
+        </div>
+
+        <!-- Quick Info / Audio Check -->
+        <div class="hidden md:flex items-center space-x-4 text-xs font-medium">
+          <span class="px-3 py-1.5 rounded-full bg-slate-800 border border-slate-700 text-slate-300 flex items-center gap-2">
+            <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+            Teaching Mode
+          </span>
+          <button onclick="speakText('Vydal jsem se na výlet do Česka a odevzdal šest zavazadel.')" class="px-3 py-1.5 rounded-lg bg-sky-600/20 hover:bg-sky-600/30 text-sky-300 border border-sky-500/30 transition flex items-center gap-1.5">
+            <i class="fa-solid fa-volume-high"></i> Audio Check
+          </button>
+        </div>
+      </div>
+
+      <!-- Navigation Tabs -->
+      <nav class="flex space-x-1 overflow-x-auto no-scrollbar border-t border-slate-800/80 py-2" id="mainTabs">
+        <button onclick="switchTab('tab-vocab')" id="btn-tab-vocab" class="tab-btn active px-4 py-2 text-xs sm:text-sm font-semibold rounded-lg text-white bg-sky-600 shadow-md shadow-sky-600/20 transition flex items-center gap-2 whitespace-nowrap">
+          <i class="fa-solid fa-book"></i> 1. Vocab &amp; Stories (20)
+        </button>
+        <button onclick="switchTab('tab-exA')" id="btn-tab-exA" class="tab-btn px-4 py-2 text-xs sm:text-sm font-semibold rounded-lg text-slate-400 hover:text-slate-200 hover:bg-slate-800 transition flex items-center gap-2 whitespace-nowrap">
+          <i class="fa-solid fa-pen-to-square"></i> 2. Exercise A: Story Gap-Fills
+        </button>
+        <button onclick="switchTab('tab-exB')" id="btn-tab-exB" class="tab-btn px-4 py-2 text-xs sm:text-sm font-semibold rounded-lg text-slate-400 hover:text-slate-200 hover:bg-slate-800 transition flex items-center gap-2 whitespace-nowrap">
+          <i class="fa-solid fa-wand-magic-sparkles"></i> 3. Exercise B: Narrative Upgrade
+        </button>
+        <button onclick="switchTab('tab-exC')" id="btn-tab-exC" class="tab-btn px-4 py-2 text-xs sm:text-sm font-semibold rounded-lg text-slate-400 hover:text-slate-200 hover:bg-slate-800 transition flex items-center gap-2 whitespace-nowrap">
+          <i class="fa-solid fa-comments"></i> 4. 4-Step Role Play Simulator
+        </button>
+        <button onclick="switchTab('tab-homework')" id="btn-tab-homework" class="tab-btn px-4 py-2 text-xs sm:text-sm font-semibold rounded-lg text-slate-400 hover:text-slate-200 hover:bg-slate-800 transition flex items-center gap-2 whitespace-nowrap">
+          <i class="fa-solid fa-paper-plane"></i> 5. Homework Pack
+        </button>
+      </nav>
+    </div>
+  </header>
+
+  <!-- MAIN CONTAINER -->
+  <main class="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-6">
+
+    <!-- TAB 1: B1 VOCABULARY HUB & EXPANDED READING STORIES -->
+    <section id="tab-vocab" class="tab-content block space-y-6">
+      <div class="glass-card rounded-2xl p-5 border border-slate-800 flex flex-col md:flex-row gap-4 items-center justify-between">
+        <div>
+          <h2 class="text-xl font-bold text-white flex items-center gap-2">
+            <i class="fa-solid fa-map-location-dot text-sky-400"></i> Slovní zásoba z příběhů (20 B1 Target Items)
+          </h2>
+          <p class="text-xs text-slate-400 mt-1">
+            Genitive prepositions &amp; patterns: do, od, z, u, vedle, kolem, během, po, z důvodu, partitiv &amp; plural genitive.
+          </p>
+        </div>
+        
+        <div class="flex flex-wrap items-center gap-3 w-full md:w-auto">
+          <div class="relative flex-1 md:w-64">
+            <i class="fa-solid fa-magnifying-glass absolute left-3 top-1/2 -translate-y-1/2 text-slate-500 text-sm"></i>
+            <input type="text" id="vocabSearch" oninput="filterVocab()" placeholder="Hledat výraz..." class="w-full bg-slate-900 border border-slate-700 text-slate-200 text-xs rounded-xl pl-9 pr-3 py-2 focus:outline-none focus:border-sky-500">
+          </div>
+          <div class="flex items-center bg-slate-900 border border-slate-800 p-1 rounded-xl text-xs">
+            <button onclick="setVocabFilter('all')" id="vfilter-all" class="vfilter-btn px-3 py-1 rounded-lg text-white bg-sky-600 font-medium">All (20)</button>
+            <button onclick="setVocabFilter('travel')" id="vfilter-travel" class="vfilter-btn px-3 py-1 rounded-lg text-slate-400 hover:text-slate-200">Travel &amp; Docs</button>
+            <button onclick="setVocabFilter('airport')" id="vfilter-airport" class="vfilter-btn px-3 py-1 rounded-lg text-slate-400 hover:text-slate-200">Airport &amp; Luggage</button>
+            <button onclick="setVocabFilter('hotel')" id="vfilter-hotel" class="vfilter-btn px-3 py-1 rounded-lg text-slate-400 hover:text-slate-200">Hotel &amp; City</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Vocabulary Grid -->
+      <div id="vocabGrid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+        <!-- JS Rendered -->
+      </div>
+
+      <!-- STORIES SECTION -->
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+        
+        <!-- Story 1 -->
+        <div class="glass-card rounded-2xl p-6 border border-slate-800 space-y-4">
+          <div class="flex items-center justify-between border-b border-slate-800 pb-3">
+            <h3 class="text-base font-bold text-white flex items-center gap-2">
+              <i class="fa-solid fa-plane text-amber-400"></i> Příběh 1: „Moje poslední cesta“
+            </h3>
+            <button onclick="speakText(document.getElementById('story1Text').innerText)" class="px-3 py-1.5 bg-amber-600 hover:bg-amber-500 text-white rounded-xl text-xs font-bold transition flex items-center gap-1.5 shadow-md shadow-amber-600/20">
+              <i class="fa-solid fa-volume-high"></i> Přehrát
+            </button>
+          </div>
+          <div id="story1Text" class="text-xs sm:text-sm text-slate-200 leading-relaxed space-y-2 bg-slate-900/80 p-4 rounded-xl border border-slate-800">
+            <p>Minulý měsíc jsem se vydal(a) na výlet do krás <strong class="text-sky-300">Česka</strong>. Před cestou jsem si ověřil(a) časy <strong class="text-sky-300">letů</strong> a zkontroloval(a) platnost <strong class="text-sky-300">pasu</strong> a <strong class="text-sky-300">pojištění</strong>. Na letišti jsem odevzdal(a) 6 <strong class="text-sky-300">zavazadel</strong> a koupil(a) si noviny s mapou <strong class="text-sky-300">města</strong>, kam jsem cestoval(a).</p>
+            <p>Během letu jsem četl(a) průvodce od <strong class="text-sky-300">Honzy</strong> a připravoval(a) se na návštěvu místních <strong class="text-sky-300">muzeí a galerií</strong>. Po přistání jsem si vzal(a) taxi z <strong class="text-sky-300">letiště</strong> a zamířil(a) k hotelu, kde jsem měl(a) rezervaci do <strong class="text-sky-300">pátku</strong>. V hotelu jsem se dozvěděl(a) o plánech <strong class="text-sky-300">výletů</strong> a zajímavostech z <strong class="text-sky-300">okolí</strong> a o možnostech návštěvy <strong class="text-sky-300">muzea</strong> a <strong class="text-sky-300">galerie</strong>.</p>
+            <p>Další den jsem si půjčil(a) kolo v půjčovně <strong class="text-sky-300">kol</strong> vedle <strong class="text-sky-300">hotelu</strong> a projel(a) cyklostezku kolem <strong class="text-sky-300">řeky</strong>. Při cestě jsem si všiml(a) <strong class="text-sky-300">muzea</strong> vedle <strong class="text-sky-300">zajímavých dopravních značek</strong> a kontroloval(a) stav <strong class="text-sky-300">pneumatik svého kola</strong>. Večer jsem si koupil(a) suvenýr z <strong class="text-sky-300">plastu</strong> a vrátil(a) se do <strong class="text-sky-300">hotelu</strong>. Během <strong class="text-sky-300">cesty</strong> jsem si uvědomil(a), že plánování <strong class="text-sky-300">cesty</strong> je důležité od <strong class="text-sky-300">letenky</strong> po hotel. Nejvíce mi pomohl bratr <strong class="text-sky-300">Lukáš</strong>.</p>
+          </div>
+        </div>
+
+        <!-- Story 2 -->
+        <div class="glass-card rounded-2xl p-6 border border-slate-800 space-y-4">
+          <div class="flex items-center justify-between border-b border-slate-800 pb-3">
+            <h3 class="text-base font-bold text-white flex items-center gap-2">
+              <i class="fa-solid fa-suitcase text-indigo-400"></i> Příběh 2: „Ztracený kufr na cestě“
+            </h3>
+            <button onclick="speakText(document.getElementById('story2Text').innerText)" class="px-3 py-1.5 bg-indigo-600 hover:bg-indigo-500 text-white rounded-xl text-xs font-bold transition flex items-center gap-1.5 shadow-md shadow-indigo-600/20">
+              <i class="fa-solid fa-volume-high"></i> Přehrát
+            </button>
+          </div>
+          <div id="story2Text" class="text-xs sm:text-sm text-slate-200 leading-relaxed space-y-2 bg-slate-900/80 p-4 rounded-xl border border-slate-800">
+            <p>Minulý rok jsem se vydal/a na dovolenou do <strong class="text-sky-300">Paříže (města)</strong>. Cesta začala už u <strong class="text-sky-300">nádraží</strong>, odkud jsem jel/a autobusem na letiště. Na letišti jsem si všiml/a, že jsem zapomněl/a číslo <strong class="text-sky-300">letenky</strong> a musel/a jsem ho hledat v mobilu.</p>
+            <p>Při odbavení se pracovník zeptal na velikost <strong class="text-sky-300">zavazadla</strong> a také chtěl vidět kopii <strong class="text-sky-300">pasu</strong>. Všechno proběhlo dobře, ale hned po příletu jsem si nevšiml/a <strong class="text-sky-300">kufru</strong>. Kufr totiž nepřiletěl z <strong class="text-sky-300">Prahy</strong>, odkud jsem odlétal/a.</p>
+            <p>Šel/a jsem tedy na oddělení <strong class="text-sky-300">ztrát a nálezů</strong> a vyplnil/a jsem formulář. Úřednice se ptala na číslo <strong class="text-sky-300">zavazadlového lístku</strong> a barvu <strong class="text-sky-300">tašky</strong>. Nakonec mi řekla, že kufr zůstal na ploše vedle <strong class="text-sky-300">letadla</strong>.</p>
+            <p>Po dvou hodinách čekání jsem se konečně dočkal/a <strong class="text-sky-300">návratu zavazadla</strong>. Bylo to nepříjemné, protože jsem neměl/a u sebe mapu <strong class="text-sky-300">města</strong>, kam jsem cestoval/a. Naštěstí vše dobře dopadlo a další den jsem se vydal/a na prohlídku <strong class="text-sky-300">památek</strong>.</p>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- TAB 2: EXERCISE A (GAP-FILL DRILLS FROM STORIES) -->
+    <section id="tab-exA" class="tab-content hidden space-y-8">
+      <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+        
+        <!-- Left 2 Cols: Main Drills -->
+        <div class="lg:col-span-2 space-y-6">
+          <div class="glass-card rounded-2xl p-6 border border-slate-800 flex flex-col sm:flex-row items-center justify-between gap-4">
+            <div>
+              <h2 class="text-xl sm:text-2xl font-bold text-white">Exercise A: Genitive Gap-Fills (Story Drills)</h2>
+              <p class="text-sm text-slate-400 mt-1">Doplňte podstatná jména v 2. pádě z obou příběhů.</p>
+              <div class="mt-3 flex items-center gap-3">
+                <div class="w-32 bg-slate-800 h-2 rounded-full overflow-hidden border border-slate-700">
+                  <div id="exAProgressBar" class="bg-sky-500 h-full w-0 transition-all duration-300"></div>
+                </div>
+                <span id="exAScoreText" class="text-xs text-sky-400 font-mono font-bold">0 / 25 Correct</span>
+              </div>
+            </div>
+            <div class="flex items-center gap-2">
+              <button onclick="checkAllExA()" class="px-4 py-2 bg-sky-600 hover:bg-sky-500 text-white font-bold rounded-xl text-sm transition">Check Answers</button>
+              <button onclick="revealAllExA()" class="px-4 py-2 bg-slate-800 hover:bg-slate-700 text-slate-300 font-bold rounded-xl text-sm border border-slate-700 transition">Reveal All</button>
+              <button onclick="resetExA()" class="px-3 py-2 bg-slate-900 hover:bg-slate-800 text-slate-400 rounded-xl text-sm border border-slate-800 transition"><i class="fa-solid fa-rotate-right"></i></button>
+            </div>
+          </div>
+
+          <!-- Drills List Container -->
+          <div id="exAList" class="space-y-4"></div>
+        </div>
+
+        <!-- Right Col: Compact Teacher Live Notes -->
+        <div class="glass-card rounded-2xl p-4 border border-slate-800 flex flex-col h-[280px]">
+          <div class="flex items-center justify-between pb-2 border-b border-slate-800 mb-2">
+            <h3 class="font-bold text-white text-xs sm:text-sm flex items-center gap-1.5">
+              <i class="fa-solid fa-pen-to-square text-sky-400"></i> Teacher Live Notes
+            </h3>
+            <span class="text-[10px] text-slate-400 font-bold">Auto-saved</span>
+          </div>
+
+          <textarea class="teacherNotesArea w-full flex-1 bg-slate-900 border border-slate-800 rounded-xl p-3 text-xs text-slate-100 focus:outline-none focus:border-sky-500 resize-none font-mono leading-relaxed" oninput="syncTeacherNotes(this)" placeholder="e.g.&#10;+ Skvělé: 'do Česka', 'z Prahy'&#10;- Oprava: 'do pátku', 'ztráty a nálezy'"></textarea>
+
+          <button onclick="switchTab('tab-homework')" class="mt-2.5 w-full py-1.5 bg-slate-800 hover:bg-slate-700 border border-slate-700 text-slate-200 text-xs font-bold rounded-lg transition flex items-center justify-center gap-1.5">
+            <i class="fa-solid fa-arrow-right"></i> Homework Pack
+          </button>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- TAB 3: EXERCISE B (SENTENCE & NARRATIVE UPGRADE) -->
+    <section id="tab-exB" class="tab-content hidden space-y-8">
+      <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+        
+        <!-- Left 2 Cols: Main Scenarios -->
+        <div class="lg:col-span-2 space-y-6">
+          <div class="glass-card rounded-2xl p-5 border border-slate-800">
+            <h2 class="text-xl sm:text-2xl font-bold text-white flex items-center gap-2">
+              <i class="fa-solid fa-wand-magic-sparkles text-amber-400"></i> Exercise B: A2 &rarr; B1 Pokročilé vyprávění
+            </h2>
+            <p class="text-sm text-slate-400 mt-1">
+              Převeďte A2 věty z příběhů do plynulých B1 formulací s využitím správných předložek a tvarů 2. pádu.
+            </p>
+          </div>
+
+          <!-- Scenarios Grid -->
+          <div id="exBGrid" class="space-y-4"></div>
+        </div>
+
+        <!-- Right Col: Compact Teacher Live Notes -->
+        <div class="glass-card rounded-2xl p-4 border border-slate-800 flex flex-col h-[280px]">
+          <div class="flex items-center justify-between pb-2 border-b border-slate-800 mb-2">
+            <h3 class="font-bold text-white text-xs sm:text-sm flex items-center gap-1.5">
+              <i class="fa-solid fa-pen-to-square text-sky-400"></i> Teacher Live Notes
+            </h3>
+            <span class="text-[10px] text-slate-400 font-bold">Auto-saved</span>
+          </div>
+
+          <textarea class="teacherNotesArea w-full flex-1 bg-slate-900 border border-slate-800 rounded-xl p-3 text-xs text-slate-100 focus:outline-none focus:border-sky-500 resize-none font-mono leading-relaxed" oninput="syncTeacherNotes(this)" placeholder="e.g.&#10;+ Skvělé: 'do Česka', 'z Prahy'&#10;- Oprava: 'do pátku', 'ztráty a nálezy'"></textarea>
+
+          <button onclick="switchTab('tab-homework')" class="mt-2.5 w-full py-1.5 bg-slate-800 hover:bg-slate-700 border border-slate-700 text-slate-200 text-xs font-bold rounded-lg transition flex items-center justify-center gap-1.5">
+            <i class="fa-solid fa-arrow-right"></i> Homework Pack
+          </button>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- TAB 4: DYNAMIC ROLE PLAY SIMULATOR -->
+    <section id="tab-exC" class="tab-content hidden space-y-8">
+      <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+        
+        <div class="lg:col-span-2 space-y-8">
+          <!-- Controls Container -->
+          <div class="glass-card rounded-2xl p-6 border border-slate-800 space-y-5">
+            <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-5">
+              <div>
+                <h2 class="text-2xl sm:text-3xl font-bold text-white flex items-center gap-3">
+                  <i class="fa-solid fa-comments text-indigo-400"></i> Dynamic Role Play Generator (4 Steps)
+                </h2>
+                <p class="text-base text-slate-300 mt-1">
+                  Interaktivní trenažér cestovatelských situací s automatickým časovačem a zpětnou vazbou.
+                </p>
+              </div>
+
+              <!-- Speaker Timer -->
+              <div class="flex items-center gap-4 bg-slate-900 border border-slate-800 px-5 py-3 rounded-xl">
+                <i class="fa-solid fa-stopwatch text-indigo-400 text-2xl"></i>
+                <div>
+                  <div id="timerDisplay" class="text-2xl font-mono font-bold text-white leading-tight">01:00</div>
+                  <p class="text-xs text-slate-400 uppercase tracking-wider font-bold">Časovač</p>
+                </div>
+              </div>
+            </div>
+
+            <!-- Filters Grid -->
+            <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 pt-4 border-t border-slate-800 text-sm sm:text-base">
+              <div>
+                <label class="block text-slate-300 font-bold mb-1.5">1. Cílová destinace:</label>
+                <select id="rpDest" class="w-full bg-slate-900 border border-slate-700 rounded-xl p-3 text-slate-100 focus:outline-none focus:border-sky-500">
+                  <option value="" disabled selected>Vyberte destinaci...</option>
+                  <option value="Česko">Česko (do + 2. pád)</option>
+                  <option value="Paříž">Paříž (do + 2. pád)</option>
+                  <option value="Praha">Praha (z + 2. pád)</option>
+                  <option value="Vídeň">Vídeň (do + 2. pád)</option>
+                  <option value="Německo">Německo (do + 2. pád)</option>
+                </select>
+              </div>
+
+              <div>
+                <label class="block text-slate-300 font-bold mb-1.5">2. Cestovní scenář:</label>
+                <select id="rpType" class="w-full bg-slate-900 border border-slate-700 rounded-xl p-3 text-slate-100 focus:outline-none focus:border-sky-500">
+                  <option value="" disabled selected>Vyberte scenář...</option>
+                  <option value="lost_found">Letiště: Oddělení ztrát a nálezů (ztracený kufr)</option>
+                  <option value="bike_rental">Město: Půjčovna kol vedle hotelu</option>
+                  <option value="hotel_reservation">Hotel: Informace o rezervaci a výletech</option>
+                </select>
+              </div>
+
+              <div>
+                <label class="block text-slate-300 font-bold mb-1.5">3. Gramatická volba:</label>
+                <select id="rpClass" class="w-full bg-slate-900 border border-slate-700 rounded-xl p-3 text-slate-100 focus:outline-none focus:border-sky-500">
+                  <option value="" disabled selected>Vyberte volbu...</option>
+                  <option value="six_bags">Odevzdat 6 zavazadel (Genitiv plural)</option>
+                  <option value="friend_guide">Průvodce od Honzy (Possessive)</option>
+                  <option value="plane_side">Plocha vedle letadla (Vedle + 2. pád)</option>
+                  <option value="river_trail">Cyklostezka kolem řeky (Kolem + 2. pád)</option>
+                </select>
+              </div>
+            </div>
+
+            <button onclick="startRolePlaySession()" class="w-full py-3.5 bg-indigo-600 hover:bg-indigo-500 text-white font-bold rounded-xl text-base sm:text-lg transition flex items-center justify-center gap-2 shadow-lg shadow-indigo-600/25">
+              <i class="fa-solid fa-play"></i> Spustit simulaci (Start Role Play)
+            </button>
+          </div>
+
+          <!-- Roleplay Canvas Output -->
+          <div id="roleplayOutput" class="space-y-5">
+            <div class="glass-card rounded-2xl p-8 border border-slate-800 text-center text-slate-400">
+              <i class="fa-solid fa-comments text-4xl mb-3 text-slate-600"></i>
+              <p class="text-base font-medium">Vyberte 3 filtry nahoře a klikněte na <strong>„Spustit simulaci“</strong> pro zahájení rozhovoru.</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Right Col: Teacher Live Notes Pad -->
+        <div class="glass-card rounded-2xl p-6 border border-slate-800 flex flex-col h-full min-h-[500px]">
+          <div class="flex items-center justify-between pb-4 border-b border-slate-800 mb-4">
+            <h3 class="font-bold text-white text-lg flex items-center gap-2">
+              <i class="fa-solid fa-pen-to-square text-sky-400"></i> Teacher Live Notes
+            </h3>
+            <span class="text-xs text-slate-400 font-bold">Auto-saved</span>
+          </div>
+
+          <p class="text-base text-slate-300 mb-4">
+            Write student corrections or great 2. pád phrases during class.
+          </p>
+
+          <textarea class="teacherNotesArea w-full flex-1 bg-slate-900 border border-slate-800 rounded-xl p-4 text-slate-100 focus:outline-none focus:border-sky-500 resize-none font-mono" oninput="syncTeacherNotes(this)" placeholder="e.g.&#10;+ Skvělé: 'do Česka', 'z Prahy'&#10;- Oprava: 'do pátku', 'ztráty a nálezy'"></textarea>
+
+          <button onclick="switchTab('tab-homework')" class="mt-5 w-full py-3 bg-slate-800 hover:bg-slate-700 border border-slate-700 text-slate-100 text-base font-bold rounded-xl transition flex items-center justify-center gap-2">
+            <i class="fa-solid fa-arrow-right"></i> View Formatted Homework Pack
+          </button>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- TAB 5: HOMEWORK & SUMMARY PACK -->
+    <section id="tab-homework" class="tab-content hidden space-y-6">
+      <div class="glass-card rounded-2xl p-5 border border-slate-800 space-y-2">
+        <h2 class="text-xl font-bold text-white flex items-center gap-2">
+          <i class="fa-solid fa-paper-plane text-emerald-400"></i> Student Follow-Up &amp; Writing Homework Pack
+        </h2>
+        <p class="text-xs text-slate-300 leading-relaxed">
+          This pack compiles your <strong>Teacher Live Notes</strong> along with a writing task ("Můj cestovatelský příběh nebo zprávu o ztraceném kufru") and target 2. pád vocabulary.
+        </p>
+      </div>
+
+      <div class="glass-card rounded-2xl p-5 border border-slate-800 space-y-4">
+        <div class="flex items-center justify-between">
+          <span class="text-xs font-bold text-slate-300 uppercase tracking-wider">Ready-to-Send Homework Guide</span>
+          <button onclick="copyHomeworkToClipboard()" class="px-4 py-2 bg-emerald-600 hover:bg-emerald-500 text-white rounded-xl text-xs font-bold shadow-lg shadow-emerald-600/20 transition flex items-center gap-2">
+            <i class="fa-solid fa-copy"></i> Copy to Clipboard
+          </button>
+        </div>
+
+        <textarea id="homeworkTextarea" rows="22" class="w-full bg-slate-950 border border-slate-800 rounded-xl p-4 text-xs text-slate-300 font-mono focus:outline-none focus:border-emerald-500"></textarea>
+      </div>
+    </section>
+
+  </main>
+
+  <script>
+    /* ==========================================================================
+       VOCABULARY DATA (20 B1 TARGET ITEMS FROM YOUR STORIES)
+       ========================================================================== */
+
+    const VOCAB_DATA = [
+      { id: 1, category: "travel", cz: "číslo letenky", pos: "Noun (f)", en: "ticket number", gen: "bez čísla letenky", ex: "Zapomněl jsem číslo letenky v mobilu." },
+      { id: 2, category: "travel", cz: "platnost pasu", pos: "Noun (m)", en: "passport validity", gen: "kontrola platnosti pasu", ex: "Zkontroloval jsem platnost svého pasu." },
+      { id: 3, category: "airport", cz: "odevzdání 6 zavazadel", pos: "Genitive Plural (5+)", en: "checking in 6 bags", gen: "odevzdal 6 zavazadel", ex: "Na letišti jsem odevzdal 6 zavazadel." },
+      { id: 4, category: "airport", cz: "ztráty a nálezy", pos: "Noun (pl.)", en: "lost and found", gen: "na oddělení ztrát a nálezů", ex: "Šel jsem na oddělení ztrát a nálezů." },
+      { id: 5, category: "airport", cz: "zavazadlový lístek", pos: "Noun (m)", en: "luggage tag / receipt", gen: "číslo zavazadlového lístku", ex: "Úřednice se ptala na číslo zavazadlového lístku." },
+      { id: 6, category: "airport", cz: "plocha vedle letadla", pos: "Prep: vedle (+2. pád)", en: "apron beside the plane", gen: "vedle letadla", ex: "Kufr zůstal na ploše vedle letadla." },
+      { id: 7, category: "airport", cz: "návrat zavazadla", pos: "Noun (n)", en: "return of luggage", gen: "dočkat se návratu zavazadla", ex: "Po dvou hodinách jsem se dočkal návratu zavazadla." },
+
+      { id: 8, category: "hotel", cz: "půjčovna kol", pos: "Noun (f)", en: "bike rental", gen: "v půjčovně kol", ex: "Půjčil jsem si kolo v půjčovně kol vedle hotelu." },
+      { id: 9, category: "hotel", cz: "cyklostezka kolem řeky", pos: "Prep: kolem (+2. pád)", en: "bike trail around the river", gen: "kolem řeky", ex: "Projel jsem cyklostezku kolem řeky." },
+      { id: 10, category: "hotel", cz: "stav pneumatik", pos: "Noun (f pl.)", en: "tire condition", gen: "kontrola stavu pneumatik", ex: "Kontroloval jsem stav pneumatik svého kola." },
+      { id: 11, category: "hotel", cz: "rezervace do pátku", pos: "Prep: do (+2. pád)", en: "reservation until Friday", gen: "do pátku", ex: "Měl jsem rezervaci v hotelu do pátku." },
+      { id: 12, category: "hotel", cz: "výrobky z plastu", pos: "Prep: z (+2. pád)", en: "plastic products", gen: "výrobky z plastu", ex: "Koupil jsem si suvenýr z plastu." },
+
+      { id: 13, category: "travel", cz: "průvodce od Honzy", pos: "Possessive / Prep: od", en: "guidebook from Honza", gen: "od Honzy", ex: "Četl jsem průvodce od Honzy." },
+      { id: 14, category: "travel", cz: "bratr Lukáš", pos: "Possessive Genitive", en: "brother Lukáš", gen: "bratra Lukáše", ex: "Nejvíce mi pomohl bratr Lukáše." },
+      { id: 15, category: "travel", cz: "návštěva muzeí a galerií", pos: "Genitive Plural", en: "visit of museums and galleries", gen: "muzeí a galerií", ex: "Připravoval jsem se na návštěvu muzeí a galerií." },
+      { id: 16, category: "travel", cz: "prohlídka památek", pos: "Genitive Plural", en: "sightseeing of monuments", gen: "prohlídka památek", ex: "Vydal jsem se na prohlídku památek." },
+
+      { id: 17, category: "travel", cz: "do Česka / z Česka", pos: "Prep + Country (neut)", en: "to / from Czechia", gen: "do Česka", ex: "Vydal jsem se na výlet do Česka." },
+      { id: 18, category: "travel", cz: "do Paříže / z Paříže", pos: "Prep + City (fem)", en: "to / from Paris", gen: "do Paříže", ex: "Jel jsem na dovolenou do Paříže." },
+      { id: 19, category: "travel", cz: "z Prahy / do Prahy", pos: "Prep + City (fem)", en: "from / to Prague", gen: "z Prahy", ex: "Kufr nepřiletěl z Prahy." },
+      { id: 20, category: "travel", cz: "odlet z letiště", pos: "Prep + Noun (neut)", en: "departure from airport", gen: "z letiště", ex: "Vzal jsem si taxi z letiště." }
+    ];
+
+    /* ==========================================================================
+       EXERCISE A DRILLS DATA (25 GAP-FILLS FROM YOUR STORIES - STRICT HINTS)
+       ========================================================================== */
+
+    const DRILLS_EX_A = [
+      { prompt: "Minulý měsíc jsem se vydal(a) na výlet do krás ____ (Česko).", ans: "Česka", hint: "do + 2. pád (Česko)" },
+      { prompt: "Před cestou jsem si ověřil(a) časy ____ (let - pl.).", ans: "letů", hint: "časy + 2. pád plural (let)" },
+      { prompt: "Zkontroloval(a) jsem platnost ____ (pas) a pojištění.", ans: "pasu", hint: "platnost + 2. pád (pas)" },
+      { prompt: "Zkontroloval(a) jsem platnost pasu a ____ (pojištění).", ans: "pojištění", hint: "platnost + 2. pád (pojištění)" },
+      { prompt: "Na letišti jsem odevzdal(a) šest ____ (zavazadlo - pl.).", ans: "zavazadel", hint: "genitiv plurál pro 6 (zavazadlo)" },
+      { prompt: "Koupil(a) jsem si noviny s mapou ____ (město).", ans: "města", hint: "mapa + 2. pád (město)" },
+      { prompt: "Četl(a) jsem průvodce od ____ (Honza).", ans: "Honzy", hint: "od + 2. pád (Honza)" },
+      { prompt: "Připravoval(a) jsem se na návštěvu místních ____ (muzea a galerie - pl.).", ans: "muzeí a galerií", hint: "genitiv plurál (muzeum a galerie)" },
+      { prompt: "Po přistání jsem si vzal(a) taxi z ____ (letiště).", ans: "letiště", hint: "z + 2. pád (letiště)" },
+      { prompt: "Měl(a) jsem rezervaci do ____ (pátek).", ans: "pátku", hint: "do + 2. pád (pátek)" },
+      { prompt: "V hotelu jsem se dozvěděl(a) o plánech ____ (výlet - pl.).", ans: "výletů", hint: "plány + 2. pád plural (výlet)" },
+      { prompt: "Zajímaly mě informace z ____ (okolí).", ans: "okolí", hint: "z + 2. pád (okolí)" },
+      { prompt: "Půjčil(a) jsem si kolo v půjčovně ____ (kolo - pl.).", ans: "kol", hint: "půjčovna + 2. pád plural (kolo)" },
+      { prompt: "Bydlel(a) jsem vedle ____ (hotel).", ans: "hotelu", hint: "vedle + 2. pád (hotel)" },
+      { prompt: "Projel(a) jsem cyklostezku kolem ____ (řeka).", ans: "řeky", hint: "kolem + 2. pád (řeka)" },
+      { prompt: "Všiml(a) jsem si muzea vedle ____ (zajímavá dopravní značka - pl.).", ans: "zajímavých dopravních značek", hint: "vedle + 2. pád plural (zajímavá dopravní značka)" },
+      { prompt: "Kontroloval(a) jsem stav ____ (pneumatiky - pl.) svého kola.", ans: "pneumatik", hint: "stav + 2. pád plural (pneumatika)" },
+      { prompt: "Večer jsem si koupil(a) suvenýr z ____ (plast).", ans: "plastu", hint: "z + 2. pád (plast)" },
+      { prompt: "Nejvíce mi pomohl bratr ____ (Lukáš).", ans: "Lukáše", hint: "posesivní 2. pád (Lukáš)" },
+      { prompt: "Zapomněl(a) jsem číslo ____ (letenka).", ans: "letenky", hint: "číslo + 2. pád (letenka)" },
+      { prompt: "Pracovník se zeptal na velikost ____ (zavazadlo).", ans: "zavazadla", hint: "velikost + 2. pád (zavazadlo)" },
+      { prompt: "Šel/a jsem na oddělení ____ (ztráty a nálezy).", ans: "ztrát a nálezů", hint: "oddělení + 2. pád (ztráty a nálezy)" },
+      { prompt: "Kufr zůstal na ploše vedle ____ (letadlo).", ans: "letadla", hint: "vedle + 2. pád (letadlo)" },
+      { prompt: "Dočkal(a) jsem se návratu ____ (zavazadlo).", ans: "zavazadla", hint: "návrat + 2. pád (zavazadlo)" },
+      { prompt: "Další den jsem se vydal(a) na prohlídku ____ (památka - pl.).", ans: "památek", hint: "prohlídka + 2. pád plural (památka)" }
+    ];
+
+    /* ==========================================================================
+       EXERCISE B SCENARIOS DATA (10 NARRATIVE UPGRADES - STRICT HINTS)
+       ========================================================================== */
+
+    const SCENARIOS_EX_B = [
+      { q: "1. Vyprávět o letu do Česka a kontrole pasu", a2: "Letěl jsem do Česka a kontroloval pas.", blocks: "vydat se / na výlet / do + Česko / a / zkontrolovat / platnost + pas", structure: "Sloveso + na výlet + kam + a + sloveso + předmět + čeho?", b1: "Vydal jsem se na výlet do Česka a zkontroloval platnost pasu." },
+      { q: "2. Popsat odevzdání 6 zavazadel na letišti", a2: "Měl jsem 6 kufru na letišti.", blocks: "na + letiště / odevzdat / 6 + zavazadlo (genitiv pl.)", structure: "Kde + sloveso + kolik zavazadel?", b1: "Na letišti jsem odevzdal 6 zavazadel." },
+      { q: "3. Zmínit cestu z letiště do hotelu", a2: "Jel jsem z letiště do hotelu.", blocks: "vztít si / taxi / z + letiště / k + hotel / do + pátek", structure: "Sloveso + předmět + odkud + kam + do kdy?", b1: "Vzal jsem si taxi z letiště k hotelu, kde jsem měl rezervaci do pátku." },
+      { q: "4. Popsat půjčení kola u hotelu", a2: "Půjčil jsem si kolo u hotelu.", blocks: "půjčit si / kolo / v + půjčovna kol / vedle + hotel", structure: "Sloveso + předmět + kde + vedle čeho?", b1: "Půjčil jsem si kolo v půjčovně kol vedle hotelu." },
+      { q: "5. Popsat cyklostezku u řeky", a2: "Jel jsem na kole u řeky.", blocks: "projet / cyklostezka / kolem + řeka", structure: "Sloveso + předmět + kolem čeho?", b1: "Projel jsem krásnou cyklostezku kolem řeky." },
+      { q: "6. Vyprávět o ztraceném kufru po příletu do Paříže", a2: "Můj kufr nepřiletěl do Paříže.", blocks: "po + přílet / do + Paříž / kufr / nepřiletět / z + Praha", structure: "Po čem + kam + subjekt + sloveso + odkud?", b1: "Po příletu do Paříže kufr nepřiletěl z Prahy." },
+      { q: "7. Popsat návštěvu oddělení ztrát a nálezů", a2: "Šel jsem na ztráty a nálezy.", blocks: "jít / na + oddělení ztrát a nálezů / a / vyplnit / formulář", structure: "Sloveso + kam + a + sloveso + předmět?", b1: "Šel jsem na oddělení ztrát a nálezů a vyplnil formulář." },
+      { q: "8. Vysvětlit polohu kufru u letadla", a2: "Kufr byl u letadla.", blocks: "kufr / zůstat / na + plocha / vedle + letadlo", structure: "Subjekt + sloveso + kde + vedle čeho?", b1: "Úřednice řekla, že kufr zůstal na ploše vedle letadla." },
+      { q: "9. Zmínit čekání na návrat zavazadla", a2: "Čekal jsem na kufr dvě hodiny.", blocks: "po + dvě hodiny / dočkat se / návrat + zavazadlo", structure: "Po jaké době + sloveso + čeho?", b1: "Po dvou hodinách čekání jsem se dočkal návratu zavazadla." },
+      { q: "10. Popsat výlet na prohlídku památek", a2: "Jel jsem na památky.", blocks: "vydat se / na + prohlídka památek / v + město", structure: "Sloveso + na co + kde?", b1: "Další den jsem se vydal na prohlídku památek ve městě." }
+    ];
+
+    /* STATE & INIT */
+    let currentVocabCategory = 'all';
+    let currentStep = 0;
+    let currentDialogue = [];
+    let completedSteps = [];
+    let timerInterval = null;
+    let timerSeconds = 60;
+
+    function switchTab(tabId) {
+      document.querySelectorAll('.tab-content').forEach(el => el.classList.add('hidden'));
+      document.querySelectorAll('.tab-btn').forEach(btn => {
+        btn.classList.remove('bg-sky-600', 'text-white', 'shadow-md');
+        btn.classList.add('text-slate-400');
+      });
+
+      document.getElementById(tabId).classList.remove('hidden');
+      const activeBtn = document.getElementById('btn-' + tabId);
+      if (activeBtn) {
+        activeBtn.classList.add('bg-sky-600', 'text-white', 'shadow-md');
+        activeBtn.classList.remove('text-slate-400');
+      }
+
+      if (tabId === 'tab-homework') {
+        updateHomeworkPack();
+      }
+    }
+
+    function speakText(text) {
+      if ('speechSynthesis' in window) {
+        window.speechSynthesis.cancel();
+        const utterance = new SpeechSynthesisUtterance(text);
+        utterance.lang = 'cs-CZ';
+        utterance.rate = 0.9;
+        window.speechSynthesis.speak(utterance);
+      }
+    }
+
+    /* VOCABULARY FILTERING */
+    function setVocabFilter(cat) {
+      currentVocabCategory = cat;
+      document.querySelectorAll('.vfilter-btn').forEach(btn => {
+        btn.classList.remove('bg-sky-600', 'text-white');
+        btn.classList.add('text-slate-400');
+      });
+      const active = document.getElementById('vfilter-' + cat);
+      if (active) {
+        active.classList.add('bg-sky-600', 'text-white');
+        active.classList.remove('text-slate-400');
+      }
+      renderVocab();
+    }
+
+    function renderVocab() {
+      const grid = document.getElementById('vocabGrid');
+      const query = document.getElementById('vocabSearch').value.toLowerCase().trim();
+
+      const filtered = VOCAB_DATA.filter(item => {
+        const matchesCategory = (currentVocabCategory === 'all') || (item.category === currentVocabCategory);
+        const matchesSearch = item.cz.toLowerCase().includes(query) || 
+                              item.en.toLowerCase().includes(query) || 
+                              item.ex.toLowerCase().includes(query) ||
+                              item.gen.toLowerCase().includes(query);
+        return matchesCategory && matchesSearch;
+      });
+
+      if (filtered.length === 0) {
+        grid.innerHTML = `<div class="col-span-full py-12 text-center text-slate-500 text-xs">No vocabulary matched your search.</div>`;
+        return;
+      }
+
+      grid.innerHTML = filtered.map(item => `
+        <div class="glass-card glass-card-hover rounded-2xl p-4 border border-slate-800 transition flex flex-col justify-between space-y-3">
+          <div>
+            <div class="flex items-start justify-between gap-2">
+              <div class="flex items-center gap-2">
+                <button onclick="speakText('${item.cz}')" class="w-8 h-8 rounded-lg bg-sky-500/20 hover:bg-sky-500/40 text-sky-400 border border-sky-500/30 transition flex items-center justify-center flex-shrink-0">
+                  <i class="fa-solid fa-volume-high text-xs"></i>
+                </button>
+                <h3 class="font-bold text-white text-sm sm:text-base leading-snug">${item.cz}</h3>
+              </div>
+              <span class="text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded-full bg-slate-800 text-slate-400 border border-slate-700">${item.pos}</span>
+            </div>
+            <p class="text-xs text-sky-300 font-medium mt-1.5">${item.en}</p>
+          </div>
+
+          <div class="bg-slate-900/90 rounded-xl p-2.5 border border-slate-800/80 text-xs space-y-1">
+            <div class="text-slate-400 font-mono text-[11px]"><strong class="text-amber-400">Genitive Pattern:</strong> ${item.gen}</div>
+            <div class="text-slate-300 italic">"${item.ex}"</div>
+          </div>
+        </div>
+      `).join('');
+    }
+
+    function filterVocab() { renderVocab(); }
+
+    /* EXERCISE A DRILLS */
+    function renderExerciseA() {
+      const list = document.getElementById('exAList');
+      list.innerHTML = DRILLS_EX_A.map((item, idx) => {
+        const parts = item.prompt.split('____');
+        const cleanAudioSentence = parts[0] + item.ans + parts[1].replace(/\s*\([^)]*\)/, '');
+        const dynamicWidth = Math.max(160, item.ans.length * 11);
+
+        return `
+          <div class="glass-card rounded-xl p-4 sm:p-5 border border-slate-800 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+            <div class="text-sm sm:text-base text-slate-100 leading-relaxed flex-1">
+              <span class="font-bold text-sky-400 mr-2 text-base sm:text-lg">${idx + 1}.</span>
+              ${parts[0]}
+              <input type="text" id="exA_input_${idx}" data-ans="${item.ans}" 
+                    style="width: ${dynamicWidth}px;" 
+                    class="bg-slate-900 border border-slate-700 rounded-xl px-3 py-1.5 text-sm sm:text-base text-sky-300 font-bold text-center focus:outline-none focus:border-sky-500 max-w-[320px] shadow-inner my-1" 
+                    placeholder="...">
+              ${parts[1]}
+            </div>
+            <div class="flex items-center gap-3 self-end sm:self-center flex-shrink-0">
+              <span class="text-xs sm:text-sm text-amber-400/90 font-mono bg-slate-900/90 px-3 py-1.5 rounded-lg border border-slate-800 shadow-sm">${item.hint}</span>
+              <button onclick="speakText('${cleanAudioSentence.replace(/'/g, "\\'")}')" class="w-9 h-9 rounded-lg bg-slate-800 hover:bg-sky-600/30 text-slate-300 hover:text-sky-300 border border-slate-700 transition flex items-center justify-center" title="Přehrát celou větu">
+                <i class="fa-solid fa-volume-high text-sm"></i>
+              </button>
+            </div>
+          </div>
+        `;
+      }).join('');
+    }
+
+    function checkAllExA() {
+      let correct = 0;
+      DRILLS_EX_A.forEach((item, idx) => {
+        const inp = document.getElementById(`exA_input_${idx}`);
+        const ok = (inp.value.trim().toLowerCase() === item.ans.toLowerCase());
+        inp.className = ok ? "bg-emerald-950 border border-emerald-500 text-emerald-300 rounded-lg px-2.5 py-1 text-xs font-bold w-32 text-center" : "bg-rose-950 border border-rose-500 text-rose-300 rounded-lg px-2.5 py-1 text-xs font-bold w-32 text-center";
+        if (ok) correct++;
+      });
+
+      const total = DRILLS_EX_A.length;
+      const pct = Math.round((correct / total) * 100);
+      document.getElementById('exAProgressBar').style.width = pct + '%';
+      document.getElementById('exAScoreText').innerText = `${correct} / ${total} Correct (${pct}%)`;
+    }
+
+    function revealAllExA() {
+      DRILLS_EX_A.forEach((item, idx) => {
+        const inp = document.getElementById(`exA_input_${idx}`);
+        inp.value = item.ans;
+        inp.className = "bg-emerald-950 border border-emerald-500 text-emerald-300 rounded-lg px-2.5 py-1 text-xs font-bold w-32 text-center";
+      });
+      document.getElementById('exAProgressBar').style.width = '100%';
+      document.getElementById('exAScoreText').innerText = `25 / 25 Correct (100%)`;
+    }
+
+    function resetExA() {
+      DRILLS_EX_A.forEach((item, idx) => {
+        const inp = document.getElementById(`exA_input_${idx}`);
+        inp.value = '';
+        inp.className = "bg-slate-900 border border-slate-700 rounded-lg px-2.5 py-1 text-xs text-sky-300 font-bold w-32 text-center focus:outline-none focus:border-sky-500";
+      });
+      document.getElementById('exAProgressBar').style.width = '0%';
+      document.getElementById('exAScoreText').innerText = `0 / 25 Correct`;
+    }
+
+    /* EXERCISE B SCENARIOS */
+    function renderExerciseB() {
+      const grid = document.getElementById('exBGrid');
+      grid.innerHTML = SCENARIOS_EX_B.map((item, idx) => `
+        <div class="glass-card rounded-2xl p-6 border border-slate-800 space-y-4">
+          <!-- Nadpis & Zvuk -->
+          <div class="flex items-center justify-between gap-2">
+            <h3 class="font-bold text-white text-lg sm:text-xl leading-snug">${item.q}</h3>
+            <button onclick="speakText('${item.b1.replace(/'/g, "\\'")}')" class="w-10 h-10 rounded-xl bg-slate-800 hover:bg-sky-600/30 text-slate-300 hover:text-sky-300 border border-slate-700 transition flex items-center justify-center flex-shrink-0" title="Přehrát B1 větu">
+              <i class="fa-solid fa-volume-high text-base"></i>
+            </button>
+          </div>
+
+          <!-- A2 Základ -->
+          <div class="text-base text-rose-300/90 bg-rose-950/40 p-3.5 rounded-xl border border-rose-900/40">
+            <strong>A2 Základ:</strong> "${item.a2}"
+          </div>
+
+          <!-- Struktura věty (viditelná) -->
+          <div class="text-sm sm:text-base text-sky-300/90 font-mono bg-sky-950/30 p-3 rounded-xl border border-sky-900/40">
+            <i class="fa-solid fa-sitemap mr-1.5"></i> <strong>Struktura věty:</strong> ${item.structure}
+          </div>
+
+          <!-- Tlačítko pro skrytí / odkrytí slovíček -->
+          <button onclick="toggleExBBlocks(${idx})" class="text-xs sm:text-sm font-semibold text-amber-400 hover:text-amber-300 flex items-center gap-1.5 py-1">
+            <i class="fa-solid fa-lightbulb"></i> 💡 Ukázat / skrýt nápovědu (Slovíčka)
+          </button>
+
+          <!-- Skrytá slovní zásoba -->
+          <div id="exB_blocks_${idx}" class="hidden text-sm sm:text-base text-amber-300/90 font-medium bg-amber-950/40 p-3.5 rounded-xl border border-amber-900/40">
+            <i class="fa-solid fa-cubes mr-1.5"></i> <strong>Slovní zásoba (infinitive / nominative):</strong> ${item.blocks}
+          </div>
+
+          <!-- Textarea pro odpověď -->
+          <textarea id="exB_user_${idx}" rows="3" placeholder="Napište větu podle B1 struktury..." class="w-full bg-slate-900 border border-slate-700 rounded-xl p-4 text-base text-slate-100 focus:outline-none focus:border-sky-500 font-mono leading-relaxed shadow-inner"></textarea>
+
+          <!-- Tlačítko pro vzorovou větu -->
+          <button onclick="toggleExBModel(${idx})" class="text-sm font-semibold text-sky-400 hover:text-sky-300 flex items-center gap-1.5 py-1">
+            <i class="fa-solid fa-eye"></i> Ukázat modelovou B1 větu
+          </button>
+
+          <!-- Modelová B1 věta -->
+          <div id="exB_model_${idx}" class="hidden text-base text-emerald-300 bg-emerald-950/50 p-4 rounded-xl border border-emerald-800/50 font-mono leading-relaxed">
+            <strong>Vzorová B1 věta:</strong> "${item.b1}"
+          </div>
+        </div>
+      `).join('');
+    }
+
+    function toggleExBBlocks(idx) {
+      document.getElementById(`exB_blocks_${idx}`).classList.toggle('hidden');
+    }
+
+    function toggleExBModel(idx) {
+      document.getElementById(`exB_model_${idx}`).classList.toggle('hidden');
+    }
+
+    /* DYNAMIC 4-STEP ROLE PLAY GENERATOR */
+    function startRolePlaySession() {
+      generateRolePlay();
+    }
+
+    function generateRolePlay() {
+      const destName = document.getElementById('rpDest').value;
+      const type = document.getElementById('rpType').value;
+      const option = document.getElementById('rpClass').value;
+
+      if (!destName || !type || !option) {
+        alert("Prosím vyberte všechny 3 parametry (Destinaci, Scenář i Gramatickou volbu) před spuštěním simulace.");
+        return;
+      }
+
+      currentStep = 0;
+      completedSteps = [];
+
+      let destGen = destName;
+      if (destName === 'Česko') destGen = 'Česka';
+      else if (destName === 'Paříž') destGen = 'Paříže';
+      else if (destName === 'Praha') destGen = 'Prahy';
+      else if (destName === 'Vídeň') destGen = 'Vídně';
+      else if (destName === 'Německo') destGen = 'Německa';
+
+      const fullDest = `do ${destGen}`;
+
+      let optTaskText = "odevzdat 6 + zavazadlo na letišti";
+      let optHintText = "odevzdat / 6 (genitiv pl.) / zavazadlo";
+      let optStudentModel = "odevzdal jsem 6 zavazadel na letišti";
+
+      if (option === 'friend_guide') {
+        optTaskText = "mít průvodce od + Honza";
+        optHintText = "mít / průvodce / od + Honza";
+        optStudentModel = "mám u sebe průvodce od Honzy";
+      } else if (option === 'plane_side') {
+        optTaskText = "kufr zůstat na ploše vedle + letadlo";
+        optHintText = "kufr / vedle + letadlo";
+        optStudentModel = "můj kufr zůstal na ploše vedle letadla";
+      } else if (option === 'river_trail') {
+        optTaskText = "jet po cyklostezce kolem + řeka";
+        optHintText = "cyklostezka / kolem + řeka";
+        optStudentModel = "chci jet po cyklostezce kolem řeky";
+      }
+
+      if (type === 'lost_found') {
+        currentDialogue = [
+          { 
+            task: `Pozdravit na ztrátách a nálezech a vysvětlit problém po příletu ${fullDest}.`,
+            studentHint: `Dobrý den / po příletu ${fullDest} / nemít / můj kufr`,
+            studentModel: `Dobrý den, přišel/přišla jsem na oddělení ztrát a nálezů. Po příletu ${fullDest} nemám svůj kufr.`,
+            clerkResponse: `Dobrý den! Rozumím. Doplňte prosím tento formulář. Z jakého města jste odlétal/a?`
+          },
+          { 
+            task: `Vysvětlit, odkud jste odlétal/a a uvést, že ${optTaskText}.`,
+            studentHint: `odlétat / z + Praha / a / ${optHintText}`,
+            studentModel: `Odlétal/a jsem z Prahy a ${optStudentModel}.`,
+            clerkResponse: `Děkuji. Jaké je číslo vašeho zavazadlového lístku a barva tašky?`
+          },
+          { 
+            task: `Uvést číslo zavazadlového lístku a zeptat se na návrat + zavazadlo.`,
+            studentHint: "číslo + zavazadlový lístek / a / kdy být / návrat + zavazadlo",
+            studentModel: `Zde je číslo zavazadlového lístku. Kdy mohu očekávat návrat mého zavazadla?`,
+            clerkResponse: `Díval jsem se do systému. Váš kufr zůstal na ploše u odletu, doručíme vám ho zítra do hotelu.`
+          },
+          { 
+            task: `Poděkovat a zeptat se, zda mít rezervaci v hotelu do + pátek.`,
+            studentHint: "děkovat / mít / rezervace v hotel / do + pátek",
+            studentModel: `Děkuji mockrát za pomoc. Mám rezervaci v hotelu do pátku, pošlete ho tam.`,
+            clerkResponse: `Určitě ano. Zde je číslo protokolu. Přeji hezký den!`
+          }
+        ];
+      } else if (type === 'bike_rental') {
+        currentDialogue = [
+          { 
+            task: `Pozdravit v půjčovně kol vedle + hotel a požádat o kolo.`,
+            studentHint: `v půjčovně / kolo / vedle + hotel / chtít / půjčit kolo`,
+            studentModel: `Dobrý den, jsem v půjčovně kol vedle mého hotelu a chtěl/a bych si půjčit kolo na výlet.`,
+            clerkResponse: `Dobrý den! Rádi vám pomůžeme. Kam se dnes chystáte jet?`
+          },
+          { 
+            task: `Vysvětlit, že plánujete výlet a ${optTaskText}.`,
+            studentHint: `plánovat / výlet / a / ${optHintText}`,
+            studentModel: `Plánuji výlet do okolí a ${optStudentModel}.`,
+            clerkResponse: `To je skvělá trasa! Než vyrazíte, zkontroluji stav pneumatik a brzdy.`
+          },
+          { 
+            task: `Požádat o kontrolu pneumatik a doporučení muzea vedle + dopravní značka.`,
+            studentHint: "zkontrolovat / stav + pneumatiky / a / doporučit / muzeum vedle + značka",
+            studentModel: `Děkuji. Prosím zkontrolujte stav pneumatik a doporučte mi muzeum vedle cyklostezky.`,
+            clerkResponse: `Pneumatiky jsou v pořádku. Přímo u cyklostezky je muzeum s restaurací.`
+          },
+          { 
+            task: `Zeptat se na cenu půjčení do + pátek a poděkovat.`,
+            studentHint: "kolik stát / půjčení / do + pátek",
+            studentModel: `Super! Kolik stojí půjčení kola do pátku? Děkuji!`,
+            clerkResponse: `Bude to 500 Kč na den. Zde je přilba a mapa. Šťastnou cestu!`
+          }
+        ];
+      } else {
+        currentDialogue = [
+          { 
+            task: `Pozdravit v hotelu a zeptat se na rezervaci do + pátek.`,
+            studentHint: `Dobrý den / mít / rezervace / do + pátek`,
+            studentModel: `Dobrý den, mám u vás rezervaci pokoje do pátku a chci se zeptat na výlety.`,
+            clerkResponse: `Dobrý den! Vítáme vás. Mám pro vás informace o plánech výletů v okolí.`
+          },
+          { 
+            task: `Zeptat se na možnost návštěvy muzeí a galerií v okolí město.`,
+            studentHint: `možnost / návštěva + muzea a galerie (genitiv pl.) / v okolí + město`,
+            studentModel: `Máte informace o možnostech návštěvy místních muzeí a galerií v okolí města?`,
+            clerkResponse: `Ano, recepce nabízí slevové vstupenky. Zde je leták.`
+          },
+          { 
+            task: `Vysvětlit vaše plány a zmínit, že ${optTaskText}.`,
+            studentHint: `plánovat / a / ${optHintText}`,
+            studentModel: `Děkuji! Dnes chci jít na výlet a ${optStudentModel}.`,
+            clerkResponse: `Nádherný plán! Můžete si přímo u nás půjčit i mapu okolí.`
+          },
+          { 
+            task: `Poděkovat za pomoc od + recepce a zeptat se na taxi z + letiště.`,
+            studentHint: "děkovat za / pomoc / z + recepce / a / taxi z + letiště",
+            studentModel: `Moc děkuji za pomoc z recepce. Můžete mi v pátek zavolat taxi na odjezd z hotelu?`,
+            clerkResponse: `S radostí! Repertoár služeb je vám k dispozici 24/7. Příjemný pobyt!`
+          }
+        ];
+      }
+
+      renderStepByStepDialogue();
+    }
+
+    function renderStepByStepDialogue() {
+      const container = document.getElementById('roleplayOutput');
+      const step = currentDialogue[currentStep];
+
+      const historyHtml = completedSteps.map((s, idx) => `
+        <div class="p-4 bg-slate-900/60 rounded-xl border border-slate-800 space-y-2 opacity-80">
+          <div class="text-xs font-bold text-slate-500 uppercase">Krok ${idx + 1} - Dokončeno</div>
+          <p class="text-sm text-emerald-400 font-medium">💬 Student: "${s.studentModel}"</p>
+          <p class="text-sm text-indigo-300 font-medium">🗣️ Partner: "${s.clerkResponse}"</p>
+        </div>
+      `).join('');
+
+      container.innerHTML = `
+        ${historyHtml ? `<div class="space-y-3 mb-4">${historyHtml}</div>` : ''}
+
+        <div class="glass-card rounded-2xl p-6 border border-sky-500/40 bg-sky-950/20 space-y-4">
+          <div class="flex items-center justify-between border-b border-slate-800 pb-3">
+            <span class="text-sm font-bold text-sky-400 uppercase tracking-wider flex items-center gap-2">
+              <i class="fa-solid fa-user-pen"></i> Úkol pro studenta (Krok ${currentStep + 1} / ${currentDialogue.length})
+            </span>
+            <span class="text-xs bg-slate-800 text-slate-300 px-3 py-1 rounded-full font-mono font-bold">1 min na odpověď</span>
+          </div>
+
+          <div class="bg-slate-900/90 p-4 rounded-xl border border-slate-700">
+            <div class="text-xs font-bold text-slate-400 uppercase mb-1">Instrukce (Infinitive / Nominative):</div>
+            <p class="text-base sm:text-lg font-bold text-white leading-relaxed">${step.task}</p>
+          </div>
+          
+          <div class="text-sm text-amber-300 bg-amber-950/40 p-3 rounded-xl border border-amber-900/40 font-mono">
+            💡 <strong>Cílové gramatické tvary (2. pád):</strong> ${step.studentHint}
+          </div>
+
+          <button onclick="revealRolePlayAnswer()" id="revealRpBtn" class="w-full py-3 bg-emerald-600 hover:bg-emerald-500 text-white rounded-xl text-base font-bold transition flex items-center justify-center gap-2 shadow-lg shadow-emerald-600/20">
+            <i class="fa-solid fa-check-circle"></i> Zkontrolovat studenta & Odpověď partnera
+          </button>
+
+          <div id="rpAnswerBox" class="hidden space-y-4 pt-3 border-t border-slate-800">
+            <div class="p-4 bg-slate-900/90 rounded-xl border border-emerald-500/40 space-y-1">
+              <div class="text-xs font-bold text-emerald-400 uppercase">Modelová formulace studenta:</div>
+              <p class="text-base text-slate-100 font-medium">"${step.studentModel}"</p>
+            </div>
+
+            <div class="p-4 bg-indigo-950/40 rounded-xl border border-indigo-500/40 space-y-2">
+              <div class="flex items-center justify-between">
+                <span class="text-xs font-bold text-indigo-300 uppercase">Partner v konverzaci:</span>
+                <button onclick="speakText('${step.clerkResponse.replace(/'/g, "\\'")}')" class="p-1 text-slate-400 hover:text-sky-400 transition">
+                  <i class="fa-solid fa-volume-high text-sm"></i>
+                </button>
+              </div>
+              <p class="text-base font-medium text-slate-100">"${step.clerkResponse}"</p>
+            </div>
+
+            ${currentStep < currentDialogue.length - 1 ? `
+              <button onclick="nextRolePlayStep()" class="w-full py-3 bg-indigo-600 hover:bg-indigo-500 text-white rounded-xl text-base font-bold transition flex items-center justify-center gap-2">
+                <i class="fa-solid fa-arrow-right"></i> Pokračovat na krok ${currentStep + 2}
+              </button>
+            ` : `
+              <div class="p-3 bg-emerald-950/60 border border-emerald-800 rounded-xl text-center text-emerald-300 text-sm font-bold">
+                🎉 Dialog dokončen! Můžete vygenerovat nový scénář nahoře.
+              </div>
+            `}
+          </div>
+        </div>
+      `;
+
+      startOneMinuteTimer();
+    }
+
+    function revealRolePlayAnswer() {
+      document.getElementById('rpAnswerBox').classList.remove('hidden');
+      document.getElementById('revealRpBtn').classList.add('hidden');
+      stopTimer();
+    }
+
+    function nextRolePlayStep() {
+      completedSteps.push(currentDialogue[currentStep]);
+      currentStep++;
+      renderStepByStepDialogue();
+    }
+
+    /* TIMER LOGIKA */
+    function startOneMinuteTimer() {
+      clearInterval(timerInterval);
+      timerSeconds = 60;
+      updateTimerDisplay();
+
+      timerInterval = setInterval(() => {
+        if (timerSeconds > 0) {
+          timerSeconds--;
+          updateTimerDisplay();
+        } else {
+          clearInterval(timerInterval);
+          alert("Čas 1 minuta vypršel! Zkontrolujte větu studenta.");
+        }
+      }, 1000);
+    }
+
+    function stopTimer() {
+      clearInterval(timerInterval);
+    }
+
+    function updateTimerDisplay() {
+      const m = Math.floor(timerSeconds / 60).toString().padStart(2, '0');
+      const s = (timerSeconds % 60).toString().padStart(2, '0');
+      document.getElementById('timerDisplay').innerText = `${m}:${s}`;
+    }
+
+    /* TEACHER NOTES SYNC (ALL TABS) */
+    function syncTeacherNotes(sender) {
+      const text = sender.value;
+      localStorage.setItem('cz_b1_l3_notes', text);
+      
+      document.querySelectorAll('.teacherNotesArea').forEach(area => {
+        if (area !== sender) {
+          area.value = text;
+        }
+      });
+      updateHomeworkPack();
+    }
+
+    function updateHomeworkPack() {
+      const savedNotes = localStorage.getItem('cz_b1_l3_notes');
+      const notes = (savedNotes && savedNotes.trim() !== '') ? savedNotes : "žádné konkrétní chyby nezaznamenány";
+      
+      const pack = `CZECH B1 MASTERY - LESSON 3 SUMMARY & HOMEWORK PACK
+Téma: Moje poslední cesta & Ztracený kufr (Kompletní 2. pád)
+
+==================================================
+1. CHYBY A POZNÁMKY Z HODINY (TEACHER LIVE NOTES):
+${notes}
+
+==================================================
+2. TARGET GENITIVE PREPOSITIONS & PATTERNS REVIEW:
+- do / z: do Česka, do Paříže, z letiště, z Prahy
+- od: průvodce od Honzy, odlet od terminálu
+- u / vedle: u nádraží, vedle hotelu, vedle letadla
+- kolem / během: kolem řeky, během letu, během cesty
+- do (time): rezervace do pátku
+- z důvodu: z důvodu zrušení letu
+- Genitive Plural (5+): 6 zavazadel, návštěva muzeí a galerií, prohlídka památek
+- Possessive Genitive: bratr Lukáše, stav pneumatik svého kola
+
+==================================================
+3. DOMÁCÍ ÚKOL: NAPSAT KRÁTKÝ VYPRÁVĚCÍ PŘÍBĚH (100–120 SLOV)
+Napište e-mail nebo příběh kamarádovi o vaší poslední cestě nebo zážitku se ztraceným kufrem.
+
+Požadavky na úkol:
+1. Pozdrav a úvod (Ahoj / Milý/á...)
+2. Popis cesty (např. Vydal/a jsem se na výlet do..., jel/a jsem z letiště do hotelu...)
+3. Použijte minimálně 4 předložky 2. pádu (do, z, od, u, vedle, kolem, během, do pátku).
+4. Použijte alespoň 1 plurálový tvar 2. pádu (např. 5 zavazadel / návštěva muzeí / prohlídka památek).
+5. Závěrečné rozloučení (Měj se hezky / Napiš mi brzy!).
+
+Pošlete váš příběh před příští hodinou!`;
+
+      const hwElem = document.getElementById('homeworkTextarea');
+      if (hwElem) {
+        hwElem.value = pack;
+      }
+    }
+
+    function copyHomeworkToClipboard() {
+      const textarea = document.getElementById('homeworkTextarea');
+      textarea.select();
+      document.execCommand('copy');
+      alert('Homework summary copied to clipboard!');
+    }
+
+    /* INIT */
+    window.onload = () => {
+      renderVocab();
+      renderExerciseA();
+      renderExerciseB();
+
+      const savedNotes = localStorage.getItem('cz_b1_l3_notes');
+      if (savedNotes) {
+        document.querySelectorAll('.teacherNotesArea').forEach(area => {
+          area.value = savedNotes;
+        });
+      }
+      updateHomeworkPack();
+    };
+  </script>
+</body>
+</html>
