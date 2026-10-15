@@ -482,19 +482,19 @@
       { id: 6, category: "travel", cz: "cyklostezka", pos: "Noun (f)", en: "cycle path", gen: "podél nové cyklostezky", ex: "Jeli jsme podél krásné cyklostezky u řeky." },
       { id: 7, category: "travel", cz: "stav pneumatik", pos: "Noun (m)", en: "tire condition", gen: "kontrola stavu pneumatik", ex: "Před výletem zkontrolujeme stav pneumatik." },
       { id: 8, category: "travel", cz: "výrobky z plastu", pos: "Noun (m pl)", en: "plastic products", gen: "taška z plastu", ex: "Koupil jsem si lahev vyrobenou z plastu." },
-      { id: 9, category: "airport", cz: "elektronická letenka", pos: "Noun (f)", en: "e-ticket", gen: "vytištění elektronické letenky", ex: "Mám vytištění elektronické letenky v mobilu." },
-      { id: 10, category: "travel", cz: "rezervace v hotelu", pos: "Noun (f)", en: "hotel reservation", gen: "zrušení rezervace v hotelu", ex: "Musel jsem provést zrušení rezervace v hotelu." },
+      { id: 9, category: "airport", cz: "elektronická letenka", pos: "Noun (f)", en: "e-ticket", gen: "vytištění elektronické letenky", ex: "Vytištění elektronické letenky není potřeba, protože ji mám v mobilu." },
+      { id: 10, category: "travel", cz: "rezervace hotelu", pos: "Noun (f)", en: "hotel reservation", gen: "zrušení rezervace hotelu", ex: "Musel jsem provést zrušení rezervace hotelu." },
       { id: 11, category: "travel", cz: "okolí města", pos: "Noun (n)", en: "city surroundings", gen: "výlet do okolí města", ex: "Naplánovali jsme si výlet do okolí města." },
       { id: 12, category: "travel", cz: "zážitek z dovolené", pos: "Noun (m)", en: "holiday experience", gen: "nezapomenutelný zážitek z dovolené", ex: "Mám skvělý zážitek z mé dovolené v Česku." },
       { id: 13, category: "airport", cz: "náhradní autobus", pos: "Noun (m)", en: "replacement bus", gen: "odjezd náhradního autobusu", ex: "Čekáme na odjezd náhradního autobusu." },
       { id: 14, category: "airport", cz: "informace o zpoždění", pos: "Noun (f pl)", en: "delay information", gen: "bez přesné informace o zpoždění", ex: "Čekáme bez přesné informace o zpoždění vlaku." },
-      { id: 15, category: "airport", cz: "letadlo na ploše", pos: "Noun (n)", en: "airplane on the tarmac", gen: "nástup do letadla na ploše", ex: "Cestující čekají na nástup do letadla na ploše." },
+      { id: 15, category: "airport", cz: "přístávací dráha", pos: "Noun (n)", en: "landing strip", gen: "u pristávací dráhy", ex: "Cestující čekají v letadle u přistávající dráhy." },
       { id: 16, category: "travel", cz: "prohlídka památek", pos: "Noun (f)", en: "sightseeing tour", gen: "během prohlídky památek", ex: "Během prohlídky památek jsme potkali kamaráda." },
       { id: 17, category: "airport", cz: "návrat zavazadla", pos: "Noun (m)", en: "return of luggage", gen: "doba návratu zavazadla", ex: "Čekám na potvrzení návratu zavazadla." },
       { id: 18, category: "travel", cz: "kartáček na zuby", pos: "Noun (m)", en: "toothbrush", gen: "koupě kartáčku na zuby", ex: "V drogerii proběhla koupě nového kartáčku na zuby." },
       { id: 19, category: "travel", cz: "mapa města", pos: "Noun (f)", en: "city map", gen: "podle nové mapy města", ex: "Šli jsme přesně podle nové mapy města." },
-      { id: 20, category: "airport", cz: "zkontrolovat pas", pos: "Verb Phrase", en: "to check passport", gen: "předložení pasu", ex: "Při vstupu bylo vyžadováno předložení mého pasu." },
-      { id: 21, category: "travel", cz: "půjčovné za kolo", pos: "Noun (n)", en: "rental fee for a bike", gen: "částka půjčovného za kolo", ex: "Zaplatili jsme plnou částku půjčovného za kolo." }
+      { id: 20, category: "airport", cz: "předložení pasu", pos: "Verb Phrase", en: "presentation of a passport", gen: "předložení pasu", ex: "Při vstupu bylo vyžadováno předložení mého pasu." },
+      { id: 21, category: "travel", cz: "půjčovné za kolo", pos: "Noun (n)", en: "rental fee for a bike", gen: "částka půjčovného za kolo", ex: "Zaplatili jsme zálohu půjčovného za kolo." }
     ];
 
     /* ==========================================================================
@@ -502,18 +502,18 @@
        ========================================================================== */
 
     const DRILLS_TEXT_1 = [
-      { prompt: "Minulý měsíc jsem se vydal(a) na výlet do krás ____ (Česko).", ans: "Česka", hint: "Česko" },
-      { prompt: "Před cestou jsem si ověřil(a) časy ____ (let).", ans: "letu", hint: "let" },
-      { prompt: "Zkontroloval(a) jsem platnost ____ (pas) a ____ (pojištění).", ans: "pasu / pojištění", hint: "pas / pojištění" },
-      { prompt: "Na letišti jsem odevzdal(a) 6 ____ (zavazadlo - pl.).", ans: "zavazadel", hint: "zavazadlo (pl.)" },
-      { prompt: "Koupil(a) jsem si noviny s mapou ____ (město).", ans: "města", hint: "město" },
+      { prompt: "Minulý měsíc jsem se vydal(a) na výlet do krás ____ (naše Česko).", ans: "našeho Česka", hint: "Česko" },
+      { prompt: "Před cestou jsem si ověřil(a) časy ____ (ranní let).", ans: "ranního letu", hint: "let" },
+      { prompt: "Zkontroloval(a) jsem platnost ____ (cestovní pas).", ans: "cestovního pasu", hint: "pas" },
+      { prompt: "Na letišti jsem odevzdal(a) 6 ____ (velké zavazadlo - pl.).", ans: "velkých zavazadel", hint: "zavazadlo (pl.)" },
+      { prompt: "Koupil(a) jsem si průvodce s mapou ____ (město).", ans: "města", hint: "město" },
       { prompt: "Během letu jsem četl(a) průvodce, kterého jsem dostal(a) od ____ (Honza).", ans: "Honzy", hint: "Honza" },
       { prompt: "Připravoval(a) jsem se na návštěvu místních ____ (muzeum a galerie - pl.).", ans: "muzeí a galerií", hint: "muzea a galerie (pl.)" },
-      { prompt: "Po přistání jsem si vzal(a) taxi z(e) ____ (letiště).", ans: "letiště", hint: "letiště" },
+      { prompt: "Po přistání jsem si vzal(a) taxi z ____ (letiště).", ans: "letiště", hint: "letiště" },
       { prompt: "Zamířil(a) jsem k hotelu, kde jsem měl(a) rezervaci do ____ (pátek).", ans: "pátku", hint: "pátek" },
       { prompt: "V hotelu jsem se dozvěděl(a) o plánech ____ (výlet - pl.).", ans: "výletů", hint: "výlet (pl.)" },
       { prompt: "Dozvěděl(a) jsem se o zajímavostech z ____ (okolí).", ans: "okolí", hint: "okolí" },
-      { prompt: "Zjišťoval(a) jsem možnosti návštěvy ____ (muzeum) a ____ (galerie).", ans: "muzea / galerie", hint: "muzeum / galerie" },
+      { prompt: "Zjišťoval(a) jsem možnosti návštěvy ____ (muzeum).", ans: "muzea", hint: "muzeum" },
       { prompt: "Půjčil(a) jsem si kolo v půjčovně ____ (kolo - pl.) vedle ____ (hotel).", ans: "kol / hotelu", hint: "kolo (pl.) / hotel" },
       { prompt: "Projel(a) jsem cyklostezku kolem ____ (řeka).", ans: "řeky", hint: "řeka" },
       { prompt: "Při cestě jsem si všiml(a) ____ (muzeum) vedle ____ (zajímavá dopravní značka - pl.).", ans: "muzea / zajímavých dopravních značek", hint: "muzeum / zajímavá dopravní značka (pl.)" },
@@ -544,8 +544,8 @@
        ========================================================================== */
 
     const SCENARIOS_EX_B = [
-      { q: "1. Nahlásit ztracený kufr na letišti", a2: "Ztratil jsem kufr.", blocks: "jít / na oddělení / ztráty a nálezy / a nahlásit / ztráta / kufr", structure: "Sloveso + na oddělení + čeho + a + sloveso + předmět?", b1: "Šel jsem na oddělení ztrát a nálezů nahlásit ztrátu mého kufru." },
-      { q: "2. Zeptat se na vyzvednutí bez lístku", a2: "Nemám lístek na kufr.", blocks: "moct / vyzvednout / zavazadlo / bez / zavazadlový lístek / u přepážky", structure: "Sloveso + předmět + bez čeho + u čeho?", b1: "Mohu si vyzvednout zavazadlo i bez zavazadlového lístku u přepážky?" },
+      { q: "1. Nahlásit ztracený kufr na letišti", a2: "Jít na informace, že jsem  Ztratil kufr.", blocks: "jít / na oddělení / ztráty a nálezy / a nahlásit / ztráta / můj kufr", structure: "Sloveso + na oddělení + čeho + a + sloveso + předmět?", b1: "Šel jsem na oddělení ztrát a nálezů nahlásit ztrátu mého kufru." },
+      { q: "2. Zeptat se na vyzvednutí bez lístku", a2: "Nemám lístek na kufr.", blocks: "moct / sloveso / co / i / bez čeho / kde", structure: "Sloveso + předmět + bez čeho + u čeho?", b1: "Mohu si vyzvednout zavazadlo i bez zavazadlového lístku u přepážky?" },
       { q: "3. Ověřit si doklady před odletem", a2: "Mám platný pas?", blocks: "potřebovat / zkontrolovat / platnost / pas / a / elektronická letenka / v mobilu", structure: "Sloveso + předmět + čeho + a + předmět + kde?", b1: "Potřebuji zkontrolovat platnost pasu a elektronickou letenku v mobilu." },
       { q: "4. Zeptat se na cestu na kole podél řeky", a2: "Kde je cyklostezka?", blocks: "půjčit si / kolo / z půjčovna kol / a jet / podél / cyklostezka / u / řeka", structure: "Sloveso + předmět + odkud + a + sloveso + podél čeho?", b1: "Půjčili jsme si kolo z půjčovny kol a jeli podél cyklostezky u řeky." },
       { q: "5. Zeptat se na odjezd náhradního autobusu", a2: "Kdy jede náhradní autobus?", blocks: "kdy / odjíždět / náhradní autobus / z / letiště / z důvodu / zpoždění", structure: "Kdy + sloveso + subjekt + odkud + z důvodu čeho?", b1: "Kdy odjíždí náhradní autobus z letiště z důvodu zpoždění letu?" },
@@ -561,17 +561,17 @@
     const QUIZ1_DATA = [
       {
         q: "1. Co si cestovatel/ka zkontroloval/a před cestou?",
-        opts: ["Platnost pasu a pojištění", "Stav pneumatik auta", "Cenu lístku na vlak"],
+        opts: ["1. Platnost pasu a pojištění", "2. Stav pneumatik auta", "3. Cenu lístku na vlak"],
         ans: 0
       },
       {
         q: "2. Kde si cestovatel/ka půjčil/a kolo?",
-        opts: ["V centru města", "V půjčovně vedle hotelu", "Na letišti"],
+        opts: ["1. V centru města", "2. V půjčovně vedle hotelu", "3. Na letišti"],
         ans: 1
       },
       {
         q: "3. Kdo cestovateli/ce nejvíce pomohl při plánování?",
-        opts: ["Sestra", "Bratr Lukáš", "Kamarad Honza"],
+        opts: ["Sestra", "Bratr Lukáše", "Kamarad Honza"],
         ans: 1
       }
     ];
@@ -664,7 +664,7 @@
     function handleAudio1() {
       if (!('speechSynthesis' in window)) return;
       const isM = (gender1 === 'M');
-      const text = `Minulý měsíc jsem se ${isM ? 'vydal' : 'vydala'} na výlet do krás Česka. Před cestou jsem si ${isM ? 'ověřil' : 'ověřila'} časy letu a zkontroloval platnost pasu a cestovního pojištění. Na letišti jsem odevzdal 6 zavazadel a koupil si noviny s mapou města. Během letu jsem četl průvodce od Honzy a připravoval se na návštěvu místních muzeí a galerií. Po přistání jsem si vzal taxi z letiště k hotelu, kde jsem měl rezervaci do pátku. Další den jsem si půjčil kolo v půjčovně kol vedle hotelu a projel cyklostezku kolem řeky.`;
+      const text = `Minulý měsíc jsem se ${isM ? 'vydal' : 'vydala'} na výlet do krás Česka. Před cestou jsem si ${isM ? 'ověřil' : 'ověřila'} časy letu a zkontroloval platnost pasu a cestovního pojištění. Na letišti jsem odevzdal 6 zavazadel a koupil si průvodce s mapou města. Během letu jsem četl průvodce od Honzy a připravoval se na návštěvu místních muzeí a galerií. Po přistání jsem si vzal taxi z letiště k hotelu, kde jsem měl rezervaci do pátku. Další den jsem si půjčil kolo v půjčovně kol vedle hotelu a projel cyklostezku kolem řeky.`;
 
       if (audio1Playing && !audio1Paused) {
         window.speechSynthesis.pause();
@@ -715,7 +715,7 @@
     function handleAudio2() {
       if (!('speechSynthesis' in window)) return;
       const isM = (gender2 === 'M');
-      const text = `Minulý rok jsem se ${isM ? 'vydal' : 'vydala'} na dovolenou do města. Cesta začala už u nádraží, odkud jsem jel autobusem na letiště. Na letišti jsem si všiml, že jsem zapomněl číslo letenky a musel ho hledat v mobilu. Při odbavení se pracovník zeptal na velikost zavazadla a také chtěl vidět kopii pasu. Po příletu jsem si nevšiml svého kufru! Kufr totiž nepřiletěl z Prahy. Šel jsem tedy na oddělení ztrát a nálezů. Úřednice se ptala na číslo zavazadlového lístku a barvu tašky. Nakonec mi řekla, že kufr zůstal na ploše vedle letadla. Po dvou hodinách jsem se konečně dočkal návratu zavazadla. Naštěstí všechno dobře dopadlo a už další den jsem se mohl vydat na prohlídku památek.`;
+      const text = `Minulý rok jsem se ${isM ? 'vydal' : 'vydala'} na dovolenou do města. Cesta začala už u nádraží, odkud jsem jel autobusem na letiště. Na letišti jsem si všiml, že jsem zapomněl číslo letenky a musel jsem ho hledat v mobilu. Při odbavení se pracovník zeptal na velikost zavazadla a také chtěl vidět kopii pasu. Po příletu jsem si nevšiml svého kufru! Kufr totiž nepřiletěl z Prahy. Šel jsem tedy na oddělení ztrát a nálezů. Úřednice se ptala na číslo zavazadlového lístku a barvu tašky. Nakonec mi řekla, že kufr zůstal na ploše vedle letadla. Po dvou hodinách jsem se konečně dočkal návratu zavazadla. Naštěstí všechno dobře dopadlo a už další den jsem se mohl vydat na prohlídku památek.`;
 
       if (audio2Playing && !audio2Paused) {
         window.speechSynthesis.pause();
@@ -1036,8 +1036,8 @@
       currentDialogue = [
         {
           task: "Pozdravit a vysvětlit situaci s využitím oddělení ztrát a nálezů / pasu / lístku.",
-          studentHint: "nahlásit / ztráta / kufr / z + oddělení ztrát a nálezů / kontrola + pas",
-          studentModel: "Dobrý den, potřebuji nahlásit ztrátu kufru z oddělení ztrát a nálezů na letišti.",
+          studentHint: "nahlásit / ztráta / kufr / na + oddělení ztrát a nálezů / kde",
+          studentModel: "Dobrý den, potřebuji nahlásit ztrátu kufru na oddělení ztrát a nálezů na letišti.",
           clerkResponse: "Dobrý den! Máte u sebe kopii pasu a číslo zavazadlového lístku?"
         },
         {

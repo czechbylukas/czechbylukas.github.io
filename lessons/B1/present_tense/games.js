@@ -176,7 +176,7 @@ export function startFillGap(state) {
             <div>
                 <input
                     class="gap"
-                    data-surface="${q.cs}"
+                    data-surface="${q.answers[0]}"
                     autocomplete="off"
                     style="
                         font-size: 1.5rem;

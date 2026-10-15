@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="cs" class="h-full bg-slate-900 text-slate-100">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Czech B1 Mastery: Přehled lekcí</title>
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- FontAwesome Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <!-- Google Fonts: Inter -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Inter', 'sans-serif'],
+          },
+          colors: {
+            brand: {
+              50: '#f0f9ff',
+              100: '#e0f2fe',
+              500: '#0284c7',
+              600: '#0284c7',
+              700: '#0369a1',
+            }
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    ::-webkit-scrollbar {
+      width: 8px;
+      height: 8px;
+    }
+    ::-webkit-scrollbar-track {
+      background: rgba(15, 23, 42, 0.6);
+    }
+    ::-webkit-scrollbar-thumb {
+      background: rgba(51, 65, 85, 0.8);
+      border-radius: 4px;
+    }
+    ::-webkit-scrollbar-thumb:hover {
+      background: rgba(71, 85, 105, 1);
+    }
+    .glass-card {
+      background: rgba(30, 41, 59, 0.7);
+      backdrop-filter: blur(12px);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+    }
+    .glass-card-hover {
+      transition: all 0.2s ease-in-out;
+    }
+    .glass-card-hover:hover {
+      background: rgba(30, 41, 59, 0.9);
+      border-color: rgba(56, 189, 248, 0.4);
+      transform: translateY(-2px);
+    }
+  </style>
+</head>
+<body class="h-full flex flex-col font-sans bg-slate-950 text-slate-100 overflow-x-hidden">
+
+  <!-- HEADER -->
+  <header class="sticky top-0 z-50 bg-slate-900/90 backdrop-blur-md border-b border-slate-800 shadow-lg">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex items-center justify-between h-16">
+        <div class="flex items-center space-x-3">
+          <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-sky-500 to-indigo-600 flex items-center justify-center text-white shadow-lg shadow-sky-500/20 font-bold text-xl">
+            <i class="fa-solid fa-graduation-cap"></i>
+          </div>
+          <div>
+            <h1 class="text-lg font-bold text-white leading-tight">Czech B1 Mastery</h1>
+            <p class="text-xs text-sky-400 font-medium">Přehled témat a lekcí</p>
+          </div>
+        </div>
+
+        <div class="flex items-center space-x-3 text-xs font-medium">
+          <span class="px-3 py-1.5 rounded-full bg-slate-800 border border-slate-700 text-slate-300 flex items-center gap-2">
+            <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+            Úroveň B1
+          </span>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- MAIN CONTAINER -->
+  <main class="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-8">
+
+    <!-- HERO / DASHBOARD SUMMARY -->
+    <div class="glass-card rounded-3xl p-6 sm:p-8 border border-slate-800 relative overflow-hidden">
+      <div class="absolute -right-10 -bottom-10 w-60 h-60 bg-sky-500/10 rounded-full blur-3xl pointer-events-none"></div>
+      <div class="relative z-10 space-y-3">
+        <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-sky-500/10 border border-sky-500/20 text-sky-400 text-xs font-semibold">
+          <i class="fa-solid fa-book-bookmark"></i> Kurikulum B1
+        </div>
+        <h2 class="text-2xl sm:text-3xl font-extrabold text-white tracking-tight">
+          Přehled lekcí češtiny B1
+        </h2>
+        <p class="text-sm text-slate-300 max-w-2xl leading-relaxed">
+          Vyberte si lekci pro studium. Všechny lekce obsahují interaktivní slovní zásobu, gramatické drily, poslech, konverzační simulace a prostor pro psaní a učitelské poznámky.
+        </p>
+      </div>
+    </div>
+
+    <!-- TOPIC SECTION: 4. CESTOVÁNÍ -->
+    <section class="space-y-4">
+      
+      <!-- Topic Header -->
+      <div class="flex items-center justify-between border-b border-slate-800 pb-3">
+        <div class="flex items-center gap-3">
+          <div class="w-8 h-8 rounded-lg bg-sky-500/20 text-sky-400 flex items-center justify-center font-bold text-sm border border-sky-500/30">
+            4
+          </div>
+          <div>
+            <h3 class="text-lg font-bold text-white flex items-center gap-2">
+              Okruh 4: Cestování
+            </h3>
+            <p class="text-xs text-slate-400">Příprava na cestu, letiště, komunikace, příběhy a doprava</p>
+          </div>
+        </div>
+        <span class="text-xs font-mono font-bold text-sky-400 bg-sky-950/60 border border-sky-800/80 px-3 py-1 rounded-full">
+          5 Lekcí
+        </span>
+      </div>
+
+      <!-- Lessons Grid -->
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+
+        <!-- Lesson 1 -->
+        <a href="4_cestovani/1_interview.html" class="glass-card glass-card-hover rounded-2xl p-5 border border-slate-800 flex flex-col justify-between space-y-4 group">
+          <div class="space-y-3">
+            <div class="flex items-center justify-between">
+              <span class="text-[11px] font-bold uppercase tracking-wider px-2.5 py-1 rounded-lg bg-sky-500/10 text-sky-400 border border-sky-500/20">
+                Lekce 1
+              </span>
+              <i class="fa-solid fa-comments text-slate-500 group-hover:text-sky-400 transition"></i>
+            </div>
+            <div>
+              <h4 class="text-base font-bold text-white group-hover:text-sky-300 transition">
+                Rozhovor o cestování
+              </h4>
+              <p class="text-xs text-slate-400 mt-1 leading-relaxed">
+                Základní konverzace o cestovatelských zkušenostech, plánech a preference při cestování.
+              </p>
+            </div>
+          </div>
+          <div class="pt-3 border-t border-slate-800/80 flex items-center justify-between text-xs font-medium text-sky-400">
+            <span>Otevřít lekci</span>
+            <i class="fa-solid fa-arrow-right text-xs group-hover:translate-x-1 transition"></i>
+          </div>
+        </a>
+
+        <!-- Lesson 2 -->
+        <a href="4_cestovani/2_Esej_Moje_posledni_dovolenka.html" class="glass-card glass-card-hover rounded-2xl p-5 border border-slate-800 flex flex-col justify-between space-y-4 group">
+          <div class="space-y-3">
+            <div class="flex items-center justify-between">
+              <span class="text-[11px] font-bold uppercase tracking-wider px-2.5 py-1 rounded-lg bg-sky-500/10 text-sky-400 border border-sky-500/20">
+                Lekce 2
+              </span>
+              <i class="fa-solid fa-pen-nib text-slate-500 group-hover:text-sky-400 transition"></i>
+            </div>
+            <div>
+              <h4 class="text-base font-bold text-white group-hover:text-sky-300 transition">
+                Moje poslední dovolená
+              </h4>
+              <p class="text-xs text-slate-400 mt-1 leading-relaxed">
+                Esej a vyprávění v minulém čase o zážitcích, ubytování a aktivitách na dovolené.
+              </p>
+            </div>
+          </div>
+          <div class="pt-3 border-t border-slate-800/80 flex items-center justify-between text-xs font-medium text-sky-400">
+            <span>Otevřít lekci</span>
+            <i class="fa-solid fa-arrow-right text-xs group-hover:translate-x-1 transition"></i>
+          </div>
+        </a>
+
+        <!-- Lesson 3 -->
+        <a href="4_cestovani/3_Role_play_Cesta_do_zahranici.html" class="glass-card glass-card-hover rounded-2xl p-5 border border-slate-800 flex flex-col justify-between space-y-4 group">
+          <div class="space-y-3">
+            <div class="flex items-center justify-between">
+              <span class="text-[11px] font-bold uppercase tracking-wider px-2.5 py-1 rounded-lg bg-sky-500/10 text-sky-400 border border-sky-500/20">
+                Lekce 3
+              </span>
+              <i class="fa-solid fa-masks-theater text-slate-500 group-hover:text-sky-400 transition"></i>
+            </div>
+            <div>
+              <h4 class="text-base font-bold text-white group-hover:text-sky-300 transition">
+                Cesta do zahraničí (Role Play)
+              </h4>
+              <p class="text-xs text-slate-400 mt-1 leading-relaxed">
+                Simulace praktických situací na letišti, v hotelu a na úřadech v zahraničí.
+              </p>
+            </div>
+          </div>
+          <div class="pt-3 border-t border-slate-800/80 flex items-center justify-between text-xs font-medium text-sky-400">
+            <span>Otevřít lekci</span>
+            <i class="fa-solid fa-arrow-right text-xs group-hover:translate-x-1 transition"></i>
+          </div>
+        </a>
+
+        <!-- Lesson 4 -->
+        <a href="4_cestovani/4_Zazitek_z_cesty.html" class="glass-card glass-card-hover rounded-2xl p-5 border border-slate-800 flex flex-col justify-between space-y-4 group">
+          <div class="space-y-3">
+            <div class="flex items-center justify-between">
+              <span class="text-[11px] font-bold uppercase tracking-wider px-2.5 py-1 rounded-lg bg-sky-500/10 text-sky-400 border border-sky-500/20">
+                Lekce 4
+              </span>
+              <i class="fa-solid fa-suitcase-rolling text-slate-500 group-hover:text-sky-400 transition"></i>
+            </div>
+            <div>
+              <h4 class="text-base font-bold text-white group-hover:text-sky-300 transition">
+                Zážitek z cesty &amp; Ztracený kufr
+              </h4>
+              <p class="text-xs text-slate-400 mt-1 leading-relaxed">
+                Procvičování 2. pádu (Genitiv) na příbězích o plánování cesty a ztraceném kufru na letišti.
+              </p>
+            </div>
+          </div>
+          <div class="pt-3 border-t border-slate-800/80 flex items-center justify-between text-xs font-medium text-sky-400">
+            <span>Otevřít lekci</span>
+            <i class="fa-solid fa-arrow-right text-xs group-hover:translate-x-1 transition"></i>
+          </div>
+        </a>
+
+        <!-- Lesson 5 -->
+        <a href="4_cestovani/5_Srovnani_dopravnich_prostredku.html" class="glass-card glass-card-hover rounded-2xl p-5 border border-slate-800 flex flex-col justify-between space-y-4 group">
+          <div class="space-y-3">
+            <div class="flex items-center justify-between">
+              <span class="text-[11px] font-bold uppercase tracking-wider px-2.5 py-1 rounded-lg bg-sky-500/10 text-sky-400 border border-sky-500/20">
+                Lekce 5
+              </span>
+              <i class="fa-solid fa-bus-simple text-slate-500 group-hover:text-sky-400 transition"></i>
+            </div>
+            <div>
+              <h4 class="text-base font-bold text-white group-hover:text-sky-300 transition">
+                Srovnání dopravních prostředků
+              </h4>
+              <p class="text-xs text-slate-400 mt-1 leading-relaxed">
+                Argumentační esej, porovnávání výhod a nevýhod auta, vlaku, autobusu a letadla.
+              </p>
+            </div>
+          </div>
+          <div class="pt-3 border-t border-slate-800/80 flex items-center justify-between text-xs font-medium text-sky-400">
+            <span>Otevřít lekci</span>
+            <i class="fa-solid fa-arrow-right text-xs group-hover:translate-x-1 transition"></i>
+          </div>
+        </a>
+
+      </div>
+    </section>
+
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="border-t border-slate-800 py-6 text-center text-xs text-slate-500">
+    <p>Czech B1 Mastery Course Platform</p>
+  </footer>
+
+</body>
+</html>

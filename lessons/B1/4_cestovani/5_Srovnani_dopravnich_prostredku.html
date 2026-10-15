@@ -1,0 +1,922 @@
+<!DOCTYPE html>
+<html lang="cs" class="h-full bg-slate-900 text-slate-100">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Czech B1 Mastery: Lesson 5 – Esej: Srovnání dopravních prostředků</title>
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- FontAwesome Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <!-- Google Fonts: Inter -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Inter', 'sans-serif'],
+          },
+          colors: {
+            brand: {
+              50: '#f0f9ff',
+              100: '#e0f2fe',
+              500: '#0284c7',
+              600: '#0284c7',
+              700: '#0369a1',
+            }
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    ::-webkit-scrollbar {
+      width: 8px;
+      height: 8px;
+    }
+    ::-webkit-scrollbar-track {
+      background: rgba(15, 23, 42, 0.6);
+    }
+    ::-webkit-scrollbar-thumb {
+      background: rgba(51, 65, 85, 0.8);
+      border-radius: 4px;
+    }
+    ::-webkit-scrollbar-thumb:hover {
+      background: rgba(71, 85, 105, 1);
+    }
+    .glass-card {
+      background: rgba(30, 41, 59, 0.7);
+      backdrop-filter: blur(12px);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+    }
+    .glass-card-hover:hover {
+      background: rgba(30, 41, 59, 0.9);
+      border-color: rgba(56, 189, 248, 0.3);
+    }
+  </style>
+</head>
+<body class="h-full flex flex-col font-sans bg-slate-950 text-slate-100 overflow-x-hidden">
+
+  <!-- HEADER & NAVBAR -->
+  <header class="sticky top-0 z-50 bg-slate-900/90 backdrop-blur-md border-b border-slate-800 shadow-lg">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex items-center justify-between h-16">
+        <!-- Logo / Title -->
+        <div class="flex items-center space-x-3">
+          <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-sky-500 to-indigo-600 flex items-center justify-center text-white shadow-lg shadow-sky-500/20 font-bold text-xl">
+            <i class="fa-solid fa-bus-simple"></i>
+          </div>
+          <div>
+            <h1 class="text-lg font-bold text-white leading-tight">Czech B1 Mastery</h1>
+            <p class="text-xs text-sky-400 font-medium">Lekce 5: Esej – Srovnání dopravních prostředků</p>
+          </div>
+        </div>
+
+        <!-- Quick Info / Audio Check -->
+        <div class="hidden md:flex items-center space-x-4 text-xs font-medium">
+          <span class="px-3 py-1.5 rounded-full bg-slate-800 border border-slate-700 text-slate-300 flex items-center gap-2">
+            <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+            Teaching Mode
+          </span>
+          <button onclick="speakText('Existuje mnoho různých dopravních prostředků.')" class="px-3 py-1.5 rounded-lg bg-sky-600/20 hover:bg-sky-600/30 text-sky-300 border border-sky-500/30 transition flex items-center gap-1.5">
+            <i class="fa-solid fa-volume-high"></i> Audio Check
+          </button>
+        </div>
+      </div>
+
+      <!-- Navigation Tabs -->
+      <nav class="flex space-x-1 overflow-x-auto no-scrollbar border-t border-slate-800/80 py-2" id="mainTabs">
+        <button onclick="switchTab('tab-vocab')" id="btn-tab-vocab" class="tab-btn active px-4 py-2 text-xs sm:text-sm font-semibold rounded-lg text-white bg-sky-600 shadow-md shadow-sky-600/20 transition flex items-center gap-2 whitespace-nowrap">
+          <i class="fa-solid fa-book-open"></i> 1. Vocab &amp; Model Essay (21)
+        </button>
+        <button onclick="switchTab('tab-exA')" id="btn-tab-exA" class="tab-btn px-4 py-2 text-xs sm:text-sm font-semibold rounded-lg text-slate-400 hover:text-slate-200 hover:bg-slate-800 transition flex items-center gap-2 whitespace-nowrap">
+          <i class="fa-solid fa-pen-to-square"></i> 2. Exercise A: Gap-Fill
+        </button>
+        <button onclick="switchTab('tab-exB')" id="btn-tab-exB" class="tab-btn px-4 py-2 text-xs sm:text-sm font-semibold rounded-lg text-slate-400 hover:text-slate-200 hover:bg-slate-800 transition flex items-center gap-2 whitespace-nowrap">
+          <i class="fa-solid fa-wand-magic-sparkles"></i> 3. Exercise B: Sentence Upgrade
+        </button>
+        <button onclick="switchTab('tab-editor')" id="btn-tab-editor" class="tab-btn px-4 py-2 text-xs sm:text-sm font-semibold rounded-lg text-slate-400 hover:text-slate-200 hover:bg-slate-800 transition flex items-center gap-2 whitespace-nowrap">
+          <i class="fa-solid fa-file-signature"></i> 4. Student Essay Editor
+        </button>
+        <button onclick="switchTab('tab-homework')" id="btn-tab-homework" class="tab-btn px-4 py-2 text-xs sm:text-sm font-semibold rounded-lg text-slate-400 hover:text-slate-200 hover:bg-slate-800 transition flex items-center gap-2 whitespace-nowrap">
+          <i class="fa-solid fa-paper-plane"></i> 5. Homework &amp; Live Notes
+        </button>
+      </nav>
+    </div>
+  </header>
+
+  <!-- MAIN CONTAINER -->
+  <main class="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-6">
+
+    <!-- TAB 1: VOCABULARY HUB & MODEL ESSAY -->
+    <section id="tab-vocab" class="tab-content block space-y-8">
+      
+      <!-- Vocabulary Header -->
+      <div class="glass-card rounded-2xl p-5 border border-slate-800 flex flex-col md:flex-row gap-4 items-center justify-between">
+        <div>
+          <h2 class="text-xl font-bold text-white flex items-center gap-2">
+            <i class="fa-solid fa-list-check text-sky-400"></i> Nová slovní zásoba – Lekce 5 (21 výrazů)
+          </h2>
+          <p class="text-xs text-slate-400 mt-1">
+            Srovnávání dopravy, výhody/nevýhody, ekologie, rychlost a osobní preference.
+          </p>
+        </div>
+        
+        <div class="flex flex-wrap items-center gap-3 w-full md:w-auto">
+          <div class="relative flex-1 md:w-64">
+            <i class="fa-solid fa-magnifying-glass absolute left-3 top-1/2 -translate-y-1/2 text-slate-500 text-sm"></i>
+            <input type="text" id="vocabSearch" oninput="filterVocab()" placeholder="Hledat výraz..." class="w-full bg-slate-900 border border-slate-700 text-slate-200 text-xs rounded-xl pl-9 pr-3 py-2 focus:outline-none focus:border-sky-500">
+          </div>
+          <div class="flex items-center bg-slate-900 border border-slate-800 p-1 rounded-xl text-xs">
+            <button onclick="setVocabFilter('all')" id="vfilter-all" class="vfilter-btn px-3 py-1 rounded-lg text-white bg-sky-600 font-medium">All (21)</button>
+            <button onclick="setVocabFilter('comparison')" id="vfilter-comparison" class="vfilter-btn px-3 py-1 rounded-lg text-slate-400 hover:text-slate-200">Comparison</button>
+            <button onclick="setVocabFilter('travel')" id="vfilter-travel" class="vfilter-btn px-3 py-1 rounded-lg text-slate-400 hover:text-slate-200">Travel &amp; Eco</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Vocabulary Grid -->
+      <div id="vocabGrid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+        <!-- JS Rendered -->
+      </div>
+
+      <!-- MODEL ESSAY DISPLAY -->
+      <div class="glass-card rounded-2xl p-6 border border-slate-800 space-y-4">
+        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-slate-800 pb-4">
+          <div>
+            <h3 class="text-base font-bold text-emerald-400 flex items-center gap-2">
+              <i class="fa-solid fa-file-lines"></i> Vzorová esej B1: Srovnání dopravních prostředků (168 slov)
+            </h3>
+            <p class="text-xs text-slate-400 mt-0.5">Ukázkový text splňující osnovu i požadovaný rozsah.</p>
+          </div>
+
+          <div class="flex items-center gap-2">
+            <!-- Gender Toggle -->
+            <div class="flex items-center bg-slate-900 border border-slate-800 p-1 rounded-xl text-xs font-semibold">
+              <button onclick="setEssayGender('M')" id="egM" class="px-2.5 py-1 rounded-lg bg-emerald-600 text-white font-bold transition">M</button>
+              <button onclick="setEssayGender('F')" id="egF" class="px-2.5 py-1 rounded-lg text-slate-400 hover:text-slate-200 transition">Ž</button>
+            </div>
+
+            <!-- Audio -->
+            <button onclick="handleModelAudio()" id="btnAudioModel" class="px-3 py-1.5 bg-emerald-600 hover:bg-emerald-500 text-white rounded-xl text-xs font-bold transition flex items-center gap-1.5 shadow-md">
+              <i class="fa-solid fa-play" id="iconAudioModel"></i> <span id="txtAudioModel">Přehrát</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Dynamic Body Model Essay -->
+        <div class="text-xs sm:text-sm text-slate-200 leading-relaxed font-sans space-y-3 bg-slate-900/80 p-5 rounded-xl border border-slate-800" id="modelEssayContainer">
+          <!-- JS Rendered -->
+        </div>
+      </div>
+
+      <!-- COMPREHENSION QUIZ -->
+      <div class="glass-card rounded-2xl p-6 border border-slate-800 space-y-4">
+        <h4 class="text-sm font-bold text-amber-400 flex items-center gap-2">
+          <i class="fa-solid fa-circle-question"></i> Kvíz porozumění vzorové esejům (3 otázky)
+        </h4>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-4" id="quizContainer">
+          <!-- Rendered via JS -->
+        </div>
+      </div>
+
+    </section>
+
+    <!-- TAB 2: EXERCISE A (GAP-FILL DRILLS) -->
+    <section id="tab-exA" class="tab-content hidden space-y-8">
+      <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+        
+        <div class="lg:col-span-2 space-y-6">
+          <div class="glass-card rounded-2xl p-6 border border-slate-800 flex flex-col sm:flex-row items-center justify-between gap-4">
+            <div>
+              <h2 class="text-xl sm:text-2xl font-bold text-white">Exercise A: Doplňování slovní zásoby</h2>
+              <p class="text-sm text-slate-400 mt-1">Doplňte správný tvar z nové slovní zásoby Lekce 5.</p>
+            </div>
+            <div class="flex items-center gap-2">
+              <button onclick="checkAllExA()" class="px-4 py-2 bg-sky-600 hover:bg-sky-500 text-white font-bold rounded-xl text-sm transition">Zkontrolovat</button>
+              <button onclick="revealAllExA()" class="px-4 py-2 bg-slate-800 hover:bg-slate-700 text-slate-300 font-bold rounded-xl text-sm border border-slate-700 transition">Okrýt vše</button>
+              <button onclick="resetExA()" class="px-3 py-2 bg-slate-900 hover:bg-slate-800 text-slate-400 rounded-xl text-sm border border-slate-800 transition"><i class="fa-solid fa-rotate-right"></i></button>
+            </div>
+          </div>
+
+          <!-- Progress Bar -->
+          <div class="glass-card rounded-xl p-3 border border-slate-800 flex items-center gap-4">
+            <div class="flex-1 bg-slate-900 h-3 rounded-full overflow-hidden border border-slate-800">
+              <div id="exAProgressBar" class="bg-sky-500 h-full w-0 transition-all duration-300"></div>
+            </div>
+            <span id="exAScoreText" class="text-xs font-mono font-bold text-sky-400 whitespace-nowrap">0 / 10 Správně</span>
+          </div>
+
+          <!-- DRILLS LIST -->
+          <div id="exAList" class="space-y-4"></div>
+        </div>
+
+        <!-- Right Col: Compact Teacher Live Notes -->
+        <div class="glass-card rounded-2xl p-4 border border-slate-800 flex flex-col h-[280px]">
+          <div class="flex items-center justify-between pb-2 border-b border-slate-800 mb-2">
+            <h3 class="font-bold text-white text-xs sm:text-sm flex items-center gap-1.5">
+              <i class="fa-solid fa-pen-to-square text-sky-400"></i> Teacher Live Notes
+            </h3>
+            <span class="text-[10px] text-slate-400 font-bold">Auto-saved</span>
+          </div>
+
+          <textarea class="teacherNotesArea w-full flex-1 bg-slate-900 border border-slate-800 rounded-xl p-3 text-xs text-slate-100 focus:outline-none focus:border-sky-500 resize-none font-mono" 
+                    oninput="syncTeacherNotes(this)" 
+                    placeholder="e.g.&#10;+ Skvělá slovní zásoba&#10;- Pozor na vazbu: 'dávat přednost + 3. pád'"></textarea>
+
+          <button onclick="switchTab('tab-homework')" class="mt-2.5 w-full py-1.5 bg-slate-800 hover:bg-slate-700 border border-slate-700 text-slate-200 text-xs font-bold rounded-lg transition flex items-center justify-center gap-1.5">
+            <i class="fa-solid fa-arrow-right"></i> Domácí úkol &amp; Esej
+          </button>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- TAB 3: EXERCISE B (SENTENCE UPGRADE) -->
+    <section id="tab-exB" class="tab-content hidden space-y-8">
+      <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+        
+        <div class="lg:col-span-2 space-y-6">
+          <div class="glass-card rounded-2xl p-5 border border-slate-800">
+            <h2 class="text-xl sm:text-2xl font-bold text-white flex items-center gap-2">
+              <i class="fa-solid fa-wand-magic-sparkles text-amber-400"></i> Exercise B: A2 &rarr; B1 Sentence Upgrade
+            </h2>
+            <p class="text-sm text-slate-400 mt-1">
+              Převeďte jednoduché A2 vyjádření na plynulé B1 věty určené pro esej.
+            </p>
+          </div>
+
+          <div id="exBGrid" class="space-y-4"></div>
+        </div>
+
+        <div class="glass-card rounded-2xl p-4 border border-slate-800 flex flex-col h-[280px]">
+          <div class="flex items-center justify-between pb-2 border-b border-slate-800 mb-2">
+            <h3 class="font-bold text-white text-xs sm:text-sm flex items-center gap-1.5">
+              <i class="fa-solid fa-pen-to-square text-sky-400"></i> Teacher Live Notes
+            </h3>
+            <span class="text-[10px] text-slate-400 font-bold">Auto-saved</span>
+          </div>
+
+          <textarea class="teacherNotesArea w-full flex-1 bg-slate-900 border border-slate-800 rounded-xl p-3 text-xs text-slate-100 focus:outline-none focus:border-sky-500 resize-none font-mono" 
+                    oninput="syncTeacherNotes(this)" 
+                    placeholder="e.g.&#10;+ Skvělá slovní zásoba&#10;- Pozor na vazbu: 'dávat přednost + 3. pád'"></textarea>
+
+          <button onclick="switchTab('tab-homework')" class="mt-2.5 w-full py-1.5 bg-slate-800 hover:bg-slate-700 border border-slate-700 text-slate-200 text-xs font-bold rounded-lg transition flex items-center justify-center gap-1.5">
+            <i class="fa-solid fa-arrow-right"></i> Domácí úkol &amp; Esej
+          </button>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- TAB 4: STUDENT ESSAY EDITOR -->
+    <section id="tab-editor" class="tab-content hidden space-y-8">
+      <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+        
+        <div class="lg:col-span-2 space-y-6">
+          <div class="glass-card rounded-2xl p-6 border border-slate-800 space-y-4">
+            <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-slate-800 pb-3">
+              <div>
+                <h2 class="text-xl font-bold text-white flex items-center gap-2">
+                  <i class="fa-solid fa-file-signature text-amber-400"></i> Editor eseje pro studenta
+                </h2>
+                <p class="text-xs text-slate-400 mt-0.5">Sledujte počítadlo slov (Cíl: 150–180 slov).</p>
+              </div>
+
+              <!-- Word counter status -->
+              <div class="flex items-center gap-2">
+                <span id="essayWordBadge" class="px-3 py-1.5 rounded-xl bg-slate-900 border border-slate-700 text-amber-400 font-mono font-bold text-xs">
+                  0 / 150–180 slov
+                </span>
+              </div>
+            </div>
+
+            <!-- Main Editor -->
+            <textarea id="studentEssayText" oninput="handleEssayInput()" rows="14" class="w-full bg-slate-950 border border-slate-800 rounded-xl p-4 text-sm text-slate-100 font-sans leading-relaxed focus:outline-none focus:border-amber-500 shadow-inner" placeholder="Zde napiš svou esej... (např. Cestování je dnes velmi důležitou součástí života...)"></textarea>
+
+            <!-- Actions -->
+            <div class="flex flex-col sm:flex-row items-center justify-between gap-3 pt-2">
+              <button onclick="clearStudentEssay()" class="px-3 py-2 bg-slate-800 hover:bg-slate-700 text-slate-300 rounded-xl text-xs font-bold transition border border-slate-700 flex items-center gap-1.5">
+                <i class="fa-solid fa-rotate-right"></i> Smazat text
+              </button>
+
+              <button onclick="copyStudentEssayOnly()" class="w-full sm:w-auto px-5 py-2.5 bg-amber-600 hover:bg-amber-500 text-white rounded-xl text-xs font-bold transition shadow-lg shadow-amber-600/20 flex items-center justify-center gap-2">
+                <i class="fa-solid fa-copy"></i> Zkopírovat esej
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Right Col: Compact Teacher Live Notes -->
+        <div class="glass-card rounded-2xl p-4 border border-slate-800 flex flex-col h-[320px]">
+          <div class="flex items-center justify-between pb-2 border-b border-slate-800 mb-2">
+            <h3 class="font-bold text-white text-xs sm:text-sm flex items-center gap-1.5">
+              <i class="fa-solid fa-pen-to-square text-sky-400"></i> Teacher Live Notes
+            </h3>
+            <span class="text-[10px] text-slate-400 font-bold">Auto-saved</span>
+          </div>
+
+          <textarea class="teacherNotesArea w-full flex-1 bg-slate-900 border border-slate-800 rounded-xl p-3 text-xs text-slate-100 focus:outline-none focus:border-sky-500 resize-none font-mono" 
+                    oninput="syncTeacherNotes(this)" 
+                    placeholder="e.g.&#10;+ Skvělá slovní zásoba&#10;- Pozor na vazbu: 'dávat přednost + 3. pád'"></textarea>
+
+          <button onclick="switchTab('tab-homework')" class="mt-2.5 w-full py-2 bg-slate-800 hover:bg-slate-700 border border-slate-700 text-slate-200 text-xs font-bold rounded-lg transition flex items-center justify-center gap-1.5">
+            <i class="fa-solid fa-arrow-right"></i> Zobrazit kompletní balíček
+          </button>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- TAB 5: HOMEWORK AREA (ASSIGNMENT, OUTLINE, SUBMISSION & LIVE NOTES) -->
+    <section id="tab-homework" class="tab-content hidden space-y-6">
+      
+      <!-- ASSIGNMENT DETAILS -->
+      <div class="glass-card rounded-2xl p-6 border border-slate-800 space-y-4">
+        <div class="border-b border-slate-800 pb-3">
+          <h2 class="text-xl font-bold text-white flex items-center gap-2">
+            <i class="fa-solid fa-paper-plane text-emerald-400"></i> Domácí úkol – Zadání pro esej (cca 150–180 slov)
+          </h2>
+          <p class="text-xs text-sky-400 font-medium mt-1">Téma: Srovnání dopravních prostředků</p>
+        </div>
+
+        <p class="text-xs sm:text-sm text-slate-200 leading-relaxed bg-slate-900/80 p-4 rounded-xl border border-slate-800">
+          Napiš esej, ve které porovnáš různé způsoby cestování (např. autem, vlakem, autobusem, letadlem, na kole apod.). Zaměř se na výhody a nevýhody jednotlivých možností. Popiš také, který dopravní prostředek používáš nejčastěji a proč.
+        </p>
+
+        <!-- Outline -->
+        <div class="space-y-2">
+          <h4 class="text-xs font-bold text-amber-400 uppercase tracking-wider flex items-center gap-1.5">
+            <i class="fa-solid fa-list-ol"></i> Osnova:
+          </h4>
+          <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-2 text-xs">
+            <div class="bg-slate-900/90 p-3 rounded-xl border border-slate-800">
+              <span class="font-bold text-sky-400">1. Úvod:</span> Proč je cestování důležité &amp; běžné prostředky.
+            </div>
+            <div class="bg-slate-900/90 p-3 rounded-xl border border-slate-800">
+              <span class="font-bold text-amber-400">2. Srovnání:</span> Rychlost, pohodlí, cena, ekologie.
+            </div>
+            <div class="bg-slate-900/90 p-3 rounded-xl border border-slate-800">
+              <span class="font-bold text-indigo-400">3. Preference:</span> Co používáš nejraději a proč.
+            </div>
+            <div class="bg-slate-900/90 p-3 rounded-xl border border-slate-800">
+              <span class="font-bold text-emerald-400">4. Závěr:</span> Shrnutí a přání do budoucna.
+            </div>
+          </div>
+        </div>
+
+        <!-- Submission Instructions -->
+        <div class="bg-amber-950/40 border border-amber-900/60 rounded-xl p-4 text-xs text-amber-300 space-y-1">
+          <p class="font-bold flex items-center gap-1.5 text-sm">
+            <i class="fa-solid fa-triangle-exclamation"></i> Pokyny pro odevzdání pro studenty:
+          </p>
+          <p class="text-slate-300 text-xs leading-relaxed">
+            Zde napiš svou esej (v záložce 4. Student Essay Editor). Až budeš mít hotovo, přidej komentář ve sdíleném dokumentu. Do komentáře napiš: <code class="bg-slate-900 px-1.5 py-0.5 rounded text-amber-400 font-mono">@ucitellukas@gmail.com</code> a zaškrtni <strong>assign task</strong>.
+          </p>
+        </div>
+      </div>
+
+      <!-- FULL EXPORT PACK -->
+      <div class="glass-card rounded-2xl p-5 border border-slate-800 space-y-4">
+        <div class="flex items-center justify-between">
+          <span class="text-xs font-bold text-slate-300 uppercase tracking-wider">Kompletní balíček pro studenta a učitele</span>
+          <button onclick="copyHomeworkToClipboard()" class="px-4 py-2 bg-emerald-600 hover:bg-emerald-500 text-white rounded-xl text-xs font-bold shadow-lg shadow-emerald-600/20 transition flex items-center gap-2">
+            <i class="fa-solid fa-copy"></i> Zkopírovat balíček
+          </button>
+        </div>
+
+        <textarea id="homeworkTextarea" rows="18" class="w-full bg-slate-950 border border-slate-800 rounded-xl p-4 text-xs text-slate-300 font-mono focus:outline-none focus:border-emerald-500"></textarea>
+      </div>
+
+    </section>
+
+  </main>
+
+  <script>
+    /* ==========================================================================
+       VOCABULARY DATA (EXACTLY 21 UNIQUE ITEMS)
+       ========================================================================== */
+
+const VOCAB_DATA = [
+  { id: 1, category: "comparison", cz: "dopravní prostředek", pos: "Noun (m)", en: "means of transport", gen: "mnoho dopravních prostředků", ex: "Na světě existuje mnoho různých dopravních prostředků." },
+  { id: 2, category: "comparison", cz: "výhoda a nevýhoda", pos: "Noun (f pl)", en: "advantages and disadvantages", gen: "kromě výhod i nevýhod", ex: "Kromě výhod i nevýhod musíme řešit také cenu." },
+  { id: 3, category: "comparison", cz: "dát přednost", pos: "Verb Phrase", en: "to prefer / to give way", gen: "dávání přednosti", ex: "Pravidlo dávání přednosti platí pro všechny." },
+  { id: 4, category: "travel", cz: "životní prostředí", pos: "Noun (n)", en: "environment", gen: "ochrana životního prostředí", ex: "Ochrana životního prostředí je pro mě velmi důležitá." },
+  { id: 5, category: "travel", cz: "dopravní zácpa", pos: "Noun (f)", en: "traffic jam", gen: "během dopravní zácpy", ex: "Během dlouhé dopravní zácpy jsme si povídali." },
+  { id: 6, category: "travel", cz: "cena benzínu", pos: "Noun (f)", en: "petrol price", gen: "z důvodu ceny benzínu", ex: "Cesta autem je drahá z důvodu vysoké ceny benzínu." },
+  { id: 7, category: "travel", cz: "městská hromadná doprava (MHD)", pos: "Noun (f)", en: "public transport", gen: "z městské hromadné dopravy", ex: "Vystoupil jsem z městské hromadné dopravy u nádraží." },
+  { id: 8, category: "comparison", cz: "kratší vzdálenost", pos: "Noun (f)", en: "shorter distance", gen: "do kratších vzdáleností", ex: "Kolo se hodí jen pro cesty do kratších vzdáleností." },
+  { id: 9, category: "comparison", cz: "dlouhá vzdálenost", pos: "Noun (f)", en: "long distance", gen: "do dlouhých vzdáleností", ex: "Cestování do dlouhých vzdáleností bývá únavné." },
+  { id: 10, category: "travel", cz: "rychlovlak", pos: "Noun (m)", en: "high-speed train", gen: "z rychlovlaku", ex: "Vystoupili jsme z rychlovlaku přímo v centru města." },
+  { id: 11, category: "travel", cz: "parkovací místo", pos: "Noun (n)", en: "parking space", gen: "bez parkovacího místa", ex: "Centrum města je aktuálně bez volného parkovacího místa." },
+  { id: 12, category: "travel", cz: "zpoždění autobusu", pos: "Noun (n)", en: "bus delay", gen: "z důvodu zpoždění autobusu", ex: "Ujel mi navazující spoj z důvodu zpoždění autobusu." },
+  { id: 13, category: "comparison", cz: "ekologický způsob", pos: "Noun (m)", en: "eco-friendly way", gen: "příklad ekologického způsobu", ex: "Vlak je příklad ekologického způsobu dopravy." },
+  { id: 14, category: "comparison", cz: "pohodlí při cestě", pos: "Noun (n)", en: "comfort during travel", gen: "bez pohodlí při cestě", ex: "Nemohu cestovat na dlouhé vzdálenosti bez pohodlí při cestě." },
+  { id: 15, category: "travel", cz: "bezpečnost na silnici", pos: "Noun (f)", en: "road safety", gen: "podle bezpečnosti na silnici", ex: "Dopravní prostředky vybírám podle bezpečnosti na silnici." },
+  { id: 16, category: "travel", cz: "dopravní spojení", pos: "Noun (n)", en: "transport connection", gen: "podle dopravního spojení", ex: "Trasu vybrali podle dobrého dopravního spojení." },
+  { id: 17, category: "travel", cz: "jízdní řád", pos: "Noun (m)", en: "timetable / schedule", gen: "podle jízdního řádu", ex: "Vlak odjel přesně podle jízdního řádu." },
+  { id: 18, category: "travel", cz: "elektromobil", pos: "Noun (m)", en: "electric car", gen: "z elektromobilu", ex: "Vystoupil z nového elektromobilu před domem." },
+  { id: 19, category: "travel", cz: "pravidelný vlak", pos: "Noun (m)", en: "regular train", gen: "odjezd pravidelného vlaku", ex: "Máme potvrzení o odjezdu pravidelného vlaku." },
+  { id: 20, category: "travel", cz: "cena letenky", pos: "Noun (f)", en: "flight ticket price", gen: "včetně ceny letenky", ex: "Celková částka je vypočítána včetně ceny letenky." },
+  { id: 21, category: "comparison", cz: "kombinovat dopravu", pos: "Verb Phrase", en: "to combine transport", gen: "možnost kombinování dopravy", ex: "Výhodou cestování je možnost kombinování dopravy." }
+];
+
+    /* ==========================================================================
+       GAP-FILL DRILLS DATA (EXERCISE A)
+       ========================================================================== */
+
+    const DRILLS_EX_A = [
+      { prompt: "Existuje mnoho různých ____ (dopravní prostředek - pl.).", ans: "dopravních prostředků", hint: "dopravní prostředky" },
+      { prompt: "Každý způsob cestování má své ____ (výhoda) i ____ (nevýhoda).", ans: "výhody / nevýhody", hint: "výhody a nevýhody" },
+      { prompt: "Já osobně dávám ____ (přednost) cestování vlakem.", ans: "přednost", hint: "přednost" },
+      { prompt: "Cestování na kole šetří ____ (životní prostředí).", ans: "životní prostředí", hint: "životní prostředí" },
+      { prompt: "Auto často stojí v dlouhé ____ (dopravní zácpa).", ans: "dopravní zácpě", hint: "dopravní zácpa" },
+      { prompt: "Cesta autem je drahá kvůli vysoké ____ (cena benzínu).", ans: "ceně benzínu", hint: "cena benzínu" },
+      { prompt: "Kolo se hodí jen na ____ (kratší vzdálenosti).", ans: "kratší vzdálenosti", hint: "kratší vzdálenosti" },
+      { prompt: "V centru města je těžké najít volné ____ (parkovací místo).", ans: "parkovací místo", hint: "parkovací místo" },
+      { prompt: "Pro mě je klíčové ____ (pohodlí) při cestě.", ans: "pohodlí", hint: "pohodlí" },
+      { prompt: "V budoucnu bych chtěl/a vyzkoušet cestování ____ (rychlovlak).", ans: "rychlovlakem", hint: "rychlovlak" }
+    ];
+
+    /* ==========================================================================
+       EXERCISE B: SCENARIOS (A2 -> B1)
+       ========================================================================== */
+
+    const SCENARIOS_EX_B = [
+      { q: "1. Porovnat auto a autobus", a2: "Auto je drahé. Autobus je levný.", blocks: "cestování / auto / být / drahé / ale / autobus / bývat / levnější", structure: "Podstatné jméno + být + jaké, ale + druhý prostředek + být + jaký.", b1: "Cestování autem je drahé kvůli benzínu, ale autobus bývá výrazně levnější." },
+      { q: "2. Vyjádřit ekologii vlaku", a2: "Vlak je dobrý pro přírodu.", blocks: "vlak / představovat / ekologický způsob / doprava / a / neznečišťovat / příroda", structure: "Subjekt + představovat + jaký způsob + čeho?", b1: "Vlak představuje ekologický způsob dopravy, který šetří životní prostředí." },
+      { q: "3. Popsat preference při cestování do práce", a2: "Jezdím raději vlakem.", blocks: "dávat / přednost / cestování / vlak / protože / moct / pracovat", structure: "Dávám přednost + čemu + protože + sloveso?", b1: "Dávám přednost cestování vlakem, protože mohu během cesty pracovat." },
+      { q: "4. Shrnutí výhod a nevýhod v závěru", a2: "Všechno má plus i mínus.", blocks: "každý / dopravní prostředek / mít / své / výhody / i / nevýhody", structure: "Subjekt + mít + své + předmět?", b1: "Závěrem lze říci, že každý dopravní prostředek má své výhody i nevýhody." }
+    ];
+
+    /* ==========================================================================
+       QUIZ DATA FOR MODEL ESSAY
+       ========================================================================== */
+
+    const QUIZ_DATA = [
+      {
+        q: "1. Jakou hlavní nevýhodu má podle eseje cesta autem?",
+        opts: ["Je moc pomalá", "Je drahá kvůli benzínu a parkování", "Auta nesmí do centra"],
+        ans: 1
+      },
+      {
+        q: "2. Kterému dopravnímu prostředku dává autor/ka přednost?",
+        opts: ["Autobusu", "Vlaku", "Letadlu"],
+        ans: 1
+      },
+      {
+        q: "3. Co by autor/ka chtěl/a vyzkoušet v budoucnu?",
+        opts: ["Jízdu na elektrokole", "Cestování rychlovlakem v Japonsku", "Létání helikoptérou"],
+        ans: 1
+      }
+    ];
+
+    /* ==========================================================================
+       APP STATE & GLOBAL LOGIC
+       ========================================================================== */
+
+    let currentVocabCategory = 'all';
+    
+    let essayGender = 'M';
+    let audioModelPlaying = false;
+    let audioModelPaused = false;
+    let uttModel = null;
+
+    function switchTab(tabId) {
+      document.querySelectorAll('.tab-content').forEach(el => el.classList.add('hidden'));
+      document.querySelectorAll('.tab-btn').forEach(btn => {
+        btn.classList.remove('bg-sky-600', 'text-white', 'shadow-md');
+        btn.classList.add('text-slate-400');
+      });
+
+      document.getElementById(tabId).classList.remove('hidden');
+      const activeBtn = document.getElementById('btn-' + tabId);
+      if (activeBtn) {
+        activeBtn.classList.add('bg-sky-600', 'text-white', 'shadow-md');
+        activeBtn.classList.remove('text-slate-400');
+      }
+
+      if (tabId === 'tab-homework') {
+        updateHomeworkPack();
+      }
+    }
+
+    function speakText(text) {
+      if ('speechSynthesis' in window) {
+        window.speechSynthesis.cancel();
+        const utterance = new SpeechSynthesisUtterance(text);
+        utterance.lang = 'cs-CZ';
+        utterance.rate = 0.9;
+        window.speechSynthesis.speak(utterance);
+      }
+    }
+
+    /* ESSAY MODEL GENDER & AUDIO */
+    function setEssayGender(g) {
+      essayGender = g;
+      document.getElementById('egM').className = g === 'M' ? 'px-2.5 py-1 rounded-lg bg-emerald-600 text-white font-bold transition' : 'px-2.5 py-1 rounded-lg text-slate-400 hover:text-slate-200 transition';
+      document.getElementById('egF').className = g === 'F' ? 'px-2.5 py-1 rounded-lg bg-emerald-600 text-white font-bold transition' : 'px-2.5 py-1 rounded-lg text-slate-400 hover:text-slate-200 transition';
+      renderModelEssay();
+    }
+
+    function renderModelEssay() {
+      const isM = (essayGender === 'M');
+      document.getElementById('modelEssayContainer').innerHTML = `
+        <p>Cestování je dnes velmi důležitou součástí života. Lidé denně cestují do práce, do školy nebo za zábavou. Existuje mnoho různých dopravních prostředků a každý z nich má své výhody i nevýhody.</p>
+        <p>Cestování autem je velmi pohodlné a rychlé, ale může být drahé kvůli ceně benzínu a parkování. Vlak je často rychlejší než autobus, pohodlnější a ekologičtější. Autobus bývá levnější, ale cesta trvá déle a v zácpách se může zpozdit. Letadlo je nejrychlejší dopravní prostředek na dlouhé vzdálenosti, ale letenky bývají drahé. Kolo je zdravé a ekologické, ale hodí se jen na kratší vzdálenosti.</p>
+        <p>Já osobně dávám přednost cestování vlakem. Pro mě je důležité pohodlí i možnost číst si nebo pracovat na počítači. Do školy a do práce nejčastěji cestuji právě vlakem nebo městskou hromadnou dopravou.</p>
+        <p>Závěrem lze říci, že každý dopravní prostředek má své výhody. Záleží vždy na vzdálenosti a financích. V budoucnu bych ${isM ? 'chtěl' : 'chtěla'} vyzkoušet cestování rychlovlakem v Japonsku.</p>
+      `;
+    }
+
+    function handleModelAudio() {
+      if (!('speechSynthesis' in window)) return;
+      const isM = (essayGender === 'M');
+      const text = `Cestování je dnes velmi důležitou součástí života. Lidé denně cestují do práce, do školy nebo za zábavou. Existuje mnoho různých dopravních prostředků a každý z nich má své výhody i nevýhody. Cestování autem je velmi pohodlné a rychlé, ale může být drahé kvůli ceně benzínu a parkování. Vlak je často rychlejší než autobus, pohodlnější a ekologičtější. Autobus bývá levnější, ale cesta trvá déle. Letadlo je nejrychlejší dopravní prostředek na dlouhé vzdálenosti. Kolo je zdravé a ekologické. Já osobně dávám přednost cestování vlakem. Závěrem lze říci, že každý dopravní prostředek má své výhody. V budoucnu bych ${isM ? 'chtěl' : 'chtěla'} vyzkoušet cestování rychlovlakem v Japonsku.`;
+
+      if (audioModelPlaying && !audioModelPaused) {
+        window.speechSynthesis.pause();
+        audioModelPaused = true;
+        document.getElementById('txtAudioModel').innerText = 'Pokračovat';
+        document.getElementById('iconAudioModel').className = 'fa-solid fa-play';
+        return;
+      }
+      if (audioModelPaused) {
+        window.speechSynthesis.resume();
+        audioModelPaused = false;
+        document.getElementById('txtAudioModel').innerText = 'Pozastavit';
+        document.getElementById('iconAudioModel').className = 'fa-solid fa-pause';
+        return;
+      }
+      window.speechSynthesis.cancel();
+      uttModel = new SpeechSynthesisUtterance(text);
+      uttModel.lang = 'cs-CZ';
+      uttModel.rate = 0.9;
+      uttModel.onend = () => {
+        audioModelPlaying = false; audioModelPaused = false;
+        document.getElementById('txtAudioModel').innerText = 'Přehrát';
+        document.getElementById('iconAudioModel').className = 'fa-solid fa-play';
+      };
+      window.speechSynthesis.speak(uttModel);
+      audioModelPlaying = true; audioModelPaused = false;
+      document.getElementById('txtAudioModel').innerText = 'Pozastavit';
+      document.getElementById('iconAudioModel').className = 'fa-solid fa-pause';
+    }
+
+    /* VOCABULARY GRID RENDER */
+    function setVocabFilter(cat) {
+      currentVocabCategory = cat;
+      document.querySelectorAll('.vfilter-btn').forEach(btn => {
+        btn.classList.remove('bg-sky-600', 'text-white');
+        btn.classList.add('text-slate-400');
+      });
+      const active = document.getElementById('vfilter-' + cat);
+      if (active) {
+        active.classList.add('bg-sky-600', 'text-white');
+        active.classList.remove('text-slate-400');
+      }
+      renderVocab();
+    }
+
+    function renderVocab() {
+      const grid = document.getElementById('vocabGrid');
+      const query = document.getElementById('vocabSearch').value.toLowerCase().trim();
+
+      const filtered = VOCAB_DATA.filter(item => {
+        const matchesCategory = (currentVocabCategory === 'all') || (item.category === currentVocabCategory);
+        const matchesSearch = item.cz.toLowerCase().includes(query) || 
+                              item.en.toLowerCase().includes(query) || 
+                              item.ex.toLowerCase().includes(query) ||
+                              item.gen.toLowerCase().includes(query);
+        return matchesCategory && matchesSearch;
+      });
+
+      if (filtered.length === 0) {
+        grid.innerHTML = `<div class="col-span-full py-12 text-center text-slate-500 text-xs">Žádná slovíčka neodpovídají vyhledávání.</div>`;
+        return;
+      }
+
+      grid.innerHTML = filtered.map(item => `
+        <div class="glass-card glass-card-hover rounded-2xl p-4 border border-slate-800 transition flex flex-col justify-between space-y-3">
+          <div>
+            <div class="flex items-start justify-between gap-2">
+              <div class="flex items-center gap-2">
+                <button onclick="speakText('${item.cz}')" class="w-8 h-8 rounded-lg bg-sky-500/20 hover:bg-sky-500/40 text-sky-400 border border-sky-500/30 transition flex items-center justify-center flex-shrink-0">
+                  <i class="fa-solid fa-volume-high text-xs"></i>
+                </button>
+                <h3 class="font-bold text-white text-sm sm:text-base leading-snug">${item.cz}</h3>
+              </div>
+              <span class="text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded-full bg-slate-800 text-slate-400 border border-slate-700">${item.pos}</span>
+            </div>
+            <p class="text-xs text-sky-300 font-medium mt-1.5">${item.en}</p>
+          </div>
+
+          <div class="bg-slate-900/90 rounded-xl p-2.5 border border-slate-800/80 text-xs space-y-1">
+            <div class="text-slate-400 font-mono text-[11px]"><strong class="text-amber-400">Genitiv / Tvar:</strong> ${item.gen}</div>
+            <div class="text-slate-300 italic">"${item.ex}"</div>
+          </div>
+        </div>
+      `).join('');
+    }
+
+    function filterVocab() { renderVocab(); }
+
+    /* RENDER QUIZ */
+    function renderQuiz() {
+      const container = document.getElementById('quizContainer');
+      container.innerHTML = QUIZ_DATA.map((q, qIdx) => `
+        <div class="bg-slate-900/90 p-4 rounded-xl border border-slate-800 space-y-3">
+          <p class="text-xs sm:text-sm font-bold text-white">${q.q}</p>
+          <div class="space-y-2">
+            ${q.opts.map((opt, oIdx) => `
+              <button onclick="checkQuizAnswer(${qIdx},${oIdx})" id="quiz_${qIdx}_${oIdx}" class="w-full text-left px-3 py-2 rounded-lg bg-slate-800 hover:bg-slate-700 text-xs text-slate-200 border border-slate-700 transition">
+                ${opt}
+              </button>
+            `).join('')}
+          </div>
+          <p id="quizFeedback_${qIdx}" class="text-[11px] font-bold hidden"></p>
+        </div>
+      `).join('');
+    }
+
+    function checkQuizAnswer(qIdx, oIdx) {
+      const q = QUIZ_DATA[qIdx];
+      const feedback = document.getElementById(`quizFeedback_${qIdx}`);
+      feedback.classList.remove('hidden', 'text-emerald-400', 'text-rose-400');
+
+      q.opts.forEach((_, i) => {
+        document.getElementById(`quiz_${qIdx}_${i}`).className = "w-full text-left px-3 py-2 rounded-lg bg-slate-800 text-xs text-slate-200 border border-slate-700";
+      });
+
+      const selectedBtn = document.getElementById(`quiz_${qIdx}_${oIdx}`);
+      if (oIdx === q.ans) {
+        selectedBtn.className = "w-full text-left px-3 py-2 rounded-lg bg-emerald-950 border border-emerald-500 text-emerald-300 text-xs font-bold";
+        feedback.innerText = "✓ Správně!";
+        feedback.classList.add('text-emerald-400');
+      } else {
+        selectedBtn.className = "w-full text-left px-3 py-2 rounded-lg bg-rose-950 border border-rose-500 text-rose-300 text-xs font-bold";
+        feedback.innerText = "✗ Špatně, zkuste to znovu.";
+        feedback.classList.add('text-rose-400');
+      }
+    }
+
+    /* EXERCISE A DRILLS RENDER */
+    function renderExerciseA() {
+      const container = document.getElementById('exAList');
+      container.innerHTML = DRILLS_EX_A.map((item, idx) => {
+        const parts = item.prompt.split('____');
+        const cleanAudio = parts.join(item.ans).replace(/\s*\([^)]*\)/g, '');
+        const dynamicWidth = Math.max(140, item.ans.length * 11);
+
+        return `
+          <div class="glass-card rounded-xl p-4 sm:p-5 border border-slate-800 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+            <div class="text-sm sm:text-base text-slate-100 leading-relaxed flex-1">
+              <span class="font-bold text-sky-400 mr-2 text-base sm:text-lg">${idx + 1}.</span>
+              ${parts[0]}
+              <input type="text" id="exA_input_${idx}" data-ans="${item.ans}" 
+                    style="width: ${dynamicWidth}px;" 
+                    class="exA-field bg-slate-900 border border-slate-700 rounded-xl px-3 py-1.5 text-sm sm:text-base text-sky-300 font-bold text-center focus:outline-none focus:border-sky-500 max-w-[300px] shadow-inner my-1" 
+                    placeholder="...">
+              ${parts[1] || ''}
+            </div>
+            <div class="flex items-center gap-3 self-end sm:self-center flex-shrink-0">
+              <span class="text-xs text-amber-400/90 font-mono bg-slate-900/90 px-3 py-1.5 rounded-lg border border-slate-800">${item.hint}</span>
+              <button onclick="speakText('${cleanAudio.replace(/'/g, "\\'")}')" class="w-9 h-9 rounded-lg bg-slate-800 hover:bg-sky-600/30 text-slate-300 hover:text-sky-300 border border-slate-700 transition flex items-center justify-center">
+                <i class="fa-solid fa-volume-high text-sm"></i>
+              </button>
+            </div>
+          </div>
+        `;
+      }).join('');
+    }
+
+    function checkAllExA() {
+      let correct = 0;
+      DRILLS_EX_A.forEach((item, idx) => {
+        const inp = document.getElementById(`exA_input_${idx}`);
+        const ok = (inp.value.trim().toLowerCase() === item.ans.toLowerCase());
+        inp.className = ok ? "exA-field bg-emerald-950 border border-emerald-500 text-emerald-300 rounded-xl px-3 py-1.5 text-sm font-bold text-center" : "exA-field bg-rose-950 border border-rose-500 text-rose-300 rounded-xl px-3 py-1.5 text-sm font-bold text-center";
+        if (ok) correct++;
+      });
+
+      const pct = Math.round((correct / DRILLS_EX_A.length) * 100);
+      document.getElementById('exAProgressBar').style.width = pct + '%';
+      document.getElementById('exAScoreText').innerText = `${correct} / ${DRILLS_EX_A.length} Správně (${pct}%)`;
+    }
+
+    function revealAllExA() {
+      DRILLS_EX_A.forEach((item, idx) => {
+        const inp = document.getElementById(`exA_input_${idx}`);
+        inp.value = item.ans;
+        inp.className = "exA-field bg-emerald-950 border border-emerald-500 text-emerald-300 rounded-xl px-3 py-1.5 text-sm font-bold text-center";
+      });
+      document.getElementById('exAProgressBar').style.width = '100%';
+      document.getElementById('exAScoreText').innerText = `${DRILLS_EX_A.length} / ${DRILLS_EX_A.length} Správně (100%)`;
+    }
+
+    function resetExA() {
+      DRILLS_EX_A.forEach((item, idx) => {
+        const inp = document.getElementById(`exA_input_${idx}`);
+        inp.value = '';
+        inp.className = "exA-field bg-slate-900 border border-slate-700 rounded-xl px-3 py-1.5 text-sm text-sky-300 font-bold text-center focus:outline-none focus:border-sky-500";
+      });
+      document.getElementById('exAProgressBar').style.width = '0%';
+      document.getElementById('exAScoreText').innerText = `0 / ${DRILLS_EX_A.length} Správně`;
+    }
+
+    /* EXERCISE B SCENARIOS */
+    function renderExerciseB() {
+      const grid = document.getElementById('exBGrid');
+      grid.innerHTML = SCENARIOS_EX_B.map((item, idx) => `
+        <div class="glass-card rounded-2xl p-6 border border-slate-800 space-y-4">
+          <div class="flex items-center justify-between gap-2">
+            <h3 class="font-bold text-white text-lg sm:text-xl leading-snug">${item.q}</h3>
+            <button onclick="speakText('${item.b1.replace(/'/g, "\\'")}')" class="w-10 h-10 rounded-xl bg-slate-800 hover:bg-sky-600/30 text-slate-300 hover:text-sky-300 border border-slate-700 transition flex items-center justify-center flex-shrink-0">
+              <i class="fa-solid fa-volume-high text-base"></i>
+            </button>
+          </div>
+
+          <div class="text-sm text-rose-300/90 bg-rose-950/40 p-3 rounded-xl border border-rose-900/40">
+            <strong>A2 Základ:</strong> "${item.a2}"
+          </div>
+
+          <div class="text-xs sm:text-sm text-sky-300/90 font-mono bg-sky-950/30 p-3 rounded-xl border border-sky-900/40">
+            <i class="fa-solid fa-sitemap mr-1.5"></i> <strong>Struktura věty:</strong> ${item.structure}
+          </div>
+
+          <button onclick="toggleExBBlocks(${idx})" class="text-xs font-semibold text-amber-400 hover:text-amber-300 flex items-center gap-1.5 py-1">
+            <i class="fa-solid fa-lightbulb"></i> 💡 Ukázat / skrýt nápovědu (Slovíčka)
+          </button>
+
+          <div id="exB_blocks_${idx}" class="hidden text-xs text-amber-300/90 font-medium bg-amber-950/40 p-3 rounded-xl border border-amber-900/40">
+            <i class="fa-solid fa-cubes mr-1.5"></i> <strong>Slovní zásoba:</strong> ${item.blocks}
+          </div>
+
+          <textarea id="exB_user_${idx}" rows="2" placeholder="Napište B1 větu..." class="w-full bg-slate-900 border border-slate-700 rounded-xl p-3 text-sm text-slate-100 focus:outline-none focus:border-sky-500 font-mono"></textarea>
+
+          <button onclick="toggleExBModel(${idx})" class="text-xs font-semibold text-sky-400 hover:text-sky-300 flex items-center gap-1.5 py-1">
+            <i class="fa-solid fa-eye"></i> Ukázat vzorovou B1 větu
+          </button>
+
+          <div id="exB_model_${idx}" class="hidden text-sm text-emerald-300 bg-emerald-950/50 p-3 rounded-xl border border-emerald-800/50 font-mono">
+            <strong>Vzorová B1 věta:</strong> "${item.b1}"
+          </div>
+        </div>
+      `).join('');
+    }
+
+    function toggleExBBlocks(idx) {
+      document.getElementById(`exB_blocks_${idx}`).classList.toggle('hidden');
+    }
+
+    function toggleExBModel(idx) {
+      document.getElementById(`exB_model_${idx}`).classList.toggle('hidden');
+    }
+
+    /* STUDENT EDITOR LOGIC */
+    function handleEssayInput() {
+      const text = document.getElementById('studentEssayText').value.trim();
+      const words = text ? text.split(/\s+/).length : 0;
+      const badge = document.getElementById('essayWordBadge');
+      
+      badge.innerText = `${words} / 150–180 slov`;
+
+      if (words >= 150 && words <= 180) {
+        badge.className = "px-3 py-1.5 rounded-xl bg-emerald-950 border border-emerald-500 text-emerald-300 font-mono font-bold text-xs";
+      } else if (words > 180) {
+        badge.className = "px-3 py-1.5 rounded-xl bg-rose-950 border border-rose-500 text-rose-300 font-mono font-bold text-xs";
+      } else {
+        badge.className = "px-3 py-1.5 rounded-xl bg-slate-900 border border-slate-700 text-amber-400 font-mono font-bold text-xs";
+      }
+
+      localStorage.setItem('cz_b1_l5_essay', text);
+      updateHomeworkPack();
+    }
+
+    function clearStudentEssay() {
+      if (confirm('Opravdu chcete smazat napsaný text eseje?')) {
+        document.getElementById('studentEssayText').value = '';
+        handleEssayInput();
+      }
+    }
+
+    function copyStudentEssayOnly() {
+      const text = document.getElementById('studentEssayText').value.trim();
+      if (!text) {
+        alert('Nejprve napište svou esej!');
+        return;
+      }
+      navigator.clipboard.writeText(text).then(() => {
+        alert('Esej byla úspěšně zkopírována!');
+      });
+    }
+
+    /* TEACHER LIVE NOTES SYNC & HOMEWORK PACK */
+    function syncTeacherNotes(sender) {
+      const text = sender.value;
+      localStorage.setItem('cz_b1_l5_notes', text);
+      document.querySelectorAll('.teacherNotesArea').forEach(area => {
+        if (area !== sender) area.value = text;
+      });
+      updateHomeworkPack();
+    }
+
+    function updateHomeworkPack() {
+      const savedNotes = localStorage.getItem('cz_b1_l5_notes');
+      const notes = (savedNotes && savedNotes.trim() !== '') ? savedNotes : "žádné konkrétní chyby nezaznamenány";
+      
+      const savedEssay = localStorage.getItem('cz_b1_l5_essay');
+      const essay = (savedEssay && savedEssay.trim() !== '') ? savedEssay : "(Esej zatím nebyla napsána)";
+
+      const pack = `CZECH B1 MASTERY - LESSON 5 SUMMARY & HOMEWORK
+Téma: Esej - Srovnání dopravních prostředků
+
+==================================================
+1. DOMÁCÍ ÚKOL – ZADÁNÍ A OSNOVA:
+Téma: Srovnání dopravních prostředků (150–180 slov)
+Napiš esej, ve které porovnáš různé způsoby cestování (např. autem, vlakem, autobusem, letadlem, na kole apod.). Zaměř se na výhody a nevýhody jednotlivých možností. Popiš také, který dopravní prostředek používáš nejčastěji a proč.
+
+Osnova:
+1. Úvod: Proč je cestování důležité & běžné prostředky.
+2. Srovnání: Rychlost, pohodlí, cena, ekologie.
+3. Preference: Co používáš nejraději a proč.
+4. Závěr: Shrnutí a přání do budoucna.
+
+Pokyny pro odevzdání:
+Do komentáře ve sdíleném dokumentu napiš: @ucitellukas@gmail.com a zaškrtni assign task.
+
+==================================================
+2. POZNÁMKY A OPRAVY Z HODINY (TEACHER LIVE NOTES):
+${notes}
+
+==================================================
+3. SLOVNÍ ZÁSOBA CÍLOVÉ LEKCE (21 VÝRAZŮ):
+1. dopravní prostředek -> dopravního prostředku
+2. výhoda a nevýhoda -> výhody a nevýhody
+3. dát přednost -> dávání přednosti
+4. životní prostředí -> životního prostředí
+5. dopravní zácpa -> dopravní zácpy
+6. cena benzínu -> ceny benzínu
+7. městská hromadná doprava (MHD) -> městské hromadné dopravy
+8. kratší vzdálenost -> kratší vzdálenosti
+9. dlouhá vzdálenost -> dlouhé vzdálenosti
+10. rychlovlak -> rychlovlaku
+11. parkovací místo -> parkovacího místa
+12. zpoždění autobusu -> zpoždění autobusu
+13. ekologický způsob -> ekologického způsobu
+14. pohodlí při cestě -> pohodlí při cestě
+15. bezpečnost na silnici -> bezpečnosti na silnici
+16. dopravní spojení -> dopravního spojení
+17. jízdní řád -> jízdního řádu
+18. elektromobil -> elektromobilu
+19. pravidelný vlak -> pravidelného vlaku
+20. cena letenky -> ceny letenky
+21. kombinovat dopravu -> kombinování dopravy
+
+==================================================
+4. NAPSANÁ ESEJ STUDENTEM:
+Text: Srovnání dopravních prostředků
+
+${essay}`;
+
+      const hwElem = document.getElementById('homeworkTextarea');
+      if (hwElem) hwElem.value = pack;
+    }
+
+    function copyHomeworkToClipboard() {
+      const textarea = document.getElementById('homeworkTextarea');
+      textarea.select();
+      document.execCommand('copy');
+      alert('Homework summary copied to clipboard!');
+    }
+
+    /* INIT */
+    window.onload = () => {
+      renderVocab();
+      renderModelEssay();
+      renderQuiz();
+      renderExerciseA();
+      renderExerciseB();
+
+      const savedNotes = localStorage.getItem('cz_b1_l5_notes');
+      if (savedNotes) {
+        document.querySelectorAll('.teacherNotesArea').forEach(area => {
+          area.value = savedNotes;
+        });
+      }
+
+      const savedEssay = localStorage.getItem('cz_b1_l5_essay');
+      if (savedEssay) {
+        document.getElementById('studentEssayText').value = savedEssay;
+        handleEssayInput();
+      }
+
+      updateHomeworkPack();
+    };
+  </script>
+</body>
+</html>
