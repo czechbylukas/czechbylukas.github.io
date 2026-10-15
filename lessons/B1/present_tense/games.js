@@ -15,41 +15,60 @@ export function startMultipleChoice(state) {
     }
 
     const q = questions[currentIndex];
-    const correct = q.answers[0];
-    const currentSynonym = q.synonym ? q.synonym : "";
+    const rawCorrect = q.answers[0].trim();
+    const sentenceHasReflexive = /\b(se|si)\b/i.test(q.text);
 
-    let wrongOptions = [];
-    if (state.data && state.data.length > 0) {
-      const normalizedCorrect = normalize(correct);
-      const normalizedSynonym = normalize(currentSynonym);
-      const correctWordCount = correct.split(" ").length;
+    // Clean reflexive particle from target answer if sentence already contains 'se'/'si'
+    const cleanCorrect = sentenceHasReflexive 
+      ? rawCorrect.replace(/\s+(se|si)$/i, "").trim() 
+      : rawCorrect;
 
-      const pool = state.data.map(item => item.cs).filter(word => {
-          const n = normalize(word);
-          return n !== normalizedCorrect && (normalizedSynonym === "" || n !== normalizedSynonym);
-      });
+    let options = [];
 
-      wrongOptions = pool.filter(word => Math.abs(word.split(" ").length - correctWordCount) <= 2);
-      if (wrongOptions.length < 3) {
-        const remaining = pool.filter(word => !wrongOptions.includes(word));
-        wrongOptions = [...wrongOptions, ...remaining];
+    // 1. Always prioritize q.forms when available
+    if (q.forms && q.forms.length >= 4) {
+      options = [...q.forms];
+    } else {
+      // 2. Fallback: filter matching forms strictly from state.data
+      const targetInf = (q.infinitiv || "").trim();
+      const baseWord = targetInf.replace(/^ne/i, "").split(" ")[0];
+
+      let sameVerbForms = state.data
+        .filter(item => {
+          if (item.person === "infinitive") return false;
+          const itemRoot = item.cs.replace(/^ne/i, "").split(" ")[0];
+          return itemRoot.startsWith(baseWord.substring(0, 3)) || baseWord.startsWith(itemRoot.substring(0, 3));
+        })
+        .map(item => item.cs);
+
+      if (!sameVerbForms.includes(rawCorrect)) {
+        sameVerbForms.unshift(rawCorrect);
       }
+
+      options = Array.from(new Set(sameVerbForms)).slice(0, 4);
     }
 
-    let randomWrong = [];
-    while (randomWrong.length < 3 && wrongOptions.length > 0) {
-      const idx = Math.floor(Math.random() * wrongOptions.length);
-      randomWrong.push(wrongOptions[idx]);
-      wrongOptions.splice(idx, 1);
+    // Strip reflexive 'se'/'si' from options if already present in prompt sentence
+    if (sentenceHasReflexive) {
+      options = options.map(opt => opt.replace(/\s+(se|si)$/i, "").trim());
     }
 
-    let options = [correct, ...randomWrong].sort(() => Math.random() - 0.5);
+    // Ensure correct choice is present
+    if (!options.includes(cleanCorrect)) {
+      options[0] = cleanCorrect;
+    }
+
+    // Deduplicate and shuffle choices
+    options = Array.from(new Set(options)).sort(() => Math.random() - 0.5);
 
     container.innerHTML = `
-      <h3>Multiple Choice</h3>
-      <p style="font-size: 1.5rem;">${q.text.replace("{{gap}}", "___")}</p>
-      <div id="options" style="display:flex; flex-direction:column; gap:10px; max-width: 300px; margin: 20px auto;">
-        ${options.map(opt => `<button class="game-btn opt">${opt}</button>`).join("")}
+      <h3>Multiple Choice Quiz</h3>
+      <p style="font-size: 1.5rem;">
+        ${q.text.replace("{{gap}}", "___")} 
+        <span style="font-size: 0.85em; color: #64748b;">(${q.infinitiv})</span>
+      </p>
+      <div id="options" style="display:flex; flex-direction:column; gap:10px; max-width: 320px; margin: 20px auto;">
+        ${options.map(opt => `<button class="game-btn opt" style="padding:12px; font-size:1.1rem; cursor:pointer;">${opt}</button>`).join("")}
       </div>
       <p>Otázka ${currentIndex + 1} / ${questions.length}</p>
       <p id="feedback" style="font-weight:bold; height:20px;"></p>
@@ -59,16 +78,16 @@ export function startMultipleChoice(state) {
     container.querySelectorAll(".opt").forEach(btn => {
       btn.onclick = () => {
         container.querySelectorAll(".opt").forEach(b => b.disabled = true);
-        if (normalize(btn.textContent) === normalize(correct)) {
+        if (btn.textContent.trim() === cleanCorrect) {
           feedback.textContent = "✅ Správně!";
           feedback.style.color = "green";
           score++;
         } else {
-          feedback.textContent = `❌ Špatně. Správná odpověď: ${correct}`;
+          feedback.textContent = `❌ Špatně. Správná odpověď: ${cleanCorrect}`;
           feedback.style.color = "red";
         }
         currentIndex++;
-        setTimeout(showQuestion, 2000);
+        setTimeout(showQuestion, 1800);
       };
     });
   }
@@ -83,7 +102,6 @@ export function startFillGap(state) {
         : [...(state.questions || [])];
 
     if (questions.length === 0) return;
-
     questions.sort(() => Math.random() - 0.5);
 
     let currentIndex = 0;
@@ -93,49 +111,29 @@ export function startFillGap(state) {
     function handleCheck() {
         const input = container.querySelector(".gap");
         const feedback = document.getElementById("feedback");
-        const strictToggle = document.getElementById("strictMode");
-        const isStrict = strictToggle.checked;
 
         if (!input) return;
 
         const userRaw = input.value.trim();
-        const correctRaw = input.dataset.surface.trim();
+        const allowedAnswers = JSON.parse(input.dataset.answers || "[]");
 
-        const userNormalized = normalize(userRaw);
-        const correctNormalized = normalize(correctRaw);
-
-        const isCorrect = isStrict
-            ? userRaw === correctRaw
-            : userNormalized === correctNormalized;
+        const isCorrect = allowedAnswers.some(ans => ans.trim() === userRaw);
 
         if (isCorrect) {
             input.style.borderColor = "green";
             input.style.backgroundColor = "#eaffea";
-
             feedback.textContent = "✅ Výborně!";
-
+            feedback.style.color = "green";
             score++;
             currentIndex++;
-
-            setTimeout(showQuestion, 1000);
-
+            setTimeout(showQuestion, 1200);
         } else {
             input.style.borderColor = "red";
             input.style.backgroundColor = "#ffeaea";
-
-            if (
-                isStrict &&
-                userRaw.toLowerCase() === correctRaw.toLowerCase()
-            ) {
-                feedback.textContent =
-                    "❌ Téměř! Pozor na velká písmena nebo diakritiku.";
-            } else {
-                feedback.textContent = isStrict
-                    ? "❌ Špatně. Zkontrolujte detaily."
-                    : "❌ Zkuste to znovu.";
-            }
-
-            input.focus();
+            feedback.textContent = `❌ Špatně. Správná odpověď: ${allowedAnswers.join(" / ")}`;
+            feedback.style.color = "red";
+            currentIndex++;
+            setTimeout(showQuestion, 2200);
         }
     }
 
@@ -149,23 +147,11 @@ export function startFillGap(state) {
         }
 
         const q = questions[currentIndex];
-
-        // Replace {{gap}} with a visible blank
         const sentence = q.text.replace("{{gap}}", "_____");
-
-        // Get infinitive
-        const infinitive = Array.isArray(q.infinitiv)
-            ? q.infinitiv[0]
-            : q.infinitiv;
+        const infinitive = Array.isArray(q.infinitiv) ? q.infinitiv[0] : q.infinitiv;
+        const answersJson = JSON.stringify(q.answers || [q.cs]);
 
         container.innerHTML = `
-            <div style="margin-bottom: 15px;">
-                <label>
-                    <input type="checkbox" id="strictMode">
-                    Strict Mode
-                </label>
-            </div>
-
             <h2>
                 ${sentence}
                 <span style="font-size: 0.8em; color: #64748b;">
@@ -173,37 +159,30 @@ export function startFillGap(state) {
                 </span>
             </h2>
 
-            <div>
+            <div style="margin: 20px 0;">
                 <input
                     class="gap"
-                    data-surface="${q.answers[0]}"
+                    data-answers='${answersJson}'
                     autocomplete="off"
                     style="
                         font-size: 1.5rem;
                         padding: 10px;
                         text-align: center;
+                        border: 2px solid #ccc;
+                        border-radius: 6px;
                     "
                 >
             </div>
 
-            <button
-                id="check"
-                class="game-btn"
-                style="margin-top:20px;"
-            >
+            <button id="check" class="game-btn" style="padding: 10px 25px; font-size: 1.1rem; cursor: pointer;">
                 Kontrola
             </button>
 
-            <p
-                id="feedback"
-                style="margin-top:20px; font-weight:bold; height:20px;"
-            ></p>
+            <p id="feedback" style="margin-top:20px; font-weight:bold; height:20px;"></p>
         `;
 
         document.getElementById("check").onclick = handleCheck;
-
         const input = container.querySelector(".gap");
-
         input.focus();
 
         input.onkeydown = (e) => {
@@ -217,32 +196,41 @@ export function startFillGap(state) {
     showQuestion();
 }
 
-// --- MATCH GAME ---
+// --- MATCH GAME (3 Random Verbs - All Forms) ---
 export function startMatchGame(state) {
   const container = document.getElementById("game");
   const lang = state.language || "en";
-  const seen = new Set();
-  const filteredData = [];
 
-  state.data.forEach(w => {
-    const main = w.cs.trim().toLowerCase();
-    const syn = (w.synonym || "").trim().toLowerCase();
-    if (!seen.has(main) && (!syn || !seen.has(syn))) {
-      filteredData.push({
-        en: w[lang] || w.en,
-        csDisplay: (syn && syn !== "") ? `${w.cs} / ${w.synonym}` : w.cs
-      });
-      seen.add(main);
-      if (syn) seen.add(syn);
-    }
+  const infinitives = Array.from(new Set(
+    state.data
+      .filter(w => w.person === "infinitive")
+      .map(w => w.cs)
+  )).sort(() => Math.random() - 0.5);
+
+  const selectedInfinitives = infinitives.slice(0, 3);
+
+  const filteredData = state.data.filter(w => {
+    return selectedInfinitives.some(inf => {
+      const root = inf.split(" ")[0].substring(0, 3);
+      return w.cs.startsWith(root);
+    });
   });
 
-  const leftItems = filteredData.map(d => d.en);
-  const rightItems = filteredData.map(d => d.csDisplay).sort(() => Math.random() - 0.5);
+  const leftItems = filteredData.map((d, index) => ({
+    id: `${d.cs}-${index}`,
+    matchId: d.cs,
+    text: d[lang] || d.en
+  })).sort(() => Math.random() - 0.5);
+
+  const rightItems = filteredData.map((d, index) => ({
+    id: `${d.cs}-${index}`,
+    matchId: d.cs,
+    text: d.synonym ? `${d.cs} / ${d.synonym}` : d.cs
+  })).sort(() => Math.random() - 0.5);
 
   container.innerHTML = `
-    <h2>Match Game</h2>
-    <div style="display: flex; gap: 20px; justify-content: center; margin-top:20px;">
+    <h2>Match Cards (3 slovesa - komplet tvary)</h2>
+    <div style="display: flex; gap: 20px; justify-content: center; margin-top:20px; flex-wrap: wrap;">
       <div id="left-grid" style="display:flex; flex-direction:column; gap:10px;"></div>
       <div id="right-grid" style="display:flex; flex-direction:column; gap:10px;"></div>
     </div>
@@ -254,17 +242,19 @@ export function startMatchGame(state) {
   const result = document.getElementById("result");
   let selected = null;
 
-  function createWordDiv(word, side) {
+  function createWordDiv(item, side) {
     const div = document.createElement("div");
-    div.textContent = word;
+    div.textContent = item.text;
+    div.dataset.id = item.matchId;
     div.className = "match-box";
+    div.style.cssText = "padding:10px 20px; background:#f1c40f; border-radius:6px; cursor:pointer; min-width:180px; text-align:center;";
     div.dataset.matched = "false";
     div.onclick = () => handleBoxClick(div, side);
     return div;
   }
 
-  leftItems.forEach(word => leftCol.appendChild(createWordDiv(word, "left")));
-  rightItems.forEach(word => rightCol.appendChild(createWordDiv(word, "right")));
+  leftItems.forEach(item => leftCol.appendChild(createWordDiv(item, "left")));
+  rightItems.forEach(item => rightCol.appendChild(createWordDiv(item, "right")));
 
   function handleBoxClick(div, side) {
     if (div.dataset.matched === "true") return;
@@ -285,7 +275,7 @@ export function startMatchGame(state) {
   }
 
   function selectBox(div, side) {
-    selected = { element: div, word: div.textContent, side: side };
+    selected = { element: div, id: div.dataset.id, side: side };
     div.style.outline = "3px solid #2c3e50";
   }
 
@@ -295,11 +285,9 @@ export function startMatchGame(state) {
   }
 
   function checkMatch(secondBox) {
-    const word1 = selected.word;
-    const word2 = secondBox.textContent;
-    const isCorrect = filteredData.some(d => (d.en === word1 && d.csDisplay === word2) || (d.en === word2 && d.csDisplay === word1));
-
+    const isCorrect = (selected.id === secondBox.dataset.id);
     const firstBox = selected.element;
+
     if (isCorrect) {
       [firstBox, secondBox].forEach(el => {
         el.style.background = "#27ae60";
@@ -309,7 +297,7 @@ export function startMatchGame(state) {
       });
       selected = null;
       if (document.querySelectorAll('.match-box[data-matched="false"]').length === 0) {
-        result.textContent = "🎉 Vše správně!";
+        result.textContent = "🎉 Vše správně spojeno!";
       }
     } else {
       [firstBox, secondBox].forEach(el => el.style.background = "#e74c3c");
