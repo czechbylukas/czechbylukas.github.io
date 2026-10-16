@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html lang="cs" class="h-full">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Czech Question Words Practice</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-slate-900 text-slate-100 min-h-screen w-full flex flex-col items-center justify-center p-2 sm:p-6">
+    <main class="relative w-full max-w-2xl h-[88vh] max-h-[720px] min-h-[600px] bg-slate-800 border border-slate-700 rounded-2xl p-4 sm:p-6 shadow-2xl flex flex-col overflow-hidden">
+        <section id="demoModal" class="absolute inset-0 bg-slate-900/95 backdrop-blur-md z-40 p-6 flex flex-col overflow-y-auto rounded-2xl">
+            <div id="levelSelectStep" class="flex flex-col h-full items-center text-center">
+                <div class="w-full h-24 rounded-xl overflow-hidden border border-slate-700 relative shrink-0 mb-3">
+                    <img src="https://images.unsplash.com/photo-1534447677768-be436bb09401?auto=format&fit=crop&w=800&q=80" alt="" class="w-full h-full object-cover opacity-60">
+                    <div class="absolute inset-0 flex items-center justify-center bg-slate-900/40">
+                        <span class="text-2xl font-extrabold text-amber-400 tracking-wider">🇨🇿 ❓</span>
+                    </div>
+                </div>
+                <h1 class="text-xl font-extrabold text-amber-400">Procvičování tázacích slov</h1>
+                <p class="text-slate-400 text-sm mt-1">Vyberte úroveň a procvičte si české otázky.</p>
+                <div id="levelCards" class="grid grid-cols-2 sm:grid-cols-3 gap-2.5 w-full my-auto py-3"></div>
+            </div>
+
+            <div id="demoVocabStep" class="hidden flex flex-col h-full justify-between">
+                <div class="min-h-0 flex flex-col">
+                    <div id="mistakeWarningBanner" class="hidden bg-amber-500/20 border-2 border-amber-400 rounded-xl p-3 mb-3 text-center">
+                        <div class="text-amber-300 font-extrabold text-base">🙈 Zopakujte si slovíčka</div>
+                        <div class="text-amber-200 text-xs font-medium">Prohlédněte si významy a pokračujte v procvičování.</div>
+                    </div>
+                    <div class="flex justify-between items-center border-b border-slate-700 pb-2 mb-3 shrink-0">
+                        <h2 id="demoTitle" class="text-lg font-bold text-amber-400"></h2>
+                    </div>
+                    <div id="demoCardsGrid" class="grid grid-cols-2 gap-3 overflow-y-auto pr-1 pb-2"></div>
+                </div>
+                <div class="pt-3 border-t border-slate-700 flex gap-2 shrink-0">
+                    <button type="button" onclick="resetLevelSelection()" class="w-1/3 bg-slate-700 hover:bg-slate-600 text-slate-200 font-bold py-2.5 rounded-xl text-sm transition">
+                        Zpět
+                    </button>
+                    <button type="button" onclick="startPracticeApp()" class="w-2/3 bg-blue-600 hover:bg-blue-500 text-white font-bold py-2.5 rounded-xl text-sm transition">
+                        Start
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <section id="gameScreen" class="hidden h-full flex flex-col justify-between overflow-hidden">
+            <div class="flex items-center justify-between border-b border-slate-700/80 pb-2 h-10 shrink-0 gap-2">
+                <button type="button" onclick="showLevelSelection()" class="text-xs bg-slate-700 hover:bg-slate-600 text-slate-200 px-2 py-1 rounded-md border border-slate-600 transition shrink-0">
+                    🏠 Úrovně
+                </button>
+                <span id="levelName" class="text-xs sm:text-sm font-bold tracking-wider text-amber-400 uppercase truncate"></span>
+                <div class="flex items-center space-x-2 text-[11px] sm:text-xs font-semibold shrink-0">
+                    <span id="scoreCounter" class="bg-slate-900 border border-slate-700 px-2 py-1 rounded-md text-blue-300">⭐ Skóre: 0/0</span>
+                    <span id="streakCounter" class="bg-slate-900 border border-slate-700 px-2 py-1 rounded-md text-amber-400">🔥 Série: 0/5</span>
+                </div>
+            </div>
+
+            <div class="flex-1 my-3 flex flex-col justify-center gap-3 overflow-hidden">
+                <div class="bg-slate-900 border border-slate-700 rounded-xl p-3 sm:p-4 min-h-[170px] flex items-center gap-4 text-center">
+                    <img id="questionImage" alt="" class="w-28 h-28 sm:w-36 sm:h-36 object-cover rounded-lg border border-slate-700 shrink-0 bg-slate-800">
+                    <div class="flex-1">
+                        <div id="questionInstruction" class="text-xs uppercase tracking-wider text-slate-400 mb-3">Jak se řekne česky?</div>
+                        <div id="englishPrompt" class="text-xl sm:text-3xl font-extrabold text-amber-300"></div>
+                        <div id="stageHint" class="text-sm text-slate-400 mt-2"></div>
+                    </div>
+                </div>
+                <div id="inputWorkspace" class="flex-1 flex items-center justify-center min-h-[100px]"></div>
+            </div>
+
+            <div class="shrink-0 flex flex-col justify-end space-y-2 border-t border-slate-700/50 pt-2">
+                <div id="feedbackBox" role="status" aria-live="polite" class="min-h-[36px] py-1 rounded-xl border text-sm font-bold flex items-center justify-center px-4 transition-all opacity-0 invisible text-center"></div>
+                <button id="nextBtn" type="button" onclick="loadNextQuestion()" class="w-full h-10 bg-blue-600 hover:bg-blue-500 text-white font-bold rounded-xl transition invisible">
+                    Další otázka
+                </button>
+                <footer class="flex items-center justify-center text-[11px] text-slate-400 pt-1">
+                    <a href="https://www.hackczech.com" target="_blank" rel="noopener noreferrer" class="text-slate-300 hover:text-amber-400">
+                        🌐 Learn more Czech @ HackCzech
+                    </a>
+                </footer>
+            </div>
+        </section>
+    </main>
+
+    <script src="combinations.js"></script>
+    <script>
+        let selectedLevel = 1;
+        let exerciseModeLevel = 1;
+        let currentQuestion = null;
+        let correctCount = 0;
+        let answeredCount = 0;
+        let successStreak = 0;
+        let errorStreak = 0;
+        let isAnswered = false;
+
+        const inputWorkspace = document.getElementById('inputWorkspace');
+        const feedbackBox = document.getElementById('feedbackBox');
+        const nextBtn = document.getElementById('nextBtn');
+
+        function renderLevelCards() {
+            const grid = document.getElementById('levelCards');
+            grid.replaceChildren();
+
+            Object.entries(window.QUESTION_DATABASE.levels).forEach(([level, data]) => {
+                if (window.getQuestionWordsForLevel(level).length === 0) return;
+
+                const button = document.createElement('button');
+                button.type = 'button';
+                button.className = 'bg-slate-800 hover:bg-slate-700 border border-slate-600 p-3 rounded-xl flex flex-col items-center justify-center space-y-1 transition active:scale-95';
+                button.innerHTML = `<span class="text-2xl">${data.icon}</span><span class="font-bold text-amber-400 text-xs">${data.name}</span>`;
+                button.addEventListener('click', () => selectStartingLevel(Number(level)));
+                grid.appendChild(button);
+            });
+        }
+
+        function selectStartingLevel(level, isMistakeRecall = false) {
+            selectedLevel = level;
+            const levelData = window.QUESTION_DATABASE.levels[level];
+            document.getElementById('levelSelectStep').classList.add('hidden');
+            document.getElementById('demoVocabStep').classList.remove('hidden');
+            document.getElementById('mistakeWarningBanner').classList.toggle('hidden', !isMistakeRecall);
+            document.getElementById('demoTitle').textContent = `${levelData.icon} ${levelData.name}`;
+            renderQuestionCards();
+        }
+
+        function renderQuestionCards() {
+            const grid = document.getElementById('demoCardsGrid');
+            grid.replaceChildren();
+
+            window.getQuestionWordsForLevel(selectedLevel).forEach(question => {
+                const card = document.createElement('div');
+                card.className = 'bg-slate-800 border border-slate-700 rounded-xl p-3 flex items-center gap-3 min-h-16';
+                const image = document.createElement('img');
+                image.src = question.image;
+                image.alt = '';
+                image.loading = 'lazy';
+                image.className = 'w-12 h-12 rounded-lg object-cover border border-slate-600 shrink-0 bg-slate-900';
+                image.addEventListener('error', () => image.classList.add('hidden'), { once: true });
+                const text = document.createElement('div');
+                const czech = document.createElement('div');
+                czech.className = 'font-bold text-slate-100 text-sm';
+                czech.textContent = question.czech;
+                const english = document.createElement('div');
+                english.className = 'text-xs text-amber-400';
+                english.textContent = question.english;
+                text.append(czech, english);
+                card.append(image, text);
+                grid.appendChild(card);
+            });
+        }
+
+        function resetLevelSelection() {
+            document.getElementById('demoVocabStep').classList.add('hidden');
+            document.getElementById('levelSelectStep').classList.remove('hidden');
+        }
+
+        function showLevelSelection() {
+            document.getElementById('gameScreen').classList.add('hidden');
+            document.getElementById('demoModal').classList.remove('hidden');
+            resetLevelSelection();
+        }
+
+        function startPracticeApp() {
+            correctCount = 0;
+            answeredCount = 0;
+            successStreak = 0;
+            errorStreak = 0;
+            exerciseModeLevel = 1;
+            currentQuestion = null;
+            document.getElementById('demoModal').classList.add('hidden');
+            document.getElementById('gameScreen').classList.remove('hidden');
+            loadNextQuestion();
+        }
+
+        function pickQuestion() {
+            const questions = window.getQuestionWordsForLevel(selectedLevel);
+            if (questions.length === 0) {
+                throw new Error(`No approved question words are available for level ${selectedLevel}.`);
+            }
+            const previousId = currentQuestion && currentQuestion.id;
+            const candidates = questions.length > 1 ? questions.filter(question => question.id !== previousId) : questions;
+            return candidates[Math.floor(Math.random() * candidates.length)];
+        }
+
+        function makeOptions(question, reverse = false) {
+            const approvedQuestions = window.getQuestionWordsForLevel(selectedLevel);
+            const distractors = approvedQuestions
+                .filter(candidate => candidate.id !== question.id)
+                .sort(() => Math.random() - 0.5)
+                .slice(0, 3)
+                .map(candidate => reverse ? candidate.english : candidate.czech);
+            const correct = reverse ? question.english : question.czech;
+            return [...distractors, correct].sort(() => Math.random() - 0.5);
+        }
+
+        function loadNextQuestion() {
+            isAnswered = false;
+            currentQuestion = pickQuestion();
+            feedbackBox.className = 'min-h-[36px] py-1 rounded-xl border text-sm font-bold flex items-center justify-center px-4 transition-all opacity-0 invisible text-center';
+            nextBtn.classList.add('invisible');
+            document.getElementById('levelName').textContent = window.QUESTION_DATABASE.levels[selectedLevel].name;
+            document.getElementById('scoreCounter').textContent = `⭐ Skóre: ${correctCount}/${answeredCount}`;
+            document.getElementById('streakCounter').textContent = `🔥 Série: ${successStreak}/5`;
+            document.getElementById('levelName').textContent += ` · Obtížnost ${exerciseModeLevel}/4`;
+            const image = document.getElementById('questionImage');
+            image.src = currentQuestion.image;
+            image.alt = currentQuestion.english;
+            image.classList.remove('hidden');
+            image.onerror = () => image.classList.add('hidden');
+            const prompt = document.getElementById('englishPrompt');
+            const instruction = document.getElementById('questionInstruction');
+            const hint = document.getElementById('stageHint');
+            inputWorkspace.replaceChildren();
+
+            if (exerciseModeLevel === 1 || exerciseModeLevel === 2) {
+                const isReverseQuestion = exerciseModeLevel === 2;
+                instruction.textContent = isReverseQuestion ? 'Co to znamená?' : 'Jak se řekne česky?';
+                prompt.textContent = isReverseQuestion ? currentQuestion.czech : currentQuestion.english;
+                hint.textContent = '';
+                const options = makeOptions(currentQuestion, isReverseQuestion);
+                const grid = document.createElement('div');
+                grid.className = 'grid grid-cols-2 gap-2.5 w-full';
+                ['A', 'B', 'C', 'D'].forEach((letter, index) => {
+                    const option = options[index];
+                    const button = document.createElement('button');
+                    button.type = 'button';
+                    button.className = 'bg-slate-900 hover:bg-blue-600/30 border-2 border-slate-700 hover:border-blue-500 font-bold py-3 px-3 rounded-xl text-sm transition active:scale-95 flex items-center space-x-2 text-left';
+                    const label = document.createElement('span');
+                    label.className = 'bg-slate-800 text-amber-400 border border-slate-600 text-xs px-2 py-0.5 rounded-md font-extrabold shrink-0';
+                    label.textContent = letter;
+                    const answer = document.createElement('span');
+                    answer.textContent = option;
+                    button.append(label, answer);
+                    button.addEventListener('click', () => checkAnswer(option));
+                    grid.appendChild(button);
+                });
+                inputWorkspace.appendChild(grid);
+            } else {
+                instruction.textContent = 'Jak se řekne česky?';
+                prompt.textContent = currentQuestion.english;
+                hint.textContent = exerciseModeLevel === 3
+                    ? `Nápověda: ${currentQuestion.czech.slice(0, 1)}…`
+                    : 'Bez nápovědy';
+                const form = document.createElement('form');
+                form.className = 'flex space-x-2 w-full';
+                const input = document.createElement('input');
+                input.type = 'text';
+                input.id = 'answerInput';
+                input.autocomplete = 'off';
+                input.setAttribute('aria-label', 'Czech question word');
+                input.placeholder = exerciseModeLevel === 3
+                    ? `Tázací slovo (${currentQuestion.czech.slice(0, 1)}…)`
+                    : 'Napište česky…';
+                input.className = 'w-full bg-slate-900 border-2 border-slate-700 focus:border-amber-400 rounded-xl px-4 py-2.5 text-slate-100 font-bold outline-none text-center text-lg';
+                const submit = document.createElement('button');
+                submit.type = 'submit';
+                submit.className = 'bg-amber-500 hover:bg-amber-400 text-slate-900 font-extrabold px-5 rounded-xl text-base transition shrink-0';
+                submit.textContent = 'Zkontrolovat';
+                form.addEventListener('submit', event => {
+                    event.preventDefault();
+                    checkAnswer(input.value);
+                });
+                form.append(input, submit);
+                inputWorkspace.appendChild(form);
+                input.focus();
+            }
+        }
+
+        function checkAnswer(answer) {
+            if (isAnswered || !answer.trim()) return;
+            isAnswered = true;
+            const expectedAnswer = exerciseModeLevel === 2 ? currentQuestion.english : currentQuestion.czech;
+            const isCorrect = answer.trim().toLocaleLowerCase('cs') === expectedAnswer.toLocaleLowerCase('cs');
+            answeredCount++;
+            if (isCorrect) {
+                correctCount++;
+                successStreak++;
+                errorStreak = 0;
+                if (successStreak >= 5) {
+                    successStreak = 0;
+                    exerciseModeLevel = Math.min(exerciseModeLevel + 1, 4);
+                }
+                feedbackBox.textContent = '✓ Správně!';
+                feedbackBox.className = 'min-h-[36px] py-1 rounded-xl border border-green-600 bg-green-900/40 text-sm font-bold flex items-center justify-center px-4 text-green-200 text-center';
+            } else {
+                successStreak = 0;
+                errorStreak++;
+                if (exerciseModeLevel > 1) {
+                    exerciseModeLevel--;
+                } else if (errorStreak >= 2) {
+                    errorStreak = 0;
+                    document.getElementById('gameScreen').classList.add('hidden');
+                    document.getElementById('demoModal').classList.remove('hidden');
+                    selectStartingLevel(selectedLevel, true);
+                }
+                feedbackBox.textContent = `✗ Správná odpověď: ${expectedAnswer}`;
+                feedbackBox.className = 'min-h-[36px] py-1 rounded-xl border border-red-600 bg-red-900/40 text-sm font-bold flex items-center justify-center px-4 text-red-200 text-center';
+            }
+            document.getElementById('scoreCounter').textContent = `⭐ Skóre: ${correctCount}/${answeredCount}`;
+            document.getElementById('streakCounter').textContent = `🔥 Série: ${successStreak}/5`;
+            inputWorkspace.querySelectorAll('button, input').forEach(control => {
+                control.disabled = true;
+                control.classList.add('opacity-60');
+            });
+            nextBtn.classList.remove('invisible');
+        }
+
+        renderLevelCards();
+    </script>
+</body>
+</html>
