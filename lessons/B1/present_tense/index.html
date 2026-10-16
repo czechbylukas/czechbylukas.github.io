@@ -204,6 +204,26 @@
             transition: all 0.2s;
         }
 
+        /* Make tables responsive with horizontal scrolling on mobile */
+        .table-wrapper {
+            width: 100%;
+            overflow-x: auto;
+            -webkit-overflow-scrolling: touch; /* Smooth scrolling on iOS */
+            margin-bottom: 20px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            min-width: 500px; /* Ensures table columns don't squish too tight */
+        }
+
+        th, td {
+            padding: 8px 12px;
+            text-align: left;
+            word-break: normal;
+        }
+
 
 
 
