@@ -1,0 +1,1468 @@
+<!DOCTYPE html>
+<html lang="cs" class="h-full bg-slate-950 text-slate-100">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Czech B1 Mastery: Lekce 1 – Osobní život a rodina (Minulý čas & Rodokmen)</title>
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- FontAwesome Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <!-- Google Fonts: Inter -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Inter', 'sans-serif'],
+          },
+          colors: {
+            brand: {
+              50: '#f0f9ff',
+              100: '#e0f2fe',
+              500: '#0284c7',
+              600: '#0284c7',
+              700: '#0369a1',
+            }
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    ::-webkit-scrollbar {
+      width: 8px;
+      height: 8px;
+    }
+    ::-webkit-scrollbar-track {
+      background: rgba(15, 23, 42, 0.6);
+    }
+    ::-webkit-scrollbar-thumb {
+      background: rgba(51, 65, 85, 0.8);
+      border-radius: 4px;
+    }
+    ::-webkit-scrollbar-thumb:hover {
+      background: rgba(71, 85, 105, 1);
+    }
+    .glass-card {
+      background: rgba(30, 41, 59, 0.7);
+      backdrop-filter: blur(12px);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+    }
+    .past-token { color:inherit; background:transparent; border:0; border-radius:.25rem; padding:0 .05rem; cursor:pointer; text-decoration:none; }
+    .past-token:hover { color:inherit; background:transparent; }
+    .past-token.past-correct { color:#a7f3d0; background:#064e3b; text-decoration:underline solid #34d399; }
+    .past-token.past-incorrect { color:#94a3b8; background:#334155; }
+    .past-token.past-missed { color:#fecaca; background:#7f1d1d; text-decoration:underline solid #f87171; }
+    .past-token:disabled { cursor:default; }
+    .glass-card-hover:hover {
+      background: rgba(30, 41, 59, 0.9);
+      border-color: rgba(56, 189, 248, 0.3);
+    }
+    .no-scrollbar::-webkit-scrollbar {
+      display: none;
+    }
+    .no-scrollbar {
+      -ms-overflow-style: none;
+      scrollbar-width: none;
+    }
+  </style>
+</head>
+<body class="h-full flex flex-col font-sans bg-slate-950 text-slate-100 overflow-x-hidden">
+
+  <!-- HEADER & NAVBAR -->
+  <header class="sticky top-0 z-50 bg-slate-900/90 backdrop-blur-md border-b border-slate-800 shadow-lg">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex items-center justify-between h-16">
+        <!-- Logo / Title -->
+        <div class="flex items-center space-x-3">
+          <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-sky-500 to-indigo-600 flex items-center justify-center text-white shadow-lg shadow-sky-500/20 font-bold text-xl">
+            <i class="fa-solid fa-users text-lg"></i>
+          </div>
+          <div>
+            <h1 class="text-lg font-bold text-white leading-tight">Czech B1 Mastery</h1>
+            <p class="text-xs text-sky-400 font-medium">Lekce 1: Osobní život a rodina &amp; Minulý čas (21 výrazů)</p>
+          </div>
+        </div>
+
+        <!-- Quick Info / Audio Check -->
+        <div class="hidden md:flex items-center space-x-4 text-xs font-medium">
+          <span class="px-3 py-1.5 rounded-full bg-slate-800 border border-slate-700 text-slate-300 flex items-center gap-2">
+            <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+            Teaching Mode
+          </span>
+          <button onclick="speakText('Moji rodiče se vzali před třiceti lety a přestěhovali se do Prahy.')" class="px-3 py-1.5 rounded-lg bg-sky-600/20 hover:bg-sky-600/30 text-sky-300 border border-sky-500/30 transition flex items-center gap-1.5">
+            <i class="fa-solid fa-volume-high"></i> Audio Check
+          </button>
+        </div>
+      </div>
+
+      <!-- Navigation Tabs -->
+      <nav class="flex space-x-1 overflow-x-auto no-scrollbar border-t border-slate-800/80 py-2" id="mainTabs">
+        <button onclick="switchTab('tab-vocab')" id="btn-tab-vocab" class="tab-btn active px-4 py-2 text-xs sm:text-sm font-semibold rounded-lg text-white bg-sky-600 shadow-md shadow-sky-600/20 transition flex items-center gap-2 whitespace-nowrap">
+          <i class="fa-solid fa-book"></i> 1. Vocab &amp; Model Content
+        </button>
+        <button onclick="switchTab('tab-exA')" id="btn-tab-exA" class="tab-btn px-4 py-2 text-xs sm:text-sm font-semibold rounded-lg text-slate-400 hover:text-slate-200 hover:bg-slate-800 transition flex items-center gap-2 whitespace-nowrap">
+          <i class="fa-solid fa-pen-to-square"></i> 2. Exercise A: Gap-Fill Drills (25)
+        </button>
+        <button onclick="switchTab('tab-exB')" id="btn-tab-exB" class="tab-btn px-4 py-2 text-xs sm:text-sm font-semibold rounded-lg text-slate-400 hover:text-slate-200 hover:bg-slate-800 transition flex items-center gap-2 whitespace-nowrap">
+          <i class="fa-solid fa-wand-magic-sparkles"></i> 3. Exercise B: Sentence Upgrader
+        </button>
+        <button onclick="switchTab('tab-exC')" id="btn-tab-exC" class="tab-btn px-4 py-2 text-xs sm:text-sm font-semibold rounded-lg text-slate-400 hover:text-slate-200 hover:bg-slate-800 transition flex items-center gap-2 whitespace-nowrap">
+          <i class="fa-solid fa-sitemap"></i> 4. Interaktivní Rodokmen &amp; Příběh
+        </button>
+        <button onclick="switchTab('tab-homework')" id="btn-tab-homework" class="tab-btn px-4 py-2 text-xs sm:text-sm font-semibold rounded-lg text-slate-400 hover:text-slate-200 hover:bg-slate-800 transition flex items-center gap-2 whitespace-nowrap">
+          <i class="fa-solid fa-paper-plane"></i> 5. Homework &amp; Live Notes Area
+        </button>
+      </nav>
+    </div>
+  </header>
+
+  <!-- MAIN CONTAINER -->
+  <main class="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-6">
+
+    <!-- TAB 1: B1 VOCABULARY HUB & EXPANDED READING TEXT -->
+    <section id="tab-vocab" class="tab-content block space-y-6">
+      <div class="glass-card rounded-2xl p-5 border border-slate-800 flex flex-col md:flex-row gap-4 items-center justify-between">
+        <div>
+          <h2 class="text-xl font-bold text-white flex items-center gap-2">
+            <i class="fa-solid fa-users text-sky-400"></i> B1 Osobní život a rodina (21 výrazů)
+          </h2>
+          <p class="text-xs text-slate-400 mt-1">
+            Slovní zásoba zaměřená na rozšiřující příbuzenské vztahy, stav a nepravidelné tvary minulého času.
+          </p>
+        </div>
+        
+        <div class="flex flex-wrap items-center gap-3 w-full md:w-auto">
+          <div class="relative flex-1 md:w-64">
+            <i class="fa-solid fa-magnifying-glass absolute left-3 top-1/2 -translate-y-1/2 text-slate-500 text-sm"></i>
+            <input type="text" id="vocabSearch" oninput="filterVocab()" placeholder="Hledat výraz..." class="w-full bg-slate-900 border border-slate-700 text-slate-200 text-xs rounded-xl pl-9 pr-3 py-2 focus:outline-none focus:border-sky-500">
+          </div>
+          <div class="flex items-center bg-slate-900 border border-slate-800 p-1 rounded-xl text-xs">
+            <button onclick="setVocabFilter('all')" id="vfilter-all" class="vfilter-btn px-3 py-1 rounded-lg text-white bg-sky-600 font-medium">All (21)</button>
+            <button onclick="setVocabFilter('family')" id="vfilter-family" class="vfilter-btn px-3 py-1 rounded-lg text-slate-400 hover:text-slate-200">Rodina &amp; Vztahy</button>
+            <button onclick="setVocabFilter('status')" id="vfilter-status" class="vfilter-btn px-3 py-1 rounded-lg text-slate-400 hover:text-slate-200">Stav &amp; Léta</button>
+            <button onclick="setVocabFilter('past_verbs')" id="vfilter-past_verbs" class="vfilter-btn px-3 py-1 rounded-lg text-slate-400 hover:text-slate-200">Minulý čas (Verbs)</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Vocabulary Grid -->
+      <div id="vocabGrid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+        <!-- JS Rendered -->
+      </div>
+
+      <!-- READING & LISTENING SECTION BELOW VOCABULARY -->
+      <div class="glass-card rounded-2xl p-6 border border-slate-800 space-y-4">
+        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-slate-800 pb-4">
+          <div>
+            <h3 class="text-lg font-bold text-white flex items-center gap-2">
+              <i class="fa-solid fa-book-open text-amber-400"></i> Modelový text: Rodinná oslava a historie
+            </h3>
+          <p class="text-xs text-slate-400 mt-0.5">
+              Přečtěte si příběh a klikněte na každé sloveso v minulém čase. Po kontrole se správné tvary zvýrazní zeleně a vynechané červeně.
+            </p>
+          </div>
+          <div class="flex items-center gap-3 self-start sm:self-auto">
+            <!-- Gender Toggle -->
+            <div class="flex items-center bg-slate-900 border border-slate-700 p-1 rounded-xl text-xs">
+              <button onclick="setGender('M')" id="gender-btn-M" class="px-3 py-1 rounded-lg font-bold transition text-white bg-sky-600">Muž</button>
+              <button onclick="setGender('Z')" id="gender-btn-Z" class="px-3 py-1 rounded-lg font-bold transition text-slate-400 hover:text-white">Žena</button>
+            </div>
+            <button onclick="readStoryText()" class="px-4 py-2 bg-amber-600 hover:bg-amber-500 text-white rounded-xl text-xs font-bold transition flex items-center gap-2 shadow-lg shadow-amber-600/20">
+              <i class="fa-solid fa-volume-high"></i> Přehrát celý text
+            </button>
+          </div>
+        </div>
+
+        <div class="text-xs sm:text-sm text-slate-200 leading-relaxed font-sans space-y-3 bg-slate-900/80 p-5 rounded-xl border border-slate-800" id="storyContainer">
+          <!-- JS Rendered based on Gender -->
+        </div>
+        <div class="flex flex-wrap items-center gap-3">
+          <button onclick="finishPastTenseExercise()" id="finishPastExercise" class="px-4 py-2 bg-emerald-600 hover:bg-emerald-500 text-white rounded-xl text-xs font-bold">Zkontrolovat minulý čas</button>
+          <button onclick="renderModelStory()" class="px-4 py-2 bg-slate-800 hover:bg-slate-700 text-slate-200 rounded-xl text-xs font-bold">Zkusit znovu</button>
+          <span id="pastExerciseStatus" class="text-xs text-slate-400" aria-live="polite">Kliknuto správně: 0</span>
+        </div>
+
+        <!-- 3-Question Comprehension Quiz -->
+        <div class="pt-4 border-t border-slate-800/80 space-y-4">
+          <h4 class="text-sm font-bold text-amber-400 uppercase tracking-wider flex items-center gap-2">
+            <i class="fa-solid fa-circle-question"></i> Krátký test porozumění textu
+          </h4>
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-4 text-xs">
+            <!-- Q1 -->
+            <div class="bg-slate-900 p-4 rounded-xl border border-slate-800 space-y-2">
+              <p class="font-bold text-slate-200">1. Proč se minulou sobotu sešla celá rodina?</p>
+              <div class="space-y-1 text-slate-400">
+                <label class="flex items-center gap-2 cursor-pointer hover:text-slate-200"><input type="radio" name="q1" value="a" data-correct="true" onchange="checkQuiz()"> Měli velkou rodinnou oslavu</label>
+                <label class="flex items-center gap-2 cursor-pointer hover:text-slate-200"><input type="radio" name="q1" value="b" onchange="checkQuiz()"> Stěhovali se do nového domu v Praze</label>
+                <label class="flex items-center gap-2 cursor-pointer hover:text-slate-200"><input type="radio" name="q1" value="c" onchange="checkQuiz()"> Jeli na společnou dovolenou na Moravu</label>
+              </div>
+              <p id="q1-fb" class="font-bold text-[11px] min-h-[16px]"></p>
+            </div>
+            <!-- Q2 -->
+            <div class="bg-slate-900 p-4 rounded-xl border border-slate-800 space-y-2">
+              <p class="font-bold text-slate-200">2. Odkud přijeli bratranec a sestřenice?</p>
+              <div class="space-y-1 text-slate-400">
+                <label class="flex items-center gap-2 cursor-pointer hover:text-slate-200"><input type="radio" name="q2" value="a" data-correct="true" onchange="checkQuiz()"> Přijeli až z Olomouce</label>
+                <label class="flex items-center gap-2 cursor-pointer hover:text-slate-200"><input type="radio" name="q2" value="b" onchange="checkQuiz()"> Přijeli přímo z Prahy</label>
+                <label class="flex items-center gap-2 cursor-pointer hover:text-slate-200"><input type="radio" name="q2" value="c" onchange="checkQuiz()"> Přijeli ze zahraničí z Německa</label>
+              </div>
+              <p id="q2-fb" class="font-bold text-[11px] min-h-[16px]"></p>
+            </div>
+            <!-- Q3 -->
+            <div class="bg-slate-900 p-4 rounded-xl border border-slate-800 space-y-2">
+              <p class="font-bold text-slate-200">3. Co se stalo s dědečkem před pěti lety?</p>
+              <div class="space-y-1 text-slate-400">
+                <label class="flex items-center gap-2 cursor-pointer hover:text-slate-200"><input type="radio" name="q3" value="a" data-correct="true" onchange="checkQuiz()"> Bohužel zemřel</label>
+                <label class="flex items-center gap-2 cursor-pointer hover:text-slate-200"><input type="radio" name="q3" value="b" onchange="checkQuiz()"> Přestěhoval se do Olomouce</label>
+                <label class="flex items-center gap-2 cursor-pointer hover:text-slate-200"><input type="radio" name="q3" value="c" onchange="checkQuiz()"> Oslavil osmdesáté narozeniny</label>
+              </div>
+              <p id="q3-fb" class="font-bold text-[11px] min-h-[16px]"></p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- TAB 2: EXERCISE A (GAP-FILLS - 25 DRILLS) -->
+    <section id="tab-exA" class="tab-content hidden space-y-8">
+      <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+        
+        <!-- Left 2 Cols: Main Drills -->
+        <div class="lg:col-span-2 space-y-6">
+          <div class="glass-card rounded-2xl p-6 border border-slate-800 flex flex-col sm:flex-row items-center justify-between gap-4">
+            <div>
+              <h2 class="text-xl sm:text-2xl font-bold text-white">Exercise A: Minulý čas &amp; Pokročilá rodina (25 Drills)</h2>
+              <p class="text-sm text-slate-400 mt-1">Doplňte správné tvary minulého času a B1 příbuzenských vztahů.</p>
+            </div>
+            <div class="flex items-center gap-2">
+              <button onclick="checkAllExA()" class="px-4 py-2 bg-sky-600 hover:bg-sky-500 text-white font-bold rounded-xl text-sm transition">Check Answers</button>
+              <button onclick="revealAllExA()" class="px-4 py-2 bg-slate-800 hover:bg-slate-700 text-slate-300 font-bold rounded-xl text-sm border border-slate-700 transition">Reveal All</button>
+              <button onclick="resetExA()" class="px-3 py-2 bg-slate-900 hover:bg-slate-800 text-slate-400 rounded-xl text-sm border border-slate-800 transition"><i class="fa-solid fa-rotate-right"></i></button>
+            </div>
+          </div>
+
+          <!-- Progress Bar -->
+          <div class="glass-card rounded-xl p-4 border border-slate-800 space-y-2">
+            <div class="flex justify-between text-xs font-bold">
+              <span class="text-slate-400">Progress</span>
+              <span id="exAScoreText" class="text-sky-400">0 / 25 Correct</span>
+            </div>
+            <div class="w-full bg-slate-900 h-2.5 rounded-full overflow-hidden border border-slate-800">
+              <div id="exAProgressBar" class="bg-gradient-to-r from-sky-500 to-emerald-400 h-full w-0 transition-all duration-300"></div>
+            </div>
+          </div>
+
+          <!-- Drills List Container -->
+          <div id="exAList" class="space-y-4"></div>
+        </div>
+
+        <!-- Right Col: Compact Teacher Live Notes -->
+        <div class="glass-card rounded-2xl p-4 border border-slate-800 flex flex-col h-[320px]">
+          <div class="flex items-center justify-between pb-2 border-b border-slate-800 mb-2">
+            <h3 class="font-bold text-white text-xs sm:text-sm flex items-center gap-1.5">
+              <i class="fa-solid fa-pen-to-square text-sky-400"></i> Teacher Live Notes
+            </h3>
+            <span class="text-[10px] text-slate-400 font-bold">Auto-saved</span>
+          </div>
+
+          <textarea class="teacherNotesArea w-full flex-1 bg-slate-900 border border-slate-800 rounded-xl p-4 text-slate-100 focus:outline-none focus:border-sky-500 resize-none font-mono text-xs" 
+                    oninput="syncTeacherNotes(this)" 
+                    placeholder="e.g.&#10;+ Skvělé: 'Moji rodiče se vzali před třiceti lety.'&#10;- Pozor na minulý čas: 'zemřít' -> 'zemřel/a' (nepravidelné)"></textarea>
+
+          <button onclick="switchTab('tab-homework')" class="mt-2.5 w-full py-2 bg-slate-800 hover:bg-slate-700 border border-slate-700 text-slate-200 text-xs font-bold rounded-lg transition flex items-center justify-center gap-1.5">
+            <i class="fa-solid fa-arrow-right"></i> Homework Pack
+          </button>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- TAB 3: EXERCISE B (SENTENCE UPGRADERS) -->
+    <section id="tab-exB" class="tab-content hidden space-y-8">
+      <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+        
+        <!-- Left 2 Cols: Main Scenarios -->
+        <div class="lg:col-span-2 space-y-6">
+          <div class="glass-card rounded-2xl p-5 border border-slate-800">
+            <h2 class="text-xl sm:text-2xl font-bold text-white flex items-center gap-2">
+              <i class="fa-solid fa-wand-magic-sparkles text-amber-400"></i> Cvičení B: Rozšiřte věty z A2 na B1
+            </h2>
+            <p class="text-sm text-slate-400 mt-1">
+              Spojte informace do vět B1. Opřete se o strukturu a slovní zásobu; u podmětu použijte přivlastňovací zájmeno s podstatným jménem, například „moji rodiče“.
+            </p>
+          </div>
+
+          <!-- Scenarios Grid -->
+          <div id="exBGrid" class="space-y-4"></div>
+        </div>
+
+        <!-- Right Col: Compact Teacher Live Notes -->
+        <div class="glass-card rounded-2xl p-4 border border-slate-800 flex flex-col h-[320px]">
+          <div class="flex items-center justify-between pb-2 border-b border-slate-800 mb-2">
+            <h3 class="font-bold text-white text-xs sm:text-sm flex items-center gap-1.5">
+              <i class="fa-solid fa-pen-to-square text-sky-400"></i> Teacher Live Notes
+            </h3>
+            <span class="text-[10px] text-slate-400 font-bold">Auto-saved</span>
+          </div>
+
+          <textarea class="teacherNotesArea w-full flex-1 bg-slate-900 border border-slate-800 rounded-xl p-4 text-slate-100 focus:outline-none focus:border-sky-500 resize-none font-mono text-xs" 
+                    oninput="syncTeacherNotes(this)" 
+                    placeholder="e.g.&#10;+ Skvělé: 'Moji rodiče se vzali před třiceti lety.'&#10;- Pozor na minulý čas: 'zemřít' -> 'zemřel/a' (nepravidelné)"></textarea>
+
+          <button onclick="switchTab('tab-homework')" class="mt-2.5 w-full py-2 bg-slate-800 hover:bg-slate-700 border border-slate-700 text-slate-200 text-xs font-bold rounded-lg transition flex items-center justify-center gap-1.5">
+            <i class="fa-solid fa-arrow-right"></i> Homework Pack
+          </button>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- TAB 4: INTERACTIVE VISUAL FAMILY TREE BUILDER & STORY GENERATOR -->
+    <section id="tab-exC" class="tab-content hidden space-y-8">
+      <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+        
+        <div class="lg:col-span-2 space-y-6">
+          <div class="glass-card rounded-2xl p-6 border border-slate-800 space-y-6">
+            <div>
+              <h2 class="text-2xl font-bold text-white flex items-center gap-2">
+                <i class="fa-solid fa-sitemap text-sky-400"></i> Interaktivní Rodokmen &amp; Generátor příběhu
+              </h2>
+              <p class="text-sm text-slate-300 mt-1">
+                Nejdřív odpovězte na otázky o sobě. Potom přidejte rodiče, sourozence a další příbuzné. Rodokmen průběžně doplní příbuzenské vztahy a vyznačí, která místa ještě čekají na vyplnění.
+              </p>
+            </div>
+
+            <!-- Student Profile Form (Individual Questions for Speaker) -->
+            <div class="bg-slate-900/90 p-5 rounded-2xl border border-sky-500/50 space-y-4 shadow-lg">
+              <h3 class="text-xs font-bold uppercase tracking-wider text-sky-400 flex items-center gap-2 border-b border-slate-800 pb-2">
+                <i class="fa-solid fa-user-gear text-sm"></i> 1. Nejdřív něco o vás
+              </h3>
+              
+              <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 text-xs">
+                <div>
+                  <label class="block text-slate-300 mb-1 font-semibold">1. Křestní jméno:</label>
+                  <input type="text" id="me_firstname" placeholder="např. Alex" oninput="updateStudentNode()" class="w-full bg-slate-950 border border-slate-700 rounded-xl p-2.5 text-white focus:outline-none focus:border-sky-500 font-medium">
+                </div>
+
+                <div>
+                  <label class="block text-slate-300 mb-1 font-semibold">2. Příjmení:</label>
+                  <input type="text" id="me_lastname" placeholder="např. Svoboda" oninput="updateStudentNode()" class="w-full bg-slate-950 border border-slate-700 rounded-xl p-2.5 text-white focus:outline-none focus:border-sky-500 font-medium">
+                </div>
+
+                <div>
+                  <label class="block text-slate-300 mb-1 font-semibold">3. Jaký rod mám použít ve vyprávění?</label>
+                  <select id="me_gender" onchange="updateStudentNode()" class="w-full bg-slate-950 border border-slate-700 rounded-xl p-2.5 text-white focus:outline-none focus:border-sky-500 font-medium">
+                    <option value="M">Mužský rod</option>
+                    <option value="Z">Ženský rod</option>
+                  </select>
+                </div>
+
+                <div>
+                  <label class="block text-slate-300 mb-1 font-semibold">4. Národnost:</label>
+                  <input type="text" id="me_nationality" placeholder="např. Čech / Američanka" oninput="updateStudentNode()" class="w-full bg-slate-950 border border-slate-700 rounded-xl p-2.5 text-white focus:outline-none focus:border-sky-500 font-medium">
+                </div>
+
+                <div>
+                  <label class="block text-slate-300 mb-1 font-semibold">5. Kde jste se narodil/a? (město nebo obec):</label>
+                  <input type="text" id="me_birthplace" placeholder="Praha" oninput="updateStudentNode()" class="w-full bg-slate-950 border border-slate-700 rounded-xl p-2.5 text-white focus:outline-none focus:border-sky-500 font-medium">
+                  <div id="birthplace-fallback" class="hidden mt-2"><label class="block text-slate-400 mb-1">6. pád (narodil/a jsem se v …)</label><input id="me_birthplace_loc" oninput="updateStudentNode()" placeholder="např. v Jihlavě" class="w-full bg-slate-950 border border-slate-700 rounded-xl p-2 text-white"><label class="block text-slate-400 mt-2 mb-1">2. pád (pocházím z …)</label><input id="me_birthplace_gen" oninput="updateStudentNode()" placeholder="např. z Jihlavy" class="w-full bg-slate-950 border border-slate-700 rounded-xl p-2 text-white"></div>
+                </div>
+
+                <div>
+                  <label class="block text-slate-300 mb-1 font-semibold">6. Kde nyní bydlíte? (město nebo obec):</label>
+                  <input type="text" id="me_residence" placeholder="Brno" oninput="updateStudentNode()" class="w-full bg-slate-950 border border-slate-700 rounded-xl p-2.5 text-white focus:outline-none focus:border-sky-500 font-medium">
+                  <div id="residence-fallback" class="hidden mt-2"><label class="block text-slate-400 mb-1">6. pád po „v“ (bydlím v …)</label><input id="me_residence_loc" oninput="updateStudentNode()" placeholder="např. v Jihlavě" class="w-full bg-slate-950 border border-slate-700 rounded-xl p-2 text-white"></div>
+                </div>
+
+                <div>
+                  <label class="block text-slate-300 mb-1 font-semibold">7. Povolání / Zaměstnání:</label>
+                  <input type="text" id="me_job" placeholder="např. student / inženýr" oninput="updateStudentNode()" class="w-full bg-slate-950 border border-slate-700 rounded-xl p-2.5 text-white focus:outline-none focus:border-sky-500 font-medium">
+                </div>
+
+                <div>
+                  <label class="block text-slate-300 mb-1 font-semibold">8. Na co z minulosti rád/a vzpomínáte?</label>
+                  <input type="text" id="me_event" placeholder="Napište krátkou větu, nebo nechte prázdné" oninput="updateStudentNode()" class="w-full bg-slate-950 border border-slate-700 rounded-xl p-2.5 text-white focus:outline-none focus:border-sky-500 font-medium">
+                </div>
+              </div>
+            </div>
+
+            <button onclick="setFamilyStep('parents')" class="w-full py-3 bg-sky-600 hover:bg-sky-500 text-white font-bold rounded-xl text-sm transition"><i class="fa-solid fa-arrow-right mr-2"></i>Pokračovat otázkami na rodiče</button>
+
+            <!-- Interactive Add Relative Form (Clear Individual Fields) -->
+            <div id="familyStepPanel" class="hidden bg-slate-900/90 p-5 rounded-2xl border border-slate-700 space-y-4 shadow-lg">
+              <h3 id="familyStepTitle" class="text-xs font-bold uppercase tracking-wider text-amber-400 flex items-center gap-2 border-b border-slate-800 pb-2">
+                <i class="fa-solid fa-user-plus text-sm"></i> 2. Kdo patří do vaší rodiny?
+              </h3>
+              <p id="familyStepPrompt" class="text-xs text-slate-400">Nejdříve odpovězte na otázky o sobě a pokračujte dál.</p>
+              
+              <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 text-xs">
+                <div>
+                  <label class="block text-slate-400 mb-1 font-medium">Křestní jméno:</label>
+                  <input type="text" id="rel_firstname" placeholder="např. Martin" class="w-full bg-slate-950 border border-slate-700 rounded-xl p-2.5 text-white focus:outline-none focus:border-sky-500">
+                </div>
+
+                <div>
+                  <label class="block text-slate-400 mb-1 font-medium">Příjmení:</label>
+                  <input type="text" id="rel_lastname" placeholder="např. Novák" class="w-full bg-slate-950 border border-slate-700 rounded-xl p-2.5 text-white focus:outline-none focus:border-sky-500">
+                </div>
+
+                <div>
+                  <label class="block text-slate-400 mb-1 font-medium">Ke komu tohoto člověka připojit?</label>
+                  <select id="rel_anchor" onchange="autoSetGender()" class="w-full bg-slate-950 border border-slate-700 rounded-xl p-2.5 text-white focus:outline-none focus:border-sky-500 font-medium"><option value="root">Ke mně</option></select>
+                  <p class="text-[10px] text-slate-500 mt-1">Například: pro strýce vyberte svého otce a Sourozenec. Pro bratrance vyberte strýce nebo tetu a Dítě.</p>
+                </div>
+
+                <div>
+                  <label class="block text-slate-400 mb-1 font-medium">Jaký je jeho/její vztah k této osobě?</label>
+                  <select id="rel_type" onchange="autoSetGender()" class="w-full bg-slate-950 border border-slate-700 rounded-xl p-2.5 text-white focus:outline-none focus:border-sky-500 font-medium"><option value="parent">Rodič</option><option value="sibling">Sourozenec</option><option value="child">Dítě</option><option value="spouse">Manžel nebo manželka</option><option value="partner">Partner nebo partnerka</option></select>
+                </div>
+
+                <div>
+                  <label class="block text-slate-400 mb-1 font-medium">Stav partnerského vztahu:</label>
+                  <select id="rel_union" class="w-full bg-slate-950 border border-slate-700 rounded-xl p-2.5 text-white focus:outline-none focus:border-sky-500 font-medium"><option value="current">Současný vztah</option><option value="ended">Bývalý vztah / rozvod</option></select>
+                </div>
+
+                <div>
+                  <label class="block text-slate-400 mb-1 font-medium">Pohlaví:</label>
+                  <select id="rel_gender" class="w-full bg-slate-950 border border-slate-700 rounded-xl p-2.5 text-white focus:outline-none focus:border-sky-500 font-medium">
+                    <option value="M">Muž</option><option value="Z">Žena</option>
+                  </select>
+                </div>
+
+                <div>
+                  <label class="block text-slate-400 mb-1 font-medium">Povolání / Zaměstnání:</label>
+                  <input type="text" id="rel_job" placeholder="např. inženýr / lékařka" class="w-full bg-slate-950 border border-slate-700 rounded-xl p-2.5 text-white focus:outline-none focus:border-sky-500">
+                </div>
+
+                <div>
+                  <label class="block text-slate-400 mb-1 font-medium">Jak byste tuto osobu popsal/a? Napište celou větu.</label>
+                  <input type="text" id="rel_status" placeholder="např. Je mu 45 let a je svobodný." class="w-full bg-slate-950 border border-slate-700 rounded-xl p-2.5 text-white focus:outline-none focus:border-sky-500">
+                </div>
+
+                <div class="sm:col-span-2">
+                  <label class="block text-slate-400 mb-1 font-medium">Co důležitého se stalo? (celá věta)</label>
+                  <input type="text" id="rel_event" placeholder="např. V roce 2015 se přestěhovala do Prahy." class="w-full bg-slate-950 border border-slate-700 rounded-xl p-2.5 text-white focus:outline-none focus:border-sky-500">
+                </div>
+              </div>
+
+              <button onclick="addFamilyNode()" class="w-full py-3 bg-sky-600 hover:bg-sky-500 text-white font-bold rounded-xl text-xs sm:text-sm transition flex items-center justify-center gap-2 shadow-lg shadow-sky-600/20">
+                <i class="fa-solid fa-plus"></i> Přidat tohoto člena rodiny
+              </button>
+              <button id="familyNextStep" onclick="nextFamilyStep()" class="w-full py-2.5 bg-slate-800 hover:bg-slate-700 text-slate-200 font-semibold rounded-xl text-xs transition">Pokračovat k sourozencům</button>
+            </div>
+
+            <!-- VISUAL FAMILY TREE CANVAS (STRUCTURED GENERATION BY GENERATION) -->
+            <div class="space-y-3">
+              <div class="flex items-center justify-between">
+                <label class="block text-xs font-bold uppercase tracking-wider text-slate-300">Vizuální schéma rodokmenu (Hierarchie generací):</label>
+                <span class="text-[11px] text-slate-400"><span class="inline-block w-3 h-3 bg-blue-200 rounded-xs mr-1 border border-blue-400"></span> Muži <span class="inline-block w-3 h-3 bg-fuchsia-400 rounded-xs ml-2 mr-1"></span> Ženy</span>
+              </div>
+
+              <!-- Master Box Header -->
+              <div class="bg-emerald-500 text-slate-950 font-extrabold text-center py-2 px-4 rounded-xl text-lg shadow-md border-2 border-emerald-400">
+                Rodokmen rodiny
+              </div>
+
+              <!-- Family Canvas Board -->
+              <div id="familyTreeCanvas" class="min-h-[360px] bg-slate-900/90 border-2 border-slate-800 rounded-2xl p-6 space-y-6 overflow-x-auto">
+                <!-- Rendered Nodes dynamically into generational rows -->
+              </div>
+              <div id="familyPersonEditor" class="hidden rounded-xl border border-sky-500/30 bg-slate-950/80 p-4 space-y-3">
+                <div class="flex items-center justify-between gap-2"><strong id="familySelectedName" class="text-sm text-sky-300">Vybraný člen rodiny</strong><span class="text-[10px] text-slate-500">Kliknutím na kartu můžete osobu vybrat.</span></div>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-2">
+                  <input id="selectedFamilyStatus" placeholder="Rodinný stav / věk" class="bg-slate-900 border border-slate-700 rounded-lg p-2 text-xs text-white">
+                  <input id="selectedFamilyJob" placeholder="Povolání" class="bg-slate-900 border border-slate-700 rounded-lg p-2 text-xs text-white">
+                  <input id="selectedFamilyEvent" placeholder="Důležitá událost" class="bg-slate-900 border border-slate-700 rounded-lg p-2 text-xs text-white">
+                </div>
+                <div class="flex flex-wrap gap-2">
+                  <button onclick="saveFamilyPersonDetails()" class="px-3 py-2 rounded-lg bg-sky-700 hover:bg-sky-600 text-xs font-bold text-white">Uložit údaje</button>
+                  <button onclick="addRelativeToSelected('parent')" class="px-3 py-2 rounded-lg bg-slate-800 hover:bg-slate-700 text-xs text-white">Přidat rodiče</button>
+                  <button onclick="addRelativeToSelected('sibling')" class="px-3 py-2 rounded-lg bg-slate-800 hover:bg-slate-700 text-xs text-white">Přidat sourozence</button>
+                  <button onclick="addRelativeToSelected('child')" class="px-3 py-2 rounded-lg bg-slate-800 hover:bg-slate-700 text-xs text-white">Přidat dítě</button>
+                  <button onclick="addRelativeToSelected('partner')" class="px-3 py-2 rounded-lg bg-slate-800 hover:bg-slate-700 text-xs text-white">Přidat partnera / bývalého partnera</button>
+                </div>
+              </div>
+            </div>
+
+            <button onclick="generateNarrativeStory()" class="w-full py-3.5 bg-emerald-600 hover:bg-emerald-500 text-white font-bold rounded-xl text-sm sm:text-base transition flex items-center justify-center gap-2 shadow-lg shadow-emerald-600/25">
+              <i class="fa-solid fa-wand-magic-sparkles"></i> Vygenerovat plynulé vyprávění o rodině (B1 Story)
+            </button>
+          </div>
+
+          <!-- Generated Narrative Text Output -->
+          <div class="glass-card rounded-2xl p-6 border border-slate-800 space-y-4">
+            <div class="flex items-center justify-between border-b border-slate-800 pb-3">
+              <h3 class="font-bold text-white text-base flex items-center gap-2">
+                <i class="fa-solid fa-file-pen text-amber-400"></i> Souvislé vyprávění o rodině (Modelový text z rodokmenu)
+              </h3>
+              <button onclick="readGeneratedStory()" class="px-3 py-1.5 bg-amber-600 hover:bg-amber-500 text-white rounded-lg text-xs font-bold transition flex items-center gap-1.5">
+                <i class="fa-solid fa-volume-high"></i> Přehrát text
+              </button>
+            </div>
+
+            <div class="text-xs sm:text-sm text-slate-200 leading-relaxed space-y-3 bg-slate-900/90 p-5 rounded-xl border border-slate-800 font-sans" id="generatedStoryText">
+              <!-- Rendered story -->
+            </div>
+          </div>
+        </div>
+
+        <!-- Right Col: Teacher Live Notes Pad -->
+        <div class="glass-card rounded-2xl p-6 border border-slate-800 flex flex-col h-full min-h-[450px]">
+          <div class="flex items-center justify-between pb-4 border-b border-slate-800 mb-4">
+            <h3 class="font-bold text-white text-base flex items-center gap-2">
+              <i class="fa-solid fa-pen-to-square text-sky-400"></i> Teacher Live Notes
+            </h3>
+            <span class="text-xs text-slate-400 font-bold">Auto-saved</span>
+          </div>
+
+          <p class="text-xs text-slate-300 mb-3">
+            Zapisujte chyby nebo skvělé formulace studenta během lekce.
+          </p>
+
+          <textarea class="teacherNotesArea w-full flex-1 bg-slate-900 border border-slate-800 rounded-xl p-4 text-slate-100 focus:outline-none focus:border-sky-500 resize-none font-mono text-xs" 
+                    oninput="syncTeacherNotes(this)" 
+                    placeholder="e.g.&#10;+ Skvělé: 'Moji rodiče se vzali před třiceti lety.'&#10;- Pozor na minulý čas: 'zemřít' -> 'zemřel/a' (nepravidelné)"></textarea>
+
+          <button onclick="switchTab('tab-homework')" class="mt-4 w-full py-2.5 bg-slate-800 hover:bg-slate-700 border border-slate-700 text-slate-100 text-xs font-bold rounded-xl transition flex items-center justify-center gap-2">
+            <i class="fa-solid fa-arrow-right"></i> View Formatted Homework Pack
+          </button>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- TAB 5: HOMEWORK & LIVE NOTES AREA -->
+    <section id="tab-homework" class="tab-content hidden space-y-6">
+      <!-- Top Instruction Card -->
+      <div class="glass-card rounded-2xl p-5 border border-slate-800 space-y-2">
+        <h2 class="text-xl font-bold text-white flex items-center gap-2">
+          <i class="fa-solid fa-paper-plane text-emerald-400"></i> Pokyny pro domácí úkol &amp; Souhrn lekce
+        </h2>
+        <p class="text-xs text-slate-300 leading-relaxed">
+          Tato záložka obsahuje shrnutí pro studenta, kompletní přehled 21 slovíček z lekce 1, vaše živé poznámky z hodiny a zadání úkolu k odeslání vyučujícímu.
+        </p>
+      </div>
+
+      <!-- Assignment Instructions & Homework Outline -->
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <div class="glass-card rounded-2xl p-5 border border-slate-800 space-y-3">
+          <h3 class="font-bold text-white text-sm flex items-center gap-2">
+            <i class="fa-solid fa-list-check text-sky-400"></i> Zadání domácího úkolu pro studenta
+          </h3>
+          <ul class="text-xs text-slate-300 space-y-2 list-disc list-inside leading-relaxed">
+            <li>Napište krátkou esej (120–150 slov) na téma <strong>„Moje rodina a její historie“</strong>.</li>
+            <li>Použijte minimálně 6 slovíček z naší 21-položkové B1 slovní zásoby (např. <em>bratranec, tchýně, snacha, zeť, rozvedený</em>).</li>
+            <li>Použijte alespoň 5 sloves v minulém čase (např. <em>narodil se, vzali se, přestěhovali se, zemřel, vystudoval</em>).</li>
+            <li>Po dokončení odešlete text na email: <strong class="text-sky-300">lukas@hackczech.com</strong> s předmětem <em>Assign task - Lekce 1</em>.</li>
+          </ul>
+        </div>
+
+        <div class="glass-card rounded-2xl p-5 border border-slate-800 space-y-3">
+          <h3 class="font-bold text-white text-sm flex items-center gap-2">
+            <i class="fa-solid fa-envelope text-emerald-400"></i> Odeslání úkolu učiteli
+          </h3>
+          <p class="text-xs text-slate-300">Úkol napište přímo do pole níže. Potom můžete zkopírovat připravený e-mail a vložit ho do své e-mailové aplikace.</p>
+          <p class="text-xs text-slate-400">Příjemce: <strong class="text-sky-300">lukas@hackczech.com</strong> · Předmět: <strong>Assign task - Lekce 1</strong></p>
+        </div>
+      </div>
+
+      <!-- Live Notes & Ready-to-Send Homework Pack -->
+      <div class="glass-card rounded-2xl p-5 border border-slate-800 space-y-4">
+        <div class="flex items-center justify-between">
+          <label for="homeworkTextarea" class="text-xs font-bold text-slate-300 uppercase tracking-wider">Napište svůj úkol</label>
+          <div class="flex items-center gap-3">
+            <span id="homeworkWordCount" class="text-xs text-slate-400" aria-live="polite">0 slov (doporučeno 120–150)</span>
+            <button onclick="copyHomeworkToClipboard()" class="px-4 py-2 bg-emerald-600 hover:bg-emerald-500 text-white rounded-xl text-xs font-bold transition flex items-center gap-2"><i class="fa-solid fa-copy"></i> Zkopírovat e-mail</button>
+          </div>
+        </div>
+
+        <textarea id="homeworkTextarea" rows="10" oninput="updateHomeworkEmail()" placeholder="Sem napište svůj úkol (120–150 slov)…" class="w-full bg-slate-950 border border-slate-800 rounded-xl p-4 text-sm text-slate-300 focus:outline-none focus:border-emerald-500 leading-relaxed"></textarea>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- JAVASCRIPT LOGIC -->
+  <script>
+    /* ==========================================================================
+       VOCABULARY DATA (EXACTLY 21 UNIQUE B1 ITEMS FOR LESSON 1)
+       ========================================================================== */
+
+    const VOCAB_DATA = [
+      { id: 1, category: "family", cz: "bratranec", pos: "Noun (m)", en: "male cousin", gen: "bratrance", ex: "Můj bratranec studoval na univerzitě v Brně." },
+      { id: 2, category: "family", cz: "sestřenice", pos: "Noun (f)", en: "female cousin", gen: "sestřenice", ex: "Moje sestřenice se minulý týden vdala." },
+      { id: 3, category: "family", cz: "švagr", pos: "Noun (m)", en: "brother-in-law", gen: "švagra", ex: "Můj švagr pracoval jako inženýr." },
+      { id: 4, category: "family", cz: "švagrová", pos: "Noun (f)", en: "sister-in-law", gen: "švagrové", ex: "Moje švagrová upekla výborný koláč." },
+      { id: 5, category: "family", cz: "tchán", pos: "Noun (m)", en: "father-in-law", gen: "tchána", ex: "Můj tchán rád chytal ryby." },
+      { id: 6, category: "family", cz: "tchýně", pos: "Noun (f)", en: "mother-in-law", gen: "tchýně", ex: "Moje tchýně nám pomohla s úklidem." },
+      { id: 7, category: "family", cz: "sourozenec", pos: "Noun (m)", en: "sibling", gen: "sourozence", ex: "V rodině tehdy nebyli žádní sourozenci." },
+      { id: 8, category: "family", cz: "synovec", pos: "Noun (m)", en: "nephew", gen: "synovce", ex: "Můj synovec dostal k narozeninám nové kolo." },
+      { id: 9, category: "family", cz: "neteř", pos: "Noun (f)", en: "niece", gen: "neteře", ex: "Moje neteř začala chodit do první třídy." },
+      { id: 10, category: "family", cz: "snacha", pos: "Noun (f)", en: "daughter-in-law", gen: "snachy", ex: "Moje snacha uvařila skvělý nedělní oběd." },
+      { id: 11, category: "family", cz: "zeť", pos: "Noun (m)", en: "son-in-law", gen: "zetě", ex: "Náš zeť nám pomohl opravit střechu." },
+      
+      { id: 12, category: "status", cz: "vdovec / vdova", pos: "Noun", en: "widower / widow", gen: "vdovce / vdovy", ex: "Soused byl už tři roky vdovec." },
+      { id: 13, category: "status", cz: "rozvedený / rozvedená", pos: "Adj", en: "divorced", gen: "rozvedeného", ex: "Můj strýc se loni rozvedl." },
+      { id: 14, category: "status", cz: "svobodný / svobodná", pos: "Adj", en: "single / unmarried", gen: "svobodného", ex: "Bratr byl tehdy svobodný a žil sám." },
+
+      { id: 15, category: "past_verbs", cz: "narodit se", pos: "Verb (past)", en: "to be born", gen: "narodil/a se", ex: "Moje babička se narodila v malé vesnici blízko Olomouce." },
+      { id: 16, category: "past_verbs", cz: "zemřít", pos: "Verb (past)", en: "to die / pass away", gen: "zemřel/a", ex: "Dědeček zemřel před pěti lety." },
+      { id: 17, category: "past_verbs", cz: "vzít se", pos: "Verb (past)", en: "to get married (couple)", gen: "vzali se", ex: "Rodiče se vzali v roce 1995." },
+      { id: 18, category: "past_verbs", cz: "přestěhovat se do", pos: "Verb (past)", en: "to move to", gen: "přestěhoval/a se", ex: "Moje rodina se před rokem přestěhovala do nového domu." },
+      { id: 19, category: "past_verbs", cz: "vystudovat", pos: "Verb (past)", en: "to graduate / complete studies", gen: "vystudoval/a", ex: "Teta vystudovala lékařskou fakultu." },
+      { id: 20, category: "past_verbs", cz: "vyrůstat", pos: "Verb (past)", en: "to grow up", gen: "vyrůstal/a", ex: "Moji rodiče vyrůstali v krásném prostředí na venkově." },
+      { id: 21, category: "past_verbs", cz: "vycházet s + instr.", pos: "Verb (past)", en: "to get along with", gen: "vycházel/a s", ex: "Se svými sourozenci jsme vždycky dobře vycházeli." }
+    ];
+
+    /* EXERCISE A DRILLS (25 COMPLETE ITEMS) */
+    const DRILLS_EX_A = [
+      { prompt: "Moji rodiče se ____ (vzít se) před třiceti lety na Moravě.", ans: "vzali", hint: "nepravidelné sloveso vzít; minulý čas (oni)" },
+      { prompt: "Můj dědeček bohužel před dvěma lety ____ (zemřít).", ans: "zemřel", hint: "nepravidelné sloveso zemřít; minulý čas (on)" },
+      { prompt: "Sestra se minulý rok ____ (vdát se) za mého nejlepšího kamaráda.", ans: "vdala", hint: "vdát se (ona)" },
+      { prompt: "Strýc se po dlouhých letech znovu ____ (oženit se).", ans: "oženil", hint: "oženit se (on)" },
+      { prompt: "Bratr mé manželky je můj ____.", ans: "švagr", hint: "příbuzenský vztah (m)" },
+      { prompt: "Matka mého manžela je moje ____.", ans: "tchýně", hint: "příbuzenský vztah (ž)" },
+      { prompt: "Před rokem jsme se ____ (přestěhovat se) do nového bytu.", ans: "přestěhovali", hint: "minulý čas (my)" },
+      { prompt: "Syn mého bratra je můj ____.", ans: "synovec", hint: "příbuzenský vztah" },
+      { prompt: "Dcera mé sestry je moje ____.", ans: "neteř", hint: "příbuzenský vztah" },
+      { prompt: "Manželka mého syna je moje ____.", ans: "snacha", hint: "příbuzenský vztah" },
+      { prompt: "Manžel mé dcery je náš ____.", ans: "zeť", hint: "příbuzenský vztah" },
+      { prompt: "Můj dědeček žije sám, babička zemřela a on je ____.", ans: "vdovec", hint: "rodinný stav" },
+      { prompt: "Kde ses ____ (narodit se, M)?", ans: "narodil", hint: "minulý čas (mužský rod)" },
+      { prompt: "Můj bratr má novou ženu, je to moje ____.", ans: "švagrová", hint: "příbuzenský vztah (f)" },
+      { prompt: "Teta ____ (vystudovat) medicínu na Univerzitě Karlově.", ans: "vystudovala", hint: "minulý čas (ona)" },
+      { prompt: "Jako dítě jsem ____ (vyrůstat, Ž) na venkově.", ans: "vyrůstala", hint: "minulý čas (ženský rod)" },
+      { prompt: "Vždycky jsem skvěle ____ (vycházet, M) se svými sourozenci.", ans: "vycházel", hint: "minulý čas (mužský rod)" },
+      { prompt: "Sousedé se po deseti letech manželství ____ (rozvést se).", ans: "rozvedli", hint: "nepravidelný minulý čas (oni)" },
+      { prompt: "Můj strýc je od minulého roku ____.", ans: "rozvedený", hint: "rodinný stav" },
+      { prompt: "Bratr mého otce je můj ____.", ans: "strýc", hint: "příbuzenský vztah" },
+      { prompt: "Sestra mé matky je moje ____.", ans: "teta", hint: "příbuzenský vztah" },
+      { prompt: "Syn mého strýce je můj ____.", ans: "bratranec", hint: "příbuzenský vztah" },
+      { prompt: "Dcera mé tety je moje ____.", ans: "sestřenice", hint: "příbuzenský vztah" },
+      { prompt: "Nemám bratra ani sestru, nemám žádného ____.", ans: "sourozence", hint: "4. pád záporu / genitiv" },
+      { prompt: "Otec mé manželky je můj ____.", ans: "tchán", hint: "příbuzenský vztah" }
+    ];
+
+    /* EXERCISE B SCENARIOS (INFINITIVE VERBS IN HINTS, ONLY PAST TENSE IN MODEL) */
+    const SCENARIOS_EX_B = [
+      { q: "1. Svatba a stěhování rodičů", a2: "Moji rodiče jsou manželé. Bydlí v Praze.", blocks: "můj / rodič / vzít se / před / třicet let / na Morava / potom / přestěhovat se / do / Praha", structure: "Přivlastňovací zájmeno + podstatné jméno + se + sloveso v minulém čase + časový údaj; potom + se + sloveso v minulém čase + kam?", b1: "Moji rodiče se před třiceti lety vzali na Moravě a potom se přestěhovali do Prahy." },
+      { q: "2. Sestřino manželství a její manžel", a2: "Moje sestra má manžela. Je hodný.", blocks: "můj / sestra / vdát se / minulý rok / její / manžel / být / hodný / pracovitý / nejen / ale i", structure: "Přivlastňovací zájmeno + podstatné jméno + minulý čas; a přivlastňovací zájmeno + podstatné jméno + sloveso být + dvě vlastnosti", b1: "Moje sestra se minulý rok vdala a její manžel je nejen hodný, ale i pracovitý." },
+      { q: "3. Dědeček a babička", a2: "Můj dědeček už nežije. Babička oslavila narozeniny.", blocks: "můj / dědeček / zemřít / před / pět let / ale / moje / babička / nedávno / oslavit / osmdesátý / narozeniny", structure: "Přivlastňovací zájmeno + podstatné jméno + minulý čas + časový údaj; ale + přivlastňovací zájmeno + podstatné jméno + minulý čas + co?", b1: "Můj dědeček zemřel před pěti lety, ale moje babička nedávno oslavila osmdesáté narozeniny." },
+      { q: "4. Bratranec a sestřenice", a2: "Můj bratranec a moje sestřenice bydlí v Brně. Máme společné zájmy.", blocks: "můj / bratranec / moje / sestřenice / bydlet / Brno / mít / společný zájem / a / proto / vycházet spolu / dobře", structure: "Přivlastňovací zájmeno + podstatné jméno + přivlastňovací zájmeno + podstatné jméno + minulý čas; a + důvod nebo následek", b1: "Můj bratranec i moje sestřenice bydleli v Brně a měli jsme společné zájmy, proto jsme spolu dobře vycházeli." },
+      { q: "5. Strýc po rozvodu", a2: "Můj strýc je rozvedený. Žije sám.", blocks: "můj / strýc / rozvést se / před / dva roky / proto / teď / žít / sám", structure: "Přivlastňovací zájmeno + podstatné jméno + minulý čas + časový údaj; proto + současnost + jak?", b1: "Můj strýc se před dvěma lety rozvedl, a proto teď žije sám." }
+    ];
+
+    /* VISUAL FAMILY TREE NODE DATA (INITIALIZED WITH EMPTY/NEUTRAL STUDENT NODE) */
+    let familyNodes = [
+      { 
+        id: "root", 
+        firstname: "", 
+        lastname: "", 
+        relation: "JÁ (MLUVČÍ)", 
+        gender: "M", 
+        nat: "", 
+        birthplace: "", 
+        residence: "", 
+        job: "", 
+        event: "" 
+      }
+    ];
+    const familyAbsences = { son: false, daughter: false, sibling: false };
+    let selectedFamilyId = null;
+
+    /* STATE VARIABLES */
+    let currentVocabCategory = 'all';
+    let currentGender = 'M';
+
+    /* TAB SWITCHER */
+    function switchTab(tabId) {
+      document.querySelectorAll('.tab-content').forEach(el => el.classList.add('hidden'));
+      document.querySelectorAll('.tab-btn').forEach(btn => {
+        btn.classList.remove('bg-sky-600', 'text-white', 'shadow-md');
+        btn.classList.add('text-slate-400');
+      });
+
+      document.getElementById(tabId).classList.remove('hidden');
+      const activeBtn = document.getElementById('btn-' + tabId);
+      if (activeBtn) {
+        activeBtn.classList.add('bg-sky-600', 'text-white', 'shadow-md');
+        activeBtn.classList.remove('text-slate-400');
+      }
+
+      if (tabId === 'tab-homework') {
+        updateHomeworkPack();
+      }
+    }
+
+    /* TTS AUDIO SPEECH */
+    function speakText(text) {
+      if ('speechSynthesis' in window) {
+        window.speechSynthesis.cancel();
+        const utterance = new SpeechSynthesisUtterance(text);
+        utterance.lang = 'cs-CZ';
+        utterance.rate = 0.9;
+        window.speechSynthesis.speak(utterance);
+      }
+    }
+
+    /* GENDER TOGGLE FOR STORY */
+    function setGender(g) {
+      currentGender = g;
+      document.getElementById('gender-btn-M').className = g === 'M' ? "px-3 py-1 rounded-lg font-bold transition text-white bg-sky-600" : "px-3 py-1 rounded-lg font-bold transition text-slate-400 hover:text-white";
+      document.getElementById('gender-btn-Z').className = g === 'Z' ? "px-3 py-1 rounded-lg font-bold transition text-white bg-sky-600" : "px-3 py-1 rounded-lg font-bold transition text-slate-400 hover:text-white";
+      renderModelStory();
+    }
+
+    function renderModelStory() {
+      const container = document.getElementById('storyContainer');
+      const isM = currentGender === 'M';
+      const past = text => `<button type="button" class="past-token" data-correct="true" onclick="selectPastToken(this)" aria-label="Sloveso v minulém čase">${text}</button>`;
+      const present = text => `<button type="button" class="past-token" data-correct="false" onclick="selectPastToken(this)" aria-label="Sloveso není v minulém čase">${text}</button>`;
+      container.innerHTML = `<p>Minulou sobotu ${past('jsme')} ${past('měli')} velkou rodinnou oslavu, takže se ${past('sešla')} celá rodina. ${past(isM ? 'Narodil' : 'Narodila')} ${past('jsem')} se v Praze, ale moji rodiče ${past('pocházeli')} z Moravy a dnes ${present('žijí')} v Praze. ${past('Vzali')} se před třiceti lety a brzy potom se ${past('přestěhovali')} do hlavního města. Otec ${past('pracoval')} celé roky jako inženýr a ${past('byl')} vždycky neuvěřitelně pracovitý.</p><p>Na oslavu ${past('přišla')} celá širší rodina. Moje sestra nedávno ${past('vystudovala')} univerzitu a minulý rok se ${past('vdala')}. Její manžel, můj nový švagr, ${past('byl')} moc sympatický. Můj bratranec a sestřenice ${past('přijeli')} až z Olomouce. Babička nedávno ${past('oslavila')} osmdesáté narozeniny, ale dědeček bohužel před pěti lety ${past('zemřel')}.</p><p>Všichni prarodiče i strýcové ${past('byli')} vždycky velice pohostinní. ${past('Prohlíželi')} ${past('jsme')} si staré fotografie a ${past('vzpomínali')} ${past('jsme')} na dětství. Můj strýc se ${past('rozvedl')} před dvěma lety. Na oslavě ${past('panovala')} skvělá nálada a všichni ${past('jsme')} si to moc ${past('užili')}.</p>`;
+      document.getElementById('pastExerciseStatus').textContent = `Kliknuto správně: 0 z ${container.querySelectorAll('.past-token').length}`;
+      document.getElementById('finishPastExercise').disabled = false;
+    }
+
+    function selectPastToken(button) {
+      if (button.disabled) return;
+      if (button.dataset.correct === 'true') { button.classList.add('past-correct'); button.dataset.selected = 'true'; }
+      else button.classList.add('past-incorrect');
+      const selected = document.querySelectorAll('#storyContainer .past-token[data-selected="true"]').length;
+      document.getElementById('pastExerciseStatus').textContent = `Kliknuto správně: ${selected} z ${document.querySelectorAll('#storyContainer .past-token').length}`;
+    }
+
+    function finishPastTenseExercise() {
+      const tokens = Array.from(document.querySelectorAll('#storyContainer .past-token'));
+      let missed = 0;
+      tokens.forEach(button => { if (button.dataset.correct === 'true' && button.dataset.selected !== 'true') { button.classList.add('past-missed'); missed++; } button.disabled = true; });
+      document.getElementById('finishPastExercise').disabled = true;
+      document.getElementById('pastExerciseStatus').textContent = missed ? `Hotovo. Vynechali jste ${missed} tvarů; jsou označené červeně.` : 'Hotovo. Našli jste všechny tvary minulého času!';
+    }
+
+    function readStoryText() {
+      speakText(document.getElementById('storyContainer').innerText);
+    }
+
+    /* Czech place forms: only use known, curated forms; ask for explicit forms otherwise. */
+    const czechPlaces = {
+      'praha': { loc: 'Praze', gen: 'Prahy' }, 'brno': { loc: 'Brně', gen: 'Brna' },
+      'olomouc': { loc: 'Olomouci', gen: 'Olomouce' }, 'plzeň': { loc: 'Plzni', gen: 'Plzně' },
+      'ostrava': { loc: 'Ostravě', gen: 'Ostravy' }, 'liberec': { loc: 'Liberci', gen: 'Liberce' },
+      'pardubice': { loc: 'Pardubicích', gen: 'Pardubic' }, 'české budějovice': { loc: 'Českých Budějovicích', gen: 'Českých Budějovic' },
+      'hradec králové': { loc: 'Hradci Králové', gen: 'Hradce Králové' }, 'zlín': { loc: 'Zlíně', gen: 'Zlína' },
+      'karlovy vary': { loc: 'Karlových Varech', gen: 'Karlových Varů' }, 'ústí nad labem': { loc: 'Ústí nad Labem', gen: 'Ústí nad Labem' },
+      'tábor': { loc: 'Táboře', gen: 'Tábora' }, 'jihlava': { loc: 'Jihlavě', gen: 'Jihlavy' }
+    };
+    function placeForms(inputId, fallbackId, manualId) {
+      const input = document.getElementById(inputId);
+      const fallback = document.getElementById(fallbackId);
+      const raw = input.value.trim();
+      const forms = czechPlaces[raw.toLocaleLowerCase('cs')];
+      fallback.classList.toggle('hidden', !raw || !!forms);
+      const manual = manualId ? document.getElementById(manualId).value.trim() : '';
+      return { loc: forms ? forms.loc : manual.replace(/^(v|ve)\s+/i, ''), gen: forms ? forms.gen : (inputId === 'me_birthplace' ? document.getElementById('me_birthplace_gen').value.trim().replace(/^(z|ze)\s+/i, '') : '') };
+    }
+
+    /* Shuffle each question's labels while preserving stable answer values. */
+    function shuffleQuizChoices() {
+      document.querySelectorAll('[name="q1"], [name="q2"], [name="q3"]').forEach(input => {
+        const group = input.closest('.space-y-1');
+        if (!group || group.dataset.shuffled) return;
+        const labels = Array.from(group.querySelectorAll('label'));
+        for (let i = labels.length - 1; i > 0; i--) {
+          const j = Math.floor(Math.random() * (i + 1));
+          [labels[i], labels[j]] = [labels[j], labels[i]];
+        }
+        labels.forEach(label => group.appendChild(label));
+        group.dataset.shuffled = 'true';
+      });
+    }
+
+    /* COMPREHENSION QUIZ CHECK by stable answer metadata */
+    function checkQuiz() {
+      const q1 = document.querySelector('input[name="q1"]:checked');
+      const q2 = document.querySelector('input[name="q2"]:checked');
+      const q3 = document.querySelector('input[name="q3"]:checked');
+
+      if (q1) {
+        const fb1 = document.getElementById('q1-fb');
+        if (q1.dataset.correct === 'true') { fb1.innerText = "✓ Správně (Měli velkou rodinnou oslavu)"; fb1.className = "font-bold text-[11px] text-emerald-400"; }
+        else { fb1.innerText = "✗ Špatně, zkuste znovu"; fb1.className = "font-bold text-[11px] text-rose-400"; }
+      }
+      if (q2) {
+        const fb2 = document.getElementById('q2-fb');
+        if (q2.dataset.correct === 'true') { fb2.innerText = "✓ Správně (Přijeli až z Olomouce)"; fb2.className = "font-bold text-[11px] text-emerald-400"; }
+        else { fb2.innerText = "✗ Špatně, zkuste znovu"; fb2.className = "font-bold text-[11px] text-rose-400"; }
+      }
+      if (q3) {
+        const fb3 = document.getElementById('q3-fb');
+        if (q3.dataset.correct === 'true') { fb3.innerText = "✓ Správně (Bohužel zemřel)"; fb3.className = "font-bold text-[11px] text-emerald-400"; }
+        else { fb3.innerText = "✗ Špatně, zkuste znovu"; fb3.className = "font-bold text-[11px] text-rose-400"; }
+      }
+    }
+
+    /* VOCABULARY FILTER & RENDER */
+    function setVocabFilter(cat) {
+      currentVocabCategory = cat;
+      document.querySelectorAll('.vfilter-btn').forEach(btn => {
+        btn.classList.remove('bg-sky-600', 'text-white');
+        btn.classList.add('text-slate-400');
+      });
+      const active = document.getElementById('vfilter-' + cat);
+      if (active) {
+        active.classList.add('bg-sky-600', 'text-white');
+        active.classList.remove('text-slate-400');
+      }
+      renderVocab();
+    }
+
+    function renderVocab() {
+      const grid = document.getElementById('vocabGrid');
+      const query = document.getElementById('vocabSearch').value.toLowerCase().trim();
+
+      const filtered = VOCAB_DATA.filter(item => {
+        const matchesCategory = (currentVocabCategory === 'all') || (item.category === currentVocabCategory);
+        const matchesSearch = item.cz.toLowerCase().includes(query) || 
+                              item.en.toLowerCase().includes(query) || 
+                              item.ex.toLowerCase().includes(query);
+        return matchesCategory && matchesSearch;
+      });
+
+      if (filtered.length === 0) {
+        grid.innerHTML = `<div class="col-span-full py-12 text-center text-slate-500 text-xs">Žádná slovíčka neodpovídají vyhledávání.</div>`;
+        return;
+      }
+
+      grid.innerHTML = filtered.map(item => `
+        <div class="glass-card glass-card-hover rounded-2xl p-4 border border-slate-800 transition flex flex-col justify-between space-y-3">
+          <div>
+            <div class="flex items-start justify-between gap-2">
+              <div class="flex items-center gap-2">
+                <button onclick="speakText('${item.cz}')" class="w-8 h-8 rounded-lg bg-sky-500/20 hover:bg-sky-500/40 text-sky-400 border border-sky-500/30 transition flex items-center justify-center flex-shrink-0">
+                  <i class="fa-solid fa-volume-high text-xs"></i>
+                </button>
+                <h3 class="font-bold text-white text-sm sm:text-base leading-snug">${item.cz}</h3>
+              </div>
+              <span class="text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded-full bg-slate-800 text-slate-400 border border-slate-700">${item.pos}</span>
+            </div>
+            <p class="text-xs text-sky-300 font-medium mt-1.5">${item.en}</p>
+          </div>
+
+          <div class="bg-slate-900/90 rounded-xl p-2.5 border border-slate-800/80 text-xs space-y-1">
+            ${item.category === 'past_verbs' ? `<div class="text-amber-300 font-mono text-[11px]"><strong>Minulý čas:</strong> ${item.gen}</div>` : ''}
+            <div class="text-slate-300 italic">"${item.ex}"</div>
+          </div>
+        </div>
+      `).join('');
+    }
+
+    function filterVocab() { renderVocab(); }
+
+    /* EXERCISE A DRILLS RENDER & CHECK */
+    function renderExerciseA() {
+      const list = document.getElementById('exAList');
+      list.innerHTML = DRILLS_EX_A.map((item, idx) => {
+        const parts = item.prompt.split('____');
+        const cleanAudioSentence = parts[0] + item.ans.split('|')[0] + parts[1].replace(/\s*\([^)]*\)/, '');
+        const dynamicWidth = Math.max(140, Math.max(...item.ans.split('|').map(answer => answer.length)) * 11);
+
+        return `
+          <div class="glass-card rounded-xl p-4 sm:p-5 border border-slate-800 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+            <div class="text-sm sm:text-base text-slate-100 leading-relaxed flex-1">
+              <span class="font-bold text-sky-400 mr-2 text-base sm:text-lg">${idx + 1}.</span>
+              ${parts[0]}
+              <input type="text" id="exA_input_${idx}" data-ans="${item.ans}" 
+                    style="width: ${dynamicWidth}px;" 
+                    class="bg-slate-900 border border-slate-700 rounded-xl px-3 py-1.5 text-sm sm:text-base text-sky-300 font-bold text-center focus:outline-none focus:border-sky-500 max-w-[320px] shadow-inner my-1" 
+                    placeholder="...">
+              ${parts[1]}
+            </div>
+            <div class="flex items-center gap-3 self-end sm:self-center flex-shrink-0">
+              <span class="text-xs sm:text-sm text-amber-400/90 font-mono bg-slate-900/90 px-3 py-1.5 rounded-lg border border-slate-800 shadow-sm">${item.hint}</span>
+              <button onclick="speakText('${cleanAudioSentence.replace(/'/g, "\\'")}')" class="w-9 h-9 rounded-lg bg-slate-800 hover:bg-sky-600/30 text-slate-300 hover:text-sky-300 border border-slate-700 transition flex items-center justify-center" title="Přehrát větu">
+                <i class="fa-solid fa-volume-high text-sm"></i>
+              </button>
+            </div>
+          </div>
+        `;
+      }).join('');
+    }
+
+    function checkAllExA() {
+      let correct = 0;
+      DRILLS_EX_A.forEach((item, idx) => {
+        const inp = document.getElementById(`exA_input_${idx}`);
+        const ok = item.ans.split('|').some(answer => inp.value.trim().toLowerCase() === answer.toLowerCase());
+        inp.className = ok 
+          ? "bg-emerald-950 border border-emerald-500 text-emerald-300 rounded-xl px-3 py-1.5 text-sm font-bold text-center" 
+          : "bg-rose-950 border border-rose-500 text-rose-300 rounded-xl px-3 py-1.5 text-sm font-bold text-center";
+        if (ok) correct++;
+      });
+
+      const total = DRILLS_EX_A.length;
+      const pct = Math.round((correct / total) * 100);
+      document.getElementById('exAProgressBar').style.width = pct + '%';
+      document.getElementById('exAScoreText').innerText = `${correct} / ${total} Correct (${pct}%)`;
+    }
+
+    function revealAllExA() {
+      DRILLS_EX_A.forEach((item, idx) => {
+        const inp = document.getElementById(`exA_input_${idx}`);
+        inp.value = item.ans.split('|').join(' / ');
+        inp.className = "bg-emerald-950 border border-emerald-500 text-emerald-300 rounded-xl px-3 py-1.5 text-sm font-bold text-center";
+      });
+      document.getElementById('exAProgressBar').style.width = '100%';
+      document.getElementById('exAScoreText').innerText = `25 / 25 Correct (100%)`;
+    }
+
+    function resetExA() {
+      DRILLS_EX_A.forEach((item, idx) => {
+        const inp = document.getElementById(`exA_input_${idx}`);
+        inp.value = '';
+        inp.className = "bg-slate-900 border border-slate-700 rounded-xl px-3 py-1.5 text-sm text-sky-300 font-bold text-center focus:outline-none focus:border-sky-500";
+      });
+      document.getElementById('exAProgressBar').style.width = '0%';
+      document.getElementById('exAScoreText').innerText = `0 / 25 Correct`;
+    }
+
+    /* EXERCISE B SCENARIOS RENDER */
+    function renderExerciseB() {
+      const grid = document.getElementById('exBGrid');
+      grid.innerHTML = SCENARIOS_EX_B.map((item, idx) => `
+        <div class="glass-card rounded-2xl p-6 border border-slate-800 space-y-4">
+          <div class="flex items-center justify-between gap-2">
+            <h3 class="font-bold text-white text-lg sm:text-xl leading-snug">${item.q}</h3>
+            <button onclick="speakText('${item.b1.replace(/'/g, "\\'")}')" class="w-10 h-10 rounded-xl bg-slate-800 hover:bg-sky-600/30 text-slate-300 hover:text-sky-300 border border-slate-700 transition flex items-center justify-center flex-shrink-0" title="Přehrát B1 větu">
+              <i class="fa-solid fa-volume-high text-base"></i>
+            </button>
+          </div>
+
+          <div class="text-base text-rose-300/90 bg-rose-950/40 p-3.5 rounded-xl border border-rose-900/40">
+            <strong>A2 Základ:</strong> "${item.a2}"
+          </div>
+
+          <div class="text-sm sm:text-base text-sky-300/90 font-mono bg-sky-950/30 p-3 rounded-xl border border-sky-900/40">
+            <i class="fa-solid fa-sitemap mr-1.5"></i> <strong>Gramatická struktura B1 věty:</strong> ${item.structure}
+          </div>
+
+          <button onclick="toggleExBBlocks(${idx})" class="text-xs sm:text-sm font-semibold text-amber-400 hover:text-amber-300 flex items-center gap-1.5 py-1">
+            <i class="fa-solid fa-lightbulb"></i> Ukázat / skrýt slovní zásobu (základní, neskloňované tvary; pořadí je volné)
+          </button>
+
+          <div id="exB_blocks_${idx}" class="hidden text-sm sm:text-base text-amber-300/90 font-medium bg-amber-950/40 p-3.5 rounded-xl border border-amber-900/40">
+            <i class="fa-solid fa-cubes mr-1.5"></i> <strong>Základní tvary slov:</strong> ${item.blocks}
+          </div>
+
+          <textarea id="exB_user_${idx}" rows="3" placeholder="Napište vylepšenou B1 větu podle struktury..." class="w-full bg-slate-900 border border-slate-700 rounded-xl p-4 text-base text-slate-100 focus:outline-none focus:border-sky-500 font-mono leading-relaxed shadow-inner"></textarea>
+
+          <button onclick="toggleExBModel(${idx})" class="text-sm font-semibold text-sky-400 hover:text-sky-300 flex items-center gap-1.5 py-1">
+            <i class="fa-solid fa-eye"></i> Ukázat modelovou B1 větu
+          </button>
+
+          <div id="exB_model_${idx}" class="hidden text-base text-emerald-300 bg-emerald-950/50 p-4 rounded-xl border border-emerald-800/50 font-mono leading-relaxed">
+            <strong>Vzorová B1 věta:</strong> "${item.b1}"
+          </div>
+        </div>
+      `).join('');
+    }
+
+    function toggleExBBlocks(idx) {
+      document.getElementById(`exB_blocks_${idx}`).classList.toggle('hidden');
+    }
+
+    function toggleExBModel(idx) {
+      document.getElementById(`exB_model_${idx}`).classList.toggle('hidden');
+    }
+
+    /* TAB 4: VISUAL FAMILY TREE CANVAS LOGIC WITH INDIVIDUAL QUESTIONS & GENERATIONS */
+    let currentFamilyStep = 'profile';
+    function setFamilyStep(step) {
+      currentFamilyStep = step;
+      const panel = document.getElementById('familyStepPanel');
+      panel.classList.toggle('hidden', step === 'profile');
+      const title = document.getElementById('familyStepTitle');
+      const prompt = document.getElementById('familyStepPrompt');
+      const next = document.getElementById('familyNextStep');
+      const type = document.getElementById('rel_type');
+      const anchor = document.getElementById('rel_anchor');
+      if (step === 'parents') {
+        title.textContent = '2. Kdo jsou vaši rodiče?';
+        prompt.textContent = 'Přidejte otce a matku. Až budete hotovi, pokračujte otázkou na sourozence. Pokud rodiče přidat nechcete, můžete pokračovat rovnou dál.';
+        type.value = 'parent'; anchor.value = 'root'; next.textContent = 'Pokračovat k sourozencům';
+      } else if (step === 'siblings') {
+        title.textContent = '3. Máte sourozence?';
+        prompt.textContent = 'Připojte bratra nebo sestru k sobě. Potom pokračujte k širší rodině.';
+        type.value = 'sibling'; anchor.value = 'root'; next.textContent = 'Pokračovat k širší rodině';
+      } else {
+        title.textContent = '4. Kdo další patří do vaší rodiny?';
+        prompt.textContent = 'Pro strýce nebo tetu vyberte otce či matku a Sourozenec. Pro bratrance nebo sestřenici vyberte strýce či tetu a Dítě. Partnera nebo manželku/manžela připojte přímo k danému člověku.';
+        const parent = familyNodes.find(n => n.relation === 'Otec' || n.relation === 'Matka');
+        type.value = 'sibling'; anchor.value = parent ? parent.id : 'root'; next.textContent = 'Zpět k otázkám o rodičích';
+      }
+      autoSetGender();
+    }
+    function nextFamilyStep() {
+      if (currentFamilyStep === 'parents') setFamilyStep('siblings');
+      else if (currentFamilyStep === 'siblings') setFamilyStep('extended');
+      else setFamilyStep('parents');
+    }
+
+    function autoSetGender() {
+      const type = document.getElementById('rel_type').value;
+      const anchorId = document.getElementById('rel_anchor').value || 'root';
+      const anchor = familyNodes.find(n => n.id === anchorId) || familyNodes[0];
+      const opposite = anchor.gender === 'M' ? 'Z' : 'M';
+      document.getElementById('rel_gender').value = ['spouse', 'partner'].includes(type) ? opposite : 'M';
+    }
+
+    function populateFamilyAnchors() {
+      const select = document.getElementById('rel_anchor');
+      if (!select) return;
+      const previous = select.value || 'root';
+      select.innerHTML = familyNodes.map((node, index) => {
+        const fullName = (node.firstname + ' ' + node.lastname).trim();
+        const title = index === 0 ? 'Vy' : (node.relation + (fullName ? ': ' + fullName : ''));
+        return '<option value="' + node.id + '">' + title.replace(/[&<>"']/g, ch => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[ch])) + '</option>';
+      }).join('');
+      select.value = familyNodes.some(n => n.id === previous) ? previous : 'root';
+    }
+
+    function inferRelation(type, gender, anchor) {
+      const male = gender === 'M';
+      if (type === 'parent') {
+        if (anchor.id === 'root') return male ? 'Otec' : 'Matka';
+        if (['Otec','Matka','Dědeček','Babička'].includes(anchor.relation)) return male ? 'Dědeček' : 'Babička';
+        return male ? 'Tchán' : 'Tchýně';
+      }
+      if (type === 'sibling') {
+        if (['Otec','Matka'].includes(anchor.relation)) return male ? 'Strýc' : 'Teta';
+        if (['Strýc','Teta'].includes(anchor.relation)) return male ? 'Strýc' : 'Teta';
+        if (['Manžel','Manželka','Přítel','Přítelkyně'].includes(anchor.relation)) return male ? 'Švagr' : 'Švagrová';
+        return male ? 'Bratr' : 'Sestra';
+      }
+      if (type === 'child') {
+        if (anchor.id === 'root') return male ? 'Syn' : 'Dcera';
+        if (['Otec','Matka'].includes(anchor.relation)) return male ? 'Bratr' : 'Sestra';
+        if (['Strýc','Teta'].includes(anchor.relation)) return male ? 'Bratranec' : 'Sestřenice';
+        if (['Bratr','Sestra'].includes(anchor.relation)) return male ? 'Synovec' : 'Neteř';
+        return male ? 'Syn' : 'Dcera';
+      }
+      if (type === 'spouse' || type === 'partner') {
+        if (anchor.id === 'root') return type === 'partner' ? (male ? 'Přítel' : 'Přítelkyně') : (male ? 'Manžel' : 'Manželka');
+        if (['Syn','Dcera'].includes(anchor.relation)) return male ? 'Zeť' : 'Snacha';
+        if (['Bratr','Sestra'].includes(anchor.relation)) return male ? 'Švagr' : 'Švagrová';
+        if (['Strýc','Teta'].includes(anchor.relation)) return male ? 'Strýc' : 'Teta';
+        return male ? 'Tchán' : 'Tchýně';
+      }
+      return 'Příbuzný';
+    }
+
+    function updateStudentNode() {
+      const fn = document.getElementById('me_firstname').value.trim();
+      const ln = document.getElementById('me_lastname').value.trim();
+      const g = document.getElementById('me_gender').value;
+      const nat = document.getElementById('me_nationality').value.trim();
+      const bpRaw = document.getElementById('me_birthplace').value.trim();
+      const resRaw = document.getElementById('me_residence').value.trim();
+      const bpForms = placeForms('me_birthplace', 'birthplace-fallback', 'me_birthplace_loc');
+      const resForms = placeForms('me_residence', 'residence-fallback', 'me_residence_loc');
+      const bp = bpRaw ? (bpForms.loc ? `v ${bpForms.loc}` : '') : '';
+      const res = resRaw ? (resForms.loc ? `v ${resForms.loc}` : '') : '';
+      const job = document.getElementById('me_job').value.trim();
+      const ev = document.getElementById('me_event').value.trim();
+
+      familyNodes[0].firstname = fn;
+      familyNodes[0].lastname = ln;
+      familyNodes[0].gender = g;
+      familyNodes[0].nat = nat;
+      familyNodes[0].birthplace = bp;
+      familyNodes[0].birthplaceGen = bpForms.gen;
+      familyNodes[0].residence = res;
+      familyNodes[0].job = job;
+      familyNodes[0].event = ev;
+
+      renderFamilyCanvas();
+      generateNarrativeStory();
+    }
+
+    function familyGeneration(node, seen = new Set()) {
+      if (!node || node.id === 'root' || seen.has(node.id)) return 0;
+      seen.add(node.id);
+      const anchor = familyNodes.find(item => item.id === node.anchorId);
+      if (!anchor) return 0;
+      // A partner and every sibling belong beside their anchor, never in a parent/child row.
+      if (node.relationType === 'sibling' || ['spouse','partner'].includes(node.relationType)) return familyGeneration(anchor, seen);
+      if (node.relationType === 'parent') return familyGeneration(anchor, seen) - 1;
+      if (node.relationType === 'child') return familyGeneration(anchor, seen) + 1;
+      return familyGeneration(anchor, seen);
+    }
+
+    function renderFamilyCanvas() {
+      const canvas = document.getElementById('familyTreeCanvas');
+      populateFamilyAnchors();
+      const escape = value => String(value || '').replace(/[&<>"']/g, ch => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[ch]));
+      const groups = new Map();
+      familyNodes.forEach(node => { const level = familyGeneration(node); if (!groups.has(level)) groups.set(level, []); groups.get(level).push(node); });
+      if (!groups.has(-2)) groups.set(-2, []);
+      if (!groups.has(-1)) groups.set(-1, []);
+      const levels = Array.from(groups.keys()).sort((x, y) => x - y);
+      const labelFor = level => level <= -2 ? 'Prarodiče' : level === -1 ? 'Rodiče, jejich sourozenci a rodiče partnera' : level === 0 ? 'Vy, sourozenci, bratranci a partner/ka' : level === 1 ? 'Děti, neteře a synovci' : 'Další generace (' + level + ')';
+      const slot = (label, anchorId, type, gender) => `<button type="button" onclick="startAddFamilyRelative('${anchorId}','${type}','${gender}')" class="w-[clamp(4.5rem,14vw,9rem)] rounded-xl border border-dashed border-slate-700 bg-slate-950/60 p-2 text-center text-[clamp(8px,1.2vw,10px)] text-slate-500 hover:border-sky-500 hover:text-sky-300">+ ${label}</button>`;
+      const renderCard = node => {
+        const male = node.gender === 'M', root = node.id === 'root', selected = selectedFamilyId === node.id;
+        const name = root ? ((node.firstname + ' ' + node.lastname).trim() || 'Vy') : ((node.firstname + ' ' + node.lastname).trim() || node.relation);
+        const style = root ? 'bg-gradient-to-b from-sky-300 to-sky-100 text-slate-950 border-2 border-sky-500' : male ? 'bg-blue-200 text-slate-900 border border-blue-400' : 'bg-fuchsia-300 text-slate-950 border border-pink-500';
+        const idx = familyNodes.findIndex(item => item.id === node.id);
+        const bubble = node.unionEnded && !selected;
+        const inLaw = node.anchorId === 'root' && node.relationType === 'spouse' ? '<div class="text-[9px] opacity-80">' + (node.unionEnded ? 'bývalý ' : '') + (male ? 'zeť rodičů' : 'snacha rodičů') + '</div>' : '';
+        const grandparentSide = ['Dědeček','Babička'].includes(node.relation) ? '<div class="text-[9px] opacity-60">' + (familyNodes.find(item => item.id === node.anchorId)?.relation === 'Otec' ? 'otcova strana' : 'matčina strana') + '</div>' : '';
+        return '<div data-node-id="' + escape(node.id) + '" onclick="selectFamilyPerson(this.dataset.nodeId)" title="Kliknutím vyberete osobu a přidáte k ní příbuzné" class="relative z-10 cursor-pointer ' + style + ' rounded-xl ' + (bubble ? 'w-[clamp(4.5rem,13vw,8rem)] p-2 opacity-80' : 'w-[clamp(5rem,15vw,11rem)] p-2 sm:p-3') + ' text-center shadow-lg transition ' + (selected ? 'ring-4 ring-amber-400 scale-105' : 'hover:scale-[1.02]') + '">' + (root ? '' : '<button onclick="event.stopPropagation();removeFamilyNode(' + idx + ')" class="absolute top-1 right-2 text-rose-700" title="Odebrat" aria-label="Odebrat ' + escape(node.relation) + '">×</button>') + '<div class="text-[clamp(8px,1.2vw,10px)] font-black uppercase tracking-wide">' + escape(node.relation) + (node.unionEnded ? ' · bývalý' : '') + '</div>' + grandparentSide + inLaw + '<div class="font-bold text-[clamp(10px,1.7vw,14px)] break-words">' + escape(name) + '</div>' + (!bubble && (node.status || node.job || node.event) ? '<div class="mt-1 border-t border-slate-500/30 pt-1 text-[10px]">' + (node.status ? '<div>' + escape(node.status) + '</div>' : '') + (node.job ? '<div>' + escape(node.job) + '</div>' : '') + (node.event ? '<div class="italic">' + escape(node.event) + '</div>' : '') + '</div>' : '') + '</div>';
+      };
+      const renderAuntUncleBranch = person => {
+        const partners = familyNodes.filter(n => n.anchorId === person.id && ['spouse','partner'].includes(n.relationType));
+        const children = familyNodes.filter(n => n.anchorId === person.id && n.relationType === 'child');
+        return '<div class="flex shrink-0 flex-col items-center gap-2"><div class="flex flex-nowrap items-start justify-center gap-2">' + [person, ...partners].map(renderCard).join('') + '</div><div class="flex flex-col items-center gap-2 rounded-xl border border-slate-800 bg-slate-900/30 p-2"><div class="flex flex-nowrap items-center justify-center gap-2">' + children.map(renderCard).join('') + '</div>' + slot('Bratranec / sestřenice',person.id,'child','M') + '</div></div>';
+      };
+      canvas.innerHTML = levels.map(level => {
+        let placeholders = '';
+        if (level === -2) {
+          const slots = [['Otec','M','Dědeček'],['Otec','Z','Babička'],['Matka','M','Dědeček'],['Matka','Z','Babička']];
+          const missingSlots = slots.filter(([side,gender]) => {
+            const parent = familyNodes.find(n => n.relation === side);
+            return !!parent && !familyNodes.some(n => n.anchorId === parent.id && n.relationType === 'parent' && n.gender === gender);
+          });
+          if (missingSlots.length) placeholders += '<div class="flex min-w-[900px] flex-nowrap justify-center gap-3">' + missingSlots.map(([side,gender,label]) => `<button type="button" onclick="startAddGrandparent('${side}','${gender}')" class="w-[145px] shrink-0 rounded-xl border border-dashed border-slate-700 bg-slate-950/60 p-2 text-center text-[10px] text-slate-500 hover:border-sky-500 hover:text-sky-300">+ ${label}<span class="block text-[9px] opacity-60">${side === 'Otec' ? 'otcova strana' : 'matčina strana'}</span></button>`).join('') + '</div>';
+        }
+        if (level === -1) {
+          const hasFather = groups.get(level).some(n => n.relation === 'Otec');
+          const hasMother = groups.get(level).some(n => n.relation === 'Matka');
+          if (!hasFather || !hasMother) placeholders += '<div class="flex flex-wrap justify-center gap-3">' + (!hasFather ? slot('Přidat otce','root','parent','M') : '') + (!hasMother ? slot('Přidat matku','root','parent','Z') : '') + '</div>';
+          placeholders += '<div class="flex flex-wrap justify-center gap-2">' + `<button type="button" onclick="startAddParentSibling('Otec','M')" class="w-[145px] rounded-xl border border-dashed border-slate-700 bg-slate-950/60 p-2 text-center text-[10px] text-slate-500 hover:border-sky-500 hover:text-sky-300">+ Sourozenec otce</button>` + `<button type="button" onclick="startAddParentSibling('Matka','M')" class="w-[145px] rounded-xl border border-dashed border-slate-700 bg-slate-950/60 p-2 text-center text-[10px] text-slate-500 hover:border-sky-500 hover:text-sky-300">+ Sourozenec matky</button>` + '</div>';
+          // Partner parents are added in their own column on this generation row.
+        }
+        if (level === 0) {
+          placeholders += '<div class="flex flex-nowrap justify-center gap-2">' + slot('Sourozenec','root','sibling','M') + '</div>';
+        }
+        if (level === 1) placeholders = '';
+        const cards = groups.get(level);
+        let rowContent = '<div class="flex flex-wrap items-center justify-center gap-x-5 gap-y-4">' + cards.map(renderCard).join('') + '</div>';
+        if (level === -2) rowContent = '<div class="overflow-x-auto"><div class="flex min-w-[900px] flex-nowrap items-start justify-center gap-4">' + cards.map(renderCard).join('') + '</div></div>';
+        if (level === -1) {
+          const father = cards.find(n => n.relation === 'Otec');
+          const mother = cards.find(n => n.relation === 'Matka');
+          const fatherSibs = cards.filter(n => father && n.anchorId === father.id && n.relationType === 'sibling');
+          const motherSibs = cards.filter(n => mother && n.anchorId === mother.id && n.relationType === 'sibling');
+          const partnerParents = cards.filter(n => ['parent'].includes(n.relationType) && familyNodes.some(p => p.id === n.anchorId && p.anchorId === 'root' && ['partner','spouse'].includes(p.relationType)));
+          const sideRelatives = (people) => people.flatMap(person => [person, ...cards.filter(n => n.anchorId === person.id && ['spouse','partner'].includes(n.relationType))]);
+          const left = sideRelatives(fatherSibs), right = sideRelatives(motherSibs);
+          const cousinsOfAunts = familyNodes.filter(n => n.relationType === 'child' && [...fatherSibs, ...motherSibs].some(auntUncle => auntUncle.id === n.anchorId));
+          const placed = new Set([...(father ? [father] : []), ...(mother ? [mother] : []), ...left, ...right, ...partnerParents, ...cousinsOfAunts].map(n => n.id));
+          const center = [father, mother].filter(Boolean);
+          const other = cards.filter(n => !placed.has(n.id));
+          rowContent = '<div class="grid min-w-max grid-cols-[max-content_max-content_max-content_max-content] items-start gap-3">' +
+            '<div class="flex min-h-full flex-col items-center justify-start gap-3"><div class="text-center text-[9px] uppercase tracking-wide text-slate-500">Otcova strana</div><div class="flex flex-nowrap items-start justify-start gap-2">' + fatherSibs.map(renderAuntUncleBranch).join('') + '</div></div>' +
+            '<div class="flex min-h-full flex-col items-center justify-start gap-3"><div class="text-center text-[9px] uppercase tracking-wide text-slate-500">Rodina partnera</div><div class="flex flex-nowrap items-start justify-start gap-2">' + partnerParents.map(renderCard).join('') + '</div><div class="flex flex-nowrap gap-2">' + familyNodes.filter(n => n.anchorId === 'root' && ['partner','spouse'].includes(n.relationType) && !n.unionEnded).flatMap(person => { const hasFather = familyNodes.some(n => n.anchorId === person.id && n.relationType === 'parent' && n.gender === 'M'); const hasMother = familyNodes.some(n => n.anchorId === person.id && n.relationType === 'parent' && n.gender === 'Z'); return [!hasFather ? slot('Otec partnera',person.id,'parent','M') : '', !hasMother ? slot('Matka partnera',person.id,'parent','Z') : '']; }).join('') + '</div></div>' +
+            '<div class="flex flex-nowrap items-start justify-center gap-2"><div class="flex flex-col items-center gap-2"><div class="text-center text-[9px] uppercase tracking-wide text-slate-500">Rodiče</div><div class="flex flex-nowrap gap-2">' + center.map(renderCard).join('') + '</div></div></div>' +
+            '<div class="flex min-h-full flex-col items-center justify-start gap-3"><div class="text-center text-[9px] uppercase tracking-wide text-slate-500">Matčina strana</div><div class="flex flex-nowrap items-start justify-start gap-2">' + motherSibs.map(renderAuntUncleBranch).join('') + '</div></div></div>' +
+            (other.length ? '<div class="flex flex-wrap items-center justify-center gap-3">' + other.map(renderCard).join('') + '</div>' : '');
+        }
+        if (level === 0) {
+          const root = cards.find(n => n.id === 'root');
+          const partners = cards.filter(n => n.anchorId === 'root' && ['spouse','partner'].includes(n.relationType));
+          const siblings = cards.filter(n => n.anchorId === 'root' && n.relationType === 'sibling');
+          const partnerRelatives = cards.filter(n => partners.some(p => p.id === n.anchorId));
+          const cousins = cards.filter(n => n.relationType === 'child' && familyNodes.some(a => a.id === n.anchorId && ['Strýc','Teta'].includes(a.relation)));
+          const used = new Set([...(root ? [root] : []), ...partners, ...siblings, ...partnerRelatives, ...cousins].map(n => n.id));
+          const other = cards.filter(n => !used.has(n.id));
+          const addChild = (person, label) => {
+            const children = familyNodes.filter(n => n.relationType === 'child' && n.anchorId === person.id);
+            return '<div class="flex flex-col items-center gap-2">' + renderCard(person) + (children.length ? '<div class="flex flex-nowrap justify-center gap-2">' + children.map(renderCard).join('') + '</div>' : '') + slot(label,person.id,'child','M') + '</div>';
+          };
+          const activePartner = partners.some(person => !person.unionEnded);
+          rowContent = '<div class="grid min-w-max grid-cols-[max-content_1px_max-content] items-start gap-3">' +
+            '<div class="flex flex-col items-center gap-3"><div class="text-center text-[9px] uppercase tracking-wide text-slate-500">Partner/ka a její/jeho rodina</div><div class="flex flex-nowrap items-start justify-start gap-2">' + partners.map(person => addChild(person,'Přidat dítě')) .join('') + partnerRelatives.map(renderCard).join('') + '</div></div>' +
+            '<div class="min-h-24 bg-slate-700"></div>' +
+            '<div class="flex flex-nowrap items-start justify-start gap-3">' + (root ? addChild(root,'Přidat dítě') : '') + siblings.map(person => addChild(person,'Přidat dítě sourozence')).join('') + '</div></div>' +
+            (other.length ? '<div class="flex flex-wrap items-center justify-center gap-3">' + other.map(renderCard).join('') + '</div>' : '');
+          if (!activePartner) placeholders += '<div class="flex justify-center">' + slot('Partner / partnerka','root','partner','Z') + '</div>';
+        }
+        if (level === 1) {
+          const displayedChildren = familyNodes.filter(n => n.relationType === 'child' && ['root', ...familyNodes.filter(p => ['Bratr','Sestra','Manžel','Manželka','Přítel','Přítelkyně'].includes(p.relation)).map(p => p.id)].includes(n.anchorId));
+          const remainingChildren = cards.filter(n => !displayedChildren.some(child => child.id === n.id));
+          rowContent = '<div class="flex flex-wrap items-center justify-center gap-3">' + remainingChildren.map(renderCard).join('') + '</div>';
+        }
+        return '<section data-family-level="' + level + '" class="relative z-10 flex w-max max-w-none flex-col items-center gap-3"><h4 class="text-[10px] font-bold uppercase tracking-widest text-slate-300 bg-slate-950/90 rounded-full border border-slate-700 px-3 py-1">' + labelFor(level) + '</h4>' + rowContent + placeholders + '</section>';
+      }).join('<div class="h-3"></div>') + '<div class="relative z-10 flex flex-wrap justify-center gap-2 pt-2">' + [['sibling','Nemám sourozence'],['son','Nemám syna'],['daughter','Nemám dceru']].map(([key,label]) => '<button type="button" onclick="toggleFamilyAbsence(\'' + key + '\')" class="rounded-lg border px-3 py-1.5 text-[10px] ' + (familyAbsences[key] ? 'border-amber-500 text-amber-300 bg-amber-950/40' : 'border-slate-700 text-slate-400') + '">' + (familyAbsences[key] ? '✓ ' : '') + label + '</button>').join('') + '</div>';
+      requestAnimationFrame(() => { fitFamilyTreeRows(); drawFamilyConnections(); });
+    }
+
+    function fitFamilyTreeRows() {
+      const canvas = document.getElementById('familyTreeCanvas');
+      if (!canvas) return;
+      const available = Math.max(220, canvas.clientWidth - 48);
+      canvas.querySelectorAll('[data-family-level]').forEach(section => {
+        section.style.zoom = '1';
+        const naturalWidth = section.getBoundingClientRect().width;
+        const scale = naturalWidth > available ? available / naturalWidth : 1;
+        section.style.zoom = String(scale);
+        section.style.marginInline = 'auto';
+      });
+    }
+
+    window.addEventListener('resize', () => {
+      fitFamilyTreeRows();
+      requestAnimationFrame(drawFamilyConnections);
+    });
+
+    function toggleFamilyAbsence(key) {
+      if (Object.prototype.hasOwnProperty.call(familyAbsences, key)) familyAbsences[key] = !familyAbsences[key];
+      renderFamilyCanvas();
+    }
+
+    function selectFamilyPerson(id) {
+      const node = familyNodes.find(item => item.id === id);
+      if (!node) return;
+      selectedFamilyId = id;
+      const anchor = document.getElementById('rel_anchor');
+      if (anchor) anchor.value = id;
+      const type = document.getElementById('rel_type');
+      if (type) type.value = 'child';
+      autoSetGender();
+      const editor = document.getElementById('familyPersonEditor');
+      editor.classList.remove('hidden');
+      const name = ((node.firstname + ' ' + node.lastname).trim() || node.relation);
+      document.getElementById('familySelectedName').textContent = `${node.relation}: ${name}`;
+      document.getElementById('selectedFamilyStatus').value = node.status || '';
+      document.getElementById('selectedFamilyJob').value = node.job || '';
+      document.getElementById('selectedFamilyEvent').value = node.event || '';
+      renderFamilyCanvas();
+      document.getElementById('familyStepPanel').classList.remove('hidden');
+      document.getElementById('familyStepTitle').textContent = `Přidat nebo upravit příbuzného: ${name}`;
+      document.getElementById('familyStepPrompt').textContent = `Novou osobu připojíte k vybranému členu (${node.relation}). Zvolte typ vztahu a vyplňte údaje.`;
+    }
+
+    function saveFamilyPersonDetails() {
+      const node = familyNodes.find(item => item.id === selectedFamilyId);
+      if (!node) return;
+      node.status = document.getElementById('selectedFamilyStatus').value.trim();
+      node.job = document.getElementById('selectedFamilyJob').value.trim();
+      node.event = document.getElementById('selectedFamilyEvent').value.trim();
+      renderFamilyCanvas();
+      generateNarrativeStory();
+    }
+
+    function addRelativeToSelected(type) {
+      if (!selectedFamilyId) return;
+      document.getElementById('rel_anchor').value = selectedFamilyId;
+      document.getElementById('rel_type').value = type;
+      autoSetGender();
+      document.getElementById('rel_firstname').focus();
+    }
+
+    function startAddFamilyRelative(anchorId, type, gender) {
+      const anchor = familyNodes.find(item => item.id === anchorId);
+      if (!anchor) { alert('Nejdříve přidejte osobu, ke které má být příbuzný připojen.'); return; }
+      document.getElementById('rel_anchor').value = anchorId;
+      document.getElementById('rel_type').value = type;
+      document.getElementById('rel_gender').value = gender;
+      document.getElementById('familyStepPanel').classList.remove('hidden');
+      document.getElementById('familyStepTitle').textContent = `Přidat osobu k: ${anchor.relation}`;
+      document.getElementById('familyStepPrompt').textContent = `Vybraný vztah je „${document.getElementById('rel_type').selectedOptions[0].textContent}“. Doplňte jméno a případné údaje.`;
+      document.getElementById('rel_firstname').focus();
+    }
+
+    function startAddGrandparent(parentRelation, gender) {
+      const parent = familyNodes.find(item => item.relation === parentRelation);
+      if (parent) { startAddFamilyRelative(parent.id, 'parent', gender); return; }
+      alert(`Nejdříve přidejte ${parentRelation.toLocaleLowerCase('cs')}. Potom můžete přidat jeho/jejího rodiče.`);
+    }
+
+    function startAddParentSibling(parentRelation, gender) {
+      const parent = familyNodes.find(item => item.relation === parentRelation);
+      if (parent) { startAddFamilyRelative(parent.id, 'sibling', gender); return; }
+      alert(`Nejdříve přidejte ${parentRelation.toLocaleLowerCase('cs')}. Potom můžete přidat jeho/jejího sourozence.`);
+    }
+
+    function drawFamilyConnections() {
+      const canvas = document.getElementById('familyTreeCanvas');
+      if (!canvas) return;
+      canvas.classList.add('relative');
+      const old = canvas.querySelector('.family-links');
+      if (old) old.remove();
+      const width = Math.max(canvas.scrollWidth, canvas.clientWidth);
+      const height = Math.max(canvas.scrollHeight, canvas.clientHeight);
+      const svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+      svg.setAttribute('class', 'family-links');
+      svg.setAttribute('width', width); svg.setAttribute('height', height);
+      svg.setAttribute('viewBox', '0 0 ' + width + ' ' + height);
+      svg.style.cssText = 'position:absolute;left:0;top:0;pointer-events:none;z-index:2;overflow:visible';
+      const base = canvas.getBoundingClientRect();
+      familyNodes.filter(n => n.anchorId).forEach(node => {
+        const from = canvas.querySelector('[data-node-id="' + node.anchorId + '"]');
+        const to = canvas.querySelector('[data-node-id="' + node.id + '"]');
+        if (!from || !to) return;
+        const a = from.getBoundingClientRect(), b = to.getBoundingClientRect();
+        const x1 = a.left + a.width / 2 - base.left + canvas.scrollLeft;
+        const y1 = a.top + a.height / 2 - base.top + canvas.scrollTop;
+        const x2 = b.left + b.width / 2 - base.left + canvas.scrollLeft;
+        const y2 = b.top + b.height / 2 - base.top + canvas.scrollTop;
+        const path = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+        const bend = y1 === y2 ? y1 : (y1 + y2) / 2;
+        path.setAttribute('d', 'M ' + x1 + ' ' + y1 + ' C ' + x1 + ' ' + bend + ', ' + x2 + ' ' + bend + ', ' + x2 + ' ' + y2);
+        path.setAttribute('fill', 'none'); path.setAttribute('stroke', node.unionEnded ? '#f87171' : '#64748b'); path.setAttribute('stroke-width', node.unionEnded ? '2.5' : '2');
+        if (node.unionEnded) path.setAttribute('stroke-dasharray', '6 5');
+        svg.appendChild(path);
+        if (node.unionEnded) {
+          const mx = (x1 + x2) / 2, my = (y1 + y2) / 2;
+          [['-5','-5','5','5'], ['-5','5','5','-5']].forEach(coords => {
+            const cross = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+            cross.setAttribute('d', 'M ' + (mx + Number(coords[0])) + ' ' + (my + Number(coords[1])) + ' L ' + (mx + Number(coords[2])) + ' ' + (my + Number(coords[3])));
+            cross.setAttribute('stroke', '#f87171'); cross.setAttribute('stroke-width', '2.5');
+            svg.appendChild(cross);
+          });
+        }
+      });
+      canvas.prepend(svg);
+    }
+
+    function addFamilyNode() {
+      const fn = document.getElementById('rel_firstname').value.trim();
+      const ln = document.getElementById('rel_lastname').value.trim();
+      const relationType = document.getElementById('rel_type').value;
+      const gender = document.getElementById('rel_gender').value;
+      const anchorId = document.getElementById('rel_anchor').value || 'root';
+      const anchor = familyNodes.find(n => n.id === anchorId) || familyNodes[0];
+      const relation = inferRelation(relationType, gender, anchor);
+      const job = document.getElementById('rel_job').value.trim();
+      const status = document.getElementById('rel_status').value.trim();
+      const event = document.getElementById('rel_event').value.trim();
+      const unionEnded = ['spouse', 'partner'].includes(relationType) && document.getElementById('rel_union').value === 'ended';
+      if (!fn && !ln) { alert('Prosím zadejte jméno člena rodiny.'); return; }
+      if (relationType === 'parent' && familyNodes.some(n => n.anchorId === anchorId && n.relationType === 'parent' && n.gender === gender)) {
+        alert('Tento rodič už je v rodokmenu přidaný. Každého rodiče lze přidat pouze jednou.');
+        return;
+      }
+      const fullNameKey = value => String(value || '').trim().toLocaleLowerCase('cs');
+      if (familyNodes.some(n => n.anchorId === anchorId && n.relationType === relationType && fullNameKey(n.firstname) === fullNameKey(fn) && fullNameKey(n.lastname) === fullNameKey(ln))) {
+        alert('Tato osoba už je k vybranému členu přidaná.');
+        return;
+      }
+      if (anchorId === 'root' && ['spouse','partner'].includes(relationType) && !unionEnded && familyNodes.some(n => n.anchorId === 'root' && ['spouse','partner'].includes(n.relationType) && !n.unionEnded)) {
+        alert('Přidejte pouze jednoho současného partnera. Pokud přidáváte bývalého partnera, označte vztah jako ukončený.');
+        return;
+      }
+      familyNodes.push({ id: 'node_' + Date.now() + '_' + Math.random().toString(36).slice(2, 7), firstname: fn, lastname: ln, relation, relationType, anchorId, gender, job, status, event, unionEnded });
+      if (relationType === 'sibling' && anchorId === 'root') familyAbsences.sibling = false;
+      if (relationType === 'child' && anchorId === 'root') familyAbsences[gender === 'M' ? 'son' : 'daughter'] = false;
+      ['rel_firstname','rel_lastname','rel_job','rel_status','rel_event'].forEach(id => document.getElementById(id).value = '');
+      renderFamilyCanvas();
+      generateNarrativeStory();
+    }
+
+    function removeFamilyNode(index) {
+      if (index === 0) { alert('Hlavního mluvčího nelze smazat.'); return; }
+      const removeIds = new Set([familyNodes[index].id]);
+      let changed = true;
+      while (changed) {
+        changed = false;
+        familyNodes.forEach(node => { if (node.anchorId && removeIds.has(node.anchorId) && !removeIds.has(node.id)) { removeIds.add(node.id); changed = true; } });
+      }
+      familyNodes = familyNodes.filter(node => !removeIds.has(node.id));
+      renderFamilyCanvas();
+      generateNarrativeStory();
+    }
+
+    /* DYNAMIC FLUID NARRATIVE STORY GENERATOR FROM THE CREATED TREE */
+    function generateNarrativeStory() {
+      const container = document.getElementById('generatedStoryText');
+      const student = familyNodes[0];
+      const isM = student.gender === 'M';
+      const esc = value => String(value || '').replace(/[&<>"']/g, ch => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[ch]));
+      const fullName = esc((student.firstname + ' ' + student.lastname).trim() || (isM ? 'student' : 'studentka'));
+      const intro = ['Jmenuji se <strong>' + fullName + '</strong>.'];
+      if (student.birthplace) intro.push((isM ? 'Narodil jsem' : 'Narodila jsem') + ' se ' + esc(student.birthplace) + '.');
+      if (student.birthplaceGen) intro.push('Pocházím z ' + esc(student.birthplaceGen) + '.');
+      if (student.nat) intro.push('Podle národnosti jsem ' + esc(student.nat) + '.');
+      if (student.residence) intro.push('V současné době bydlím ' + esc(student.residence) + '.');
+      if (student.job) intro.push('Pracuji jako ' + esc(student.job) + '.');
+      if (student.event) intro.push((isM ? 'Rád vzpomínám' : 'Ráda vzpomínám') + ' na tuto událost: ' + esc(student.event).replace(/[.!?]+$/, '') + '.');
+      const role = { Otec:'Můj otec', Matka:'Moje matka', Bratr:'Můj bratr', Sestra:'Moje sestra', Manžel:'Můj manžel', Manželka:'Moje manželka', Přítel:'Můj partner', Přítelkyně:'Moje partnerka', Syn:'Můj syn', Dcera:'Moje dcera', Dědeček:'Můj dědeček', Babička:'Moje babička', Strýc:'Můj strýc', Teta:'Moje teta', Bratranec:'Můj bratranec', Sestřenice:'Moje sestřenice', Synovec:'Můj synovec', Neteř:'Moje neteř', Švagr:'Můj švagr', Švagrová:'Moje švagrová', Zeť:'Můj zeť', Snacha:'Moje snacha', Tchán:'Můj tchán', Tchýně:'Moje tchýně' };
+      const people = familyNodes.slice(1).map(n => {
+        const name = esc((n.firstname + ' ' + n.lastname).trim());
+        let sentence = (role[n.relation] || 'Můj příbuzný') + ' se jmenuje <strong>' + name + '</strong>.';
+        if (n.status) sentence += ' ' + esc(n.status).replace(/[.!?]+$/, '') + '.';
+        if (n.job) sentence += ' Pracuje jako ' + esc(n.job).replace(/[.!?]+$/, '') + '.';
+        if (n.event) sentence += ' ' + esc(n.event).replace(/[.!?]+$/, '') + '.';
+        return sentence;
+      });
+      const html = ['<p class="mb-3">' + intro.join(' ') + '</p>'];
+      if (people.length) html.push('<p class="mb-3">V mé rodině jsou také tito příbuzní: ' + people.join(' ') + '</p>');
+      html.push('<p class="mb-3">' + (isM ? 'Rád' : 'Ráda') + ' vzpomínám na společné chvíle a těším se na další rodinná setkání.</p>');
+      container.innerHTML = html.join('');
+    }
+
+    function readGeneratedStory() {
+      const text = document.getElementById('generatedStoryText').innerText;
+      speakText(text);
+    }
+
+    /* TEACHER NOTES SYNC ACROSS ALL TABS */
+    function syncTeacherNotes(sender) {
+      const text = sender.value;
+      localStorage.setItem('cz_b1_l1_notes', text);
+      
+      document.querySelectorAll('.teacherNotesArea').forEach(area => {
+        if (area !== sender) {
+          area.value = text;
+        }
+      });
+      updateHomeworkPack();
+    }
+
+    /* HOMEWORK EMAIL COMPOSER */
+    function updateHomeworkPack() { updateHomeworkEmail(); }
+    function updateHomeworkEmail() {
+      const textarea = document.getElementById('homeworkTextarea');
+      const counter = document.getElementById('homeworkWordCount');
+      if (!textarea || !counter) return;
+      const count = textarea.value.trim() ? textarea.value.trim().split(/\s+/u).filter(Boolean).length : 0;
+      counter.textContent = `${count} slov (doporučeno 120–150)`;
+      counter.className = `text-xs ${count >= 120 && count <= 150 ? 'text-emerald-400' : 'text-slate-400'}`;
+    }
+    async function copyHomeworkToClipboard() {
+      const text = document.getElementById('homeworkTextarea').value.trim();
+      if (!text) { alert('Nejdříve napište svůj úkol.'); return; }
+      const email = `Komu: lukas@hackczech.com\nPředmět: Assign task - Lekce 1\n\n${text}`;
+      try { await navigator.clipboard.writeText(email); }
+      catch (error) { const textarea = document.getElementById('homeworkTextarea'); textarea.value = email; textarea.select(); document.execCommand('copy'); textarea.value = text; updateHomeworkEmail(); }
+      alert('E-mail s úkolem byl zkopírován. Vložte ho do své e-mailové aplikace.');
+    }
+
+    /* INITIALIZATION ON LOAD */
+    window.onload = () => {
+      shuffleQuizChoices();
+      window.addEventListener('resize', () => requestAnimationFrame(drawFamilyConnections));
+      renderVocab();
+      renderModelStory();
+      renderExerciseA();
+      renderExerciseB();
+      renderFamilyCanvas();
+      generateNarrativeStory();
+
+      const savedNotes = localStorage.getItem('cz_b1_l1_notes');
+      if (savedNotes) {
+        document.querySelectorAll('.teacherNotesArea').forEach(area => {
+          area.value = savedNotes;
+        });
+      }
+      updateHomeworkPack();
+    };
+  </script>
+</body>
+</html>

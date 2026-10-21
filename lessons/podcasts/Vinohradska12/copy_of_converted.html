@@ -1,0 +1,410 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>HáCZech Admin — Raw Text to JSON Converter</title>
+<style>
+  :root { --blue:#1769aa; --blue-dark:#104d80; --bg:#f4f7fb; --border:#d5deea; }
+  * { box-sizing:border-box; }
+  body { margin:0; padding:24px; font-family:Arial,Helvetica,sans-serif; color:#1e293b; background:var(--bg); }
+  main { max-width:1100px; margin:0 auto; }
+  h1 { margin:0 0 8px; color:var(--blue-dark); font-size:1.8rem; }
+  p { line-height:1.5; }
+  label { display:block; font-weight:700; margin:18px 0 8px; }
+  textarea, input { width:100%; padding:12px; border:1px solid var(--border); border-radius:8px; font:14px/1.5 Consolas,Monaco,monospace; background:white; }
+  #rawText { min-height:420px; resize:vertical; }
+  #jsonOutput { min-height:300px; resize:vertical; }
+  .row { display:flex; gap:10px; flex-wrap:wrap; margin:14px 0; }
+  button { border:0; border-radius:7px; padding:11px 17px; color:white; background:var(--blue); font-weight:700; cursor:pointer; }
+  button:hover { background:var(--blue-dark); }
+  button.secondary { background:#526477; }
+  #status { padding:12px; border-radius:8px; margin:14px 0; white-space:pre-wrap; }
+  #status:empty { display:none; }
+  .success { background:#e8f7ec; color:#176534; border:1px solid #a9d9b4; }
+  .error { background:#fff0f0; color:#9b1c1c; border:1px solid #efb4b4; }
+  .hint { background:#eaf3fc; padding:12px 15px; border-radius:8px; }
+  code { background:#e7edf5; padding:2px 4px; border-radius:4px; }
+</style>
+</head>
+<body>
+<main>
+  <h1>HáCZech Admin — Raw Text to JSON Converter</h1>
+  <p>Paste the plain-text episode/test content below, convert it to JSON, check the preview, then download the JSON file.</p>
+  <div class="hint">
+    Recognized labels include <code>Titulek:</code>, <code>Popis:</code>, <code>Audio:</code>, <code>Link:</code>,
+    levels <code>B1</code>/<code>B2</code>/<code>C1</code>, <code>Cvičení</code>, numbered questions,
+    options <code>a)</code>–<code>h)</code>, <code>Slova:</code>, <code>KLÍČ SPRÁVNÝCH ODPOVĚDÍ</code>
+    and bonus vocabulary.
+  </div>
+
+  <label for="rawText">Raw text</label>
+  <textarea id="rawText" spellcheck="false" placeholder="Paste your episode/test text here..."></textarea>
+  <div class="row">
+    <button type="button" id="convertBtn">Convert to JSON</button>
+    <button type="button" class="secondary" id="downloadBtn" disabled>Download JSON</button>
+    <button type="button" class="secondary" id="copyBtn" disabled>Copy JSON</button>
+  </div>
+  <div id="status" role="status"></div>
+  <label for="jsonOutput">JSON output</label>
+  <textarea id="jsonOutput" spellcheck="false" placeholder="Converted JSON will appear here..."></textarea>
+</main>
+
+<script>
+"use strict";
+
+let convertedData = null;
+
+function cleanLine(line) {
+  return String(line ?? "").replace(/\uFEFF/g, "").replace(/\r/g, "").trim();
+}
+function normalizeHeading(line) {
+  return cleanLine(line).replace(/^#+\s*/, "").trim();
+}
+function isLevel(line) {
+  return /^(B1|B2|C1)\s*:?$/i.test(normalizeHeading(line));
+}
+function getLevel(line) {
+  return normalizeHeading(line).replace(/:$/, "").toUpperCase();
+}
+function isExerciseHeading(line) {
+  return /^Cvičení\s*\d+\b/i.test(normalizeHeading(line));
+}
+function isAnswerKeyHeading(line) {
+  return /KL[IÍ]Č\s+SPR[AÁ]VN[YÝ]CH\s+ODPOV[EĚ]D[IÍ]/i.test(normalizeHeading(line)) ||
+         /ANSWER\s*KEY/i.test(normalizeHeading(line));
+}
+function isBonusHeading(line) {
+  return /\bBONUS\b|\bSLOVN[IÍ]K\b|\bSLOVA\s+NAV[IÍ]C\b/i.test(normalizeHeading(line));
+}
+function parseNumbered(line) {
+  // Accepts "1. text", "1) text", "1 - text", "1 text"
+  const m = normalizeHeading(line).match(/^(\d{1,3})\s*(?:[.)]|[-–])\s*(.*)$/);
+  return m ? { number: Number(m[1]), text: m[2].trim() } : null;
+}
+function parseLetterOption(line) {
+  const m = normalizeHeading(line).match(/^([a-h])\s*[.)]\s*(.*)$/i);
+  return m ? { letter: m[1].toLowerCase(), text: m[2].trim() } : null;
+}
+function parseSubsection(line) {
+  const m = normalizeHeading(line).match(/^([A-C])\s*[.)]\s*(.+)$/i);
+  return m ? { letter: m[1].toUpperCase(), text: m[2].trim() } : null;
+}
+function parseLabel(line, labels) {
+  const escaped = labels.join("|").replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+  const m = cleanLine(line).match(new RegExp("^\\s*(?:" + escaped + ")\\s*:\\s*(.*)$", "i"));
+  return m ? m[1].trim() : null;
+}
+function splitAnswerList(text) {
+  return text.split(/\s*(?:;|\||,)\s*/).map(x => x.trim()).filter(Boolean);
+}
+function inferMultiSelect(text) {
+  return /\b(dvě|dva|dvě odpovědi|tři|tři odpovědi|více odpovědí|vyberte dvě|vyberte tři|select two|select three|multiple answers)\b/i.test(text);
+}
+function extractKeyValue(line) {
+  const m = normalizeHeading(line).match(/^(?:Cvičení\s*)?(\d+)\s*[.:)\-–]\s*(.*)$/i);
+  if (m) return { exercise: Number(m[1]), value: m[2].trim() };
+  const m2 = normalizeHeading(line).match(/^([1-5])\s+(.+)$/);
+  if (m2) return { exercise: Number(m2[1]), value: m2[2].trim() };
+  return null;
+}
+
+function newExercise(title) {
+  return {
+    title: title,
+    type: "standard",
+    instructions: "",
+    optionsList: [],
+    items: [],
+    matchingItems: [],
+    matchingOptions: [],
+    matchingSection: ""
+  };
+}
+function ensureLevel(data, level) {
+  if (!data.levels[level]) data.levels[level] = { vocabulary: [], exercises: [] };
+  if (!data.answer_key[level]) data.answer_key[level] = {};
+  return data.levels[level];
+}
+function parseVocabularyLine(text, target) {
+  let value = text.trim();
+  value = value.replace(/^(Slova|Slovo|Výrazy|Slovní zásoba)\s*:\s*/i, "");
+  const entries = value.split(/\s*,\s*/).map(s => s.trim()).filter(Boolean);
+  for (const entry of entries) {
+    // Preserve supplied vocabulary entries; support "Czech — translation" and "Czech - translation".
+    const parts = entry.split(/\s+[—–]\s+|\s+-\s+/);
+    if (parts.length >= 2) {
+      target.push({ word: parts[0].trim(), translation: parts.slice(1).join(" - ").trim() });
+    } else {
+      target.push({ word: entry, translation: "" });
+    }
+  }
+}
+function parseRawText(raw) {
+  const lines = raw.split(/\n/).map(cleanLine);
+  const data = {
+    title: "",
+    description: "",
+    audioUrl: "",
+    episodeUrl: "",
+    levels: {},
+    answer_key: {}
+  };
+
+  let currentLevel = null;
+  let currentExercise = null;
+  let currentItem = null;
+  let currentSection = "";
+  let mode = "content"; // content, key, bonus
+  let currentKeyExercise = null;
+  let keyBuffer = [];
+  let bonusTarget = [];
+  let metadataContinuation = "";
+
+  function flushItem() {
+    if (currentItem && currentExercise) {
+      currentExercise.items.push(currentItem);
+      currentItem = null;
+    }
+  }
+  function flushExercise() {
+    flushItem();
+    if (currentExercise && currentLevel) {
+      if (currentExercise.instructions && !currentExercise.items.length &&
+          !currentExercise.optionsList.length && !currentExercise.matchingItems.length) {
+        // Keep empty exercises too; this makes parser problems visible instead of silently dropping them.
+      }
+      ensureLevel(data, currentLevel).exercises.push(currentExercise);
+    }
+    currentExercise = null;
+    currentSection = "";
+  }
+  function flushKey() {
+    if (currentLevel && currentKeyExercise !== null && keyBuffer.length) {
+      data.answer_key[currentLevel][String(currentKeyExercise)] = keyBuffer.join(" ").trim();
+    }
+    currentKeyExercise = null;
+    keyBuffer = [];
+  }
+
+  for (let i = 0; i < lines.length; i++) {
+    const original = lines[i];
+    if (!original) continue;
+    const line = normalizeHeading(original);
+
+    const title = parseLabel(line, ["Titulek", "Title"]);
+    if (title !== null) { data.title = title; continue; }
+    const description = parseLabel(line, ["Popis", "Description"]);
+    if (description !== null) { data.description = description; continue; }
+    const audio = parseLabel(line, ["Audio", "Audio URL", "AudioUrl"]);
+    if (audio !== null) { data.audioUrl = audio; continue; }
+    const episode = parseLabel(line, ["Link", "Odkaz", "Episode URL", "EpisodeUrl"]);
+    if (episode !== null) { data.episodeUrl = episode; continue; }
+
+    if (isAnswerKeyHeading(line)) {
+      flushExercise();
+      flushKey();
+      mode = "key";
+      continue;
+    }
+    if (isBonusHeading(line)) {
+      if (mode === "key") flushKey();
+      flushExercise();
+      mode = "bonus";
+      currentLevel = currentLevel || "B1";
+      ensureLevel(data, currentLevel);
+      bonusTarget = ensureLevel(data, currentLevel).vocabulary;
+      continue;
+    }
+    if (isLevel(line)) {
+      if (mode === "key") flushKey();
+      flushExercise();
+      currentLevel = getLevel(line);
+      ensureLevel(data, currentLevel);
+      mode = "content";
+      continue;
+    }
+
+    if (mode === "key") {
+      const keyEntry = extractKeyValue(line);
+      if (keyEntry) {
+        flushKey();
+        currentKeyExercise = keyEntry.exercise;
+        keyBuffer = keyEntry.value ? [keyEntry.value] : [];
+      } else if (currentKeyExercise !== null) {
+        keyBuffer.push(line);
+      } else {
+        // Supports key lines such as "Cvičení 1: 1a, 2c, 3b".
+        const exMatch = line.match(/^Cvičení\s*(\d+)\s*:\s*(.*)$/i);
+        if (exMatch) {
+          currentKeyExercise = Number(exMatch[1]);
+          keyBuffer = exMatch[2] ? [exMatch[2]] : [];
+        }
+      }
+      continue;
+    }
+
+    if (mode === "bonus") {
+      const vocab = parseLabel(line, ["Slova", "Slovo", "Výrazy", "Slovní zásoba"]);
+      if (vocab !== null) parseVocabularyLine(vocab, bonusTarget);
+      else if (/[,—–]\s*/.test(line) && !isExerciseHeading(line)) parseVocabularyLine(line, bonusTarget);
+      continue;
+    }
+
+    if (!currentLevel) continue;
+
+    if (isExerciseHeading(line)) {
+      flushExercise();
+      currentExercise = newExercise(line.replace(/^#+\s*/, ""));
+      currentSection = "";
+      currentItem = null;
+      continue;
+    }
+
+    // A subsection such as A. Doplňte... inside an exercise.
+    const subsection = parseSubsection(line);
+    if (subsection && currentExercise) {
+      flushItem();
+      currentSection = subsection.letter + ". " + subsection.text;
+      currentExercise.instructions = currentExercise.instructions || subsection.text;
+      continue;
+    }
+
+    if (/^Slova\s*:/i.test(line) && currentExercise) {
+      const bank = line.replace(/^Slova\s*:\s*/i, "");
+      currentExercise.optionsList = splitAnswerList(bank);
+      continue;
+    }
+
+    const numbered = parseNumbered(line);
+    if (numbered && currentExercise) {
+      flushItem();
+      const isMulti = inferMultiSelect(currentExercise.title + " " + currentExercise.instructions + " " + currentSection);
+      currentItem = {
+        section_title: currentSection,
+        prompt: numbered.text,
+        type: isMulti ? "checkbox" : "single",
+        is_multiselect: isMulti,
+        options: []
+      };
+      continue;
+    }
+
+    const option = parseLetterOption(line);
+    if (option && currentExercise) {
+      if (currentItem) {
+        currentItem.options.push({ label: option.letter, text: option.text });
+      } else if (currentExercise.matchingItems.length) {
+        currentExercise.matchingOptions.push({ label: option.letter, text: option.text });
+      } else {
+        // Lettered options without a numbered question are treated as exercise-level options.
+        currentExercise.matchingOptions.push({ label: option.letter, text: option.text });
+      }
+      continue;
+    }
+
+    if (currentExercise) {
+      if (!currentExercise.instructions && currentExercise.items.length === 0 && !currentItem) {
+        currentExercise.instructions = line;
+      } else if (currentItem) {
+        currentItem.prompt = (currentItem.prompt + " " + line).trim();
+      } else if (currentExercise.instructions) {
+        currentExercise.instructions += "\n" + line;
+      }
+    }
+  }
+
+  if (mode === "key") flushKey();
+  flushExercise();
+
+  // Remove internal blank-level containers only if completely unused.
+  for (const level of Object.keys(data.levels)) {
+    const obj = data.levels[level];
+    if (!obj.vocabulary.length && !obj.exercises.length && !Object.keys(data.answer_key[level] || {}).length) {
+      delete data.levels[level];
+      delete data.answer_key[level];
+    }
+  }
+
+  if (!data.title) data.title = "Czech episode test";
+  return data;
+}
+
+function showStatus(message, type) {
+  const el = document.getElementById("status");
+  el.textContent = message;
+  el.className = type || "";
+}
+function processText() {
+  const raw = document.getElementById("rawText").value;
+  if (!raw.trim()) {
+    showStatus("Please paste the raw text first.", "error");
+    return;
+  }
+  try {
+    const parsed = parseRawText(raw);
+    const output = JSON.stringify(parsed, null, 2);
+    // Validate the generated JSON before displaying it.
+    JSON.parse(output);
+    convertedData = parsed;
+    document.getElementById("jsonOutput").value = output;
+    document.getElementById("downloadBtn").disabled = false;
+    document.getElementById("copyBtn").disabled = false;
+
+    const levels = Object.keys(parsed.levels);
+    const exerciseCount = levels.reduce((sum, level) => sum + parsed.levels[level].exercises.length, 0);
+    const itemCount = levels.reduce((sum, level) => sum + parsed.levels[level].exercises.reduce((n, ex) => n + ex.items.length, 0), 0);
+    const warnings = [];
+    if (!levels.length) warnings.push("No B1/B2/C1 sections were detected.");
+    if (levels.some(level => !parsed.levels[level].exercises.length)) warnings.push("At least one detected level has no exercises.");
+    if (levels.some(level => parsed.levels[level].exercises.some(ex => !ex.items.length && !ex.optionsList.length))) warnings.push("At least one exercise has no numbered questions or word bank.");
+    let message = "Conversion successful. Detected level(s): " + (levels.join(", ") || "none") +
+      ". Exercises: " + exerciseCount + ". Numbered questions: " + itemCount + ".";
+    if (warnings.length) message += "\nCheck: " + warnings.join(" ");
+    showStatus(message, warnings.length ? "error" : "success");
+  } catch (err) {
+    convertedData = null;
+    document.getElementById("downloadBtn").disabled = true;
+    document.getElementById("copyBtn").disabled = true;
+    showStatus("Conversion failed: " + (err && err.message ? err.message : String(err)), "error");
+    console.error(err);
+  }
+}
+function downloadJSON() {
+  if (!convertedData) {
+    showStatus("Convert the text before downloading.", "error");
+    return;
+  }
+  const base = (convertedData.title || "czech-episode-test")
+    .normalize("NFD").replace(/[\u0300-\u036f]/g, "")
+    .toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-+|-+$/g, "") || "czech-episode-test";
+  const blob = new Blob([JSON.stringify(convertedData, null, 2)], { type: "application/json;charset=utf-8" });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement("a");
+  a.href = url;
+  a.download = base + ".json";
+  document.body.appendChild(a);
+  a.click();
+  a.remove();
+  URL.revokeObjectURL(url);
+}
+async function copyJSON() {
+  const text = document.getElementById("jsonOutput").value;
+  if (!text) return;
+  try {
+    await navigator.clipboard.writeText(text);
+    showStatus("JSON copied to clipboard.", "success");
+  } catch (err) {
+    document.getElementById("jsonOutput").focus();
+    document.getElementById("jsonOutput").select();
+    const ok = document.execCommand("copy");
+    showStatus(ok ? "JSON copied to clipboard." : "Clipboard access failed. Select and copy the JSON manually.", ok ? "success" : "error");
+  }
+}
+
+document.getElementById("convertBtn").addEventListener("click", processText);
+document.getElementById("downloadBtn").addEventListener("click", downloadJSON);
+document.getElementById("copyBtn").addEventListener("click", copyJSON);
+</script>
+</body>
+</html>

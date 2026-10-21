@@ -1,0 +1,840 @@
+<!DOCTYPE html>
+<html lang="cs" class="h-full bg-slate-900 text-slate-100">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Czech B1 Mastery: Lesson 6 – 2. pád: Cestování, země a města</title>
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- FontAwesome Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <!-- Google Fonts: Inter -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <!-- Leaflet Real World Map CSS & JS -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" crossorigin="" />
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" crossorigin=""></script>
+  
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Inter', 'sans-serif'],
+          },
+          colors: {
+            brand: {
+              50: '#f0f9ff',
+              100: '#e0f2fe',
+              500: '#0284c7',
+              600: '#0284c7',
+              700: '#0369a1',
+            }
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    ::-webkit-scrollbar {
+      width: 8px;
+      height: 8px;
+    }
+    ::-webkit-scrollbar-track {
+      background: rgba(15, 23, 42, 0.6);
+    }
+    ::-webkit-scrollbar-thumb {
+      background: rgba(51, 65, 85, 0.8);
+      border-radius: 4px;
+    }
+    ::-webkit-scrollbar-thumb:hover {
+      background: rgba(71, 85, 105, 1);
+    }
+    .glass-card {
+      background: rgba(30, 41, 59, 0.7);
+      backdrop-filter: blur(12px);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+    }
+    .glass-card-hover:hover {
+      background: rgba(30, 41, 59, 0.9);
+      border-color: rgba(56, 189, 248, 0.3);
+    }
+    /* Custom Leaflet Map styling to match dark theme */
+    .leaflet-container {
+      background: #020617 !important;
+      font-family: 'Inter', sans-serif !important;
+    }
+    .leaflet-tile-pane {
+      filter: brightness(0.6) invert(1) contrast(3) hue-rotate(200deg) saturate(0.3);
+    }
+    .leaflet-popup-content-wrapper, .leaflet-popup-tip {
+      background: #0f172a !important;
+      color: #f8fafc !important;
+      border: 1px solid rgba(56, 189, 248, 0.3);
+      border-radius: 12px;
+    }
+  </style>
+</head>
+<body class="h-full flex flex-col font-sans bg-slate-950 text-slate-100 overflow-x-hidden">
+
+  <!-- WORK IN PROGRESS STICKY BANNER -->
+  <div class="sticky top-0 z-[60] bg-gradient-to-r from-amber-600 via-yellow-500 to-amber-600 text-slate-950 px-4 py-2 shadow-md border-b border-amber-400/30">
+    <div class="max-w-7xl mx-auto flex items-center justify-center gap-3 text-center">
+      <i class="fa-solid fa-triangle-exclamation text-sm sm:text-base animate-bounce"></i>
+      <span class="text-xs sm:text-sm font-extrabold uppercase tracking-widest font-mono">
+        WORK IN PROGRESS – Platforma je ve vývoji
+      </span>
+      <i class="fa-solid fa-earth-americas text-sm sm:text-base"></i>
+    </div>
+  </div>
+
+  <!-- HEADER & NAVBAR -->
+  <header class="sticky top-[37px] z-50 bg-slate-900/90 backdrop-blur-md border-b border-slate-800 shadow-lg">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex items-center justify-between h-16">
+        <!-- Logo / Title -->
+        <div class="flex items-center space-x-3">
+          <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-sky-500 to-indigo-600 flex items-center justify-center text-white shadow-lg shadow-sky-500/20 font-bold text-xl">
+            <i class="fa-solid fa-earth-europe"></i>
+          </div>
+          <div>
+            <h1 class="text-lg font-bold text-white leading-tight">Czech B1 Mastery</h1>
+            <p class="text-xs text-sky-400 font-medium">Lekce 6: 2. pád – Země, města a národnosti</p>
+          </div>
+        </div>
+
+        <!-- Quick Info / Audio Check -->
+        <div class="hidden md:flex items-center space-x-4 text-xs font-medium">
+          <span class="px-3 py-1.5 rounded-full bg-slate-800 border border-slate-700 text-slate-300 flex items-center gap-2">
+            <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+            Teaching Mode
+          </span>
+          <button onclick="speakText('Jsem z České republiky a mluvím česky.')" class="px-3 py-1.5 rounded-lg bg-sky-600/20 hover:bg-sky-600/30 text-sky-300 border border-sky-500/30 transition flex items-center gap-1.5">
+            <i class="fa-solid fa-volume-high"></i> Audio Check
+          </button>
+        </div>
+      </div>
+
+      <!-- Navigation Tabs -->
+      <nav class="flex space-x-1 overflow-x-auto no-scrollbar border-t border-slate-800/80 py-2" id="mainTabs">
+        <button onclick="switchTab('tab-vocab')" id="btn-tab-vocab" class="tab-btn active px-4 py-2 text-xs sm:text-sm font-semibold rounded-lg text-white bg-sky-600 shadow-md shadow-sky-600/20 transition flex items-center gap-2 whitespace-nowrap">
+          <i class="fa-solid fa-book-open"></i> 1. Vocab &amp; Nationalities (21)
+        </button>
+        <button onclick="switchTab('tab-world')" id="btn-tab-world" class="tab-btn px-4 py-2 text-xs sm:text-sm font-semibold rounded-lg text-slate-400 hover:text-slate-200 hover:bg-slate-800 transition flex items-center gap-2 whitespace-nowrap">
+          <i class="fa-solid fa-globe"></i> 2. World Map &amp; Origin Generator
+        </button>
+        <button onclick="switchTab('tab-exA')" id="btn-tab-exA" class="tab-btn px-4 py-2 text-xs sm:text-sm font-semibold rounded-lg text-slate-400 hover:text-slate-200 hover:bg-slate-800 transition flex items-center gap-2 whitespace-nowrap">
+          <i class="fa-solid fa-pen-to-square"></i> 3. Gap-Fill Drill (59 Vět)
+        </button>
+        <button onclick="switchTab('tab-exB')" id="btn-tab-exB" class="tab-btn px-4 py-2 text-xs sm:text-sm font-semibold rounded-lg text-slate-400 hover:text-slate-200 hover:bg-slate-800 transition flex items-center gap-2 whitespace-nowrap">
+          <i class="fa-solid fa-wand-magic-sparkles"></i> 4. Sentence Upgrade (A2 &rarr; B1)
+        </button>
+        <button onclick="switchTab('tab-homework')" id="btn-tab-homework" class="tab-btn px-4 py-2 text-xs sm:text-sm font-semibold rounded-lg text-slate-400 hover:text-slate-200 hover:bg-slate-800 transition flex items-center gap-2 whitespace-nowrap">
+          <i class="fa-solid fa-paper-plane"></i> 5. Homework &amp; Live Notes
+        </button>
+      </nav>
+    </div>
+  </header>
+
+  <!-- MAIN CONTAINER -->
+  <main class="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-6">
+
+    <!-- TAB 1: VOCABULARY HUB & NATIONALITIES -->
+    <section id="tab-vocab" class="tab-content block space-y-8">
+      
+      <!-- Vocabulary Header -->
+      <div class="glass-card rounded-2xl p-5 border border-slate-800 flex flex-col md:flex-row gap-4 items-center justify-between">
+        <div>
+          <h2 class="text-xl font-bold text-white flex items-center gap-2">
+            <i class="fa-solid fa-passport text-sky-400"></i> Nová slovní zásoba – Země, národnosti a 2. pád (21 výrazů)
+          </h2>
+          <p class="text-xs text-slate-400 mt-1">
+            Vazby <em>„jsem z... / ze...“</em> (2. pád), názvy zemí, obyvatel a přídavných jmen.
+          </p>
+        </div>
+        
+        <div class="flex flex-wrap items-center gap-3 w-full md:w-auto">
+          <div class="relative flex-1 md:w-64">
+            <i class="fa-solid fa-magnifying-glass absolute left-3 top-1/2 -translate-y-1/2 text-slate-500 text-sm"></i>
+            <input type="text" id="vocabSearch" oninput="filterVocab()" placeholder="Hledat zemi nebo tvar..." class="w-full bg-slate-900 border border-slate-700 text-slate-200 text-xs rounded-xl pl-9 pr-3 py-2 focus:outline-none focus:border-sky-500">
+          </div>
+          <div class="flex items-center bg-slate-900 border border-slate-800 p-1 rounded-xl text-xs">
+            <button onclick="setVocabFilter('all')" id="vfilter-all" class="vfilter-btn px-3 py-1 rounded-lg text-white bg-sky-600 font-medium">All (21)</button>
+            <button onclick="setVocabFilter('europe')" id="vfilter-europe" class="vfilter-btn px-3 py-1 rounded-lg text-slate-400 hover:text-slate-200">Evropa</button>
+            <button onclick="setVocabFilter('world')" id="vfilter-world" class="vfilter-btn px-3 py-1 rounded-lg text-slate-400 hover:text-slate-200">Svět</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Vocabulary Grid -->
+      <div id="vocabGrid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+        <!-- JS Rendered -->
+      </div>
+
+      <!-- GRAMMAR RULE BOX -->
+      <div class="glass-card rounded-2xl p-6 border border-slate-800 space-y-4">
+        <h3 class="text-base font-bold text-amber-400 flex items-center gap-2 border-b border-slate-800 pb-3">
+          <i class="fa-solid fa-book-bookmark"></i> Gramatické pravidlo: 2. pád (Genitiv) u zemí a měst
+        </h3>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-4 text-xs">
+          <div class="bg-slate-900/90 p-4 rounded-xl border border-slate-800 space-y-2">
+            <span class="font-bold text-sky-400 uppercase tracking-wider block">1. Maskulina (M)</span>
+            <p class="text-slate-300">Zakončení na souhlásku &rarr; <strong>-a</strong> / <strong>-u</strong></p>
+            <ul class="text-slate-400 font-mono space-y-1 text-[11px]">
+              <li>• Berlín &rarr; z Berlína</li>
+              <li>• Řím &rarr; z Říma</li>
+              <li>• Londýn &rarr; z Londýna</li>
+            </ul>
+          </div>
+
+          <div class="bg-slate-900/90 p-4 rounded-xl border border-slate-800 space-y-2">
+            <span class="font-bold text-amber-400 uppercase tracking-wider block">2. Feminina (Ž)</span>
+            <p class="text-slate-300">Zakončení na <strong>-a</strong> &rarr; <strong>-y</strong> / <strong>-e</strong></p>
+            <ul class="text-slate-400 font-mono space-y-1 text-[11px]">
+              <li>• Praha &rarr; z Prahy</li>
+              <li>• Francie &rarr; z Francie</li>
+              <li>• Španělsko &rarr; <strong>ze Španělska</strong></li>
+            </ul>
+          </div>
+
+          <div class="bg-slate-900/90 p-4 rounded-xl border border-slate-800 space-y-2">
+            <span class="font-bold text-emerald-400 uppercase tracking-wider block">3. Neutra (N)</span>
+            <p class="text-slate-300">Zakončení na <strong>-o</strong> / <strong>-sko</strong> &rarr; <strong>-a</strong></p>
+            <ul class="text-slate-400 font-mono space-y-1 text-[11px]">
+              <li>• Norsko &rarr; z Norska</li>
+              <li>• Japonsko &rarr; z Japonska</li>
+              <li>• Slovensko &rarr; <strong>ze Slovenska</strong></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+    </section>
+
+    <!-- TAB 2: REAL WORLD MAP & ORIGIN GENERATOR -->
+    <section id="tab-world" class="tab-content hidden space-y-8">
+      <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+        
+        <div class="lg:col-span-2 space-y-6">
+          <div class="glass-card rounded-2xl p-6 border border-slate-800 space-y-6">
+            
+            <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-slate-800 pb-4">
+              <div>
+                <h2 class="text-xl font-bold text-white flex items-center gap-2">
+                  <i class="fa-solid fa-earth-americas text-sky-400"></i> Reálná interaktivní mapa světa &amp; Generátor
+                </h2>
+                <p class="text-xs text-slate-400 mt-1">
+                  Klikněte na jakýkoli špendlík na reálné mapě nebo použijte tlačítko pro náhodný výběr.
+                </p>
+              </div>
+
+              <button onclick="generateRandomCountry()" class="px-5 py-2.5 bg-amber-600 hover:bg-amber-500 text-white rounded-xl text-xs font-bold transition shadow-lg shadow-amber-600/20 flex items-center gap-2 whitespace-nowrap">
+                <i class="fa-solid fa-shuffle"></i> Náhodná země
+              </button>
+            </div>
+
+            <!-- REAL LEAFLET MAP CONTAINER -->
+            <div class="bg-slate-950 rounded-2xl border border-slate-800 overflow-hidden relative">
+              <div id="realWorldMap" class="w-full h-[380px] z-10"></div>
+            </div>
+
+            <!-- Dynamic Country Details Display Card -->
+            <div id="countryCard" class="bg-slate-900/90 rounded-2xl p-6 border border-slate-800 space-y-4">
+              <!-- JS Rendered -->
+            </div>
+
+            <!-- External link inspiration -->
+            <div class="bg-slate-900/60 p-4 rounded-xl border border-slate-800/80 flex items-center justify-between text-xs text-slate-400">
+              <span class="flex items-center gap-2">
+                <i class="fa-solid fa-arrow-up-right-from-square text-sky-400"></i>
+                Pro další procvičování zemí můžete využít externí generátor:
+              </span>
+              <a href="https://random.country/" target="_blank" rel="noopener noreferrer" class="px-3 py-1.5 bg-sky-600/20 text-sky-300 hover:bg-sky-600/30 border border-sky-500/30 rounded-lg font-bold transition">
+                random.country <i class="fa-solid fa-external-link text-[10px] ml-1"></i>
+              </a>
+            </div>
+
+          </div>
+        </div>
+
+        <!-- Right Col: Compact Teacher Live Notes -->
+        <div class="glass-card rounded-2xl p-4 border border-slate-800 flex flex-col h-[320px]">
+          <div class="flex items-center justify-between pb-2 border-b border-slate-800 mb-2">
+            <h3 class="font-bold text-white text-xs sm:text-sm flex items-center gap-1.5">
+              <i class="fa-solid fa-pen-to-square text-sky-400"></i> Teacher Live Notes
+            </h3>
+            <span class="text-[10px] text-slate-400 font-bold">Auto-saved</span>
+          </div>
+
+          <textarea class="teacherNotesArea w-full flex-1 bg-slate-900 border border-slate-800 rounded-xl p-3 text-xs text-slate-100 focus:outline-none focus:border-sky-500 resize-none font-mono" 
+                    oninput="syncTeacherNotes(this)" 
+                    placeholder="e.g.&#10;+ Dobře tvoří 2. pád: 'ze Španělska'&#10;- Pozor na maskulina: 'z Berlína' (ne z Berlínu)"></textarea>
+
+          <button onclick="switchTab('tab-homework')" class="mt-2.5 w-full py-2 bg-slate-800 hover:bg-slate-700 border border-slate-700 text-slate-200 text-xs font-bold rounded-lg transition flex items-center justify-center gap-1.5">
+            <i class="fa-solid fa-arrow-right"></i> Zobrazit kompletní balíček
+          </button>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- TAB 3: EXERCISE A (59 GAP-FILL DRILLS) -->
+    <section id="tab-exA" class="tab-content hidden space-y-8">
+      <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+        
+        <div class="lg:col-span-2 space-y-6">
+          <div class="glass-card rounded-2xl p-6 border border-slate-800 flex flex-col sm:flex-row items-center justify-between gap-4">
+            <div>
+              <h2 class="text-xl sm:text-2xl font-bold text-white">Doplňovačka – 2. pád (59 vět)</h2>
+              <p class="text-sm text-slate-400 mt-1">Doplňte správný tvar země, města nebo výrazu v 2. pádě.</p>
+            </div>
+            <div class="flex items-center gap-2">
+              <button onclick="checkAllExA()" class="px-4 py-2 bg-sky-600 hover:bg-sky-500 text-white font-bold rounded-xl text-sm transition">Zkontrolovat</button>
+              <button onclick="revealAllExA()" class="px-4 py-2 bg-slate-800 hover:bg-slate-700 text-slate-300 font-bold rounded-xl text-sm border border-slate-700 transition">Odkrýt vše</button>
+              <button onclick="resetExA()" class="px-3 py-2 bg-slate-900 hover:bg-slate-800 text-slate-400 rounded-xl text-sm border border-slate-800 transition"><i class="fa-solid fa-rotate-right"></i></button>
+            </div>
+          </div>
+
+          <!-- Progress Bar -->
+          <div class="glass-card rounded-xl p-3 border border-slate-800 flex items-center gap-4">
+            <div class="flex-1 bg-slate-900 h-3 rounded-full overflow-hidden border border-slate-800">
+              <div id="exAProgressBar" class="bg-sky-500 h-full w-0 transition-all duration-300"></div>
+            </div>
+            <span id="exAScoreText" class="text-xs font-mono font-bold text-sky-400 whitespace-nowrap">0 / 30 Správně</span>
+          </div>
+
+          <!-- DRILLS LIST -->
+          <div id="exAList" class="space-y-4"></div>
+        </div>
+
+        <!-- Right Col: Compact Teacher Live Notes -->
+        <div class="glass-card rounded-2xl p-4 border border-slate-800 flex flex-col h-[320px]">
+          <div class="flex items-center justify-between pb-2 border-b border-slate-800 mb-2">
+            <h3 class="font-bold text-white text-xs sm:text-sm flex items-center gap-1.5">
+              <i class="fa-solid fa-pen-to-square text-sky-400"></i> Teacher Live Notes
+            </h3>
+            <span class="text-[10px] text-slate-400 font-bold">Auto-saved</span>
+          </div>
+
+          <textarea class="teacherNotesArea w-full flex-1 bg-slate-900 border border-slate-800 rounded-xl p-3 text-xs text-slate-100 focus:outline-none focus:border-sky-500 resize-none font-mono" 
+                    oninput="syncTeacherNotes(this)" 
+                    placeholder="e.g.&#10;+ Dobře tvoří 2. pád: 'ze Španělska'&#10;- Pozor na maskulina: 'z Berlína' (ne z Berlínu)"></textarea>
+
+          <button onclick="switchTab('tab-homework')" class="mt-2.5 w-full py-2 bg-slate-800 hover:bg-slate-700 border border-slate-700 text-slate-200 text-xs font-bold rounded-lg transition flex items-center justify-center gap-1.5">
+            <i class="fa-solid fa-arrow-right"></i> Zobrazit kompletní balíček
+          </button>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- TAB 4: EXERCISE B (SENTENCE UPGRADE) -->
+    <section id="tab-exB" class="tab-content hidden space-y-8">
+      <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+        
+        <div class="lg:col-span-2 space-y-6">
+          <div class="glass-card rounded-2xl p-5 border border-slate-800">
+            <h2 class="text-xl sm:text-2xl font-bold text-white flex items-center gap-2">
+              <i class="fa-solid fa-wand-magic-sparkles text-amber-400"></i> Exercise B: A2 &rarr; B1 Sentence Upgrade
+            </h2>
+            <p class="text-sm text-slate-400 mt-1">
+              Převeďte jednoduché A2 vyjádření na plynulé B1 věty s předložkami 2. pádu.
+            </p>
+          </div>
+
+          <div id="exBGrid" class="space-y-4"></div>
+        </div>
+
+        <div class="glass-card rounded-2xl p-4 border border-slate-800 flex flex-col h-[320px]">
+          <div class="flex items-center justify-between pb-2 border-b border-slate-800 mb-2">
+            <h3 class="font-bold text-white text-xs sm:text-sm flex items-center gap-1.5">
+              <i class="fa-solid fa-pen-to-square text-sky-400"></i> Teacher Live Notes
+            </h3>
+            <span class="text-[10px] text-slate-400 font-bold">Auto-saved</span>
+          </div>
+
+          <textarea class="teacherNotesArea w-full flex-1 bg-slate-900 border border-slate-800 rounded-xl p-3 text-xs text-slate-100 focus:outline-none focus:border-sky-500 resize-none font-mono" 
+                    oninput="syncTeacherNotes(this)" 
+                    placeholder="e.g.&#10;+ Dobře tvoří 2. pád: 'ze Španělska'&#10;- Pozor na maskulina: 'z Berlína' (ne z Berlínu)"></textarea>
+
+          <button onclick="switchTab('tab-homework')" class="mt-2.5 w-full py-2 bg-slate-800 hover:bg-slate-700 border border-slate-700 text-slate-200 text-xs font-bold rounded-lg transition flex items-center justify-center gap-1.5">
+            <i class="fa-solid fa-arrow-right"></i> Zobrazit kompletní balíček
+          </button>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- TAB 5: HOMEWORK & LIVE NOTES PACK -->
+    <section id="tab-homework" class="tab-content hidden space-y-6">
+      <div class="glass-card rounded-2xl p-5 border border-slate-800 space-y-2">
+        <h2 class="text-xl font-bold text-white flex items-center gap-2">
+          <i class="fa-solid fa-paper-plane text-emerald-400"></i> Souhrn lekce &amp; Kompletní balíček
+        </h2>
+        <p class="text-xs text-slate-300 leading-relaxed">
+          Zde naleznete zkopírovatelný balíček s učitelskými poznámkami, slovní zásobou a cvičeními pro přehlednou archivaci.
+        </p>
+      </div>
+
+      <div class="glass-card rounded-2xl p-5 border border-slate-800 space-y-4">
+        <div class="flex items-center justify-between">
+          <span class="text-xs font-bold text-slate-300 uppercase tracking-wider">Kompletní balíček pro studenta a učitele</span>
+          <button onclick="copyHomeworkToClipboard()" class="px-4 py-2 bg-emerald-600 hover:bg-emerald-500 text-white rounded-xl text-xs font-bold shadow-lg shadow-emerald-600/20 transition flex items-center gap-2">
+            <i class="fa-solid fa-copy"></i> Zkopírovat balíček
+          </button>
+        </div>
+
+        <textarea id="homeworkTextarea" rows="18" class="w-full bg-slate-950 border border-slate-800 rounded-xl p-4 text-xs text-slate-300 font-mono focus:outline-none focus:border-emerald-500"></textarea>
+      </div>
+    </section>
+
+  </main>
+
+  <script>
+    /* ==========================================================================
+       VOCABULARY DATA (21 UNIQUE ITEMS - COUNTRIES & CITIES)
+       ========================================================================== */
+
+    const VOCAB_DATA = [
+      { id: 1, category: "europe", cz: "Česká republika / Česko", pos: "Noun (f / n)", en: "Czech Republic / Czechia", gen: "z České republiky / z Česka", ex: "Pocházím z České republiky." },
+      { id: 2, category: "europe", cz: "Slovensko", pos: "Noun (n)", en: "Slovakia", gen: "ze Slovenska", ex: "Přijel jsem ze Slovenska včera večer." },
+      { id: 3, category: "europe", cz: "Německo", pos: "Noun (n)", en: "Germany", gen: "z Německa", ex: "Můj soused se vrátil z Německa." },
+      { id: 4, category: "europe", cz: "Rakousko", pos: "Noun (n)", en: "Austria", gen: "z Rakouska", ex: "Vídeň je hlavní město Rakouska." },
+      { id: 5, category: "europe", cz: "Polsko", pos: "Noun (n)", en: "Poland", gen: "z Polska", ex: "Uprostřed Polska leží Varšava." },
+      { id: 6, category: "europe", cz: "Francie", pos: "Noun (f)", en: "France", gen: "z Francie", ex: "Východní část Francie je známá svým vínem." },
+      { id: 7, category: "europe", cz: "Itálie", pos: "Noun (f)", en: "Italy", gen: "z Itálie", ex: "Pojedu do severní části Itálie." },
+      { id: 8, category: "europe", cz: "Španělsko", pos: "Noun (n)", en: "Spain", gen: "ze Španělska", ex: "Učím se jazyk obyvatel Španělska." },
+      { id: 9, category: "europe", cz: "Chorvatsko", pos: "Noun (n)", en: "Croatia", gen: "z Chorvatska", ex: "Pláže Chorvatska jsou velmi populární." },
+      { id: 10, category: "europe", cz: "Řecko", pos: "Noun (n)", en: "Greece", gen: "z Řecka", ex: "Hory na severu Řecka jsou nádherné." },
+      { id: 11, category: "world", cz: "Japonsko", pos: "Noun (n)", en: "Japan", gen: "z Japonska", ex: "Po návratu z Japonska jsem si koupil suvenýr." },
+      { id: 12, category: "world", cz: "Kanada", pos: "Noun (f)", en: "Canada", gen: "z Kanady", ex: "Hlavní město Kanady je Ottawa." },
+      { id: 13, category: "europe", cz: "Praha", pos: "Noun (f)", en: "Prague", gen: "z Prahy", ex: "Karlův most je nejznámější část Prahy." },
+      { id: 14, category: "europe", cz: "Brno", pos: "Noun (n)", en: "Brno", gen: "z Brna", ex: "Pojedu do Brna na víkend." },
+      { id: 15, category: "europe", cz: "Vídeň", pos: "Noun (f)", en: "Vienna", gen: "z Vídně", ex: "Vzdálenost Budapeště od Vídně je 250 km." },
+      { id: 16, category: "europe", cz: "Paříž", pos: "Noun (f)", en: "Paris", gen: "z Paříže", ex: "Eiffelova věž je symbolem Paříže." },
+      { id: 17, category: "europe", cz: "Řím", pos: "Noun (m)", en: "Rome", gen: "z Říma", ex: "Chtěl bych navštívit památky Říma." },
+      { id: 18, category: "europe", cz: "Berlín", pos: "Noun (m)", en: "Berlin", gen: "z Berlína", ex: "Bydlím nedaleko Berlína." },
+      { id: 19, category: "europe", cz: "Varšava", pos: "Noun (f)", en: "Warsaw", gen: "z Varšavy", ex: "Na předměstí Varšavy bydlí moje kamarádka." },
+      { id: 20, category: "europe", cz: "Londýn", pos: "Noun (m)", en: "London", gen: "z Londýna", ex: "Centrum Londýna je plné turistů." },
+      { id: 21, category: "europe", cz: "Barcelona", pos: "Noun (f)", en: "Barcelona", gen: "z Barcelony", ex: "Nejznámější část Barcelony je Sagrada Família." }
+    ];
+
+    /* REAL LEAFLET MAP COORDINATES DATA (WITH PRECISE PREPOSITIONS) */
+    const REAL_MAP_DATA = [
+      { code: 'CZ', lat: 49.8175, lng: 15.4730, name: "Česká republika / Česko", gen: "z České republiky / z Česka", m: "Čech", f: "Češka", lang: "česky", flag: "🇨🇿" },
+      { code: 'DE', lat: 51.1657, lng: 10.4515, name: "Německo", gen: "z Německa", m: "Němec", f: "Němka", lang: "německy", flag: "🇩🇪" },
+      { code: 'FR', lat: 46.2276, lng: 2.2137, name: "Francie", gen: "z Francie", m: "Francouz", f: "Francouzka", lang: "francouzsky", flag: "🇫🇷" },
+      { code: 'IT', lat: 41.8719, lng: 12.5674, name: "Itálie", gen: "z Itálie", m: "Ital", f: "Italka", lang: "italsky", flag: "🇮🇹" },
+      { code: 'ES', lat: 40.4637, lng: -3.7492, name: "Španělsko", gen: "ze Španělska", m: "Španěl", f: "Španělka", lang: "španělsky", flag: "🇪🇸" },
+      { code: 'JP', lat: 36.2048, lng: 138.2529, name: "Japonsko", gen: "z Japonska", m: "Japonec", f: "Japonka", lang: "japonsky", flag: "🇯🇵" },
+      { code: 'AT', lat: 47.5162, lng: 14.5501, name: "Rakousko", gen: "z Rakouska", m: "Rakušan", f: "Rakušanka", lang: "německy", flag: "🇦🇹" },
+      { code: 'PL', lat: 51.9194, lng: 19.1451, name: "Polsko", gen: "z Polska", m: "Polák", f: "Polka", lang: "polsky", flag: "🇵🇱" },
+      { code: 'SK', lat: 48.6690, lng: 19.6990, name: "Slovensko", gen: "ze Slovenska", m: "Slovák", f: "Slovenka", lang: "slovensky", flag: "🇸🇰" },
+      { code: 'CA', lat: 56.1304, lng: -106.3468, name: "Kanada", gen: "z Kanady", m: "Kanaďan", f: "Kanaďanka", lang: "anglicky a francouzsky", flag: "🇨🇦" }
+    ];
+
+    /* ==========================================================================
+       GAP-FILL DRILLS DATA (59 COMPLETE SENTENCES)
+       ========================================================================== */
+
+    const DRILLS_EX_A = [
+      { prompt: "Jsem z ____ (Praha).", ans: "Prahy", hint: "Praha" },
+      { prompt: "Pojedu do ____ (Brno).", ans: "Brna", hint: "Brno" },
+      { prompt: "Během ____ (výlet) jsme navštívili Krakov.", ans: "výletu", hint: "výlet" },
+      { prompt: "Město Vídeň je hlavní město ____ (Rakousko).", ans: "Rakouska", hint: "Rakousko" },
+      { prompt: "Uprostřed ____ (Polsko) je Varšava.", ans: "Polska", hint: "Polsko" },
+      { prompt: "Bez ____ (dálnice) by cesta do Maďarska byla delší.", ans: "dálnice", hint: "dálnice" },
+      { prompt: "Turisté se často bojí dopravy v centru ____ (Istanbul).", ans: "Istanbulu", hint: "Istanbul" },
+      { prompt: "Eiffelova věž je symbolem ____ (Paříž).", ans: "Paříže", hint: "Paříž" },
+      { prompt: "Karlův most je jednou z nejkrásnějších částí ____ (Praha).", ans: "Prahy", hint: "Praha" },
+      { prompt: "Vzdálenost Budapeště od ____ (Vídeň) je asi 250 km.", ans: "Vídně", hint: "Vídeň" },
+      { prompt: "Jsem z malého města nedaleko ____ (Berlín).", ans: "Berlína", hint: "Berlín" },
+      { prompt: "Pojedu do severní části ____ (Itálie).", ans: "Itálie", hint: "Itálie" },
+      { prompt: "Příští rok bych chtěl navštívit některé z památek ____ (Řím).", ans: "Říma", hint: "Řím" },
+      { prompt: "Učím se jazyk obyvatel ____ (Španělsko).", ans: "Španělska", hint: "Španělsko" },
+      { prompt: "Během cesty do ____ (Německo) jsme potkali hodně zajímavých lidí.", ans: "Německa", hint: "Německo" },
+      { prompt: "Centrum ____ (Londýn) je vždy plné turistů.", ans: "Londýna", hint: "Londýn" },
+      { prompt: "Bez mapy ____ (Paříž) bychom se ztratili.", ans: "Paříže", hint: "Paříž" },
+      { prompt: "Východní část ____ (Francie) je známá svým vínem.", ans: "Francie", hint: "Francie" },
+      { prompt: "Většina památek ____ (Atény) pochází z antiky.", ans: "Atén", hint: "Atény" },
+      { prompt: "Po návratu z ____ (Japonsko) jsem si koupil suvenýr.", ans: "Japonska", hint: "Japonsko" },
+      { prompt: "Na předměstí ____ (Varšava) bydlí moje kamarádka.", ans: "Varšavy", hint: "Varšava" },
+      { prompt: "Turisté často navštěvují sever ____ (Norsko).", ans: "Norska", hint: "Norsko" },
+      { prompt: "Během léta se chystáme do hor na severu ____ (Švýcarsko).", ans: "Švýcarska", hint: "Švýcarsko" },
+      { prompt: "Hlavní město ____ (Kanada) je Ottawa.", ans: "Kanady", hint: "Kanada" },
+      { prompt: "Pláže ____ (Chorvatsko) jsou velmi populární.", ans: "Chorvatska", hint: "Chorvatsko" },
+      { prompt: "Po cestě z ____ (Vídeň) jsme se zastavili v Bratislavě.", ans: "Vídně", hint: "Vídeň" },
+      { prompt: "Nejznámější část ____ (Barcelona) je čtvrť s chrámem Sagrada Familia.", ans: "Barcelony", hint: "Barcelona" },
+      { prompt: "V okolí ____ (Petrohrad) je spousta historických paláců.", ans: "Petrohradu", hint: "Petrohrad" },
+      { prompt: "Bez obyvatel ____ (Island) by země působila velmi prázdně.", ans: "Islandu", hint: "Island" },
+      { prompt: "Hory na severu ____ (Řecko) jsou nádherné.", ans: "Řecka", hint: "Řecko" }
+    ];
+
+    /* EXERCISE B SCENARIOS */
+    const SCENARIOS_EX_B = [
+      { q: "1. Vyjádřit původ (Odkud jsi?)", a2: "Bydlím v Německu.", blocks: "pocházet / z / Německo / a / mluvit / německy", structure: "Pocházím + z + 2. pád + a + sloveso.", b1: "Pocházím z Německa a mluvím plynule německy." },
+      { q: "2. Cesta do hlavního města", a2: "Jedu do Prahy.", blocks: "cestovat / do / centrum / Praha / bez / zpoždění", structure: "Cestuji + do + 2. pád + bez + 2. pád.", b1: "Cestuji přímo do centra Prahy bez jakéhokoli zpoždění." },
+      { q: "3. Popis destinace v Evropě", a2: "Byl jsem ve Francii u moře.", blocks: "vrátit se / z / dovolená / z / jih / Francie", structure: "Vrátil jsem se + z + 2. pád + z + 2. pád.", b1: "Vrátil jsem se z krásné dovolené z jihu Francie." },
+      { q: "4. Srovnání vzdálenosti měst", a2: "Vídeň je blízko Brna.", blocks: "vzdálenost / Brno / od / Vídeň / být / malá", structure: "Vzdálenost + 2. pád + od + 2. pád.", b1: "Vzdálenost Brna od Vídně je poměrně malá." }
+    ];
+
+    /* ==========================================================================
+       APP STATE & GLOBAL LOGIC
+       ========================================================================== */
+
+    let currentVocabCategory = 'all';
+    let leafletMap = null;
+    let mapMarkers = [];
+
+    function switchTab(tabId) {
+      document.querySelectorAll('.tab-content').forEach(el => el.classList.add('hidden'));
+      document.querySelectorAll('.tab-btn').forEach(btn => {
+        btn.classList.remove('bg-sky-600', 'text-white', 'shadow-md');
+        btn.classList.add('text-slate-400');
+      });
+
+      document.getElementById(tabId).classList.remove('hidden');
+      const activeBtn = document.getElementById('btn-' + tabId);
+      if (activeBtn) {
+        activeBtn.classList.add('bg-sky-600', 'text-white', 'shadow-md');
+        activeBtn.classList.remove('text-slate-400');
+      }
+
+      if (tabId === 'tab-world') {
+        setTimeout(() => {
+          if (!leafletMap) {
+            initRealWorldMap();
+          } else {
+            leafletMap.invalidateSize();
+          }
+        }, 100);
+      }
+
+      if (tabId === 'tab-homework') {
+        updateHomeworkPack();
+      }
+    }
+
+    function speakText(text) {
+      if ('speechSynthesis' in window) {
+        window.speechSynthesis.cancel();
+        const utterance = new SpeechSynthesisUtterance(text);
+        utterance.lang = 'cs-CZ';
+        utterance.rate = 0.9;
+        window.speechSynthesis.speak(utterance);
+      }
+    }
+
+    /* REAL LEAFLET WORLD MAP INITIALIZATION */
+    function initRealWorldMap() {
+      leafletMap = L.map('realWorldMap').setView([48.0, 15.0], 3);
+
+      L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        maxZoom: 18,
+        attribution: '&copy; OpenStreetMap contributors'
+      }).addTo(leafletMap);
+
+      REAL_MAP_DATA.forEach(item => {
+        const marker = L.marker([item.lat, item.lng]).addTo(leafletMap);
+        marker.bindPopup(`<b>${item.flag} ${item.name}</b><br><span class="text-xs text-sky-400">Genitiv: ${item.gen}</span>`);
+        marker.on('click', () => {
+          renderCountryCard(item);
+          speakText(`Jsem ${item.gen}`);
+        });
+        mapMarkers.push({ code: item.code, marker: marker, data: item });
+      });
+
+      renderCountryCard(REAL_MAP_DATA[0]);
+    }
+
+    function generateRandomCountry() {
+      const randomObj = REAL_MAP_DATA[Math.floor(Math.random() * REAL_MAP_DATA.length)];
+      renderCountryCard(randomObj);
+      speakText(`Jsem ${randomObj.gen}`);
+
+      if (leafletMap) {
+        leafletMap.flyTo([randomObj.lat, randomObj.lng], 4, { duration: 1.2 });
+        const match = mapMarkers.find(m => m.code === randomObj.code);
+        if (match) match.marker.openPopup();
+      }
+    }
+
+    function renderCountryCard(item) {
+      const container = document.getElementById('countryCard');
+      container.innerHTML = `
+        <div class="flex items-center justify-between border-b border-slate-800 pb-3">
+          <div class="flex items-center gap-3">
+            <span class="text-3xl sm:text-4xl">${item.flag}</span>
+            <div>
+              <h3 class="text-lg font-bold text-white">${item.name}</h3>
+              <p class="text-xs text-amber-400 font-mono">Genitiv (2. pád): ${item.gen}</p>
+            </div>
+          </div>
+          <button onclick="speakText('Jsem ${item.gen}. Jsem ${item.m} a mluvím ${item.lang}.')" class="w-10 h-10 rounded-xl bg-sky-500/20 hover:bg-sky-500/40 text-sky-400 border border-sky-500/30 transition flex items-center justify-center">
+            <i class="fa-solid fa-volume-high text-sm"></i>
+          </button>
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-3 gap-3 text-xs pt-2">
+          <div class="bg-slate-950 p-3 rounded-xl border border-slate-800">
+            <span class="text-slate-400 block text-[10px] uppercase font-bold">Obyvatel (Muž)</span>
+            <span class="text-white font-bold text-sm">${item.m}</span>
+          </div>
+          <div class="bg-slate-950 p-3 rounded-xl border border-slate-800">
+            <span class="text-slate-400 block text-[10px] uppercase font-bold">Obyvatelka (Žena)</span>
+            <span class="text-white font-bold text-sm">${item.f}</span>
+          </div>
+          <div class="bg-slate-950 p-3 rounded-xl border border-slate-800">
+            <span class="text-slate-400 block text-[10px] uppercase font-bold">Jazyk</span>
+            <span class="text-sky-300 font-bold text-sm">${item.lang}</span>
+          </div>
+        </div>
+
+        <div class="bg-slate-950/80 p-4 rounded-xl border border-slate-800 text-xs text-slate-200 leading-relaxed font-mono">
+          <strong class="text-emerald-400">Modelová věta pro studenta:</strong><br>
+          „Jsem <strong>${item.gen}</strong>, jsem <strong>${item.m} / ${item.f}</strong> a mluvím <strong>${item.lang}</strong>.“
+        </div>
+      `;
+    }
+
+    /* VOCABULARY GRID RENDER */
+    function setVocabFilter(cat) {
+      currentVocabCategory = cat;
+      document.querySelectorAll('.vfilter-btn').forEach(btn => {
+        btn.classList.remove('bg-sky-600', 'text-white');
+        btn.classList.add('text-slate-400');
+      });
+      const active = document.getElementById('vfilter-' + cat);
+      if (active) {
+        active.classList.add('bg-sky-600', 'text-white');
+        active.classList.remove('text-slate-400');
+      }
+      renderVocab();
+    }
+
+    function renderVocab() {
+      const grid = document.getElementById('vocabGrid');
+      const query = document.getElementById('vocabSearch').value.toLowerCase().trim();
+
+      const filtered = VOCAB_DATA.filter(item => {
+        const matchesCategory = (currentVocabCategory === 'all') || (item.category === currentVocabCategory);
+        const matchesSearch = item.cz.toLowerCase().includes(query) || 
+                              item.en.toLowerCase().includes(query) || 
+                              item.ex.toLowerCase().includes(query) ||
+                              item.gen.toLowerCase().includes(query);
+        return matchesCategory && matchesSearch;
+      });
+
+      if (filtered.length === 0) {
+        grid.innerHTML = `<div class="col-span-full py-12 text-center text-slate-500 text-xs">Žádná slovíčka neodpovídají vyhledávání.</div>`;
+        return;
+      }
+
+      grid.innerHTML = filtered.map(item => `
+        <div class="glass-card glass-card-hover rounded-2xl p-4 border border-slate-800 transition flex flex-col justify-between space-y-3">
+          <div>
+            <div class="flex items-start justify-between gap-2">
+              <div class="flex items-center gap-2">
+                <button onclick="speakText('${item.cz}')" class="w-8 h-8 rounded-lg bg-sky-500/20 hover:bg-sky-500/40 text-sky-400 border border-sky-500/30 transition flex items-center justify-center flex-shrink-0">
+                  <i class="fa-solid fa-volume-high text-xs"></i>
+                </button>
+                <h3 class="font-bold text-white text-sm sm:text-base leading-snug">${item.cz}</h3>
+              </div>
+              <span class="text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded-full bg-slate-800 text-slate-400 border border-slate-700">${item.pos}</span>
+            </div>
+            <p class="text-xs text-sky-300 font-medium mt-1.5">${item.en}</p>
+          </div>
+
+          <div class="bg-slate-900/90 rounded-xl p-2.5 border border-slate-800/80 text-xs space-y-1">
+            <div class="text-slate-400 font-mono text-[11px]"><strong class="text-amber-400">2. pád (Genitiv):</strong> ${item.gen}</div>
+            <div class="text-slate-300 italic">"${item.ex}"</div>
+          </div>
+        </div>
+      `).join('');
+    }
+
+    function filterVocab() { renderVocab(); }
+
+    /* EXERCISE A DRILLS RENDER */
+    function renderExerciseA() {
+      const container = document.getElementById('exAList');
+      container.innerHTML = DRILLS_EX_A.map((item, idx) => {
+        const parts = item.prompt.split('____');
+        const cleanAudio = parts.join(item.ans).replace(/\s*\([^)]*\)/g, '');
+        const dynamicWidth = Math.max(120, item.ans.length * 11);
+
+        return `
+          <div class="glass-card rounded-xl p-4 sm:p-5 border border-slate-800 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+            <div class="text-sm sm:text-base text-slate-100 leading-relaxed flex-1">
+              <span class="font-bold text-sky-400 mr-2 text-base sm:text-lg">${idx + 1}.</span>
+              ${parts[0]}
+              <input type="text" id="exA_input_${idx}" data-ans="${item.ans}" 
+                    style="width: ${dynamicWidth}px;" 
+                    class="exA-field bg-slate-900 border border-slate-700 rounded-xl px-3 py-1.5 text-sm sm:text-base text-sky-300 font-bold text-center focus:outline-none focus:border-sky-500 max-w-[280px] shadow-inner my-1" 
+                    placeholder="...">
+              ${parts[1] || ''}
+            </div>
+            <div class="flex items-center gap-3 self-end sm:self-center flex-shrink-0">
+              <span class="text-xs text-amber-400/90 font-mono bg-slate-900/90 px-3 py-1.5 rounded-lg border border-slate-800">${item.hint}</span>
+              <button onclick="speakText('${cleanAudio.replace(/'/g, "\\'")}')" class="w-9 h-9 rounded-lg bg-slate-800 hover:bg-sky-600/30 text-slate-300 hover:text-sky-300 border border-slate-700 transition flex items-center justify-center">
+                <i class="fa-solid fa-volume-high text-sm"></i>
+              </button>
+            </div>
+          </div>
+        `;
+      }).join('');
+    }
+
+    function checkAllExA() {
+      let correct = 0;
+      DRILLS_EX_A.forEach((item, idx) => {
+        const inp = document.getElementById(`exA_input_${idx}`);
+        const ok = (inp.value.trim().toLowerCase() === item.ans.toLowerCase());
+        inp.className = ok ? "exA-field bg-emerald-950 border border-emerald-500 text-emerald-300 rounded-xl px-3 py-1.5 text-sm font-bold text-center" : "exA-field bg-rose-950 border border-rose-500 text-rose-300 rounded-xl px-3 py-1.5 text-sm font-bold text-center";
+        if (ok) correct++;
+      });
+
+      const pct = Math.round((correct / DRILLS_EX_A.length) * 100);
+      document.getElementById('exAProgressBar').style.width = pct + '%';
+      document.getElementById('exAScoreText').innerText = `${correct} / ${DRILLS_EX_A.length} Správně (${pct}%)`;
+    }
+
+    function revealAllExA() {
+      DRILLS_EX_A.forEach((item, idx) => {
+        const inp = document.getElementById(`exA_input_${idx}`);
+        inp.value = item.ans;
+        inp.className = "exA-field bg-emerald-950 border border-emerald-500 text-emerald-300 rounded-xl px-3 py-1.5 text-sm font-bold text-center";
+      });
+      document.getElementById('exAProgressBar').style.width = '100%';
+      document.getElementById('exAScoreText').innerText = `${DRILLS_EX_A.length} / ${DRILLS_EX_A.length} Správně (100%)`;
+    }
+
+    function resetExA() {
+      DRILLS_EX_A.forEach((item, idx) => {
+        const inp = document.getElementById(`exA_input_${idx}`);
+        inp.value = '';
+        inp.className = "exA-field bg-slate-900 border border-slate-700 rounded-xl px-3 py-1.5 text-sm text-sky-300 font-bold text-center focus:outline-none focus:border-sky-500";
+      });
+      document.getElementById('exAProgressBar').style.width = '0%';
+      document.getElementById('exAScoreText').innerText = `0 / ${DRILLS_EX_A.length} Správně`;
+    }
+
+    /* EXERCISE B SCENARIOS */
+    function renderExerciseB() {
+      const grid = document.getElementById('exBGrid');
+      grid.innerHTML = SCENARIOS_EX_B.map((item, idx) => `
+        <div class="glass-card rounded-2xl p-6 border border-slate-800 space-y-4">
+          <div class="flex items-center justify-between gap-2">
+            <h3 class="font-bold text-white text-lg sm:text-xl leading-snug">${item.q}</h3>
+            <button onclick="speakText('${item.b1.replace(/'/g, "\\'")}')" class="w-10 h-10 rounded-xl bg-slate-800 hover:bg-sky-600/30 text-slate-300 hover:text-sky-300 border border-slate-700 transition flex items-center justify-center flex-shrink-0">
+              <i class="fa-solid fa-volume-high text-base"></i>
+            </button>
+          </div>
+
+          <div class="text-sm text-rose-300/90 bg-rose-950/40 p-3 rounded-xl border border-rose-900/40">
+            <strong>A2 Základ:</strong> "${item.a2}"
+          </div>
+
+          <div class="text-xs sm:text-sm text-sky-300/90 font-mono bg-sky-950/30 p-3 rounded-xl border border-sky-900/40">
+            <i class="fa-solid fa-sitemap mr-1.5"></i> <strong>Struktura věty:</strong> ${item.structure}
+          </div>
+
+          <button onclick="toggleExBBlocks(${idx})" class="text-xs font-semibold text-amber-400 hover:text-amber-300 flex items-center gap-1.5 py-1">
+            <i class="fa-solid fa-lightbulb"></i> 💡 Ukázat / skrýt nápovědu (Slovíčka)
+          </button>
+
+          <div id="exB_blocks_${idx}" class="hidden text-xs text-amber-300/90 font-medium bg-amber-950/40 p-3 rounded-xl border border-amber-900/40">
+            <i class="fa-solid fa-cubes mr-1.5"></i> <strong>Slovní zásoba:</strong> ${item.blocks}
+          </div>
+
+          <textarea id="exB_user_${idx}" rows="2" placeholder="Napište B1 větu..." class="w-full bg-slate-900 border border-slate-700 rounded-xl p-3 text-sm text-slate-100 focus:outline-none focus:border-sky-500 font-mono"></textarea>
+
+          <button onclick="toggleExBModel(${idx})" class="text-xs font-semibold text-sky-400 hover:text-sky-300 flex items-center gap-1.5 py-1">
+            <i class="fa-solid fa-eye"></i> Ukázat vzorovou B1 větu
+          </button>
+
+          <div id="exB_model_${idx}" class="hidden text-sm text-emerald-300 bg-emerald-950/50 p-3 rounded-xl border border-emerald-800/50 font-mono">
+            <strong>Vzorová B1 věta:</strong> "${item.b1}"
+          </div>
+        </div>
+      `).join('');
+    }
+
+    function toggleExBBlocks(idx) {
+      document.getElementById(`exB_blocks_${idx}`).classList.toggle('hidden');
+    }
+
+    function toggleExBModel(idx) {
+      document.getElementById(`exB_model_${idx}`).classList.toggle('hidden');
+    }
+
+    /* TEACHER LIVE NOTES SYNC & HOMEWORK */
+    function syncTeacherNotes(sender) {
+      const text = sender.value;
+      localStorage.setItem('cz_b1_l6_notes', text);
+      document.querySelectorAll('.teacherNotesArea').forEach(area => {
+        if (area !== sender) area.value = text;
+      });
+      updateHomeworkPack();
+    }
+
+    function updateHomeworkPack() {
+      const savedNotes = localStorage.getItem('cz_b1_l6_notes');
+      const notes = (savedNotes && savedNotes.trim() !== '') ? savedNotes : "žádné konkrétní chyby nezaznamenány";
+
+      const pack = `CZECH B1 MASTERY - LESSON 6 SUMMARY & HOMEWORK
+Téma: 2. pád - Země, města a národnosti
+
+==================================================
+1. POZNÁMKY A OPRAVY Z HODINY (TEACHER LIVE NOTES):
+${notes}
+
+==================================================
+2. PŘEHLED ZEMÍ A 2. PÁDU (GENITIV):
+- Česká republika -> z České republiky
+- Německo -> z Německa
+- Rakousko -> z Rakouska
+- Francie -> z Francie
+- Itálie -> z Itálie
+- Španělsko -> ze Španělska
+- Praha -> z Prahy
+- Brno -> z Brna
+- Vídeň -> z Vídně
+- Paříž -> z Paříže
+- Berlín -> z Berlína
+
+==================================================
+3. DOMÁCÍ ÚKOL FOR STUDENT:
+Procvičujte tvoření 2. pádu zemí na externím generátoru: https://random.country/
+Napište 5 vět o původu svých známých nebo plánovaných cestách do zahraničí.`;
+
+      const hwElem = document.getElementById('homeworkTextarea');
+      if (hwElem) hwElem.value = pack;
+    }
+
+    function copyHomeworkToClipboard() {
+      const textarea = document.getElementById('homeworkTextarea');
+      textarea.select();
+      document.execCommand('copy');
+      alert('Homework summary copied to clipboard!');
+    }
+
+    /* INIT */
+    window.onload = () => {
+      renderVocab();
+      renderExerciseA();
+      renderExerciseB();
+
+      const savedNotes = localStorage.getItem('cz_b1_l6_notes');
+      if (savedNotes) {
+        document.querySelectorAll('.teacherNotesArea').forEach(area => {
+          area.value = savedNotes;
+        });
+      }
+
+      updateHomeworkPack();
+    };
+  </script>
+</body>
+</html>
