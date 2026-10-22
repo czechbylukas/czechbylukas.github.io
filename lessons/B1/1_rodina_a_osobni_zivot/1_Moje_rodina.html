@@ -557,9 +557,9 @@
           </h3>
           <ul class="text-xs text-slate-300 space-y-2 list-disc list-inside leading-relaxed">
             <li>Napište krátkou esej (120–150 slov) na téma <strong>„Moje rodina a její historie“</strong>.</li>
-            <li>Použijte minimálně 6 slovíček z naší 21-položkové B1 slovní zásoby (např. <em>bratranec, tchýně, snacha, zeť, rozvedený</em>).</li>
-            <li>Použijte alespoň 5 sloves v minulém čase (např. <em>narodil se, vzali se, přestěhovali se, zemřel, vystudoval</em>).</li>
-            <li>Po dokončení odešlete text na email: <strong class="text-sky-300">lukas@hackczech.com</strong> s předmětem <em>Assign task - Lekce 1</em>.</li>
+            <li>Použijte slovíčka z naší B1 slovní zásoby (např. <em>bratranec, tchýně, snacha, zeť, rozvedený...</em>).</li>
+            <li>Použijte alespoň 5 sloves v minulém čase (např. <em>narodil se, přestěhovali se, vystudoval...</em>).</li>
+            <li>Po dokončení odešlete text na email: <strong class="text-sky-300">lukas@hackczech.com</strong> s předmětem <em>Assign task - Lekce 1</em>. Nebo nahrajte do svého google docu.</li>
           </ul>
         </div>
 
@@ -634,28 +634,28 @@
       { prompt: "Manželka mého syna je moje ____.", ans: "snacha", hint: "příbuzenský vztah" },
       { prompt: "Manžel mé dcery je náš ____.", ans: "zeť", hint: "příbuzenský vztah" },
       { prompt: "Můj dědeček žije sám, babička zemřela a on je ____.", ans: "vdovec", hint: "rodinný stav" },
-      { prompt: "Kde ses ____ (narodit se, M)?", ans: "narodil", hint: "minulý čas (mužský rod)" },
+      { prompt: "Kde ses ____ (narodit se)?", ans: "narodil", hint: "minulý čas (mužský rod)" },
       { prompt: "Můj bratr má novou ženu, je to moje ____.", ans: "švagrová", hint: "příbuzenský vztah (f)" },
       { prompt: "Teta ____ (vystudovat) medicínu na Univerzitě Karlově.", ans: "vystudovala", hint: "minulý čas (ona)" },
-      { prompt: "Jako dítě jsem ____ (vyrůstat, Ž) na venkově.", ans: "vyrůstala", hint: "minulý čas (ženský rod)" },
-      { prompt: "Vždycky jsem skvěle ____ (vycházet, M) se svými sourozenci.", ans: "vycházel", hint: "minulý čas (mužský rod)" },
+      { prompt: "Jako dítě jsem ____ (vyrůstat) na venkově.", ans: "vyrůstala", hint: "minulý čas (ženský rod)" },
+      { prompt: "Vždycky jsem skvěle ____ (vycházet) se svými sourozenci.", ans: "vycházel", hint: "minulý čas (mužský rod)" },
       { prompt: "Sousedé se po deseti letech manželství ____ (rozvést se).", ans: "rozvedli", hint: "nepravidelný minulý čas (oni)" },
-      { prompt: "Můj strýc je od minulého roku ____.", ans: "rozvedený", hint: "rodinný stav" },
+      { prompt: "Můj strýc už s tetou nežije a je od minulého roku ____.", ans: "rozvedený", hint: "rodinný stav" },
       { prompt: "Bratr mého otce je můj ____.", ans: "strýc", hint: "příbuzenský vztah" },
       { prompt: "Sestra mé matky je moje ____.", ans: "teta", hint: "příbuzenský vztah" },
       { prompt: "Syn mého strýce je můj ____.", ans: "bratranec", hint: "příbuzenský vztah" },
       { prompt: "Dcera mé tety je moje ____.", ans: "sestřenice", hint: "příbuzenský vztah" },
-      { prompt: "Nemám bratra ani sestru, nemám žádného ____.", ans: "sourozence", hint: "4. pád záporu / genitiv" },
+      { prompt: "Nemám bratra ani sestru, nemám žádného ____.", ans: "sourozence", hint: "genitiv + zápor" },
       { prompt: "Otec mé manželky je můj ____.", ans: "tchán", hint: "příbuzenský vztah" }
     ];
 
     /* EXERCISE B SCENARIOS (INFINITIVE VERBS IN HINTS, ONLY PAST TENSE IN MODEL) */
     const SCENARIOS_EX_B = [
-      { q: "1. Svatba a stěhování rodičů", a2: "Moji rodiče jsou manželé. Bydlí v Praze.", blocks: "můj / rodič / vzít se / před / třicet let / na Morava / potom / přestěhovat se / do / Praha", structure: "Přivlastňovací zájmeno + podstatné jméno + se + sloveso v minulém čase + časový údaj; potom + se + sloveso v minulém čase + kam?", b1: "Moji rodiče se před třiceti lety vzali na Moravě a potom se přestěhovali do Prahy." },
-      { q: "2. Sestřino manželství a její manžel", a2: "Moje sestra má manžela. Je hodný.", blocks: "můj / sestra / vdát se / minulý rok / její / manžel / být / hodný / pracovitý / nejen / ale i", structure: "Přivlastňovací zájmeno + podstatné jméno + minulý čas; a přivlastňovací zájmeno + podstatné jméno + sloveso být + dvě vlastnosti", b1: "Moje sestra se minulý rok vdala a její manžel je nejen hodný, ale i pracovitý." },
-      { q: "3. Dědeček a babička", a2: "Můj dědeček už nežije. Babička oslavila narozeniny.", blocks: "můj / dědeček / zemřít / před / pět let / ale / moje / babička / nedávno / oslavit / osmdesátý / narozeniny", structure: "Přivlastňovací zájmeno + podstatné jméno + minulý čas + časový údaj; ale + přivlastňovací zájmeno + podstatné jméno + minulý čas + co?", b1: "Můj dědeček zemřel před pěti lety, ale moje babička nedávno oslavila osmdesáté narozeniny." },
-      { q: "4. Bratranec a sestřenice", a2: "Můj bratranec a moje sestřenice bydlí v Brně. Máme společné zájmy.", blocks: "můj / bratranec / moje / sestřenice / bydlet / Brno / mít / společný zájem / a / proto / vycházet spolu / dobře", structure: "Přivlastňovací zájmeno + podstatné jméno + přivlastňovací zájmeno + podstatné jméno + minulý čas; a + důvod nebo následek", b1: "Můj bratranec i moje sestřenice bydleli v Brně a měli jsme společné zájmy, proto jsme spolu dobře vycházeli." },
-      { q: "5. Strýc po rozvodu", a2: "Můj strýc je rozvedený. Žije sám.", blocks: "můj / strýc / rozvést se / před / dva roky / proto / teď / žít / sám", structure: "Přivlastňovací zájmeno + podstatné jméno + minulý čas + časový údaj; proto + současnost + jak?", b1: "Můj strýc se před dvěma lety rozvedl, a proto teď žije sám." }
+      { q: "1. Svatba a stěhování rodičů", a2: "Moji rodiče jsou manželé. Bydlí v Praze.", blocks: "můj / rodič / vzít se / před / třicet let / Morava / potom / přestěhovat se / do / Praha", structure: "Přivlastňovací zájmeno + podstatné jméno + se + sloveso v minulém čase + časový údaj + kde; potom + se + sloveso v minulém čase + kam?", b1: "Moji rodiče se před třiceti lety vzali na Moravě a potom se přestěhovali do Prahy." },
+      { q: "2. Sestřino manželství a její manžel", a2: "Moje sestra má manžela. Je hodný.", blocks: "můj / sestra / vdát se / minulý rok / její / manžel / být / hodný / pracovitý / nejen / ale i", structure: "Přivlastňovací zájmeno + podstatné jméno + kdy + minulý čas; a přivlastňovací zájmeno + podstatné jméno + sloveso být + dvě vlastnosti", b1: "Moje sestra se minulý rok vdala a její manžel je nejen hodný, ale i pracovitý." },
+      { q: "3. Dědeček a babička", a2: "Můj dědeček nežije. Babička měla narozeniny.", blocks: "můj / dědeček / zemřít / před / pět let / ale / moje / babička / nedávno / oslavit / osmdesátý / narozeniny", structure: "Přivlastňovací zájmeno + podstatné jméno + minulý čas + časový údaj; ale + přivlastňovací zájmeno + podstatné jméno + minulý čas + co?", b1: "Můj dědeček zemřel před pěti lety, ale moje babička nedávno oslavila osmdesáté narozeniny." },
+      { q: "4. Bratranec a sestřenice", a2: "Můj bratranec a moje sestřenice bydlí v Brně. Máme společné zájmy.", blocks: "můj / bratranec / sestřenice / bydlet / Brno / mít / společný zájem / a / proto / vycházet spolu / dobře", structure: "Přivlastňovací zájmeno + podstatné jméno + a + přivlastňovací zájmeno + podstatné jméno + minulý čas + kde; a + sloveso + adjektivum + předmět + důvod nebo následek", b1: "Můj bratranec i moje sestřenice bydleli v Brně a měli jsme společné zájmy, proto jsme spolu dobře vycházeli." },
+      { q: "5. Strýc po rozvodu", a2: "Můj strýc je rozvedený. Žije sám.", blocks: "můj / strýc / rozvést se / před / dva roky / proto / teď / žít / sám", structure: "Přivlastňovací zájmeno + podstatné jméno + časový údaj + minulý čas; proto + kdy (současnost) + sloveso + jak?", b1: "Můj strýc se před dvěma lety rozvedl, a proto teď žije sám." }
     ];
 
     /* VISUAL FAMILY TREE NODE DATA (INITIALIZED WITH EMPTY/NEUTRAL STUDENT NODE) */

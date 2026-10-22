@@ -78,16 +78,6 @@
 </head>
 <body class="h-full flex flex-col font-sans bg-slate-950 text-slate-100 overflow-x-hidden">
 
-  <!-- WORK IN PROGRESS STICKY BANNER -->
-  <div class="sticky top-0 z-[60] bg-gradient-to-r from-amber-600 via-yellow-500 to-amber-600 text-slate-950 px-4 py-2 shadow-md border-b border-amber-400/30">
-    <div class="max-w-7xl mx-auto flex items-center justify-center gap-3 text-center">
-      <i class="fa-solid fa-triangle-exclamation text-sm sm:text-base animate-bounce"></i>
-      <span class="text-xs sm:text-sm font-extrabold uppercase tracking-widest font-mono">
-        WORK IN PROGRESS – Platforma je ve vývoji
-      </span>
-      <i class="fa-solid fa-earth-americas text-sm sm:text-base"></i>
-    </div>
-  </div>
 
   <!-- HEADER & NAVBAR -->
   <header class="sticky top-[37px] z-50 bg-slate-900/90 backdrop-blur-md border-b border-slate-800 shadow-lg">
@@ -180,31 +170,32 @@
         <div class="grid grid-cols-1 md:grid-cols-3 gap-4 text-xs">
           <div class="bg-slate-900/90 p-4 rounded-xl border border-slate-800 space-y-2">
             <span class="font-bold text-sky-400 uppercase tracking-wider block">1. Maskulina (M)</span>
-            <p class="text-slate-300">Zakončení na souhlásku &rarr; <strong>-a</strong> / <strong>-u</strong></p>
+            <p class="text-slate-300">Zakončení na souhlásku &rarr; <strong>-u (a)</strong> / <strong>-e</strong></p>
             <ul class="text-slate-400 font-mono space-y-1 text-[11px]">
-              <li>• Berlín &rarr; z Berlína</li>
-              <li>• Řím &rarr; z Říma</li>
-              <li>• Londýn &rarr; z Londýna</li>
+              <li>• Madrid &rarr; z Madrid<strong>u</strong></li>
+              <li>• ! pozor na iregulérní Řím &rarr; z Řím<strong>a</strong></li>
+              <li>• Bangladéš &rarr; z Bangladéš<strong>e</strong></li>
             </ul>
           </div>
 
           <div class="bg-slate-900/90 p-4 rounded-xl border border-slate-800 space-y-2">
             <span class="font-bold text-amber-400 uppercase tracking-wider block">2. Feminina (Ž)</span>
-            <p class="text-slate-300">Zakončení na <strong>-a</strong> &rarr; <strong>-y</strong> / <strong>-e</strong></p>
+            <p class="text-slate-300">Zakončení na <strong>-a</strong> &rarr; <strong>-y</strong></p>
             <ul class="text-slate-400 font-mono space-y-1 text-[11px]">
-              <li>• Praha &rarr; z Prahy</li>
-              <li>• Francie &rarr; z Francie</li>
-              <li>• Španělsko &rarr; <strong>ze Španělska</strong></li>
+              <li>• Praha &rarr; z Prah<strong>y</strong></li>
+            <p class="text-slate-300">Zakončení na <strong>-e</strong> &rarr; <strong>-e</strong></p>
+            <ul class="text-slate-400 font-mono space-y-1 text-[11px]">
+              <li>• Francie &rarr; z Franci<strong>e</strong></li>
             </ul>
           </div>
 
           <div class="bg-slate-900/90 p-4 rounded-xl border border-slate-800 space-y-2">
             <span class="font-bold text-emerald-400 uppercase tracking-wider block">3. Neutra (N)</span>
-            <p class="text-slate-300">Zakončení na <strong>-o</strong> / <strong>-sko</strong> &rarr; <strong>-a</strong></p>
+            <p class="text-slate-300">Zakončení na <strong>-o</strong> &rarr; <strong>-a</strong></p>
             <ul class="text-slate-400 font-mono space-y-1 text-[11px]">
-              <li>• Norsko &rarr; z Norska</li>
-              <li>• Japonsko &rarr; z Japonska</li>
-              <li>• Slovensko &rarr; <strong>ze Slovenska</strong></li>
+              <li>• Norsko &rarr; z Norsk<strong>a</strong></li>
+              <li>• Japonsko &rarr; z Japonsk<strong>a</strong></li>
+              <li>• Slovensko &rarr; ze Slovensk<strong>a</strong></li>
             </ul>
           </div>
         </div>
@@ -397,27 +388,27 @@
        ========================================================================== */
 
     const VOCAB_DATA = [
-      { id: 1, category: "europe", cz: "Česká republika / Česko", pos: "Noun (f / n)", en: "Czech Republic / Czechia", gen: "z České republiky / z Česka", ex: "Pocházím z České republiky." },
+      { id: 1, category: "europe", cz: "Česká republika / Česko", pos: "Noun (f / n)", en: "Czech Republic / Czechia", gen: "z České republiky / z Česka", ex: "Pocházím z České republiky / Česka." },
       { id: 2, category: "europe", cz: "Slovensko", pos: "Noun (n)", en: "Slovakia", gen: "ze Slovenska", ex: "Přijel jsem ze Slovenska včera večer." },
       { id: 3, category: "europe", cz: "Německo", pos: "Noun (n)", en: "Germany", gen: "z Německa", ex: "Můj soused se vrátil z Německa." },
-      { id: 4, category: "europe", cz: "Rakousko", pos: "Noun (n)", en: "Austria", gen: "z Rakouska", ex: "Vídeň je hlavní město Rakouska." },
-      { id: 5, category: "europe", cz: "Polsko", pos: "Noun (n)", en: "Poland", gen: "z Polska", ex: "Uprostřed Polska leží Varšava." },
-      { id: 6, category: "europe", cz: "Francie", pos: "Noun (f)", en: "France", gen: "z Francie", ex: "Východní část Francie je známá svým vínem." },
-      { id: 7, category: "europe", cz: "Itálie", pos: "Noun (f)", en: "Italy", gen: "z Itálie", ex: "Pojedu do severní části Itálie." },
-      { id: 8, category: "europe", cz: "Španělsko", pos: "Noun (n)", en: "Spain", gen: "ze Španělska", ex: "Učím se jazyk obyvatel Španělska." },
-      { id: 9, category: "europe", cz: "Chorvatsko", pos: "Noun (n)", en: "Croatia", gen: "z Chorvatska", ex: "Pláže Chorvatska jsou velmi populární." },
+      { id: 4, category: "europe", cz: "Rakousko", pos: "Noun (n)", en: "Austria", gen: "hlavní město Rakouska", ex: "Vídeň je hlavní město Rakouska." },
+      { id: 5, category: "europe", cz: "Polsko", pos: "Noun (n)", en: "Poland", gen: "uprostřed Polska", ex: "Uprostřed Polska leží Varšava." },
+      { id: 6, category: "europe", cz: "Francie", pos: "Noun (f)", en: "France", gen: "část Francie", ex: "Východní část Francie je známá svým vínem." },
+      { id: 7, category: "europe", cz: "Itálie", pos: "Noun (f)", en: "Italy", gen: "část Itálie", ex: "Pojedu do severní části Itálie." },
+      { id: 8, category: "europe", cz: "Španělsko", pos: "Noun (n)", en: "Spain", gen: "obyvatelé Španělska", ex: "Učím se jazyk obyvatel Španělska." },
+      { id: 9, category: "europe", cz: "Chorvatsko", pos: "Noun (n)", en: "Croatia", gen: "pláže Chorvatska" , ex: "Pláže Chorvatska jsou velmi populární." },
       { id: 10, category: "europe", cz: "Řecko", pos: "Noun (n)", en: "Greece", gen: "z Řecka", ex: "Hory na severu Řecka jsou nádherné." },
       { id: 11, category: "world", cz: "Japonsko", pos: "Noun (n)", en: "Japan", gen: "z Japonska", ex: "Po návratu z Japonska jsem si koupil suvenýr." },
-      { id: 12, category: "world", cz: "Kanada", pos: "Noun (f)", en: "Canada", gen: "z Kanady", ex: "Hlavní město Kanady je Ottawa." },
-      { id: 13, category: "europe", cz: "Praha", pos: "Noun (f)", en: "Prague", gen: "z Prahy", ex: "Karlův most je nejznámější část Prahy." },
-      { id: 14, category: "europe", cz: "Brno", pos: "Noun (n)", en: "Brno", gen: "z Brna", ex: "Pojedu do Brna na víkend." },
-      { id: 15, category: "europe", cz: "Vídeň", pos: "Noun (f)", en: "Vienna", gen: "z Vídně", ex: "Vzdálenost Budapeště od Vídně je 250 km." },
-      { id: 16, category: "europe", cz: "Paříž", pos: "Noun (f)", en: "Paris", gen: "z Paříže", ex: "Eiffelova věž je symbolem Paříže." },
-      { id: 17, category: "europe", cz: "Řím", pos: "Noun (m)", en: "Rome", gen: "z Říma", ex: "Chtěl bych navštívit památky Říma." },
-      { id: 18, category: "europe", cz: "Berlín", pos: "Noun (m)", en: "Berlin", gen: "z Berlína", ex: "Bydlím nedaleko Berlína." },
-      { id: 19, category: "europe", cz: "Varšava", pos: "Noun (f)", en: "Warsaw", gen: "z Varšavy", ex: "Na předměstí Varšavy bydlí moje kamarádka." },
-      { id: 20, category: "europe", cz: "Londýn", pos: "Noun (m)", en: "London", gen: "z Londýna", ex: "Centrum Londýna je plné turistů." },
-      { id: 21, category: "europe", cz: "Barcelona", pos: "Noun (f)", en: "Barcelona", gen: "z Barcelony", ex: "Nejznámější část Barcelony je Sagrada Família." }
+      { id: 12, category: "world", cz: "Kanada", pos: "Noun (f)", en: "Canada", gen: "hlavní město Kanady", ex: "Hlavní město Kanady je Ottawa." },
+      { id: 13, category: "europe", cz: "Praha", pos: "Noun (f)", en: "Prague", gen: "památka Prahy", ex: "Karlův most je nejznámější památka Prahy." },
+      { id: 14, category: "europe", cz: "Brno", pos: "Noun (n)", en: "Brno", gen: "do Brna", ex: "Pojedu do Brna na víkend." },
+      { id: 15, category: "europe", cz: "Vídeň", pos: "Noun (f)", en: "Vienna", gen: "od Vídně", ex: "Vzdálenost z Budapeště od Vídně je 250 km." },
+      { id: 16, category: "europe", cz: "Paříž", pos: "Noun (f)", en: "Paris", gen: "symbol Paříže", ex: "Eiffelova věž je symbolem Paříže." },
+      { id: 17, category: "europe", cz: "Řím", pos: "Noun (m)", en: "Rome", gen: "památky Říma", ex: "Chtěl bych navštívit památky Říma." },
+      { id: 18, category: "europe", cz: "Berlín", pos: "Noun (m)", en: "Berlin", gen: "nedaleko Berlína", ex: "Bydlím nedaleko Berlína." },
+      { id: 19, category: "europe", cz: "Varšava", pos: "Noun (f)", en: "Warsaw", gen: "předměstí Varšavy", ex: "Na předměstí Varšavy bydlí moje kamarádka." },
+      { id: 20, category: "europe", cz: "Londýn", pos: "Noun (m)", en: "London", gen: "centrum Londýna", ex: "Centrum Londýna je plné turistů." },
+      { id: 21, category: "europe", cz: "Barcelona", pos: "Noun (f)", en: "Barcelona", gen: "část Barcelony", ex: "Nejznámější část Barcelony je Sagrada Família." }
     ];
 
     /* REAL LEAFLET MAP COORDINATES DATA (WITH PRECISE PREPOSITIONS) */

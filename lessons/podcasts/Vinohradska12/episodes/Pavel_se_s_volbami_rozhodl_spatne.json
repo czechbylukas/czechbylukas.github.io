@@ -1,0 +1,1780 @@
+{
+  "title": "Pavel se s volbami rozhodl špatně. Aspoň ale ukázal, že není loutkou poradců, soudí komentátor",
+  "description": "Práce s textem – úrovně B1, B2, C1",
+  "audioUrl": "",
+  "episodeUrl": "https://www.irozhlas.cz/zpravy-domov/pavel-se-s-volbami-rozhodl-spatne-aspon-ale-ukazal-ze-neni-loutkou-poradcu-soudi_2610090600_med",
+  "levels": {
+    "B1": {
+      "vocabulary": [
+        {
+          "czech": "rozruch",
+          "english": "commotion"
+        },
+        {
+          "czech": "poradce",
+          "english": "adviser"
+        },
+        {
+          "czech": "hlas",
+          "english": "vote"
+        },
+        {
+          "czech": "účast",
+          "english": "participation"
+        },
+        {
+          "czech": "dovolená",
+          "english": "holiday"
+        },
+        {
+          "czech": "chyba",
+          "english": "mistake"
+        },
+        {
+          "czech": "kandidát",
+          "english": "candidate"
+        },
+        {
+          "czech": "důsledek",
+          "english": "consequence"
+        }
+      ],
+      "exercises": [
+        {
+          "title": "Cvičení 1 – Slovní zásoba",
+          "type": "standard",
+          "instructions": "Spojte výraz s významem.",
+          "optionsList": [],
+          "items": [
+            {
+              "section_title": "",
+              "prompt": "rozruch",
+              "type": "single",
+              "is_multiselect": false,
+              "options": [
+                "Člověk, který někomu pomáhá svými zkušenostmi a názory.",
+                "Čas, kdy člověk nemusí pracovat a může odpočívat.",
+                "To, co následuje po nějakém činu nebo rozhodnutí.",
+                "Člověk, který se uchází o určitou funkci.",
+                "Situace, kdy se mnoho lidí začne o něco zajímat a mluvit o tom.",
+                "Omyl nebo nesprávné rozhodnutí.",
+                "Vyjádření názoru při volbách.",
+                "To, že se někdo něčeho zúčastní."
+              ]
+            },
+            {
+              "section_title": "",
+              "prompt": "poradce",
+              "type": "single",
+              "is_multiselect": false,
+              "options": [
+                "Člověk, který někomu pomáhá svými zkušenostmi a názory.",
+                "Čas, kdy člověk nemusí pracovat a může odpočívat.",
+                "To, co následuje po nějakém činu nebo rozhodnutí.",
+                "Člověk, který se uchází o určitou funkci.",
+                "Situace, kdy se mnoho lidí začne o něco zajímat a mluvit o tom.",
+                "Omyl nebo nesprávné rozhodnutí.",
+                "Vyjádření názoru při volbách.",
+                "To, že se někdo něčeho zúčastní."
+              ]
+            },
+            {
+              "section_title": "",
+              "prompt": "hlas",
+              "type": "single",
+              "is_multiselect": false,
+              "options": [
+                "Člověk, který někomu pomáhá svými zkušenostmi a názory.",
+                "Čas, kdy člověk nemusí pracovat a může odpočívat.",
+                "To, co následuje po nějakém činu nebo rozhodnutí.",
+                "Člověk, který se uchází o určitou funkci.",
+                "Situace, kdy se mnoho lidí začne o něco zajímat a mluvit o tom.",
+                "Omyl nebo nesprávné rozhodnutí.",
+                "Vyjádření názoru při volbách.",
+                "To, že se někdo něčeho zúčastní."
+              ]
+            },
+            {
+              "section_title": "",
+              "prompt": "účast",
+              "type": "single",
+              "is_multiselect": false,
+              "options": [
+                "Člověk, který někomu pomáhá svými zkušenostmi a názory.",
+                "Čas, kdy člověk nemusí pracovat a může odpočívat.",
+                "To, co následuje po nějakém činu nebo rozhodnutí.",
+                "Člověk, který se uchází o určitou funkci.",
+                "Situace, kdy se mnoho lidí začne o něco zajímat a mluvit o tom.",
+                "Omyl nebo nesprávné rozhodnutí.",
+                "Vyjádření názoru při volbách.",
+                "To, že se někdo něčeho zúčastní."
+              ]
+            },
+            {
+              "section_title": "",
+              "prompt": "dovolená",
+              "type": "single",
+              "is_multiselect": false,
+              "options": [
+                "Člověk, který někomu pomáhá svými zkušenostmi a názory.",
+                "Čas, kdy člověk nemusí pracovat a může odpočívat.",
+                "To, co následuje po nějakém činu nebo rozhodnutí.",
+                "Člověk, který se uchází o určitou funkci.",
+                "Situace, kdy se mnoho lidí začne o něco zajímat a mluvit o tom.",
+                "Omyl nebo nesprávné rozhodnutí.",
+                "Vyjádření názoru při volbách.",
+                "To, že se někdo něčeho zúčastní."
+              ]
+            },
+            {
+              "section_title": "",
+              "prompt": "chyba",
+              "type": "single",
+              "is_multiselect": false,
+              "options": [
+                "Člověk, který někomu pomáhá svými zkušenostmi a názory.",
+                "Čas, kdy člověk nemusí pracovat a může odpočívat.",
+                "To, co následuje po nějakém činu nebo rozhodnutí.",
+                "Člověk, který se uchází o určitou funkci.",
+                "Situace, kdy se mnoho lidí začne o něco zajímat a mluvit o tom.",
+                "Omyl nebo nesprávné rozhodnutí.",
+                "Vyjádření názoru při volbách.",
+                "To, že se někdo něčeho zúčastní."
+              ]
+            },
+            {
+              "section_title": "",
+              "prompt": "kandidát",
+              "type": "single",
+              "is_multiselect": false,
+              "options": [
+                "Člověk, který někomu pomáhá svými zkušenostmi a názory.",
+                "Čas, kdy člověk nemusí pracovat a může odpočívat.",
+                "To, co následuje po nějakém činu nebo rozhodnutí.",
+                "Člověk, který se uchází o určitou funkci.",
+                "Situace, kdy se mnoho lidí začne o něco zajímat a mluvit o tom.",
+                "Omyl nebo nesprávné rozhodnutí.",
+                "Vyjádření názoru při volbách.",
+                "To, že se někdo něčeho zúčastní."
+              ]
+            },
+            {
+              "section_title": "",
+              "prompt": "důsledek",
+              "type": "single",
+              "is_multiselect": false,
+              "options": [
+                "Člověk, který někomu pomáhá svými zkušenostmi a názory.",
+                "Čas, kdy člověk nemusí pracovat a může odpočívat.",
+                "To, co následuje po nějakém činu nebo rozhodnutí.",
+                "Člověk, který se uchází o určitou funkci.",
+                "Situace, kdy se mnoho lidí začne o něco zajímat a mluvit o tom.",
+                "Omyl nebo nesprávné rozhodnutí.",
+                "Vyjádření názoru při volbách.",
+                "To, že se někdo něčeho zúčastní."
+              ]
+            }
+          ],
+          "matchingItems": [],
+          "matchingOptions": [],
+          "matchingSection": ""
+        },
+        {
+          "title": "Cvičení 2 – Doplň do věty",
+          "type": "standard",
+          "instructions": "Doplňte vhodné slovo.\nSlova: rozhodnout se, kritizovat, odpočívat, volit, podepsat, přesvědčit, plánovat, omluvit",
+          "optionsList": [
+            "rozhodnout se",
+            "kritizovat",
+            "odpočívat",
+            "volit",
+            "podepsat",
+            "přesvědčit",
+            "plánovat",
+            "omluvit"
+          ],
+          "items": [
+            {
+              "section_title": "",
+              "prompt": "Prezident nakonec ________ nejet do Černoučku.",
+              "type": "single",
+              "is_multiselect": false,
+              "options": []
+            },
+            {
+              "section_title": "",
+              "prompt": "Někteří lidé ________ prezidenta za jeho rozhodnutí.",
+              "type": "single",
+              "is_multiselect": false,
+              "options": []
+            },
+            {
+              "section_title": "",
+              "prompt": "Petr Pavel chtěl po náročném roce ________.",
+              "type": "single",
+              "is_multiselect": false,
+              "options": []
+            },
+            {
+              "section_title": "",
+              "prompt": "Prezident se rozhodl ________ v komunálních volbách.",
+              "type": "single",
+              "is_multiselect": false,
+              "options": []
+            },
+            {
+              "section_title": "",
+              "prompt": "Prezident už v březnu 2024 ________ termín voleb.",
+              "type": "single",
+              "is_multiselect": false,
+              "options": []
+            },
+            {
+              "section_title": "",
+              "prompt": "Poradci se snažili prezidenta ________, aby změnil svůj plán.",
+              "type": "single",
+              "is_multiselect": false,
+              "options": []
+            },
+            {
+              "section_title": "",
+              "prompt": "Hrad měl ________ cestu s ohledem na termín voleb.",
+              "type": "single",
+              "is_multiselect": false,
+              "options": []
+            },
+            {
+              "section_title": "",
+              "prompt": "Komentátor uvedl, že cesta do Maroka by se dala těžko ________.",
+              "type": "single",
+              "is_multiselect": false,
+              "options": []
+            }
+          ],
+          "matchingItems": [],
+          "matchingOptions": [],
+          "matchingSection": ""
+        },
+        {
+          "title": "Cvičení 3 – Gramatika",
+          "type": "standard",
+          "instructions": "Doplňte správný tvar slovesa v podmiňovacím způsobu.",
+          "optionsList": [],
+          "items": [
+            {
+              "section_title": "",
+              "prompt": "Kdyby prezident přijel do Černoučku, ________ (volit).",
+              "type": "single",
+              "is_multiselect": false,
+              "options": []
+            },
+            {
+              "section_title": "",
+              "prompt": "Kdyby lidé měli více možností, ________ (účastnit se) voleb častěji.",
+              "type": "single",
+              "is_multiselect": false,
+              "options": []
+            },
+            {
+              "section_title": "",
+              "prompt": "Kdyby poradci měli jiný názor, prezidenta ________ (varovat).",
+              "type": "single",
+              "is_multiselect": false,
+              "options": []
+            },
+            {
+              "section_title": "",
+              "prompt": "Kdyby prezident změnil plán, kritika by se částečně ________ (zmírnit).",
+              "type": "single",
+              "is_multiselect": false,
+              "options": []
+            },
+            {
+              "section_title": "",
+              "prompt": "Kdyby volby dopadly velmi těsně, jeden nebo dva hlasy ________ (rozhodnout) o výsledku.",
+              "type": "single",
+              "is_multiselect": false,
+              "options": []
+            },
+            {
+              "section_title": "",
+              "prompt": "Kdybych byl prezidentem, ________ (zvážit) bych důsledky svého rozhodnutí.",
+              "type": "single",
+              "is_multiselect": false,
+              "options": []
+            },
+            {
+              "section_title": "",
+              "prompt": "Kdyby prezident nemusel odcestovat, ________ (moci) volit doma.",
+              "type": "single",
+              "is_multiselect": false,
+              "options": []
+            },
+            {
+              "section_title": "",
+              "prompt": "Kdyby lidé mohli volit i mimo místo trvalého bydliště, více z nich ________ (moci) odevzdat hlas.",
+              "type": "single",
+              "is_multiselect": false,
+              "options": []
+            }
+          ],
+          "matchingItems": [],
+          "matchingOptions": [],
+          "matchingSection": ""
+        },
+        {
+          "title": "Cvičení 4 – Slovní zásoba a předložky",
+          "type": "standard",
+          "instructions": "Doplňte správnou předložku nebo výraz. Pokud je výraz bez předložky, nechte políčko prázdné.\nSlova: do, o, na, za, bez předložky, s, v, od",
+          "optionsList": [
+            "do",
+            "o",
+            "na",
+            "za",
+            "bez předložky",
+            "s",
+            "v",
+            "od"
+          ],
+          "items": [
+            {
+              "section_title": "",
+              "prompt": "Prezident se rozhodl nejet ________ Černoučku.",
+              "type": "single",
+              "is_multiselect": false,
+              "options": []
+            },
+            {
+              "section_title": "",
+              "prompt": "Komentátor mluvil ________ prezidentově rozhodnutí.",
+              "type": "single",
+              "is_multiselect": false,
+              "options": []
+            },
+            {
+              "section_title": "",
+              "prompt": "Prezident se vydal ________ dovolenou.",
+              "type": "single",
+              "is_multiselect": false,
+              "options": []
+            },
+            {
+              "section_title": "",
+              "prompt": "Hrad vysvětloval situaci chybou ________ plánování.",
+              "type": "single",
+              "is_multiselect": false,
+              "options": []
+            },
+            {
+              "section_title": "",
+              "prompt": "Prezident Petr Pavel ________ nakonec odvolil.",
+              "type": "single",
+              "is_multiselect": false,
+              "options": []
+            },
+            {
+              "section_title": "",
+              "prompt": "Petr Pavel jel do Maroka ________ svými zájmy o motorsport.",
+              "type": "single",
+              "is_multiselect": false,
+              "options": []
+            },
+            {
+              "section_title": "",
+              "prompt": "Někteří lidé nemohou volit ________ místa trvalého bydliště.",
+              "type": "single",
+              "is_multiselect": false,
+              "options": []
+            },
+            {
+              "section_title": "",
+              "prompt": "Prezident se vrátil ________ dovolené.",
+              "type": "single",
+              "is_multiselect": false,
+              "options": []
+            }
+          ],
+          "matchingItems": [],
+          "matchingOptions": [],
+          "matchingSection": ""
+        },
+        {
+          "title": "Cvičení 5 – Práce s textem",
+          "type": "standard",
+          "instructions": "",
+          "optionsList": [],
+          "items": [
+            {
+              "section_title": "A. Ano – Ne",
+              "prompt": "Petr Hartman označil prezidentovo rozhodnutí za chybu.",
+              "type": "single",
+              "is_multiselect": false,
+              "options": []
+            },
+            {
+              "section_title": "A. Ano – Ne",
+              "prompt": "Prezident podle přepisu odvolil v Černoučku.",
+              "type": "single",
+              "is_multiselect": false,
+              "options": []
+            },
+            {
+              "section_title": "A. Ano – Ne",
+              "prompt": "Komunální volební účast podle komentátora někdy klesá pod 50 %.",
+              "type": "single",
+              "is_multiselect": false,
+              "options": []
+            },
+            {
+              "section_title": "A. Ano – Ne",
+              "prompt": "Prezidentovi poradci ho podle přepisu podporovali v cestě do Maroka.",
+              "type": "single",
+              "is_multiselect": false,
+              "options": []
+            },
+            {
+              "section_title": "A. Ano – Ne",
+              "prompt": "Hrad vysvětlil neúčast prezidenta chybou v plánování.",
+              "type": "single",
+              "is_multiselect": false,
+              "options": []
+            },
+            {
+              "section_title": "A. Ano – Ne",
+              "prompt": "Petr Hartman tvrdí, že v České republice je volební účast povinná.",
+              "type": "single",
+              "is_multiselect": false,
+              "options": []
+            },
+            {
+              "section_title": "A. Ano – Ne",
+              "prompt": "Eva Pavlová se vyjádřila k podmínkám účasti ve volbách.",
+              "type": "single",
+              "is_multiselect": false,
+              "options": []
+            },
+            {
+              "section_title": "A. Ano – Ne",
+              "prompt": "Příští prezidentské volby se podle rozhovoru uskuteční v lednu 2028.",
+              "type": "single",
+              "is_multiselect": false,
+              "options": []
+            },
+            {
+              "section_title": "B. Vyberte nejpřesnější odpověď",
+              "prompt": "Proč může prezidentova neúčast u voleb vyvolat rozruch?",
+              "type": "single",
+              "is_multiselect": false,
+              "options": [
+                "Protože prezident musí podle zákona volit.",
+                "Protože prezident je vnímán jako autorita a příklad pro veřejnost.",
+                "Protože prezident rozhoduje o výsledku komunálních voleb.",
+                "Protože prezident určuje termín voleb."
+              ]
+            },
+            {
+              "section_title": "B. Vyberte nejpřesnější odpověď",
+              "prompt": "Kde měl být Petr Pavel podle rozhovoru na dovolené?",
+              "type": "single",
+              "is_multiselect": false,
+              "options": [
+                "V Německu.",
+                "V Rakousku.",
+                "Na Kanárských ostrovech.",
+                "V Maroku."
+              ]
+            },
+            {
+              "section_title": "B. Vyberte nejpřesnější odpověď",
+              "prompt": "Co podle komentátora komplikuje možnost volit některým občanům?",
+              "type": "single",
+              "is_multiselect": false,
+              "options": [
+                "Povinnost volit elektronicky.",
+                "Nutnost volit v místě trvalého bydliště.",
+                "Zákaz volit během dovolené.",
+                "Nedostatek kandidátů."
+              ]
+            },
+            {
+              "section_title": "B. Vyberte nejpřesnější odpověď",
+              "prompt": "Co Petr Hartman očekává ohledně příštích prezidentských voleb?",
+              "type": "single",
+              "is_multiselect": false,
+              "options": [
+                "Prezident už kandidovat nebude.",
+                "Prezident bude kandidovat za několik měsíců.",
+                "Prezidentovy šance neúčast v komunálních volbách výrazně nesníží.",
+                "Prezident bude muset kandidaturu oznámit ihned."
+              ]
+            }
+          ],
+          "matchingItems": [],
+          "matchingOptions": [],
+          "matchingSection": ""
+        }
+      ]
+    },
+    "B2": {
+      "vocabulary": [
+        {
+          "czech": "legitimní",
+          "english": "legitimate"
+        },
+        {
+          "czech": "přešlap",
+          "english": "misstep"
+        },
+        {
+          "czech": "imunita",
+          "english": "immunity"
+        },
+        {
+          "czech": "shovívavý",
+          "english": "lenient"
+        },
+        {
+          "czech": "zástěrka",
+          "english": "pretext"
+        },
+        {
+          "czech": "korespondenční",
+          "english": "postal"
+        },
+        {
+          "czech": "mandát",
+          "english": "mandate"
+        },
+        {
+          "czech": "manipulace",
+          "english": "manipulation"
+        }
+      ],
+      "exercises": [
+        {
+          "title": "Cvičení 1 – Slovní zásoba",
+          "type": "standard",
+          "instructions": "Spojte výraz s významem.",
+          "optionsList": [],
+          "items": [
+            {
+              "section_title": "",
+              "prompt": "legitimní",
+              "type": "single",
+              "is_multiselect": false,
+              "options": [
+                "Právo vykonávat určitou funkci získané volbou.",
+                "Takový, který něco omlouvá nebo posuzuje mírně.",
+                "Způsob hlasování, při kterém se hlas odevzdává na dálku.",
+                "Něco, co zakrývá skutečný důvod jednání.",
+                "Oprávněný a uznávaný podle pravidel.",
+                "Neoprávněné ovlivňování nebo pozměňování něčeho.",
+                "Právní ochrana před určitými postihy.",
+                "Chybný nebo nevhodný krok."
+              ]
+            },
+            {
+              "section_title": "",
+              "prompt": "přešlap",
+              "type": "single",
+              "is_multiselect": false,
+              "options": [
+                "Právo vykonávat určitou funkci získané volbou.",
+                "Takový, který něco omlouvá nebo posuzuje mírně.",
+                "Způsob hlasování, při kterém se hlas odevzdává na dálku.",
+                "Něco, co zakrývá skutečný důvod jednání.",
+                "Oprávněný a uznávaný podle pravidel.",
+                "Neoprávněné ovlivňování nebo pozměňování něčeho.",
+                "Právní ochrana před určitými postihy.",
+                "Chybný nebo nevhodný krok."
+              ]
+            },
+            {
+              "section_title": "",
+              "prompt": "imunita",
+              "type": "single",
+              "is_multiselect": false,
+              "options": [
+                "Právo vykonávat určitou funkci získané volbou.",
+                "Takový, který něco omlouvá nebo posuzuje mírně.",
+                "Způsob hlasování, při kterém se hlas odevzdává na dálku.",
+                "Něco, co zakrývá skutečný důvod jednání.",
+                "Oprávněný a uznávaný podle pravidel.",
+                "Neoprávněné ovlivňování nebo pozměňování něčeho.",
+                "Právní ochrana před určitými postihy.",
+                "Chybný nebo nevhodný krok."
+              ]
+            },
+            {
+              "section_title": "",
+              "prompt": "shovívavý",
+              "type": "single",
+              "is_multiselect": false,
+              "options": [
+                "Právo vykonávat určitou funkci získané volbou.",
+                "Takový, který něco omlouvá nebo posuzuje mírně.",
+                "Způsob hlasování, při kterém se hlas odevzdává na dálku.",
+                "Něco, co zakrývá skutečný důvod jednání.",
+                "Oprávněný a uznávaný podle pravidel.",
+                "Neoprávněné ovlivňování nebo pozměňování něčeho.",
+                "Právní ochrana před určitými postihy.",
+                "Chybný nebo nevhodný krok."
+              ]
+            },
+            {
+              "section_title": "",
+              "prompt": "zástěrka",
+              "type": "single",
+              "is_multiselect": false,
+              "options": [
+                "Právo vykonávat určitou funkci získané volbou.",
+                "Takový, který něco omlouvá nebo posuzuje mírně.",
+                "Způsob hlasování, při kterém se hlas odevzdává na dálku.",
+                "Něco, co zakrývá skutečný důvod jednání.",
+                "Oprávněný a uznávaný podle pravidel.",
+                "Neoprávněné ovlivňování nebo pozměňování něčeho.",
+                "Právní ochrana před určitými postihy.",
+                "Chybný nebo nevhodný krok."
+              ]
+            },
+            {
+              "section_title": "",
+              "prompt": "korespondenční",
+              "type": "single",
+              "is_multiselect": false,
+              "options": [
+                "Právo vykonávat určitou funkci získané volbou.",
+                "Takový, který něco omlouvá nebo posuzuje mírně.",
+                "Způsob hlasování, při kterém se hlas odevzdává na dálku.",
+                "Něco, co zakrývá skutečný důvod jednání.",
+                "Oprávněný a uznávaný podle pravidel.",
+                "Neoprávněné ovlivňování nebo pozměňování něčeho.",
+                "Právní ochrana před určitými postihy.",
+                "Chybný nebo nevhodný krok."
+              ]
+            },
+            {
+              "section_title": "",
+              "prompt": "mandát",
+              "type": "single",
+              "is_multiselect": false,
+              "options": [
+                "Právo vykonávat určitou funkci získané volbou.",
+                "Takový, který něco omlouvá nebo posuzuje mírně.",
+                "Způsob hlasování, při kterém se hlas odevzdává na dálku.",
+                "Něco, co zakrývá skutečný důvod jednání.",
+                "Oprávněný a uznávaný podle pravidel.",
+                "Neoprávněné ovlivňování nebo pozměňování něčeho.",
+                "Právní ochrana před určitými postihy.",
+                "Chybný nebo nevhodný krok."
+              ]
+            },
+            {
+              "section_title": "",
+              "prompt": "manipulace",
+              "type": "single",
+              "is_multiselect": false,
+              "options": [
+                "Právo vykonávat určitou funkci získané volbou.",
+                "Takový, který něco omlouvá nebo posuzuje mírně.",
+                "Způsob hlasování, při kterém se hlas odevzdává na dálku.",
+                "Něco, co zakrývá skutečný důvod jednání.",
+                "Oprávněný a uznávaný podle pravidel.",
+                "Neoprávněné ovlivňování nebo pozměňování něčeho.",
+                "Právní ochrana před určitými postihy.",
+                "Chybný nebo nevhodný krok."
+              ]
+            }
+          ],
+          "matchingItems": [],
+          "matchingOptions": [],
+          "matchingSection": ""
+        },
+        {
+          "title": "Cvičení 2 – Doplň do věty",
+          "type": "standard",
+          "instructions": "Doplňte vhodné slovo.\nSlova: vyhodnotit, vyčítat, prosazovat, zmírnit, ignorovat, zúčastnit se, podmiňovat, vytěžit",
+          "optionsList": [
+            "vyhodnotit",
+            "vyčítat",
+            "prosazovat",
+            "zmírnit",
+            "ignorovat",
+            "zúčastnit se",
+            "podmiňovat",
+            "vytěžit"
+          ],
+          "items": [
+            {
+              "section_title": "",
+              "prompt": "Komentátor uvedl, že Babiš ________ situaci a rozhodl se nepřilévat olej do ohně.",
+              "type": "single",
+              "is_multiselect": false,
+              "options": []
+            },
+            {
+              "section_title": "",
+              "prompt": "Kritici Pavlovi dlouhodobě ________, že nejmenoval Filipa Turka ministrem.",
+              "type": "single",
+              "is_multiselect": false,
+              "options": []
+            },
+            {
+              "section_title": "",
+              "prompt": "Politici se snažili ________ své představy o změně volebního systému.",
+              "type": "single",
+              "is_multiselect": false,
+              "options": []
+            },
+            {
+              "section_title": "",
+              "prompt": "Prezidentův případný návrat by mohl ________ část kritiky.",
+              "type": "single",
+              "is_multiselect": false,
+              "options": []
+            },
+            {
+              "section_title": "",
+              "prompt": "Komentátor připustil, že někdo mohl termín voleb ________.",
+              "type": "single",
+              "is_multiselect": false,
+              "options": []
+            },
+            {
+              "section_title": "",
+              "prompt": "Někteří občané se nemohli ________ voleb kvůli pobytu mimo bydliště.",
+              "type": "single",
+              "is_multiselect": false,
+              "options": []
+            },
+            {
+              "section_title": "",
+              "prompt": "Pavelovo jmenování premiérem bylo podle rozhovoru ________ postojem ke střetu zájmů.",
+              "type": "single",
+              "is_multiselect": false,
+              "options": []
+            },
+            {
+              "section_title": "",
+              "prompt": "Babiš se snažil z konfliktu s prezidentem ________ politické body.",
+              "type": "single",
+              "is_multiselect": false,
+              "options": []
+            }
+          ],
+          "matchingItems": [],
+          "matchingOptions": [],
+          "matchingSection": ""
+        },
+        {
+          "title": "Cvičení 3 – Gramatika",
+          "type": "standard",
+          "instructions": "Doplňte správný tvar slovesa v podmiňovacím způsobu.",
+          "optionsList": [],
+          "items": [
+            {
+              "section_title": "",
+              "prompt": "Kdyby prezident lépe plánoval, ________ (vyhnout se) kritice.",
+              "type": "single",
+              "is_multiselect": false,
+              "options": []
+            },
+            {
+              "section_title": "",
+              "prompt": "Kdyby Hrad poskytl věrohodnější vysvětlení, veřejnost by situaci možná lépe ________ (pochopit).",
+              "type": "single",
+              "is_multiselect": false,
+              "options": []
+            },
+            {
+              "section_title": "",
+              "prompt": "Kdyby lidé mohli volit korespondenčně, někteří z nich by se voleb ________ (zúčastnit).",
+              "type": "single",
+              "is_multiselect": false,
+              "options": []
+            },
+            {
+              "section_title": "",
+              "prompt": "Kdyby poradci prezidenta přesvědčili, ________ (změnit) by své plány.",
+              "type": "single",
+              "is_multiselect": false,
+              "options": []
+            },
+            {
+              "section_title": "",
+              "prompt": "Kdyby se Babiš rozhodl konflikt dále vyhrocovat, pravděpodobně by z něj nic zásadního ________ (vytěžit).",
+              "type": "single",
+              "is_multiselect": false,
+              "options": []
+            },
+            {
+              "section_title": "",
+              "prompt": "Kdyby se volební systém změnil, účast by se mohla ________ (zvýšit).",
+              "type": "single",
+              "is_multiselect": false,
+              "options": []
+            },
+            {
+              "section_title": "",
+              "prompt": "Kdyby prezident přijel volit, jeho kritici by ho přesto ________ (kritizovat).",
+              "type": "single",
+              "is_multiselect": false,
+              "options": []
+            },
+            {
+              "section_title": "",
+              "prompt": "Kdyby měl komentátor více informací, ________ (vysvětlit) by přesněji důvody prezidentovy cesty.",
+              "type": "single",
+              "is_multiselect": false,
+              "options": []
+            }
+          ],
+          "matchingItems": [],
+          "matchingOptions": [],
+          "matchingSection": ""
+        },
+        {
+          "title": "Cvičení 4 – Slovní zásoba a předložky",
+          "type": "standard",
+          "instructions": "Doplňte správnou předložku nebo výraz. Pokud je výraz bez předložky, nechte políčko prázdné.\nSlova: kvůli, vůči, na, o, bez předložky, mezi, z, s",
+          "optionsList": [
+            "kvůli",
+            "vůči",
+            "na",
+            "o",
+            "bez předložky",
+            "mezi",
+            "z",
+            "s"
+          ],
+          "items": [
+            {
+              "section_title": "",
+              "prompt": "Komentátor hovořil ________ důsledcích prezidentova rozhodnutí.",
+              "type": "single",
+              "is_multiselect": false,
+              "options": []
+            },
+            {
+              "section_title": "",
+              "prompt": "Prezident čelil kritice ________ své neúčasti ve volbách.",
+              "type": "single",
+              "is_multiselect": false,
+              "options": []
+            },
+            {
+              "section_title": "",
+              "prompt": "Volební systém by se neměl měnit pouze ________ přání Hradu.",
+              "type": "single",
+              "is_multiselect": false,
+              "options": []
+            },
+            {
+              "section_title": "",
+              "prompt": "Babiš mohl později vystupovat ________ prezidentovi shovívavěji.",
+              "type": "single",
+              "is_multiselect": false,
+              "options": []
+            },
+            {
+              "section_title": "",
+              "prompt": "Rozhovor se týkal sporů ________ prezidentem a premiérem.",
+              "type": "single",
+              "is_multiselect": false,
+              "options": []
+            },
+            {
+              "section_title": "",
+              "prompt": "Prezident se měl rozhodnout ________ ohledem na termín voleb.",
+              "type": "single",
+              "is_multiselect": false,
+              "options": []
+            },
+            {
+              "section_title": "",
+              "prompt": "Některé státy Evropské unie upustily ________ elektronického hlasování.",
+              "type": "single",
+              "is_multiselect": false,
+              "options": []
+            },
+            {
+              "section_title": "",
+              "prompt": "Kritika přicházela ________ koalice i opozice.",
+              "type": "single",
+              "is_multiselect": false,
+              "options": []
+            }
+          ],
+          "matchingItems": [],
+          "matchingOptions": [],
+          "matchingSection": ""
+        },
+        {
+          "title": "Cvičení 5 – Práce s textem",
+          "type": "standard",
+          "instructions": "",
+          "optionsList": [],
+          "items": [
+            {
+              "section_title": "A. Ano – Ne",
+              "prompt": "Petr Hartman považuje chybu v plánování za dostatečné vysvětlení celé situace.",
+              "type": "single",
+              "is_multiselect": false,
+              "options": []
+            },
+            {
+              "section_title": "A. Ano – Ne",
+              "prompt": "Prezidentův tým se podle přepisu snažil Pavla od cesty odradit.",
+              "type": "single",
+              "is_multiselect": false,
+              "options": []
+            },
+            {
+              "section_title": "A. Ano – Ne",
+              "prompt": "Babiš se rozhodl prezidenta v dané chvíli veřejně kritizovat.",
+              "type": "single",
+              "is_multiselect": false,
+              "options": []
+            },
+            {
+              "section_title": "A. Ano – Ne",
+              "prompt": "Komentátor připouští, že debata o úpravě volebních podmínek je legitimní.",
+              "type": "single",
+              "is_multiselect": false,
+              "options": []
+            },
+            {
+              "section_title": "A. Ano – Ne",
+              "prompt": "Elektronicky mohou ve všech typech voleb hlasovat občané všech států Evropské unie.",
+              "type": "single",
+              "is_multiselect": false,
+              "options": []
+            },
+            {
+              "section_title": "A. Ano – Ne",
+              "prompt": "Kritici prezidenta mu vyčítali i jeho postoj ke jmenování Filipa Turka.",
+              "type": "single",
+              "is_multiselect": false,
+              "options": []
+            },
+            {
+              "section_title": "A. Ano – Ne",
+              "prompt": "Podle komentátora by případná změna prezidentova plánu zcela ukončila kritiku.",
+              "type": "single",
+              "is_multiselect": false,
+              "options": []
+            },
+            {
+              "section_title": "A. Ano – Ne",
+              "prompt": "Komentátor předpokládá, že prezident bude pravděpodobně usilovat o obhajobu mandátu.",
+              "type": "single",
+              "is_multiselect": false,
+              "options": []
+            },
+            {
+              "section_title": "B. Vyberte nejpřesnější odpověď",
+              "prompt": "Proč podle Hartmana nebylo vhodné, aby Babiš přiléval olej do ohně?",
+              "type": "single",
+              "is_multiselect": false,
+              "options": [
+                "Protože už prezidenta veřejně podpořil.",
+                "Protože z další kritiky nemusel získat politickou výhodu.",
+                "Protože neměl právo komentovat prezidentovo jednání.",
+                "Protože se rozhodl odstoupit z politiky."
+              ]
+            },
+            {
+              "section_title": "B. Vyberte nejpřesnější odpověď",
+              "prompt": "Jaký problém komentátor spojuje s klasickým volebním systémem?",
+              "type": "single",
+              "is_multiselect": false,
+              "options": [
+                "Voliči musí hlasovat pouze v místě trvalého bydliště.",
+                "Voliči nemohou hlasovat v komunálních volbách.",
+                "Občané musí vždy hlasovat elektronicky.",
+                "Kandidáti nemohou zveřejňovat své programy."
+              ]
+            },
+            {
+              "section_title": "B. Vyberte nejpřesnější odpověď",
+              "prompt": "Proč podle Hartmana nemusí mít prezidentova neúčast zásadní vliv na jeho znovuzvolení?",
+              "type": "single",
+              "is_multiselect": false,
+              "options": [
+                "Protože se prezidentské volby ruší.",
+                "Protože prezident už získal nový mandát.",
+                "Protože do voleb zbývá dost času a mohou se objevit další témata.",
+                "Protože kritici nemohou prezidenta veřejně hodnotit."
+              ]
+            },
+            {
+              "section_title": "B. Vyberte nejpřesnější odpověď",
+              "prompt": "Co podle komentátora ztěžuje zavedení korespondenční volby v komunálních volbách?",
+              "type": "single",
+              "is_multiselect": false,
+              "options": [
+                "Neexistence volebních kandidátů.",
+                "Dlouhá a obtížná cesta k prosazení změny.",
+                "Zákaz hlasování v zahraničí ve všech typech voleb.",
+                "Odpor všech občanů k jakékoli změně."
+              ]
+            }
+          ],
+          "matchingItems": [],
+          "matchingOptions": [],
+          "matchingSection": ""
+        }
+      ]
+    },
+    "C1": {
+      "vocabulary": [
+        {
+          "czech": "svébytný",
+          "english": "independent"
+        },
+        {
+          "czech": "legitimita",
+          "english": "legitimacy"
+        },
+        {
+          "czech": "peripetie",
+          "english": "complications"
+        },
+        {
+          "czech": "shovívavost",
+          "english": "leniency"
+        },
+        {
+          "czech": "zápolení",
+          "english": "contest"
+        },
+        {
+          "czech": "vyvinit se",
+          "english": "absolve oneself"
+        },
+        {
+          "czech": "zpochybnit",
+          "english": "call into question"
+        },
+        {
+          "czech": "vytěžit",
+          "english": "gain from"
+        }
+      ],
+      "exercises": [
+        {
+          "title": "Cvičení 1 – Slovní zásoba",
+          "type": "standard",
+          "instructions": "Spojte výraz s významem.",
+          "optionsList": [],
+          "items": [
+            {
+              "section_title": "",
+              "prompt": "svébytný",
+              "type": "single",
+              "is_multiselect": false,
+              "options": [
+                "Pokusit se zbavit odpovědnosti za určité jednání.",
+                "Samostatný a nezávislý ve svém rozhodování.",
+                "Vytvořit z něčeho výhodu nebo zisk.",
+                "Zpochybnění platnosti nebo oprávněnosti určitého rozhodnutí.",
+                "Obtížné nebo komplikované události a změny.",
+                "Soutěžení nebo soupeření.",
+                "Mírný a tolerantní přístup k někomu.",
+                "Učinit něco méně důvěryhodným nebo méně jistým."
+              ]
+            },
+            {
+              "section_title": "",
+              "prompt": "legitimita",
+              "type": "single",
+              "is_multiselect": false,
+              "options": [
+                "Pokusit se zbavit odpovědnosti za určité jednání.",
+                "Samostatný a nezávislý ve svém rozhodování.",
+                "Vytvořit z něčeho výhodu nebo zisk.",
+                "Zpochybnění platnosti nebo oprávněnosti určitého rozhodnutí.",
+                "Obtížné nebo komplikované události a změny.",
+                "Soutěžení nebo soupeření.",
+                "Mírný a tolerantní přístup k někomu.",
+                "Učinit něco méně důvěryhodným nebo méně jistým."
+              ]
+            },
+            {
+              "section_title": "",
+              "prompt": "peripetie",
+              "type": "single",
+              "is_multiselect": false,
+              "options": [
+                "Pokusit se zbavit odpovědnosti za určité jednání.",
+                "Samostatný a nezávislý ve svém rozhodování.",
+                "Vytvořit z něčeho výhodu nebo zisk.",
+                "Zpochybnění platnosti nebo oprávněnosti určitého rozhodnutí.",
+                "Obtížné nebo komplikované události a změny.",
+                "Soutěžení nebo soupeření.",
+                "Mírný a tolerantní přístup k někomu.",
+                "Učinit něco méně důvěryhodným nebo méně jistým."
+              ]
+            },
+            {
+              "section_title": "",
+              "prompt": "shovívavost",
+              "type": "single",
+              "is_multiselect": false,
+              "options": [
+                "Pokusit se zbavit odpovědnosti za určité jednání.",
+                "Samostatný a nezávislý ve svém rozhodování.",
+                "Vytvořit z něčeho výhodu nebo zisk.",
+                "Zpochybnění platnosti nebo oprávněnosti určitého rozhodnutí.",
+                "Obtížné nebo komplikované události a změny.",
+                "Soutěžení nebo soupeření.",
+                "Mírný a tolerantní přístup k někomu.",
+                "Učinit něco méně důvěryhodným nebo méně jistým."
+              ]
+            },
+            {
+              "section_title": "",
+              "prompt": "zápolení",
+              "type": "single",
+              "is_multiselect": false,
+              "options": [
+                "Pokusit se zbavit odpovědnosti za určité jednání.",
+                "Samostatný a nezávislý ve svém rozhodování.",
+                "Vytvořit z něčeho výhodu nebo zisk.",
+                "Zpochybnění platnosti nebo oprávněnosti určitého rozhodnutí.",
+                "Obtížné nebo komplikované události a změny.",
+                "Soutěžení nebo soupeření.",
+                "Mírný a tolerantní přístup k někomu.",
+                "Učinit něco méně důvěryhodným nebo méně jistým."
+              ]
+            },
+            {
+              "section_title": "",
+              "prompt": "vyvinit se",
+              "type": "single",
+              "is_multiselect": false,
+              "options": [
+                "Pokusit se zbavit odpovědnosti za určité jednání.",
+                "Samostatný a nezávislý ve svém rozhodování.",
+                "Vytvořit z něčeho výhodu nebo zisk.",
+                "Zpochybnění platnosti nebo oprávněnosti určitého rozhodnutí.",
+                "Obtížné nebo komplikované události a změny.",
+                "Soutěžení nebo soupeření.",
+                "Mírný a tolerantní přístup k někomu.",
+                "Učinit něco méně důvěryhodným nebo méně jistým."
+              ]
+            },
+            {
+              "section_title": "",
+              "prompt": "zpochybnit",
+              "type": "single",
+              "is_multiselect": false,
+              "options": [
+                "Pokusit se zbavit odpovědnosti za určité jednání.",
+                "Samostatný a nezávislý ve svém rozhodování.",
+                "Vytvořit z něčeho výhodu nebo zisk.",
+                "Zpochybnění platnosti nebo oprávněnosti určitého rozhodnutí.",
+                "Obtížné nebo komplikované události a změny.",
+                "Soutěžení nebo soupeření.",
+                "Mírný a tolerantní přístup k někomu.",
+                "Učinit něco méně důvěryhodným nebo méně jistým."
+              ]
+            },
+            {
+              "section_title": "",
+              "prompt": "vytěžit",
+              "type": "single",
+              "is_multiselect": false,
+              "options": [
+                "Pokusit se zbavit odpovědnosti za určité jednání.",
+                "Samostatný a nezávislý ve svém rozhodování.",
+                "Vytvořit z něčeho výhodu nebo zisk.",
+                "Zpochybnění platnosti nebo oprávněnosti určitého rozhodnutí.",
+                "Obtížné nebo komplikované události a změny.",
+                "Soutěžení nebo soupeření.",
+                "Mírný a tolerantní přístup k někomu.",
+                "Učinit něco méně důvěryhodným nebo méně jistým."
+              ]
+            }
+          ],
+          "matchingItems": [],
+          "matchingOptions": [],
+          "matchingSection": ""
+        },
+        {
+          "title": "Cvičení 2 – Doplň do věty",
+          "type": "standard",
+          "instructions": "Doplňte vhodné slovo.\nSlova: legitimita, zpochybnit, vyvinit se, zápolení, shovívavost, svébytný, peripetie, vytěžit",
+          "optionsList": [
+            "legitimita",
+            "zpochybnit",
+            "vyvinit se",
+            "zápolení",
+            "shovívavost",
+            "svébytný",
+            "peripetie",
+            "vytěžit"
+          ],
+          "items": [
+            {
+              "section_title": "",
+              "prompt": "Vysoká volební účast může posílit ________ zvolených představitelů.",
+              "type": "single",
+              "is_multiselect": false,
+              "options": []
+            },
+            {
+              "section_title": "",
+              "prompt": "Kritici se snažili ________ prezidentovo rozhodnutí.",
+              "type": "single",
+              "is_multiselect": false,
+              "options": []
+            },
+            {
+              "section_title": "",
+              "prompt": "Poradci se podle komentátora nechtěli ________ z odpovědnosti za situaci.",
+              "type": "single",
+              "is_multiselect": false,
+              "options": []
+            },
+            {
+              "section_title": "",
+              "prompt": "Eva Pavlová podle Hartmana nevstoupila aktivně do politického ________.",
+              "type": "single",
+              "is_multiselect": false,
+              "options": []
+            },
+            {
+              "section_title": "",
+              "prompt": "Babiš mohl později využít svou ________ vůči prezidentovi jako politické gesto.",
+              "type": "single",
+              "is_multiselect": false,
+              "options": []
+            },
+            {
+              "section_title": "",
+              "prompt": "Prezident podle komentátora prokázal, že je ________ člověk.",
+              "type": "single",
+              "is_multiselect": false,
+              "options": []
+            },
+            {
+              "section_title": "",
+              "prompt": "Spor o korespondenční volbu provázely různé politické ________.",
+              "type": "single",
+              "is_multiselect": false,
+              "options": []
+            },
+            {
+              "section_title": "",
+              "prompt": "Babiš se snažil z konfliktu s prezidentem ________ politické body.",
+              "type": "single",
+              "is_multiselect": false,
+              "options": []
+            }
+          ],
+          "matchingItems": [],
+          "matchingOptions": [],
+          "matchingSection": ""
+        },
+        {
+          "title": "Cvičení 3 – Gramatika",
+          "type": "standard",
+          "instructions": "Část A – Opravte chybu\nV každé větě je jedna gramatická chyba. Pokud je text bez chyby, napiš: „správně“.",
+          "optionsList": [],
+          "items": [
+            {
+              "section_title": "",
+              "prompt": "Prezident se rozhodl, že se voleb nezúčastní.",
+              "type": "single",
+              "is_multiselect": false,
+              "options": []
+            },
+            {
+              "section_title": "",
+              "prompt": "Komentátor uvedl, že prezidentovi poradci ho od cesty zrazovali.",
+              "type": "single",
+              "is_multiselect": false,
+              "options": []
+            },
+            {
+              "section_title": "",
+              "prompt": "Volební účast by se mohly zvýšit, pokud by lidé měli více možností hlasovat.",
+              "type": "single",
+              "is_multiselect": false,
+              "options": []
+            },
+            {
+              "section_title": "",
+              "prompt": "Hrad měl termín voleb zohlednit při plánování prezidentovy cesty.",
+              "type": "single",
+              "is_multiselect": false,
+              "options": []
+            },
+            {
+              "section_title": "",
+              "prompt": "Někteří občané nemohou volit, protože žije mimo místo trvalého bydliště.",
+              "type": "single",
+              "is_multiselect": false,
+              "options": []
+            },
+            {
+              "section_title": "",
+              "prompt": "Komentátor připustil, že debata o změně volebního systému je legitimní.",
+              "type": "single",
+              "is_multiselect": false,
+              "options": []
+            },
+            {
+              "section_title": "",
+              "prompt": "Kritici prezidentovi vyčítali, že nejmenoval Filipa Turka ministrem.",
+              "type": "single",
+              "is_multiselect": false,
+              "options": []
+            },
+            {
+              "section_title": "",
+              "prompt": "Babiš by mohl později vystupovat vůči prezidentovi shovívavější. Část B – Doplňte správný tvar Doplňte vhodný tvar slovesa.",
+              "type": "single",
+              "is_multiselect": false,
+              "options": []
+            },
+            {
+              "section_title": "",
+              "prompt": "Kdyby prezident cestu lépe naplánoval, ________ (vyhnout se) části kritiky.",
+              "type": "single",
+              "is_multiselect": false,
+              "options": []
+            },
+            {
+              "section_title": "",
+              "prompt": "Komentátor uvedl, že kdyby měl prezident zásadní důvod k cestě, lidé by jeho neúčast lépe ________ (pochopit).",
+              "type": "single",
+              "is_multiselect": false,
+              "options": []
+            },
+            {
+              "section_title": "",
+              "prompt": "Kdyby se volební systém změnil, někteří občané by se voleb ________ (účastnit).",
+              "type": "single",
+              "is_multiselect": false,
+              "options": []
+            },
+            {
+              "section_title": "",
+              "prompt": "Kdyby se poradci prezidenta přesvědčit nepodařilo, prezident by svůj plán ________ (změnit).",
+              "type": "single",
+              "is_multiselect": false,
+              "options": []
+            },
+            {
+              "section_title": "",
+              "prompt": "Kdyby Babiš chtěl z konfliktu získat výhodu, mohl by později svou shovívavost ________ (využít).",
+              "type": "single",
+              "is_multiselect": false,
+              "options": []
+            },
+            {
+              "section_title": "",
+              "prompt": "Pokud by se kritika zmírnila, prezident by mohl lépe ________ (obhájit) své rozhodnutí.",
+              "type": "single",
+              "is_multiselect": false,
+              "options": []
+            },
+            {
+              "section_title": "",
+              "prompt": "Kdyby se prezident vrátil do Černoučku, jeho kritici by mu přesto ________ (vyčítat) předchozí rozhodnutí.",
+              "type": "single",
+              "is_multiselect": false,
+              "options": []
+            },
+            {
+              "section_title": "",
+              "prompt": "Kdyby měli občané možnost hlasovat na dálku, více lidí by se voleb ________ (zúčastnit).",
+              "type": "single",
+              "is_multiselect": false,
+              "options": []
+            }
+          ],
+          "matchingItems": [],
+          "matchingOptions": [],
+          "matchingSection": ""
+        },
+        {
+          "title": "Cvičení 4 – Slovní zásoba a předložky",
+          "type": "standard",
+          "instructions": "Doplňte správnou předložku nebo výraz. Pokud je výraz bez předložky, nechte políčko prázdné.\nSlova: z hlediska, vůči, kvůli, o, bez předložky, v, na, s",
+          "optionsList": [
+            "z hlediska",
+            "vůči",
+            "kvůli",
+            "o",
+            "bez předložky",
+            "v",
+            "na",
+            "s"
+          ],
+          "items": [
+            {
+              "section_title": "",
+              "prompt": "________ České republiky není prezidentova neúčast rozhodující.",
+              "type": "single",
+              "is_multiselect": false,
+              "options": []
+            },
+            {
+              "section_title": "",
+              "prompt": "Komentátor hovořil ________ legitimní debatě o volebním systému.",
+              "type": "single",
+              "is_multiselect": false,
+              "options": []
+            },
+            {
+              "section_title": "",
+              "prompt": "Někteří lidé nemohou volit ________ pobytu mimo místo trvalého bydliště.",
+              "type": "single",
+              "is_multiselect": false,
+              "options": []
+            },
+            {
+              "section_title": "",
+              "prompt": "Kritika směřovala ________ prezidentovu rozhodnutí.",
+              "type": "single",
+              "is_multiselect": false,
+              "options": []
+            },
+            {
+              "section_title": "",
+              "prompt": "Prezident měl ________ pevně stanovenému termínu voleb plánovat svou cestu.",
+              "type": "single",
+              "is_multiselect": false,
+              "options": []
+            },
+            {
+              "section_title": "",
+              "prompt": "Babiš se snažil ________ konfliktu vytěžit politické body.",
+              "type": "single",
+              "is_multiselect": false,
+              "options": []
+            },
+            {
+              "section_title": "",
+              "prompt": "Diskuse ________ možnostech korespondenční volby pokračovala.",
+              "type": "single",
+              "is_multiselect": false,
+              "options": []
+            },
+            {
+              "section_title": "",
+              "prompt": "Prezident se ________ nakonec rozhodl, že na volby nepřijede.",
+              "type": "single",
+              "is_multiselect": false,
+              "options": []
+            }
+          ],
+          "matchingItems": [],
+          "matchingOptions": [],
+          "matchingSection": ""
+        },
+        {
+          "title": "Cvičení 5 – Práce s textem",
+          "type": "standard",
+          "instructions": "",
+          "optionsList": [],
+          "items": [
+            {
+              "section_title": "A. Ano – Ne",
+              "prompt": "Hartman považuje prezidentovu neúčast za chybu, nikoli za závažný přešlap.",
+              "type": "single",
+              "is_multiselect": false,
+              "options": []
+            },
+            {
+              "section_title": "A. Ano – Ne",
+              "prompt": "Komentátor tvrdí, že volební účast je v České republice zákonem povinná.",
+              "type": "single",
+              "is_multiselect": false,
+              "options": []
+            },
+            {
+              "section_title": "A. Ano – Ne",
+              "prompt": "Prezidentův tým podle přepisu prezidenta od cesty zrazoval.",
+              "type": "single",
+              "is_multiselect": false,
+              "options": []
+            },
+            {
+              "section_title": "A. Ano – Ne",
+              "prompt": "Hartman považuje debatu o zlepšení podmínek pro hlasování za legitimní.",
+              "type": "single",
+              "is_multiselect": false,
+              "options": []
+            },
+            {
+              "section_title": "A. Ano – Ne",
+              "prompt": "Podle komentátora mohou ve všech státech Evropské unie občané volit plně elektronicky.",
+              "type": "single",
+              "is_multiselect": false,
+              "options": []
+            },
+            {
+              "section_title": "A. Ano – Ne",
+              "prompt": "Eva Pavlová podle Hartmana otevřela politické téma především s cílem hájit manžela.",
+              "type": "single",
+              "is_multiselect": false,
+              "options": []
+            },
+            {
+              "section_title": "A. Ano – Ne",
+              "prompt": "Komentátor očekává, že případný návrat prezidenta by zcela odstranil kritiku.",
+              "type": "single",
+              "is_multiselect": false,
+              "options": []
+            },
+            {
+              "section_title": "A. Ano – Ne",
+              "prompt": "Hartman se domnívá, že neúčast v komunálních volbách výrazně sníží prezidentovy šance na znovuzvolení.",
+              "type": "single",
+              "is_multiselect": false,
+              "options": []
+            },
+            {
+              "section_title": "B. Vyberte nejpřesnější odpověď",
+              "prompt": "Jaký symbolický problém Hartman spojuje s prezidentovou neúčastí?",
+              "type": "single",
+              "is_multiselect": false,
+              "options": [
+                "Prezident tím přímo ovlivnil výsledky komunálních voleb.",
+                "Prezident tím oslabil vlastní výzvu občanům, aby chodili volit.",
+                "Prezident tím porušil zákonnou volební povinnost.",
+                "Prezident tím znemožnil hlasování v Černoučku."
+              ]
+            },
+            {
+              "section_title": "B. Vyberte nejpřesnější odpověď",
+              "prompt": "Proč Hartman nepovažuje vysvětlení Hradu o chybě v plánování za přesvědčivé?",
+              "type": "single",
+              "is_multiselect": false,
+              "options": [
+                "Protože termín voleb nebyl předem známý.",
+                "Protože prezident nemá právo plánovat zahraniční cesty.",
+                "Protože termín voleb byl pevně stanoven a prezident ho znal.",
+                "Protože komunální volby byly přesunuty na jiný měsíc."
+              ]
+            },
+            {
+              "section_title": "B. Vyberte nejpřesnější odpověď",
+              "prompt": "Jak Hartman interpretuje Babišovo rozhodnutí v danou chvíli prezidenta dále nekritizovat?",
+              "type": "single",
+              "is_multiselect": false,
+              "options": [
+                "Jako snahu získat výhodu tím, že později může své jednání prezentovat jako shovívavost.",
+                "Jako důkaz, že se prezidentem ve všech otázkách souhlasí.",
+                "Jako právní povinnost, kterou mu uložil Ústavní soud.",
+                "Jako definitivní konec konfliktu mezi oběma politiky."
+              ]
+            },
+            {
+              "section_title": "B. Vyberte nejpřesnější odpověď",
+              "prompt": "Co podle Hartmana brání rychlému zavedení korespondenční volby v komunálních volbách?",
+              "type": "single",
+              "is_multiselect": false,
+              "options": [
+                "Nedostatek zájmu občanů o komunální politiku.",
+                "Skutečnost, že žádný stát Evropské unie korespondenční volbu neumožňuje.",
+                "Obtížné prosazování změn volebního systému a předchozí komplikace při zavádění korespondenční volby.",
+                "Zákaz korespondenční volby v české ústavě."
+              ]
+            },
+            {
+              "section_title": "C. Vyberte správnou možnost / možnosti",
+              "prompt": "Která tvrzení odpovídají Hartmanovu pohledu na případnou změnu volebního systému?",
+              "type": "checkbox",
+              "is_multiselect": true,
+              "options": [
+                "O podmínkách účasti ve volbách lze legitimně diskutovat.",
+                "Změna by měla být provedena pouze proto, že si ji přeje Pražský hrad.",
+                "Lepší podmínky mohou přispět k vyšší účasti a silnějšímu mandátu zvolených představitelů.",
+                "Elektronická volba je podle komentátora v celé Evropské unii běžně dostupná ve všech typech voleb."
+              ]
+            },
+            {
+              "section_title": "C. Vyberte správnou možnost / možnosti",
+              "prompt": "Co podle Hartmana platí o dopadu prezidentovy neúčasti na jeho politickou budoucnost?",
+              "type": "checkbox",
+              "is_multiselect": true,
+              "options": [
+                "Případná změna plánu by úplně ukončila kritiku.",
+                "Kritici mohou prezidentovu neúčast připomínat při dalších vhodných příležitostech.",
+                "Do příštích prezidentských voleb se už nemůže objevit žádné důležitější politické téma.",
+                "Samotná neúčast podle komentátora pravděpodobně výrazně nesníží prezidentovy šance na obhajobu mandátu."
+              ]
+            }
+          ],
+          "matchingItems": [],
+          "matchingOptions": [],
+          "matchingSection": ""
+        }
+      ]
+    }
+  },
+  "answer_key": {
+    "B1": {
+      "Cvičení 1": [
+        "1–e, 2–a, 3–g, 4–h, 5–b, 6–f, 7–d, 8–c"
+      ],
+      "Cvičení 2": [
+        "rozhodl se",
+        "kritizovali",
+        "odpočívat",
+        "volit",
+        "podepsal",
+        "přesvědčit",
+        "plánovat",
+        "omluvit"
+      ],
+      "Cvičení 3": [
+        "volil by",
+        "účastnili by se",
+        "varovali by",
+        "zmírnila",
+        "rozhodly by",
+        "zvážil",
+        "mohl by",
+        "mohlo by"
+      ],
+      "Cvičení 4": [
+        "do",
+        "o",
+        "na",
+        "v",
+        "bez předložky",
+        "s",
+        "od",
+        "z"
+      ],
+      "Cvičení 5": [
+        "Ano",
+        "Ano",
+        "Ano",
+        "Ne",
+        "Ano",
+        "Ne",
+        "Ano",
+        "Ano",
+        "b",
+        "d",
+        "b",
+        "c"
+      ]
+    },
+    "B2": {
+      "Cvičení 1": [
+        "1–e, 2–h, 3–g, 4–b, 5–d, 6–c, 7–a, 8–f"
+      ],
+      "Cvičení 2": [
+        "vyhodnotil",
+        "vyčítali",
+        "prosazovat",
+        "zmírnit",
+        "ignorovat",
+        "zúčastnit",
+        "podmiňováno",
+        "vytěžit"
+      ],
+      "Cvičení 3": [
+        "vyhnul by se",
+        "pochopila",
+        "zúčastnili",
+        "změnil",
+        "vytěžil",
+        "zvýšit",
+        "kritizovali",
+        "vysvětlil"
+      ],
+      "Cvičení 4": [
+        "o",
+        "za",
+        "kvůli",
+        "vůči",
+        "mezi",
+        "s",
+        "od",
+        "z"
+      ],
+      "Cvičení 5": [
+        "Ne",
+        "Ano",
+        "Ne",
+        "Ano",
+        "Ne",
+        "Ano",
+        "Ne",
+        "Ano",
+        "b",
+        "a",
+        "c",
+        "b"
+      ]
+    },
+    "C1": {
+      "Cvičení 1": [
+        "1–b, 2–a, 3–e, 4–g, 5–f, 6–a, 7–h, 8–c"
+      ],
+      "Cvičení 2": [
+        "legitimita",
+        "zpochybnit",
+        "vyvinit",
+        "zápolení",
+        "shovívavost",
+        "svébytný",
+        "peripetie",
+        "vytěžit"
+      ],
+      "Cvičení 3": [
+        "správně",
+        "správně",
+        "mohla",
+        "správně",
+        "žijí",
+        "správně",
+        "správně",
+        "shovívavěji",
+        "vyhnul by se",
+        "pochopili",
+        "zúčastnili",
+        "změnil",
+        "využít",
+        "obhájit",
+        "vyčítali by",
+        "zúčastnilo"
+      ],
+      "Cvičení 4": [
+        "z hlediska",
+        "o",
+        "kvůli",
+        "vůči",
+        "s",
+        "z",
+        "o",
+        "bez předložky"
+      ],
+      "Cvičení 5": [
+        "Ano",
+        "Ne",
+        "Ano",
+        "Ano",
+        "Ne",
+        "Ano",
+        "Ne",
+        "Ne",
+        "b",
+        "c",
+        "a",
+        "c",
+        "a, c",
+        "b, d"
+      ]
+    }
+  }
+}

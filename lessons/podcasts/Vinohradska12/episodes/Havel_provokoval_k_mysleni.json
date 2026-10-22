@@ -1,0 +1,1780 @@
+{
+  "title": "Havel provokoval k myšlení. Žít v pravdě znamená nevytěsňovat problémy, soudí filozofka",
+  "description": "Práce s textem – úrovně B1, B2, C1",
+  "audioUrl": "",
+  "episodeUrl": "https://www.irozhlas.cz/zivotni-styl/spolecnost/havel-provokoval-k-mysleni-zit-v-pravde-znamena-nevytesnovat-problemy-soudi_2610050600_med",
+  "levels": {
+    "B1": {
+      "vocabulary": [
+        {
+          "czech": "disident",
+          "english": "dissident"
+        },
+        {
+          "czech": "výročí",
+          "english": "anniversary"
+        },
+        {
+          "czech": "odvaha",
+          "english": "courage"
+        },
+        {
+          "czech": "důvěra",
+          "english": "trust"
+        },
+        {
+          "czech": "fráze",
+          "english": "phrase"
+        },
+        {
+          "czech": "vězení",
+          "english": "prison"
+        },
+        {
+          "czech": "oslava",
+          "english": "celebration"
+        },
+        {
+          "czech": "varování",
+          "english": "warning"
+        }
+      ],
+      "exercises": [
+        {
+          "title": "Cvičení 1 – Slovní zásoba",
+          "type": "standard",
+          "instructions": "Spojte výraz s významem.",
+          "optionsList": [],
+          "items": [
+            {
+              "section_title": "",
+              "prompt": "disident",
+              "type": "single",
+              "is_multiselect": false,
+              "options": [
+                "Slova, která se často opakují, ale mohou mít malý skutečný obsah.",
+                "Upozornění na možné nebezpečí nebo problém.",
+                "Schopnost nebát se a jednat i v obtížné situaci.",
+                "Člověk, který veřejně nesouhlasí s politickým režimem.",
+                "Pocit, že se na někoho můžeme spolehnout.",
+                "Připomínka určité události, která se stala před určitým počtem let.",
+                "Místo, kde jsou lidé drženi proti své vůli jako trest.",
+                "Událost, při které lidé něco slaví."
+              ]
+            },
+            {
+              "section_title": "",
+              "prompt": "výročí",
+              "type": "single",
+              "is_multiselect": false,
+              "options": [
+                "Slova, která se často opakují, ale mohou mít malý skutečný obsah.",
+                "Upozornění na možné nebezpečí nebo problém.",
+                "Schopnost nebát se a jednat i v obtížné situaci.",
+                "Člověk, který veřejně nesouhlasí s politickým režimem.",
+                "Pocit, že se na někoho můžeme spolehnout.",
+                "Připomínka určité události, která se stala před určitým počtem let.",
+                "Místo, kde jsou lidé drženi proti své vůli jako trest.",
+                "Událost, při které lidé něco slaví."
+              ]
+            },
+            {
+              "section_title": "",
+              "prompt": "odvaha",
+              "type": "single",
+              "is_multiselect": false,
+              "options": [
+                "Slova, která se často opakují, ale mohou mít malý skutečný obsah.",
+                "Upozornění na možné nebezpečí nebo problém.",
+                "Schopnost nebát se a jednat i v obtížné situaci.",
+                "Člověk, který veřejně nesouhlasí s politickým režimem.",
+                "Pocit, že se na někoho můžeme spolehnout.",
+                "Připomínka určité události, která se stala před určitým počtem let.",
+                "Místo, kde jsou lidé drženi proti své vůli jako trest.",
+                "Událost, při které lidé něco slaví."
+              ]
+            },
+            {
+              "section_title": "",
+              "prompt": "důvěra",
+              "type": "single",
+              "is_multiselect": false,
+              "options": [
+                "Slova, která se často opakují, ale mohou mít malý skutečný obsah.",
+                "Upozornění na možné nebezpečí nebo problém.",
+                "Schopnost nebát se a jednat i v obtížné situaci.",
+                "Člověk, který veřejně nesouhlasí s politickým režimem.",
+                "Pocit, že se na někoho můžeme spolehnout.",
+                "Připomínka určité události, která se stala před určitým počtem let.",
+                "Místo, kde jsou lidé drženi proti své vůli jako trest.",
+                "Událost, při které lidé něco slaví."
+              ]
+            },
+            {
+              "section_title": "",
+              "prompt": "fráze",
+              "type": "single",
+              "is_multiselect": false,
+              "options": [
+                "Slova, která se často opakují, ale mohou mít malý skutečný obsah.",
+                "Upozornění na možné nebezpečí nebo problém.",
+                "Schopnost nebát se a jednat i v obtížné situaci.",
+                "Člověk, který veřejně nesouhlasí s politickým režimem.",
+                "Pocit, že se na někoho můžeme spolehnout.",
+                "Připomínka určité události, která se stala před určitým počtem let.",
+                "Místo, kde jsou lidé drženi proti své vůli jako trest.",
+                "Událost, při které lidé něco slaví."
+              ]
+            },
+            {
+              "section_title": "",
+              "prompt": "vězení",
+              "type": "single",
+              "is_multiselect": false,
+              "options": [
+                "Slova, která se často opakují, ale mohou mít malý skutečný obsah.",
+                "Upozornění na možné nebezpečí nebo problém.",
+                "Schopnost nebát se a jednat i v obtížné situaci.",
+                "Člověk, který veřejně nesouhlasí s politickým režimem.",
+                "Pocit, že se na někoho můžeme spolehnout.",
+                "Připomínka určité události, která se stala před určitým počtem let.",
+                "Místo, kde jsou lidé drženi proti své vůli jako trest.",
+                "Událost, při které lidé něco slaví."
+              ]
+            },
+            {
+              "section_title": "",
+              "prompt": "oslava",
+              "type": "single",
+              "is_multiselect": false,
+              "options": [
+                "Slova, která se často opakují, ale mohou mít malý skutečný obsah.",
+                "Upozornění na možné nebezpečí nebo problém.",
+                "Schopnost nebát se a jednat i v obtížné situaci.",
+                "Člověk, který veřejně nesouhlasí s politickým režimem.",
+                "Pocit, že se na někoho můžeme spolehnout.",
+                "Připomínka určité události, která se stala před určitým počtem let.",
+                "Místo, kde jsou lidé drženi proti své vůli jako trest.",
+                "Událost, při které lidé něco slaví."
+              ]
+            },
+            {
+              "section_title": "",
+              "prompt": "varování",
+              "type": "single",
+              "is_multiselect": false,
+              "options": [
+                "Slova, která se často opakují, ale mohou mít malý skutečný obsah.",
+                "Upozornění na možné nebezpečí nebo problém.",
+                "Schopnost nebát se a jednat i v obtížné situaci.",
+                "Člověk, který veřejně nesouhlasí s politickým režimem.",
+                "Pocit, že se na někoho můžeme spolehnout.",
+                "Připomínka určité události, která se stala před určitým počtem let.",
+                "Místo, kde jsou lidé drženi proti své vůli jako trest.",
+                "Událost, při které lidé něco slaví."
+              ]
+            }
+          ],
+          "matchingItems": [],
+          "matchingOptions": [],
+          "matchingSection": ""
+        },
+        {
+          "title": "Cvičení 2 – Doplň do věty",
+          "type": "standard",
+          "instructions": "Doplňte vhodné slovo.\nSlova: připustit, napsat, varovat, překonat, oslavit, hrát, připomínat, zkoumat",
+          "optionsList": [
+            "připustit",
+            "napsat",
+            "varovat",
+            "překonat",
+            "oslavit",
+            "hrát",
+            "připomínat",
+            "zkoumat"
+          ],
+          "items": [
+            {
+              "section_title": "",
+              "prompt": "Alice Koubová řekla, že Havel svými texty chtěl lidi ______ před nebezpečím.",
+              "type": "single",
+              "is_multiselect": false,
+              "options": []
+            },
+            {
+              "section_title": "",
+              "prompt": "Havel dokázal ______ na různé hudební nástroje.",
+              "type": "single",
+              "is_multiselect": false,
+              "options": []
+            },
+            {
+              "section_title": "",
+              "prompt": "Filozofka doporučuje Havlovo dílo podrobně ______.",
+              "type": "single",
+              "is_multiselect": false,
+              "options": []
+            },
+            {
+              "section_title": "",
+              "prompt": "Lidé by si měli ______ důležité historické události.",
+              "type": "single",
+              "is_multiselect": false,
+              "options": []
+            },
+            {
+              "section_title": "",
+              "prompt": "Havel chtěl, aby lidé dokázali ______ vlastní chyby.",
+              "type": "single",
+              "is_multiselect": false,
+              "options": []
+            },
+            {
+              "section_title": "",
+              "prompt": "V roce 2026 si lidé připomínají, že by Havel oslavil devadesáté narozeniny, a mohou je tak společně ______.",
+              "type": "single",
+              "is_multiselect": false,
+              "options": []
+            },
+            {
+              "section_title": "",
+              "prompt": "Havel dokázal ve svých textech ______ o problémech společnosti.",
+              "type": "single",
+              "is_multiselect": false,
+              "options": []
+            },
+            {
+              "section_title": "",
+              "prompt": "Lidé by měli ______ obtížné situace a hledat jejich řešení.",
+              "type": "single",
+              "is_multiselect": false,
+              "options": []
+            }
+          ],
+          "matchingItems": [],
+          "matchingOptions": [],
+          "matchingSection": ""
+        },
+        {
+          "title": "Cvičení 3 – Gramatika",
+          "type": "standard",
+          "instructions": "Doplňte správný tvar slovesa v podmiňovacím způsobu.",
+          "optionsList": [],
+          "items": [
+            {
+              "section_title": "",
+              "prompt": "Kdybychom chtěli Havlovi udělat radost, ______ (uspořádat) bychom neformální setkání.",
+              "type": "single",
+              "is_multiselect": false,
+              "options": []
+            },
+            {
+              "section_title": "",
+              "prompt": "Kdyby Alice Koubová měla více času, ______ (přečíst) by si další Havlovy texty.",
+              "type": "single",
+              "is_multiselect": false,
+              "options": []
+            },
+            {
+              "section_title": "",
+              "prompt": "Kdyby lidé ignorovali ekologickou krizi, brzy ______ (čelit) jejím dopadům.",
+              "type": "single",
+              "is_multiselect": false,
+              "options": []
+            },
+            {
+              "section_title": "",
+              "prompt": "Kdybychom si více všímali vlastních chyb, ______ (rozumět) bychom lépe sami sobě.",
+              "type": "single",
+              "is_multiselect": false,
+              "options": []
+            },
+            {
+              "section_title": "",
+              "prompt": "Kdyby mladí lidé četli Havlovy hry, ______ (objevit) v nich nové myšlenky.",
+              "type": "single",
+              "is_multiselect": false,
+              "options": []
+            },
+            {
+              "section_title": "",
+              "prompt": "Kdybychom se chtěli vyhnout manipulaci, ______ (muset) bychom kriticky přemýšlet.",
+              "type": "single",
+              "is_multiselect": false,
+              "options": []
+            },
+            {
+              "section_title": "",
+              "prompt": "Kdyby společnost ztratila důvěru, ______ (být) její fungování obtížnější.",
+              "type": "single",
+              "is_multiselect": false,
+              "options": []
+            },
+            {
+              "section_title": "",
+              "prompt": "Kdybychom se zajímali o Havlovo dílo, ______ (dozvědět se) více o jeho myšlení.",
+              "type": "single",
+              "is_multiselect": false,
+              "options": []
+            }
+          ],
+          "matchingItems": [],
+          "matchingOptions": [],
+          "matchingSection": ""
+        },
+        {
+          "title": "Cvičení 4 – Slovní zásoba a předložky",
+          "type": "standard",
+          "instructions": "Doplňte správnou předložku nebo výraz. Pokud je výraz bez předložky, nechte políčko prázdné.\nSlova: mezi, o, pro, v, proti, na, bez předložky, před",
+          "optionsList": [
+            "mezi",
+            "o",
+            "pro",
+            "v",
+            "proti",
+            "na",
+            "bez předložky",
+            "před"
+          ],
+          "items": [
+            {
+              "section_title": "",
+              "prompt": "Alice Koubová mluvila ______ životě v pravdě.",
+              "type": "single",
+              "is_multiselect": false,
+              "options": []
+            },
+            {
+              "section_title": "",
+              "prompt": "Havel se stal prezidentem po období, kdy působil ______ disidenta.",
+              "type": "single",
+              "is_multiselect": false,
+              "options": []
+            },
+            {
+              "section_title": "",
+              "prompt": "Je důležité přemýšlet ______ vlastních chybách.",
+              "type": "single",
+              "is_multiselect": false,
+              "options": []
+            },
+            {
+              "section_title": "",
+              "prompt": "Filozofka varovala ______ vytěsňováním problémů.",
+              "type": "single",
+              "is_multiselect": false,
+              "options": []
+            },
+            {
+              "section_title": "",
+              "prompt": "Havel psal také ______ nebezpečí, která ohrožují společnost.",
+              "type": "single",
+              "is_multiselect": false,
+              "options": []
+            },
+            {
+              "section_title": "",
+              "prompt": "Lidé by měli stát ______ manipulaci a nespravedlnosti.",
+              "type": "single",
+              "is_multiselect": false,
+              "options": []
+            },
+            {
+              "section_title": "",
+              "prompt": "Havel dokázal spojovat protiklady, například strach a odvahu, ______ dalšími vlastnostmi.",
+              "type": "single",
+              "is_multiselect": false,
+              "options": []
+            },
+            {
+              "section_title": "",
+              "prompt": "Alice Koubová doporučila čtenářům Havlovy texty ______ odradit se jejich složitostí.",
+              "type": "single",
+              "is_multiselect": false,
+              "options": []
+            }
+          ],
+          "matchingItems": [],
+          "matchingOptions": [],
+          "matchingSection": ""
+        },
+        {
+          "title": "Cvičení 5 – Práce s textem",
+          "type": "standard",
+          "instructions": "",
+          "optionsList": [],
+          "items": [
+            {
+              "section_title": "A. Ano – Ne",
+              "prompt": "Alice Koubová si myslí, že by Havel ocenil neformální setkání s přáteli.",
+              "type": "single",
+              "is_multiselect": false,
+              "options": []
+            },
+            {
+              "section_title": "A. Ano – Ne",
+              "prompt": "Podle Koubové by se lidé měli soustředit pouze na Havlovu roli prezidenta.",
+              "type": "single",
+              "is_multiselect": false,
+              "options": []
+            },
+            {
+              "section_title": "A. Ano – Ne",
+              "prompt": "Havel podle filozofky přemýšlel hlavně proto, aby mohl jednat.",
+              "type": "single",
+              "is_multiselect": false,
+              "options": []
+            },
+            {
+              "section_title": "A. Ano – Ne",
+              "prompt": "Alice Koubová tvrdí, že v demokracii už nehrozí žádné nebezpečí.",
+              "type": "single",
+              "is_multiselect": false,
+              "options": []
+            },
+            {
+              "section_title": "A. Ano – Ne",
+              "prompt": "Havel podle ní varoval před tím, že lidé mohou sami sebe obelhávat.",
+              "type": "single",
+              "is_multiselect": false,
+              "options": []
+            },
+            {
+              "section_title": "A. Ano – Ne",
+              "prompt": "Život v pravdě podle Koubové znamená za každou cenu s každým nesouhlasit.",
+              "type": "single",
+              "is_multiselect": false,
+              "options": []
+            },
+            {
+              "section_title": "A. Ano – Ne",
+              "prompt": "Filozofka doporučuje, aby se noví čtenáři nenechali odradit představou Havla jako nedotknutelné ikony.",
+              "type": "single",
+              "is_multiselect": false,
+              "options": []
+            },
+            {
+              "section_title": "A. Ano – Ne",
+              "prompt": "Podle Koubové je důvěra důležitá pro přežití lidské společnosti.",
+              "type": "single",
+              "is_multiselect": false,
+              "options": []
+            },
+            {
+              "section_title": "B. Vyberte nejpřesnější odpověď",
+              "prompt": "Kdo v rozhovoru odpovídá na otázky Matěje Skalického?",
+              "type": "single",
+              "is_multiselect": false,
+              "options": [
+                "Kateřina Pospíšilová",
+                "Alice Koubová",
+                "Tea Veseláková",
+                "Klára Wenkeová"
+              ]
+            },
+            {
+              "section_title": "B. Vyberte nejpřesnější odpověď",
+              "prompt": "Jak by podle Alice Koubové měl člověk přistupovat k Havlovým textům?",
+              "type": "single",
+              "is_multiselect": false,
+              "options": [
+                "Měl by se zaměřit pouze na jejich historický význam.",
+                "Měl by je číst jen v souvislosti s Havlovým prezidentstvím.",
+                "Měl by je přijímat bez kritického hodnocení.",
+                "Měl by v nich hledat podněty k vlastnímu přemýšlení."
+              ]
+            },
+            {
+              "section_title": "B. Vyberte nejpřesnější odpověď",
+              "prompt": "Co podle filozofky znamená žít v pravdě?",
+              "type": "single",
+              "is_multiselect": false,
+              "options": [
+                "Připustit si problémy a nebát se jim čelit.",
+                "Vyhýbat se všem společenským konfliktům.",
+                "Vždy souhlasit s většinou společnosti.",
+                "Považovat vlastní názor za jediný správný."
+              ]
+            },
+            {
+              "section_title": "B. Vyberte nejpřesnější odpověď",
+              "prompt": "Co podle Koubové hrozí Havlovi spíše než úplné zapomenutí?",
+              "type": "single",
+              "is_multiselect": false,
+              "options": [
+                "Že jeho hry přestanou být dostupné.",
+                "Že se jeho myšlenky přestanou překládat.",
+                "Že se z něj stane nedotknutelná ikona.",
+                "Že lidé zapomenou jeho jméno."
+              ]
+            }
+          ],
+          "matchingItems": [],
+          "matchingOptions": [],
+          "matchingSection": ""
+        }
+      ]
+    },
+    "B2": {
+      "vocabulary": [
+        {
+          "czech": "konformita",
+          "english": "conformity"
+        },
+        {
+          "czech": "protiklad",
+          "english": "opposite"
+        },
+        {
+          "czech": "manipulace",
+          "english": "manipulation"
+        },
+        {
+          "czech": "sebeiluze",
+          "english": "self-delusion"
+        },
+        {
+          "czech": "nadvláda",
+          "english": "domination"
+        },
+        {
+          "czech": "odpovědnost",
+          "english": "responsibility"
+        },
+        {
+          "czech": "zneviditelnění",
+          "english": "making invisible"
+        },
+        {
+          "czech": "absurdní",
+          "english": "absurd"
+        }
+      ],
+      "exercises": [
+        {
+          "title": "Cvičení 1 – Slovní zásoba",
+          "type": "standard",
+          "instructions": "Spojte výraz s významem.",
+          "optionsList": [],
+          "items": [
+            {
+              "section_title": "",
+              "prompt": "konformita",
+              "type": "single",
+              "is_multiselect": false,
+              "options": [
+                "Stav, kdy člověk přizpůsobuje své názory nebo chování okolí.",
+                "Situace, kdy někdo získává nebo udržuje moc nad druhými.",
+                "Něco, co je v rozporu s běžnou logikou nebo působí nesmyslně.",
+                "Schopnost nebo povinnost nést následky vlastního jednání.",
+                "Proces, při kterém někdo ovlivňuje druhé často skrytým způsobem.",
+                "Představa o sobě samém, která neodpovídá skutečnosti.",
+                "Situace, kdy se něco nebo někdo přestává dostávat do pozornosti.",
+                "Jedna ze dvou věcí, které se významově nebo vlastnostmi liší."
+              ]
+            },
+            {
+              "section_title": "",
+              "prompt": "protiklad",
+              "type": "single",
+              "is_multiselect": false,
+              "options": [
+                "Stav, kdy člověk přizpůsobuje své názory nebo chování okolí.",
+                "Situace, kdy někdo získává nebo udržuje moc nad druhými.",
+                "Něco, co je v rozporu s běžnou logikou nebo působí nesmyslně.",
+                "Schopnost nebo povinnost nést následky vlastního jednání.",
+                "Proces, při kterém někdo ovlivňuje druhé často skrytým způsobem.",
+                "Představa o sobě samém, která neodpovídá skutečnosti.",
+                "Situace, kdy se něco nebo někdo přestává dostávat do pozornosti.",
+                "Jedna ze dvou věcí, které se významově nebo vlastnostmi liší."
+              ]
+            },
+            {
+              "section_title": "",
+              "prompt": "manipulace",
+              "type": "single",
+              "is_multiselect": false,
+              "options": [
+                "Stav, kdy člověk přizpůsobuje své názory nebo chování okolí.",
+                "Situace, kdy někdo získává nebo udržuje moc nad druhými.",
+                "Něco, co je v rozporu s běžnou logikou nebo působí nesmyslně.",
+                "Schopnost nebo povinnost nést následky vlastního jednání.",
+                "Proces, při kterém někdo ovlivňuje druhé často skrytým způsobem.",
+                "Představa o sobě samém, která neodpovídá skutečnosti.",
+                "Situace, kdy se něco nebo někdo přestává dostávat do pozornosti.",
+                "Jedna ze dvou věcí, které se významově nebo vlastnostmi liší."
+              ]
+            },
+            {
+              "section_title": "",
+              "prompt": "sebeiluze",
+              "type": "single",
+              "is_multiselect": false,
+              "options": [
+                "Stav, kdy člověk přizpůsobuje své názory nebo chování okolí.",
+                "Situace, kdy někdo získává nebo udržuje moc nad druhými.",
+                "Něco, co je v rozporu s běžnou logikou nebo působí nesmyslně.",
+                "Schopnost nebo povinnost nést následky vlastního jednání.",
+                "Proces, při kterém někdo ovlivňuje druhé často skrytým způsobem.",
+                "Představa o sobě samém, která neodpovídá skutečnosti.",
+                "Situace, kdy se něco nebo někdo přestává dostávat do pozornosti.",
+                "Jedna ze dvou věcí, které se významově nebo vlastnostmi liší."
+              ]
+            },
+            {
+              "section_title": "",
+              "prompt": "nadvláda",
+              "type": "single",
+              "is_multiselect": false,
+              "options": [
+                "Stav, kdy člověk přizpůsobuje své názory nebo chování okolí.",
+                "Situace, kdy někdo získává nebo udržuje moc nad druhými.",
+                "Něco, co je v rozporu s běžnou logikou nebo působí nesmyslně.",
+                "Schopnost nebo povinnost nést následky vlastního jednání.",
+                "Proces, při kterém někdo ovlivňuje druhé často skrytým způsobem.",
+                "Představa o sobě samém, která neodpovídá skutečnosti.",
+                "Situace, kdy se něco nebo někdo přestává dostávat do pozornosti.",
+                "Jedna ze dvou věcí, které se významově nebo vlastnostmi liší."
+              ]
+            },
+            {
+              "section_title": "",
+              "prompt": "odpovědnost",
+              "type": "single",
+              "is_multiselect": false,
+              "options": [
+                "Stav, kdy člověk přizpůsobuje své názory nebo chování okolí.",
+                "Situace, kdy někdo získává nebo udržuje moc nad druhými.",
+                "Něco, co je v rozporu s běžnou logikou nebo působí nesmyslně.",
+                "Schopnost nebo povinnost nést následky vlastního jednání.",
+                "Proces, při kterém někdo ovlivňuje druhé často skrytým způsobem.",
+                "Představa o sobě samém, která neodpovídá skutečnosti.",
+                "Situace, kdy se něco nebo někdo přestává dostávat do pozornosti.",
+                "Jedna ze dvou věcí, které se významově nebo vlastnostmi liší."
+              ]
+            },
+            {
+              "section_title": "",
+              "prompt": "zneviditelnění",
+              "type": "single",
+              "is_multiselect": false,
+              "options": [
+                "Stav, kdy člověk přizpůsobuje své názory nebo chování okolí.",
+                "Situace, kdy někdo získává nebo udržuje moc nad druhými.",
+                "Něco, co je v rozporu s běžnou logikou nebo působí nesmyslně.",
+                "Schopnost nebo povinnost nést následky vlastního jednání.",
+                "Proces, při kterém někdo ovlivňuje druhé často skrytým způsobem.",
+                "Představa o sobě samém, která neodpovídá skutečnosti.",
+                "Situace, kdy se něco nebo někdo přestává dostávat do pozornosti.",
+                "Jedna ze dvou věcí, které se významově nebo vlastnostmi liší."
+              ]
+            },
+            {
+              "section_title": "",
+              "prompt": "absurdní",
+              "type": "single",
+              "is_multiselect": false,
+              "options": [
+                "Stav, kdy člověk přizpůsobuje své názory nebo chování okolí.",
+                "Situace, kdy někdo získává nebo udržuje moc nad druhými.",
+                "Něco, co je v rozporu s běžnou logikou nebo působí nesmyslně.",
+                "Schopnost nebo povinnost nést následky vlastního jednání.",
+                "Proces, při kterém někdo ovlivňuje druhé často skrytým způsobem.",
+                "Představa o sobě samém, která neodpovídá skutečnosti.",
+                "Situace, kdy se něco nebo někdo přestává dostávat do pozornosti.",
+                "Jedna ze dvou věcí, které se významově nebo vlastnostmi liší."
+              ]
+            }
+          ],
+          "matchingItems": [],
+          "matchingOptions": [],
+          "matchingSection": ""
+        },
+        {
+          "title": "Cvičení 2 – Doplň do věty",
+          "type": "standard",
+          "instructions": "Doplňte vhodné slovo.\nSlova: integrovat, upozornit, obhajovat, zhmotnit, transformovat, manipulovat, překonat, varovat",
+          "optionsList": [
+            "integrovat",
+            "upozornit",
+            "obhajovat",
+            "zhmotnit",
+            "transformovat",
+            "manipulovat",
+            "překonat",
+            "varovat"
+          ],
+          "items": [
+            {
+              "section_title": "",
+              "prompt": "Alice Koubová ______ posluchače na práci Knihovny Václava Havla.",
+              "type": "single",
+              "is_multiselect": false,
+              "options": []
+            },
+            {
+              "section_title": "",
+              "prompt": "Havel ve svém životě ______ roli disidenta v roli prezidenta.",
+              "type": "single",
+              "is_multiselect": false,
+              "options": []
+            },
+            {
+              "section_title": "",
+              "prompt": "Někteří lidé ve veřejném prostoru ______ jazyk svobody k obhajobě nespravedlnosti.",
+              "type": "single",
+              "is_multiselect": false,
+              "options": []
+            },
+            {
+              "section_title": "",
+              "prompt": "Knihovna podle filozofky ______ Havlovo myšlení prostřednictvím své práce.",
+              "type": "single",
+              "is_multiselect": false,
+              "options": []
+            },
+            {
+              "section_title": "",
+              "prompt": "Havel ve svých textech ______ před nebezpečím sebeumrtvení.",
+              "type": "single",
+              "is_multiselect": false,
+              "options": []
+            },
+            {
+              "section_title": "",
+              "prompt": "Po listopadu 1989 se Havel ______ z disidenta v prezidenta.",
+              "type": "single",
+              "is_multiselect": false,
+              "options": []
+            },
+            {
+              "section_title": "",
+              "prompt": "Alice Koubová ______ možnost, že si lidé budou v demokracii namlouvat, že mají všechno pod kontrolou.",
+              "type": "single",
+              "is_multiselect": false,
+              "options": []
+            },
+            {
+              "section_title": "",
+              "prompt": "Lidé, kteří obnovili demokracii, ______ období poroby.",
+              "type": "single",
+              "is_multiselect": false,
+              "options": []
+            }
+          ],
+          "matchingItems": [],
+          "matchingOptions": [],
+          "matchingSection": ""
+        },
+        {
+          "title": "Cvičení 3 – Gramatika",
+          "type": "standard",
+          "instructions": "Doplňte správný tvar slovesa v podmiňovacím způsobu.",
+          "optionsList": [],
+          "items": [
+            {
+              "section_title": "",
+              "prompt": "Kdybychom si připomínali Havla pouze při výročích, ______ (ztratit) bychom hlubší smysl jeho díla.",
+              "type": "single",
+              "is_multiselect": false,
+              "options": []
+            },
+            {
+              "section_title": "",
+              "prompt": "Kdyby člověk kriticky zkoumal vlastní postoje, ______ (moci) lépe rozpoznat sebeiluzi.",
+              "type": "single",
+              "is_multiselect": false,
+              "options": []
+            },
+            {
+              "section_title": "",
+              "prompt": "Kdyby se lidé spoléhali pouze na jazyk politiků, snadno ______ (podléhat) manipulaci.",
+              "type": "single",
+              "is_multiselect": false,
+              "options": []
+            },
+            {
+              "section_title": "",
+              "prompt": "Kdyby Koubová připravovala nový pořad, ______ (chtít) v něm otevřít také otázku odpovědnosti.",
+              "type": "single",
+              "is_multiselect": false,
+              "options": []
+            },
+            {
+              "section_title": "",
+              "prompt": "Kdybychom přehlíželi problémy společnosti, jejich důsledky nás nakonec ______ (zasáhnout).",
+              "type": "single",
+              "is_multiselect": false,
+              "options": []
+            },
+            {
+              "section_title": "",
+              "prompt": "Kdyby Havel dnes psal o demokracii, jeho texty ______ (muset) reagovat na současnou dobu.",
+              "type": "single",
+              "is_multiselect": false,
+              "options": []
+            },
+            {
+              "section_title": "",
+              "prompt": "Kdybychom chtěli zachovat otevřenost do budoucna, ______ (nesmět) bychom považovat demokracii za dokončený projekt.",
+              "type": "single",
+              "is_multiselect": false,
+              "options": []
+            },
+            {
+              "section_title": "",
+              "prompt": "Kdyby se z Havla stala nedotknutelná ikona, lidé ______ (přestat) kriticky zkoumat jeho myšlenky.",
+              "type": "single",
+              "is_multiselect": false,
+              "options": []
+            }
+          ],
+          "matchingItems": [],
+          "matchingOptions": [],
+          "matchingSection": ""
+        },
+        {
+          "title": "Cvičení 4 – Slovní zásoba a předložky",
+          "type": "standard",
+          "instructions": "Doplňte správnou předložku nebo výraz. Pokud je výraz bez předložky, nechte políčko prázdné.\nSlova: vůči, mezi, na základě, v důsledku, o, pro, bez předložky, před",
+          "optionsList": [
+            "vůči",
+            "mezi",
+            "na základě",
+            "v důsledku",
+            "o",
+            "pro",
+            "bez předložky",
+            "před"
+          ],
+          "items": [
+            {
+              "section_title": "",
+              "prompt": "Havel se podle Koubové dokázal pohybovat ______ různými společenskými rolemi.",
+              "type": "single",
+              "is_multiselect": false,
+              "options": []
+            },
+            {
+              "section_title": "",
+              "prompt": "Filozofka uvažuje ______ možnostech, jak rozumět Havlovu odkazu.",
+              "type": "single",
+              "is_multiselect": false,
+              "options": []
+            },
+            {
+              "section_title": "",
+              "prompt": "Některé problémy mohou zesílit ______ jejich dlouhodobého přehlížení.",
+              "type": "single",
+              "is_multiselect": false,
+              "options": []
+            },
+            {
+              "section_title": "",
+              "prompt": "Havel varoval ______ nebezpečím, která se mohou skrývat i v demokracii.",
+              "type": "single",
+              "is_multiselect": false,
+              "options": []
+            },
+            {
+              "section_title": "",
+              "prompt": "Člověk by měl zaujmout kritický postoj ______ vlastním představám.",
+              "type": "single",
+              "is_multiselect": false,
+              "options": []
+            },
+            {
+              "section_title": "",
+              "prompt": "Interpretace Havlova myšlení má vliv ______ současnost i budoucnost.",
+              "type": "single",
+              "is_multiselect": false,
+              "options": []
+            },
+            {
+              "section_title": "",
+              "prompt": "Koubová upozorňuje ______ význam jazyka při manipulaci s lidmi.",
+              "type": "single",
+              "is_multiselect": false,
+              "options": []
+            },
+            {
+              "section_title": "",
+              "prompt": "Lidé mohou rozhodovat ______ vlastního kritického uvažování.",
+              "type": "single",
+              "is_multiselect": false,
+              "options": []
+            }
+          ],
+          "matchingItems": [],
+          "matchingOptions": [],
+          "matchingSection": ""
+        },
+        {
+          "title": "Cvičení 5 – Práce s textem",
+          "type": "standard",
+          "instructions": "",
+          "optionsList": [],
+          "items": [
+            {
+              "section_title": "A. Ano – Ne",
+              "prompt": "Alice Koubová považuje Havlovo myšlení za inspirativní mimo jiné proto, že není omezené jediným žánrem.",
+              "type": "single",
+              "is_multiselect": false,
+              "options": []
+            },
+            {
+              "section_title": "A. Ano – Ne",
+              "prompt": "Podle Koubové Havel odmítal jakoukoli společenskou roli.",
+              "type": "single",
+              "is_multiselect": false,
+              "options": []
+            },
+            {
+              "section_title": "A. Ano – Ne",
+              "prompt": "Filozofka tvrdí, že západní demokracie nemůže člověka nijak manipulovat.",
+              "type": "single",
+              "is_multiselect": false,
+              "options": []
+            },
+            {
+              "section_title": "A. Ano – Ne",
+              "prompt": "Život v pravdě podle rozhovoru zahrnuje pochybování o vlastních postojích.",
+              "type": "single",
+              "is_multiselect": false,
+              "options": []
+            },
+            {
+              "section_title": "A. Ano – Ne",
+              "prompt": "Koubová považuje každé vyvolávání konfliktu za důkaz svobodného myšlení.",
+              "type": "single",
+              "is_multiselect": false,
+              "options": []
+            },
+            {
+              "section_title": "A. Ano – Ne",
+              "prompt": "Podle filozofky může jazyk svobody sloužit i k obhajobě nesvobody.",
+              "type": "single",
+              "is_multiselect": false,
+              "options": []
+            },
+            {
+              "section_title": "A. Ano – Ne",
+              "prompt": "Koubová tvrdí, že Havlovy chyby zcela ruší význam jeho díla.",
+              "type": "single",
+              "is_multiselect": false,
+              "options": []
+            },
+            {
+              "section_title": "A. Ano – Ne",
+              "prompt": "Interpretace Havlova myšlení podle ní ovlivňuje také představy o budoucnosti.",
+              "type": "single",
+              "is_multiselect": false,
+              "options": []
+            },
+            {
+              "section_title": "B. Vyberte nejpřesnější odpověď",
+              "prompt": "Proč Koubová označuje Havlovo myšlení za divadelní?",
+              "type": "single",
+              "is_multiselect": false,
+              "options": [
+                "Protože se soustředil hlavně na technické otázky divadelní scény.",
+                "Protože chtěl vytvářet abstraktní teorie nezávislé na jednání.",
+                "Protože myslel prostřednictvím situací a vztahů, které mohou vést k jednání.",
+                "Protože se vyhýbal společenským tématům a politickým otázkám."
+              ]
+            },
+            {
+              "section_title": "B. Vyberte nejpřesnější odpověď",
+              "prompt": "Jaký význam má podle Koubové Havlovo varování před západní demokracií?",
+              "type": "single",
+              "is_multiselect": false,
+              "options": [
+                "Upozorňuje, že i demokratická společnost může člověka nenápadně manipulovat.",
+                "Dokazuje, že demokratické státy jsou nebezpečnější než totalitní režimy.",
+                "Vyzývá lidi, aby se vzdali svobody ve prospěch politického pořádku.",
+                "Tvrdí, že demokracie automaticky zajišťuje kontakt s pravdou."
+              ]
+            },
+            {
+              "section_title": "B. Vyberte nejpřesnější odpověď",
+              "prompt": "Co podle Koubové odlišuje skutečný život v pravdě od jeho karikatury?",
+              "type": "single",
+              "is_multiselect": false,
+              "options": [
+                "Skutečný život v pravdě vyžaduje odmítání všech společenských pravidel.",
+                "Skutečný život v pravdě spočívá v neustálém vytváření sporů.",
+                "Skutečný život v pravdě znamená především ochranu vlastního klidu.",
+                "Skutečný život v pravdě zahrnuje ochotu vidět problémy a jednat ve vztahu k nim."
+              ]
+            },
+            {
+              "section_title": "B. Vyberte nejpřesnější odpověď",
+              "prompt": "Proč Koubová odmítá představu Havla jako nedotknutelné ikony?",
+              "type": "single",
+              "is_multiselect": false,
+              "options": [
+                "Protože podle ní jeho politické působení nemělo žádný význam.",
+                "Protože taková představa zakrývá jeho složitost i skutečné chyby.",
+                "Protože jeho dramatická tvorba nemá vztah k současnosti.",
+                "Protože se podle ní jeho dílo nedá kriticky interpretovat."
+              ]
+            }
+          ],
+          "matchingItems": [],
+          "matchingOptions": [],
+          "matchingSection": ""
+        }
+      ]
+    },
+    "C1": {
+      "vocabulary": [
+        {
+          "czech": "posttotalita",
+          "english": "post-totalitarianism"
+        },
+        {
+          "czech": "konstelace",
+          "english": "constellation"
+        },
+        {
+          "czech": "rafinovaný",
+          "english": "sophisticated"
+        },
+        {
+          "czech": "sebeumrtvení",
+          "english": "self-deadening"
+        },
+        {
+          "czech": "emancipovaný",
+          "english": "emancipated"
+        },
+        {
+          "czech": "nadčasový",
+          "english": "timeless"
+        },
+        {
+          "czech": "krédo",
+          "english": "credo"
+        },
+        {
+          "czech": "vyprázdněnost",
+          "english": "emptiness"
+        }
+      ],
+      "exercises": [
+        {
+          "title": "Cvičení 1 – Slovní zásoba",
+          "type": "standard",
+          "instructions": "Spojte výraz s významem.",
+          "optionsList": [],
+          "items": [
+            {
+              "section_title": "",
+              "prompt": "posttotalita",
+              "type": "single",
+              "is_multiselect": false,
+              "options": [
+                "Soubor zásad nebo přesvědčení, které člověk považuje za základní.",
+                "Stav, kdy výraz ztrácí obsah a zůstává jen jeho formální podoba.",
+                "Takový, jehož význam nebo platnost přesahuje konkrétní historické období.",
+                "Složitý, důmyslný a někdy obtížně rozpoznatelný způsob jednání.",
+                "Uspořádání prvků nebo vztahů v určité situaci.",
+                "Proces potlačování vlastní živosti, aktivity nebo schopnosti jednat.",
+                "Stav společnosti charakterizovaný přetrvávajícími mechanismy totalitní moci.",
+                "Takový, kdo se osvobodil od závislosti nebo omezení a jedná samostatně."
+              ]
+            },
+            {
+              "section_title": "",
+              "prompt": "konstelace",
+              "type": "single",
+              "is_multiselect": false,
+              "options": [
+                "Soubor zásad nebo přesvědčení, které člověk považuje za základní.",
+                "Stav, kdy výraz ztrácí obsah a zůstává jen jeho formální podoba.",
+                "Takový, jehož význam nebo platnost přesahuje konkrétní historické období.",
+                "Složitý, důmyslný a někdy obtížně rozpoznatelný způsob jednání.",
+                "Uspořádání prvků nebo vztahů v určité situaci.",
+                "Proces potlačování vlastní živosti, aktivity nebo schopnosti jednat.",
+                "Stav společnosti charakterizovaný přetrvávajícími mechanismy totalitní moci.",
+                "Takový, kdo se osvobodil od závislosti nebo omezení a jedná samostatně."
+              ]
+            },
+            {
+              "section_title": "",
+              "prompt": "rafinovaný",
+              "type": "single",
+              "is_multiselect": false,
+              "options": [
+                "Soubor zásad nebo přesvědčení, které člověk považuje za základní.",
+                "Stav, kdy výraz ztrácí obsah a zůstává jen jeho formální podoba.",
+                "Takový, jehož význam nebo platnost přesahuje konkrétní historické období.",
+                "Složitý, důmyslný a někdy obtížně rozpoznatelný způsob jednání.",
+                "Uspořádání prvků nebo vztahů v určité situaci.",
+                "Proces potlačování vlastní živosti, aktivity nebo schopnosti jednat.",
+                "Stav společnosti charakterizovaný přetrvávajícími mechanismy totalitní moci.",
+                "Takový, kdo se osvobodil od závislosti nebo omezení a jedná samostatně."
+              ]
+            },
+            {
+              "section_title": "",
+              "prompt": "sebeumrtvení",
+              "type": "single",
+              "is_multiselect": false,
+              "options": [
+                "Soubor zásad nebo přesvědčení, které člověk považuje za základní.",
+                "Stav, kdy výraz ztrácí obsah a zůstává jen jeho formální podoba.",
+                "Takový, jehož význam nebo platnost přesahuje konkrétní historické období.",
+                "Složitý, důmyslný a někdy obtížně rozpoznatelný způsob jednání.",
+                "Uspořádání prvků nebo vztahů v určité situaci.",
+                "Proces potlačování vlastní živosti, aktivity nebo schopnosti jednat.",
+                "Stav společnosti charakterizovaný přetrvávajícími mechanismy totalitní moci.",
+                "Takový, kdo se osvobodil od závislosti nebo omezení a jedná samostatně."
+              ]
+            },
+            {
+              "section_title": "",
+              "prompt": "emancipovaný",
+              "type": "single",
+              "is_multiselect": false,
+              "options": [
+                "Soubor zásad nebo přesvědčení, které člověk považuje za základní.",
+                "Stav, kdy výraz ztrácí obsah a zůstává jen jeho formální podoba.",
+                "Takový, jehož význam nebo platnost přesahuje konkrétní historické období.",
+                "Složitý, důmyslný a někdy obtížně rozpoznatelný způsob jednání.",
+                "Uspořádání prvků nebo vztahů v určité situaci.",
+                "Proces potlačování vlastní živosti, aktivity nebo schopnosti jednat.",
+                "Stav společnosti charakterizovaný přetrvávajícími mechanismy totalitní moci.",
+                "Takový, kdo se osvobodil od závislosti nebo omezení a jedná samostatně."
+              ]
+            },
+            {
+              "section_title": "",
+              "prompt": "nadčasový",
+              "type": "single",
+              "is_multiselect": false,
+              "options": [
+                "Soubor zásad nebo přesvědčení, které člověk považuje za základní.",
+                "Stav, kdy výraz ztrácí obsah a zůstává jen jeho formální podoba.",
+                "Takový, jehož význam nebo platnost přesahuje konkrétní historické období.",
+                "Složitý, důmyslný a někdy obtížně rozpoznatelný způsob jednání.",
+                "Uspořádání prvků nebo vztahů v určité situaci.",
+                "Proces potlačování vlastní živosti, aktivity nebo schopnosti jednat.",
+                "Stav společnosti charakterizovaný přetrvávajícími mechanismy totalitní moci.",
+                "Takový, kdo se osvobodil od závislosti nebo omezení a jedná samostatně."
+              ]
+            },
+            {
+              "section_title": "",
+              "prompt": "krédo",
+              "type": "single",
+              "is_multiselect": false,
+              "options": [
+                "Soubor zásad nebo přesvědčení, které člověk považuje za základní.",
+                "Stav, kdy výraz ztrácí obsah a zůstává jen jeho formální podoba.",
+                "Takový, jehož význam nebo platnost přesahuje konkrétní historické období.",
+                "Složitý, důmyslný a někdy obtížně rozpoznatelný způsob jednání.",
+                "Uspořádání prvků nebo vztahů v určité situaci.",
+                "Proces potlačování vlastní živosti, aktivity nebo schopnosti jednat.",
+                "Stav společnosti charakterizovaný přetrvávajícími mechanismy totalitní moci.",
+                "Takový, kdo se osvobodil od závislosti nebo omezení a jedná samostatně."
+              ]
+            },
+            {
+              "section_title": "",
+              "prompt": "vyprázdněnost",
+              "type": "single",
+              "is_multiselect": false,
+              "options": [
+                "Soubor zásad nebo přesvědčení, které člověk považuje za základní.",
+                "Stav, kdy výraz ztrácí obsah a zůstává jen jeho formální podoba.",
+                "Takový, jehož význam nebo platnost přesahuje konkrétní historické období.",
+                "Složitý, důmyslný a někdy obtížně rozpoznatelný způsob jednání.",
+                "Uspořádání prvků nebo vztahů v určité situaci.",
+                "Proces potlačování vlastní živosti, aktivity nebo schopnosti jednat.",
+                "Stav společnosti charakterizovaný přetrvávajícími mechanismy totalitní moci.",
+                "Takový, kdo se osvobodil od závislosti nebo omezení a jedná samostatně."
+              ]
+            }
+          ],
+          "matchingItems": [],
+          "matchingOptions": [],
+          "matchingSection": ""
+        },
+        {
+          "title": "Cvičení 2 – Doplň do věty",
+          "type": "standard",
+          "instructions": "Doplňte vhodné slovo.\nSlova: stimulovat, zhmotnit, devalvovat, reinterpretovat, vytěsňovat, transformovat, participovat, rozklíčovat",
+          "optionsList": [
+            "stimulovat",
+            "zhmotnit",
+            "devalvovat",
+            "reinterpretovat",
+            "vytěsňovat",
+            "transformovat",
+            "participovat",
+            "rozklíčovat"
+          ],
+          "items": [
+            {
+              "section_title": "",
+              "prompt": "Koubová upozorňuje, že bychom neměli ______ problémy, které mají dopad na naši společnost.",
+              "type": "single",
+              "is_multiselect": false,
+              "options": []
+            },
+            {
+              "section_title": "",
+              "prompt": "Havel podle filozofky nechtěl, aby lidé pouze opakovali jeho slogany; chtěl je ______ k vlastnímu přemýšlení.",
+              "type": "single",
+              "is_multiselect": false,
+              "options": []
+            },
+            {
+              "section_title": "",
+              "prompt": "Tým Knihovny Václava Havla podle rozhovoru dokázal ______ některé principy jeho myšlení ve své práci.",
+              "type": "single",
+              "is_multiselect": false,
+              "options": []
+            },
+            {
+              "section_title": "",
+              "prompt": "Koubová zdůrazňuje, že Havlovy chyby nemusejí ______ význam jeho hlubokých analýz.",
+              "type": "single",
+              "is_multiselect": false,
+              "options": []
+            },
+            {
+              "section_title": "",
+              "prompt": "Člověk by měl kriticky ______ jazykové obraty, které mohou zakrývat skutečný význam sdělení.",
+              "type": "single",
+              "is_multiselect": false,
+              "options": []
+            },
+            {
+              "section_title": "",
+              "prompt": "Alice Koubová připomíná, že lidé mohou ______ na pokračování společenských procesů, které je samé poškozují.",
+              "type": "single",
+              "is_multiselect": false,
+              "options": []
+            },
+            {
+              "section_title": "",
+              "prompt": "Havel se jako disident ______ v prezidenta, ale zachovával si svůj osobitý způsob myšlení.",
+              "type": "single",
+              "is_multiselect": false,
+              "options": []
+            },
+            {
+              "section_title": "",
+              "prompt": "Nové generace mohou Havlovy texty znovu číst a ______ jejich význam ve vztahu k současnosti.",
+              "type": "single",
+              "is_multiselect": false,
+              "options": []
+            }
+          ],
+          "matchingItems": [],
+          "matchingOptions": [],
+          "matchingSection": ""
+        },
+        {
+          "title": "Cvičení 3 – Gramatika",
+          "type": "standard",
+          "instructions": "Část A – Opravte chybu\nV každé větě je jedna gramatická chyba. Pokud je text bez chyby, napiš: „správně“.",
+          "optionsList": [],
+          "items": [
+            {
+              "section_title": "",
+              "prompt": "Koubová upozornila na nebezpečí, které vyplývají z vytěsňování problémů.",
+              "type": "single",
+              "is_multiselect": false,
+              "options": []
+            },
+            {
+              "section_title": "",
+              "prompt": "Havel se podle filozofky nesoustředil pouze na jediný žánr, ale také na možnosti tvořivého myšlení.",
+              "type": "single",
+              "is_multiselect": false,
+              "options": []
+            },
+            {
+              "section_title": "",
+              "prompt": "Život v pravdě podle Koubové neznamenají vlastnění pravdy, nýbrž ochotu klást si otázky.",
+              "type": "single",
+              "is_multiselect": false,
+              "options": []
+            },
+            {
+              "section_title": "",
+              "prompt": "Havlovy texty mohou čtenáře přimět, aby kriticky přemýšleli o vlastních postojích.",
+              "type": "single",
+              "is_multiselect": false,
+              "options": []
+            },
+            {
+              "section_title": "",
+              "prompt": "Jazyk svobody může být využita k obhajobě nesvobody.",
+              "type": "single",
+              "is_multiselect": false,
+              "options": []
+            },
+            {
+              "section_title": "",
+              "prompt": "Koubová zdůrazňuje, že demokracie není hotový projekt, ale něco, co stále vzniká.",
+              "type": "single",
+              "is_multiselect": false,
+              "options": []
+            },
+            {
+              "section_title": "",
+              "prompt": "Interpretace Havlova myšlení mají vliv nejen na současnost, ale i na budoucnost.",
+              "type": "single",
+              "is_multiselect": false,
+              "options": []
+            },
+            {
+              "section_title": "",
+              "prompt": "Havel podle filozofky dokázal integrovat protiklady, aniž by jeden z nich musel zcela odstranit. Část B – Doplňte vhodný tvar",
+              "type": "single",
+              "is_multiselect": false,
+              "options": []
+            },
+            {
+              "section_title": "",
+              "prompt": "Kdybychom Havlovo dílo redukovali na soubor známých sloganů, ______ (přehlédnout) bychom jeho vnitřní složitost.",
+              "type": "single",
+              "is_multiselect": false,
+              "options": []
+            },
+            {
+              "section_title": "",
+              "prompt": "Koubová upozorňuje, že jazyk svobody může ______ (sloužit) také k obhajobě nesvobody.",
+              "type": "single",
+              "is_multiselect": false,
+              "options": []
+            },
+            {
+              "section_title": "",
+              "prompt": "Kdybychom si chtěli zachovat kontakt s pravdou, ______ (muset) bychom zpochybňovat i vlastní pocit nevinnosti.",
+              "type": "single",
+              "is_multiselect": false,
+              "options": []
+            },
+            {
+              "section_title": "",
+              "prompt": "Jestliže člověk přehlíží problémy, může ______ (participovat) na procesech, které poškozují jeho okolí.",
+              "type": "single",
+              "is_multiselect": false,
+              "options": []
+            },
+            {
+              "section_title": "",
+              "prompt": "Kdyby se Havel spokojil s akademickými formami myšlení, jeho texty by možná čtenáře méně ______ (provokovat).",
+              "type": "single",
+              "is_multiselect": false,
+              "options": []
+            },
+            {
+              "section_title": "",
+              "prompt": "Koubová odmítá představu, že by demokracie ______ (být) jednou provždy dokončeným projektem.",
+              "type": "single",
+              "is_multiselect": false,
+              "options": []
+            },
+            {
+              "section_title": "",
+              "prompt": "Kdybychom chtěli porozumět manipulativnímu jazyku, ______ (muset) bychom zkoumat vztah mezi slovy a činy.",
+              "type": "single",
+              "is_multiselect": false,
+              "options": []
+            },
+            {
+              "section_title": "",
+              "prompt": "Pokud společnost přestane chránit důvěru, její schopnost společného jednání se může ______ (oslabit).",
+              "type": "single",
+              "is_multiselect": false,
+              "options": []
+            }
+          ],
+          "matchingItems": [],
+          "matchingOptions": [],
+          "matchingSection": ""
+        },
+        {
+          "title": "Cvičení 4 – Slovní zásoba a předložky",
+          "type": "standard",
+          "instructions": "Doplňte správnou předložku nebo výraz. Pokud je výraz bez předložky, nechte políčko prázdné.\nSlova: vůči, v rámci, na úkor, mezi, o, před, v, bez předložky",
+          "optionsList": [
+            "vůči",
+            "v rámci",
+            "na úkor",
+            "mezi",
+            "o",
+            "před",
+            "v",
+            "bez předložky"
+          ],
+          "items": [
+            {
+              "section_title": "",
+              "prompt": "Koubová vyzdvihuje Havlovu schopnost pohybovat se ______ protikladnými životními postoji.",
+              "type": "single",
+              "is_multiselect": false,
+              "options": []
+            },
+            {
+              "section_title": "",
+              "prompt": "Esej Moc bezmocných obsahuje úvahy ______ nástrahách západní demokracie.",
+              "type": "single",
+              "is_multiselect": false,
+              "options": []
+            },
+            {
+              "section_title": "",
+              "prompt": "Člověk se může uklidňovat ______ toho, že za nic nemůže.",
+              "type": "single",
+              "is_multiselect": false,
+              "options": []
+            },
+            {
+              "section_title": "",
+              "prompt": "Havel podle filozofky nebyl omezen ______ jediný žánr ani akademickou formu myšlení.",
+              "type": "single",
+              "is_multiselect": false,
+              "options": []
+            },
+            {
+              "section_title": "",
+              "prompt": "Jazyk míru může někdy sloužit ______ odpovědnosti za vlastní jednání.",
+              "type": "single",
+              "is_multiselect": false,
+              "options": []
+            },
+            {
+              "section_title": "",
+              "prompt": "Koubová zdůrazňuje význam kritického postoje ______ vlastním představám.",
+              "type": "single",
+              "is_multiselect": false,
+              "options": []
+            },
+            {
+              "section_title": "",
+              "prompt": "Demokracie podle rozhovoru není pouze něco, co je třeba bránit, ale také prostor pro otevřenost ______ budoucnosti.",
+              "type": "single",
+              "is_multiselect": false,
+              "options": []
+            },
+            {
+              "section_title": "",
+              "prompt": "Havel chtěl lidi přimět ______ samostatnému přemýšlení.",
+              "type": "single",
+              "is_multiselect": false,
+              "options": []
+            }
+          ],
+          "matchingItems": [],
+          "matchingOptions": [],
+          "matchingSection": ""
+        },
+        {
+          "title": "Cvičení 5 – Práce s textem",
+          "type": "standard",
+          "instructions": "",
+          "optionsList": [],
+          "items": [
+            {
+              "section_title": "A. Ano – Ne",
+              "prompt": "Koubová považuje Havlovo myšlení za podnětné mimo jiné proto, že v jeho textech probíhá živý proces uvažování a tvorby.",
+              "type": "single",
+              "is_multiselect": false,
+              "options": []
+            },
+            {
+              "section_title": "A. Ano – Ne",
+              "prompt": "Podle Koubové lze přesně odvodit, co by Havel kritizoval, kdyby žil v současnosti.",
+              "type": "single",
+              "is_multiselect": false,
+              "options": []
+            },
+            {
+              "section_title": "A. Ano – Ne",
+              "prompt": "Život v pravdě podle rozhovoru vyžaduje také podezření vůči vlastním motivům a postojům.",
+              "type": "single",
+              "is_multiselect": false,
+              "options": []
+            },
+            {
+              "section_title": "A. Ano – Ne",
+              "prompt": "Koubová chápe svobodu jako povinnost nesouhlasit za každou cenu.",
+              "type": "single",
+              "is_multiselect": false,
+              "options": []
+            },
+            {
+              "section_title": "A. Ano – Ne",
+              "prompt": "Filozofka upozorňuje, že jazyk nezávislosti může být paradoxně konformní.",
+              "type": "single",
+              "is_multiselect": false,
+              "options": []
+            },
+            {
+              "section_title": "A. Ano – Ne",
+              "prompt": "Podle Koubové Havel nikdy neudělal žádnou politickou ani osobní chybu.",
+              "type": "single",
+              "is_multiselect": false,
+              "options": []
+            },
+            {
+              "section_title": "A. Ano – Ne",
+              "prompt": "Zmrazení Havla do ikony může podle rozhovoru paradoxně vést k tomu, že přestaneme jeho skutečnému světu rozumět.",
+              "type": "single",
+              "is_multiselect": false,
+              "options": []
+            },
+            {
+              "section_title": "A. Ano – Ne",
+              "prompt": "Koubová tvrdí, že budoucnost české společnosti nijak nesouvisí s tím, jak interpretuje vlastní historickou zkušenost.",
+              "type": "single",
+              "is_multiselect": false,
+              "options": []
+            },
+            {
+              "section_title": "B. Vyberte nejpřesnější odpověď",
+              "prompt": "Jak Koubová vysvětluje souvislost mezi Havlovým divadelním myšlením a jednáním?",
+              "type": "single",
+              "is_multiselect": false,
+              "options": [
+                "Divadelní myšlení podle ní nahrazuje praktické jednání abstraktními teoriemi.",
+                "Divadelní myšlení umožňuje vytvářet situace a vztahy, v nichž se myšlení propojuje s jednáním.",
+                "Divadelní myšlení omezuje člověka na interpretaci minulých událostí.",
+                "Divadelní myšlení podle ní znamená především schopnost veřejně vystupovat."
+              ]
+            },
+            {
+              "section_title": "B. Vyberte nejpřesnější odpověď",
+              "prompt": "Jaký paradox Koubová zdůrazňuje v souvislosti s Havlovým odkazem?",
+              "type": "single",
+              "is_multiselect": false,
+              "options": [
+                "Čím více lidé odmítají jeho texty, tím přesněji chápou jeho politické postoje.",
+                "Čím méně se o Havlovi mluví, tím více se jeho myšlení stává součástí veřejného života.",
+                "Čím více lidé opakují jeho slogany, tím snadněji rozvíjejí jeho kritické myšlení.",
+                "Čím více je Havel oslavován jako nedotknutelná ikona, tím větší je riziko, že jeho skutečná složitost zůstane skryta."
+              ]
+            },
+            {
+              "section_title": "B. Vyberte nejpřesnější odpověď",
+              "prompt": "Jak Koubová vymezuje význam Havlova varování před nástrahami demokracie?",
+              "type": "single",
+              "is_multiselect": false,
+              "options": [
+                "Demokracie může obsahovat rafinované mechanismy sebeobelhávání, a proto vyžaduje průběžnou kritickou reflexi.",
+                "Demokratické instituce zaručují, že člověk nikdy neztratí kontakt s pravdou.",
+                "Demokracie je méně hodnotná než každý nedemokratický politický systém.",
+                "Hlavním cílem Havlova varování bylo přesvědčit lidi, aby přestali veřejně diskutovat."
+              ]
+            },
+            {
+              "section_title": "B. Vyberte nejpřesnější odpověď",
+              "prompt": "Proč Koubová doporučuje přistupovat k Havlovu dílu kriticky a tvořivě?",
+              "type": "single",
+              "is_multiselect": false,
+              "options": [
+                "Aby bylo možné oddělit jeho dramatickou tvorbu od veškerých společenských otázek.",
+                "Aby čtenáři přijali jeho názory jako definitivní návod k jednání.",
+                "Aby člověk dokázal promýšlet vlastní situaci a zaujal postoj, který není pouhou sebeiluzí.",
+                "Aby bylo možné nahradit jeho původní myšlenky obecně přijímanými frázemi."
+              ]
+            },
+            {
+              "section_title": "C. Vyberte správnou možnost / možnosti",
+              "prompt": "Která tvrzení odpovídají Koubové pojetí života v pravdě?",
+              "type": "checkbox",
+              "is_multiselect": true,
+              "options": [
+                "Člověk by měl zkoumat, čím si kupuje pocit vlastní nevinnosti.",
+                "Život v pravdě znamená především přesvědčit ostatní o vlastní morální převaze.",
+                "Člověk by neměl vytěsňovat problémy, kterým společnost čelí.",
+                "Život v pravdě vyžaduje automatické odmítání všech kompromisů."
+              ]
+            },
+            {
+              "section_title": "C. Vyberte správnou možnost / možnosti",
+              "prompt": "Které závěry odpovídají Koubové výkladu Havlova odkazu?",
+              "type": "checkbox",
+              "is_multiselect": true,
+              "options": [
+                "Havlovy chyby vylučují možnost považovat jeho analýzy za významné.",
+                "Demokracie je podle ní otevřeným úkolem, nikoli jednou provždy dokončeným stavem.",
+                "Opakování Havlových sloganů samo o sobě zaručuje nezávislé myšlení.",
+                "Interpretace Havlova myšlení může ovlivňovat budoucí podobu české společnosti."
+              ]
+            }
+          ],
+          "matchingItems": [],
+          "matchingOptions": [],
+          "matchingSection": ""
+        }
+      ]
+    }
+  },
+  "answer_key": {
+    "B1": {
+      "Cvičení 1": [
+        "1–d, 2–f, 3–c, 4–e, 5–a, 6–g, 7–h, 8–b"
+      ],
+      "Cvičení 2": [
+        "varovat",
+        "hrát",
+        "zkoumat",
+        "připomínat",
+        "připustit",
+        "oslavit",
+        "napsat",
+        "překonat"
+      ],
+      "Cvičení 3": [
+        "uspořádali",
+        "přečetla",
+        "by čelili",
+        "rozuměli",
+        "objevili",
+        "museli",
+        "bylo",
+        "dozvěděli bychom se"
+      ],
+      "Cvičení 4": [
+        "o",
+        "v",
+        "o",
+        "před",
+        "na",
+        "proti",
+        "mezi",
+        "bez předložky"
+      ],
+      "Cvičení 5": [
+        "Ano",
+        "Ne",
+        "Ano",
+        "Ne",
+        "Ano",
+        "Ne",
+        "Ano",
+        "Ano",
+        "b",
+        "d",
+        "a",
+        "c"
+      ]
+    },
+    "B2": {
+      "Cvičení 1": [
+        "1–a, 2–h, 3–e, 4–f, 5–b, 6–d, 7–g, 8–c"
+      ],
+      "Cvičení 2": [
+        "upozornila",
+        "integroval",
+        "obhajují",
+        "zhmotnil",
+        "varoval",
+        "transformoval",
+        "varuje",
+        "překonali"
+      ],
+      "Cvičení 3": [
+        "ztratili",
+        "mohl",
+        "by podléhali",
+        "chtěla",
+        "zasáhly",
+        "by musely",
+        "nesměli",
+        "by přestali"
+      ],
+      "Cvičení 4": [
+        "mezi",
+        "o",
+        "v důsledku",
+        "před",
+        "vůči",
+        "pro",
+        "na základě",
+        "bez předložky"
+      ],
+      "Cvičení 5": [
+        "Ano",
+        "Ne",
+        "Ne",
+        "Ano",
+        "Ne",
+        "Ano",
+        "Ne",
+        "Ano",
+        "c",
+        "a",
+        "d",
+        "b"
+      ]
+    },
+    "C1": {
+      "Cvičení 1": [
+        "1–g, 2–e, 3–d, 4–f, 5–h, 6–c, 7–a, 8–b"
+      ],
+      "Cvičení 2": [
+        "vytěsňovat",
+        "stimulovat",
+        "zhmotnit",
+        "devalvovat",
+        "rozklíčovat",
+        "participovat",
+        "transformoval",
+        "reinterpretovat"
+      ],
+      "Cvičení 3": [
+        "vyplývají",
+        "správně",
+        "znamená",
+        "správně",
+        "použit",
+        "správně",
+        "správně",
+        "správně",
+        "přehlédli",
+        "sloužit",
+        "museli",
+        "participovat",
+        "provokovaly",
+        "byla",
+        "museli",
+        "oslabit"
+      ],
+      "Cvičení 4": [
+        "mezi",
+        "o",
+        "v",
+        "v",
+        "na úkor",
+        "vůči",
+        "v",
+        "k"
+      ],
+      "Cvičení 5": [
+        "Ano",
+        "Ne",
+        "Ano",
+        "Ne",
+        "Ano",
+        "Ne",
+        "Ano",
+        "Ne",
+        "b",
+        "d",
+        "a",
+        "c",
+        "a, c",
+        "b, d"
+      ]
+    }
+  }
+}
