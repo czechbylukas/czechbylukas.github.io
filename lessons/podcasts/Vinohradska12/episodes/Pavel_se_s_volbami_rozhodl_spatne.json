@@ -59,7 +59,7 @@
                 "Situace, kdy se mnoho lidí začne o něco zajímat a mluvit o tom.",
                 "Omyl nebo nesprávné rozhodnutí.",
                 "Vyjádření názoru při volbách.",
-                "To, že se někdo něčeho zúčastní."
+                "To, že se někdo na něčem podílí."
               ]
             },
             {
@@ -75,7 +75,7 @@
                 "Situace, kdy se mnoho lidí začne o něco zajímat a mluvit o tom.",
                 "Omyl nebo nesprávné rozhodnutí.",
                 "Vyjádření názoru při volbách.",
-                "To, že se někdo něčeho zúčastní."
+                "To, že se někdo na něčem podílí."
               ]
             },
             {
@@ -91,7 +91,7 @@
                 "Situace, kdy se mnoho lidí začne o něco zajímat a mluvit o tom.",
                 "Omyl nebo nesprávné rozhodnutí.",
                 "Vyjádření názoru při volbách.",
-                "To, že se někdo něčeho zúčastní."
+                "To, že se někdo na něčem podílí."
               ]
             },
             {
@@ -107,7 +107,7 @@
                 "Situace, kdy se mnoho lidí začne o něco zajímat a mluvit o tom.",
                 "Omyl nebo nesprávné rozhodnutí.",
                 "Vyjádření názoru při volbách.",
-                "To, že se někdo něčeho zúčastní."
+                "To, že se někdo na něčem podílí."
               ]
             },
             {
@@ -123,7 +123,7 @@
                 "Situace, kdy se mnoho lidí začne o něco zajímat a mluvit o tom.",
                 "Omyl nebo nesprávné rozhodnutí.",
                 "Vyjádření názoru při volbách.",
-                "To, že se někdo něčeho zúčastní."
+                "To, že se někdo na něčem podílí."
               ]
             },
             {
@@ -139,7 +139,7 @@
                 "Situace, kdy se mnoho lidí začne o něco zajímat a mluvit o tom.",
                 "Omyl nebo nesprávné rozhodnutí.",
                 "Vyjádření názoru při volbách.",
-                "To, že se někdo něčeho zúčastní."
+                "To, že se někdo na něčem podílí."
               ]
             },
             {
@@ -155,7 +155,7 @@
                 "Situace, kdy se mnoho lidí začne o něco zajímat a mluvit o tom.",
                 "Omyl nebo nesprávné rozhodnutí.",
                 "Vyjádření názoru při volbách.",
-                "To, že se někdo něčeho zúčastní."
+                "To, že se někdo na něčem podílí."
               ]
             },
             {
@@ -171,7 +171,7 @@
                 "Situace, kdy se mnoho lidí začne o něco zajímat a mluvit o tom.",
                 "Omyl nebo nesprávné rozhodnutí.",
                 "Vyjádření názoru při volbách.",
-                "To, že se někdo něčeho zúčastní."
+                "To, že se někdo na něčem podílí."
               ]
             }
           ],
@@ -184,19 +184,20 @@
           "type": "standard",
           "instructions": "Doplňte vhodné slovo.\nSlova: rozhodnout se, kritizovat, odpočívat, volit, podepsat, přesvědčit, plánovat, omluvit",
           "optionsList": [
-            "rozhodnout se",
             "kritizovat",
-            "odpočívat",
-            "volit",
+            "odpočívat",            
+            "omluvit",        
+            "rozhodnout se",
+            "plánovat",
             "podepsat",
             "přesvědčit",
-            "plánovat",
-            "omluvit"
+            "volit"
+          
           ],
           "items": [
             {
               "section_title": "",
-              "prompt": "Prezident nakonec ________ nejet do Černoučku.",
+              "prompt": "Prezident se nakonec ________ nejet do Černoučku.",
               "type": "single",
               "is_multiselect": false,
               "options": []
@@ -328,13 +329,13 @@
           "instructions": "Doplňte správnou předložku nebo výraz. Pokud je výraz bez předložky, nechte políčko prázdné.\nSlova: do, o, na, za, bez předložky, s, v, od",
           "optionsList": [
             "do",
-            "o",
             "na",
-            "za",
-            "bez předložky",
+            "o",
+            "od",
             "s",
             "v",
-            "od"
+            "za",      
+            "bez předložky"
           ],
           "items": [
             {
@@ -374,14 +375,14 @@
             },
             {
               "section_title": "",
-              "prompt": "Petr Pavel jel do Maroka ________ svými zájmy o motorsport.",
+              "prompt": "Petr Pavel jel do Maroka ________ svým zájmům o motorsport.",
               "type": "single",
               "is_multiselect": false,
               "options": []
             },
             {
               "section_title": "",
-              "prompt": "Někteří lidé nemohou volit ________ místa trvalého bydliště.",
+              "prompt": "Někteří lidé nemohou volit ________ místě trvalého bydliště.",
               "type": "single",
               "is_multiselect": false,
               "options": []
@@ -695,14 +696,14 @@
           "type": "standard",
           "instructions": "Doplňte vhodné slovo.\nSlova: vyhodnotit, vyčítat, prosazovat, zmírnit, ignorovat, zúčastnit se, podmiňovat, vytěžit",
           "optionsList": [
-            "vyhodnotit",
-            "vyčítat",
-            "prosazovat",
-            "zmírnit",
             "ignorovat",
-            "zúčastnit se",
             "podmiňovat",
-            "vytěžit"
+            "prosazovat",
+            "vyčítat",
+            "vyhodnotit",
+            "vytěžit",
+            "zmírnit",
+            "zúčastnit se"
           ],
           "items": [
             {
@@ -839,13 +840,13 @@
           "instructions": "Doplňte správnou předložku nebo výraz. Pokud je výraz bez předložky, nechte políčko prázdné.\nSlova: kvůli, vůči, na, o, bez předložky, mezi, z, s",
           "optionsList": [
             "kvůli",
-            "vůči",
+            "mezi",
             "na",
             "o",
-            "bez předložky",
-            "mezi",
+            "s",
+            "vůči",
             "z",
-            "s"
+            "bez předložky"
           ],
           "items": [
             {
@@ -1207,13 +1208,13 @@
           "instructions": "Doplňte vhodné slovo.\nSlova: legitimita, zpochybnit, vyvinit se, zápolení, shovívavost, svébytný, peripetie, vytěžit",
           "optionsList": [
             "legitimita",
-            "zpochybnit",
-            "vyvinit se",
-            "zápolení",
+            "peripetie",
             "shovívavost",
             "svébytný",
-            "peripetie",
-            "vytěžit"
+            "vyvinit se",
+            "vytěžit",
+            "zápolení",
+            "zpochybnit"
           ],
           "items": [
             {
@@ -1405,14 +1406,15 @@
           "type": "standard",
           "instructions": "Doplňte správnou předložku nebo výraz. Pokud je výraz bez předložky, nechte políčko prázdné.\nSlova: z hlediska, vůči, kvůli, o, bez předložky, v, na, s",
           "optionsList": [
-            "z hlediska",
-            "vůči",
+            
             "kvůli",
-            "o",
-            "bez předložky",
-            "v",
             "na",
-            "s"
+            "o",
+            "s",
+            "v",
+            "vůči",
+            "z hlediska",
+            "bez předložky"
           ],
           "items": [
             {
@@ -1624,7 +1626,7 @@
         "1–e, 2–a, 3–g, 4–h, 5–b, 6–f, 7–d, 8–c"
       ],
       "Cvičení 2": [
-        "rozhodl se",
+        "rozhodl",
         "kritizovali",
         "odpočívat",
         "volit",
@@ -1636,12 +1638,12 @@
       "Cvičení 3": [
         "volil by",
         "účastnili by se",
-        "varovali by",
+        "by varovali",
         "zmírnila",
-        "rozhodly by",
+        "by rozhodly",
         "zvážil",
         "mohl by",
-        "mohlo by"
+        "by mohlo"
       ],
       "Cvičení 4": [
         "do",
@@ -1649,8 +1651,8 @@
         "na",
         "v",
         "bez předložky",
-        "s",
-        "od",
+        "kvůli",
+        "v",
         "z"
       ],
       "Cvičení 5": [
