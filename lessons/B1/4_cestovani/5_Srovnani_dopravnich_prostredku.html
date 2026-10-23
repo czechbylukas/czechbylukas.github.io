@@ -430,8 +430,8 @@ const VOCAB_DATA = [
        ========================================================================== */
 
     const DRILLS_EX_A = [
-      { prompt: "Existuje mnoho různých ____ (dopravní prostředek - pl.).", ans: "dopravních prostředků", hint: "dopravní prostředky" },
-      { prompt: "Každý způsob cestování má své ____ (výhoda) i ____ (nevýhoda).", ans: "výhody / nevýhody", hint: "výhody a nevýhody" },
+      { prompt: "Existuje mnoho různých ____ (dopravní prostředek - pl.).", ans: "dopravních prostředků", hint: "dopravní prostředek" },
+      { prompt: "Každý způsob cestování má mnoho ____ (výhoda) i ____ (nevýhoda).", ans: "výhod / nevýhod", hint: "výhoda a nevýhoda" },
       { prompt: "Já osobně dávám ____ (přednost) cestování vlakem.", ans: "přednost", hint: "přednost" },
       { prompt: "Cestování na kole šetří ____ (životní prostředí).", ans: "životní prostředí", hint: "životní prostředí" },
       { prompt: "Auto často stojí v dlouhé ____ (dopravní zácpa).", ans: "dopravní zácpě", hint: "dopravní zácpa" },
@@ -447,10 +447,10 @@ const VOCAB_DATA = [
        ========================================================================== */
 
     const SCENARIOS_EX_B = [
-      { q: "1. Porovnat auto a autobus", a2: "Auto je drahé. Autobus je levný.", blocks: "cestování / auto / být / drahé / ale / autobus / bývat / levnější", structure: "Podstatné jméno + být + jaké, ale + druhý prostředek + být + jaký.", b1: "Cestování autem je drahé kvůli benzínu, ale autobus bývá výrazně levnější." },
+      { q: "1. Porovnat auto a autobus", a2: "Auto je drahé. Autobus je levný.", blocks: "cestování / auto / být / drahé / ale / autobus / bývat / levnější", structure: "Podstatné jméno + čím + být + jaké, kvůli + čemu + ale + sloveso + čím (druhý prostředek) + být + jak + jaký.", b1: "Cestování autem je drahé kvůli benzínu, ale autobus bývá výrazně levnější." },
       { q: "2. Vyjádřit ekologii vlaku", a2: "Vlak je dobrý pro přírodu.", blocks: "vlak / představovat / ekologický způsob / doprava / a / neznečišťovat / příroda", structure: "Subjekt + představovat + jaký způsob + čeho?", b1: "Vlak představuje ekologický způsob dopravy, který šetří životní prostředí." },
       { q: "3. Popsat preference při cestování do práce", a2: "Jezdím raději vlakem.", blocks: "dávat / přednost / cestování / vlak / protože / moct / pracovat", structure: "Dávám přednost + čemu + protože + sloveso?", b1: "Dávám přednost cestování vlakem, protože mohu během cesty pracovat." },
-      { q: "4. Shrnutí výhod a nevýhod v závěru", a2: "Všechno má plus i mínus.", blocks: "každý / dopravní prostředek / mít / své / výhody / i / nevýhody", structure: "Subjekt + mít + své + předmět?", b1: "Závěrem lze říci, že každý dopravní prostředek má své výhody i nevýhody." }
+      { q: "4. Shrnutí výhod a nevýhod v závěru", a2: "Všechno má plus i mínus.", blocks: "každý / dopravní prostředek / mít / své / výhody / i / nevýhody", structure: "Subjekt + mít + své + předmět?", b1: "Závěrem lze říct, že každý dopravní prostředek má své výhody i nevýhody." }
     ];
 
     /* ==========================================================================
@@ -529,7 +529,7 @@ const VOCAB_DATA = [
         <p>Cestování je dnes velmi důležitou součástí života. Lidé denně cestují do práce, do školy nebo za zábavou. Existuje mnoho různých dopravních prostředků a každý z nich má své výhody i nevýhody.</p>
         <p>Cestování autem je velmi pohodlné a rychlé, ale může být drahé kvůli ceně benzínu a parkování. Vlak je často rychlejší než autobus, pohodlnější a ekologičtější. Autobus bývá levnější, ale cesta trvá déle a v zácpách se může zpozdit. Letadlo je nejrychlejší dopravní prostředek na dlouhé vzdálenosti, ale letenky bývají drahé. Kolo je zdravé a ekologické, ale hodí se jen na kratší vzdálenosti.</p>
         <p>Já osobně dávám přednost cestování vlakem. Pro mě je důležité pohodlí i možnost číst si nebo pracovat na počítači. Do školy a do práce nejčastěji cestuji právě vlakem nebo městskou hromadnou dopravou.</p>
-        <p>Závěrem lze říci, že každý dopravní prostředek má své výhody. Záleží vždy na vzdálenosti a financích. V budoucnu bych ${isM ? 'chtěl' : 'chtěla'} vyzkoušet cestování rychlovlakem v Japonsku.</p>
+        <p>Závěrem lze říci, že každý dopravní prostředek má své výhody. Záleží vždy na vzdálenosti a finančních možnostech. V budoucnu bych ${isM ? 'chtěl' : 'chtěla'} vyzkoušet cestování rychlovlakem v Japonsku.</p>
       `;
     }
 
