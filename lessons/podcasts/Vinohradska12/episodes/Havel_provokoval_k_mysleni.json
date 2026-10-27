@@ -693,21 +693,21 @@
         {
           "title": "Cvičení 2 – Doplň do věty",
           "type": "standard",
-          "instructions": "Doplňte vhodné slovo.\nSlova: integrovat, upozornit, obhajovat, zhmotnit, transformovat, manipulovat, překonat, varovat",
+          "instructions": "Doplňte vhodné slovo ve správném tvaru.\nSlova: integrovat, upozornit, používat, zhmotnit, transformovat, připouštět, překonat, varovat",
           "optionsList": [
             "integrovat",
             "upozornit",
-            "obhajovat",
+            "používat",
             "zhmotnit",
             "transformovat",
-            "manipulovat",
+            "připouštět",
             "překonat",
             "varovat"
           ],
           "items": [
             {
               "section_title": "",
-              "prompt": "Alice Koubová ______ posluchače na práci Knihovny Václava Havla.",
+              "prompt": "Alice Koubová ______ (minulý čas) posluchače na práci Knihovny Václava Havla. " ,
               "type": "single",
               "is_multiselect": false,
               "options": []
@@ -721,21 +721,21 @@
             },
             {
               "section_title": "",
-              "prompt": "Někteří lidé ve veřejném prostoru ______ jazyk svobody k obhajobě nespravedlnosti.",
+              "prompt": "Někteří lidé ve veřejném prostoru ______ (přítomný čas) jazyk svobody k obhajobě nespravedlnosti.",
               "type": "single",
               "is_multiselect": false,
               "options": []
             },
             {
               "section_title": "",
-              "prompt": "Knihovna podle filozofky ______ Havlovo myšlení prostřednictvím své práce.",
+              "prompt": "Knihovna podle filozofky ______ (minulý čas) Havlovo myšlení prostřednictvím své práce.",
               "type": "single",
               "is_multiselect": false,
               "options": []
             },
             {
               "section_title": "",
-              "prompt": "Havel ve svých textech ______ před nebezpečím sebeumrtvení.",
+              "prompt": "Havel ve svých textech ______ (minulý čas) před nebezpečím sebeumrtvení.",
               "type": "single",
               "is_multiselect": false,
               "options": []
@@ -749,14 +749,14 @@
             },
             {
               "section_title": "",
-              "prompt": "Alice Koubová ______ možnost, že si lidé budou v demokracii namlouvat, že mají všechno pod kontrolou.",
+              "prompt": "Alice Koubová ______ (přítomný čas) možnost, že si lidé budou v demokracii namlouvat, že mají všechno pod kontrolou.",
               "type": "single",
               "is_multiselect": false,
               "options": []
             },
             {
               "section_title": "",
-              "prompt": "Lidé, kteří obnovili demokracii, ______ období poroby.",
+              "prompt": "Lidé, kteří obnovili demokracii, ______ období poroby (=silného útlaku).",
               "type": "single",
               "is_multiselect": false,
               "options": []
@@ -802,7 +802,7 @@
             },
             {
               "section_title": "",
-              "prompt": "Kdybychom přehlíželi problémy společnosti, jejich důsledky nás nakonec ______ (zasáhnout).",
+              "prompt": "Kdybychom přehlíželi problémy společnosti, jejich důsledky by nás nakonec ______ (zasáhnout).",
               "type": "single",
               "is_multiselect": false,
               "options": []
@@ -836,15 +836,15 @@
         {
           "title": "Cvičení 4 – Slovní zásoba a předložky",
           "type": "standard",
-          "instructions": "Doplňte správnou předložku nebo výraz. Pokud je výraz bez předložky, nechte políčko prázdné.\nSlova: vůči, mezi, na základě, v důsledku, o, pro, bez předložky, před",
+          "instructions": "Doplňte správnou předložku nebo výraz. Pokud je výraz bez předložky, nechte políčko prázdné.\nSlova: vůči, mezi, na základě, v důsledku, o, na, na, před",
           "optionsList": [
             "vůči",
             "mezi",
             "na základě",
             "v důsledku",
             "o",
-            "pro",
-            "bez předložky",
+            "na",
+            "na",
             "před"
           ],
           "items": [
@@ -959,7 +959,7 @@
             },
             {
               "section_title": "A. Ano – Ne",
-              "prompt": "Koubová tvrdí, že Havlovy chyby zcela ruší význam jeho díla.",
+              "prompt": "Koubová tvrdí, že Havlovy chyby zcela devalvují význam jeho díla.",
               "type": "single",
               "is_multiselect": false,
               "options": []
@@ -1675,18 +1675,18 @@
       "Cvičení 2": [
         "upozornila",
         "integroval",
-        "obhajují",
-        "zhmotnil",
+        "používají",
+        "zhmotnila",
         "varoval",
         "transformoval",
-        "varuje",
+        "připouští",
         "překonali"
       ],
       "Cvičení 3": [
         "ztratili",
-        "mohl",
+        "mohl by",
         "by podléhali",
-        "chtěla",
+        "chtěla by",
         "zasáhly",
         "by musely",
         "nesměli",
@@ -1698,9 +1698,9 @@
         "v důsledku",
         "před",
         "vůči",
-        "pro",
-        "na základě",
-        "bez předložky"
+        "na",
+        "na",
+        "na základě"
       ],
       "Cvičení 5": [
         "Ano",
