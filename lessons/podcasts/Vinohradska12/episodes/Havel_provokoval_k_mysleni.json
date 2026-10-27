@@ -224,7 +224,7 @@
             },
             {
               "section_title": "",
-              "prompt": "Havel chtěl, aby lidé dokázali ______ vlastní chyby.",
+              "prompt": "Havel chtěl, aby si lidé dokázali ______ vlastní chyby.",
               "type": "single",
               "is_multiselect": false,
               "options": []

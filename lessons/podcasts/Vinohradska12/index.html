@@ -119,9 +119,11 @@
 
         .word-bank-container { display: flex; flex-wrap: wrap; gap: 8px; margin: 10px 0 15px 0; }
         .word-badge { 
-            background: #e2e8f0; color: #1e293b; padding: 4px 10px; 
-            border-radius: 6px; font-size: 0.9rem; font-weight: 600; border: 1px solid #cbd5e1;
+            background: #94a3b8; color: #f8fafc; padding: 4px 10px; 
+            border-radius: 6px; font-size: 0.9rem; font-weight: 600; border: 1px solid #64748b;
+            font-family: inherit; cursor: pointer;
         }
+        .word-badge.used { background: #e2e8f0; color: #1e293b; border-color: #cbd5e1; }
 
         /* --- FIXED ITEM ROW LAYOUT --- */
         .item-row { 
@@ -383,7 +385,11 @@
             const splitKey = instructions.includes('Slova:') ? 'Slova:' : 'Výrazy:';
             const parts = instructions.split(splitKey);
             const words = parts[1].split(',').map(w => w.trim());
-            let badges = '<div class="word-bank-container">' + words.map(w => `<span class="word-badge">${w}</span>`).join('') + '</div>';
+            for (let i = words.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [words[i], words[j]] = [words[j], words[i]];
+            }
+            let badges = '<div class="word-bank-container">' + words.map(w => `<button type="button" class="word-badge" aria-pressed="false">${w}</button>`).join('') + '</div>';
             return `<p style="font-size: 0.95rem; color: #4a5568;"><em>${parts[0]}</em></p>${badges}`;
         }
         return `<p style="font-size: 0.95rem; color: #4a5568;"><em>${instructions}</em></p>`;
@@ -513,6 +519,12 @@
             }
 
             card.innerHTML = html;
+            card.querySelectorAll('.word-badge').forEach(badge => {
+                badge.addEventListener('click', () => {
+                    const isUsed = badge.classList.toggle('used');
+                    badge.setAttribute('aria-pressed', String(isUsed));
+                });
+            });
             container.appendChild(card);
         });
 

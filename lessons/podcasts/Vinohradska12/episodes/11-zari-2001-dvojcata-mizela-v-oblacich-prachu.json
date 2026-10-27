@@ -524,11 +524,11 @@
               "type": "single",
               "is_multiselect": false,
               "options": [
-                "být schopen zvládnout silný náraz nebo zátěž",
+                "být schopen zvládnout silnou srážku nebo zátěž",
                 "být zavalený materiálem",
                 "být velmi pozorný",
                 "určit, kde se člověk nachází a kam má jít",
-                "být zatížený nad běžnou kapacitu",
+                "být využitý nad běžnou kapacitu",
                 "vytvořit skupinu lidí pro určitý úkol",
                 "přestat být pevný nebo se uvolnit",
                 "měřit vzdálenost přímo, bez ohledu na skutečnou cestu"
@@ -622,7 +622,7 @@
             },
             {
               "section_title": "",
-              "prompt": "Dnes se podobná budova podle jeho názoru __________ (stavět) jinak.",
+              "prompt": "Dnes se podobné budovy podle jeho názoru __________ (stavět) jinak.",
               "type": "single",
               "is_multiselect": false,
               "options": []
@@ -673,7 +673,7 @@
         },
         {
           "title": "Cvičení 4 – Slovní zásoba a předložky",
-          "instructions": "Doplňte vhodnou předložku a případně správný pád.\nSlova: k, na, o, s/se, z, za, bez předložky",
+          "instructions": "Doplňte vhodnou předložku.\nSlova: k, na, o, s/se, z, za, bez předložky",
           "optionsList": [
             "za",
             "o",
@@ -952,7 +952,7 @@
                 "zvládnout tlak nebo náročnou situaci",
                 "snažit se problém ignorovat místo jeho řešení",
                 "být překvapený nebo nepřipravený na určitou situaci",
-                "dostat se po náročné zkušenosti zpět do běžného života",
+                "vrátit se po náročné zkušenosti zpět do běžného života",
                 "být velmi blízko zhroucení nebo selhání",
                 "být vystaven určitému vlivu",
                 "být velmi pozorný a sledovat, co se děje"
