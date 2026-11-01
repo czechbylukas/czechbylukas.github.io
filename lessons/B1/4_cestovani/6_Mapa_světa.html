@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Czech B1 Mastery: Lesson 6 – 2. pád: Cestování, země a města</title>
+  <title>Czech B1 Mastery: Lekce 6 – 2. pád: Země, města a národnosti</title>
   <!-- Tailwind CSS -->
   <script src="https://cdn.tailwindcss.com"></script>
   <!-- FontAwesome Icons -->
@@ -98,10 +98,10 @@
         <div class="hidden md:flex items-center space-x-4 text-xs font-medium">
           <span class="px-3 py-1.5 rounded-full bg-slate-800 border border-slate-700 text-slate-300 flex items-center gap-2">
             <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
-            Teaching Mode
+            Režim výuky
           </span>
           <button onclick="speakText('Jsem z České republiky a mluvím česky.')" class="px-3 py-1.5 rounded-lg bg-sky-600/20 hover:bg-sky-600/30 text-sky-300 border border-sky-500/30 transition flex items-center gap-1.5">
-            <i class="fa-solid fa-volume-high"></i> Audio Check
+            <i class="fa-solid fa-volume-high"></i> Otestovat audio
           </button>
         </div>
       </div>
@@ -109,19 +109,19 @@
       <!-- Navigation Tabs -->
       <nav class="flex space-x-1 overflow-x-auto no-scrollbar border-t border-slate-800/80 py-2" id="mainTabs">
         <button onclick="switchTab('tab-vocab')" id="btn-tab-vocab" class="tab-btn active px-4 py-2 text-xs sm:text-sm font-semibold rounded-lg text-white bg-sky-600 shadow-md shadow-sky-600/20 transition flex items-center gap-2 whitespace-nowrap">
-          <i class="fa-solid fa-book-open"></i> 1. Vocab &amp; Nationalities (21)
+          <i class="fa-solid fa-book-open"></i> 1. Slovní zásoba &amp; národnosti (21)
         </button>
         <button onclick="switchTab('tab-world')" id="btn-tab-world" class="tab-btn px-4 py-2 text-xs sm:text-sm font-semibold rounded-lg text-slate-400 hover:text-slate-200 hover:bg-slate-800 transition flex items-center gap-2 whitespace-nowrap">
-          <i class="fa-solid fa-globe"></i> 2. World Map &amp; Origin Generator
+          <i class="fa-solid fa-globe"></i> 2. Mapa světa &amp; původ
         </button>
         <button onclick="switchTab('tab-exA')" id="btn-tab-exA" class="tab-btn px-4 py-2 text-xs sm:text-sm font-semibold rounded-lg text-slate-400 hover:text-slate-200 hover:bg-slate-800 transition flex items-center gap-2 whitespace-nowrap">
-          <i class="fa-solid fa-pen-to-square"></i> 3. Gap-Fill Drill (59 Vět)
+          <i class="fa-solid fa-pen-to-square"></i> 3. Cvičení A: Doplňte 2. pád (35 vět)
         </button>
         <button onclick="switchTab('tab-exB')" id="btn-tab-exB" class="tab-btn px-4 py-2 text-xs sm:text-sm font-semibold rounded-lg text-slate-400 hover:text-slate-200 hover:bg-slate-800 transition flex items-center gap-2 whitespace-nowrap">
-          <i class="fa-solid fa-wand-magic-sparkles"></i> 4. Sentence Upgrade (A2 &rarr; B1)
+          <i class="fa-solid fa-wand-magic-sparkles"></i> 4. Cvičení B: Stavba vět
         </button>
         <button onclick="switchTab('tab-homework')" id="btn-tab-homework" class="tab-btn px-4 py-2 text-xs sm:text-sm font-semibold rounded-lg text-slate-400 hover:text-slate-200 hover:bg-slate-800 transition flex items-center gap-2 whitespace-nowrap">
-          <i class="fa-solid fa-paper-plane"></i> 5. Homework &amp; Live Notes
+          <i class="fa-solid fa-paper-plane"></i> 5. Domácí úkol &amp; poznámky
         </button>
       </nav>
     </div>
@@ -150,7 +150,7 @@
             <input type="text" id="vocabSearch" oninput="filterVocab()" placeholder="Hledat zemi nebo tvar..." class="w-full bg-slate-900 border border-slate-700 text-slate-200 text-xs rounded-xl pl-9 pr-3 py-2 focus:outline-none focus:border-sky-500">
           </div>
           <div class="flex items-center bg-slate-900 border border-slate-800 p-1 rounded-xl text-xs">
-            <button onclick="setVocabFilter('all')" id="vfilter-all" class="vfilter-btn px-3 py-1 rounded-lg text-white bg-sky-600 font-medium">All (21)</button>
+            <button onclick="setVocabFilter('all')" id="vfilter-all" class="vfilter-btn px-3 py-1 rounded-lg text-white bg-sky-600 font-medium">            Vše (21)</button>
             <button onclick="setVocabFilter('europe')" id="vfilter-europe" class="vfilter-btn px-3 py-1 rounded-lg text-slate-400 hover:text-slate-200">Evropa</button>
             <button onclick="setVocabFilter('world')" id="vfilter-world" class="vfilter-btn px-3 py-1 rounded-lg text-slate-400 hover:text-slate-200">Svět</button>
           </div>
@@ -162,42 +162,60 @@
         <!-- JS Rendered -->
       </div>
 
-      <!-- GRAMMAR RULE BOX -->
-      <div class="glass-card rounded-2xl p-6 border border-slate-800 space-y-4">
-        <h3 class="text-base font-bold text-amber-400 flex items-center gap-2 border-b border-slate-800 pb-3">
-          <i class="fa-solid fa-book-bookmark"></i> Gramatické pravidlo: 2. pád (Genitiv) u zemí a měst
+      <div class="glass-card rounded-2xl p-6 border border-slate-800 space-y-5">
+        <h3 class="text-base font-bold text-amber-300 flex items-center gap-2 border-b border-slate-800 pb-3">
+          <i class="fa-solid fa-book-bookmark"></i> Jak mluvit o původu, místě a směru
         </h3>
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-4 text-xs">
-          <div class="bg-slate-900/90 p-4 rounded-xl border border-slate-800 space-y-2">
-            <span class="font-bold text-sky-400 uppercase tracking-wider block">1. Maskulina (M)</span>
-            <p class="text-slate-300">Zakončení na souhlásku &rarr; <strong>-u (a)</strong> / <strong>-e</strong></p>
-            <ul class="text-slate-400 font-mono space-y-1 text-[11px]">
-              <li>• Madrid &rarr; z Madrid<strong>u</strong></li>
-              <li>• ! pozor na iregulérní Řím &rarr; z Řím<strong>a</strong></li>
-              <li>• Bangladéš &rarr; z Bangladéš<strong>e</strong></li>
+        <p class="text-sm leading-6 text-slate-300">Nejdřív si položte otázku: <em>kde, kam, nebo odkud?</em> Předložka i pád závisí na významu. Tato lekce se zaměřuje hlavně na <strong>2. pád</strong> po otázce <em>odkud?</em> a po předložkách <em>z/ze</em> a <em>do</em>.</p>
+        <div class="rounded-xl border border-sky-500/25 bg-sky-950/20 p-4 text-sm leading-6 text-slate-300">
+          <h4 class="font-bold text-sky-200">1. Základ: ve městě a ve většině zemí používáme „v/ve“</h4>
+          <p class="mt-2">Když říkáme, <strong>kde</strong> někdo nebo něco je, u měst a většiny zemí běžně použijeme <em>v/ve</em> + <strong>6. pád</strong>: <em>v Praze, v Berlíně, v Česku, v Austrálii</em>. Stejně tak uvnitř určitého místa: <em>v centru Prahy, ve městě, v hotelu</em>.</p>
+          <p class="mt-2">Pozor na změnu otázky: <strong>kam?</strong> <em>do Prahy, do Berlína, do Česka, do Austrálie</em> (do + 2. pád); <strong>odkud?</strong> <em>z Prahy, z Berlína, z Česka, z Austrálie</em> (z + 2. pád).</p>
+        </div>
+        <div class="grid grid-cols-1 gap-4 text-sm md:grid-cols-3">
+          <div class="rounded-xl border border-violet-500/20 bg-slate-900/90 p-4">
+            <h4 class="font-bold text-violet-200">Kdy používáme „na“?</h4>
+            <p class="mt-2 text-slate-300">„Na“ není obecná předložka pro města a země. Používá se v několika ustálených skupinách; tvar podstatného jména se pak mění podle otázky:</p>
+            <ul class="mt-2 space-y-2 text-slate-300">
+              <li><strong>Ostrovy a některá území:</strong> <em>na ostrově, na Maltě</em>.</li>
+              <li><strong>Městské části:</strong> <em>na Praze 5</em>; u pražských čtvrtí také <em>na Vinohradech</em>.</li>
+              <li><strong>Otevřená/prostorová místa:</strong> <em>na náměstí, na ulici, na hřišti</em>.</li>
+              <li><strong>Některé instituce a akce:</strong> <em>na poště, na univerzitě, na koncertě, na obědě</em>.</li>
+            </ul>
+            <p class="mt-2 text-slate-400">Nejde o jedno pravidlo podle typu budovy; mnoho spojení se učíme jako ustálené vazby.</p>
+          </div>
+          <div class="rounded-xl border border-sky-500/20 bg-slate-900/90 p-4">
+            <h4 class="font-bold text-sky-300">Čech, Češi a Čechy</h4>
+            <ul class="mt-2 space-y-2 text-slate-300">
+              <li><strong>Čech</strong> = muž z Česka; <strong>Češka</strong> = žena z Česka.</li>
+              <li><strong>Češi</strong> = muži nebo smíšená skupina; <strong>Češky</strong> = ženy.</li>
+              <li><strong>Čechy</strong> jsou také historická část Česka (Bohemia), ne celé Česko.</li>
+              <li><em>Jsem Čech/Češka. Češi mluví česky. Žiju v Česku / v České republice.</em></li>
+              <li><em>Žiju v Čechách</em> = žiju v oblasti Čech. <em>Pocházím z Čech</em> = z této oblasti.</li>
             </ul>
           </div>
-
-          <div class="bg-slate-900/90 p-4 rounded-xl border border-slate-800 space-y-2">
-            <span class="font-bold text-amber-400 uppercase tracking-wider block">2. Feminina (Ž)</span>
-            <p class="text-slate-300">Zakončení na <strong>-a</strong> &rarr; <strong>-y</strong></p>
-            <ul class="text-slate-400 font-mono space-y-1 text-[11px]">
-              <li>• Praha &rarr; z Prah<strong>y</strong></li>
-            <p class="text-slate-300">Zakončení na <strong>-e</strong> &rarr; <strong>-e</strong></p>
-            <ul class="text-slate-400 font-mono space-y-1 text-[11px]">
-              <li>• Francie &rarr; z Franci<strong>e</strong></li>
+          <div class="rounded-xl border border-amber-500/20 bg-slate-900/90 p-4">
+            <h4 class="font-bold text-amber-200">Zvláštní názvy: Slovensko a Ukrajina</h4>
+            <ul class="mt-2 space-y-2 text-slate-300">
+              <li>U některých zemí je běžná ustálená vazba s <em>na</em>: <strong>na Slovensku, na Ukrajině</strong> (kde? 6. pád).</li>
+              <li><strong>Kam?</strong> <em>na Slovensko, na Ukrajinu</em> (4. pád).</li>
+              <li><strong>Odkud?</strong> <em>ze Slovenska, z Ukrajiny</em> (2. pád).</li>
+              <li>Je to zvláštnost konkrétních názvů, ne pravidlo pro všechny země.</li>
             </ul>
           </div>
-
-          <div class="bg-slate-900/90 p-4 rounded-xl border border-slate-800 space-y-2">
-            <span class="font-bold text-emerald-400 uppercase tracking-wider block">3. Neutra (N)</span>
-            <p class="text-slate-300">Zakončení na <strong>-o</strong> &rarr; <strong>-a</strong></p>
-            <ul class="text-slate-400 font-mono space-y-1 text-[11px]">
-              <li>• Norsko &rarr; z Norsk<strong>a</strong></li>
-              <li>• Japonsko &rarr; z Japonsk<strong>a</strong></li>
-              <li>• Slovensko &rarr; ze Slovensk<strong>a</strong></li>
+          <div class="rounded-xl border border-emerald-500/20 bg-slate-900/90 p-4">
+            <h4 class="font-bold text-emerald-200">Oproti tomu: Malta, Austrálie a Amerika</h4>
+            <ul class="mt-2 space-y-2 text-slate-300">
+              <li>Malta je ostrovní země: <strong>na Maltě</strong> (kde?), <strong>na Maltu</strong> (kam?), <strong>z Malty</strong> (odkud?).</li>
+              <li>U Austrálie použijeme obvyklé <em>v/ve, do, z</em>: <strong>v Austrálii, do Austrálie, z Austrálie</strong>.</li>
+              <li><strong>Amerika</strong> je světadíl: v Americe, do Ameriky, z Ameriky.</li>
+              <li>Stát se jmenuje <strong>Spojené státy americké (USA)</strong>: v USA, do USA, z USA; také ze Spojených států.</li>
             </ul>
           </div>
+        </div>
+        <div class="rounded-xl border border-slate-700 bg-slate-950/70 p-4 text-sm text-slate-300">
+          <strong class="text-white">Srovnání pro stejnou zemi:</strong>
+          <span class="ml-1"><em>Jsem ze Slovenska</em> (odkud? 2. pád) · <em>Bydlím na Slovensku</em> (kde? 6. pád) · <em>Jedu na Slovensko</em> (kam? 4. pád). U Austrálie: <em>z Austrálie · v Austrálii · do Austrálie</em>.</span>
         </div>
       </div>
 
@@ -216,7 +234,7 @@
                   <i class="fa-solid fa-earth-americas text-sky-400"></i> Reálná interaktivní mapa světa &amp; Generátor
                 </h2>
                 <p class="text-xs text-slate-400 mt-1">
-                  Klikněte na jakýkoli špendlík na reálné mapě nebo použijte tlačítko pro náhodný výběr.
+                  Klikněte na značku na mapě nebo vyberte náhodnou zemi. U každé uvidíte původ, národnost i vazby pro „kde?“ a „kam?“.
                 </p>
               </div>
 
@@ -253,14 +271,14 @@
         <div class="glass-card rounded-2xl p-4 border border-slate-800 flex flex-col h-[320px]">
           <div class="flex items-center justify-between pb-2 border-b border-slate-800 mb-2">
             <h3 class="font-bold text-white text-xs sm:text-sm flex items-center gap-1.5">
-              <i class="fa-solid fa-pen-to-square text-sky-400"></i> Teacher Live Notes
+              <i class="fa-solid fa-pen-to-square text-sky-400"></i> Poznámky učitele
             </h3>
-            <span class="text-[10px] text-slate-400 font-bold">Auto-saved</span>
+            <span class="text-[10px] text-slate-400 font-bold">Ukládá se automaticky</span>
           </div>
 
           <textarea class="teacherNotesArea w-full flex-1 bg-slate-900 border border-slate-800 rounded-xl p-3 text-xs text-slate-100 focus:outline-none focus:border-sky-500 resize-none font-mono" 
                     oninput="syncTeacherNotes(this)" 
-                    placeholder="e.g.&#10;+ Dobře tvoří 2. pád: 'ze Španělska'&#10;- Pozor na maskulina: 'z Berlína' (ne z Berlínu)"></textarea>
+                    placeholder="Například:&#10;+ Správně tvoří 2. pád: „ze Španělska“&#10;− Pozor na tvar: „z Berlína“"></textarea>
 
           <button onclick="switchTab('tab-homework')" class="mt-2.5 w-full py-2 bg-slate-800 hover:bg-slate-700 border border-slate-700 text-slate-200 text-xs font-bold rounded-lg transition flex items-center justify-center gap-1.5">
             <i class="fa-solid fa-arrow-right"></i> Zobrazit kompletní balíček
@@ -270,14 +288,14 @@
       </div>
     </section>
 
-    <!-- TAB 3: EXERCISE A (59 GAP-FILL DRILLS) -->
+    <!-- TAB 3: EXERCISE A (35 GAP-FILL DRILLS) -->
     <section id="tab-exA" class="tab-content hidden space-y-8">
       <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
         
         <div class="lg:col-span-2 space-y-6">
           <div class="glass-card rounded-2xl p-6 border border-slate-800 flex flex-col sm:flex-row items-center justify-between gap-4">
             <div>
-              <h2 class="text-xl sm:text-2xl font-bold text-white">Doplňovačka – 2. pád (59 vět)</h2>
+              <h2 class="text-xl sm:text-2xl font-bold text-white">Cvičení A: Doplňte 2. pád (35 vět)</h2>
               <p class="text-sm text-slate-400 mt-1">Doplňte správný tvar země, města nebo výrazu v 2. pádě.</p>
             </div>
             <div class="flex items-center gap-2">
@@ -292,7 +310,7 @@
             <div class="flex-1 bg-slate-900 h-3 rounded-full overflow-hidden border border-slate-800">
               <div id="exAProgressBar" class="bg-sky-500 h-full w-0 transition-all duration-300"></div>
             </div>
-            <span id="exAScoreText" class="text-xs font-mono font-bold text-sky-400 whitespace-nowrap">0 / 30 Správně</span>
+            <span id="exAScoreText" class="text-xs font-mono font-bold text-sky-400 whitespace-nowrap">0 / 35 správně</span>
           </div>
 
           <!-- DRILLS LIST -->
@@ -303,14 +321,14 @@
         <div class="glass-card rounded-2xl p-4 border border-slate-800 flex flex-col h-[320px]">
           <div class="flex items-center justify-between pb-2 border-b border-slate-800 mb-2">
             <h3 class="font-bold text-white text-xs sm:text-sm flex items-center gap-1.5">
-              <i class="fa-solid fa-pen-to-square text-sky-400"></i> Teacher Live Notes
+              <i class="fa-solid fa-pen-to-square text-sky-400"></i> Poznámky učitele
             </h3>
-            <span class="text-[10px] text-slate-400 font-bold">Auto-saved</span>
+            <span class="text-[10px] text-slate-400 font-bold">Ukládá se automaticky</span>
           </div>
 
           <textarea class="teacherNotesArea w-full flex-1 bg-slate-900 border border-slate-800 rounded-xl p-3 text-xs text-slate-100 focus:outline-none focus:border-sky-500 resize-none font-mono" 
                     oninput="syncTeacherNotes(this)" 
-                    placeholder="e.g.&#10;+ Dobře tvoří 2. pád: 'ze Španělska'&#10;- Pozor na maskulina: 'z Berlína' (ne z Berlínu)"></textarea>
+                    placeholder="Například:&#10;+ Správně tvoří 2. pád: „ze Španělska“&#10;− Pozor na tvar: „z Berlína“"></textarea>
 
           <button onclick="switchTab('tab-homework')" class="mt-2.5 w-full py-2 bg-slate-800 hover:bg-slate-700 border border-slate-700 text-slate-200 text-xs font-bold rounded-lg transition flex items-center justify-center gap-1.5">
             <i class="fa-solid fa-arrow-right"></i> Zobrazit kompletní balíček
@@ -327,11 +345,15 @@
         <div class="lg:col-span-2 space-y-6">
           <div class="glass-card rounded-2xl p-5 border border-slate-800">
             <h2 class="text-xl sm:text-2xl font-bold text-white flex items-center gap-2">
-              <i class="fa-solid fa-wand-magic-sparkles text-amber-400"></i> Exercise B: A2 &rarr; B1 Sentence Upgrade
+              <i class="fa-solid fa-wand-magic-sparkles text-amber-400"></i> Cvičení B: Rozviňte větu
             </h2>
             <p class="text-sm text-slate-400 mt-1">
-              Převeďte jednoduché A2 vyjádření na plynulé B1 věty s předložkami 2. pádu.
+              U každého úkolu napište do pole jednu celou, přirozenou větu. Využijte jednoduchou větu, zadání a nabídnutá slova. Zaměřte se na správný pád; nemusíte opsat vzor doslova. Potom klikněte na „Ukázat vzorovou větu“ a porovnejte své řešení.
             </p>
+            <div class="mt-4 rounded-xl border border-amber-500/20 bg-amber-950/20 p-4 text-sm text-slate-300">
+              <strong class="text-amber-200">Příklad:</strong>
+              <span class="ml-1">A2: „Jsem z Česka.“ Zadání: přidejte, jak se nazývá obyvatel Česka. Napište jednu celou větu, například: „Jsem Čech a pocházím z Česka.“</span>
+            </div>
           </div>
 
           <div id="exBGrid" class="space-y-4"></div>
@@ -340,14 +362,14 @@
         <div class="glass-card rounded-2xl p-4 border border-slate-800 flex flex-col h-[320px]">
           <div class="flex items-center justify-between pb-2 border-b border-slate-800 mb-2">
             <h3 class="font-bold text-white text-xs sm:text-sm flex items-center gap-1.5">
-              <i class="fa-solid fa-pen-to-square text-sky-400"></i> Teacher Live Notes
+              <i class="fa-solid fa-pen-to-square text-sky-400"></i> Poznámky učitele
             </h3>
-            <span class="text-[10px] text-slate-400 font-bold">Auto-saved</span>
+            <span class="text-[10px] text-slate-400 font-bold">Ukládá se automaticky</span>
           </div>
 
           <textarea class="teacherNotesArea w-full flex-1 bg-slate-900 border border-slate-800 rounded-xl p-3 text-xs text-slate-100 focus:outline-none focus:border-sky-500 resize-none font-mono" 
                     oninput="syncTeacherNotes(this)" 
-                    placeholder="e.g.&#10;+ Dobře tvoří 2. pád: 'ze Španělska'&#10;- Pozor na maskulina: 'z Berlína' (ne z Berlínu)"></textarea>
+                    placeholder="Například:&#10;+ Správně tvoří 2. pád: „ze Španělska“&#10;− Pozor na tvar: „z Berlína“"></textarea>
 
           <button onclick="switchTab('tab-homework')" class="mt-2.5 w-full py-2 bg-slate-800 hover:bg-slate-700 border border-slate-700 text-slate-200 text-xs font-bold rounded-lg transition flex items-center justify-center gap-1.5">
             <i class="fa-solid fa-arrow-right"></i> Zobrazit kompletní balíček
@@ -388,45 +410,48 @@
        ========================================================================== */
 
     const VOCAB_DATA = [
-      { id: 1, category: "europe", cz: "Česká republika / Česko", pos: "Noun (f / n)", en: "Czech Republic / Czechia", gen: "z České republiky / z Česka", ex: "Pocházím z České republiky / Česka." },
-      { id: 2, category: "europe", cz: "Slovensko", pos: "Noun (n)", en: "Slovakia", gen: "ze Slovenska", ex: "Přijel jsem ze Slovenska včera večer." },
-      { id: 3, category: "europe", cz: "Německo", pos: "Noun (n)", en: "Germany", gen: "z Německa", ex: "Můj soused se vrátil z Německa." },
-      { id: 4, category: "europe", cz: "Rakousko", pos: "Noun (n)", en: "Austria", gen: "hlavní město Rakouska", ex: "Vídeň je hlavní město Rakouska." },
-      { id: 5, category: "europe", cz: "Polsko", pos: "Noun (n)", en: "Poland", gen: "uprostřed Polska", ex: "Uprostřed Polska leží Varšava." },
-      { id: 6, category: "europe", cz: "Francie", pos: "Noun (f)", en: "France", gen: "část Francie", ex: "Východní část Francie je známá svým vínem." },
-      { id: 7, category: "europe", cz: "Itálie", pos: "Noun (f)", en: "Italy", gen: "část Itálie", ex: "Pojedu do severní části Itálie." },
-      { id: 8, category: "europe", cz: "Španělsko", pos: "Noun (n)", en: "Spain", gen: "obyvatelé Španělska", ex: "Učím se jazyk obyvatel Španělska." },
-      { id: 9, category: "europe", cz: "Chorvatsko", pos: "Noun (n)", en: "Croatia", gen: "pláže Chorvatska" , ex: "Pláže Chorvatska jsou velmi populární." },
-      { id: 10, category: "europe", cz: "Řecko", pos: "Noun (n)", en: "Greece", gen: "z Řecka", ex: "Hory na severu Řecka jsou nádherné." },
-      { id: 11, category: "world", cz: "Japonsko", pos: "Noun (n)", en: "Japan", gen: "z Japonska", ex: "Po návratu z Japonska jsem si koupil suvenýr." },
-      { id: 12, category: "world", cz: "Kanada", pos: "Noun (f)", en: "Canada", gen: "hlavní město Kanady", ex: "Hlavní město Kanady je Ottawa." },
-      { id: 13, category: "europe", cz: "Praha", pos: "Noun (f)", en: "Prague", gen: "památka Prahy", ex: "Karlův most je nejznámější památka Prahy." },
-      { id: 14, category: "europe", cz: "Brno", pos: "Noun (n)", en: "Brno", gen: "do Brna", ex: "Pojedu do Brna na víkend." },
-      { id: 15, category: "europe", cz: "Vídeň", pos: "Noun (f)", en: "Vienna", gen: "od Vídně", ex: "Vzdálenost z Budapeště od Vídně je 250 km." },
-      { id: 16, category: "europe", cz: "Paříž", pos: "Noun (f)", en: "Paris", gen: "symbol Paříže", ex: "Eiffelova věž je symbolem Paříže." },
-      { id: 17, category: "europe", cz: "Řím", pos: "Noun (m)", en: "Rome", gen: "památky Říma", ex: "Chtěl bych navštívit památky Říma." },
-      { id: 18, category: "europe", cz: "Berlín", pos: "Noun (m)", en: "Berlin", gen: "nedaleko Berlína", ex: "Bydlím nedaleko Berlína." },
-      { id: 19, category: "europe", cz: "Varšava", pos: "Noun (f)", en: "Warsaw", gen: "předměstí Varšavy", ex: "Na předměstí Varšavy bydlí moje kamarádka." },
-      { id: 20, category: "europe", cz: "Londýn", pos: "Noun (m)", en: "London", gen: "centrum Londýna", ex: "Centrum Londýna je plné turistů." },
-      { id: 21, category: "europe", cz: "Barcelona", pos: "Noun (f)", en: "Barcelona", gen: "část Barcelony", ex: "Nejznámější část Barcelony je Sagrada Família." }
+      { id: 1, category: "europe", cz: "Česká republika / Česko", pos: "podstatné jméno (ž / stř)", en: "Czech Republic / Czechia", gen: "z České republiky / z Česka", ex: "Pocházím z České republiky / z Česka." },
+      { id: 2, category: "europe", cz: "Slovensko", pos: "podstatné jméno (stř)", en: "Slovakia", gen: "ze Slovenska", ex: "Přijel jsem ze Slovenska včera večer." },
+      { id: 3, category: "europe", cz: "Německo", pos: "podstatné jméno (stř)", en: "Germany", gen: "z Německa", ex: "Můj soused se vrátil z Německa." },
+      { id: 4, category: "europe", cz: "Rakousko", pos: "podstatné jméno (stř)", en: "Austria", gen: "hlavní město Rakouska", ex: "Vídeň je hlavní město Rakouska." },
+      { id: 5, category: "europe", cz: "Polsko", pos: "podstatné jméno (stř)", en: "Poland", gen: "uprostřed Polska", ex: "Uprostřed Polska leží Varšava." },
+      { id: 6, category: "europe", cz: "Francie", pos: "podstatné jméno (ž)", en: "France", gen: "část Francie", ex: "Východní část Francie je známá svým vínem." },
+      { id: 7, category: "europe", cz: "Itálie", pos: "podstatné jméno (ž)", en: "Italy", gen: "část Itálie", ex: "Pojedu do severní části Itálie." },
+      { id: 8, category: "europe", cz: "Španělsko", pos: "podstatné jméno (stř)", en: "Spain", gen: "obyvatelé Španělska", ex: "Učím se jazyk obyvatel Španělska." },
+      { id: 9, category: "europe", cz: "Chorvatsko", pos: "podstatné jméno (stř)", en: "Croatia", gen: "pláže Chorvatska", ex: "Pláže Chorvatska jsou velmi populární." },
+      { id: 10, category: "europe", cz: "Řecko", pos: "podstatné jméno (stř)", en: "Greece", gen: "z Řecka", ex: "Hory na severu Řecka jsou nádherné." },
+      { id: 11, category: "world", cz: "Japonsko", pos: "podstatné jméno (stř)", en: "Japan", gen: "z Japonska", ex: "Po návratu z Japonska jsem si koupil suvenýr." },
+      { id: 12, category: "world", cz: "Kanada", pos: "podstatné jméno (ž)", en: "Canada", gen: "hlavní město Kanady", ex: "Hlavní město Kanady je Ottawa." },
+      { id: 13, category: "europe", cz: "Praha", pos: "podstatné jméno (ž)", en: "Prague", gen: "památka Prahy", ex: "Karlův most je nejznámější památka Prahy." },
+      { id: 14, category: "europe", cz: "Brno", pos: "podstatné jméno (stř)", en: "Brno", gen: "do Brna", ex: "Pojedu do Brna na víkend." },
+      { id: 15, category: "europe", cz: "Vídeň", pos: "podstatné jméno (ž)", en: "Vienna", gen: "od Vídně", ex: "Vzdálenost z Budapešti od Vídně je asi 250 km." },
+      { id: 16, category: "europe", cz: "Paříž", pos: "podstatné jméno (ž)", en: "Paris", gen: "symbol Paříže", ex: "Eiffelova věž je symbolem Paříže." },
+      { id: 17, category: "europe", cz: "Řím", pos: "podstatné jméno (m)", en: "Rome", gen: "památky Říma", ex: "Chtěl bych navštívit památky Říma." },
+      { id: 18, category: "europe", cz: "Berlín", pos: "podstatné jméno (m)", en: "Berlin", gen: "nedaleko Berlína", ex: "Bydlím nedaleko Berlína." },
+      { id: 19, category: "europe", cz: "Varšava", pos: "podstatné jméno (ž)", en: "Warsaw", gen: "předměstí Varšavy", ex: "Na předměstí Varšavy bydlí moje kamarádka." },
+      { id: 20, category: "europe", cz: "Londýn", pos: "podstatné jméno (m)", en: "London", gen: "centrum Londýna", ex: "Centrum Londýna je plné turistů." },
+      { id: 21, category: "world", cz: "Spojené státy americké (USA)", pos: "podstatné jméno (mn. č.)", en: "United States of America", gen: "ze Spojených států amerických / z USA", ex: "Po návratu ze Spojených států amerických jsem vyprávěl o cestě." }
     ];
 
     /* REAL LEAFLET MAP COORDINATES DATA (WITH PRECISE PREPOSITIONS) */
     const REAL_MAP_DATA = [
-      { code: 'CZ', lat: 49.8175, lng: 15.4730, name: "Česká republika / Česko", gen: "z České republiky / z Česka", m: "Čech", f: "Češka", lang: "česky", flag: "🇨🇿" },
-      { code: 'DE', lat: 51.1657, lng: 10.4515, name: "Německo", gen: "z Německa", m: "Němec", f: "Němka", lang: "německy", flag: "🇩🇪" },
-      { code: 'FR', lat: 46.2276, lng: 2.2137, name: "Francie", gen: "z Francie", m: "Francouz", f: "Francouzka", lang: "francouzsky", flag: "🇫🇷" },
-      { code: 'IT', lat: 41.8719, lng: 12.5674, name: "Itálie", gen: "z Itálie", m: "Ital", f: "Italka", lang: "italsky", flag: "🇮🇹" },
-      { code: 'ES', lat: 40.4637, lng: -3.7492, name: "Španělsko", gen: "ze Španělska", m: "Španěl", f: "Španělka", lang: "španělsky", flag: "🇪🇸" },
-      { code: 'JP', lat: 36.2048, lng: 138.2529, name: "Japonsko", gen: "z Japonska", m: "Japonec", f: "Japonka", lang: "japonsky", flag: "🇯🇵" },
-      { code: 'AT', lat: 47.5162, lng: 14.5501, name: "Rakousko", gen: "z Rakouska", m: "Rakušan", f: "Rakušanka", lang: "německy", flag: "🇦🇹" },
-      { code: 'PL', lat: 51.9194, lng: 19.1451, name: "Polsko", gen: "z Polska", m: "Polák", f: "Polka", lang: "polsky", flag: "🇵🇱" },
-      { code: 'SK', lat: 48.6690, lng: 19.6990, name: "Slovensko", gen: "ze Slovenska", m: "Slovák", f: "Slovenka", lang: "slovensky", flag: "🇸🇰" },
-      { code: 'CA', lat: 56.1304, lng: -106.3468, name: "Kanada", gen: "z Kanady", m: "Kanaďan", f: "Kanaďanka", lang: "anglicky a francouzsky", flag: "🇨🇦" }
+      { code: 'CZ', lat: 49.8175, lng: 15.4730, name: "Česká republika / Česko", gen: "z České republiky / z Česka", place: "v Česku", direction: "do Česka", m: "Čech", f: "Češka", plural: "Češi / Češky", lang: "česky", flag: "🇨🇿" },
+      { code: 'DE', lat: 51.1657, lng: 10.4515, name: "Německo", gen: "z Německa", place: "v Německu", direction: "do Německa", m: "Němec", f: "Němka", lang: "německy", flag: "🇩🇪" },
+      { code: 'FR', lat: 46.2276, lng: 2.2137, name: "Francie", gen: "z Francie", place: "ve Francii", direction: "do Francie", m: "Francouz", f: "Francouzka", lang: "francouzsky", flag: "🇫🇷" },
+      { code: 'IT', lat: 41.8719, lng: 12.5674, name: "Itálie", gen: "z Itálie", place: "v Itálii", direction: "do Itálie", m: "Ital", f: "Italka", lang: "italsky", flag: "🇮🇹" },
+      { code: 'ES', lat: 40.4637, lng: -3.7492, name: "Španělsko", gen: "ze Španělska", place: "ve Španělsku", direction: "do Španělska", m: "Španěl", f: "Španělka", lang: "španělsky", flag: "🇪🇸" },
+      { code: 'JP', lat: 36.2048, lng: 138.2529, name: "Japonsko", gen: "z Japonska", place: "v Japonsku", direction: "do Japonska", m: "Japonec", f: "Japonka", lang: "japonsky", flag: "🇯🇵" },
+      { code: 'AT', lat: 47.5162, lng: 14.5501, name: "Rakousko", gen: "z Rakouska", place: "v Rakousku", direction: "do Rakouska", m: "Rakušan", f: "Rakušanka", lang: "německy", flag: "🇦🇹" },
+      { code: 'PL', lat: 51.9194, lng: 19.1451, name: "Polsko", gen: "z Polska", place: "v Polsku", direction: "do Polska", m: "Polák", f: "Polka", lang: "polsky", flag: "🇵🇱" },
+      { code: 'SK', lat: 48.6690, lng: 19.6990, name: "Slovensko", gen: "ze Slovenska", place: "na Slovensku", direction: "na Slovensko", m: "Slovák", f: "Slovenka", lang: "slovensky", flag: "🇸🇰" },
+      { code: 'CA', lat: 56.1304, lng: -106.3468, name: "Kanada", gen: "z Kanady", place: "v Kanadě", direction: "do Kanady", m: "Kanaďan", f: "Kanaďanka", lang: "anglicky a francouzsky", flag: "🇨🇦" },
+      { code: 'US', lat: 39.8283, lng: -98.5795, name: "Spojené státy americké (USA)", gen: "ze Spojených států amerických / z USA", place: "v USA", direction: "do USA", m: "Američan", f: "Američanka", lang: "anglicky", flag: "🇺🇸" },
+      { code: 'MT', lat: 35.9375, lng: 14.3754, name: "Malta", gen: "z Malty", place: "na Maltě", direction: "na Maltu", m: "Malťan", f: "Malťanka", lang: "maltsky a anglicky", flag: "🇲🇹" },
+      { code: 'AU', lat: -25.2744, lng: 133.7751, name: "Austrálie", gen: "z Austrálie", place: "v Austrálii", direction: "do Austrálie", m: "Australan", f: "Australanka", lang: "anglicky", flag: "🇦🇺" }
     ];
 
     /* ==========================================================================
-       GAP-FILL DRILLS DATA (59 COMPLETE SENTENCES)
+       GAP-FILL DRILLS DATA (35 COMPLETE SENTENCES)
        ========================================================================== */
 
     const DRILLS_EX_A = [
@@ -439,7 +464,7 @@
       { prompt: "Turisté se často bojí dopravy v centru ____ (Istanbul).", ans: "Istanbulu", hint: "Istanbul" },
       { prompt: "Eiffelova věž je symbolem ____ (Paříž).", ans: "Paříže", hint: "Paříž" },
       { prompt: "Karlův most je jednou z nejkrásnějších částí ____ (Praha).", ans: "Prahy", hint: "Praha" },
-      { prompt: "Vzdálenost Budapeště od ____ (Vídeň) je asi 250 km.", ans: "Vídně", hint: "Vídeň" },
+      { prompt: "Vzdálenost Budapešti od ____ (Vídeň) je asi 250 km.", ans: "Vídně", hint: "Vídeň" },
       { prompt: "Jsem z malého města nedaleko ____ (Berlín).", ans: "Berlína", hint: "Berlín" },
       { prompt: "Pojedu do severní části ____ (Itálie).", ans: "Itálie", hint: "Itálie" },
       { prompt: "Příští rok bych chtěl navštívit některé z památek ____ (Řím).", ans: "Říma", hint: "Řím" },
@@ -459,15 +484,95 @@
       { prompt: "Nejznámější část ____ (Barcelona) je čtvrť s chrámem Sagrada Familia.", ans: "Barcelony", hint: "Barcelona" },
       { prompt: "V okolí ____ (Petrohrad) je spousta historických paláců.", ans: "Petrohradu", hint: "Petrohrad" },
       { prompt: "Bez obyvatel ____ (Island) by země působila velmi prázdně.", ans: "Islandu", hint: "Island" },
-      { prompt: "Hory na severu ____ (Řecko) jsou nádherné.", ans: "Řecka", hint: "Řecko" }
+      { prompt: "Hory na severu ____ (Řecko) jsou nádherné.", ans: "Řecka", hint: "Řecko" },
+      { prompt: "Pocházím z ____ (Čechy), ale teď žiju na Moravě.", ans: "Čech", hint: "Čechy = oblast; z Čech" },
+      { prompt: "Po návratu ze ____ (Spojené státy americké) jsem vyprávěl o cestě.", ans: "Spojených států amerických", hint: "2. pád množného čísla" },
+      { prompt: "Včera jsem se vrátil z ____ (Malta).", ans: "Malty", hint: "z + 2. pád" },
+      { prompt: "Přijela z ____ (Austrálie) před týdnem.", ans: "Austrálie", hint: "z + 2. pád" },
+      { prompt: "Přijel jsem ze ____ (Slovensko) v neděli.", ans: "Slovenska", hint: "ze + 2. pád" }
     ];
 
-    /* EXERCISE B SCENARIOS */
     const SCENARIOS_EX_B = [
-      { q: "1. Vyjádřit původ (Odkud jsi?)", a2: "Bydlím v Německu.", blocks: "pocházet / z / Německo / a / mluvit / německy", structure: "Pocházím + z + 2. pád + a + sloveso.", b1: "Pocházím z Německa a mluvím plynule německy." },
-      { q: "2. Cesta do hlavního města", a2: "Jedu do Prahy.", blocks: "cestovat / do / centrum / Praha / bez / zpoždění", structure: "Cestuji + do + 2. pád + bez + 2. pád.", b1: "Cestuji přímo do centra Prahy bez jakéhokoli zpoždění." },
-      { q: "3. Popis destinace v Evropě", a2: "Byl jsem ve Francii u moře.", blocks: "vrátit se / z / dovolená / z / jih / Francie", structure: "Vrátil jsem se + z + 2. pád + z + 2. pád.", b1: "Vrátil jsem se z krásné dovolené z jihu Francie." },
-      { q: "4. Srovnání vzdálenosti měst", a2: "Vídeň je blízko Brna.", blocks: "vzdálenost / Brno / od / Vídeň / být / malá", structure: "Vzdálenost + 2. pád + od + 2. pád.", b1: "Vzdálenost Brna od Vídně je poměrně malá." }
+      {
+        q: "1. Řekni, odkud jsi a jak se nazývají obyvatelé Česka.",
+        a2: "Jsem z Česka.",
+        b1: "Jsem Čech/Češka a pocházím z Česka.",
+        steps: [
+          { label: "Pojmenuj obyvatele", prompt: "Jsem ___. (muž / žena)", hint: "Muž: Čech. Žena: Češka.", answers: ["Čech", "Češka"], show: "Čech / Češka" },
+          { label: "Spoj informace", prompt: "Jsem Čech/Češka ___ pocházím z Česka.", hint: "Spojka pro spojení dvou informací: a.", answers: ["a"], show: "a" },
+          { label: "Doplň předložku původu", prompt: "Pocházím ___ Česka.", hint: "Ptáme se odkud? Použij z.", answers: ["z"], show: "z" },
+          { label: "Vytvoř 2. pád", prompt: "Pocházím z ___. (Česko)", hint: "Po předložce z je 2. pád: Česko → Česka.", answers: ["Česka"], show: "Česka", caseWord: "Česko", final: true }
+        ]
+      },
+      {
+        q: "2. Rozliš Česko a Čechy: řekni, kde bydlíš a odkud pocházíš.",
+        a2: "Bydlím v Čechách.",
+        b1: "Jsem Čech/Češka, žiju v Čechách a pocházím z Čech.",
+        steps: [
+          { label: "Pojmenuj obyvatele", prompt: "Jsem ___. (muž / žena)", hint: "Muž: Čech. Žena: Češka.", answers: ["Čech", "Češka"], show: "Čech / Češka" },
+          { label: "Přidej sloveso", prompt: "… ___ v Čechách.", hint: "Sloveso žít, 1. osoba: žiju nebo žiji.", answers: ["žiju", "žiji"], show: "žiju" },
+          { label: "Vyjádři místo", prompt: "Žiju ___ Čechách.", hint: "Kde? V Čechách. Jde o 6. pád množného čísla.", answers: ["v"], show: "v" },
+          { label: "Použij správný tvar názvu oblasti", prompt: "Žiju v ___. (Čechy)", hint: "Kde? Čechy → v Čechách (6. pád).", answers: ["Čechách"], show: "Čechách", caseWord: "Čechy" },
+          { label: "Spoj místo a původ", prompt: "Žiju v Čechách ___ pocházím z Čech.", hint: "Spojka: a.", answers: ["a"], show: "a" },
+          { label: "Vyjádři původ", prompt: "Pocházím ___ Čech.", hint: "Odkud? Předložka z + 2. pád.", answers: ["z"], show: "z" },
+          { label: "Doplň 2. pád oblasti", prompt: "Pocházím z ___. (Čechy)", hint: "Čechy → Čech. Celé Česko je širší označení než historické Čechy.", answers: ["Čech"], show: "Čech", caseWord: "Čechy", final: true }
+        ]
+      },
+      {
+        q: "3. Popiš pobyt na Slovensku a návrat domů.",
+        a2: "Byl jsem na Slovensku.",
+        b1: "Na Slovensku jsem navštívil Bratislavu a vrátil jsem se ze Slovenska v neděli.",
+        steps: [
+          { label: "Vyjádři místo", prompt: "___ Slovensku jsem navštívil Bratislavu.", hint: "Ustálená vazba pro místo: na Slovensku. Jde o 6. pád.", answers: ["Na"], show: "Na" },
+          { label: "Doplň tvar pro místo", prompt: "Na ___ jsem navštívil Bratislavu. (Slovensko)", hint: "Kde? Slovensko → na Slovensku (6. pád).", answers: ["Slovensku"], show: "Slovensku", caseWord: "Slovensko" },
+          { label: "Přidej druhou informaci", prompt: "Na Slovensku jsem navštívil Bratislavu ___ vrátil jsem se…", hint: "Spojka: a.", answers: ["a"], show: "a" },
+          { label: "Vyjádři původ", prompt: "… vrátil jsem se ___ Slovenska.", hint: "Odkud? Předložka z se před Slovenska mění na ze.", answers: ["ze"], show: "ze" },
+          { label: "Použij 2. pád", prompt: "… ze ___. (Slovensko)", hint: "Po předložce ze je 2. pád: Slovensko → Slovenska.", answers: ["Slovenska"], show: "Slovenska", caseWord: "Slovensko", final: true }
+        ]
+      },
+      {
+        q: "4. Navrhni cestu na Maltu a použij také tvar pro původ.",
+        a2: "Pojedu na Maltu.",
+        b1: "Na Maltu pojedu v létě a po návratu z Malty napíšu kamarádům.",
+        steps: [
+          { label: "Urči směr", prompt: "___ Maltu pojedu v létě.", hint: "Kam? V této vazbě použij na + 4. pád.", answers: ["Na"], show: "Na" },
+          { label: "Vytvoř tvar pro směr", prompt: "Na ___ pojedu v létě. (Malta)", hint: "Kam? Malta → na Maltu (4. pád).", answers: ["Maltu"], show: "Maltu", caseWord: "Malta" },
+          { label: "Vyjádři návrat", prompt: "Po návratu ___ Malty napíšu kamarádům.", hint: "Odkud? Předložka z + 2. pád.", answers: ["z"], show: "z" },
+          { label: "Vytvoř 2. pád", prompt: "Po návratu z ___. (Malta)", hint: "Malta → Malty. Nepleť si: na Maltu (kam?) × z Malty (odkud?).", answers: ["Malty"], show: "Malty", caseWord: "Malta", final: true }
+        ]
+      },
+      {
+        q: "5. Řekni, kde potkáš přátele a odkud pocházejí.",
+        a2: "Jedu do Austrálie a potkám tam přátele.",
+        b1: "V Austrálii navštívím známé, kteří pocházejí z Česka.",
+        steps: [
+          { label: "Vyjádři místo", prompt: "___ Austrálii navštívím známé.", hint: "Kde? Předložka v + 6. pád: v Austrálii.", answers: ["V"], show: "V" },
+          { label: "Přidej větu o původu", prompt: "… známé, kteří pocházejí ___ Česka.", hint: "Odkud? Předložka z + 2. pád.", answers: ["z"], show: "z" },
+          { label: "Zkontroluj 2. pád", prompt: "… pocházejí z ___. (Česko)", hint: "Česko → Česka.", answers: ["Česka"], show: "Česka", caseWord: "Česko", final: true }
+        ]
+      },
+      {
+        q: "6. Vyprávěj o cestě do Spojených států a návratu.",
+        a2: "Byl jsem v USA.",
+        b1: "Po návratu z USA jsem vyprávěl o cestě do Spojených států amerických.",
+        steps: [
+          { label: "Uveď návrat", prompt: "___ návratu z USA jsem vyprávěl o cestě.", hint: "Časové spojení začíná předložkou po.", answers: ["Po"], show: "Po" },
+          { label: "Vyjádři původ", prompt: "Po návratu ___ USA jsem vyprávěl o cestě.", hint: "Zkratka USA se běžně používá s předložkou z.", answers: ["z"], show: "z" },
+          { label: "Použij celý název", prompt: "… o cestě ___ Spojených států amerických.", hint: "Směr dovnitř: do + 2. pád množného čísla.", answers: ["do"], show: "do" },
+          { label: "Doplň 2. pád množného čísla", prompt: "… do ___. (Spojené státy americké)", hint: "2. pád: Spojených států amerických.", answers: ["Spojených států amerických"], show: "Spojených států amerických", caseWord: "Spojené státy americké", final: true }
+        ]
+      },
+      {
+        q: "7. Porovnej vzdálenost Brna a Vídně.",
+        a2: "Vídeň je blízko Brna.",
+        b1: "Vzdálenost Brna od Vídně je poměrně malá.",
+        steps: [
+          { label: "Začni podstatným jménem", prompt: "___ Brna od Vídně je poměrně malá.", hint: "Podstatné jméno: vzdálenost.", answers: ["Vzdálenost"], show: "Vzdálenost" },
+          { label: "Použij 2. pád města", prompt: "Vzdálenost ___ od Vídně… (Brno)", hint: "Vzdálenost koho/čeho? Brno → Brna.", answers: ["Brna"], show: "Brna", caseWord: "Brno" },
+          { label: "Doplň předložku", prompt: "Vzdálenost Brna ___ Vídně…", hint: "Předložka pro vzdálenost: od + 2. pád.", answers: ["od"], show: "od" },
+          { label: "Použij 2. pád města", prompt: "Vzdálenost Brna od ___. (Vídeň)", hint: "Vídeň → Vídně.", answers: ["Vídně"], show: "Vídně", caseWord: "Vídeň", final: true }
+        ]
+      }
     ];
 
     /* ==========================================================================
@@ -528,10 +633,10 @@
 
       REAL_MAP_DATA.forEach(item => {
         const marker = L.marker([item.lat, item.lng]).addTo(leafletMap);
-        marker.bindPopup(`<b>${item.flag} ${item.name}</b><br><span class="text-xs text-sky-400">Genitiv: ${item.gen}</span>`);
+        marker.bindPopup(`<b>${item.flag} ${item.name}</b><br><span class="text-xs text-sky-400">Odkud? ${item.gen}</span><br><span class="text-xs text-slate-300">Kde? ${item.place} · Kam? ${item.direction}</span>`);
         marker.on('click', () => {
           renderCountryCard(item);
-          speakText(`Jsem ${item.gen}`);
+          speakText(`Pocházím ${item.gen}. Žiju ${item.place}.`);
         });
         mapMarkers.push({ code: item.code, marker: marker, data: item });
       });
@@ -542,7 +647,7 @@
     function generateRandomCountry() {
       const randomObj = REAL_MAP_DATA[Math.floor(Math.random() * REAL_MAP_DATA.length)];
       renderCountryCard(randomObj);
-      speakText(`Jsem ${randomObj.gen}`);
+      speakText(`Pocházím ${randomObj.gen}. Žiju ${randomObj.place}.`);
 
       if (leafletMap) {
         leafletMap.flyTo([randomObj.lat, randomObj.lng], 4, { duration: 1.2 });
@@ -559,7 +664,7 @@
             <span class="text-3xl sm:text-4xl">${item.flag}</span>
             <div>
               <h3 class="text-lg font-bold text-white">${item.name}</h3>
-              <p class="text-xs text-amber-400 font-mono">Genitiv (2. pád): ${item.gen}</p>
+              <p class="text-xs text-amber-300 font-mono">Odkud? (2. pád): ${item.gen}</p>
             </div>
           </div>
           <button onclick="speakText('Jsem ${item.gen}. Jsem ${item.m} a mluvím ${item.lang}.')" class="w-10 h-10 rounded-xl bg-sky-500/20 hover:bg-sky-500/40 text-sky-400 border border-sky-500/30 transition flex items-center justify-center">
@@ -567,7 +672,7 @@
           </button>
         </div>
 
-        <div class="grid grid-cols-1 sm:grid-cols-3 gap-3 text-xs pt-2">
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 text-xs pt-2">
           <div class="bg-slate-950 p-3 rounded-xl border border-slate-800">
             <span class="text-slate-400 block text-[10px] uppercase font-bold">Obyvatel (Muž)</span>
             <span class="text-white font-bold text-sm">${item.m}</span>
@@ -580,11 +685,23 @@
             <span class="text-slate-400 block text-[10px] uppercase font-bold">Jazyk</span>
             <span class="text-sky-300 font-bold text-sm">${item.lang}</span>
           </div>
+          <div class="bg-slate-950 p-3 rounded-xl border border-slate-800">
+            <span class="text-slate-400 block text-[10px] uppercase font-bold">Kde? (6. pád)</span>
+            <span class="text-white font-bold text-sm">${item.place}</span>
+          </div>
+          <div class="bg-slate-950 p-3 rounded-xl border border-slate-800">
+            <span class="text-slate-400 block text-[10px] uppercase font-bold">Kam? (4. pád)</span>
+            <span class="text-white font-bold text-sm">${item.direction}</span>
+          </div>
+          ${item.plural ? `<div class="bg-slate-950 p-3 rounded-xl border border-slate-800">
+            <span class="text-slate-400 block text-[10px] uppercase font-bold">Množné číslo</span>
+            <span class="text-white font-bold text-sm">${item.plural}</span>
+          </div>` : ""}
         </div>
 
         <div class="bg-slate-950/80 p-4 rounded-xl border border-slate-800 text-xs text-slate-200 leading-relaxed font-mono">
-          <strong class="text-emerald-400">Modelová věta pro studenta:</strong><br>
-          „Jsem <strong>${item.gen}</strong>, jsem <strong>${item.m} / ${item.f}</strong> a mluvím <strong>${item.lang}</strong>.“
+          <strong class="text-emerald-400">Modelová věta:</strong><br>
+          „Pocházím <strong>${item.gen}</strong>. Jsem <strong>${item.m}</strong> / <strong>${item.f}</strong> a mluvím <strong>${item.lang}</strong>. Žiju <strong>${item.place}</strong> a příští rok pojedu <strong>${item.direction}</strong>.“
         </div>
       `;
     }
@@ -711,53 +828,129 @@
       document.getElementById('exAScoreText').innerText = `0 / ${DRILLS_EX_A.length} Správně`;
     }
 
-    /* EXERCISE B SCENARIOS */
+    /* EXERCISE B: PROGRESSIVE SENTENCE BUILDER */
+    const exBState = {};
+
+    function normalizeExBAnswer(value) {
+      return value.trim().toLocaleLowerCase('cs-CZ').normalize('NFD')
+        .replace(/[\u0300-\u036f]/g, '').replace(/[.!?]+$/g, '').replace(/\s+/g, ' ');
+    }
+
     function renderExerciseB() {
       const grid = document.getElementById('exBGrid');
       grid.innerHTML = SCENARIOS_EX_B.map((item, idx) => `
-        <div class="glass-card rounded-2xl p-6 border border-slate-800 space-y-4">
-          <div class="flex items-center justify-between gap-2">
-            <h3 class="font-bold text-white text-lg sm:text-xl leading-snug">${item.q}</h3>
-            <button onclick="speakText('${item.b1.replace(/'/g, "\\'")}')" class="w-10 h-10 rounded-xl bg-slate-800 hover:bg-sky-600/30 text-slate-300 hover:text-sky-300 border border-slate-700 transition flex items-center justify-center flex-shrink-0">
-              <i class="fa-solid fa-volume-high text-base"></i>
-            </button>
+        <article class="glass-card rounded-2xl p-5 sm:p-6 border border-slate-800 space-y-4" id="exB_card_${idx}">
+          <div>
+            <h3 class="font-bold text-white text-lg leading-snug">${item.q}</h3>
+            <p class="mt-2 rounded-lg border border-rose-900/40 bg-rose-950/30 p-3 text-sm text-rose-200"><strong>A2:</strong> ${item.a2}</p>
           </div>
-
-          <div class="text-sm text-rose-300/90 bg-rose-950/40 p-3 rounded-xl border border-rose-900/40">
-            <strong>A2 Základ:</strong> "${item.a2}"
+          <div class="flex items-center gap-3">
+            <div class="h-2 flex-1 overflow-hidden rounded-full bg-slate-900"><div id="exB_bar_${idx}" class="h-full w-0 bg-sky-500 transition-all"></div></div>
+            <span id="exB_progress_${idx}" class="whitespace-nowrap text-xs font-bold text-sky-300"></span>
           </div>
-
-          <div class="text-xs sm:text-sm text-sky-300/90 font-mono bg-sky-950/30 p-3 rounded-xl border border-sky-900/40">
-            <i class="fa-solid fa-sitemap mr-1.5"></i> <strong>Struktura věty:</strong> ${item.structure}
+          <div>
+            <p class="mb-2 text-xs font-bold uppercase tracking-wide text-slate-400">Postupně postavená věta</p>
+            <div id="exB_done_${idx}" class="flex min-h-9 flex-wrap gap-2" aria-live="polite"></div>
           </div>
-
-          <button onclick="toggleExBBlocks(${idx})" class="text-xs font-semibold text-amber-400 hover:text-amber-300 flex items-center gap-1.5 py-1">
-            <i class="fa-solid fa-lightbulb"></i> 💡 Ukázat / skrýt nápovědu (Slovíčka)
-          </button>
-
-          <div id="exB_blocks_${idx}" class="hidden text-xs text-amber-300/90 font-medium bg-amber-950/40 p-3 rounded-xl border border-amber-900/40">
-            <i class="fa-solid fa-cubes mr-1.5"></i> <strong>Slovní zásoba:</strong> ${item.blocks}
+          <div class="rounded-xl border border-sky-900/50 bg-sky-950/20 p-4">
+            <p id="exB_step_label_${idx}" class="text-xs font-bold text-sky-300"></p>
+            <p id="exB_prompt_${idx}" class="mt-2 text-sm text-white"></p>
+            <label class="sr-only" for="exB_input_${idx}">Vaše odpověď</label>
+            <input id="exB_input_${idx}" type="text" autocomplete="off" class="mt-3 w-full rounded-lg border border-slate-700 bg-slate-950 p-3 text-sm text-white focus:border-sky-500 focus:outline-none" placeholder="Doplňte chybějící slovo nebo tvar…">
+            <p id="exB_feedback_${idx}" class="mt-2 text-sm text-slate-300" aria-live="polite">Napište pouze chybějící část věty.</p>
+            <p id="exB_hint_${idx}" class="mt-2 hidden rounded-lg border border-amber-900/50 bg-amber-950/40 p-3 text-sm text-amber-200"></p>
+            <div class="mt-3 flex flex-wrap gap-2">
+              <button type="button" onclick="checkExBStep(${idx})" class="exB-action rounded-lg bg-sky-600 px-4 py-2 text-sm font-bold text-white hover:bg-sky-500">Zkontrolovat</button>
+              <button type="button" onclick="hintExBStep(${idx})" class="exB-action rounded-lg border border-amber-800 bg-amber-950/60 px-4 py-2 text-sm font-semibold text-amber-200 hover:bg-amber-900/70">Nápověda</button>
+              <button type="button" onclick="revealExBStep(${idx})" class="exB-action rounded-lg border border-slate-700 bg-slate-800 px-4 py-2 text-sm text-slate-200 hover:bg-slate-700">Ukázat odpověď</button>
+            </div>
           </div>
-
-          <textarea id="exB_user_${idx}" rows="2" placeholder="Napište B1 větu..." class="w-full bg-slate-900 border border-slate-700 rounded-xl p-3 text-sm text-slate-100 focus:outline-none focus:border-sky-500 font-mono"></textarea>
-
-          <button onclick="toggleExBModel(${idx})" class="text-xs font-semibold text-sky-400 hover:text-sky-300 flex items-center gap-1.5 py-1">
-            <i class="fa-solid fa-eye"></i> Ukázat vzorovou B1 větu
-          </button>
-
-          <div id="exB_model_${idx}" class="hidden text-sm text-emerald-300 bg-emerald-950/50 p-3 rounded-xl border border-emerald-800/50 font-mono">
-            <strong>Vzorová B1 věta:</strong> "${item.b1}"
+          <div id="exB_model_${idx}" class="hidden rounded-xl border border-emerald-800/50 bg-emerald-950/40 p-4 text-sm text-emerald-200">
+            <strong>Hotová věta B1:</strong> ${item.b1}
+            <button type="button" onclick="speakText(SCENARIOS_EX_B[${idx}].b1)" aria-label="Přehrát vzorovou větu" class="ml-2 rounded-lg bg-emerald-900/70 px-2 py-1 text-emerald-100"><i class="fa-solid fa-volume-high"></i></button>
           </div>
-        </div>
-      `).join('');
+          <button type="button" id="exB_restart_${idx}" onclick="resetExBCard(${idx})" class="hidden text-sm font-semibold text-sky-300 underline">Procvičit znovu</button>
+        </article>`).join('');
+
+      SCENARIOS_EX_B.forEach((_, idx) => {
+        exBState[idx] = { step: 0, done: [] };
+        document.getElementById(`exB_input_${idx}`).addEventListener('keydown', event => {
+          if (event.key === 'Enter') checkExBStep(idx);
+        });
+        updateExBCard(idx);
+      });
     }
 
-    function toggleExBBlocks(idx) {
-      document.getElementById(`exB_blocks_${idx}`).classList.toggle('hidden');
+    function updateExBCard(idx) {
+      const item = SCENARIOS_EX_B[idx];
+      const state = exBState[idx];
+      const finished = state.step >= item.steps.length;
+      const step = item.steps[Math.min(state.step, item.steps.length - 1)];
+      document.getElementById(`exB_progress_${idx}`).textContent = finished
+        ? `Hotovo: ${item.steps.length} z ${item.steps.length}`
+        : `Krok ${state.step + 1} z ${item.steps.length}`;
+      document.getElementById(`exB_bar_${idx}`).style.width = `${finished ? 100 : state.step / item.steps.length * 100}%`;
+      document.getElementById(`exB_done_${idx}`).innerHTML = state.done
+        .map(part => `<span class="rounded-md border border-emerald-800 bg-emerald-950/60 px-2 py-1 text-sm text-emerald-200">${part}</span>`).join('');
+      document.getElementById(`exB_step_label_${idx}`).textContent = finished ? 'Výborně! Věta je hotová.' : step.label;
+      document.getElementById(`exB_prompt_${idx}`).textContent = finished ? 'Všechny kroky jsou splněné.' : step.prompt;
+      const input = document.getElementById(`exB_input_${idx}`);
+      input.value = '';
+      input.disabled = finished;
+      input.classList.toggle('hidden', finished);
+      document.getElementById(`exB_feedback_${idx}`).textContent = finished
+        ? 'Přečtěte si celou větu nebo si poslechněte její výslovnost.'
+        : 'Napište pouze chybějící část věty.';
+      document.getElementById(`exB_hint_${idx}`).classList.add('hidden');
+      document.querySelectorAll(`#exB_card_${idx} .exB-action`).forEach(button => button.classList.toggle('hidden', finished));
+      document.getElementById(`exB_model_${idx}`).classList.toggle('hidden', !finished);
+      document.getElementById(`exB_restart_${idx}`).classList.toggle('hidden', !finished);
     }
 
-    function toggleExBModel(idx) {
-      document.getElementById(`exB_model_${idx}`).classList.toggle('hidden');
+    function checkExBStep(idx) {
+      const item = SCENARIOS_EX_B[idx];
+      const state = exBState[idx];
+      const step = item.steps[state.step];
+      if (!step) return;
+
+      const answer = normalizeExBAnswer(document.getElementById(`exB_input_${idx}`).value);
+      const accepted = step.answers.map(normalizeExBAnswer);
+      const feedback = document.getElementById(`exB_feedback_${idx}`);
+      if (accepted.includes(answer)) {
+        state.done.push(step.show);
+        state.step++;
+        updateExBCard(idx);
+      } else if (!answer) {
+        feedback.textContent = 'Napište odpověď, nebo si zobrazte nápovědu.';
+        feedback.className = 'mt-2 text-sm text-amber-200';
+      } else if (step.caseWord && answer === normalizeExBAnswer(step.caseWord)) {
+        feedback.textContent = `„${step.caseWord}“ je 1. pád. Zkontrolujte otázku a změňte slovo do požadovaného pádu.`;
+        feedback.className = 'mt-2 text-sm text-amber-200';
+      } else {
+        feedback.textContent = 'Zatím to nesedí. Zkontrolujte předložku nebo koncovku a zkuste to znovu.';
+        feedback.className = 'mt-2 text-sm text-rose-200';
+      }
+    }
+
+    function hintExBStep(idx) {
+      const step = SCENARIOS_EX_B[idx].steps[exBState[idx].step];
+      if (!step) return;
+      const hint = document.getElementById(`exB_hint_${idx}`);
+      hint.textContent = step.hint;
+      hint.classList.remove('hidden');
+    }
+
+    function revealExBStep(idx) {
+      const step = SCENARIOS_EX_B[idx].steps[exBState[idx].step];
+      if (!step) return;
+      exBState[idx].done.push(step.show);
+      exBState[idx].step++;
+      updateExBCard(idx);
+    }
+
+    function resetExBCard(idx) {
+      exBState[idx] = { step: 0, done: [] };
+      updateExBCard(idx);
     }
 
     /* TEACHER LIVE NOTES SYNC & HOMEWORK */
@@ -783,22 +976,26 @@ ${notes}
 
 ==================================================
 2. PŘEHLED ZEMÍ A 2. PÁDU (GENITIV):
-- Česká republika -> z České republiky
-- Německo -> z Německa
-- Rakousko -> z Rakouska
-- Francie -> z Francie
-- Itálie -> z Itálie
-- Španělsko -> ze Španělska
-- Praha -> z Prahy
-- Brno -> z Brna
-- Vídeň -> z Vídně
-- Paříž -> z Paříže
-- Berlín -> z Berlína
+- Česká republika / Česko -> z České republiky / z Česka
+- Čech / Češka; množné číslo: Češi / Češky
+- Čechy jsou historická část Česka: v Čechách / z Čech
+- Slovensko -> ze Slovenska; na Slovensku (kde?) / na Slovensko (kam?)
+- Ukrajina -> z Ukrajiny; na Ukrajině (kde?) / na Ukrajinu (kam?)
+- Malta -> z Malty; na Maltě (kde?) / na Maltu (kam?)
+- Austrálie -> z Austrálie; v Austrálii (kde?) / do Austrálie (kam?)
+- Spojené státy americké (USA) -> ze Spojených států / z USA
+- Amerika je světadíl; USA jsou stát.
+- Města a většina zemí: kde? v Praze / v Německu; kam? do Prahy / do Německa; odkud? z Prahy / z Německa.
+- „Na“ také používáme v ustálených spojeních: na ostrově, na náměstí, na Praze 5, na poště, na koncertě.
 
 ==================================================
-3. DOMÁCÍ ÚKOL FOR STUDENT:
-Procvičujte tvoření 2. pádu zemí na externím generátoru: https://random.country/
-Napište 5 vět o původu svých známých nebo plánovaných cestách do zahraničí.`;
+3. DOMÁCÍ ÚKOL PRO STUDENTA:
+Procvičujte tvoření 2. pádu zemí. Napište 5 vět o původu svých známých nebo plánovaných cestách do zahraničí. Použijte alespoň jednu větu s „odkud?“, jednu s „kde?“ a jednu se „kam?“.
+
+Přehledný příklad:
+Odkud? Pocházím ze Slovenska. (2. pád)
+Kde? Bydlím na Slovensku. (6. pád)
+Kam? Pojedu na Slovensko. (4. pád)`;
 
       const hwElem = document.getElementById('homeworkTextarea');
       if (hwElem) hwElem.value = pack;

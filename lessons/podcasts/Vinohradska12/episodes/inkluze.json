@@ -1,0 +1,1780 @@
+{
+  "title": "Že je inkluze brzdou? Na to nemáme data, tvrdí expertka",
+  "description": "Práce s textem – úrovně B1, B2, C1",
+  "audioUrl": "",
+  "episodeUrl": "https://www.irozhlas.cz/zivotni-styl/spolecnost/ze-je-inkluze-brzdou-na-nemame-data-tvrdi-specialni-pedagozka-napady-motoristu_2610230600_cen",
+  "levels": {
+    "B1": {
+      "vocabulary": [
+        {
+          "czech": "inkluze",
+          "english": "inclusion"
+        },
+        {
+          "czech": "asistent pedagoga",
+          "english": "teaching assistant"
+        },
+        {
+          "czech": "podpůrné opatření",
+          "english": "support measure"
+        },
+        {
+          "czech": "poradna",
+          "english": "counselling centre"
+        },
+        {
+          "czech": "postižení",
+          "english": "disability"
+        },
+        {
+          "czech": "segregace",
+          "english": "segregation"
+        },
+        {
+          "czech": "kapacita",
+          "english": "capacity"
+        },
+        {
+          "czech": "reedukace",
+          "english": "re-education / remediation"
+        }
+      ],
+      "exercises": [
+        {
+          "title": "Cvičení 1 – Slovní zásoba",
+          "type": "standard",
+          "instructions": "Spojte výraz s významem.",
+          "optionsList": [],
+          "items": [
+            {
+              "section_title": "",
+              "prompt": "inkluze",
+              "type": "single",
+              "is_multiselect": false,
+              "options": [
+                "Proces, při kterém se člověk znovu učí nebo procvičuje oslabené schopnosti.",
+                "Možnost určitého zařízení přijmout další lidi nebo poskytovat služby.",
+                "Oddělování určité skupiny lidí od ostatních.",
+                "Člověk, který pomáhá učiteli při práci se žáky.",
+                "Zahrnování lidí s různými potřebami do společného prostředí.",
+                "Obtíž nebo zdravotní problém, který člověka omezuje.",
+                "Pomoc nebo úprava, která má člověku usnadnit určitou činnost.",
+                "Zařízení, kde odborníci poskytují rady a doporučení."
+              ]
+            },
+            {
+              "section_title": "",
+              "prompt": "asistent pedagoga",
+              "type": "single",
+              "is_multiselect": false,
+              "options": [
+                "Proces, při kterém se člověk znovu učí nebo procvičuje oslabené schopnosti.",
+                "Možnost určitého zařízení přijmout další lidi nebo poskytovat služby.",
+                "Oddělování určité skupiny lidí od ostatních.",
+                "Člověk, který pomáhá učiteli při práci se žáky.",
+                "Zahrnování lidí s různými potřebami do společného prostředí.",
+                "Obtíž nebo zdravotní problém, který člověka omezuje.",
+                "Pomoc nebo úprava, která má člověku usnadnit určitou činnost.",
+                "Zařízení, kde odborníci poskytují rady a doporučení."
+              ]
+            },
+            {
+              "section_title": "",
+              "prompt": "podpůrné opatření",
+              "type": "single",
+              "is_multiselect": false,
+              "options": [
+                "Proces, při kterém se člověk znovu učí nebo procvičuje oslabené schopnosti.",
+                "Možnost určitého zařízení přijmout další lidi nebo poskytovat služby.",
+                "Oddělování určité skupiny lidí od ostatních.",
+                "Člověk, který pomáhá učiteli při práci se žáky.",
+                "Zahrnování lidí s různými potřebami do společného prostředí.",
+                "Obtíž nebo zdravotní problém, který člověka omezuje.",
+                "Pomoc nebo úprava, která má člověku usnadnit určitou činnost.",
+                "Zařízení, kde odborníci poskytují rady a doporučení."
+              ]
+            },
+            {
+              "section_title": "",
+              "prompt": "poradna",
+              "type": "single",
+              "is_multiselect": false,
+              "options": [
+                "Proces, při kterém se člověk znovu učí nebo procvičuje oslabené schopnosti.",
+                "Možnost určitého zařízení přijmout další lidi nebo poskytovat služby.",
+                "Oddělování určité skupiny lidí od ostatních.",
+                "Člověk, který pomáhá učiteli při práci se žáky.",
+                "Zahrnování lidí s různými potřebami do společného prostředí.",
+                "Obtíž nebo zdravotní problém, který člověka omezuje.",
+                "Pomoc nebo úprava, která má člověku usnadnit určitou činnost.",
+                "Zařízení, kde odborníci poskytují rady a doporučení."
+              ]
+            },
+            {
+              "section_title": "",
+              "prompt": "postižení",
+              "type": "single",
+              "is_multiselect": false,
+              "options": [
+                "Proces, při kterém se člověk znovu učí nebo procvičuje oslabené schopnosti.",
+                "Možnost určitého zařízení přijmout další lidi nebo poskytovat služby.",
+                "Oddělování určité skupiny lidí od ostatních.",
+                "Člověk, který pomáhá učiteli při práci se žáky.",
+                "Zahrnování lidí s různými potřebami do společného prostředí.",
+                "Obtíž nebo zdravotní problém, který člověka omezuje.",
+                "Pomoc nebo úprava, která má člověku usnadnit určitou činnost.",
+                "Zařízení, kde odborníci poskytují rady a doporučení."
+              ]
+            },
+            {
+              "section_title": "",
+              "prompt": "segregace",
+              "type": "single",
+              "is_multiselect": false,
+              "options": [
+                "Proces, při kterém se člověk znovu učí nebo procvičuje oslabené schopnosti.",
+                "Možnost určitého zařízení přijmout další lidi nebo poskytovat služby.",
+                "Oddělování určité skupiny lidí od ostatních.",
+                "Člověk, který pomáhá učiteli při práci se žáky.",
+                "Zahrnování lidí s různými potřebami do společného prostředí.",
+                "Obtíž nebo zdravotní problém, který člověka omezuje.",
+                "Pomoc nebo úprava, která má člověku usnadnit určitou činnost.",
+                "Zařízení, kde odborníci poskytují rady a doporučení."
+              ]
+            },
+            {
+              "section_title": "",
+              "prompt": "kapacita",
+              "type": "single",
+              "is_multiselect": false,
+              "options": [
+                "Proces, při kterém se člověk znovu učí nebo procvičuje oslabené schopnosti.",
+                "Možnost určitého zařízení přijmout další lidi nebo poskytovat služby.",
+                "Oddělování určité skupiny lidí od ostatních.",
+                "Člověk, který pomáhá učiteli při práci se žáky.",
+                "Zahrnování lidí s různými potřebami do společného prostředí.",
+                "Obtíž nebo zdravotní problém, který člověka omezuje.",
+                "Pomoc nebo úprava, která má člověku usnadnit určitou činnost.",
+                "Zařízení, kde odborníci poskytují rady a doporučení."
+              ]
+            },
+            {
+              "section_title": "",
+              "prompt": "reedukace",
+              "type": "single",
+              "is_multiselect": false,
+              "options": [
+                "Proces, při kterém se člověk znovu učí nebo procvičuje oslabené schopnosti.",
+                "Možnost určitého zařízení přijmout další lidi nebo poskytovat služby.",
+                "Oddělování určité skupiny lidí od ostatních.",
+                "Člověk, který pomáhá učiteli při práci se žáky.",
+                "Zahrnování lidí s různými potřebami do společného prostředí.",
+                "Obtíž nebo zdravotní problém, který člověka omezuje.",
+                "Pomoc nebo úprava, která má člověku usnadnit určitou činnost.",
+                "Zařízení, kde odborníci poskytují rady a doporučení."
+              ]
+            }
+          ],
+          "matchingItems": [],
+          "matchingOptions": [],
+          "matchingSection": ""
+        },
+        {
+          "title": "Cvičení 2 – Doplň do věty",
+          "type": "standard",
+          "instructions": "Doplňte vhodné slovo.\nSlova: asistent, diagnostikovat, financování, inkluze, kapacita, doporučení, rodič, spolupráce",
+          "optionsList": [
+            "asistent",
+            "diagnostikovat",
+            "financování",
+            "inkluze",
+            "kapacita",
+            "doporučení",
+            "rodič",
+            "spolupráce"
+          ],
+          "items": [
+            {
+              "section_title": "",
+              "prompt": "V roce 2016 se změnila pravidla pro vzdělávání dětí v běžných školách a rozvíjela se ______.",
+              "type": "single",
+              "is_multiselect": false,
+              "options": []
+            },
+            {
+              "section_title": "",
+              "prompt": "Poradenské zařízení může dítěti ______ speciální vzdělávací potřeby.",
+              "type": "single",
+              "is_multiselect": false,
+              "options": []
+            },
+            {
+              "section_title": "",
+              "prompt": "Ředitel školy dostane od poradenského zařízení ______, podle kterého nastaví potřebnou podporu.",
+              "type": "single",
+              "is_multiselect": false,
+              "options": []
+            },
+            {
+              "section_title": "",
+              "prompt": "Ve třídě často pracuje učitel společně s ______ pedagoga.",
+              "type": "single",
+              "is_multiselect": false,
+              "options": []
+            },
+            {
+              "section_title": "",
+              "prompt": "V minulosti nebyla jasně stanovena pravidla pro ______ podpůrných opatření.",
+              "type": "single",
+              "is_multiselect": false,
+              "options": []
+            },
+            {
+              "section_title": "",
+              "prompt": "Při práci s dítětem je důležitá ______ mezi učitelem a asistentem.",
+              "type": "single",
+              "is_multiselect": false,
+              "options": []
+            },
+            {
+              "section_title": "",
+              "prompt": "Pokud dítě potřebovalo vyšetření, škola o tom informovala jeho ______.",
+              "type": "single",
+              "is_multiselect": false,
+              "options": []
+            },
+            {
+              "section_title": "",
+              "prompt": "Rodiče někdy nemohli najít školu, protože speciální zařízení nemělo dostatečnou ______.",
+              "type": "single",
+              "is_multiselect": false,
+              "options": []
+            }
+          ],
+          "matchingItems": [],
+          "matchingOptions": [],
+          "matchingSection": ""
+        },
+        {
+          "title": "Cvičení 3 – Gramatika",
+          "type": "standard",
+          "instructions": "Doplňte správný tvar slovesa v podmiňovacím způsobu.",
+          "optionsList": [],
+          "items": [
+            {
+              "section_title": "",
+              "prompt": "Kdyby školy měly více speciálních pedagogů, ______ (pomáhat) dětem účinněji.",
+              "type": "single",
+              "is_multiselect": false,
+              "options": []
+            },
+            {
+              "section_title": "",
+              "prompt": "Kdyby rodiče souhlasili s vyšetřením, poradenské zařízení ______ (posoudit) potřeby dítěte.",
+              "type": "single",
+              "is_multiselect": false,
+              "options": []
+            },
+            {
+              "section_title": "",
+              "prompt": "Kdyby učitelé dostali větší podporu, ______ (zvládat) náročné situace lépe.",
+              "type": "single",
+              "is_multiselect": false,
+              "options": []
+            },
+            {
+              "section_title": "",
+              "prompt": "Kdybychom měli více speciálních škol, ______ (umístit) bychom do nich některé děti s těžkým postižením.",
+              "type": "single",
+              "is_multiselect": false,
+              "options": []
+            },
+            {
+              "section_title": "",
+              "prompt": "Kdyby ředitel věděl o problémech dítěte, ______ (kontaktovat) rodiče.",
+              "type": "single",
+              "is_multiselect": false,
+              "options": []
+            },
+            {
+              "section_title": "",
+              "prompt": "Kdyby poradny měly dostatečnou kapacitu, ______ (vyšetřit) více dětí.",
+              "type": "single",
+              "is_multiselect": false,
+              "options": []
+            },
+            {
+              "section_title": "",
+              "prompt": "Kdyby stát zajistil více peněz, školy ______ (moci) zaměstnat další odborníky.",
+              "type": "single",
+              "is_multiselect": false,
+              "options": []
+            },
+            {
+              "section_title": "",
+              "prompt": "Kdyby se rodiče a učitelé lépe domluvili, ______ (najít) společné řešení.",
+              "type": "single",
+              "is_multiselect": false,
+              "options": []
+            }
+          ],
+          "matchingItems": [],
+          "matchingOptions": [],
+          "matchingSection": ""
+        },
+        {
+          "title": "Cvičení 4 – Slovní zásoba a předložky",
+          "type": "standard",
+          "instructions": "Doplňte správnou předložku nebo výraz. Pokud je výraz bez předložky, nechte políčko prázdné.\nSlova: do, mezi, na, od, podle, pro, s, bez předložky",
+          "optionsList": [
+            "do",
+            "mezi",
+            "na",
+            "od",
+            "podle",
+            "pro",
+            "s",
+            "bez předložky"
+          ],
+          "items": [
+            {
+              "section_title": "",
+              "prompt": "Novela školského zákona přinesla změny ______ vzdělávání dětí.",
+              "type": "single",
+              "is_multiselect": false,
+              "options": []
+            },
+            {
+              "section_title": "",
+              "prompt": "Asistent pedagoga často pracuje ______ několika žáky.",
+              "type": "single",
+              "is_multiselect": false,
+              "options": []
+            },
+            {
+              "section_title": "",
+              "prompt": "Školy dostávají prostředky ______ podporu žáků.",
+              "type": "single",
+              "is_multiselect": false,
+              "options": []
+            },
+            {
+              "section_title": "",
+              "prompt": "Ředitel postupuje ______ doporučení poradenského zařízení.",
+              "type": "single",
+              "is_multiselect": false,
+              "options": []
+            },
+            {
+              "section_title": "",
+              "prompt": "Rodiče někdy žádají ______ vyšetření svého dítěte.",
+              "type": "single",
+              "is_multiselect": false,
+              "options": []
+            },
+            {
+              "section_title": "",
+              "prompt": "Učitelé spolupracují ______ asistenty pedagoga.",
+              "type": "single",
+              "is_multiselect": false,
+              "options": []
+            },
+            {
+              "section_title": "",
+              "prompt": "Některé děti potřebují pomoc ______ speciálního pedagoga.",
+              "type": "single",
+              "is_multiselect": false,
+              "options": []
+            },
+            {
+              "section_title": "",
+              "prompt": "Děti ______ zdravotního postižení mají také právo na vzdělávání v běžných školách.",
+              "type": "single",
+              "is_multiselect": false,
+              "options": []
+            }
+          ],
+          "matchingItems": [],
+          "matchingOptions": [],
+          "matchingSection": ""
+        },
+        {
+          "title": "Cvičení 5 – Práce s textem",
+          "type": "standard",
+          "instructions": "",
+          "optionsList": [],
+          "items": [
+            {
+              "section_title": "A. Ano – Ne",
+              "prompt": "Inkluzivní novela školského zákona přišla v roce 2016.",
+              "type": "single",
+              "is_multiselect": false,
+              "options": []
+            },
+            {
+              "section_title": "A. Ano – Ne",
+              "prompt": "Každé dítě se speciálními vzdělávacími potřebami má vlastního asistenta.",
+              "type": "single",
+              "is_multiselect": false,
+              "options": []
+            },
+            {
+              "section_title": "A. Ano – Ne",
+              "prompt": "Nový systém má změnit způsob financování asistentů pedagoga.",
+              "type": "single",
+              "is_multiselect": false,
+              "options": []
+            },
+            {
+              "section_title": "A. Ano – Ne",
+              "prompt": "Poradenská zařízení mohou doporučit také speciálněpedagogickou péči.",
+              "type": "single",
+              "is_multiselect": false,
+              "options": []
+            },
+            {
+              "section_title": "A. Ano – Ne",
+              "prompt": "Lenka Felcmanová podporuje úplné zrušení inkluze.",
+              "type": "single",
+              "is_multiselect": false,
+              "options": []
+            },
+            {
+              "section_title": "A. Ano – Ne",
+              "prompt": "Speciální školy mají v současnosti dostatek volných míst pro všechny děti.",
+              "type": "single",
+              "is_multiselect": false,
+              "options": []
+            },
+            {
+              "section_title": "A. Ano – Ne",
+              "prompt": "Některé děti s dyslexií mají obtíže diagnostikované až během školního roku.",
+              "type": "single",
+              "is_multiselect": false,
+              "options": []
+            },
+            {
+              "section_title": "A. Ano – Ne",
+              "prompt": "Expertka tvrdí, že inkluze prokazatelně zhoršuje výsledky ostatních žáků.",
+              "type": "single",
+              "is_multiselect": false,
+              "options": []
+            },
+            {
+              "section_title": "B. Vyberte nejpřesnější odpověď",
+              "prompt": "Kolik žáků se speciálními vzdělávacími potřebami má podle rozhovoru asistenta pedagoga?",
+              "type": "single",
+              "is_multiselect": false,
+              "options": [
+                "Přibližně 18 tisíc.",
+                "Přibližně 33 tisíc.",
+                "Přibližně 45 tisíc.",
+                "Přibližně 160 tisíc."
+              ]
+            },
+            {
+              "section_title": "B. Vyberte nejpřesnější odpověď",
+              "prompt": "Co má být jedním z přínosů profesionalizace asistentů pedagoga?",
+              "type": "single",
+              "is_multiselect": false,
+              "options": [
+                "Pravidelná metodická podpora.",
+                "Omezení počtu žáků ve třídách.",
+                "Převzetí práce speciálních pedagogů.",
+                "Zrušení poradenských zařízení."
+              ]
+            },
+            {
+              "section_title": "B. Vyberte nejpřesnější odpověď",
+              "prompt": "Co se změnilo v návrhu týkajícím se spádových poraden?",
+              "type": "single",
+              "is_multiselect": false,
+              "options": [
+                "Rodiče si mohou vybrat pouze soukromé poradny.",
+                "Rodiče musí nejprve požádat ředitele o povolení.",
+                "Rodiče mají přednostní přijetí ve své spádové oblasti.",
+                "Rodiče už nemohou využívat poradenské služby."
+              ]
+            },
+            {
+              "section_title": "B. Vyberte nejpřesnější odpověď",
+              "prompt": "Jaké řešení pro děti s poruchami učení expertka představuje jako efektivní?",
+              "type": "single",
+              "is_multiselect": false,
+              "options": [
+                "Úplné převedení do speciálních škol.",
+                "Vyloučení z běžné výuky.",
+                "Omezení počtu dětí s diagnózou ve škole.",
+                "Flexibilní třídy s intenzivnější odbornou péčí."
+              ]
+            }
+          ],
+          "matchingItems": [],
+          "matchingOptions": [],
+          "matchingSection": ""
+        }
+      ]
+    },
+    "B2": {
+      "vocabulary": [
+        {
+          "czech": "parametrizace",
+          "english": "parametrization"
+        },
+        {
+          "czech": "paušální financování",
+          "english": "flat-rate funding"
+        },
+        {
+          "czech": "spádovost",
+          "english": "catchment-area system"
+        },
+        {
+          "czech": "diskriminace",
+          "english": "discrimination"
+        },
+        {
+          "czech": "legislativa",
+          "english": "legislation"
+        },
+        {
+          "czech": "anamnéza",
+          "english": "medical / family history"
+        },
+        {
+          "czech": "koheze",
+          "english": "cohesion"
+        },
+        {
+          "czech": "intervence",
+          "english": "intervention"
+        }
+      ],
+      "exercises": [
+        {
+          "title": "Cvičení 1 – Slovní zásoba",
+          "type": "standard",
+          "instructions": "Spojte výraz s významem.",
+          "optionsList": [],
+          "items": [
+            {
+              "section_title": "",
+              "prompt": "parametrizace",
+              "type": "single",
+              "is_multiselect": false,
+              "options": [
+                "Soubor právních pravidel a zákonů platných v určité oblasti.",
+                "Zjišťování a zaznamenávání informací o předchozím vývoji a zdravotní či rodinné historii člověka.",
+                "Situace, kdy je určitá služba nebo instituce určena podle místa bydliště.",
+                "Způsob rozdělování peněz na základě předem stanoveného principu, nikoli podle jednotlivých případů.",
+                "Vztahy a soudržnost mezi členy určité společnosti.",
+                "Proces, při kterém se určují konkrétní parametry a pravidla fungování systému.",
+                "Nerovné zacházení s člověkem kvůli určité vlastnosti nebo příslušnosti ke skupině.",
+                "Cílený odborný zásah, jehož účelem je ovlivnit nebo zlepšit určitou situaci."
+              ]
+            },
+            {
+              "section_title": "",
+              "prompt": "paušální financování",
+              "type": "single",
+              "is_multiselect": false,
+              "options": [
+                "Soubor právních pravidel a zákonů platných v určité oblasti.",
+                "Zjišťování a zaznamenávání informací o předchozím vývoji a zdravotní či rodinné historii člověka.",
+                "Situace, kdy je určitá služba nebo instituce určena podle místa bydliště.",
+                "Způsob rozdělování peněz na základě předem stanoveného principu, nikoli podle jednotlivých případů.",
+                "Vztahy a soudržnost mezi členy určité společnosti.",
+                "Proces, při kterém se určují konkrétní parametry a pravidla fungování systému.",
+                "Nerovné zacházení s člověkem kvůli určité vlastnosti nebo příslušnosti ke skupině.",
+                "Cílený odborný zásah, jehož účelem je ovlivnit nebo zlepšit určitou situaci."
+              ]
+            },
+            {
+              "section_title": "",
+              "prompt": "spádovost",
+              "type": "single",
+              "is_multiselect": false,
+              "options": [
+                "Soubor právních pravidel a zákonů platných v určité oblasti.",
+                "Zjišťování a zaznamenávání informací o předchozím vývoji a zdravotní či rodinné historii člověka.",
+                "Situace, kdy je určitá služba nebo instituce určena podle místa bydliště.",
+                "Způsob rozdělování peněz na základě předem stanoveného principu, nikoli podle jednotlivých případů.",
+                "Vztahy a soudržnost mezi členy určité společnosti.",
+                "Proces, při kterém se určují konkrétní parametry a pravidla fungování systému.",
+                "Nerovné zacházení s člověkem kvůli určité vlastnosti nebo příslušnosti ke skupině.",
+                "Cílený odborný zásah, jehož účelem je ovlivnit nebo zlepšit určitou situaci."
+              ]
+            },
+            {
+              "section_title": "",
+              "prompt": "diskriminace",
+              "type": "single",
+              "is_multiselect": false,
+              "options": [
+                "Soubor právních pravidel a zákonů platných v určité oblasti.",
+                "Zjišťování a zaznamenávání informací o předchozím vývoji a zdravotní či rodinné historii člověka.",
+                "Situace, kdy je určitá služba nebo instituce určena podle místa bydliště.",
+                "Způsob rozdělování peněz na základě předem stanoveného principu, nikoli podle jednotlivých případů.",
+                "Vztahy a soudržnost mezi členy určité společnosti.",
+                "Proces, při kterém se určují konkrétní parametry a pravidla fungování systému.",
+                "Nerovné zacházení s člověkem kvůli určité vlastnosti nebo příslušnosti ke skupině.",
+                "Cílený odborný zásah, jehož účelem je ovlivnit nebo zlepšit určitou situaci."
+              ]
+            },
+            {
+              "section_title": "",
+              "prompt": "legislativa",
+              "type": "single",
+              "is_multiselect": false,
+              "options": [
+                "Soubor právních pravidel a zákonů platných v určité oblasti.",
+                "Zjišťování a zaznamenávání informací o předchozím vývoji a zdravotní či rodinné historii člověka.",
+                "Situace, kdy je určitá služba nebo instituce určena podle místa bydliště.",
+                "Způsob rozdělování peněz na základě předem stanoveného principu, nikoli podle jednotlivých případů.",
+                "Vztahy a soudržnost mezi členy určité společnosti.",
+                "Proces, při kterém se určují konkrétní parametry a pravidla fungování systému.",
+                "Nerovné zacházení s člověkem kvůli určité vlastnosti nebo příslušnosti ke skupině.",
+                "Cílený odborný zásah, jehož účelem je ovlivnit nebo zlepšit určitou situaci."
+              ]
+            },
+            {
+              "section_title": "",
+              "prompt": "anamnéza",
+              "type": "single",
+              "is_multiselect": false,
+              "options": [
+                "Soubor právních pravidel a zákonů platných v určité oblasti.",
+                "Zjišťování a zaznamenávání informací o předchozím vývoji a zdravotní či rodinné historii člověka.",
+                "Situace, kdy je určitá služba nebo instituce určena podle místa bydliště.",
+                "Způsob rozdělování peněz na základě předem stanoveného principu, nikoli podle jednotlivých případů.",
+                "Vztahy a soudržnost mezi členy určité společnosti.",
+                "Proces, při kterém se určují konkrétní parametry a pravidla fungování systému.",
+                "Nerovné zacházení s člověkem kvůli určité vlastnosti nebo příslušnosti ke skupině.",
+                "Cílený odborný zásah, jehož účelem je ovlivnit nebo zlepšit určitou situaci."
+              ]
+            },
+            {
+              "section_title": "",
+              "prompt": "kohezе",
+              "type": "single",
+              "is_multiselect": false,
+              "options": [
+                "Soubor právních pravidel a zákonů platných v určité oblasti.",
+                "Zjišťování a zaznamenávání informací o předchozím vývoji a zdravotní či rodinné historii člověka.",
+                "Situace, kdy je určitá služba nebo instituce určena podle místa bydliště.",
+                "Způsob rozdělování peněz na základě předem stanoveného principu, nikoli podle jednotlivých případů.",
+                "Vztahy a soudržnost mezi členy určité společnosti.",
+                "Proces, při kterém se určují konkrétní parametry a pravidla fungování systému.",
+                "Nerovné zacházení s člověkem kvůli určité vlastnosti nebo příslušnosti ke skupině.",
+                "Cílený odborný zásah, jehož účelem je ovlivnit nebo zlepšit určitou situaci."
+              ]
+            },
+            {
+              "section_title": "",
+              "prompt": "intervence",
+              "type": "single",
+              "is_multiselect": false,
+              "options": [
+                "Soubor právních pravidel a zákonů platných v určité oblasti.",
+                "Zjišťování a zaznamenávání informací o předchozím vývoji a zdravotní či rodinné historii člověka.",
+                "Situace, kdy je určitá služba nebo instituce určena podle místa bydliště.",
+                "Způsob rozdělování peněz na základě předem stanoveného principu, nikoli podle jednotlivých případů.",
+                "Vztahy a soudržnost mezi členy určité společnosti.",
+                "Proces, při kterém se určují konkrétní parametry a pravidla fungování systému.",
+                "Nerovné zacházení s člověkem kvůli určité vlastnosti nebo příslušnosti ke skupině.",
+                "Cílený odborný zásah, jehož účelem je ovlivnit nebo zlepšit určitou situaci."
+              ]
+            }
+          ],
+          "matchingItems": [],
+          "matchingOptions": [],
+          "matchingSection": ""
+        },
+        {
+          "title": "Cvičení 2 – Doplň do věty",
+          "type": "standard",
+          "instructions": "Doplňte vhodné slovo.\nSlova: aglomerace, anamnéza, byrokracie, diagnóza, důsledek, koeficient, novela, poradenský",
+          "optionsList": [
+            "aglomerace",
+            "anamnéza",
+            "byrokracie",
+            "diagnóza",
+            "důsledek",
+            "koeficient",
+            "novela",
+            "poradenský"
+          ],
+          "items": [
+            {
+              "section_title": "",
+              "prompt": "V některých velkých ______ rodiče obtížně hledají místo ve speciální škole.",
+              "type": "single",
+              "is_multiselect": false,
+              "options": []
+            },
+            {
+              "section_title": "",
+              "prompt": "Při přípravě podpory odborníci zohledňovali také rodinnou ______ dítěte.",
+              "type": "single",
+              "is_multiselect": false,
+              "options": []
+            },
+            {
+              "section_title": "",
+              "prompt": "Elektronizace měla ředitelům škol usnadnit administrativní práci a omezit ______.",
+              "type": "single",
+              "is_multiselect": false,
+              "options": []
+            },
+            {
+              "section_title": "",
+              "prompt": "U některých dětí se ______ poruchy učení objevila až během školního roku.",
+              "type": "single",
+              "is_multiselect": false,
+              "options": []
+            },
+            {
+              "section_title": "",
+              "prompt": "Nedostatek míst ve speciálních školách měl také negativní ______ pro běžné školy.",
+              "type": "single",
+              "is_multiselect": false,
+              "options": []
+            },
+            {
+              "section_title": "",
+              "prompt": "Nový systém financování počítal s využitím různých ______.",
+              "type": "single",
+              "is_multiselect": false,
+              "options": []
+            },
+            {
+              "section_title": "",
+              "prompt": "Vláda projednala a schválila ______ školského zákona.",
+              "type": "single",
+              "is_multiselect": false,
+              "options": []
+            },
+            {
+              "section_title": "",
+              "prompt": "Vydaný ______ výstup byl automaticky odesílán do školy.",
+              "type": "single",
+              "is_multiselect": false,
+              "options": []
+            }
+          ],
+          "matchingItems": [],
+          "matchingOptions": [],
+          "matchingSection": ""
+        },
+        {
+          "title": "Cvičení 3 – Gramatika",
+          "type": "standard",
+          "instructions": "Doplňte správný tvar slovesa v podmiňovacím způsobu.",
+          "optionsList": [],
+          "items": [
+            {
+              "section_title": "",
+              "prompt": "Kdyby stát stanovil jasná pravidla financování, školy ______ (plánovat) své výdaje přesněji.",
+              "type": "single",
+              "is_multiselect": false,
+              "options": []
+            },
+            {
+              "section_title": "",
+              "prompt": "Kdyby poradenská zařízení měla dostatek odborníků, ______ (zvládnout) vyšetření rychleji.",
+              "type": "single",
+              "is_multiselect": false,
+              "options": []
+            },
+            {
+              "section_title": "",
+              "prompt": "Kdyby rodiče dostali předem všechny potřebné informace, ______ (rozhodnout se) snadněji.",
+              "type": "single",
+              "is_multiselect": false,
+              "options": []
+            },
+            {
+              "section_title": "",
+              "prompt": "Kdyby speciální školy přijímaly více žáků, ______ (moci) rodiče najít vhodné místo pro své děti.",
+              "type": "single",
+              "is_multiselect": false,
+              "options": []
+            },
+            {
+              "section_title": "",
+              "prompt": "Kdyby se učitelé pravidelně vzdělávali, ______ (používat) účinnější metody výuky.",
+              "type": "single",
+              "is_multiselect": false,
+              "options": []
+            },
+            {
+              "section_title": "",
+              "prompt": "Kdyby vláda zvýšila podporu škol, ředitelé ______ (mít) více možností při organizaci výuky.",
+              "type": "single",
+              "is_multiselect": false,
+              "options": []
+            },
+            {
+              "section_title": "",
+              "prompt": "Kdyby se dítěti diagnostikovaly obtíže dříve, odborníci ______ (nastavit) podporu včas.",
+              "type": "single",
+              "is_multiselect": false,
+              "options": []
+            },
+            {
+              "section_title": "",
+              "prompt": "Kdyby se rodiče nemuseli obracet na několik poraden, ______ (ušetřit) by čas i energii.",
+              "type": "single",
+              "is_multiselect": false,
+              "options": []
+            }
+          ],
+          "matchingItems": [],
+          "matchingOptions": [],
+          "matchingSection": ""
+        },
+        {
+          "title": "Cvičení 4 – Slovní zásoba a předložky",
+          "type": "standard",
+          "instructions": "Doplňte správnou předložku nebo výraz. Pokud je výraz bez předložky, nechte políčko prázdné.\nSlova: během, do, kvůli, mezi, na, podle, prostřednictvím, s",
+          "optionsList": [
+            "během",
+            "do",
+            "kvůli",
+            "mezi",
+            "na",
+            "podle",
+            "prostřednictvím",
+            "s"
+          ],
+          "items": [
+            {
+              "section_title": "",
+              "prompt": "Některé poruchy učení se projeví až ______ školního roku.",
+              "type": "single",
+              "is_multiselect": false,
+              "options": []
+            },
+            {
+              "section_title": "",
+              "prompt": "Rodiče se obraceli ______ několika poradenských zařízení.",
+              "type": "single",
+              "is_multiselect": false,
+              "options": []
+            },
+            {
+              "section_title": "",
+              "prompt": "Nedostatek míst ve speciálních školách způsoboval problémy ______ rodičům i běžným školám.",
+              "type": "single",
+              "is_multiselect": false,
+              "options": []
+            },
+            {
+              "section_title": "",
+              "prompt": "Podpora žáků se nastavovala ______ doporučení odborníků.",
+              "type": "single",
+              "is_multiselect": false,
+              "options": []
+            },
+            {
+              "section_title": "",
+              "prompt": "Nový systém měl přispět ______ efektivnějšímu využívání finančních prostředků.",
+              "type": "single",
+              "is_multiselect": false,
+              "options": []
+            },
+            {
+              "section_title": "",
+              "prompt": "Výsledky vyšetření se dostávaly do školy ______ datové schránky.",
+              "type": "single",
+              "is_multiselect": false,
+              "options": []
+            },
+            {
+              "section_title": "",
+              "prompt": "Učitelé potřebovali zlepšit spolupráci ______ asistenty pedagoga.",
+              "type": "single",
+              "is_multiselect": false,
+              "options": []
+            },
+            {
+              "section_title": "",
+              "prompt": "Některé děti byly rozděleny ______ běžné a speciální vzdělávání.",
+              "type": "single",
+              "is_multiselect": false,
+              "options": []
+            }
+          ],
+          "matchingItems": [],
+          "matchingOptions": [],
+          "matchingSection": ""
+        },
+        {
+          "title": "Cvičení 5 – Práce s textem",
+          "type": "standard",
+          "instructions": "",
+          "optionsList": [],
+          "items": [
+            {
+              "section_title": "A. Ano – Ne",
+              "prompt": "Před zavedením změn v roce 2016 chyběla jasná kritéria pro přidělování podpůrných opatření.",
+              "type": "single",
+              "is_multiselect": false,
+              "options": []
+            },
+            {
+              "section_title": "A. Ano – Ne",
+              "prompt": "Nový systém měl financovat asistenty pedagoga výhradně podle individuálních doporučení poradenských zařízení.",
+              "type": "single",
+              "is_multiselect": false,
+              "options": []
+            },
+            {
+              "section_title": "A. Ano – Ne",
+              "prompt": "Expertka považovala pravidelnou metodickou podporu asistentů za pozitivní změnu.",
+              "type": "single",
+              "is_multiselect": false,
+              "options": []
+            },
+            {
+              "section_title": "A. Ano – Ne",
+              "prompt": "Původní návrh Motoristů chtěl rodičům zcela odebrat možnost vybrat si poradenské centrum.",
+              "type": "single",
+              "is_multiselect": false,
+              "options": []
+            },
+            {
+              "section_title": "A. Ano – Ne",
+              "prompt": "Podle Felcmanové představovala poradenská turistika v současnosti stále zásadní systémový problém.",
+              "type": "single",
+              "is_multiselect": false,
+              "options": []
+            },
+            {
+              "section_title": "A. Ano – Ne",
+              "prompt": "Zpráva určená rodičům může obsahovat citlivé informace, které by škola neměla automaticky dostávat.",
+              "type": "single",
+              "is_multiselect": false,
+              "options": []
+            },
+            {
+              "section_title": "A. Ano – Ne",
+              "prompt": "Expertka tvrdila, že všechny děti s mentálním postižením navštěvují běžné školy.",
+              "type": "single",
+              "is_multiselect": false,
+              "options": []
+            },
+            {
+              "section_title": "A. Ano – Ne",
+              "prompt": "Felcmanová považovala segregaci za ekonomicky i společensky výhodnější řešení než inkluzi.",
+              "type": "single",
+              "is_multiselect": false,
+              "options": []
+            },
+            {
+              "section_title": "B. Vyberte nejpřesnější odpověď",
+              "prompt": "Proč podle expertky nebyla dosavadní pravidla financování podpůrných opatření ideální?",
+              "type": "single",
+              "is_multiselect": false,
+              "options": [
+                "Školy nemohly zaměstnávat asistenty pedagoga.",
+                "Poradenská zařízení neměla závazná kritéria pro nastavování podpory.",
+                "Rodiče museli všechny služby platit ze svého.",
+                "Stát financoval pouze speciální školy."
+              ]
+            },
+            {
+              "section_title": "B. Vyberte nejpřesnější odpověď",
+              "prompt": "Jaký problém vzniká při striktním omezování počtu žáků s určitými diagnózami ve třídě?",
+              "type": "single",
+              "is_multiselect": false,
+              "options": [
+                "Některé děti získají diagnózu až během školního roku.",
+                "Rodiče nemohou rozhodovat o vzdělávání svých dětí.",
+                "Poradenská zařízení přestanou vydávat doporučení.",
+                "Učitelé nebudou moci využívat asistenty."
+              ]
+            },
+            {
+              "section_title": "B. Vyberte nejpřesnější odpověď",
+              "prompt": "Proč expertka odmítala představu, že by se všechny děti se speciálními vzdělávacími potřebami vzdělávaly ve speciálních školách?",
+              "type": "single",
+              "is_multiselect": false,
+              "options": [
+                "Speciální školy nemají žádné odborné zaměstnance.",
+                "Děti by nemohly získat potřebné diagnózy.",
+                "Speciální školy jsou určeny pouze pro děti se zrakovým postižením.",
+                "Takové řešení by vyžadovalo obrovské finanční a personální zdroje."
+              ]
+            },
+            {
+              "section_title": "B. Vyberte nejpřesnější odpověď",
+              "prompt": "Co je charakteristické pro flexibilní třídy?",
+              "type": "single",
+              "is_multiselect": false,
+              "options": [
+                "Žáci v nich tráví celý školní den odděleně od ostatních.",
+                "Jsou určeny výhradně dětem s těžkým mentálním postižením.",
+                "Děti v nich tráví část výuky s odbornou podporou a na ostatní předměty se vracejí do kmenové třídy.",
+                "Nahrazují veškerou individuální podporu ve škole."
+              ]
+            }
+          ],
+          "matchingItems": [],
+          "matchingOptions": [],
+          "matchingSection": ""
+        }
+      ]
+    },
+    "C1": {
+      "vocabulary": [
+        {
+          "czech": "sounáležitost",
+          "english": "sense of belonging"
+        },
+        {
+          "czech": "frontální výuka",
+          "english": "whole-class instruction"
+        },
+        {
+          "czech": "malotřídní škola",
+          "english": "multi-grade school"
+        },
+        {
+          "czech": "aprobační předpoklady",
+          "english": "subject-specific teaching qualifications"
+        },
+        {
+          "czech": "paušalizace",
+          "english": "generalization"
+        },
+        {
+          "czech": "participace",
+          "english": "participation"
+        },
+        {
+          "czech": "diagnostická nálepka",
+          "english": "diagnostic label"
+        },
+        {
+          "czech": "parametrizace",
+          "english": "parameterization"
+        }
+      ],
+      "exercises": [
+        {
+          "title": "Cvičení 1 – Slovní zásoba",
+          "type": "standard",
+          "instructions": "Spojte výraz s významem.",
+          "optionsList": [],
+          "items": [
+            {
+              "section_title": "",
+              "prompt": "sounáležitost",
+              "type": "single",
+              "is_multiselect": false,
+              "options": [
+                "Výuka, při které učitel předává informace celé třídě stejným způsobem.",
+                "Zapojení jednotlivce do určité činnosti nebo společenského života.",
+                "Označení člověka na základě určitého zjištěného problému či poruchy.",
+                "Škola, ve které se v jedné třídě vzdělávají žáci několika ročníků.",
+                "Vzájemný pocit spojení, blízkosti a příslušnosti ke skupině.",
+                "Proces stanovování konkrétních hodnot a pravidel fungování systému.",
+                "Kvalifikace učitele pro výuku konkrétních vyučovacích předmětů.",
+                "Přístup, při kterém se rozdílné případy posuzují jednotně bez dostatečného rozlišení."
+              ]
+            },
+            {
+              "section_title": "",
+              "prompt": "frontální výuka",
+              "type": "single",
+              "is_multiselect": false,
+              "options": [
+                "Výuka, při které učitel předává informace celé třídě stejným způsobem.",
+                "Zapojení jednotlivce do určité činnosti nebo společenského života.",
+                "Označení člověka na základě určitého zjištěného problému či poruchy.",
+                "Škola, ve které se v jedné třídě vzdělávají žáci několika ročníků.",
+                "Vzájemný pocit spojení, blízkosti a příslušnosti ke skupině.",
+                "Proces stanovování konkrétních hodnot a pravidel fungování systému.",
+                "Kvalifikace učitele pro výuku konkrétních vyučovacích předmětů.",
+                "Přístup, při kterém se rozdílné případy posuzují jednotně bez dostatečného rozlišení."
+              ]
+            },
+            {
+              "section_title": "",
+              "prompt": "malotřídní škola",
+              "type": "single",
+              "is_multiselect": false,
+              "options": [
+                "Výuka, při které učitel předává informace celé třídě stejným způsobem.",
+                "Zapojení jednotlivce do určité činnosti nebo společenského života.",
+                "Označení člověka na základě určitého zjištěného problému či poruchy.",
+                "Škola, ve které se v jedné třídě vzdělávají žáci několika ročníků.",
+                "Vzájemný pocit spojení, blízkosti a příslušnosti ke skupině.",
+                "Proces stanovování konkrétních hodnot a pravidel fungování systému.",
+                "Kvalifikace učitele pro výuku konkrétních vyučovacích předmětů.",
+                "Přístup, při kterém se rozdílné případy posuzují jednotně bez dostatečného rozlišení."
+              ]
+            },
+            {
+              "section_title": "",
+              "prompt": "aprobační předpoklady",
+              "type": "single",
+              "is_multiselect": false,
+              "options": [
+                "Výuka, při které učitel předává informace celé třídě stejným způsobem.",
+                "Zapojení jednotlivce do určité činnosti nebo společenského života.",
+                "Označení člověka na základě určitého zjištěného problému či poruchy.",
+                "Škola, ve které se v jedné třídě vzdělávají žáci několika ročníků.",
+                "Vzájemný pocit spojení, blízkosti a příslušnosti ke skupině.",
+                "Proces stanovování konkrétních hodnot a pravidel fungování systému.",
+                "Kvalifikace učitele pro výuku konkrétních vyučovacích předmětů.",
+                "Přístup, při kterém se rozdílné případy posuzují jednotně bez dostatečného rozlišení."
+              ]
+            },
+            {
+              "section_title": "",
+              "prompt": "paušalizace",
+              "type": "single",
+              "is_multiselect": false,
+              "options": [
+                "Výuka, při které učitel předává informace celé třídě stejným způsobem.",
+                "Zapojení jednotlivce do určité činnosti nebo společenského života.",
+                "Označení člověka na základě určitého zjištěného problému či poruchy.",
+                "Škola, ve které se v jedné třídě vzdělávají žáci několika ročníků.",
+                "Vzájemný pocit spojení, blízkosti a příslušnosti ke skupině.",
+                "Proces stanovování konkrétních hodnot a pravidel fungování systému.",
+                "Kvalifikace učitele pro výuku konkrétních vyučovacích předmětů.",
+                "Přístup, při kterém se rozdílné případy posuzují jednotně bez dostatečného rozlišení."
+              ]
+            },
+            {
+              "section_title": "",
+              "prompt": "participace",
+              "type": "single",
+              "is_multiselect": false,
+              "options": [
+                "Výuka, při které učitel předává informace celé třídě stejným způsobem.",
+                "Zapojení jednotlivce do určité činnosti nebo společenského života.",
+                "Označení člověka na základě určitého zjištěného problému či poruchy.",
+                "Škola, ve které se v jedné třídě vzdělávají žáci několika ročníků.",
+                "Vzájemný pocit spojení, blízkosti a příslušnosti ke skupině.",
+                "Proces stanovování konkrétních hodnot a pravidel fungování systému.",
+                "Kvalifikace učitele pro výuku konkrétních vyučovacích předmětů.",
+                "Přístup, při kterém se rozdílné případy posuzují jednotně bez dostatečného rozlišení."
+              ]
+            },
+            {
+              "section_title": "",
+              "prompt": "diagnostická nálepka",
+              "type": "single",
+              "is_multiselect": false,
+              "options": [
+                "Výuka, při které učitel předává informace celé třídě stejným způsobem.",
+                "Zapojení jednotlivce do určité činnosti nebo společenského života.",
+                "Označení člověka na základě určitého zjištěného problému či poruchy.",
+                "Škola, ve které se v jedné třídě vzdělávají žáci několika ročníků.",
+                "Vzájemný pocit spojení, blízkosti a příslušnosti ke skupině.",
+                "Proces stanovování konkrétních hodnot a pravidel fungování systému.",
+                "Kvalifikace učitele pro výuku konkrétních vyučovacích předmětů.",
+                "Přístup, při kterém se rozdílné případy posuzují jednotně bez dostatečného rozlišení."
+              ]
+            },
+            {
+              "section_title": "",
+              "prompt": "parametrizace",
+              "type": "single",
+              "is_multiselect": false,
+              "options": [
+                "Výuka, při které učitel předává informace celé třídě stejným způsobem.",
+                "Zapojení jednotlivce do určité činnosti nebo společenského života.",
+                "Označení člověka na základě určitého zjištěného problému či poruchy.",
+                "Škola, ve které se v jedné třídě vzdělávají žáci několika ročníků.",
+                "Vzájemný pocit spojení, blízkosti a příslušnosti ke skupině.",
+                "Proces stanovování konkrétních hodnot a pravidel fungování systému.",
+                "Kvalifikace učitele pro výuku konkrétních vyučovacích předmětů.",
+                "Přístup, při kterém se rozdílné případy posuzují jednotně bez dostatečného rozlišení."
+              ]
+            }
+          ],
+          "matchingItems": [],
+          "matchingOptions": [],
+          "matchingSection": ""
+        },
+        {
+          "title": "Cvičení 2 – Doplň do věty",
+          "type": "standard",
+          "instructions": "Doplňte vhodné slovo.\nSlova: aprobační, diskriminační, efektivní, explicitní, flexibilní, kontinuální, personální, systémový",
+          "optionsList": [
+            "aprobační",
+            "diskriminační",
+            "efektivní",
+            "explicitní",
+            "flexibilní",
+            "kontinuální",
+            "personální",
+            "systémový"
+          ],
+          "items": [
+            {
+              "section_title": "",
+              "prompt": "Expertka upozornila, že princip odmítání dětí kvůli zdravotnímu postižení má ______ charakter.",
+              "type": "single",
+              "is_multiselect": false,
+              "options": []
+            },
+            {
+              "section_title": "",
+              "prompt": "Novela měla posílit ______ podporu asistentů pedagoga v jednotlivých školách.",
+              "type": "single",
+              "is_multiselect": false,
+              "options": []
+            },
+            {
+              "section_title": "",
+              "prompt": "Ředitelé měli získat ______ vymezenou roli při komunikaci s rodiči.",
+              "type": "single",
+              "is_multiselect": false,
+              "options": []
+            },
+            {
+              "section_title": "",
+              "prompt": "______ třídy umožňují dětem kombinovat odbornou péči s běžnou výukou.",
+              "type": "single",
+              "is_multiselect": false,
+              "options": []
+            },
+            {
+              "section_title": "",
+              "prompt": "Při nedostatku míst ve speciálních školách vzniká ______ problém, který zasahuje i běžné školy.",
+              "type": "single",
+              "is_multiselect": false,
+              "options": []
+            },
+            {
+              "section_title": "",
+              "prompt": "Výuka na druhém stupni speciální školy musí zohledňovat ______ kvalifikaci pedagogů.",
+              "type": "single",
+              "is_multiselect": false,
+              "options": []
+            },
+            {
+              "section_title": "",
+              "prompt": "Podle Felcmanové je důležité hledat ______ způsoby podpory, nikoli automaticky oddělovat děti.",
+              "type": "single",
+              "is_multiselect": false,
+              "options": []
+            },
+            {
+              "section_title": "",
+              "prompt": "Závažnější případy vyžadují intenzivnější ______ zajištění vzdělávání.",
+              "type": "single",
+              "is_multiselect": false,
+              "options": []
+            }
+          ],
+          "matchingItems": [],
+          "matchingOptions": [],
+          "matchingSection": ""
+        },
+        {
+          "title": "Cvičení 3 – Gramatika",
+          "type": "standard",
+          "instructions": "Opravte chybu\nV každé větě je jedna gramatická chyba. Pokud je text bez chyby, napiš: „správně“.",
+          "optionsList": [],
+          "items": [
+            {
+              "section_title": "A. Opravte chybu\nV každé větě je jedna gramatická chyba. Pokud je text bez chyby, napiš: „správně“.",
+              "prompt": "Děti se speciálními vzdělávacími potřebami mají právo na přístup ke kvalitnímu vzdělávání.",
+              "type": "single",
+              "is_multiselect": false,
+              "options": []
+            },
+            {
+              "section_title": "A. Opravte chybu\nV každé větě je jedna gramatická chyba. Pokud je text bez chyby, napiš: „správně“.",
+              "prompt": "Podle expertky by segregace vedla k větší sociální soudržnost.",
+              "type": "single",
+              "is_multiselect": false,
+              "options": []
+            },
+            {
+              "section_title": "A. Opravte chybu\nV každé větě je jedna gramatická chyba. Pokud je text bez chyby, napiš: „správně“.",
+              "prompt": "Poradenská zařízení doporučují školám různé formy podpůrných opatření.",
+              "type": "single",
+              "is_multiselect": false,
+              "options": []
+            },
+            {
+              "section_title": "A. Opravte chybu\nV každé větě je jedna gramatická chyba. Pokud je text bez chyby, napiš: „správně“.",
+              "prompt": "Učitelé by měli spolupracovat s asistenty a pravidelně s nimi konzultovat potřeby žáků.",
+              "type": "single",
+              "is_multiselect": false,
+              "options": []
+            },
+            {
+              "section_title": "A. Opravte chybu\nV každé větě je jedna gramatická chyba. Pokud je text bez chyby, napiš: „správně“.",
+              "prompt": "Nedostatek kapacit ve speciálních školách se projevují zejména ve velkých městech.",
+              "type": "single",
+              "is_multiselect": false,
+              "options": []
+            },
+            {
+              "section_title": "A. Opravte chybu\nV každé větě je jedna gramatická chyba. Pokud je text bez chyby, napiš: „správně“.",
+              "prompt": "Náklady na vzdělávání ve speciálních školách jsou výrazně vyšší než v běžných školách.",
+              "type": "single",
+              "is_multiselect": false,
+              "options": []
+            },
+            {
+              "section_title": "A. Opravte chybu\nV každé větě je jedna gramatická chyba. Pokud je text bez chyby, napiš: „správně“.",
+              "prompt": "Expertka upozornila na skutečnost, že inkluze nemá žádné negativní dopad na ostatní žáky.",
+              "type": "single",
+              "is_multiselect": false,
+              "options": []
+            },
+            {
+              "section_title": "A. Opravte chybu\nV každé větě je jedna gramatická chyba. Pokud je text bez chyby, napiš: „správně“.",
+              "prompt": "Dětem, které potřebují intenzivnější podporu, lze doporučit druhého učitele.",
+              "type": "single",
+              "is_multiselect": false,
+              "options": []
+            },
+            {
+              "section_title": "B. Doplňte správný tvar",
+              "prompt": "Kdyby vláda nepodcenila potřebu odborné podpory, školy ______ (získat) potřebné personální zajištění včas.",
+              "type": "single",
+              "is_multiselect": false,
+              "options": []
+            },
+            {
+              "section_title": "B. Doplňte správný tvar",
+              "prompt": "Bez dostatečných kapacit speciálních škol by rodiče ______ (muset) hledat alternativní řešení.",
+              "type": "single",
+              "is_multiselect": false,
+              "options": []
+            },
+            {
+              "section_title": "B. Doplňte správný tvar",
+              "prompt": "Pokud by se poradenská zpráva dostala k neoprávněným osobám, mohlo by ______ (dojít) k porušení soukromí rodiny.",
+              "type": "single",
+              "is_multiselect": false,
+              "options": []
+            },
+            {
+              "section_title": "B. Doplňte správný tvar",
+              "prompt": "Kdyby se děti s poruchami učení diagnostikovaly až později, školy ______ (čelit) komplikacím při organizaci tříd.",
+              "type": "single",
+              "is_multiselect": false,
+              "options": []
+            },
+            {
+              "section_title": "B. Doplňte správný tvar",
+              "prompt": "Jestliže by se podpůrná opatření financovala paušálně, ředitelé ______ (mít) větší odpovědnost za rozdělování prostředků.",
+              "type": "single",
+              "is_multiselect": false,
+              "options": []
+            },
+            {
+              "section_title": "B. Doplňte správný tvar",
+              "prompt": "Kdyby stát investoval do výstavby speciálních škol, ______ (vzniknout) mu také vysoké personální náklady.",
+              "type": "single",
+              "is_multiselect": false,
+              "options": []
+            },
+            {
+              "section_title": "B. Doplňte správný tvar",
+              "prompt": "Pokud by se učitelé opírali výhradně o frontální výuku, jejich možnosti individuálně reagovat na potřeby žáků ______ (omezit) se.",
+              "type": "single",
+              "is_multiselect": false,
+              "options": []
+            },
+            {
+              "section_title": "B. Doplňte správný tvar",
+              "prompt": "Kdyby poradenská zařízení doporučila intenzivnější podporu, škola ______ (moci) zapojit dalšího odborníka.",
+              "type": "single",
+              "is_multiselect": false,
+              "options": []
+            }
+          ],
+          "matchingItems": [],
+          "matchingOptions": [],
+          "matchingSection": ""
+        },
+        {
+          "title": "Cvičení 4 – Slovní zásoba a předložky",
+          "type": "standard",
+          "instructions": "Doplňte správnou předložku nebo výraz. Pokud je výraz bez předložky, nechte políčko prázdné.\nSlova: aniž, do, kvůli, na, o, proti, v, z",
+          "optionsList": [
+            "aniž",
+            "do",
+            "kvůli",
+            "na",
+            "o",
+            "proti",
+            "v",
+            "z"
+          ],
+          "items": [
+            {
+              "section_title": "",
+              "prompt": "Podle expertky není možné zrušit podporu ______ toho, aby se vyřešilo, kam budou děti umístěny.",
+              "type": "single",
+              "is_multiselect": false,
+              "options": []
+            },
+            {
+              "section_title": "",
+              "prompt": "Návrhy na odmítání žáků s určitým zdravotním postižením podle Felcmanové odporují ______ Ústavě.",
+              "type": "single",
+              "is_multiselect": false,
+              "options": []
+            },
+            {
+              "section_title": "",
+              "prompt": "Nedostatek míst ve speciálních školách se výrazně projevuje ______ Praze a Brně.",
+              "type": "single",
+              "is_multiselect": false,
+              "options": []
+            },
+            {
+              "section_title": "",
+              "prompt": "Odbornice upozornila ______ nutnost zachovat podporu dětem i jejich učitelům.",
+              "type": "single",
+              "is_multiselect": false,
+              "options": []
+            },
+            {
+              "section_title": "",
+              "prompt": "Původní návrh se snažil omezit možnost rodičů vybírat si ______ několika poradenskými zařízeními.",
+              "type": "single",
+              "is_multiselect": false,
+              "options": []
+            },
+            {
+              "section_title": "",
+              "prompt": "Některé děti jsou vyloučeny ______ vzdělávání kvůli nedostatečným kapacitám.",
+              "type": "single",
+              "is_multiselect": false,
+              "options": []
+            },
+            {
+              "section_title": "",
+              "prompt": "Expertka vycházela ______ údajů o počtech žáků s jednotlivými stupni podpůrných opatření.",
+              "type": "single",
+              "is_multiselect": false,
+              "options": []
+            },
+            {
+              "section_title": "",
+              "prompt": "Segregace může vést k rozdělování společnosti ______ jednotlivé skupiny.",
+              "type": "single",
+              "is_multiselect": false,
+              "options": []
+            }
+          ],
+          "matchingItems": [],
+          "matchingOptions": [],
+          "matchingSection": ""
+        },
+        {
+          "title": "Cvičení 5 – Práce s textem",
+          "type": "standard",
+          "instructions": "",
+          "optionsList": [],
+          "items": [
+            {
+              "section_title": "A. Ano – Ne",
+              "prompt": "Felcmanová rozlišuje mezi pozitivními zkušenostmi ze školní praxe a nedostatky v nastavení legislativních pravidel.",
+              "type": "single",
+              "is_multiselect": false,
+              "options": []
+            },
+            {
+              "section_title": "A. Ano – Ne",
+              "prompt": "Podle expertky byla hlavním problémem inkluze skutečnost, že poradenská zařízení přidělovala každému dítěti samostatného asistenta.",
+              "type": "single",
+              "is_multiselect": false,
+              "options": []
+            },
+            {
+              "section_title": "A. Ano – Ne",
+              "prompt": "Nový systém financování má zohledňovat také sociální situaci žáků.",
+              "type": "single",
+              "is_multiselect": false,
+              "options": []
+            },
+            {
+              "section_title": "A. Ano – Ne",
+              "prompt": "Přednostní přijetí do spádové poradny znamená automatický zákaz využívání jiných poradenských zařízení.",
+              "type": "single",
+              "is_multiselect": false,
+              "options": []
+            },
+            {
+              "section_title": "A. Ano – Ne",
+              "prompt": "Expertka považuje rodinnou anamnézu za informaci, kterou by škola měla automaticky obdržet spolu s doporučením.",
+              "type": "single",
+              "is_multiselect": false,
+              "options": []
+            },
+            {
+              "section_title": "A. Ano – Ne",
+              "prompt": "Nedostatek míst ve speciálních školách může vést k tomu, že děti s těžším postižením nastupují do běžných spádových škol.",
+              "type": "single",
+              "is_multiselect": false,
+              "options": []
+            },
+            {
+              "section_title": "A. Ano – Ne",
+              "prompt": "Felcmanová považuje flexibilní třídy za model, který umožňuje kombinovat individuálnější podporu s účastí v běžném kolektivu.",
+              "type": "single",
+              "is_multiselect": false,
+              "options": []
+            },
+            {
+              "section_title": "A. Ano – Ne",
+              "prompt": "Podle expertky jsou náročné projevy chování u dětí automaticky důsledkem jejich zdravotní diagnózy.",
+              "type": "single",
+              "is_multiselect": false,
+              "options": []
+            },
+            {
+              "section_title": "B. Vyberte nejpřesnější odpověď",
+              "prompt": "Jaký zásadní rozdíl expertka zdůrazňuje mezi zdravotními diagnózami a náročným chováním dětí?",
+              "type": "single",
+              "is_multiselect": false,
+              "options": [
+                "Počet dětí se zdravotními diagnózami roste rychleji než počet dětí s náročným chováním.",
+                "Zdravotní diagnózy jsou stabilní, zatímco počet dětí s projevy náročného chování narůstá.",
+                "Náročné chování se vyskytuje výhradně u dětí bez zdravotní diagnózy.",
+                "Oba jevy jsou podle expertky totožné a vyžadují stejný typ podpory."
+              ]
+            },
+            {
+              "section_title": "B. Vyberte nejpřesnější odpověď",
+              "prompt": "Proč expertka zpochybňuje ekonomickou proveditelnost plošného přesunu dětí do speciálních škol?",
+              "type": "single",
+              "is_multiselect": false,
+              "options": [
+                "Speciální školy by musely zcela změnit způsob výuky.",
+                "Stát by přišel o možnost financovat běžné školy.",
+                "Speciální školy by nemohly zaměstnávat asistenty pedagoga.",
+                "Takové řešení by vyžadovalo rozsáhlé investice do budov i personálního zajištění."
+              ]
+            },
+            {
+              "section_title": "B. Vyberte nejpřesnější odpověď",
+              "prompt": "Jaký problém podle expertky vzniká při omezování počtu žáků s určitou diagnózou ve třídě?",
+              "type": "single",
+              "is_multiselect": false,
+              "options": [
+                "Některé obtíže se projeví až během vzdělávání, takže nelze předem určit konečné složení třídy.",
+                "Poradenská zařízení nemohou diagnostikovat děti v průběhu školního roku.",
+                "Rodiče automaticky získávají právo na přeřazení dítěte do jiné školy.",
+                "Učitelé ztrácejí možnost rozdělovat žáky do menších skupin."
+              ]
+            },
+            {
+              "section_title": "B. Vyberte nejpřesnější odpověď",
+              "prompt": "Jak expertka interpretuje argument, že žáci bez speciálních vzdělávacích potřeb jsou inkluzí brzděni?",
+              "type": "single",
+              "is_multiselect": false,
+              "options": [
+                "Považuje ho za prokázaný na základě mezinárodních výzkumů.",
+                "Připouští ho jako hlavní důvod pro zavedení segregace.",
+                "Odmítá jej jako podložený, protože pro něj nejsou k dispozici potvrzující data.",
+                "Přisuzuje ho výhradně nedostatečnému financování speciálních škol."
+              ]
+            },
+            {
+              "section_title": "C. Vyberte správnou možnost / možnosti",
+              "prompt": "Které skutečnosti podle rozhovoru vysvětlují problémy s dostupností speciálního vzdělávání?",
+              "type": "checkbox",
+              "is_multiselect": true,
+              "options": [
+                "Kapacity speciálních škol jsou naplněné.",
+                "Někteří rodiče musí o volné místo ve speciální škole losovat.",
+                "Všechny děti s lehkým mentálním postižením jsou ze zákona povinně zařazovány do speciálních škol.",
+                "Nedostatek míst může vést k přihlašování dětí do běžných spádových škol."
+              ]
+            },
+            {
+              "section_title": "C. Vyberte správnou možnost / možnosti",
+              "prompt": "Jaké závěry lze podle postoje Lenky Felcmanové vyvodit o budoucím směřování inkluze?",
+              "type": "checkbox",
+              "is_multiselect": true,
+              "options": [
+                "Je třeba pokračovat v inkluzi a současně zachovat odpovídající podporu.",
+                "Hlavním řešením je postupné rušení běžných škol.",
+                "Učitelé potřebují podporu při zavádění funkčních metod výuky.",
+                "Segregace představuje nejvhodnější způsob rozvoje potenciálu všech dětí."
+              ]
+            }
+          ],
+          "matchingItems": [],
+          "matchingOptions": [],
+          "matchingSection": ""
+        }
+      ]
+    }
+  },
+  "answer_key": {
+    "B1": {
+      "Cvičení 1": [
+        "1–e, 2–d, 3–g, 4–h, 5–f, 6–c, 7–b, 8–a"
+      ],
+      "Cvičení 2": [
+        "inkluze",
+        "diagnostikovat",
+        "doporučení",
+        "asistentem",
+        "financování",
+        "spolupráce",
+        "rodiče",
+        "kapacitu"
+      ],
+      "Cvičení 3": [
+        "pomáhali by",
+        "posoudilo by",
+        "zvládali by",
+        "umístili",
+        "kontaktoval by",
+        "vyšetřily by",
+        "mohly by",
+        "našli by"
+      ],
+      "Cvičení 4": [
+        "do",
+        "mezi",
+        "na",
+        "podle",
+        "na",
+        "s",
+        "od",
+        "bez předložky"
+      ],
+      "Cvičení 5": [
+        "Ano",
+        "Ne",
+        "Ano",
+        "Ano",
+        "Ne",
+        "Ne",
+        "Ano",
+        "Ne",
+        "b",
+        "a",
+        "c",
+        "d"
+      ]
+    },
+    "B2": {
+      "Cvičení 1": [
+        "1–f, 2–d, 3–c, 4–g, 5–a, 6–b, 7–e, 8–h"
+      ],
+      "Cvičení 2": [
+        "aglomeracích",
+        "anamnézu",
+        "byrokracii",
+        "diagnóza",
+        "důsledek",
+        "koeficientů",
+        "novelu",
+        "poradenský"
+      ],
+      "Cvičení 3": [
+        "plánovaly by",
+        "zvládly by",
+        "rozhodli by se",
+        "mohli by",
+        "používali by",
+        "měli by",
+        "nastavili by",
+        "ušetřili by"
+      ],
+      "Cvičení 4": [
+        "během",
+        "do",
+        "pro",
+        "podle",
+        "k",
+        "prostřednictvím",
+        "s",
+        "mezi"
+      ],
+      "Cvičení 5": [
+        "Ano",
+        "Ne",
+        "Ano",
+        "Ano",
+        "Ne",
+        "Ano",
+        "Ne",
+        "Ne",
+        "b",
+        "a",
+        "d",
+        "c"
+      ]
+    },
+    "C1": {
+      "Cvičení 1": [
+        "1–e, 2–a, 3–d, 4–g, 5–h, 6–b, 7–c, 8–f"
+      ],
+      "Cvičení 2": [
+        "diskriminační",
+        "kontinuální",
+        "explicitně",
+        "flexibilní",
+        "systémový",
+        "aprobační",
+        "efektivní",
+        "personální"
+      ],
+      "Cvičení 3": [
+        "správně",
+        "soudržnosti",
+        "správně",
+        "správně",
+        "projevuje",
+        "správně",
+        "žádný",
+        "správně",
+        "získaly by",
+        "museli by",
+        "dojít",
+        "čelily by",
+        "měli by",
+        "vznikly by",
+        "by se omezily",
+        "mohla by"
+      ],
+      "Cvičení 4": [
+        "aniž",
+        "proti",
+        "v",
+        "na",
+        "mezi",
+        "do",
+        "z",
+        "na"
+      ],
+      "Cvičení 5": [
+        "Ano",
+        "Ne",
+        "Ano",
+        "Ne",
+        "Ne",
+        "Ano",
+        "Ano",
+        "Ne",
+        "b",
+        "d",
+        "a",
+        "c",
+        "a,b,d",
+        "a,c"
+      ]
+    }
+  }
+}

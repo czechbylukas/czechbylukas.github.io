@@ -1,0 +1,570 @@
+<!DOCTYPE html>
+<html lang="cs" class="h-full bg-slate-900 text-slate-100">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Czech B1 Mastery: Lekce 7 – Plánujeme dovolenou</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    body { font-family: Inter, sans-serif; }
+    .glass-card { background: rgba(30, 41, 59, .72); backdrop-filter: blur(12px); border: 1px solid rgba(255,255,255,.08); }
+    .tab-content[hidden] { display: none; }
+    .vocab-card { min-width: 0; }
+    .drill-input { width: clamp(8ch, calc(var(--answer-length) * 1ch + 2.5rem), 32ch); max-width: 100%; }
+  </style>
+</head>
+<body class="min-h-full flex flex-col bg-slate-950 text-slate-100 overflow-x-hidden">
+  <header class="sticky top-0 z-50 border-b border-slate-800 bg-slate-900/95 shadow-lg backdrop-blur-md">
+    <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+      <div class="flex h-16 items-center justify-between gap-3">
+        <div class="flex items-center gap-3">
+          <div class="flex h-10 w-10 items-center justify-center rounded-xl bg-gradient-to-tr from-sky-500 to-indigo-600 text-xl text-white"><i class="fa-solid fa-suitcase-rolling"></i></div>
+          <div>
+            <h1 class="text-lg font-bold leading-tight text-white">Czech B1 Mastery</h1>
+            <p class="text-xs font-medium text-sky-400">Lekce 7: Plánujeme dovolenou · Genitiv</p>
+          </div>
+        </div>
+        <div class="hidden items-center gap-3 text-xs md:flex">
+          <span class="rounded-full border border-slate-700 bg-slate-800 px-3 py-1.5 text-slate-300"><i class="fa-solid fa-comments mr-1 text-emerald-400"></i> Mluvení B1</span>
+          <button type="button" onclick="speakText('Kam pojedeme na dovolenou?')" class="rounded-lg border border-sky-500/30 bg-sky-600/20 px-3 py-1.5 text-sky-300 hover:bg-sky-600/30"><i class="fa-solid fa-volume-high mr-1"></i> Audio check</button>
+        </div>
+      </div>
+      <nav id="mainTabs" class="flex gap-1 overflow-x-auto border-t border-slate-800/80 py-2" aria-label="Navigace lekce">
+        <button type="button" class="tab-btn whitespace-nowrap rounded-lg bg-sky-600 px-4 py-2 text-xs font-semibold text-white" data-tab="tab-vocab"><i class="fa-solid fa-book-open mr-1"></i>1. Slovní zásoba &amp; dialog</button>
+        <button type="button" class="tab-btn whitespace-nowrap rounded-lg px-4 py-2 text-xs font-semibold text-slate-400 hover:bg-slate-800 hover:text-white" data-tab="tab-exA"><i class="fa-solid fa-pen-to-square mr-1"></i>2. Genitiv: 25 vět</button>
+        <button type="button" class="tab-btn whitespace-nowrap rounded-lg px-4 py-2 text-xs font-semibold text-slate-400 hover:bg-slate-800 hover:text-white" data-tab="tab-exB"><i class="fa-solid fa-wand-magic-sparkles mr-1"></i>3. Věty B1: 10 úkolů</button>
+        <button type="button" class="tab-btn whitespace-nowrap rounded-lg px-4 py-2 text-xs font-semibold text-slate-400 hover:bg-slate-800 hover:text-white" data-tab="tab-roleplay"><i class="fa-solid fa-comments mr-1"></i>4. Mluvení ve dvojici</button>
+        <button type="button" class="tab-btn whitespace-nowrap rounded-lg px-4 py-2 text-xs font-semibold text-slate-400 hover:bg-slate-800 hover:text-white" data-tab="tab-homework"><i class="fa-solid fa-paper-plane mr-1"></i>5. Úkol &amp; poznámky</button>
+      </nav>
+    </div>
+  </header>
+
+  <main class="mx-auto w-full max-w-7xl flex-1 space-y-6 px-4 py-6 sm:px-6 lg:px-8">
+    <section id="tab-vocab" class="tab-content space-y-6">
+      <div class="glass-card flex flex-col items-start justify-between gap-4 rounded-2xl p-5 md:flex-row md:items-center">
+        <div>
+          <h2 class="text-xl font-bold text-white"><i class="fa-solid fa-list-check mr-2 text-sky-400"></i>Slovní zásoba B1 – plánování cesty a genitiv (21 výrazů)</h2>
+          <p class="mt-1 text-sm text-slate-400">21 užitečných vazeb pro domluvu dovolené. U každé uvidíte tvar 2. pádu, který můžete rovnou použít ve větě.</p>
+        </div>
+        <div class="flex w-full flex-wrap gap-2 md:w-auto">
+          <label class="sr-only" for="vocabSearch">Hledat slovíčko</label>
+          <input id="vocabSearch" type="search" oninput="renderVocab()" placeholder="Hledat výraz…" class="min-w-48 flex-1 rounded-lg border border-slate-700 bg-slate-900 px-3 py-2 text-sm text-white md:flex-none">
+          <select id="vocabCategory" onchange="renderVocab()" aria-label="Filtrovat kategorii" class="rounded-lg border border-slate-700 bg-slate-900 px-3 py-2 text-sm text-white">
+            <option value="all">Všechny kategorie</option><option value="prepositions">Předložky + genitiv</option><option value="noun-phrases">Vazby podstatných jmen</option><option value="quantities">Množství a genitiv plurálu</option>
+          </select>
+        </div>
+      </div>
+      <div id="vocabGrid" class="grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-3"></div>
+      <div class="glass-card grid gap-4 rounded-2xl p-5 md:grid-cols-2">
+        <div>
+          <h3 class="font-bold text-sky-300"><i class="fa-solid fa-bullseye mr-2"></i>Genitiv (2. pád) v plánech</h3>
+          <p class="mt-2 text-sm leading-6 text-slate-300">Ptáme se <strong>koho, čeho?</strong> Genitiv použijeme například po <strong>do, z/ze, bez, během</strong>: <em>do Španělska, z Prahy, bez pojištění, během pobytu</em>. Používáme ho také v <strong>genitivních vazbách (spojeních podstatných jmen)</strong>: <em>cena letenky, délka pobytu, termín odjezdu</em>, a po výrazech množství: <em>mnoho turistů, několik volných dnů, většina památek</em>.</p>
+        </div>
+        <div class="rounded-xl border border-amber-500/20 bg-amber-950/20 p-4">
+          <h3 class="font-bold text-amber-200">Pozor na rozdílné vazby</h3>
+          <p class="mt-2 text-sm leading-6 text-slate-300"><strong>kvůli</strong> se pojí se 3. pádem: <em>kvůli vysokým cenám</em>. Pro genitiv použijte například <em>z důvodu vysokých cen</em>. Ve cvičeních vždy doplňujete konkrétní tvar 2. pádu.</p>
+        </div>
+      </div>
+      <div class="glass-card space-y-5 rounded-2xl p-5 sm:p-7">
+        <div class="rounded-xl border border-sky-500/20 bg-sky-950/30 p-4">
+          <h3 class="font-bold text-sky-200"><i class="fa-solid fa-list-check mr-2"></i>Než začnete: na čem se musíte domluvit?</h3>
+          <p class="mt-2 text-sm leading-6 text-slate-300">Přečtěte si zadání a potom dialog. U každého bodu označte rozhodnutí, na kterém se učitel se studentem/studentkou dohodli. </p>
+          <div class="mt-4 grid gap-2 text-sm sm:grid-cols-2 lg:grid-cols-3">
+            <label class="flex items-start gap-2 rounded-lg bg-slate-900/70 p-3"><input type="checkbox" class="agreement-check mt-1 accent-sky-500"><span><strong>1. Cíl cesty</strong></span></label>
+            <label class="flex items-start gap-2 rounded-lg bg-slate-900/70 p-3"><input type="checkbox" class="agreement-check mt-1 accent-sky-500"><span><strong>2. Termín odjezdu</strong></span></label>
+            <label class="flex items-start gap-2 rounded-lg bg-slate-900/70 p-3"><input type="checkbox" class="agreement-check mt-1 accent-sky-500"><span><strong>3. Délka pobytu</strong></span></label>
+            <label class="flex items-start gap-2 rounded-lg bg-slate-900/70 p-3"><input type="checkbox" class="agreement-check mt-1 accent-sky-500"><span><strong>4. Doprava</strong></span></label>
+            <label class="flex items-start gap-2 rounded-lg bg-slate-900/70 p-3"><input type="checkbox" class="agreement-check mt-1 accent-sky-500"><span><strong>5. Program</strong></span></label>
+            <label class="flex items-start gap-2 rounded-lg bg-slate-900/70 p-3"><input type="checkbox" class="agreement-check mt-1 accent-sky-500"><span><strong>6. Rozpočet</strong></span></label>
+          </div>
+          <p id="agreementProgress" class="mt-3 text-xs font-semibold text-slate-400" aria-live="polite">Označeno: 0 / 6 rozhodnutí</p>
+        </div>
+        <div class="flex flex-col justify-between gap-4 border-b border-slate-700 pb-4 sm:flex-row sm:items-center">
+          <div>
+            <h2 class="text-lg font-bold text-emerald-300"><i class="fa-solid fa-comments mr-2"></i>Modelový dialog B1: Plánujeme dovolenou</h2>
+            <p class="mt-1 text-sm text-slate-400">Poslouchejte nebo čtěte. Hlasy pro každou roli lze přepnout.</p>
+          </div>
+          <div class="flex flex-wrap gap-2">
+            <button type="button" onclick="playDialog()" class="rounded-lg bg-emerald-600 px-3 py-2 text-sm font-bold hover:bg-emerald-500"><i class="fa-solid fa-play mr-1"></i>Přehrát</button>
+            <button type="button" onclick="pauseDialog()" class="rounded-lg bg-slate-700 px-3 py-2 text-sm font-bold hover:bg-slate-600"><i class="fa-solid fa-pause mr-1"></i>Pauza / pokračovat</button>
+            <button type="button" onclick="stopDialog()" class="rounded-lg bg-slate-800 px-3 py-2 text-sm font-bold hover:bg-slate-700"><i class="fa-solid fa-stop mr-1"></i>Zastavit</button>
+          </div>
+        </div>
+        <div class="flex flex-wrap gap-5 text-sm">
+          <fieldset class="flex items-center gap-2"><legend class="mr-1 inline font-semibold text-slate-300">Učitel:</legend>
+            <button type="button" class="gender-btn rounded px-2 py-1" data-role="teacher" data-gender="M" onclick="setGender('teacher','M')">M</button>
+            <button type="button" class="gender-btn rounded px-2 py-1" data-role="teacher" data-gender="F" onclick="setGender('teacher','F')">Ž</button>
+          </fieldset>
+          <fieldset class="flex items-center gap-2"><legend class="mr-1 inline font-semibold text-slate-300">Student/ka:</legend>
+            <button type="button" class="gender-btn rounded px-2 py-1" data-role="student" data-gender="M" onclick="setGender('student','M')">M</button>
+            <button type="button" class="gender-btn rounded px-2 py-1" data-role="student" data-gender="F" onclick="setGender('student','F')">Ž</button>
+          </fieldset>
+          <p id="audioStatus" class="self-center text-xs text-slate-400" aria-live="polite"></p>
+        </div>
+        <div id="dialogText" class="space-y-3 text-sm leading-7 text-slate-200"></div>
+      </div>
+      <div class="glass-card rounded-2xl p-5 sm:p-7">
+        <h2 class="mb-1 text-lg font-bold text-white"><i class="fa-solid fa-circle-question mr-2 text-amber-400"></i>Porozumění dialogu</h2>
+        <p class="mb-4 text-sm text-slate-400">Vyberte jednu odpověď. Možnosti A–D se při načtení promíchají.</p>
+        <div id="quiz" class="space-y-4"></div>
+      </div>
+    </section>
+
+    <section id="tab-exA" class="tab-content hidden space-y-5" hidden>
+      <div class="glass-card rounded-2xl p-5">
+        <h2 class="text-xl font-bold"><i class="fa-solid fa-pen-to-square mr-2 text-sky-400"></i>Cvičení A: Genitiv při plánování dovolené (25 vět)</h2>
+        <p class="mt-1 text-sm text-slate-400">Doplňte správný tvar 2. pádu po předložkách, podstatných jménech a výrazech množství. Každá věta procvičuje genitiv.</p>
+      </div>
+      <div class="glass-card flex items-center gap-3 rounded-xl p-3">
+        <div class="h-3 flex-1 overflow-hidden rounded-full bg-slate-900"><div id="progressBar" class="h-full w-0 bg-sky-500 transition-all"></div></div>
+        <span id="progressText" class="whitespace-nowrap text-xs font-bold text-sky-300">0 / 25 správně</span>
+      </div>
+      <div class="flex flex-wrap gap-2">
+        <button type="button" onclick="checkDrills()" class="rounded-lg bg-sky-600 px-4 py-2 text-sm font-bold hover:bg-sky-500">Zkontrolovat</button>
+        <button type="button" onclick="revealDrills()" class="rounded-lg bg-slate-700 px-4 py-2 text-sm font-bold hover:bg-slate-600">Odkrýt vše</button>
+        <button type="button" onclick="resetDrills()" class="rounded-lg border border-slate-700 bg-slate-900 px-4 py-2 text-sm font-bold hover:bg-slate-800">Resetovat</button>
+      </div>
+      <div id="drillList" class="space-y-3"></div>
+    </section>
+
+    <section id="tab-exB" class="tab-content hidden space-y-5" hidden>
+      <div class="glass-card rounded-2xl p-5">
+        <h2 class="text-xl font-bold"><i class="fa-solid fa-wand-magic-sparkles mr-2 text-amber-400"></i>Cvičení B: Rozšiřte věty a použijte genitiv (10 vět)</h2>
+        <p class="mt-1 text-sm text-slate-400">Spojte jednoduché myšlenky do přirozených vět B1. Každá odpověď má obsahovat vyznačenou vazbu s genitivem.</p>
+      </div>
+      <div id="upgradeList" class="space-y-4"></div>
+    </section>
+
+    <section id="tab-roleplay" class="tab-content hidden space-y-5" hidden>
+      <div class="glass-card rounded-2xl p-5 sm:p-7">
+        <h2 class="text-xl font-bold"><i class="fa-solid fa-people-arrows-left-right mr-2 text-violet-400"></i>Mluvení ve dvojici: Domluvte společnou dovolenou</h2>
+        <p class="mt-2 text-sm leading-6 text-slate-300">Toto je otevřený rozhovor, ne test. Student A navrhne dovolenou a student B reaguje. Střídejte se v navrhování a zdůvodňování; u každého bodu se nakonec musíte <strong>společně rozhodnout</strong>. Použijte genitivní frázi v každém kole.</p>
+        <div class="mt-4 grid gap-4 md:grid-cols-2">
+          <div class="rounded-xl border border-sky-500/20 bg-sky-950/30 p-4 text-sm text-slate-200">
+            <h3 class="font-bold text-sky-200">Student A</h3>
+            <p class="mt-2">Chcete jet do Barcelony na dva týdny. Dáváte přednost letadlu a chcete navštívit památky i okolí města. Navrhujete rozpočet přibližně 18 000 Kč na osobu.</p>
+          </div>
+          <div class="rounded-xl border border-amber-500/20 bg-amber-950/20 p-4 text-sm text-slate-200">
+            <h3 class="font-bold text-amber-200">Student B</h3>
+            <p class="mt-2">Raději byste jeli až na konci září, nechcete dlouhé čekání ani příliš vysoké výdaje. Ptejte se na cenu letenek, ubytování a plánované aktivity.</p>
+          </div>
+        </div>
+        <ol class="mt-4 list-inside list-decimal space-y-2 text-sm text-slate-300">
+          <li>Vyberte cíl cesty a dohodněte termín odjezdu.</li>
+          <li>Rozhodněte o délce pobytu a dopravním spojení.</li>
+          <li>Naplánujte program a vyberte, co navštívíte.</li>
+          <li>Odhadněte cenu a potvrďte společné rozhodnutí.</li>
+        </ol>
+        <p id="roleplayProgress" class="mt-4 text-sm font-semibold text-slate-400" aria-live="polite">Dokončeno: 0 / 4 rozhodnutí</p>
+        <div id="roleplayGoals" class="mt-4 grid grid-cols-1 gap-3 sm:grid-cols-2"></div>
+      </div>
+    </section>
+
+    <section id="tab-homework" class="tab-content hidden space-y-5" hidden>
+      <div class="glass-card rounded-2xl p-5 sm:p-7">
+        <h2 class="text-xl font-bold"><i class="fa-solid fa-house-laptop mr-2 text-emerald-400"></i>Domácí úkol: Naplánujte vlastní dovolenou</h2>
+        <p class="mt-2 text-sm leading-6 text-slate-300">Připravte krátký dialog nebo souvislé vyprávění (120–150 slov) o plánování dovolené. Popište cíl, termín a délku pobytu, dopravu, program i rozpočet. Použijte alespoň <strong>osm různých tvarů genitivu</strong>: nejméně dva po předložce, dva po podstatném jméně a jeden výraz množství. Podtrhněte je a u každého uveďte otázku „koho, čeho?“.</p>
+        <div class="mt-4 rounded-xl border border-slate-700 bg-slate-900/70 p-4">
+          <h3 class="font-bold text-sky-300">Osnova</h3>
+          <ol class="mt-2 list-inside list-decimal space-y-1 text-sm text-slate-300">
+            <li>Cíl cesty: <em>do + genitiv</em> (např. do Španělska).</li><li>Termín odjezdu a délka pobytu.</li>
+            <li>Doprava a cena letenky / ubytování.</li><li>Program během pobytu a návštěva památek.</li>
+            <li>Odhad výdajů a závěrečné rozhodnutí.</li>
+          </ol>
+          <p class="mt-3 text-xs text-slate-400">Hotový text pošlete učiteli na <a href="mailto:lukashackczech@gmail.com" class="text-sky-300 underline">lukashackczech@gmail.com</a> s předmětem „Lekce 7 – Plánujeme dovolenou“.</p>
+          <a href="mailto:lukashackczech@gmail.com?subject=Lekce%207%20-%20Planov%C3%A1n%C3%AD%20dovolen%C3%A9" class="mt-3 inline-flex items-center gap-2 rounded-lg bg-sky-600 px-4 py-2 text-sm font-bold text-white hover:bg-sky-500"><i class="fa-solid fa-paper-plane"></i>Zadat úkol e-mailem</a>
+        </div>
+        <label for="studentSubmission" class="mt-5 block text-sm font-bold text-white">Váš text</label>
+        <textarea id="studentSubmission" rows="9" oninput="saveText('studentSubmission','studentSubmissionStatus')" class="mt-2 w-full rounded-xl border border-slate-700 bg-slate-950 p-4 text-sm leading-6 text-slate-100 focus:border-sky-500 focus:outline-none" placeholder="Napište svůj dialog nebo plán dovolené…"></textarea>
+        <p id="studentSubmissionStatus" class="mt-1 text-xs text-slate-500" aria-live="polite">Text se ukládá v tomto prohlížeči.</p>
+      </div>
+      <div class="glass-card rounded-2xl p-5 sm:p-7">
+        <label for="teacherNotes" class="block font-bold text-white"><i class="fa-solid fa-pen-to-square mr-2 text-sky-400"></i>Teacher Live Notes</label>
+        <textarea id="teacherNotes" rows="8" oninput="saveText('teacherNotes','notesStatus')" class="mt-3 w-full rounded-xl border border-slate-700 bg-slate-950 p-3 text-sm text-slate-100 focus:border-sky-500 focus:outline-none" placeholder="+ Dobře použité fráze&#10;− Pozor na genitiv…"></textarea>
+        <p id="notesStatus" class="mt-1 text-xs text-slate-500" aria-live="polite">Poznámky se ukládají v tomto prohlížeči.</p>
+      </div>
+    </section>
+  </main>
+
+  <footer class="border-t border-slate-800 py-5 text-center text-xs text-slate-500">Czech B1 Mastery · Okruh 4: Cestování</footer>
+
+  <script>
+    const VOCAB = [
+      { cz: "termín odjezdu", pos: "podstatné jméno (m)", en: "departure date", gen: "odjezdu", pattern: "termín odjezdu", ex: "Termín odjezdu musíme sladit s pracovním kalendářem.", category: "noun-phrases" },
+      { cz: "cíl cesty", pos: "podstatné jméno (m)", en: "travel destination", gen: "cesty", pattern: "cíl cesty", ex: "Při výběru cíle cesty zvažujeme cenu i počasí.", category: "noun-phrases" },
+      { cz: "výběr destinace", pos: "podstatné jméno (m)", en: "choice of destination", gen: "destinace", pattern: "výběr destinace", ex: "Výběr destinace závisí také na dostupnosti přímých letů.", category: "noun-phrases" },
+      { cz: "délka pobytu", pos: "podstatné jméno (ž)", en: "length of stay", gen: "pobytu", pattern: "délka pobytu", ex: "Délka pobytu bude záviset na našem rozpočtu.", category: "noun-phrases" },
+      { cz: "doba cesty", pos: "podstatné jméno (ž)", en: "travel time", gen: "cesty", pattern: "doba cesty", ex: "Před nákupem letenek porovnáme dobu cesty.", category: "noun-phrases" },
+      { cz: "místo odletu", pos: "podstatné jméno (stř)", en: "departure point", gen: "odletu", pattern: "místo odletu", ex: "Místo odletu si vybereme podle dostupnosti spojů.", category: "noun-phrases" },
+      { cz: "zpáteční letenka", pos: "podstatné jméno (ž)", en: "return flight ticket", gen: "zpáteční letenky", pattern: "cena zpáteční letenky", ex: "Cena zpáteční letenky se může během týdne výrazně změnit.", category: "noun-phrases" },
+      { cz: "dopravní spojení", pos: "podstatné jméno (stř)", en: "transport connection", gen: "dopravního spojení", pattern: "výběr dopravního spojení", ex: "Při výběru dopravního spojení zohledníme počet přestupů.", category: "noun-phrases" },
+      { cz: "přestup", pos: "podstatné jméno (m)", en: "transfer / connection", gen: "přestupu", pattern: "bez přestupu", ex: "Raději zvolíme přímý let bez přestupu.", category: "prepositions" },
+      { cz: "cestovní pojištění", pos: "podstatné jméno (stř)", en: "travel insurance", gen: "cestovního pojištění", pattern: "bez cestovního pojištění", ex: "Bez cestovního pojištění bychom na tak dlouhou cestu nejeli.", category: "prepositions" },
+      { cz: "rezervace ubytování", pos: "podstatné jméno (ž)", en: "accommodation reservation", gen: "rezervace ubytování", pattern: "potvrzení rezervace ubytování", ex: "Potvrzení rezervace ubytování si uložíme také do telefonu.", category: "noun-phrases" },
+      { cz: "historické centrum", pos: "podstatné jméno (stř)", en: "historic centre", gen: "historického centra", pattern: "prohlídka historického centra", ex: "Prohlídku historického centra si naplánujeme na první den.", category: "noun-phrases" },
+      { cz: "památka", pos: "podstatné jméno (ž)", en: "landmark / sight", gen: "památek", pattern: "návštěva památek", ex: "Návštěva hlavních památek zabere nejméně jeden celý den.", category: "quantities" },
+      { cz: "okolí Barcelony", pos: "podstatné jméno (stř)", en: "the area around Barcelona", gen: "Barcelony", pattern: "v okolí Barcelony", ex: "V okolí Barcelony najdeme několik zajímavých výletních cílů.", category: "prepositions" },
+      { cz: "záloha", pos: "podstatné jméno (ž)", en: "deposit", gen: "zálohy", pattern: "výše zálohy", ex: "Výše zálohy za apartmán činí polovinu celkové ceny.", category: "noun-phrases" },
+      { cz: "pobyt", pos: "podstatné jméno (m)", en: "stay", gen: "pobytu", pattern: "během pobytu", ex: "Během pobytu si chceme půjčit auto jen na několik dní.", category: "prepositions" },
+      { cz: "počet turistů", pos: "podstatné jméno (m)", en: "number of tourists", gen: "turistů", pattern: "počet turistů", ex: "Počet turistů bývá na konci září nižší než v létě.", category: "quantities" },
+      { cz: "volný den", pos: "podstatné jméno (m)", en: "free day", gen: "volných dnů", pattern: "několik volných dnů", ex: "Na prohlídku okolí si necháme několik volných dnů.", category: "quantities" },
+      { cz: "rozpočet", pos: "podstatné jméno (m)", en: "budget", gen: "rozpočtu", pattern: "výše rozpočtu", ex: "Výše rozpočtu rozhodne o tom, zda si půjčíme auto na celý pobyt.", category: "noun-phrases" },
+      { cz: "vysoké ceny", pos: "podstatné jméno (ž, mn. č.)", en: "high prices", gen: "vysokých cen", pattern: "z důvodu vysokých cen", ex: "Z důvodu vysokých cen ubytování rezervujeme apartmán s předstihem.", category: "prepositions" },
+      { cz: "finanční prostředky", pos: "podstatné jméno (mn. č.)", en: "financial resources", gen: "finančních prostředků", pattern: "dostatek finančních prostředků", ex: "Před cestou se ujistíme, že máme dostatek finančních prostředků.", category: "quantities" }
+    ];
+
+    const DIALOG = [
+      { role: "teacher", text: "Ahoj Martino, jak se máš?" },
+      { role: "student", text: "Dobře, a ty?" },
+      { role: "teacher", text: "Také dobře, ale mám moc práce. Potřeboval bych dovolenou." },
+      { role: "student", text: "Já také. Nepojedeme někam spolu?" },
+      { role: "teacher", text: "To je dobrý nápad. Byla jsi někdy v Japonsku?" },
+      { role: "student", text: "Ne, nikdy. A navíc je to moc daleko. Raději bych něco blíž." },
+      { role: "teacher", text: "Dobře. Co třeba Řecko?" },
+      { role: "student", text: "To by bylo pěkné, ale teď je tam příliš mnoho turistů." },
+      { role: "teacher", text: "A co Portugalsko?" },
+      { role: "student", text: "Tam jsem byla minulý týden." },
+      { role: "teacher", text: "Aha, tak co Španělsko? Cíl cesty bychom tedy měli. Teď ještě musíme vybrat termín odjezdu a délku pobytu." },
+      { role: "student", text: "To může být. Kdy máš čas?" },
+      { role: "teacher", text: "Příští týden jsou levné letenky." },
+      { role: "student", text: "Příští týden nemůžu, protože maminka má narozeniny. Ale na konci září bych mohla." },
+      { role: "teacher", text: "Dobře, takže pojedeme poslední dva týdny v září. A na jak dlouho?" },
+      { role: "student", text: "Na dva týdny. Délka pobytu by měla stačit na prohlídku Barcelony i okolí." },
+      { role: "teacher", text: "Výborně. A jak tam pojedeme? Letadlem, autobusem, nebo autem?" },
+      { role: "student", text: "Nejlépe letadlem. Autobusem nechci jet, protože cesta trvá 22 hodin a v něm neusnu. Autem také ne, protože moje auto je už staré." },
+      { role: "teacher", text: "Dobře, poletíme. Přímý let bez přestupu bude pohodlnější. Až tam budeme, můžeme si půjčit auto a jet se podívat i do hor. Znáš Andorru?" },
+      { role: "student", text: "Ne, nikdy jsem tam nebyla." },
+      { role: "teacher", text: "Jsou tam nádherné hory, Pyreneje. Mohli bychom si tam udělat výlet." },
+      { role: "student", text: "To by se mi líbilo. A co ještě budeme dělat v Barceloně?" },
+      { role: "teacher", text: "Během pobytu určitě půjdeme na pláž a navštívíme kostel Sagrada Família i většinu známých památek. Mohli bychom také podniknout výlet do Pyrenejí. A samozřejmě si dáme dobré jídlo! Máš ráda mořské plody?" },
+      { role: "student", text: "Moc ne, třeba kalamáry nemám ráda. Ale to nevadí, určitě tam mají i jiné jídlo." },
+      { role: "teacher", text: "Jasně. Bez cestovního pojištění bychom ale neměli odjíždět. A víš, kolik to bude stát?" },
+      { role: "student", text: "Cena zpáteční letenky z Prahy bude kolem tří tisíc korun, půjčení auta asi pět tisíc a ubytování v apartmánu vyjde na deset tisíc. Celkem tedy asi osmnáct tisíc korun na osobu." },
+      { role: "teacher", text: "To je docela dobrá cena." },
+      { role: "student", text: "Ano, myslím, že si tu dovolenou opravdu užijeme." },
+      { role: "teacher", text: "Tak jsme rozhodnutí – jedeme do Španělska, do Barcelony, na dva týdny. Během pobytu budeme navštěvovat památky, plavat a jezdit do hor." },
+      { role: "student", text: "Přesně tak. Už se moc těším!" }
+    ];
+
+    const QUIZ = [
+      { question: "Do které země se nakonec rozhodli jet?", options: ["Do Španělska.", "Do Japonska.", "Do Řecka.", "Do Portugalska."], answer: 0 },
+      { question: "Na jak dlouho plánují dovolenou?", options: ["Na jeden týden.", "Na dva týdny.", "Na tři týdny.", "Na celý měsíc."], answer: 1 },
+      { question: "Kolik má podle studentky stát dovolená na osobu celkem?", options: ["Asi 10 000 korun.", "Asi 15 000 korun.", "Asi 18 000 korun.", "Asi 22 000 korun."], answer: 2 }
+    ];
+
+    const DRILLS = [
+      { before: "Rozhodli jsme se pro cestu do ", after: ". (Španělsko)", answer: "Španělska", hint: "do + 2. pád" },
+      { before: "Zpáteční letenky z ", after: " bývají levnější. (Praha)", answer: "Prahy", hint: "z + 2. pád" },
+      { before: "Potvrzení ", after: " uložíme do telefonu. (rezervace apartmánu)", answer: "rezervace apartmánu", hint: "potvrzení čeho?" },
+      { before: "Na tak dlouhou cestu bychom nejeli bez ", after: ". (cestovní pojištění)", answer: "cestovního pojištění", hint: "bez + 2. pád" },
+      { before: "Během ", after: " budeme poznávat okolí. (dvoutýdenní pobyt)", answer: "dvoutýdenního pobytu", hint: "během + 2. pád" },
+      { before: "Výlet do ", after: " by mohl být nejhezčí částí dovolené. (Pyreneje)", answer: "Pyrenejí", hint: "do + 2. pád množného čísla" },
+      { before: "Během pobytu chceme navštívit většinu ", after: ". (známé památky)", answer: "známých památek", hint: "většina čeho? 2. pád množného čísla" },
+      { before: "Na prohlídku okolí si necháme několik ", after: ". (volný den)", answer: "volných dnů", accepted: ["volných dnů", "volných dní"], hint: "několik + 2. pád množného čísla" },
+      { before: "Z důvodu ", after: " si apartmán zarezervujeme včas. (vysoké ceny)", answer: "vysokých cen", hint: "z důvodu + 2. pád množného čísla" },
+      { before: "Před odjezdem se ujistíme, že máme dostatek ", after: ". (finanční prostředky)", answer: "finančních prostředků", hint: "dostatek čeho? 2. pád množného čísla" },
+      { before: "Před nákupem letenek porovnáme dobu ", after: ". (cesta)", answer: "cesty", hint: "doba čeho?" },
+      { before: "Na první den si naplánujeme prohlídku ", after: ". (historické centrum)", answer: "historického centra", hint: "prohlídka čeho?" },
+      { before: "Po příletu pojedeme z ", after: " do hotelu. (pražské letiště)", answer: "pražského letiště", hint: "z + 2. pád" },
+      { before: "Apartmán jsme našli poblíž ", after: ". (Barcelona)", answer: "Barcelony", hint: "poblíž + 2. pád" },
+      { before: "Bez ", after: " bychom přišli o možnost změnit termín cesty. (včasná rezervace)", answer: "včasné rezervace", hint: "bez + 2. pád" },
+      { before: "Na konci ", after: " se ceny ubytování obvykle sníží. (hlavní sezóna)", answer: "hlavní sezóny", hint: "na konci čeho?" },
+      { before: "Cena zpáteční ", after: " se může každý den měnit. (letenka)", answer: "letenky", hint: "cena čeho?" },
+      { before: "Výběr ", after: " ovlivní také počasí. (vhodná destinace)", answer: "vhodné destinace", hint: "výběr čeho?" },
+      { before: "Termín ", after: " musíme sladit s pracovním kalendářem. (odjezd)", answer: "odjezdu", hint: "termín čeho?" },
+      { before: "V okolí města najdeme několik zajímavých ", after: ". (výletní cíl)", answer: "výletních cílů", hint: "několik + 2. pád množného čísla" },
+      { before: "Většina ", after: " se nachází v historickém centru. (známá památka)", answer: "známých památek", hint: "většina + 2. pád množného čísla" },
+      { before: "Z důvodu ", after: " pojedeme do hor vlakem. (vysoká cena půjčovného)", answer: "vysoké ceny půjčovného", hint: "z důvodu + 2. pád" },
+      { before: "Po návratu z ", after: " si prohlédneme fotografie. (dovolená)", answer: "dovolené", hint: "z + 2. pád" },
+      { before: "Během ", after: " chceme navštívit také několik muzeí. (náš pobyt)", answer: "našeho pobytu", hint: "během + 2. pád" },
+      { before: "Bez dalších ", after: " se celková cena vejde do našeho rozpočtu. (výdaj)", answer: "výdajů", hint: "bez + 2. pád množného čísla" }
+    ];
+
+    const UPGRADES = [
+      { simple: "Chceme jet do Španělska. Zatím jsme nevybrali město.", structure: "Spojte věty pomocí „výběr + 2. pád“ a „do + 2. pád“.", words: ["výběr destinace", "cíl cesty"], target: "destinace / cesty", model: "Při výběru destinace jsme jako cíl cesty zvolili Španělsko." },
+      { simple: "Pojedeme na dva týdny. Odjezd plánujeme na konec září.", structure: "Použijte vazby „termín + 2. pád“ a „délka + 2. pád“.", words: ["termín odjezdu", "délka pobytu"], target: "odjezdu / pobytu", model: "Termín odjezdu jsme stanovili na konec září a délka pobytu bude dva týdny." },
+      { simple: "Letenka stojí tři tisíce. Chceme letět přímo.", structure: "Vyjádřete cenu podstatným jménem a použijte „bez + 2. pád“.", words: ["cena zpáteční letenky", "bez přestupu"], target: "zpáteční letenky / přestupu", model: "Cena zpáteční letenky z Prahy je přibližně tři tisíce korun a raději poletíme bez přestupu." },
+      { simple: "Chceme navštívit památky. Také pojedeme do hor.", structure: "Použijte „během + 2. pád“, „většina + 2. pád“ a „do + 2. pád“.", words: ["během pobytu", "většina památek", "výlet do Pyrenejí"], target: "pobytu / památek / Pyrenejí", model: "Během pobytu chceme navštívit většinu hlavních památek a podniknout výlet do Pyrenejí." },
+      { simple: "Dovolená nesmí být příliš drahá. Potřebujeme si připravit rozpočet.", structure: "Uveďte důvod pomocí „z důvodu + 2. pád“ a množství pomocí „dostatek + 2. pád“.", words: ["z důvodu vysokých cen", "výše rozpočtu", "dostatek finančních prostředků"], target: "vysokých cen / rozpočtu / finančních prostředků", model: "Z důvodu vysokých cen si předem stanovíme výši rozpočtu a ověříme, že máme dostatek finančních prostředků." },
+      { simple: "Apartmán je blízko centra. Rezervaci uložíme do telefonu.", structure: "Použijte „poblíž + 2. pád“ a „potvrzení + 2. pád“.", words: ["poblíž historického centra", "potvrzení rezervace"], target: "historického centra / rezervace", model: "Potvrzení rezervace jsme obdrželi předem a apartmán jsme vybrali poblíž historického centra." },
+      { simple: "Ve městě je hodně turistů. Na konci září jich bývá méně.", structure: "Vyjádřete množství pomocí „počet + 2. pád“ a „méně + 2. pád“.", words: ["počet turistů", "méně návštěvníků"], target: "turistů / návštěvníků", model: "Počet turistů bývá na konci září nižší, takže si prohlídku města užijeme klidněji." },
+      { simple: "Cesta trvá dlouho. Nechceme přestupovat.", structure: "Použijte „doba + 2. pád“ a „bez + 2. pád“.", words: ["doba cesty", "bez přestupu"], target: "cesty / přestupu", model: "Kvůli dlouhé době cesty zvolíme přímý let bez přestupu." },
+      { simple: "V horách jsou krásné výhledy. Pojedeme tam na výlet.", structure: "Spojte věty pomocí „výlet + do + 2. pád“ a rozviňte důvod.", words: ["výlet do Pyrenejí", "během pobytu"], target: "Pyrenejí / pobytu", model: "Během pobytu si uděláme výlet do Pyrenejí, protože odtud uvidíme nádhernou krajinu." },
+      { simple: "Máme několik volných dnů. Chceme navštívit muzea.", structure: "Použijte „několik + 2. pád množného čísla“ a „návštěva + 2. pád“.", words: ["několik volných dnů", "návštěva muzeí"], target: "volných dnů / muzeí", model: "Necháme si několik volných dnů na návštěvu muzeí a výletů do okolí." }
+    ];
+
+    const ROLEPLAY = [
+      { title: "1. Cíl a termín", task: "Rozhodněte se, kam pojedete a kdy odjedete. Oba navrhněte možnost a společně vyberte jednu.", target: "do + 2. pád; termín odjezdu", model: "Pojedeme do Španělska. Termín odjezdu stanovíme na konec září." },
+      { title: "2. Délka a doprava", task: "Dohodněte délku pobytu a způsob dopravy. Zdůvodněte, proč vám oběma vyhovuje.", target: "délka pobytu; doba cesty; bez přestupu", model: "Délka pobytu bude dva týdny a poletíme bez přestupu, protože doba cesty bude kratší." },
+      { title: "3. Program", task: "Každý navrhněte jednu aktivitu. Vyberte, co během dovolené skutečně podniknete.", target: "během pobytu; návštěva památek; několik volných dnů", model: "Během pobytu navštívíme většinu památek a necháme si několik volných dnů na výlety." },
+      { title: "4. Cena a konečná dohoda", task: "Odhadněte cenu letenek a ubytování. Potvrďte, že vám celkový rozpočet vyhovuje.", target: "cena letenky; cena ubytování; dostatek finančních prostředků", model: "Cena zpáteční letenky bude asi tři tisíce korun a cena ubytování deset tisíc. Máme dostatek finančních prostředků." }
+    ];
+
+    let activeFilter = "all";
+    let teacherGender = "M";
+    let studentGender = "F";
+    let dialogIndex = 0;
+    const normalize = value => value.trim().toLocaleLowerCase("cs").replace(/[.!?]+$/, "").replace(/\s+/g, " ");
+
+    function renderVocab() {
+      const query = document.getElementById("vocabSearch").value.trim().toLocaleLowerCase("cs");
+      const category = document.getElementById("vocabCategory").value;
+      const items = VOCAB.filter(item => (category === "all" || item.category === category) && `${item.cz} ${item.en} ${item.gen} ${item.pattern} ${item.ex}`.toLocaleLowerCase("cs").includes(query));
+      document.getElementById("vocabGrid").innerHTML = items.map(item => `
+        <article class="vocab-card glass-card rounded-xl p-4">
+          <div class="flex items-start justify-between gap-2"><h3 class="font-bold text-sky-300">${item.cz}</h3><button type="button" onclick="speakText(${JSON.stringify(item.cz)})" aria-label="Přehrát ${item.cz}" class="shrink-0 rounded-lg bg-slate-800 px-2 py-1 text-sky-300 hover:bg-slate-700"><i class="fa-solid fa-volume-high"></i></button></div>
+          <p class="mt-1 text-xs text-slate-400">${item.pos} · ${item.en}</p><p class="mt-3 text-xs text-amber-200"><span class="font-bold">Genitiv:</span> ${item.gen}</p><p class="mt-1 text-xs text-sky-200"><span class="font-bold">Vazba:</span> ${item.pattern}</p><p class="mt-2 text-sm leading-5 text-slate-200">${item.ex}</p>
+        </article>`).join("") || '<p class="text-sm text-slate-400">Žádný výraz neodpovídá hledání.</p>';
+    }
+
+    function getDialogLineText(line) {
+        let text = line.text;
+        if (line.role === "teacher") {
+          if (teacherGender === "F") text = text.replace("Potřeboval bych", "Potřebovala bych");
+          if (studentGender === "M") text = text.replace("Martino", "Martine").replace("Byla jsi", "Byl jsi").replace("Máš ráda", "Máš rád");
+        } else if (studentGender === "M") {
+          text = text.replace("Tam jsem byla", "Tam jsem byl").replace("bych mohla", "bych mohl").replace("nebyla.", "nebyl.").replace("nemám ráda", "nemám rád");
+        }
+        return text;
+    }
+
+    function renderDialog() {
+      document.getElementById("dialogText").innerHTML = DIALOG.map(line => {
+        const text = getDialogLineText(line);
+        const label = line.role === "teacher" ? "Učitel:" : studentGender === "F" ? "Studentka:" : "Student:";
+        return `<p><span class="mr-2 inline-block min-w-16 font-bold ${line.role === "teacher" ? "text-sky-300" : "text-emerald-300"}">${label}</span>${text}</p>`;
+      }).join("");
+    }
+
+    function renderQuiz() {
+      document.getElementById("quiz").innerHTML = QUIZ.map((item, qi) => {
+        const options = item.options.map((text, index) => ({ text, correct: index === item.answer }));
+        for (let i = options.length - 1; i > 0; i--) {
+          const j = Math.floor(Math.random() * (i + 1));
+          [options[i], options[j]] = [options[j], options[i]];
+        }
+        return `<fieldset class="rounded-xl border border-slate-700 p-4"><legend class="px-1 font-semibold text-white">${qi + 1}. ${item.question}</legend><div class="mt-2 grid gap-2 sm:grid-cols-2">${options.map((option, oi) => `<button type="button" data-correct="${option.correct}" onclick="checkQuiz(this)" class="quiz-option rounded-lg border border-slate-700 bg-slate-900 px-3 py-2 text-left text-sm hover:border-sky-500"><span class="mr-2 font-bold text-sky-300">${String.fromCharCode(65 + oi)})</span>${option.text}</button>`).join("")}</div></fieldset>`;
+      }).join("");
+    }
+
+    function checkQuiz(button) {
+      const group = button.closest("fieldset");
+      group.querySelectorAll("button").forEach(option => { option.disabled = true; });
+      button.classList.add(button.dataset.correct === "true" ? "border-emerald-500" : "border-rose-500");
+      button.classList.add(button.dataset.correct === "true" ? "bg-emerald-950/50" : "bg-rose-950/50");
+      if (button.dataset.correct !== "true") {
+        const correct = group.querySelector('[data-correct="true"]');
+        correct.classList.add("border-emerald-500", "bg-emerald-950/50");
+      }
+    }
+
+    function renderDrills() {
+      document.getElementById("drillList").innerHTML = DRILLS.map((item, index) => `<div class="glass-card flex flex-wrap items-center gap-2 rounded-xl p-4">
+        <span class="text-xs font-bold text-slate-500">${index + 1}.</span><p class="flex flex-wrap items-center gap-1 text-sm text-slate-200">${item.before}<input id="drill${index}" type="text" autocomplete="off" data-answer="${item.answer}" style="--answer-length:${item.answer.length}" class="drill-input rounded-md border border-slate-600 bg-slate-950 px-2 py-1 text-center text-sm text-white focus:border-sky-500 focus:outline-none" aria-label="Odpověď ${index + 1}"><span class="rounded bg-slate-800 px-2 py-1 text-xs text-sky-300">Nápověda: ${item.hint}</span>${item.after}<button type="button" onclick="speakDrill(${index})" aria-label="Přehrát větu ${index + 1}" class="rounded-lg bg-slate-800 px-2 py-1 text-sky-300 hover:bg-slate-700"><i class="fa-solid fa-volume-high"></i></button></p><span id="drillResult${index}" class="text-xs font-bold" aria-live="polite"></span>
+      </div>`).join("");
+    }
+
+    function speakDrill(index) {
+      const item = DRILLS[index];
+      speakText(`${item.before}${item.answer}${item.after}`);
+    }
+
+    function checkDrills() {
+      let correctCount = 0;
+      DRILLS.forEach((item, index) => {
+        const input = document.getElementById(`drill${index}`);
+        const acceptedAnswers = item.accepted || [item.answer];
+        const correct = acceptedAnswers.some(answer => normalize(input.value) === normalize(answer));
+        const result = document.getElementById(`drillResult${index}`);
+        result.textContent = correct ? "Správně" : "Zkuste to znovu";
+        result.className = `text-xs font-bold ${correct ? "text-emerald-400" : "text-rose-400"}`;
+        input.classList.toggle("border-emerald-500", correct);
+        input.classList.toggle("border-rose-500", !correct);
+        if (correct) correctCount++;
+      });
+      document.getElementById("progressBar").style.width = `${correctCount / DRILLS.length * 100}%`;
+      document.getElementById("progressText").textContent = `${correctCount} / ${DRILLS.length} správně`;
+    }
+
+    function revealDrills() {
+      DRILLS.forEach((item, index) => {
+        document.getElementById(`drill${index}`).value = item.answer;
+        const result = document.getElementById(`drillResult${index}`);
+        result.textContent = item.answer;
+        result.className = "text-xs font-bold text-amber-300";
+      });
+      document.getElementById("progressBar").style.width = "100%";
+      document.getElementById("progressText").textContent = `Řešení zobrazena (${DRILLS.length} / ${DRILLS.length})`;
+    }
+
+    function resetDrills() {
+      DRILLS.forEach((_, index) => {
+        const input = document.getElementById(`drill${index}`);
+        input.value = "";
+        input.classList.remove("border-emerald-500", "border-rose-500");
+        document.getElementById(`drillResult${index}`).textContent = "";
+      });
+      document.getElementById("progressBar").style.width = "0%";
+      document.getElementById("progressText").textContent = `0 / ${DRILLS.length} správně`;
+    }
+
+    function renderUpgrades() {
+      document.getElementById("upgradeList").innerHTML = UPGRADES.map((item, index) => `<article class="glass-card rounded-xl p-4 sm:p-5">
+        <h3 class="font-bold text-white">${index + 1}. ${item.simple}</h3>
+        <p class="mt-3 text-sm text-sky-200"><span class="font-bold">Strukturální nápověda:</span> ${item.structure}</p>
+        <details class="mt-3 rounded-lg bg-slate-900/70 p-3"><summary class="cursor-pointer text-sm font-semibold text-amber-200">Rozbalit slovní zásobu</summary><p class="mt-2 text-sm text-slate-300">${item.words.join(" · ")}</p></details>
+        <p class="mt-3 text-xs text-amber-200"><span class="font-bold">Použijte genitiv:</span> ${item.target}</p>
+        <label class="mt-3 block text-xs font-semibold text-slate-400" for="upgrade${index}">Vaše věta B1</label><textarea id="upgrade${index}" rows="2" class="mt-1 w-full rounded-lg border border-slate-700 bg-slate-950 p-3 text-sm text-white focus:border-sky-500 focus:outline-none" placeholder="Napište rozvinutou větu…"></textarea>
+        <button type="button" onclick="document.getElementById('model${index}').classList.toggle('hidden')" class="mt-2 rounded-lg bg-slate-800 px-3 py-2 text-xs font-bold text-slate-200 hover:bg-slate-700">Ukázat vzorovou větu</button><p id="model${index}" class="mt-2 hidden rounded-lg border border-emerald-500/20 bg-emerald-950/30 p-3 text-sm text-emerald-200">${item.model}</p>
+      </article>`).join("");
+    }
+
+    function renderRoleplay() {
+      document.getElementById("roleplayGoals").innerHTML = ROLEPLAY.map((item, index) => `<article class="rounded-xl border border-slate-700 bg-slate-900/80 p-4 hover:border-violet-400">
+        <div class="flex items-center justify-between gap-2 font-bold text-white"><h3>${item.title}</h3><span id="decisionCheck${index}" class="text-slate-600"><i class="fa-solid fa-circle-check"></i></span></div>
+        <p class="mt-3 text-sm text-slate-300">${item.task}</p>
+        <p class="mt-2 text-xs text-violet-200"><strong>Genitivní fráze:</strong> ${item.target}</p>
+        <details class="mt-3 rounded-lg bg-slate-950/70 p-3"><summary class="cursor-pointer text-xs font-bold text-emerald-300">Možná dohoda</summary><p class="mt-2 text-sm text-emerald-100">${item.model}</p></details>
+        <label class="mt-3 flex items-center gap-2 text-xs font-semibold text-slate-300"><input type="checkbox" class="roleplay-check accent-violet-500" data-index="${index}"> Na tomto bodě jsme se dohodli</label>
+      </article>`).join("");
+    }
+
+    function updateDecisionProgress() {
+      const completed = document.querySelectorAll(".roleplay-check:checked").length;
+      document.getElementById("roleplayProgress").textContent = `Dokončeno: ${completed} / ${ROLEPLAY.length} rozhodnutí`;
+      document.querySelectorAll(".roleplay-check").forEach(input => {
+        const indicator = document.getElementById(`decisionCheck${input.dataset.index}`);
+        indicator.classList.toggle("text-emerald-400", input.checked);
+        indicator.classList.toggle("text-slate-600", !input.checked);
+      });
+    }
+
+    function updateAgreementProgress() {
+      const checked = document.querySelectorAll(".agreement-check:checked").length;
+      document.getElementById("agreementProgress").textContent = `Označeno: ${checked} / 6 rozhodnutí`;
+    }
+
+    function setGender(role, gender) {
+      if ("speechSynthesis" in window && window.speechSynthesis.speaking) stopDialog();
+      if (role === "teacher") teacherGender = gender;
+      else studentGender = gender;
+      document.querySelectorAll(`.gender-btn[data-role="${role}"]`).forEach(button => {
+        const selected = button.dataset.gender === gender;
+        button.className = `gender-btn rounded px-2 py-1 ${selected ? "bg-sky-600 text-white" : "bg-slate-800 text-slate-400"}`;
+        button.setAttribute("aria-pressed", String(selected));
+      });
+      renderDialog();
+    }
+
+    function getCzechVoice(gender) {
+      const voices = window.speechSynthesis.getVoices().filter(voice => voice.lang.toLowerCase().startsWith("cs"));
+      const genderTerms = gender === "F" ? /female|woman|žena|zuzana|iva|eliska|katerina|vlasta/i : /male|man|muž|zdenek|adam|pavel/i;
+      return voices.find(voice => genderTerms.test(voice.name)) || voices[0] || null;
+    }
+
+    function speakText(text, gender = studentGender) {
+      if (!("speechSynthesis" in window)) {
+        document.getElementById("audioStatus").textContent = "Tento prohlížeč nepodporuje předčítání.";
+        return;
+      }
+      window.speechSynthesis.cancel();
+      const utterance = new SpeechSynthesisUtterance(text);
+      utterance.lang = "cs-CZ";
+      const voice = getCzechVoice(gender);
+      if (voice) utterance.voice = voice;
+      window.speechSynthesis.speak(utterance);
+    }
+
+    function playDialog() {
+      if (!("speechSynthesis" in window)) {
+        document.getElementById("audioStatus").textContent = "Tento prohlížeč nepodporuje předčítání.";
+        return;
+      }
+      window.speechSynthesis.cancel();
+      if (dialogIndex >= DIALOG.length) dialogIndex = 0;
+      speakNextLine();
+    }
+
+    function speakNextLine() {
+      if (dialogIndex >= DIALOG.length) {
+        document.getElementById("audioStatus").textContent = "Konec dialogu.";
+        dialogIndex = 0;
+        return;
+      }
+      const line = DIALOG[dialogIndex];
+      const utterance = new SpeechSynthesisUtterance(getDialogLineText(line));
+      utterance.lang = "cs-CZ";
+      const voice = getCzechVoice(line.role === "teacher" ? teacherGender : studentGender);
+      if (voice) utterance.voice = voice;
+      utterance.onstart = () => { document.getElementById("audioStatus").textContent = `${line.role === "teacher" ? "Učitel" : "Studentka"} (${dialogIndex + 1}/${DIALOG.length})`; };
+      utterance.onend = () => { dialogIndex++; speakNextLine(); };
+      utterance.onerror = event => { document.getElementById("audioStatus").textContent = `Přehrávání se nepodařilo: ${event.error}`; };
+      window.speechSynthesis.speak(utterance);
+    }
+
+    function pauseDialog() {
+      if (!("speechSynthesis" in window)) return;
+      if (window.speechSynthesis.paused) window.speechSynthesis.resume();
+      else if (window.speechSynthesis.speaking) window.speechSynthesis.pause();
+    }
+    function stopDialog() {
+      if ("speechSynthesis" in window) window.speechSynthesis.cancel();
+      dialogIndex = 0;
+      document.getElementById("audioStatus").textContent = "Přehrávání zastaveno.";
+    }
+
+    function switchTab(tabId) {
+      document.querySelectorAll(".tab-content").forEach(section => {
+        const active = section.id === tabId;
+        section.hidden = !active;
+        section.classList.toggle("hidden", !active);
+      });
+      document.querySelectorAll(".tab-btn").forEach(button => {
+        const active = button.dataset.tab === tabId;
+        button.classList.toggle("bg-sky-600", active);
+        button.classList.toggle("text-white", active);
+        button.classList.toggle("text-slate-400", !active);
+      });
+      if (tabId !== "tab-vocab") stopDialog();
+    }
+
+    function saveText(key, statusId) {
+      try {
+        localStorage.setItem(`czechB1.lesson7.${key}`, document.getElementById(key).value);
+        document.getElementById(statusId).textContent = "Uloženo v tomto prohlížeči.";
+      } catch (error) {
+        document.getElementById(statusId).textContent = `Uložení se nezdařilo: ${error.message}`;
+      }
+    }
+
+    function restoreText(key, statusId) {
+      try {
+        const saved = localStorage.getItem(`czechB1.lesson7.${key}`);
+        if (saved !== null) document.getElementById(key).value = saved;
+      } catch (error) {
+        document.getElementById(statusId).textContent = `Načtení uloženého textu se nezdařilo: ${error.message}`;
+      }
+    }
+
+    document.querySelectorAll(".tab-btn").forEach(button => button.addEventListener("click", () => switchTab(button.dataset.tab)));
+    renderVocab();
+    renderDialog();
+    renderQuiz();
+    renderDrills();
+    renderUpgrades();
+    renderRoleplay();
+    document.querySelectorAll(".agreement-check").forEach(input => input.addEventListener("change", updateAgreementProgress));
+    document.getElementById("roleplayGoals").addEventListener("change", event => {
+      if (event.target.matches(".roleplay-check")) updateDecisionProgress();
+    });
+    setGender("teacher", teacherGender);
+    setGender("student", studentGender);
+    restoreText("studentSubmission", "studentSubmissionStatus");
+    restoreText("teacherNotes", "notesStatus");
+  </script>
+</body>
+</html>

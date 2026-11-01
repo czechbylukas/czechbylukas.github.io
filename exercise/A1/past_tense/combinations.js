@@ -169,10 +169,70 @@ window.CZECH_GRAMMAR_DB = {
       }
     },
     {
+  infinitive: "SLAVIT",
+  translation: "to celebrate",
+  level: 2,
+  image: "https://images.unsplash.com/photo-1511795409834-ef04bbd61622?auto=format&fit=crop&w=600&q=80",
+  reflexive: false,
+  compatibleCategories: [],
+  forms: {
+    SG: { M: "slavil", F: "slavila", N: "slavilo" },
+    PL: { M_ANIM: "slavili", F: "slavily", N: "slavila" }
+  }
+},
+{
+  infinitive: "HRÁT",
+  translation: "to play",
+  level: 2,
+  image: "https://images.unsplash.com/photo-1536594527669-2f555de54e95?auto=format&fit=crop&w=600&q=80",
+  reflexive: false,
+  compatibleCategories: [],
+  forms: {
+    SG: { M: "hrál", F: "hrála", N: "hrálo" },
+    PL: { M_ANIM: "hráli", F: "hrály", N: "hrála" }
+  }
+},
+{
+  infinitive: "PÍT",
+  translation: "to drink",
+  level: 2,
+  image: "https://images.unsplash.com/photo-1651063067981-8baeab7e7912?auto=format&fit=crop&w=600&q=80",
+  reflexive: false,
+  compatibleCategories: [],
+  forms: {
+    SG: { M: "pil", F: "pila", N: "pilo" },
+    PL: { M_ANIM: "pili", F: "pily", N: "pila" }
+  }
+},
+{
+  infinitive: "ZPÍVAT",
+  translation: "to sing",
+  level: 1,
+  image: "https://images.unsplash.com/photo-1792355548852-91113888bff7?auto=format&fit=crop&w=600&q=80",
+  reflexive: false,
+  compatibleCategories: [],
+  forms: {
+    SG: { M: "zpíval", F: "zpívala", N: "zpívalo" },
+    PL: { M_ANIM: "zpívali", F: "zpívaly", N: "zpívala" }
+  }
+},
+{
+  infinitive: "MLUVIT",
+  translation: "to speak",
+  level: 1,
+  image: "https://images.unsplash.com/photo-1677594332274-3e2c016723b7?auto=format&fit=crop&w=600&q=80",
+  reflexive: false,
+  compatibleCategories: [],
+  forms: {
+    SG: { M: "mluvil", F: "mluvila", N: "mluvilo" },
+    PL: { M_ANIM: "mluvili", F: "mluvily", N: "mluvila" }
+  }
+},
+    {
       infinitive: "JÍST",
       translation: "to eat",
       level: 2,
-      image: "https://images.unsplash.com/photo-1533777857889-4be7c70b33f7?auto=format&fit=crop&w=600&q=80",
+      image: "https://images.unsplash.com/photo-1565895405138-6c3a1555da6a?auto=format&fit=crop&w=600&q=80",
       reflexive: false,
       compatibleCategories: ["foodAndDrink"],
       forms: {

@@ -1,0 +1,1808 @@
+{
+  "title": "Nákup zlata? Je to držák s kouskem romantiky. Ale já možná nejsem romantik, hodnotí plány ČNB ekonom",
+  "description": "Práce s textem – úrovně B1, B2, C1",
+  "audioUrl": "",
+  "episodeUrl": "https://www.irozhlas.cz/ekonomika/nakup-zlata-je-drzak-s-kouskem-romantiky-ale-ja-mozna-nejsem-romantik-hodnoti_2610240600_jkd",
+  "levels": {
+    "B1": {
+      "vocabulary": [
+        {
+          "czech": "vzácný",
+          "english": "rare"
+        },
+        {
+          "czech": "měšec",
+          "english": "pouch"
+        },
+        {
+          "czech": "zásoba",
+          "english": "supply"
+        },
+        {
+          "czech": "stock",
+          "english": ""
+        },
+        {
+          "czech": "padělat",
+          "english": "to forge"
+        },
+        {
+          "czech": "counterfeit",
+          "english": ""
+        },
+        {
+          "czech": "směnit",
+          "english": "to exchange"
+        },
+        {
+          "czech": "vytěžit",
+          "english": "to extract"
+        },
+        {
+          "czech": "mine",
+          "english": ""
+        },
+        {
+          "czech": "pojistka",
+          "english": "safeguard"
+        },
+        {
+          "czech": "insurance",
+          "english": ""
+        },
+        {
+          "czech": "dlužník",
+          "english": "debtor"
+        }
+      ],
+      "exercises": [
+        {
+          "title": "Cvičení 1 – Slovní zásoba",
+          "type": "standard",
+          "instructions": "Spojte výraz s významem.",
+          "optionsList": [],
+          "items": [
+            {
+              "section_title": "",
+              "prompt": "vzácný",
+              "type": "single",
+              "is_multiselect": false,
+              "options": [
+                "člověk, který má povinnost vrátit někomu peníze",
+                "získat něco z přírody, například pomocí těžby",
+                "vyměnit jednu věc za jinou",
+                "něco, co není běžné a je obtížné to získat",
+                "množství něčeho, co je k dispozici",
+                "vytvořit nepravou kopii něčeho",
+                "ochrana před možným problémem nebo ztrátou",
+                "malá taška, ve které se dříve nosily peníze"
+              ]
+            },
+            {
+              "section_title": "",
+              "prompt": "měšec",
+              "type": "single",
+              "is_multiselect": false,
+              "options": [
+                "člověk, který má povinnost vrátit někomu peníze",
+                "získat něco z přírody, například pomocí těžby",
+                "vyměnit jednu věc za jinou",
+                "něco, co není běžné a je obtížné to získat",
+                "množství něčeho, co je k dispozici",
+                "vytvořit nepravou kopii něčeho",
+                "ochrana před možným problémem nebo ztrátou",
+                "malá taška, ve které se dříve nosily peníze"
+              ]
+            },
+            {
+              "section_title": "",
+              "prompt": "zásoba",
+              "type": "single",
+              "is_multiselect": false,
+              "options": [
+                "člověk, který má povinnost vrátit někomu peníze",
+                "získat něco z přírody, například pomocí těžby",
+                "vyměnit jednu věc za jinou",
+                "něco, co není běžné a je obtížné to získat",
+                "množství něčeho, co je k dispozici",
+                "vytvořit nepravou kopii něčeho",
+                "ochrana před možným problémem nebo ztrátou",
+                "malá taška, ve které se dříve nosily peníze"
+              ]
+            },
+            {
+              "section_title": "",
+              "prompt": "padělat",
+              "type": "single",
+              "is_multiselect": false,
+              "options": [
+                "člověk, který má povinnost vrátit někomu peníze",
+                "získat něco z přírody, například pomocí těžby",
+                "vyměnit jednu věc za jinou",
+                "něco, co není běžné a je obtížné to získat",
+                "množství něčeho, co je k dispozici",
+                "vytvořit nepravou kopii něčeho",
+                "ochrana před možným problémem nebo ztrátou",
+                "malá taška, ve které se dříve nosily peníze"
+              ]
+            },
+            {
+              "section_title": "",
+              "prompt": "směnit",
+              "type": "single",
+              "is_multiselect": false,
+              "options": [
+                "člověk, který má povinnost vrátit někomu peníze",
+                "získat něco z přírody, například pomocí těžby",
+                "vyměnit jednu věc za jinou",
+                "něco, co není běžné a je obtížné to získat",
+                "množství něčeho, co je k dispozici",
+                "vytvořit nepravou kopii něčeho",
+                "ochrana před možným problémem nebo ztrátou",
+                "malá taška, ve které se dříve nosily peníze"
+              ]
+            },
+            {
+              "section_title": "",
+              "prompt": "vytěžit",
+              "type": "single",
+              "is_multiselect": false,
+              "options": [
+                "člověk, který má povinnost vrátit někomu peníze",
+                "získat něco z přírody, například pomocí těžby",
+                "vyměnit jednu věc za jinou",
+                "něco, co není běžné a je obtížné to získat",
+                "množství něčeho, co je k dispozici",
+                "vytvořit nepravou kopii něčeho",
+                "ochrana před možným problémem nebo ztrátou",
+                "malá taška, ve které se dříve nosily peníze"
+              ]
+            },
+            {
+              "section_title": "",
+              "prompt": "pojistka",
+              "type": "single",
+              "is_multiselect": false,
+              "options": [
+                "člověk, který má povinnost vrátit někomu peníze",
+                "získat něco z přírody, například pomocí těžby",
+                "vyměnit jednu věc za jinou",
+                "něco, co není běžné a je obtížné to získat",
+                "množství něčeho, co je k dispozici",
+                "vytvořit nepravou kopii něčeho",
+                "ochrana před možným problémem nebo ztrátou",
+                "malá taška, ve které se dříve nosily peníze"
+              ]
+            },
+            {
+              "section_title": "",
+              "prompt": "dlužník",
+              "type": "single",
+              "is_multiselect": false,
+              "options": [
+                "člověk, který má povinnost vrátit někomu peníze",
+                "získat něco z přírody, například pomocí těžby",
+                "vyměnit jednu věc za jinou",
+                "něco, co není běžné a je obtížné to získat",
+                "množství něčeho, co je k dispozici",
+                "vytvořit nepravou kopii něčeho",
+                "ochrana před možným problémem nebo ztrátou",
+                "malá taška, ve které se dříve nosily peníze"
+              ]
+            }
+          ],
+          "matchingItems": [],
+          "matchingOptions": [],
+          "matchingSection": ""
+        },
+        {
+          "title": "Cvičení 2 – Doplň do věty",
+          "type": "standard",
+          "instructions": "Doplňte vhodné slovo.\nSlova: banka, důvěra, inflace, mince, peněženka, poklad, stvrzenka, váha",
+          "optionsList": [
+            "banka",
+            "důvěra",
+            "inflace",
+            "mince",
+            "peněženka",
+            "poklad",
+            "stvrzenka",
+            "váha"
+          ],
+          "items": [
+            {
+              "section_title": "",
+              "prompt": "Lidé dříve používali mušle, kameny a později také zlaté ______.",
+              "type": "single",
+              "is_multiselect": false,
+              "options": []
+            },
+            {
+              "section_title": "",
+              "prompt": "Zlato muselo být možné rozdělit na menší části a uložit do ______.",
+              "type": "single",
+              "is_multiselect": false,
+              "options": []
+            },
+            {
+              "section_title": "",
+              "prompt": "Banka vydala zákazníkovi ______, která potvrzovala uložení zlata.",
+              "type": "single",
+              "is_multiselect": false,
+              "options": []
+            },
+            {
+              "section_title": "",
+              "prompt": "Aby lidé přijímali papírové peníze, museli mít v systém ______.",
+              "type": "single",
+              "is_multiselect": false,
+              "options": []
+            },
+            {
+              "section_title": "",
+              "prompt": "Instituce, která zabezpečovala uložené zlato, se postupně stala ______.",
+              "type": "single",
+              "is_multiselect": false,
+              "options": []
+            },
+            {
+              "section_title": "",
+              "prompt": "Zlatý ______ musel být chráněn před krádeží.",
+              "type": "single",
+              "is_multiselect": false,
+              "options": []
+            },
+            {
+              "section_title": "",
+              "prompt": "Při určování hodnoty zlata hrála důležitou roli také jeho ______.",
+              "type": "single",
+              "is_multiselect": false,
+              "options": []
+            },
+            {
+              "section_title": "",
+              "prompt": "Když se zvýší množství peněz v oběhu, může růst ______.",
+              "type": "single",
+              "is_multiselect": false,
+              "options": []
+            }
+          ],
+          "matchingItems": [],
+          "matchingOptions": [],
+          "matchingSection": ""
+        },
+        {
+          "title": "Cvičení 3 – Podmínka a hypotéza",
+          "type": "standard",
+          "instructions": "",
+          "optionsList": [],
+          "items": [
+            {
+              "section_title": "",
+              "prompt": "Kdyby lidé neměli důvěru v banky, ______ (nepoužívat) by papírové peníze.",
+              "type": "single",
+              "is_multiselect": false,
+              "options": []
+            },
+            {
+              "section_title": "",
+              "prompt": "Kdybychom měli více zlata, ______ (moci) bychom vytvořit větší rezervy.",
+              "type": "single",
+              "is_multiselect": false,
+              "options": []
+            },
+            {
+              "section_title": "",
+              "prompt": "Kdyby centrální banka nakoupila další zlato, její zásoby ______ (růst).",
+              "type": "single",
+              "is_multiselect": false,
+              "options": []
+            },
+            {
+              "section_title": "",
+              "prompt": "Kdyby se zlato snadno získávalo, ______ (ztratit) by svou vzácnost.",
+              "type": "single",
+              "is_multiselect": false,
+              "options": []
+            },
+            {
+              "section_title": "",
+              "prompt": "Kdybych měl možnost rozhodovat o měnovém systému, ______ (zvolit) bych jiný způsob.",
+              "type": "single",
+              "is_multiselect": false,
+              "options": []
+            },
+            {
+              "section_title": "",
+              "prompt": "Kdyby lidé více utráceli, ceny ______ (zvyšovat se).",
+              "type": "single",
+              "is_multiselect": false,
+              "options": []
+            },
+            {
+              "section_title": "",
+              "prompt": "Kdyby Británie neovládala světovou ekonomiku, zlato možná ______ (nestát se) hlavním platidlem.",
+              "type": "single",
+              "is_multiselect": false,
+              "options": []
+            },
+            {
+              "section_title": "",
+              "prompt": "Kdyby banky půjčovaly příliš mnoho peněz, některé z nich ______ (zkrachovat).",
+              "type": "single",
+              "is_multiselect": false,
+              "options": []
+            }
+          ],
+          "matchingItems": [],
+          "matchingOptions": [],
+          "matchingSection": ""
+        },
+        {
+          "title": "Cvičení 4 – Slovní zásoba a předložky",
+          "type": "standard",
+          "instructions": "Doplňte správnou předložku nebo výraz. Pokud je výraz bez předložky, nechte políčko prázdné.\nSlova: do, k, na, od, po, pro, před, za",
+          "optionsList": [
+            "do",
+            "k",
+            "na",
+            "od",
+            "po",
+            "pro",
+            "před",
+            "za"
+          ],
+          "items": [
+            {
+              "section_title": "",
+              "prompt": "Zlato se používalo ______ placení.",
+              "type": "single",
+              "is_multiselect": false,
+              "options": []
+            },
+            {
+              "section_title": "",
+              "prompt": "Bankovky byly dlouhou dobu kryty ______ zlatem.",
+              "type": "single",
+              "is_multiselect": false,
+              "options": []
+            },
+            {
+              "section_title": "",
+              "prompt": "Peníze bylo možné směnit ______ zlato.",
+              "type": "single",
+              "is_multiselect": false,
+              "options": []
+            },
+            {
+              "section_title": "",
+              "prompt": "Británie měla významný vliv ______ světovou ekonomiku.",
+              "type": "single",
+              "is_multiselect": false,
+              "options": []
+            },
+            {
+              "section_title": "",
+              "prompt": "Zlato bylo uloženo ______ bankovním trezoru.",
+              "type": "single",
+              "is_multiselect": false,
+              "options": []
+            },
+            {
+              "section_title": "",
+              "prompt": "Zlatý standard fungoval ______ dlouhou dobu.",
+              "type": "single",
+              "is_multiselect": false,
+              "options": []
+            },
+            {
+              "section_title": "",
+              "prompt": "Lidé se báli ______ inflací, protože snižovala kupní sílu peněz.",
+              "type": "single",
+              "is_multiselect": false,
+              "options": []
+            },
+            {
+              "section_title": "",
+              "prompt": "Banka vydala potvrzení ______ uložené zlato.",
+              "type": "single",
+              "is_multiselect": false,
+              "options": []
+            }
+          ],
+          "matchingItems": [],
+          "matchingOptions": [],
+          "matchingSection": ""
+        },
+        {
+          "title": "Cvičení 5 – Práce s textem",
+          "type": "standard",
+          "instructions": "",
+          "optionsList": [],
+          "items": [
+            {
+              "section_title": "A. Ano – Ne",
+              "prompt": "Zlato bylo jediným kovem, který se kdy používal jako platidlo.",
+              "type": "single",
+              "is_multiselect": false,
+              "options": []
+            },
+            {
+              "section_title": "A. Ano – Ne",
+              "prompt": "Isaac Newton pracoval v britské mincovně.",
+              "type": "single",
+              "is_multiselect": false,
+              "options": []
+            },
+            {
+              "section_title": "A. Ano – Ne",
+              "prompt": "Kameny a mušle se v minulosti také používaly jako prostředek směny.",
+              "type": "single",
+              "is_multiselect": false,
+              "options": []
+            },
+            {
+              "section_title": "A. Ano – Ne",
+              "prompt": "Bankovky původně potvrzovaly, že někde existuje odpovídající množství zlata.",
+              "type": "single",
+              "is_multiselect": false,
+              "options": []
+            },
+            {
+              "section_title": "A. Ano – Ne",
+              "prompt": "Peníze podle rozhovoru musí být všeobecně přijímané.",
+              "type": "single",
+              "is_multiselect": false,
+              "options": []
+            },
+            {
+              "section_title": "A. Ano – Ne",
+              "prompt": "Zlatý standard umožňoval volný pohyb peněz přes hranice.",
+              "type": "single",
+              "is_multiselect": false,
+              "options": []
+            },
+            {
+              "section_title": "A. Ano – Ne",
+              "prompt": "Brettonwoodský systém byl založen na tom, že všechny měny byly přímo kryté zlatem.",
+              "type": "single",
+              "is_multiselect": false,
+              "options": []
+            },
+            {
+              "section_title": "A. Ano – Ne",
+              "prompt": "Pavel Hnát považuje návrat ke zlatému standardu za pravděpodobný.",
+              "type": "single",
+              "is_multiselect": false,
+              "options": []
+            },
+            {
+              "section_title": "B. Vyberte nejpřesnější odpověď",
+              "prompt": "Které dva kovy se používaly v systému bimetalismu?",
+              "type": "single",
+              "is_multiselect": false,
+              "options": [
+                "Zlato a měď",
+                "Stříbro a měď",
+                "Zlato a platina",
+                "Zlato a stříbro"
+              ]
+            },
+            {
+              "section_title": "B. Vyberte nejpřesnější odpověď",
+              "prompt": "Co podle Pavla Hnáta umožnilo vznik bankovek?",
+              "type": "single",
+              "is_multiselect": false,
+              "options": [
+                "Potvrzení o uložení zlata",
+                "Vynález papíru",
+                "Rozvoj kryptoměn",
+                "Zrušení mincí"
+              ]
+            },
+            {
+              "section_title": "B. Vyberte nejpřesnější odpověď",
+              "prompt": "Co se stalo během zlatých horeček?",
+              "type": "single",
+              "is_multiselect": false,
+              "options": [
+                "Zásoba zlata přestala existovat.",
+                "Inflace mohla růst.",
+                "Všechny měny získaly stejnou hodnotu.",
+                "Banky přestaly půjčovat peníze."
+              ]
+            },
+            {
+              "section_title": "B. Vyberte nejpřesnější odpověď",
+              "prompt": "Kdy vznikl brettonwoodský měnový systém?",
+              "type": "single",
+              "is_multiselect": false,
+              "options": [
+                "V roce 1914",
+                "V roce 1933",
+                "V roce 1944",
+                "V roce 1970"
+              ]
+            }
+          ],
+          "matchingItems": [],
+          "matchingOptions": [],
+          "matchingSection": ""
+        }
+      ]
+    },
+    "B2": {
+      "vocabulary": [
+        {
+          "czech": "hegemon",
+          "english": "hegemon"
+        },
+        {
+          "czech": "dominant power",
+          "english": ""
+        },
+        {
+          "czech": "barter",
+          "english": "barter"
+        },
+        {
+          "czech": "fixní",
+          "english": "fixed"
+        },
+        {
+          "czech": "kupní síla",
+          "english": "purchasing power"
+        },
+        {
+          "czech": "podhodnotit",
+          "english": "to undervalue"
+        },
+        {
+          "czech": "likvidita",
+          "english": "liquidity"
+        },
+        {
+          "czech": "nominální",
+          "english": "nominal"
+        },
+        {
+          "czech": "rezervy",
+          "english": "reserves"
+        }
+      ],
+      "exercises": [
+        {
+          "title": "Cvičení 1 – Slovní zásoba",
+          "type": "standard",
+          "instructions": "Spojte výraz s významem.",
+          "optionsList": [],
+          "items": [
+            {
+              "section_title": "",
+              "prompt": "hegemon",
+              "type": "single",
+              "is_multiselect": false,
+              "options": [
+                "schopnost peněz zajistit nákup určitého množství zboží a služeb",
+                "výměna zboží nebo služeb bez použití peněz",
+                "něco, co má pevně stanovenou hodnotu a nemění se",
+                "stát nebo mocnost s dominantním vlivem",
+                "hodnota vyjádřená číslem, nikoli skutečným množstvím nebo účinkem",
+                "množství dostupných finančních prostředků",
+                "určit něčemu nižší hodnotu, než jakou by to mělo mít",
+                "finanční prostředky nebo jiná aktiva uchovávaná pro budoucí potřebu"
+              ]
+            },
+            {
+              "section_title": "",
+              "prompt": "barter",
+              "type": "single",
+              "is_multiselect": false,
+              "options": [
+                "schopnost peněz zajistit nákup určitého množství zboží a služeb",
+                "výměna zboží nebo služeb bez použití peněz",
+                "něco, co má pevně stanovenou hodnotu a nemění se",
+                "stát nebo mocnost s dominantním vlivem",
+                "hodnota vyjádřená číslem, nikoli skutečným množstvím nebo účinkem",
+                "množství dostupných finančních prostředků",
+                "určit něčemu nižší hodnotu, než jakou by to mělo mít",
+                "finanční prostředky nebo jiná aktiva uchovávaná pro budoucí potřebu"
+              ]
+            },
+            {
+              "section_title": "",
+              "prompt": "fixní",
+              "type": "single",
+              "is_multiselect": false,
+              "options": [
+                "schopnost peněz zajistit nákup určitého množství zboží a služeb",
+                "výměna zboží nebo služeb bez použití peněz",
+                "něco, co má pevně stanovenou hodnotu a nemění se",
+                "stát nebo mocnost s dominantním vlivem",
+                "hodnota vyjádřená číslem, nikoli skutečným množstvím nebo účinkem",
+                "množství dostupných finančních prostředků",
+                "určit něčemu nižší hodnotu, než jakou by to mělo mít",
+                "finanční prostředky nebo jiná aktiva uchovávaná pro budoucí potřebu"
+              ]
+            },
+            {
+              "section_title": "",
+              "prompt": "kupní síla",
+              "type": "single",
+              "is_multiselect": false,
+              "options": [
+                "schopnost peněz zajistit nákup určitého množství zboží a služeb",
+                "výměna zboží nebo služeb bez použití peněz",
+                "něco, co má pevně stanovenou hodnotu a nemění se",
+                "stát nebo mocnost s dominantním vlivem",
+                "hodnota vyjádřená číslem, nikoli skutečným množstvím nebo účinkem",
+                "množství dostupných finančních prostředků",
+                "určit něčemu nižší hodnotu, než jakou by to mělo mít",
+                "finanční prostředky nebo jiná aktiva uchovávaná pro budoucí potřebu"
+              ]
+            },
+            {
+              "section_title": "",
+              "prompt": "podhodnotit",
+              "type": "single",
+              "is_multiselect": false,
+              "options": [
+                "schopnost peněz zajistit nákup určitého množství zboží a služeb",
+                "výměna zboží nebo služeb bez použití peněz",
+                "něco, co má pevně stanovenou hodnotu a nemění se",
+                "stát nebo mocnost s dominantním vlivem",
+                "hodnota vyjádřená číslem, nikoli skutečným množstvím nebo účinkem",
+                "množství dostupných finančních prostředků",
+                "určit něčemu nižší hodnotu, než jakou by to mělo mít",
+                "finanční prostředky nebo jiná aktiva uchovávaná pro budoucí potřebu"
+              ]
+            },
+            {
+              "section_title": "",
+              "prompt": "likvidita",
+              "type": "single",
+              "is_multiselect": false,
+              "options": [
+                "schopnost peněz zajistit nákup určitého množství zboží a služeb",
+                "výměna zboží nebo služeb bez použití peněz",
+                "něco, co má pevně stanovenou hodnotu a nemění se",
+                "stát nebo mocnost s dominantním vlivem",
+                "hodnota vyjádřená číslem, nikoli skutečným množstvím nebo účinkem",
+                "množství dostupných finančních prostředků",
+                "určit něčemu nižší hodnotu, než jakou by to mělo mít",
+                "finanční prostředky nebo jiná aktiva uchovávaná pro budoucí potřebu"
+              ]
+            },
+            {
+              "section_title": "",
+              "prompt": "nominální",
+              "type": "single",
+              "is_multiselect": false,
+              "options": [
+                "schopnost peněz zajistit nákup určitého množství zboží a služeb",
+                "výměna zboží nebo služeb bez použití peněz",
+                "něco, co má pevně stanovenou hodnotu a nemění se",
+                "stát nebo mocnost s dominantním vlivem",
+                "hodnota vyjádřená číslem, nikoli skutečným množstvím nebo účinkem",
+                "množství dostupných finančních prostředků",
+                "určit něčemu nižší hodnotu, než jakou by to mělo mít",
+                "finanční prostředky nebo jiná aktiva uchovávaná pro budoucí potřebu"
+              ]
+            },
+            {
+              "section_title": "",
+              "prompt": "rezervy",
+              "type": "single",
+              "is_multiselect": false,
+              "options": [
+                "schopnost peněz zajistit nákup určitého množství zboží a služeb",
+                "výměna zboží nebo služeb bez použití peněz",
+                "něco, co má pevně stanovenou hodnotu a nemění se",
+                "stát nebo mocnost s dominantním vlivem",
+                "hodnota vyjádřená číslem, nikoli skutečným množstvím nebo účinkem",
+                "množství dostupných finančních prostředků",
+                "určit něčemu nižší hodnotu, než jakou by to mělo mít",
+                "finanční prostředky nebo jiná aktiva uchovávaná pro budoucí potřebu"
+              ]
+            }
+          ],
+          "matchingItems": [],
+          "matchingOptions": [],
+          "matchingSection": ""
+        },
+        {
+          "title": "Cvičení 2 – Doplň do věty",
+          "type": "standard",
+          "instructions": "Doplňte vhodné slovo.\nSlova: akceptovat, devalvovat, důchod, emitovat, fixovat, kontrolovat, obchodovat, tolerovat",
+          "optionsList": [
+            "akceptovat",
+            "devalvovat",
+            "důchod",
+            "emitovat",
+            "fixovat",
+            "kontrolovat",
+            "obchodovat",
+            "tolerovat"
+          ],
+          "items": [
+            {
+              "section_title": "",
+              "prompt": "Británie dokázala ______ zásobu zlata a ovlivňovat pravidla světové ekonomiky.",
+              "type": "single",
+              "is_multiselect": false,
+              "options": []
+            },
+            {
+              "section_title": "",
+              "prompt": "V minulosti bylo možné ______ zboží přímo za jiné zboží.",
+              "type": "single",
+              "is_multiselect": false,
+              "options": []
+            },
+            {
+              "section_title": "",
+              "prompt": "V rámci zlatého standardu se státy dohodly, že budou ______ své měny ve fixním kurzu.",
+              "type": "single",
+              "is_multiselect": false,
+              "options": []
+            },
+            {
+              "section_title": "",
+              "prompt": "Lidé museli všeobecně ______ peníze jako prostředek směny.",
+              "type": "single",
+              "is_multiselect": false,
+              "options": []
+            },
+            {
+              "section_title": "",
+              "prompt": "Centrální banky mohou ______ peníze, ale jejich množství není zcela neomezené.",
+              "type": "single",
+              "is_multiselect": false,
+              "options": []
+            },
+            {
+              "section_title": "",
+              "prompt": "Před první světovou válkou začaly některé země své měny ______, aby získaly výhodu.",
+              "type": "single",
+              "is_multiselect": false,
+              "options": []
+            },
+            {
+              "section_title": "",
+              "prompt": "Akcionáři bank musí ______ určitou míru rizika spojenou s poskytováním úvěrů.",
+              "type": "single",
+              "is_multiselect": false,
+              "options": []
+            },
+            {
+              "section_title": "",
+              "prompt": "Ekonomové používají pojem permanentní ______ při odhadování budoucí poptávky po penězích.",
+              "type": "single",
+              "is_multiselect": false,
+              "options": []
+            }
+          ],
+          "matchingItems": [],
+          "matchingOptions": [],
+          "matchingSection": ""
+        },
+        {
+          "title": "Cvičení 3 – Podmínka a hypotéza",
+          "type": "standard",
+          "instructions": "",
+          "optionsList": [],
+          "items": [
+            {
+              "section_title": "",
+              "prompt": "Kdyby se světová ekonomika nerozvíjela tak rychle, zásoba peněz ______ (stačit) na pokrytí potřeb obyvatelstva.",
+              "type": "single",
+              "is_multiselect": false,
+              "options": []
+            },
+            {
+              "section_title": "",
+              "prompt": "Kdyby Británie neovládala významnou část světového obchodu, zlatý standard se možná ______ (neprosadit).",
+              "type": "single",
+              "is_multiselect": false,
+              "options": []
+            },
+            {
+              "section_title": "",
+              "prompt": "Kdyby Československo opustilo politiku silné koruny dříve, hospodářská krize ______ (dopadnout) na něj méně tvrdě.",
+              "type": "single",
+              "is_multiselect": false,
+              "options": []
+            },
+            {
+              "section_title": "",
+              "prompt": "Kdyby centrální banky držely příliš mnoho zlata, ______ (muset) by řešit případný pokles jeho ceny.",
+              "type": "single",
+              "is_multiselect": false,
+              "options": []
+            },
+            {
+              "section_title": "",
+              "prompt": "Kdybychom chtěli předpovědět poptávku po penězích, ______ (potřebovat) bychom znát také permanentní důchod obyvatel.",
+              "type": "single",
+              "is_multiselect": false,
+              "options": []
+            },
+            {
+              "section_title": "",
+              "prompt": "Kdyby se měny směňovaly za zlato v proměnlivém kurzu, mezinárodní obchod ______ (být) méně předvídatelný.",
+              "type": "single",
+              "is_multiselect": false,
+              "options": []
+            },
+            {
+              "section_title": "",
+              "prompt": "Kdyby banky poskytovaly úvěry bez ohledu na riziko, některé ______ (dostat se) do finančních problémů.",
+              "type": "single",
+              "is_multiselect": false,
+              "options": []
+            },
+            {
+              "section_title": "",
+              "prompt": "Kdyby se svět vrátil ke zlatému standardu, státy ______ (muset) vyřešit také otázku existujících dluhů.",
+              "type": "single",
+              "is_multiselect": false,
+              "options": []
+            }
+          ],
+          "matchingItems": [],
+          "matchingOptions": [],
+          "matchingSection": ""
+        },
+        {
+          "title": "Cvičení 4 – Slovní zásoba a předložky",
+          "type": "standard",
+          "instructions": "Doplňte správnou předložku nebo výraz. Pokud je výraz bez předložky, nechte políčko prázdné.\nSlova: během, kvůli, mezi, nad, na, o, proti, ve",
+          "optionsList": [
+            "během",
+            "kvůli",
+            "mezi",
+            "nad",
+            "na",
+            "o",
+            "proti",
+            "ve"
+          ],
+          "items": [
+            {
+              "section_title": "",
+              "prompt": "Zlatý standard vznikl ______ viktoriánské éry.",
+              "type": "single",
+              "is_multiselect": false,
+              "options": []
+            },
+            {
+              "section_title": "",
+              "prompt": "Některé státy podhodnocovaly své měny ______ získání obchodní výhody.",
+              "type": "single",
+              "is_multiselect": false,
+              "options": []
+            },
+            {
+              "section_title": "",
+              "prompt": "Hospodářská krize dopadla ______ Československo velmi tvrdě.",
+              "type": "single",
+              "is_multiselect": false,
+              "options": []
+            },
+            {
+              "section_title": "",
+              "prompt": "Ekonomové rozlišují ______ reálnou a nominální hodnotou.",
+              "type": "single",
+              "is_multiselect": false,
+              "options": []
+            },
+            {
+              "section_title": "",
+              "prompt": "Británie měla významnou převahu ______ ostatními mocnostmi.",
+              "type": "single",
+              "is_multiselect": false,
+              "options": []
+            },
+            {
+              "section_title": "",
+              "prompt": "V Bretton Woods se rozhodovalo ______ novém měnovém uspořádání.",
+              "type": "single",
+              "is_multiselect": false,
+              "options": []
+            },
+            {
+              "section_title": "",
+              "prompt": "V minulosti se některé země chovaly ______ pravidlům zlatého standardu.",
+              "type": "single",
+              "is_multiselect": false,
+              "options": []
+            },
+            {
+              "section_title": "",
+              "prompt": "Krize likvidity se objevily ______ situaci, kdy se světový obchod rychle rozvíjel.",
+              "type": "single",
+              "is_multiselect": false,
+              "options": []
+            }
+          ],
+          "matchingItems": [],
+          "matchingOptions": [],
+          "matchingSection": ""
+        },
+        {
+          "title": "Cvičení 5 – Práce s textem",
+          "type": "standard",
+          "instructions": "",
+          "optionsList": [],
+          "items": [
+            {
+              "section_title": "A. Ano – Ne",
+              "prompt": "Podle Pavla Hnáta určovaly hodnotu peněz pouze fyzikální vlastnosti zlata.",
+              "type": "single",
+              "is_multiselect": false,
+              "options": []
+            },
+            {
+              "section_title": "A. Ano – Ne",
+              "prompt": "Británie měla během zlatého standardu postavení hlavního strážce systému.",
+              "type": "single",
+              "is_multiselect": false,
+              "options": []
+            },
+            {
+              "section_title": "A. Ano – Ne",
+              "prompt": "Zlatý standard předpokládal pevné směnné kurzy mezi jednotlivými měnami.",
+              "type": "single",
+              "is_multiselect": false,
+              "options": []
+            },
+            {
+              "section_title": "A. Ano – Ne",
+              "prompt": "Podle rozhovoru mohla politika silné koruny zhoršit dopady hospodářské krize v Československu.",
+              "type": "single",
+              "is_multiselect": false,
+              "options": []
+            },
+            {
+              "section_title": "A. Ano – Ne",
+              "prompt": "Brettonwoodský systém umožňoval ostatním měnám volně plavat vůči dolaru.",
+              "type": "single",
+              "is_multiselect": false,
+              "options": []
+            },
+            {
+              "section_title": "A. Ano – Ne",
+              "prompt": "Růst světového obchodu zvyšoval potřebu dostupných peněz.",
+              "type": "single",
+              "is_multiselect": false,
+              "options": []
+            },
+            {
+              "section_title": "A. Ano – Ne",
+              "prompt": "Pavel Hnát tvrdí, že současná nabídka peněz je zcela neomezená.",
+              "type": "single",
+              "is_multiselect": false,
+              "options": []
+            },
+            {
+              "section_title": "A. Ano – Ne",
+              "prompt": "Podle ekonoma mohou peníze samy o sobě zvýšit reálné bohatství společnosti.",
+              "type": "single",
+              "is_multiselect": false,
+              "options": []
+            },
+            {
+              "section_title": "B. Vyberte nejpřesnější odpověď",
+              "prompt": "Proč byla podle Pavla Hnáta britská dominance důležitá pro rozšíření zlatého standardu?",
+              "type": "single",
+              "is_multiselect": false,
+              "options": [
+                "Británie měla významné zlaté rezervy a dokázala nastavit pravidla.",
+                "Británie jako první zavedla papírové peníze.",
+                "Británie vlastnila všechny světové centrální banky.",
+                "Británie zrušila mezinárodní obchod."
+              ]
+            },
+            {
+              "section_title": "B. Vyberte nejpřesnější odpověď",
+              "prompt": "Jaký problém přinesl zlatý standard v době rostoucího světového obchodu?",
+              "type": "single",
+              "is_multiselect": false,
+              "options": [
+                "Zlato se přestalo používat v mincovnictví.",
+                "Měny začaly být kryté kryptoměnami.",
+                "Státy nemohly stanovovat žádné směnné kurzy.",
+                "Pevná zásoba peněz nestačila pružně reagovat na rostoucí ekonomiku."
+              ]
+            },
+            {
+              "section_title": "B. Vyberte nejpřesnější odpověď",
+              "prompt": "Jak Pavel Hnát hodnotí Rašínovu politiku silné koruny?",
+              "type": "single",
+              "is_multiselect": false,
+              "options": [
+                "Považuje ji za jediný správný způsob měnové politiky.",
+                "Upozorňuje, že mohla prohloubit dopady hospodářské krize.",
+                "Tvrdí, že neměla žádný vliv na československou ekonomiku.",
+                "Spojuje ji především s poválečným brettonwoodským systémem."
+              ]
+            },
+            {
+              "section_title": "B. Vyberte nejpřesnější odpověď",
+              "prompt": "Proč podle ekonoma není návrat ke zlatému standardu jednoduchý?",
+              "type": "single",
+              "is_multiselect": false,
+              "options": [
+                "Protože zlato už nelze bezpečně skladovat.",
+                "Protože všechny státy přišly o své měny.",
+                "Protože by bylo nutné řešit dluhy a odlišné fungování dnešní demokracie.",
+                "Protože by se musely zrušit všechny centrální banky."
+              ]
+            }
+          ],
+          "matchingItems": [],
+          "matchingOptions": [],
+          "matchingSection": ""
+        }
+      ]
+    },
+    "C1": {
+      "vocabulary": [
+        {
+          "czech": "kotva",
+          "english": "anchor"
+        },
+        {
+          "czech": "devalvace",
+          "english": "devaluation"
+        },
+        {
+          "czech": "artikl",
+          "english": "commodity"
+        },
+        {
+          "czech": "item",
+          "english": ""
+        },
+        {
+          "czech": "predikovatelný",
+          "english": "predictable"
+        },
+        {
+          "czech": "automatismus",
+          "english": "automatic mechanism"
+        },
+        {
+          "czech": "flexibilita",
+          "english": "flexibility"
+        },
+        {
+          "czech": "obsese",
+          "english": "obsession"
+        },
+        {
+          "czech": "vyhraněný",
+          "english": "strongly defined"
+        },
+        {
+          "czech": "clear-cut",
+          "english": ""
+        }
+      ],
+      "exercises": [
+        {
+          "title": "Cvičení 1 – Slovní zásoba",
+          "type": "standard",
+          "instructions": "Spojte výraz s významem.",
+          "optionsList": [],
+          "items": [
+            {
+              "section_title": "",
+              "prompt": "kotva",
+              "type": "single",
+              "is_multiselect": false,
+              "options": [
+                "předmět nebo zboží, s nímž se obchoduje",
+                "schopnost přizpůsobit se změněným podmínkám",
+                "něco, co funguje samo podle určitého pravidla nebo mechanismu",
+                "výrazná a dlouhodobá zaujatost určitým tématem",
+                "prvek, který poskytuje stabilitu a oporu",
+                "takový, jehož vývoj lze do určité míry předvídat",
+                "snížení hodnoty měny",
+                "jasně definovaný názor nebo postoj"
+              ]
+            },
+            {
+              "section_title": "",
+              "prompt": "devalvace",
+              "type": "single",
+              "is_multiselect": false,
+              "options": [
+                "předmět nebo zboží, s nímž se obchoduje",
+                "schopnost přizpůsobit se změněným podmínkám",
+                "něco, co funguje samo podle určitého pravidla nebo mechanismu",
+                "výrazná a dlouhodobá zaujatost určitým tématem",
+                "prvek, který poskytuje stabilitu a oporu",
+                "takový, jehož vývoj lze do určité míry předvídat",
+                "snížení hodnoty měny",
+                "jasně definovaný názor nebo postoj"
+              ]
+            },
+            {
+              "section_title": "",
+              "prompt": "artikl",
+              "type": "single",
+              "is_multiselect": false,
+              "options": [
+                "předmět nebo zboží, s nímž se obchoduje",
+                "schopnost přizpůsobit se změněným podmínkám",
+                "něco, co funguje samo podle určitého pravidla nebo mechanismu",
+                "výrazná a dlouhodobá zaujatost určitým tématem",
+                "prvek, který poskytuje stabilitu a oporu",
+                "takový, jehož vývoj lze do určité míry předvídat",
+                "snížení hodnoty měny",
+                "jasně definovaný názor nebo postoj"
+              ]
+            },
+            {
+              "section_title": "",
+              "prompt": "predikovatelný",
+              "type": "single",
+              "is_multiselect": false,
+              "options": [
+                "předmět nebo zboží, s nímž se obchoduje",
+                "schopnost přizpůsobit se změněným podmínkám",
+                "něco, co funguje samo podle určitého pravidla nebo mechanismu",
+                "výrazná a dlouhodobá zaujatost určitým tématem",
+                "prvek, který poskytuje stabilitu a oporu",
+                "takový, jehož vývoj lze do určité míry předvídat",
+                "snížení hodnoty měny",
+                "jasně definovaný názor nebo postoj"
+              ]
+            },
+            {
+              "section_title": "",
+              "prompt": "automatismus",
+              "type": "single",
+              "is_multiselect": false,
+              "options": [
+                "předmět nebo zboží, s nímž se obchoduje",
+                "schopnost přizpůsobit se změněným podmínkám",
+                "něco, co funguje samo podle určitého pravidla nebo mechanismu",
+                "výrazná a dlouhodobá zaujatost určitým tématem",
+                "prvek, který poskytuje stabilitu a oporu",
+                "takový, jehož vývoj lze do určité míry předvídat",
+                "snížení hodnoty měny",
+                "jasně definovaný názor nebo postoj"
+              ]
+            },
+            {
+              "section_title": "",
+              "prompt": "flexibilita",
+              "type": "single",
+              "is_multiselect": false,
+              "options": [
+                "předmět nebo zboží, s nímž se obchoduje",
+                "schopnost přizpůsobit se změněným podmínkám",
+                "něco, co funguje samo podle určitého pravidla nebo mechanismu",
+                "výrazná a dlouhodobá zaujatost určitým tématem",
+                "prvek, který poskytuje stabilitu a oporu",
+                "takový, jehož vývoj lze do určité míry předvídat",
+                "snížení hodnoty měny",
+                "jasně definovaný názor nebo postoj"
+              ]
+            },
+            {
+              "section_title": "",
+              "prompt": "obsese",
+              "type": "single",
+              "is_multiselect": false,
+              "options": [
+                "předmět nebo zboží, s nímž se obchoduje",
+                "schopnost přizpůsobit se změněným podmínkám",
+                "něco, co funguje samo podle určitého pravidla nebo mechanismu",
+                "výrazná a dlouhodobá zaujatost určitým tématem",
+                "prvek, který poskytuje stabilitu a oporu",
+                "takový, jehož vývoj lze do určité míry předvídat",
+                "snížení hodnoty měny",
+                "jasně definovaný názor nebo postoj"
+              ]
+            },
+            {
+              "section_title": "",
+              "prompt": "vyhraněný",
+              "type": "single",
+              "is_multiselect": false,
+              "options": [
+                "předmět nebo zboží, s nímž se obchoduje",
+                "schopnost přizpůsobit se změněným podmínkám",
+                "něco, co funguje samo podle určitého pravidla nebo mechanismu",
+                "výrazná a dlouhodobá zaujatost určitým tématem",
+                "prvek, který poskytuje stabilitu a oporu",
+                "takový, jehož vývoj lze do určité míry předvídat",
+                "snížení hodnoty měny",
+                "jasně definovaný názor nebo postoj"
+              ]
+            }
+          ],
+          "matchingItems": [],
+          "matchingOptions": [],
+          "matchingSection": ""
+        },
+        {
+          "title": "Cvičení 2 – Doplň do věty",
+          "type": "standard",
+          "instructions": "Doplňte vhodné slovo.\nSlova: aktivum, blahobyt, devalvovat, diverzifikovat, kotva, predikce, symbolický, tolerovat",
+          "optionsList": [
+            "aktivum",
+            "blahobyt",
+            "devalvovat",
+            "diverzifikovat",
+            "kotva",
+            "predikce",
+            "symbolický",
+            "tolerovat"
+          ],
+          "items": [
+            {
+              "section_title": "",
+              "prompt": "Zlato může v portfoliu centrální banky představovat jedno z ______.",
+              "type": "single",
+              "is_multiselect": false,
+              "options": []
+            },
+            {
+              "section_title": "",
+              "prompt": "Pevně stanovená nabídka zlata měla v minulosti fungovat jako měnová ______.",
+              "type": "single",
+              "is_multiselect": false,
+              "options": []
+            },
+            {
+              "section_title": "",
+              "prompt": "Pavel Hnát nepovažuje plán ČNB na zvýšení zlatých rezerv pouze za ekonomické rozhodnutí, ale také za ______ gesto.",
+              "type": "single",
+              "is_multiselect": false,
+              "options": []
+            },
+            {
+              "section_title": "",
+              "prompt": "Rychlý rozvoj finanční globalizace umožnil výrazně zvýšit světový ______.",
+              "type": "single",
+              "is_multiselect": false,
+              "options": []
+            },
+            {
+              "section_title": "",
+              "prompt": "Některé státy se v minulosti pokoušely své měny záměrně ______.",
+              "type": "single",
+              "is_multiselect": false,
+              "options": []
+            },
+            {
+              "section_title": "",
+              "prompt": "Ekonomové se snaží vytvářet přesnější ______ budoucí poptávky po penězích.",
+              "type": "single",
+              "is_multiselect": false,
+              "options": []
+            },
+            {
+              "section_title": "",
+              "prompt": "Centrální banka může ______ své rezervy tím, že drží různé druhy aktiv.",
+              "type": "single",
+              "is_multiselect": false,
+              "options": []
+            },
+            {
+              "section_title": "",
+              "prompt": "Akcionáři bank musí rozhodnout, jak velké riziko jsou ochotni ______.",
+              "type": "single",
+              "is_multiselect": false,
+              "options": []
+            }
+          ],
+          "matchingItems": [],
+          "matchingOptions": [],
+          "matchingSection": ""
+        },
+        {
+          "title": "Cvičení 3 – Gramatika",
+          "type": "standard",
+          "instructions": "Opravte chybu\nV každé větě je jedna gramatická chyba. Pokud je text bez chyby, napiš: „správně“.",
+          "optionsList": [],
+          "items": [
+            {
+              "section_title": "A. Opravte chybu\nV každé větě je jedna gramatická chyba. Pokud je text bez chyby, napiš: „správně“.",
+              "prompt": "Měny byly v rámci zlatého standardu pevně směňovány za dolar.",
+              "type": "single",
+              "is_multiselect": false,
+              "options": []
+            },
+            {
+              "section_title": "A. Opravte chybu\nV každé větě je jedna gramatická chyba. Pokud je text bez chyby, napiš: „správně“.",
+              "prompt": "Rostoucí nabídka peněz mohou způsobovat růst cenové hladiny.",
+              "type": "single",
+              "is_multiselect": false,
+              "options": []
+            },
+            {
+              "section_title": "A. Opravte chybu\nV každé větě je jedna gramatická chyba. Pokud je text bez chyby, napiš: „správně“.",
+              "prompt": "Ekonomové rozlišují mezi reálnou a nominální hodnotou peněz.",
+              "type": "single",
+              "is_multiselect": false,
+              "options": []
+            },
+            {
+              "section_title": "A. Opravte chybu\nV každé větě je jedna gramatická chyba. Pokud je text bez chyby, napiš: „správně“.",
+              "prompt": "Zlatý standard vyžadovala pevnou zásobu peněz.",
+              "type": "single",
+              "is_multiselect": false,
+              "options": []
+            },
+            {
+              "section_title": "A. Opravte chybu\nV každé větě je jedna gramatická chyba. Pokud je text bez chyby, napiš: „správně“.",
+              "prompt": "Devizové rezervy slouží také k ovlivňování směnného kurzu.",
+              "type": "single",
+              "is_multiselect": false,
+              "options": []
+            },
+            {
+              "section_title": "A. Opravte chybu\nV každé větě je jedna gramatická chyba. Pokud je text bez chyby, napiš: „správně“.",
+              "prompt": "Centrální banky musí zohledňovat možnými důsledky poklesu ceny zlata.",
+              "type": "single",
+              "is_multiselect": false,
+              "options": []
+            },
+            {
+              "section_title": "A. Opravte chybu\nV každé větě je jedna gramatická chyba. Pokud je text bez chyby, napiš: „správně“.",
+              "prompt": "Hospodářské krize ukázaly, že pevná zásoba peněz nemusí odpovídat potřebám ekonomiky.",
+              "type": "single",
+              "is_multiselect": false,
+              "options": []
+            },
+            {
+              "section_title": "A. Opravte chybu\nV každé větě je jedna gramatická chyba. Pokud je text bez chyby, napiš: „správně“.",
+              "prompt": "Dnešní demokratické systémy funguje jinak než politické uspořádání v době zlatého standardu.",
+              "type": "single",
+              "is_multiselect": false,
+              "options": []
+            },
+            {
+              "section_title": "B. Doplňte správný tvar",
+              "prompt": "Zlato se v minulosti používalo jako prostředek ______ (uchovávat) hodnoty.",
+              "type": "single",
+              "is_multiselect": false,
+              "options": []
+            },
+            {
+              "section_title": "B. Doplňte správný tvar",
+              "prompt": "Kdyby se cena zlata výrazně snížila, centrální banka ______ (zaznamenat) ztrátu.",
+              "type": "single",
+              "is_multiselect": false,
+              "options": []
+            },
+            {
+              "section_title": "B. Doplňte správný tvar",
+              "prompt": "Rostoucí světový obchod vedl k ______ (zvyšovat) poptávky po penězích.",
+              "type": "single",
+              "is_multiselect": false,
+              "options": []
+            },
+            {
+              "section_title": "B. Doplňte správný tvar",
+              "prompt": "Brettonwoodský systém byl založen na dohodě o pevných měnových ______ (kurz).",
+              "type": "single",
+              "is_multiselect": false,
+              "options": []
+            },
+            {
+              "section_title": "B. Doplňte správný tvar",
+              "prompt": "Kdyby státy chtěly obnovit zlatý standard, ______ (muset) by nejprve vyřešit otázku existujících dluhů.",
+              "type": "single",
+              "is_multiselect": false,
+              "options": []
+            },
+            {
+              "section_title": "B. Doplňte správný tvar",
+              "prompt": "Zlato zůstává aktivem, které je v době nejistoty často ______ (vyhledávat).",
+              "type": "single",
+              "is_multiselect": false,
+              "options": []
+            },
+            {
+              "section_title": "B. Doplňte správný tvar",
+              "prompt": "Centrální banky drží devizové rezervy mimo jiné proto, aby mohly ______ (ovlivňovat) směnný kurz.",
+              "type": "single",
+              "is_multiselect": false,
+              "options": []
+            },
+            {
+              "section_title": "B. Doplňte správný tvar",
+              "prompt": "Podle Pavla Hnáta se světová ekonomika postupně ______ (odpoutat) od zlata jako základu měnového systému.",
+              "type": "single",
+              "is_multiselect": false,
+              "options": []
+            }
+          ],
+          "matchingItems": [],
+          "matchingOptions": [],
+          "matchingSection": ""
+        },
+        {
+          "title": "Cvičení 4 – Slovní zásoba a předložky",
+          "type": "standard",
+          "instructions": "Doplňte správnou předložku nebo výraz. Pokud je výraz bez předložky, nechte políčko prázdné.\nSlova: díky, do, kvůli, mezi, na, o, vůči, za",
+          "optionsList": [
+            "díky",
+            "do",
+            "kvůli",
+            "mezi",
+            "na",
+            "o",
+            "vůči",
+            "za"
+          ],
+          "items": [
+            {
+              "section_title": "",
+              "prompt": "Zlatý standard byl založen ______ dohodě mezi jednotlivými státy.",
+              "type": "single",
+              "is_multiselect": false,
+              "options": []
+            },
+            {
+              "section_title": "",
+              "prompt": "Rostoucí finanční globalizace vedla ______ potřebě pružnější měnové politiky.",
+              "type": "single",
+              "is_multiselect": false,
+              "options": []
+            },
+            {
+              "section_title": "",
+              "prompt": "Některé státy se snažily získat výhodu ______ záměrné devalvaci měny.",
+              "type": "single",
+              "is_multiselect": false,
+              "options": []
+            },
+            {
+              "section_title": "",
+              "prompt": "Pavel Hnát upozorňuje ______ rozdíl mezi nominální a reálnou hodnotou.",
+              "type": "single",
+              "is_multiselect": false,
+              "options": []
+            },
+            {
+              "section_title": "",
+              "prompt": "Británie měla významnou moc ______ ostatním světovým ekonomikám.",
+              "type": "single",
+              "is_multiselect": false,
+              "options": []
+            },
+            {
+              "section_title": "",
+              "prompt": "Rozhodnutí o měnovém systému záviselo také ______ geopolitických okolnostech.",
+              "type": "single",
+              "is_multiselect": false,
+              "options": []
+            },
+            {
+              "section_title": "",
+              "prompt": "Zlato může sloužit jako ochrana ______ ekonomickou nejistotou.",
+              "type": "single",
+              "is_multiselect": false,
+              "options": []
+            },
+            {
+              "section_title": "",
+              "prompt": "Současná poptávka po zlatě roste mimo jiné ______ nedůvěře v některá jiná aktiva.",
+              "type": "single",
+              "is_multiselect": false,
+              "options": []
+            }
+          ],
+          "matchingItems": [],
+          "matchingOptions": [],
+          "matchingSection": ""
+        },
+        {
+          "title": "Cvičení 5 – Práce s textem",
+          "type": "standard",
+          "instructions": "",
+          "optionsList": [],
+          "items": [
+            {
+              "section_title": "A. Ano – Ne",
+              "prompt": "Pavel Hnát považuje zlato za aktivum, které má stále určitou stabilizační hodnotu.",
+              "type": "single",
+              "is_multiselect": false,
+              "options": []
+            },
+            {
+              "section_title": "A. Ano – Ne",
+              "prompt": "Podle ekonoma byla britská dominance jediným důvodem, proč se zlato stalo základem měnového systému.",
+              "type": "single",
+              "is_multiselect": false,
+              "options": []
+            },
+            {
+              "section_title": "A. Ano – Ne",
+              "prompt": "Zásada pevné nabídky peněz byla jednou z podmínek zlatého standardu.",
+              "type": "single",
+              "is_multiselect": false,
+              "options": []
+            },
+            {
+              "section_title": "A. Ano – Ne",
+              "prompt": "Brettonwoodský systém znamenal, že všechny světové měny byly přímo směnitelné za zlato.",
+              "type": "single",
+              "is_multiselect": false,
+              "options": []
+            },
+            {
+              "section_title": "A. Ano – Ne",
+              "prompt": "Ekonom upozorňuje, že růst množství peněz automaticky neznamená růst reálného bohatství.",
+              "type": "single",
+              "is_multiselect": false,
+              "options": []
+            },
+            {
+              "section_title": "A. Ano – Ne",
+              "prompt": "Návrat ke zlatému standardu by podle rozhovoru vyžadoval vyřešení otázky existujících dluhů.",
+              "type": "single",
+              "is_multiselect": false,
+              "options": []
+            },
+            {
+              "section_title": "A. Ano – Ne",
+              "prompt": "Pavel Hnát považuje držení zlata v rezervách ČNB za zásadní ekonomickou nutnost.",
+              "type": "single",
+              "is_multiselect": false,
+              "options": []
+            },
+            {
+              "section_title": "A. Ano – Ne",
+              "prompt": "Podle ekonoma souvisela historická přijatelnost zlatého standardu také s omezeným volebním právem.",
+              "type": "single",
+              "is_multiselect": false,
+              "options": []
+            },
+            {
+              "section_title": "B. Vyberte nejpřesnější odpověď",
+              "prompt": "Jak Pavel Hnát vysvětluje současný zájem některých států o zlato?",
+              "type": "single",
+              "is_multiselect": false,
+              "options": [
+                "Jako reakci na rostoucí nepředvídatelnost světového prostředí a klesající důvěru v jiná aktiva.",
+                "Jako důsledek úplného návratu k pevným směnným kurzům.",
+                "Jako snahu odstranit všechny formy státního dluhu.",
+                "Jako důkaz, že zlato znovu plní funkci jediného světového platidla."
+              ]
+            },
+            {
+              "section_title": "B. Vyberte nejpřesnější odpověď",
+              "prompt": "Proč podle ekonoma nelze jednoduše obnovit zlatý standard?",
+              "type": "single",
+              "is_multiselect": false,
+              "options": [
+                "Protože zásoby zlata ve světě úplně zmizely.",
+                "Protože by se musely zrušit všechny demokratické instituce.",
+                "Protože dnešní banky nemají možnost držet žádná fyzická aktiva.",
+                "Protože by bylo nutné řešit existující dluhy a přizpůsobit se současnému politickému uspořádání."
+              ]
+            },
+            {
+              "section_title": "B. Vyberte nejpřesnější odpověď",
+              "prompt": "Jaký rozdíl Pavel Hnát zdůrazňuje mezi nominálním a reálným bohatstvím?",
+              "type": "single",
+              "is_multiselect": false,
+              "options": [
+                "Nominální hodnota vždy odpovídá skutečné kupní síle.",
+                "Vyšší peněžní částka sama o sobě neznamená, že člověk vlastní více skutečných statků.",
+                "Reálné bohatství je tvořeno výhradně zlatými rezervami.",
+                "Nominální bohatství závisí pouze na výši úrokových sazeb."
+              ]
+            },
+            {
+              "section_title": "B. Vyberte nejpřesnější odpověď",
+              "prompt": "Jaký argument Pavel Hnát uvádí v souvislosti s demokratickým uspořádáním a zlatým standardem?",
+              "type": "single",
+              "is_multiselect": false,
+              "options": [
+                "V minulosti měly všechny společenské skupiny stejný vliv na hospodářskou politiku.",
+                "Zlatý standard zajišťoval, že hospodářské krize nikdy nedopadaly na obyčejné lidi.",
+                "V době zlatého standardu rozhodovali především bohatí, zatímco dnes voliči očekávají, že vláda zmírní dopady krizí.",
+                "Demokratické státy dnes nemohou používat žádnou formu měnové politiky."
+              ]
+            },
+            {
+              "section_title": "C. Vyberte správnou možnost / možnosti",
+              "prompt": "Která tvrzení odpovídají vysvětlení Pavla Hnáta ohledně fungování peněz v současném systému?",
+              "type": "checkbox",
+              "is_multiselect": true,
+              "options": [
+                "Množství peněz není omezeno pouze množstvím zlata v bankovních trezorech.",
+                "Peníze samy o sobě automaticky zvyšují reálné bohatství společnosti.",
+                "Poskytování úvěrů je omezeno také mírou rizika, kterou jsou akcionáři bank ochotni přijmout.",
+                "Současný měnový systém umožňuje bankám poskytovat neomezené množství úvěrů bez rizika."
+              ]
+            },
+            {
+              "section_title": "C. Vyberte správnou možnost / možnosti",
+              "prompt": "Která tvrzení odpovídají rozhovoru o zlatých rezervách a jejich významu?",
+              "type": "checkbox",
+              "is_multiselect": true,
+              "options": [
+                "Pokles ceny zlata může znamenat účetní ztrátu centrální banky.",
+                "Všechny státy musí držet devizové rezervy ve stejné výši.",
+                "Zlato může fungovat jako bezpečný přístav v období nejistoty.",
+                "Pavel Hnát tvrdí, že zlato je dnes důležitější než všechna ostatní finanční aktiva."
+              ]
+            }
+          ],
+          "matchingItems": [],
+          "matchingOptions": [],
+          "matchingSection": ""
+        }
+      ]
+    }
+  },
+  "answer_key": {
+    "B1": {
+      "Cvičení 1": [
+        "1–d, 2–h, 3–e, 4–f, 5–c, 6–b, 7–g, 8–a"
+      ],
+      "Cvičení 2": [
+        "mincí",
+        "peněženky",
+        "stvrzenku",
+        "důvěru",
+        "bankou",
+        "poklad",
+        "váha",
+        "inflace"
+      ],
+      "Cvičení 3": [
+        "nepoužívali by",
+        "mohli",
+        "by rostly",
+        "ztratilo",
+        "zvolil",
+        "by se zvyšovaly",
+        "by se nestalo",
+        "by zkrachovaly"
+      ],
+      "Cvičení 4": [
+        "pro",
+        "bez předložky",
+        "za",
+        "na",
+        "do",
+        "po",
+        "před",
+        "na"
+      ],
+      "Cvičení 5": [
+        "Ne",
+        "Ano",
+        "Ano",
+        "Ano",
+        "Ano",
+        "Ano",
+        "Ne",
+        "Ne",
+        "d",
+        "a",
+        "b",
+        "c"
+      ]
+    },
+    "B2": {
+      "Cvičení 1": [
+        "1–d, 2–b, 3–c, 4–a, 5–g, 6–f, 7–e, 8–h"
+      ],
+      "Cvičení 2": [
+        "kontrolovat",
+        "obchodovat",
+        "fixovat",
+        "akceptovat",
+        "emitovat",
+        "devalvovat",
+        "tolerovat",
+        "důchod"
+      ],
+      "Cvičení 3": [
+        "by stačila",
+        "by se neprosadil",
+        "by dopadla",
+        "museli",
+        "potřebovali",
+        "by byl",
+        "by se dostaly",
+        "by musely"
+      ],
+      "Cvičení 4": [
+        "během",
+        "pro",
+        "na",
+        "mezi",
+        "nad",
+        "o",
+        "proti",
+        "ve"
+      ],
+      "Cvičení 5": [
+        "Ne",
+        "Ano",
+        "Ano",
+        "Ano",
+        "Ne",
+        "Ano",
+        "Ne",
+        "Ne",
+        "a",
+        "d",
+        "b",
+        "c"
+      ]
+    },
+    "C1": {
+      "Cvičení 1": [
+        "1–e, 2–g, 3–a, 4–f, 5–c, 6–b, 7–d, 8–h"
+      ],
+      "Cvičení 2": [
+        "aktiv",
+        "kotva",
+        "symbolické",
+        "blahobyt",
+        "devalvovat",
+        "predikce",
+        "diverzifikovat",
+        "tolerovat"
+      ],
+      "Cvičení 3": [
+        "správně",
+        "mohou",
+        "správně",
+        "vyžadoval",
+        "správně",
+        "možnými",
+        "správně",
+        "fungují",
+        "uchovávání",
+        "by zaznamenala",
+        "zvyšování",
+        "kurzech",
+        "musely",
+        "vyhledáváno",
+        "ovlivňovat",
+        "odpoutala"
+      ],
+      "Cvičení 4": [
+        "na",
+        "k",
+        "díky",
+        "na",
+        "vůči",
+        "na",
+        "před",
+        "díky"
+      ],
+      "Cvičení 5": [
+        "Ano",
+        "Ne",
+        "Ano",
+        "Ne",
+        "Ano",
+        "Ano",
+        "Ne",
+        "Ano",
+        "a",
+        "d",
+        "b",
+        "c",
+        "a,c",
+        "a,c"
+      ]
+    }
+  }
+}
