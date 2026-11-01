@@ -94,14 +94,10 @@
           </div>
         </div>
 
-        <!-- Quick Info / Audio Check -->
-        <div class="hidden md:flex items-center space-x-4 text-xs font-medium">
-          <span class="px-3 py-1.5 rounded-full bg-slate-800 border border-slate-700 text-slate-300 flex items-center gap-2">
-            <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
-            Režim výuky
-          </span>
-          <button onclick="speakText('Jsem z České republiky a mluvím česky.')" class="px-3 py-1.5 rounded-lg bg-sky-600/20 hover:bg-sky-600/30 text-sky-300 border border-sky-500/30 transition flex items-center gap-1.5">
-            <i class="fa-solid fa-volume-high"></i> Otestovat audio
+        <div class="flex items-center justify-between py-2 text-xs font-medium">
+          <a href="../B1_List_of_lessons.html" class="rounded-lg border border-slate-700 bg-slate-800 px-3 py-1.5 text-slate-300 hover:bg-slate-700">← Přehled lekcí</a>
+          <button onclick="speakText('Jsem z České republiky a mluvím česky.')" class="hidden sm:flex items-center gap-1.5 rounded-lg border border-sky-500/30 bg-sky-600/20 px-3 py-1.5 text-sky-300 transition hover:bg-sky-600/30">
+            <i class="fa-solid fa-volume-high"></i> Poslechnout vzorovou větu
           </button>
         </div>
       </div>
@@ -115,10 +111,10 @@
           <i class="fa-solid fa-globe"></i> 2. Mapa světa &amp; původ
         </button>
         <button onclick="switchTab('tab-exA')" id="btn-tab-exA" class="tab-btn px-4 py-2 text-xs sm:text-sm font-semibold rounded-lg text-slate-400 hover:text-slate-200 hover:bg-slate-800 transition flex items-center gap-2 whitespace-nowrap">
-          <i class="fa-solid fa-pen-to-square"></i> 3. Cvičení A: Doplňte 2. pád (35 vět)
+          <i class="fa-solid fa-pen-to-square"></i> 3. Cvičení A: Doplňte 2. pád (25 vět)
         </button>
         <button onclick="switchTab('tab-exB')" id="btn-tab-exB" class="tab-btn px-4 py-2 text-xs sm:text-sm font-semibold rounded-lg text-slate-400 hover:text-slate-200 hover:bg-slate-800 transition flex items-center gap-2 whitespace-nowrap">
-          <i class="fa-solid fa-wand-magic-sparkles"></i> 4. Cvičení B: Stavba vět
+          <i class="fa-solid fa-wand-magic-sparkles"></i> 4. Cvičení B: Stavba vět (10 úkolů)
         </button>
         <button onclick="switchTab('tab-homework')" id="btn-tab-homework" class="tab-btn px-4 py-2 text-xs sm:text-sm font-semibold rounded-lg text-slate-400 hover:text-slate-200 hover:bg-slate-800 transition flex items-center gap-2 whitespace-nowrap">
           <i class="fa-solid fa-paper-plane"></i> 5. Domácí úkol &amp; poznámky
@@ -214,8 +210,25 @@
           </div>
         </div>
         <div class="rounded-xl border border-slate-700 bg-slate-950/70 p-4 text-sm text-slate-300">
-          <strong class="text-white">Srovnání pro stejnou zemi:</strong>
-          <span class="ml-1"><em>Jsem ze Slovenska</em> (odkud? 2. pád) · <em>Bydlím na Slovensku</em> (kde? 6. pád) · <em>Jedu na Slovensko</em> (kam? 4. pád). U Austrálie: <em>z Austrálie · v Austrálii · do Austrálie</em>.</span>
+            <strong class="text-white">Srovnání pro stejnou zemi:</strong>
+            <span class="ml-1"><em>Jsem ze Slovenska</em> (odkud? 2. pád) · <em>Bydlím na Slovensku</em> (kde? 6. pád) · <em>Jedu na Slovensko</em> (kam? 4. pád). U Austrálie: <em>z Austrálie · v Austrálii · do Austrálie</em>.</span>
+        </div>
+        <div class="glass-card rounded-2xl p-6 border border-slate-800 space-y-4">
+          <div>
+            <h3 class="text-lg font-bold text-emerald-300"><i class="fa-solid fa-book-open mr-2"></i>Krátký text: Návštěva rodiny v zahraničí</h3>
+            <p class="mt-1 text-xs text-slate-400">Čte student/ka nahlas. Všimněte si tvarů 2. pádu po otázce „odkud?“ a po předložkách „z/ze“ a „do“.</p>
+          </div>
+          <div class="flex flex-wrap items-center justify-between gap-2 text-xs">
+            <p class="text-slate-400">Kliknutím označte slova a spojení ve 2. pádě.</p>
+            <div class="flex items-center gap-2"><span id="genitiveMarkCount" class="text-amber-300" aria-live="polite">Označeno: 0 slov</span><button type="button" onclick="clearGenitiveMarks('readingText','genitiveMarkCount')" class="rounded-lg bg-slate-800 px-2 py-1 text-slate-300 hover:bg-slate-700">Zrušit označení</button></div>
+          </div>
+          <div id="readingText" class="rounded-xl border border-slate-700 bg-slate-900/80 p-5 text-sm leading-7 text-slate-200">
+            Jmenuji se Petr a pocházím <strong class="text-sky-300">z Česka</strong>. Moje sestra studuje <strong class="text-sky-300">v Austrálii</strong>, ale minulý rok se vrátila <strong class="text-sky-300">z Austrálie</strong> na návštěvu. Společně jsme jeli <strong class="text-sky-300">na Slovensko</strong>, kde bydlí naši prarodiče. Ti pocházejí <strong class="text-sky-300">ze Slovenska</strong>. Potom jsme letěli <strong class="text-sky-300">do USA</strong> a navštívili New York. Cesta <strong class="text-sky-300">z USA</strong> do Evropy trvala dlouho, ale během letu jsme si povídali. V zahraničí jsme mluvili anglicky, doma spolu mluvíme česky. Příští rok bych chtěl navštívit také Maltu a poznat život na ostrově.
+          </div>
+          <div>
+            <h4 class="mb-3 text-sm font-bold text-amber-300"><i class="fa-solid fa-circle-question mr-2"></i>Kvíz porozumění (3 otázky)</h4>
+            <div id="readingQuiz" class="grid grid-cols-1 gap-3 md:grid-cols-3"></div>
+          </div>
         </div>
       </div>
 
@@ -288,14 +301,14 @@
       </div>
     </section>
 
-    <!-- TAB 3: EXERCISE A (35 GAP-FILL DRILLS) -->
+    <!-- TAB 3: EXERCISE A (25 GAP-FILL DRILLS) -->
     <section id="tab-exA" class="tab-content hidden space-y-8">
       <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
         
         <div class="lg:col-span-2 space-y-6">
           <div class="glass-card rounded-2xl p-6 border border-slate-800 flex flex-col sm:flex-row items-center justify-between gap-4">
             <div>
-              <h2 class="text-xl sm:text-2xl font-bold text-white">Cvičení A: Doplňte 2. pád (35 vět)</h2>
+              <h2 class="text-xl sm:text-2xl font-bold text-white">Cvičení A: Doplňte 2. pád (25 vět)</h2>
               <p class="text-sm text-slate-400 mt-1">Doplňte správný tvar země, města nebo výrazu v 2. pádě.</p>
             </div>
             <div class="flex items-center gap-2">
@@ -310,7 +323,7 @@
             <div class="flex-1 bg-slate-900 h-3 rounded-full overflow-hidden border border-slate-800">
               <div id="exAProgressBar" class="bg-sky-500 h-full w-0 transition-all duration-300"></div>
             </div>
-            <span id="exAScoreText" class="text-xs font-mono font-bold text-sky-400 whitespace-nowrap">0 / 35 správně</span>
+            <span id="exAScoreText" class="text-xs font-mono font-bold text-sky-400 whitespace-nowrap">0 / 25 správně</span>
           </div>
 
           <!-- DRILLS LIST -->
@@ -345,7 +358,7 @@
         <div class="lg:col-span-2 space-y-6">
           <div class="glass-card rounded-2xl p-5 border border-slate-800">
             <h2 class="text-xl sm:text-2xl font-bold text-white flex items-center gap-2">
-              <i class="fa-solid fa-wand-magic-sparkles text-amber-400"></i> Cvičení B: Rozviňte větu
+              <i class="fa-solid fa-wand-magic-sparkles text-amber-400"></i> Cvičení B: Rozviňte větu (10 úkolů)
             </h2>
             <p class="text-sm text-slate-400 mt-1">
               U každého úkolu napište do pole jednu celou, přirozenou větu. Využijte jednoduchou větu, zadání a nabídnutá slova. Zaměřte se na správný pád; nemusíte opsat vzor doslova. Potom klikněte na „Ukázat vzorovou větu“ a porovnejte své řešení.
@@ -435,27 +448,26 @@
 
     /* REAL LEAFLET MAP COORDINATES DATA (WITH PRECISE PREPOSITIONS) */
     const REAL_MAP_DATA = [
-      { code: 'CZ', lat: 49.8175, lng: 15.4730, name: "Česká republika / Česko", gen: "z České republiky / z Česka", place: "v Česku", direction: "do Česka", m: "Čech", f: "Češka", plural: "Češi / Češky", lang: "česky", flag: "🇨🇿" },
-      { code: 'DE', lat: 51.1657, lng: 10.4515, name: "Německo", gen: "z Německa", place: "v Německu", direction: "do Německa", m: "Němec", f: "Němka", lang: "německy", flag: "🇩🇪" },
-      { code: 'FR', lat: 46.2276, lng: 2.2137, name: "Francie", gen: "z Francie", place: "ve Francii", direction: "do Francie", m: "Francouz", f: "Francouzka", lang: "francouzsky", flag: "🇫🇷" },
-      { code: 'IT', lat: 41.8719, lng: 12.5674, name: "Itálie", gen: "z Itálie", place: "v Itálii", direction: "do Itálie", m: "Ital", f: "Italka", lang: "italsky", flag: "🇮🇹" },
-      { code: 'ES', lat: 40.4637, lng: -3.7492, name: "Španělsko", gen: "ze Španělska", place: "ve Španělsku", direction: "do Španělska", m: "Španěl", f: "Španělka", lang: "španělsky", flag: "🇪🇸" },
-      { code: 'JP', lat: 36.2048, lng: 138.2529, name: "Japonsko", gen: "z Japonska", place: "v Japonsku", direction: "do Japonska", m: "Japonec", f: "Japonka", lang: "japonsky", flag: "🇯🇵" },
-      { code: 'AT', lat: 47.5162, lng: 14.5501, name: "Rakousko", gen: "z Rakouska", place: "v Rakousku", direction: "do Rakouska", m: "Rakušan", f: "Rakušanka", lang: "německy", flag: "🇦🇹" },
-      { code: 'PL', lat: 51.9194, lng: 19.1451, name: "Polsko", gen: "z Polska", place: "v Polsku", direction: "do Polska", m: "Polák", f: "Polka", lang: "polsky", flag: "🇵🇱" },
-      { code: 'SK', lat: 48.6690, lng: 19.6990, name: "Slovensko", gen: "ze Slovenska", place: "na Slovensku", direction: "na Slovensko", m: "Slovák", f: "Slovenka", lang: "slovensky", flag: "🇸🇰" },
-      { code: 'CA', lat: 56.1304, lng: -106.3468, name: "Kanada", gen: "z Kanady", place: "v Kanadě", direction: "do Kanady", m: "Kanaďan", f: "Kanaďanka", lang: "anglicky a francouzsky", flag: "🇨🇦" },
-      { code: 'US', lat: 39.8283, lng: -98.5795, name: "Spojené státy americké (USA)", gen: "ze Spojených států amerických / z USA", place: "v USA", direction: "do USA", m: "Američan", f: "Američanka", lang: "anglicky", flag: "🇺🇸" },
-      { code: 'MT', lat: 35.9375, lng: 14.3754, name: "Malta", gen: "z Malty", place: "na Maltě", direction: "na Maltu", m: "Malťan", f: "Malťanka", lang: "maltsky a anglicky", flag: "🇲🇹" },
-      { code: 'AU', lat: -25.2744, lng: 133.7751, name: "Austrálie", gen: "z Austrálie", place: "v Austrálii", direction: "do Austrálie", m: "Australan", f: "Australanka", lang: "anglicky", flag: "🇦🇺" }
+      { code: 'CZ', lat: 49.8175, lng: 15.4730, name: "Česká republika / Česko", gen: "z České republiky / z Česka", place: "v Česku", direction: "do Česka", m: "Čech", f: "Češka", plural: "Češi / Češky", lang: "česky", languageName: "čeština", flag: "🇨🇿" },
+      { code: 'DE', lat: 51.1657, lng: 10.4515, name: "Německo", gen: "z Německa", place: "v Německu", direction: "do Německa", m: "Němec", f: "Němka", lang: "německy", languageName: "němčina", flag: "🇩🇪" },
+      { code: 'FR', lat: 46.2276, lng: 2.2137, name: "Francie", gen: "z Francie", place: "ve Francii", direction: "do Francie", m: "Francouz", f: "Francouzka", lang: "francouzsky", languageName: "francouzština", flag: "🇫🇷" },
+      { code: 'IT', lat: 41.8719, lng: 12.5674, name: "Itálie", gen: "z Itálie", place: "v Itálii", direction: "do Itálie", m: "Ital", f: "Italka", lang: "italsky", languageName: "italština", flag: "🇮🇹" },
+      { code: 'ES', lat: 40.4637, lng: -3.7492, name: "Španělsko", gen: "ze Španělska", place: "ve Španělsku", direction: "do Španělska", m: "Španěl", f: "Španělka", lang: "španělsky", languageName: "španělština", flag: "🇪🇸" },
+      { code: 'JP', lat: 36.2048, lng: 138.2529, name: "Japonsko", gen: "z Japonska", place: "v Japonsku", direction: "do Japonska", m: "Japonec", f: "Japonka", lang: "japonsky", languageName: "japonština", flag: "🇯🇵" },
+      { code: 'AT', lat: 47.5162, lng: 14.5501, name: "Rakousko", gen: "z Rakouska", place: "v Rakousku", direction: "do Rakouska", m: "Rakušan", f: "Rakušanka", lang: "německy", languageName: "němčina", flag: "🇦🇹" },
+      { code: 'PL', lat: 51.9194, lng: 19.1451, name: "Polsko", gen: "z Polska", place: "v Polsku", direction: "do Polska", m: "Polák", f: "Polka", lang: "polsky", languageName: "polština", flag: "🇵🇱" },
+      { code: 'SK', lat: 48.6690, lng: 19.6990, name: "Slovensko", gen: "ze Slovenska", place: "na Slovensku", direction: "na Slovensko", m: "Slovák", f: "Slovenka", lang: "slovensky", languageName: "slovenština", flag: "🇸🇰" },
+      { code: 'CA', lat: 56.1304, lng: -106.3468, name: "Kanada", gen: "z Kanady", place: "v Kanadě", direction: "do Kanady", m: "Kanaďan", f: "Kanaďanka", lang: "anglicky a francouzsky", languageName: "angličtina a francouzština", flag: "🇨🇦" },
+      { code: 'US', lat: 39.8283, lng: -98.5795, name: "Spojené státy americké (USA)", gen: "ze Spojených států amerických / z USA", place: "v USA", direction: "do USA", m: "Američan", f: "Američanka", lang: "anglicky", languageName: "angličtina", flag: "🇺🇸" },
+      { code: 'MT', lat: 35.9375, lng: 14.3754, name: "Malta", gen: "z Malty", place: "na Maltě", direction: "na Maltu", m: "Malťan", f: "Malťanka", lang: "maltsky a anglicky", languageName: "maltština a angličtina", flag: "🇲🇹" },
+      { code: 'AU', lat: -25.2744, lng: 133.7751, name: "Austrálie", gen: "z Austrálie", place: "v Austrálii", direction: "do Austrálie", m: "Australan", f: "Australanka", lang: "anglicky", languageName: "angličtina", flag: "🇦🇺" }
     ];
 
     /* ==========================================================================
-       GAP-FILL DRILLS DATA (35 COMPLETE SENTENCES)
+       GAP-FILL DRILLS DATA (25 COMPLETE SENTENCES)
        ========================================================================== */
 
     const DRILLS_EX_A = [
-      { prompt: "Jsem z ____ (Praha).", ans: "Prahy", hint: "Praha" },
       { prompt: "Pojedu do ____ (Brno).", ans: "Brna", hint: "Brno" },
       { prompt: "Během ____ (výlet) jsme navštívili Krakov.", ans: "výletu", hint: "výlet" },
       { prompt: "Město Vídeň je hlavní město ____ (Rakousko).", ans: "Rakouska", hint: "Rakousko" },
@@ -463,28 +475,19 @@
       { prompt: "Bez ____ (dálnice) by cesta do Maďarska byla delší.", ans: "dálnice", hint: "dálnice" },
       { prompt: "Turisté se často bojí dopravy v centru ____ (Istanbul).", ans: "Istanbulu", hint: "Istanbul" },
       { prompt: "Eiffelova věž je symbolem ____ (Paříž).", ans: "Paříže", hint: "Paříž" },
-      { prompt: "Karlův most je jednou z nejkrásnějších částí ____ (Praha).", ans: "Prahy", hint: "Praha" },
       { prompt: "Vzdálenost Budapešti od ____ (Vídeň) je asi 250 km.", ans: "Vídně", hint: "Vídeň" },
-      { prompt: "Jsem z malého města nedaleko ____ (Berlín).", ans: "Berlína", hint: "Berlín" },
       { prompt: "Pojedu do severní části ____ (Itálie).", ans: "Itálie", hint: "Itálie" },
       { prompt: "Příští rok bych chtěl navštívit některé z památek ____ (Řím).", ans: "Říma", hint: "Řím" },
       { prompt: "Učím se jazyk obyvatel ____ (Španělsko).", ans: "Španělska", hint: "Španělsko" },
       { prompt: "Během cesty do ____ (Německo) jsme potkali hodně zajímavých lidí.", ans: "Německa", hint: "Německo" },
-      { prompt: "Centrum ____ (Londýn) je vždy plné turistů.", ans: "Londýna", hint: "Londýn" },
-      { prompt: "Bez mapy ____ (Paříž) bychom se ztratili.", ans: "Paříže", hint: "Paříž" },
-      { prompt: "Východní část ____ (Francie) je známá svým vínem.", ans: "Francie", hint: "Francie" },
       { prompt: "Většina památek ____ (Atény) pochází z antiky.", ans: "Atén", hint: "Atény" },
       { prompt: "Po návratu z ____ (Japonsko) jsem si koupil suvenýr.", ans: "Japonska", hint: "Japonsko" },
-      { prompt: "Na předměstí ____ (Varšava) bydlí moje kamarádka.", ans: "Varšavy", hint: "Varšava" },
       { prompt: "Turisté často navštěvují sever ____ (Norsko).", ans: "Norska", hint: "Norsko" },
       { prompt: "Během léta se chystáme do hor na severu ____ (Švýcarsko).", ans: "Švýcarska", hint: "Švýcarsko" },
       { prompt: "Hlavní město ____ (Kanada) je Ottawa.", ans: "Kanady", hint: "Kanada" },
       { prompt: "Pláže ____ (Chorvatsko) jsou velmi populární.", ans: "Chorvatska", hint: "Chorvatsko" },
-      { prompt: "Po cestě z ____ (Vídeň) jsme se zastavili v Bratislavě.", ans: "Vídně", hint: "Vídeň" },
       { prompt: "Nejznámější část ____ (Barcelona) je čtvrť s chrámem Sagrada Familia.", ans: "Barcelony", hint: "Barcelona" },
       { prompt: "V okolí ____ (Petrohrad) je spousta historických paláců.", ans: "Petrohradu", hint: "Petrohrad" },
-      { prompt: "Bez obyvatel ____ (Island) by země působila velmi prázdně.", ans: "Islandu", hint: "Island" },
-      { prompt: "Hory na severu ____ (Řecko) jsou nádherné.", ans: "Řecka", hint: "Řecko" },
       { prompt: "Pocházím z ____ (Čechy), ale teď žiju na Moravě.", ans: "Čech", hint: "Čechy = oblast; z Čech" },
       { prompt: "Po návratu ze ____ (Spojené státy americké) jsem vyprávěl o cestě.", ans: "Spojených států amerických", hint: "2. pád množného čísla" },
       { prompt: "Včera jsem se vrátil z ____ (Malta).", ans: "Malty", hint: "z + 2. pád" },
@@ -541,8 +544,36 @@
         instruction: "Napiš jednu celou větu pomocí slova „vzdálenost“. Doplň obě města ve správném tvaru.",
         words: "vzdálenost · Brno · od · Vídeň · poměrně malá",
         b1: "Vzdálenost Brna od Vídně je poměrně malá."
+      },
+      {
+        q: "8. Řekni, odkud přijeli tvoji přátelé z USA.",
+        a2: "Přijeli z USA.",
+        instruction: "Napiš jednu celou větu a použij celý název Spojených států ve 2. pádě.",
+        words: "přijet · ze Spojených států amerických · zůstat · týden",
+        b1: "Přátelé přijeli ze Spojených států amerických a zůstali týden v Praze."
+      },
+      {
+        q: "9. Popiš návrat z Austrálie.",
+        a2: "Vrátil/a jsem se z Austrálie.",
+        instruction: "Rozviň větu o délku cesty a použij správný tvar názvu Austrálie.",
+        words: "vrátit se · z Austrálie · dlouhá cesta",
+        b1: "Po dlouhé cestě jsem se vrátil/a z Austrálie domů."
+      },
+      {
+        q: "10. Řekni, odkud pocházíš, pokud žiješ na Slovensku.",
+        a2: "Žiju na Slovensku.",
+        instruction: "Napiš jednu větu o místě, kde žiješ, a místě, odkud pocházíš.",
+        words: "žít · na Slovensku · pocházet · z Brna",
+        b1: "Žiju na Slovensku, ale pocházím z Brna."
       }
     ];
+
+    const READING_QUIZ = [
+      { q: "Kde studuje Petrova sestra?", opts: ["V Austrálii", "V USA", "Na Slovensku", "V Česku"], ans: 0 },
+      { q: "Odkud pocházejí Petrovi prarodiče?", opts: ["Z Malty", "Ze Slovenska", "Z Austrálie", "Z USA"], ans: 1 },
+      { q: "Jakým jazykem mluvili v zahraničí?", opts: ["Česky", "Slovensky", "Anglicky", "Německy"], ans: 2 }
+    ];
+    let renderedReadingQuiz = [];
 
     /* ==========================================================================
        APP STATE & GLOBAL LOGIC
@@ -581,6 +612,42 @@
       }
     }
 
+    function renderReadingQuiz() {
+      renderedReadingQuiz = READING_QUIZ.map(item => {
+        const options = item.opts.map((text, index) => ({ text, correct: index === item.ans }));
+        for (let i = options.length - 1; i > 0; i--) {
+          const j = Math.floor(Math.random() * (i + 1));
+          [options[i], options[j]] = [options[j], options[i]];
+        }
+        return { q: item.q, opts: options.map(option => option.text), ans: options.findIndex(option => option.correct) };
+      });
+      document.getElementById('readingQuiz').innerHTML = renderedReadingQuiz.map((item, qi) => `
+        <article class="rounded-xl border border-slate-800 bg-slate-900/90 p-4">
+          <p class="mb-3 text-sm font-bold text-white">${item.q}</p>
+          <div class="space-y-2">${item.opts.map((option, oi) => `<button type="button" id="reading_${qi}_${oi}" onclick="checkReadingAnswer(${qi},${oi})" class="w-full rounded-lg border border-slate-700 bg-slate-800 px-3 py-2 text-left text-xs text-slate-200 hover:bg-slate-700">${String.fromCharCode(65 + oi)}) ${option}</button>`).join('')}</div>
+          <p id="reading_feedback_${qi}" class="mt-2 hidden text-xs font-bold" aria-live="polite"></p>
+        </article>`).join('');
+    }
+
+    function checkReadingAnswer(questionIndex, optionIndex) {
+      const question = renderedReadingQuiz[questionIndex];
+      const feedback = document.getElementById(`reading_feedback_${questionIndex}`);
+      question.opts.forEach((_, index) => {
+        document.getElementById(`reading_${questionIndex}_${index}`).className = "w-full rounded-lg border border-slate-700 bg-slate-800 px-3 py-2 text-left text-xs text-slate-200";
+      });
+      const selected = document.getElementById(`reading_${questionIndex}_${optionIndex}`);
+      feedback.classList.remove('hidden', 'text-emerald-400', 'text-rose-400');
+      if (optionIndex === question.ans) {
+        selected.className = "w-full rounded-lg border border-emerald-500 bg-emerald-950 px-3 py-2 text-left text-xs font-bold text-emerald-300";
+        feedback.textContent = "✓ Správně!";
+        feedback.classList.add('text-emerald-400');
+      } else {
+        selected.className = "w-full rounded-lg border border-rose-500 bg-rose-950 px-3 py-2 text-left text-xs font-bold text-rose-300";
+        feedback.textContent = "✗ Zkuste to znovu.";
+        feedback.classList.add('text-rose-400');
+      }
+    }
+
     function speakText(text) {
       if ('speechSynthesis' in window) {
         window.speechSynthesis.cancel();
@@ -589,6 +656,64 @@
         utterance.rate = 0.9;
         window.speechSynthesis.speak(utterance);
       }
+    }
+
+    function enableGenitiveMarking(containerId, countId) {
+      const container = document.getElementById(containerId);
+      const walker = document.createTreeWalker(container, NodeFilter.SHOW_TEXT);
+      const textNodes = [];
+      while (walker.nextNode()) {
+        const node = walker.currentNode;
+        if (node.nodeValue.trim() && !node.parentElement.closest('button, a, input, textarea')) textNodes.push(node);
+      }
+      textNodes.forEach(node => {
+        const fragment = document.createDocumentFragment();
+        node.nodeValue.split(/([A-Za-zÀ-ž]+(?:[’'-][A-Za-zÀ-ž]+)*)/g).forEach(part => {
+          if (/^[A-Za-zÀ-ž]/.test(part)) {
+            const word = document.createElement('span');
+            word.textContent = part;
+            word.className = 'genitive-mark-word cursor-pointer rounded px-0.5 hover:bg-amber-900/50';
+            word.setAttribute('role', 'button');
+            word.setAttribute('aria-pressed', 'false');
+            word.tabIndex = 0;
+            const toggle = () => {
+              const marked = word.getAttribute('aria-pressed') !== 'true';
+              word.style.backgroundColor = marked ? 'rgba(251, 191, 36, 0.3)' : '';
+              word.style.color = marked ? '#fef3c7' : '';
+              word.style.outline = marked ? '1px solid rgba(251, 191, 36, 0.7)' : '';
+              word.setAttribute('aria-pressed', String(marked));
+              updateGenitiveMarkCount(containerId, countId);
+            };
+            word.addEventListener('click', toggle);
+            word.addEventListener('keydown', event => {
+              if (event.key === 'Enter' || event.key === ' ') {
+                event.preventDefault();
+                toggle();
+              }
+            });
+            fragment.appendChild(word);
+          } else {
+            fragment.appendChild(document.createTextNode(part));
+          }
+        });
+        node.replaceWith(fragment);
+      });
+      updateGenitiveMarkCount(containerId, countId);
+    }
+
+    function updateGenitiveMarkCount(containerId, countId) {
+      const count = document.querySelectorAll(`#${containerId} .genitive-mark-word[aria-pressed="true"]`).length;
+      document.getElementById(countId).textContent = `Označeno: ${count} slov`;
+    }
+
+    function clearGenitiveMarks(containerId, countId) {
+      document.querySelectorAll(`#${containerId} .genitive-mark-word`).forEach(word => {
+        word.style.backgroundColor = '';
+        word.style.color = '';
+        word.style.outline = '';
+        word.setAttribute('aria-pressed', 'false');
+      });
+      updateGenitiveMarkCount(containerId, countId);
     }
 
     /* REAL LEAFLET WORLD MAP INITIALIZATION */
@@ -651,8 +776,8 @@
             <span class="text-white font-bold text-sm">${item.f}</span>
           </div>
           <div class="bg-slate-950 p-3 rounded-xl border border-slate-800">
-            <span class="text-slate-400 block text-[10px] uppercase font-bold">Jazyk</span>
-            <span class="text-sky-300 font-bold text-sm">${item.lang}</span>
+            <span class="text-slate-400 block text-[10px] uppercase font-bold">Jazyk / Jak mluvím</span>
+            <span class="text-sky-300 font-bold text-sm">${item.languageName} / ${item.lang}</span>
           </div>
           <div class="bg-slate-950 p-3 rounded-xl border border-slate-800">
             <span class="text-slate-400 block text-[10px] uppercase font-bold">Kde? (6. pád)</span>
@@ -670,7 +795,7 @@
 
         <div class="bg-slate-950/80 p-4 rounded-xl border border-slate-800 text-xs text-slate-200 leading-relaxed font-mono">
           <strong class="text-emerald-400">Modelová věta:</strong><br>
-          „Pocházím <strong>${item.gen}</strong>. Jsem <strong>${item.m}</strong> / <strong>${item.f}</strong> a mluvím <strong>${item.lang}</strong>. Žiju <strong>${item.place}</strong> a příští rok pojedu <strong>${item.direction}</strong>.“
+          „Pocházím <strong>${item.gen}</strong>. Jsem <strong>${item.m}</strong> / <strong>${item.f}</strong>, mluvím <strong>${item.lang}</strong> (jazyk: <strong>${item.languageName}</strong>). Žiju <strong>${item.place}</strong> a příští rok pojedu <strong>${item.direction}</strong>.“
         </div>
       `;
     }
@@ -891,6 +1016,8 @@ Kam? Pojedu na Slovensko. (4. pád)`;
       renderVocab();
       renderExerciseA();
       renderExerciseB();
+      renderReadingQuiz();
+      enableGenitiveMarking('readingText', 'genitiveMarkCount');
 
       const savedNotes = localStorage.getItem('cz_b1_l6_notes');
       if (savedNotes) {

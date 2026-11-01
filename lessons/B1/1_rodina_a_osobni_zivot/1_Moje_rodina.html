@@ -164,7 +164,7 @@
               <i class="fa-solid fa-book-open text-amber-400"></i> Modelový text: Rodinná oslava a historie
             </h3>
           <p class="text-xs text-slate-400 mt-0.5">
-              Přečtěte si příběh a klikněte na každé sloveso v minulém čase. Po kontrole se správné tvary zvýrazní zeleně a vynechané červeně.
+              Přečtěte si příběh a klikněte na každé sloveso v minulém čase (<span id="pastTargetCount">26</span> tvarů). Po kontrole se správné tvary zvýrazní zeleně a vynechané červeně.
             </p>
           </div>
           <div class="flex items-center gap-3 self-start sm:self-auto">
@@ -185,7 +185,7 @@
         <div class="flex flex-wrap items-center gap-3">
           <button onclick="finishPastTenseExercise()" id="finishPastExercise" class="px-4 py-2 bg-emerald-600 hover:bg-emerald-500 text-white rounded-xl text-xs font-bold">Zkontrolovat minulý čas</button>
           <button onclick="renderModelStory()" class="px-4 py-2 bg-slate-800 hover:bg-slate-700 text-slate-200 rounded-xl text-xs font-bold">Zkusit znovu</button>
-          <span id="pastExerciseStatus" class="text-xs text-slate-400" aria-live="polite">Kliknuto správně: 0</span>
+          <span id="pastExerciseStatus" class="text-xs text-slate-400" aria-live="polite">Kliknuto správně: 0 z 26</span>
         </div>
 
         <!-- 3-Question Comprehension Quiz -->
@@ -381,7 +381,7 @@
                 </div>
 
                 <div>
-                  <label class="block text-slate-300 mb-1 font-semibold">7. Povolání / Zaměstnání:</label>
+                  <label class="block text-slate-300 mb-1 font-semibold">7. Povolání / Studium:</label>
                   <input type="text" id="me_job" placeholder="např. student / inženýr" oninput="updateStudentNode()" class="w-full bg-slate-950 border border-slate-700 rounded-xl p-2.5 text-white focus:outline-none focus:border-sky-500 font-medium">
                 </div>
 
@@ -723,9 +723,10 @@
       const container = document.getElementById('storyContainer');
       const isM = currentGender === 'M';
       const past = text => `<button type="button" class="past-token" data-correct="true" onclick="selectPastToken(this)" aria-label="Sloveso v minulém čase">${text}</button>`;
-      const present = text => `<button type="button" class="past-token" data-correct="false" onclick="selectPastToken(this)" aria-label="Sloveso není v minulém čase">${text}</button>`;
-      container.innerHTML = `<p>Minulou sobotu ${past('jsme')} ${past('měli')} velkou rodinnou oslavu, takže se ${past('sešla')} celá rodina. ${past(isM ? 'Narodil' : 'Narodila')} ${past('jsem')} se v Praze, ale moji rodiče ${past('pocházeli')} z Moravy a dnes ${present('žijí')} v Praze. ${past('Vzali')} se před třiceti lety a brzy potom se ${past('přestěhovali')} do hlavního města. Otec ${past('pracoval')} celé roky jako inženýr a ${past('byl')} vždycky neuvěřitelně pracovitý.</p><p>Na oslavu ${past('přišla')} celá širší rodina. Moje sestra nedávno ${past('vystudovala')} univerzitu a minulý rok se ${past('vdala')}. Její manžel, můj nový švagr, ${past('byl')} moc sympatický. Můj bratranec a sestřenice ${past('přijeli')} až z Olomouce. Babička nedávno ${past('oslavila')} osmdesáté narozeniny, ale dědeček bohužel před pěti lety ${past('zemřel')}.</p><p>Všichni prarodiče i strýcové ${past('byli')} vždycky velice pohostinní. ${past('Prohlíželi')} ${past('jsme')} si staré fotografie a ${past('vzpomínali')} ${past('jsme')} na dětství. Můj strýc se ${past('rozvedl')} před dvěma lety. Na oslavě ${past('panovala')} skvělá nálada a všichni ${past('jsme')} si to moc ${past('užili')}.</p>`;
-      document.getElementById('pastExerciseStatus').textContent = `Kliknuto správně: 0 z ${container.querySelectorAll('.past-token').length}`;
+      container.innerHTML = `<p>Minulou sobotu ${past('jsme')} ${past('měli')} velkou rodinnou oslavu, takže se ${past('sešla')} celá rodina. ${past(isM ? 'Narodil' : 'Narodila')} ${past('jsem')} se v Praze, ale moji rodiče ${past('pocházeli')} z Moravy a dnes žijí v Praze. ${past('Vzali')} se před třiceti lety a brzy potom se ${past('přestěhovali')} do hlavního města. Otec ${past('pracoval')} celé roky jako inženýr a ${past('byl')} vždycky neuvěřitelně pracovitý.</p><p>Na oslavu ${past('přišla')} celá širší rodina. Moje sestra nedávno ${past('vystudovala')} univerzitu a minulý rok se ${past('vdala')}. Její manžel, můj nový švagr, ${past('byl')} moc sympatický. Můj bratranec a sestřenice ${past('přijeli')} až z Olomouce. Babička nedávno ${past('oslavila')} osmdesáté narozeniny, ale dědeček bohužel před pěti lety ${past('zemřel')}.</p><p>Všichni prarodiče i strýcové ${past('byli')} vždycky velice pohostinní. ${past('Prohlíželi')} ${past('jsme')} si staré fotografie a ${past('vzpomínali')} ${past('jsme')} na dětství. Můj strýc se ${past('rozvedl')} před dvěma lety. Na oslavě ${past('panovala')} skvělá nálada a všichni ${past('jsme')} si to moc ${past('užili')}.</p>`;
+      const targetCount = container.querySelectorAll('.past-token[data-correct="true"]').length;
+      document.getElementById('pastTargetCount').textContent = targetCount;
+      document.getElementById('pastExerciseStatus').textContent = `Kliknuto správně: 0 z ${targetCount}`;
       document.getElementById('finishPastExercise').disabled = false;
     }
 
@@ -734,11 +735,12 @@
       if (button.dataset.correct === 'true') { button.classList.add('past-correct'); button.dataset.selected = 'true'; }
       else button.classList.add('past-incorrect');
       const selected = document.querySelectorAll('#storyContainer .past-token[data-selected="true"]').length;
-      document.getElementById('pastExerciseStatus').textContent = `Kliknuto správně: ${selected} z ${document.querySelectorAll('#storyContainer .past-token').length}`;
+      const targetCount = document.querySelectorAll('#storyContainer .past-token[data-correct="true"]').length;
+      document.getElementById('pastExerciseStatus').textContent = `Kliknuto správně: ${selected} z ${targetCount}`;
     }
 
     function finishPastTenseExercise() {
-      const tokens = Array.from(document.querySelectorAll('#storyContainer .past-token'));
+      const tokens = Array.from(document.querySelectorAll('#storyContainer .past-token[data-correct="true"]'));
       let missed = 0;
       tokens.forEach(button => { if (button.dataset.correct === 'true' && button.dataset.selected !== 'true') { button.classList.add('past-missed'); missed++; } button.disabled = true; });
       document.getElementById('finishPastExercise').disabled = true;
@@ -1390,14 +1392,24 @@
       if (student.birthplaceGen) intro.push('Pocházím z ' + esc(student.birthplaceGen) + '.');
       if (student.nat) intro.push('Podle národnosti jsem ' + esc(student.nat) + '.');
       if (student.residence) intro.push('V současné době bydlím ' + esc(student.residence) + '.');
-      if (student.job) intro.push('Pracuji jako ' + esc(student.job) + '.');
+      if (student.job) {
+        const role = student.job.toLocaleLowerCase('cs').replace(/[.!?]+$/, '').trim();
+        intro.push(/^student(?:ka)?$/.test(role)
+          ? (isM ? 'Jsem student.' : 'Jsem studentka.')
+          : 'Pracuji jako ' + esc(student.job) + '.');
+      }
       if (student.event) intro.push((isM ? 'Rád vzpomínám' : 'Ráda vzpomínám') + ' na tuto událost: ' + esc(student.event).replace(/[.!?]+$/, '') + '.');
       const role = { Otec:'Můj otec', Matka:'Moje matka', Bratr:'Můj bratr', Sestra:'Moje sestra', Manžel:'Můj manžel', Manželka:'Moje manželka', Přítel:'Můj partner', Přítelkyně:'Moje partnerka', Syn:'Můj syn', Dcera:'Moje dcera', Dědeček:'Můj dědeček', Babička:'Moje babička', Strýc:'Můj strýc', Teta:'Moje teta', Bratranec:'Můj bratranec', Sestřenice:'Moje sestřenice', Synovec:'Můj synovec', Neteř:'Moje neteř', Švagr:'Můj švagr', Švagrová:'Moje švagrová', Zeť:'Můj zeť', Snacha:'Moje snacha', Tchán:'Můj tchán', Tchýně:'Moje tchýně' };
       const people = familyNodes.slice(1).map(n => {
         const name = esc((n.firstname + ' ' + n.lastname).trim());
         let sentence = (role[n.relation] || 'Můj příbuzný') + ' se jmenuje <strong>' + name + '</strong>.';
         if (n.status) sentence += ' ' + esc(n.status).replace(/[.!?]+$/, '') + '.';
-        if (n.job) sentence += ' Pracuje jako ' + esc(n.job).replace(/[.!?]+$/, '') + '.';
+        if (n.job) {
+          const role = n.job.toLocaleLowerCase('cs').replace(/[.!?]+$/, '').trim();
+          sentence += /^student(?:ka)?$/.test(role)
+            ? (n.gender === 'M' ? ' Je student.' : ' Je studentka.')
+            : ' Pracuje jako ' + esc(n.job).replace(/[.!?]+$/, '') + '.';
+        }
         if (n.event) sentence += ' ' + esc(n.event).replace(/[.!?]+$/, '') + '.';
         return sentence;
       });

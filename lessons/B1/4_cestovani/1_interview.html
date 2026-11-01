@@ -77,14 +77,10 @@
           </div>
         </div>
 
-        <!-- Quick Info / Status -->
-        <div class="hidden md:flex items-center space-x-4 text-xs font-medium">
-          <span class="px-3 py-1.5 rounded-full bg-slate-800 border border-slate-700 text-slate-300 flex items-center gap-2">
-            <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
-            Live Teaching Mode
-          </span>
-          <button id="ttsTestBtn" onclick="speakText('Vítáme vás v hodině češtiny!')" class="px-3 py-1.5 rounded-lg bg-sky-600/20 hover:bg-sky-600/30 text-sky-300 border border-sky-500/30 transition flex items-center gap-1.5">
-            <i class="fa-solid fa-volume-high"></i> Audio Check
+        <div class="flex items-center justify-between py-2 text-xs font-medium">
+          <a href="../B1_List_of_lessons.html" class="rounded-lg border border-slate-700 bg-slate-800 px-3 py-1.5 text-slate-300 hover:bg-slate-700">← Přehled lekcí</a>
+          <button id="ttsTestBtn" onclick="speakText('Vítáme vás v hodině češtiny!')" class="hidden sm:flex items-center gap-1.5 rounded-lg border border-sky-500/30 bg-sky-600/20 px-3 py-1.5 text-sky-300 transition hover:bg-sky-600/30">
+            <i class="fa-solid fa-volume-high"></i> Poslechnout ukázku
           </button>
         </div>
       </div>
@@ -92,13 +88,13 @@
       <!-- Navigation Tabs -->
       <nav class="flex space-x-1 overflow-x-auto no-scrollbar border-t border-slate-800/80 py-2" id="mainTabs">
         <button onclick="switchTab('tab-vocab')" id="btn-tab-vocab" class="tab-btn active px-4 py-2 text-xs sm:text-sm font-semibold rounded-lg text-white bg-sky-600 shadow-md shadow-sky-600/20 transition flex items-center gap-2 whitespace-nowrap">
-          <i class="fa-solid fa-book"></i> 1. Core B1 Vocab (20)
+          <i class="fa-solid fa-book"></i> 1. Core B1 Vocab (21)
         </button>
         <button onclick="switchTab('tab-exA')" id="btn-tab-exA" class="tab-btn px-4 py-2 text-xs sm:text-sm font-semibold rounded-lg text-slate-400 hover:text-slate-200 hover:bg-slate-800 transition flex items-center gap-2 whitespace-nowrap">
           <i class="fa-solid fa-pen-to-square"></i> 2. Exercise A: 25 Gap-Fills
         </button>
         <button onclick="switchTab('tab-exB')" id="btn-tab-exB" class="tab-btn px-4 py-2 text-xs sm:text-sm font-semibold rounded-lg text-slate-400 hover:text-slate-200 hover:bg-slate-800 transition flex items-center gap-2 whitespace-nowrap">
-          <i class="fa-solid fa-wand-magic-sparkles"></i> 3. Exercise B: Sentence Upgrade
+          <i class="fa-solid fa-wand-magic-sparkles"></i> 3. Exercise B: 10 Sentence Upgrades
         </button>
         <button onclick="switchTab('tab-exC')" id="btn-tab-exC" class="tab-btn px-4 py-2 text-xs sm:text-sm font-semibold rounded-lg text-slate-400 hover:text-slate-200 hover:bg-slate-800 transition flex items-center gap-2 whitespace-nowrap">
           <i class="fa-solid fa-comments"></i> 4. Exercise C: Live Interview
@@ -122,7 +118,7 @@
             <i class="fa-solid fa-list-check text-sky-400"></i> B1 Vocabulary & 2. pád Trigger Words
           </h2>
           <p class="text-xs text-slate-400 mt-1">
-            Essential verbs, nouns, adjectives, and adverbs for travel discussions with Genitive case rules.
+            21 essential verbs, nouns, adjectives, and adverbs for travel discussions with Genitive case rules.
           </p>
         </div>
         
@@ -146,6 +142,32 @@
       <!-- Vocabulary Grid -->
       <div id="vocabGrid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
         <!-- Rendered dynamically via JS -->
+      </div>
+
+      <div class="glass-card rounded-2xl p-6 border border-slate-800 space-y-4">
+        <div>
+          <h3 class="text-lg font-bold text-white flex items-center gap-2">
+            <i class="fa-solid fa-book-open text-amber-400"></i> Model Reading: Moje cestovní návyky
+          </h3>
+          <p class="text-xs text-slate-400 mt-1">Student/ka čte nahlas. Potom odpovězte na tři otázky.</p>
+        </div>
+        <div class="flex flex-wrap items-center justify-between gap-2 text-xs">
+          <p class="text-slate-400">Kliknutím označte slova a spojení ve 2. pádě.</p>
+          <div class="flex items-center gap-2"><span id="genitiveMarkCount" class="text-amber-300" aria-live="polite">Označeno: 0 slov</span><button type="button" onclick="clearGenitiveMarks('readingText','genitiveMarkCount')" class="rounded-lg bg-slate-800 px-2 py-1 text-slate-300 hover:bg-slate-700">Zrušit označení</button></div>
+        </div>
+        <div id="readingText" class="text-sm text-slate-200 leading-relaxed bg-slate-900/80 p-5 rounded-xl border border-slate-800">
+          <p>
+            Cestování mě baví, ale rád se na něj připravuji. Před cestou si vždy zkontroluji počasí a koupím jízdenku předem. Nejraději cestuji vlakem, protože během cesty můžu číst nebo poslouchat hudbu. Když jedu do ciziny, balím si jen malé zavazadlo a nikdy necestuji <strong class="text-sky-300">bez cestovního pojištění</strong>. Na letiště přijíždím s dostatečným předstihem, abych neměl stres. Každá cesta závisí na dobrém plánu, ale nejlepší zážitky často přijdou nečekaně.
+          </p>
+        </div>
+        <div>
+          <h4 class="text-sm font-bold text-amber-400 uppercase tracking-wider flex items-center gap-2">
+            <i class="fa-solid fa-circle-question"></i> Krátký test porozumění textu
+          </h4>
+          <div id="readingQuizContainer" class="grid grid-cols-1 lg:grid-cols-3 gap-3 mt-3">
+            <!-- Questions and shuffled A–D options are rendered via JS -->
+          </div>
+        </div>
       </div>
     </section>
 
@@ -196,7 +218,7 @@
     <section id="tab-exB" class="tab-content hidden space-y-6">
       <div class="glass-card rounded-2xl p-5 border border-slate-800">
         <h2 class="text-xl font-bold text-white flex items-center gap-2">
-          <i class="fa-solid fa-wand-magic-sparkles text-amber-400"></i> Exercise B: A2 $\rightarrow$ B1 Sentence Upgrade
+          <i class="fa-solid fa-wand-magic-sparkles text-amber-400"></i> Exercise B: A2 $\rightarrow$ B1 Sentence Upgrade (10 scenarios)
         </h2>
         <p class="text-xs text-slate-400 mt-1">
           Train the student to upgrade basic short answers into rich B1 structures using targets and 2. pád prepositions.
@@ -329,8 +351,78 @@
       { id: 17, cz: "řidičský průkaz (řidičák)", type: "noun", pos: "Noun (m)", en: "driving licence", rule: "Bez + Genitive (bez řidičáku)", ex: "Jízda bez řidičáku." },
       { id: 18, cz: "půjčovna aut", type: "noun", pos: "Noun (f)", en: "car rental shop", rule: "Z + Genitive (z půjčovny)", ex: "Auto z půjčovny." },
       { id: 19, cz: "předem", type: "adj", pos: "Adverb", en: "in advance / beforehand", rule: "Do + Genitive (do muzea)", ex: "Koupil jsem lístky předem." },
-      { id: 20, cz: "místo", type: "adj", pos: "Preposition (+ 2. pád)", en: "instead of", rule: "Místo + Genitive (místo auta)", ex: "Místo auta jedu vlakem." }
+      { id: 20, cz: "místo", type: "adj", pos: "Preposition (+ 2. pád)", en: "instead of", rule: "Místo + Genitive (místo auta)", ex: "Místo auta jedu vlakem." },
+      { id: 21, cz: "bez cestovního pojištění", type: "adj", pos: "Prepositional phrase (+ 2. pád)", en: "without travel insurance", rule: "Bez + Genitive (bez cestovního pojištění)", ex: "Do ciziny nikdy necestuji bez cestovního pojištění." }
     ];
+
+    const READING_QUIZ_DATA = [
+      {
+        question: "Co si vypravěč před cestou vždy zkontroluje?",
+        options: [
+          { text: "Počasí", correct: true },
+          { text: "Jízdní řád autobusů", correct: false },
+          { text: "Otevírací dobu muzeí", correct: false },
+          { text: "Ceny v restauracích", correct: false }
+        ]
+      },
+      {
+        question: "Proč vypravěč nejraději cestuje vlakem?",
+        options: [
+          { text: "Protože během cesty může číst nebo poslouchat hudbu", correct: true },
+          { text: "Protože nemusí kupovat jízdenku", correct: false },
+          { text: "Protože vždy cestuje bez zavazadla", correct: false },
+          { text: "Protože vlak nikdy nemá zpoždění", correct: false }
+        ]
+      },
+      {
+        question: "Bez čeho vypravěč nikdy necestuje do ciziny?",
+        options: [
+          { text: "Bez cestovního pojištění", correct: true },
+          { text: "Bez jízdního kola", correct: false },
+          { text: "Bez průvodce", correct: false },
+          { text: "Bez velkého kufru", correct: false }
+        ]
+      }
+    ];
+
+    function renderReadingQuiz() {
+      const container = document.getElementById('readingQuizContainer');
+      const letters = ['A', 'B', 'C', 'D'];
+      container.innerHTML = READING_QUIZ_DATA.map((question, questionIndex) => {
+        const options = [...question.options];
+        for (let index = options.length - 1; index > 0; index--) {
+          const swapIndex = Math.floor(Math.random() * (index + 1));
+          [options[index], options[swapIndex]] = [options[swapIndex], options[index]];
+        }
+        return `
+          <div class="bg-slate-900 p-4 rounded-xl border border-slate-800 space-y-2">
+            <p class="font-bold text-slate-200">${questionIndex + 1}. ${question.question}</p>
+            <div class="space-y-1 text-slate-400">
+              ${options.map((option, optionIndex) => `
+                <label class="flex items-start gap-2 cursor-pointer hover:text-slate-200">
+                  <input type="radio" name="reading-q${questionIndex + 1}" data-correct="${option.correct}" onchange="checkReadingQuiz(${questionIndex + 1})">
+                  <span>${letters[optionIndex]}. ${option.text}</span>
+                </label>
+              `).join('')}
+            </div>
+            <p id="reading-q${questionIndex + 1}-feedback" class="font-bold text-[11px] min-h-[16px]" aria-live="polite"></p>
+          </div>
+        `;
+      }).join('');
+    }
+
+    function checkReadingQuiz(questionNumber) {
+      const selected = document.querySelector(`input[name="reading-q${questionNumber}"]:checked`);
+      const feedback = document.getElementById(`reading-q${questionNumber}-feedback`);
+      if (!selected) return;
+      if (selected.dataset.correct === 'true') {
+        feedback.textContent = '✓ Správně';
+        feedback.className = 'font-bold text-[11px] text-emerald-400 min-h-[16px]';
+      } else {
+        feedback.textContent = '✗ Špatně, zkuste znovu';
+        feedback.className = 'font-bold text-[11px] text-rose-400 min-h-[16px]';
+      }
+    }
 
     const DRILLS_EX_A = [
       { id: 1, prompt: "Ujel mi vlak, protože jsem musel běžet až od ____ (domov).", base: "domov", ans: "domova", hint: "m. inanim: od domova" },
@@ -366,13 +458,11 @@
       { id: 3, q: "3. Jaká je tvoje ideální dovolená?", a2: "Mám rád moře.", targets: "předem / domov (2. pád) / bez + 2. pád", b1: "Moje ideální dovolená je u moře, ale všechno si rezervuji předem z domova a cestuji bez stresu." },
       { id: 4, q: "4. Používáš při cestování navigaci?", a2: "Ano, používám.", targets: "ztratit se / cizina (2. pád)", b1: "Ano, bez navigace bych se v cizině hned ztratil." },
       { id: 5, q: "5. Máš zkušenost s půjčovnou aut?", a2: "Ano, půjčil jsem si auto.", targets: "půjčit si z / půjčovna (2. pád) / dálnice (2. pád)", b1: "Ano, půjčil jsem si auto přímo z půjčovny na letišti a jel jsem po dálnici." },
-      { id: 6, q: "6. Dostal/a jsi někdy pokutu?", a2: "Ano, za rychlost.", targets: "dostat pokutu od / policie (2. pád) / zaplatit", b1: "Ano, dostal jsem pokutu od policie za rychlou jízdu na sjezdu z dálnice." },
-      { id: 7, q: "7. Co si balíš do kufru?", a2: "Balím oblečení.", targets: "balit si do / kufr (2. pád) / záviset na", b1: "Záleží na počasí, ale do kufru si vždycky balím jen to nejnutnější." },
-      { id: 8, q: "8. Jak často používáš MHD?", a2: "Jezdím metrem každý den.", targets: "spolehlivý / zastávka (2. pád)", b1: "MHD používám denně, protože je spolehlivá a mám zastávku jen dvě minuty od domu." },
-      { id: 9, q: "9. Kdy jsi naposledy letěl/a letadlem?", a2: "Letěl jsem minulý rok.", targets: "odlet / letiště (2. pád) / zážitek", b1: "Letěl jsem minulý rok z letiště v Praze a byl to skvělý zážitek bez jakéhokoli zpoždění." },
-      { id: 10, q: "10. Jezdíš raději autem nebo vlakem?", a2: "Mám raději vlak.", targets: "pohodlný / místo + 2. pád", b1: "Vlak je pro mě pohodlnější, takže jím jezdím raději místo auta." },
-      { id: 11, q: "11. Co děláš, když ti ujede autobus?", a2: "Čekám na další.", targets: "ujet / čekat u / zastávka (2. pád)", b1: "Když mi ujede autobus, musím čekat u zastávky dalších dvacet minut." },
-      { id: 12, q: "12. Navštívil/a jsi naposledy nějaké památky?", a2: "Byli jsme v muzeu.", targets: "prohlídka / památky (2. pád) / předem", b1: "Ano, byli jsme na prohlídce starých památek a lístky jsme si koupili předem." }
+      { id: 6, q: "6. Co si balíš do kufru?", a2: "Balím oblečení.", targets: "balit si do / kufr (2. pád) / záviset na", b1: "Záleží na počasí, ale do kufru si vždycky balím jen to nejnutnější." },
+      { id: 7, q: "7. Jak často používáš MHD?", a2: "Jezdím metrem každý den.", targets: "spolehlivý / zastávka (2. pád)", b1: "MHD používám denně, protože je spolehlivá a mám zastávku jen dvě minuty od domu." },
+      { id: 8, q: "8. Kdy jsi naposledy letěl/a letadlem?", a2: "Letěl jsem minulý rok.", targets: "odlet / letiště (2. pád) / zážitek", b1: "Letěl jsem minulý rok z letiště v Praze a byl to skvělý zážitek bez jakéhokoli zpoždění." },
+      { id: 9, q: "9. Jezdíš raději autem nebo vlakem?", a2: "Mám raději vlak.", targets: "pohodlný / místo + 2. pád", b1: "Vlak je pro mě pohodlnější, takže jím jezdím raději místo auta." },
+      { id: 10, q: "10. Navštívil/a jsi naposledy nějaké památky?", a2: "Byli jsme v muzeu.", targets: "prohlídka / památky (2. pád) / předem", b1: "Ano, byli jsme na prohlídce starých památek a lístky jsme si koupili předem." }
     ];
 
     const INTERVIEW_ROUNDS = [
@@ -454,6 +544,64 @@
       } else {
         alert('Text-to-speech is not supported in this browser.');
       }
+    }
+
+    function enableGenitiveMarking(containerId, countId) {
+        const container = document.getElementById(containerId);
+        const walker = document.createTreeWalker(container, NodeFilter.SHOW_TEXT);
+        const textNodes = [];
+        while (walker.nextNode()) {
+          const node = walker.currentNode;
+          if (node.nodeValue.trim() && !node.parentElement.closest('button, a, input, textarea')) textNodes.push(node);
+    }
+        textNodes.forEach(node => {
+          const fragment = document.createDocumentFragment();
+          node.nodeValue.split(/([A-Za-zÀ-ž]+(?:[’'-][A-Za-zÀ-ž]+)*)/g).forEach(part => {
+            if (/^[A-Za-zÀ-ž]/.test(part)) {
+              const word = document.createElement('span');
+              word.textContent = part;
+              word.className = 'genitive-mark-word cursor-pointer rounded px-0.5 hover:bg-amber-900/50';
+              word.setAttribute('role', 'button');
+              word.setAttribute('aria-pressed', 'false');
+              word.tabIndex = 0;
+              const toggle = () => {
+                const marked = word.getAttribute('aria-pressed') !== 'true';
+                word.style.backgroundColor = marked ? 'rgba(251, 191, 36, 0.3)' : '';
+                word.style.color = marked ? '#fef3c7' : '';
+                word.style.outline = marked ? '1px solid rgba(251, 191, 36, 0.7)' : '';
+                word.setAttribute('aria-pressed', String(marked));
+                updateGenitiveMarkCount(containerId, countId);
+              };
+              word.addEventListener('click', toggle);
+              word.addEventListener('keydown', event => {
+                if (event.key === 'Enter' || event.key === ' ') {
+                  event.preventDefault();
+                  toggle();
+                }
+              });
+              fragment.appendChild(word);
+            } else {
+              fragment.appendChild(document.createTextNode(part));
+            }
+          });
+          node.replaceWith(fragment);
+        });
+        updateGenitiveMarkCount(containerId, countId);
+    }
+
+    function updateGenitiveMarkCount(containerId, countId) {
+        const count = document.querySelectorAll(`#${containerId} .genitive-mark-word[aria-pressed="true"]`).length;
+        document.getElementById(countId).textContent = `Označeno: ${count} slov`;
+      }
+
+    function clearGenitiveMarks(containerId, countId) {
+        document.querySelectorAll(`#${containerId} .genitive-mark-word`).forEach(word => {
+          word.style.backgroundColor = '';
+          word.style.color = '';
+          word.style.outline = '';
+          word.setAttribute('aria-pressed', 'false');
+        });
+        updateGenitiveMarkCount(containerId, countId);
     }
 
     /* ==========================================================================
@@ -860,6 +1008,8 @@ Send your 4 sentences back before our next lesson. Na shledanou!`;
        ========================================================================== */
     window.onload = function() {
       renderVocab();
+      renderReadingQuiz();
+      enableGenitiveMarking('readingText', 'genitiveMarkCount');
       renderExA();
       renderExB();
       renderInterviewTabs();

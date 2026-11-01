@@ -76,14 +76,10 @@
           </div>
         </div>
 
-        <!-- Quick Info / Audio Check -->
-        <div class="hidden md:flex items-center space-x-4 text-xs font-medium">
-          <span class="px-3 py-1.5 rounded-full bg-slate-800 border border-slate-700 text-slate-300 flex items-center gap-2">
-            <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
-            Teaching Mode
-          </span>
-          <button onclick="speakText('Nahlásil jsem kufr na oddělení ztrát a nálezů.')" class="px-3 py-1.5 rounded-lg bg-sky-600/20 hover:bg-sky-600/30 text-sky-300 border border-sky-500/30 transition flex items-center gap-1.5">
-            <i class="fa-solid fa-volume-high"></i> Audio Check
+        <div class="flex items-center justify-between py-2 text-xs font-medium">
+          <a href="../B1_List_of_lessons.html" class="rounded-lg border border-slate-700 bg-slate-800 px-3 py-1.5 text-slate-300 hover:bg-slate-700">← Přehled lekcí</a>
+          <button onclick="speakText('Nahlásil jsem kufr na oddělení ztrát a nálezů.')" class="hidden sm:flex items-center gap-1.5 rounded-lg border border-sky-500/30 bg-sky-600/20 px-3 py-1.5 text-sky-300 transition hover:bg-sky-600/30">
+            <i class="fa-solid fa-volume-high"></i> Poslechnout vzorovou větu
           </button>
         </div>
       </div>
@@ -94,10 +90,10 @@
           <i class="fa-solid fa-book-open"></i> 1. Vocab &amp; Both Articles (21)
         </button>
         <button onclick="switchTab('tab-exA')" id="btn-tab-exA" class="tab-btn px-4 py-2 text-xs sm:text-sm font-semibold rounded-lg text-slate-400 hover:text-slate-200 hover:bg-slate-800 transition flex items-center gap-2 whitespace-nowrap">
-          <i class="fa-solid fa-pen-to-square"></i> 2. Exercise A: Both Gap-Fills
+          <i class="fa-solid fa-pen-to-square"></i> 2. Exercise A: 25 Gap-Fills
         </button>
         <button onclick="switchTab('tab-exB')" id="btn-tab-exB" class="tab-btn px-4 py-2 text-xs sm:text-sm font-semibold rounded-lg text-slate-400 hover:text-slate-200 hover:bg-slate-800 transition flex items-center gap-2 whitespace-nowrap">
-          <i class="fa-solid fa-wand-magic-sparkles"></i> 3. Exercise B: Sentence Upgrade
+          <i class="fa-solid fa-wand-magic-sparkles"></i> 3. Exercise B: 10 Sentence Upgrades
         </button>
         <button onclick="switchTab('tab-exC')" id="btn-tab-exC" class="tab-btn px-4 py-2 text-xs sm:text-sm font-semibold rounded-lg text-slate-400 hover:text-slate-200 hover:bg-slate-800 transition flex items-center gap-2 whitespace-nowrap">
           <i class="fa-solid fa-comments"></i> 4. Dynamic Role Play Simulator
@@ -155,7 +151,7 @@
                 <h3 class="text-base font-bold text-sky-400 flex items-center gap-2">
                   <i class="fa-solid fa-plane-departure"></i> Článek 1: Moje poslední cesta
                 </h3>
-                <p class="text-xs text-slate-400 mt-0.5">Plánování cesty, hotely a výlet na kole.</p>
+                <p class="text-xs text-slate-400 mt-0.5">Čte učitel/ka nahlas. Studenti sledují text a hledají tvary 2. pádu.</p>
               </div>
 
               <div class="flex items-center gap-2">
@@ -173,6 +169,10 @@
             </div>
 
             <!-- Dynamic Body Article 1 -->
+            <div class="flex flex-wrap items-center justify-between gap-2 text-xs">
+              <p class="text-slate-400">Kliknutím označte slova a spojení ve 2. pádě.</p>
+              <div class="flex items-center gap-2"><span id="genitiveMarkCount1" class="text-amber-300" aria-live="polite">Označeno: 0 slov</span><button type="button" onclick="clearGenitiveMarks('story1Container','genitiveMarkCount1')" class="rounded-lg bg-slate-800 px-2 py-1 text-slate-300 hover:bg-slate-700">Zrušit označení</button></div>
+            </div>
             <div class="text-xs sm:text-sm text-slate-200 leading-relaxed font-sans space-y-3 bg-slate-900/80 p-4 rounded-xl border border-slate-800" id="story1Container">
               <!-- JS Rendered -->
             </div>
@@ -197,7 +197,7 @@
                 <h3 class="text-base font-bold text-amber-400 flex items-center gap-2">
                   <i class="fa-solid fa-suitcase"></i> Článek 2: Ztracený kufr na cestě
                 </h3>
-                <p class="text-xs text-slate-400 mt-0.5">Reklamace na letišti a oddělení ztrát a nálezů.</p>
+                <p class="text-xs text-slate-400 mt-0.5">Student/ka čte nahlas.</p>
               </div>
 
               <div class="flex items-center gap-2">
@@ -215,6 +215,10 @@
             </div>
 
             <!-- Dynamic Body Article 2 -->
+            <div class="flex flex-wrap items-center justify-between gap-2 text-xs">
+              <p class="text-slate-400">Kliknutím označte slova a spojení ve 2. pádě.</p>
+              <div class="flex items-center gap-2"><span id="genitiveMarkCount2" class="text-amber-300" aria-live="polite">Označeno: 0 slov</span><button type="button" onclick="clearGenitiveMarks('story2Container','genitiveMarkCount2')" class="rounded-lg bg-slate-800 px-2 py-1 text-slate-300 hover:bg-slate-700">Zrušit označení</button></div>
+            </div>
             <div class="text-xs sm:text-sm text-slate-200 leading-relaxed font-sans space-y-3 bg-slate-900/80 p-4 rounded-xl border border-slate-800" id="story2Container">
               <!-- JS Rendered -->
             </div>
@@ -243,7 +247,7 @@
         <div class="lg:col-span-2 space-y-6">
           <div class="glass-card rounded-2xl p-6 border border-slate-800 flex flex-col sm:flex-row items-center justify-between gap-4">
             <div>
-              <h2 class="text-xl sm:text-2xl font-bold text-white">Exercise A: Doplňování 2. pádu</h2>
+              <h2 class="text-xl sm:text-2xl font-bold text-white">Exercise A: Doplňování 2. pádu (25 prompts)</h2>
               <p class="text-sm text-slate-400 mt-1">Obsahuje cvičení z textů <strong>„Moje poslední cesta“</strong> i <strong>„Ztracený kufr na cestě“</strong>.</p>
             </div>
             <div class="flex items-center gap-2">
@@ -258,7 +262,7 @@
             <div class="flex-1 bg-slate-900 h-3 rounded-full overflow-hidden border border-slate-800">
               <div id="exAProgressBar" class="bg-sky-500 h-full w-0 transition-all duration-300"></div>
             </div>
-            <span id="exAScoreText" class="text-xs font-mono font-bold text-sky-400 whitespace-nowrap">0 / 32 Správně</span>
+            <span id="exAScoreText" class="text-xs font-mono font-bold text-sky-400 whitespace-nowrap">0 / 25 Správně</span>
           </div>
 
           <!-- SECTION 1: MOJE POSLEDNÍ CESTA -->
@@ -306,7 +310,7 @@
         <div class="lg:col-span-2 space-y-6">
           <div class="glass-card rounded-2xl p-5 border border-slate-800">
             <h2 class="text-xl sm:text-2xl font-bold text-white flex items-center gap-2">
-              <i class="fa-solid fa-wand-magic-sparkles text-amber-400"></i> Exercise B: A2 &rarr; B1 Sentence Upgrade
+              <i class="fa-solid fa-wand-magic-sparkles text-amber-400"></i> Exercise B: A2 &rarr; B1 Sentence Upgrade (10 prompts)
             </h2>
             <p class="text-sm text-slate-400 mt-1">
               Převeďte jednoduché A2 vyjádření na plynulé B1 formulace s využitím nových výrazů v 2. pádě.
@@ -502,26 +506,19 @@
        ========================================================================== */
 
     const DRILLS_TEXT_1 = [
-      { prompt: "Minulý měsíc jsem se vydal(a) na výlet do krás ____ (naše Česko).", ans: "našeho Česka", hint: "Česko" },
+      { prompt: "Minulý měsíc jsem se vydal(a) na výlet do ____ (naše krásné Česko).", ans: "našeho krásného Česka", hint: "naše krásné Česko" },
       { prompt: "Před cestou jsem si ověřil(a) časy ____ (ranní let).", ans: "ranního letu", hint: "let" },
       { prompt: "Zkontroloval(a) jsem platnost ____ (cestovní pas).", ans: "cestovního pasu", hint: "pas" },
       { prompt: "Na letišti jsem odevzdal(a) 6 ____ (velké zavazadlo - pl.).", ans: "velkých zavazadel", hint: "zavazadlo (pl.)" },
       { prompt: "Koupil(a) jsem si průvodce s mapou ____ (město).", ans: "města", hint: "město" },
-      { prompt: "Během letu jsem četl(a) průvodce, kterého jsem dostal(a) od ____ (Honza).", ans: "Honzy", hint: "Honza" },
       { prompt: "Připravoval(a) jsem se na návštěvu místních ____ (muzeum a galerie - pl.).", ans: "muzeí a galerií", hint: "muzea a galerie (pl.)" },
-      { prompt: "Po přistání jsem si vzal(a) taxi z ____ (letiště).", ans: "letiště", hint: "letiště" },
       { prompt: "Zamířil(a) jsem k hotelu, kde jsem měl(a) rezervaci do ____ (pátek).", ans: "pátku", hint: "pátek" },
-      { prompt: "V hotelu jsem se dozvěděl(a) o plánech ____ (výlet - pl.).", ans: "výletů", hint: "výlet (pl.)" },
-      { prompt: "Dozvěděl(a) jsem se o zajímavostech z ____ (okolí).", ans: "okolí", hint: "okolí" },
-      { prompt: "Zjišťoval(a) jsem možnosti návštěvy ____ (muzeum).", ans: "muzea", hint: "muzeum" },
       { prompt: "Půjčil(a) jsem si kolo v půjčovně ____ (kolo - pl.) vedle ____ (hotel).", ans: "kol / hotelu", hint: "kolo (pl.) / hotel" },
-      { prompt: "Projel(a) jsem cyklostezku kolem ____ (řeka).", ans: "řeky", hint: "řeka" },
       { prompt: "Při cestě jsem si všiml(a) ____ (muzeum) vedle ____ (zajímavá dopravní značka - pl.).", ans: "muzea / zajímavých dopravních značek", hint: "muzeum / zajímavá dopravní značka (pl.)" },
       { prompt: "Kontroloval(a) jsem stav ____ (pneumatika - pl.) ____ (své kolo).", ans: "pneumatik / svého kola", hint: "pneumatika (pl.) / své kolo" },
-      { prompt: "Chcel(a) jsem se vyhnout problémům během ____ (cesta).", ans: "cesty", hint: "cesta" },
+      { prompt: "Chtěl(a) jsem se vyhnout problémům během ____ (cesta).", ans: "cesty", hint: "cesta" },
       { prompt: "Koupil(a) jsem si suvenýr v obchodě s výrobky z ____ (plast).", ans: "plastu", hint: "plast" },
-      { prompt: "Uvědomil(a) jsem si, že plánování ____ (cesta) je důležité od ____ (letenka) až po hotel.", ans: "cesty / letenky", hint: "cesta / letenka" },
-      { prompt: "Nejvíce mi při plánování pomohl bratr ____ (Lukáš).", ans: "Lukáše", hint: "Lukáš" }
+      { prompt: "Uvědomil(a) jsem si, že plánování ____ (cesta) je důležité od ____ (letenka) až po hotel.", ans: "cesty / letenky", hint: "cesta / letenka" }
     ];
 
     const DRILLS_TEXT_2 = [
@@ -551,7 +548,9 @@
       { q: "5. Zeptat se na odjezd náhradního autobusu", a2: "Kdy jede náhradní autobus?", blocks: "kdy / odjíždět / náhradní autobus / z / letiště / z důvodu / zpoždění", structure: "Kdy + sloveso + subjekt + odkud + z důvodu čeho?", b1: "Kdy odjíždí náhradní autobus z letiště z důvodu zpoždění letu?" },
       { q: "6. Vyřešit chybějící hygienické potřeby", a2: "Nemám kartáček.", blocks: "nemít u sebe / kartáček na zuby / ani / mapa / město / po příletu", structure: "Neměl/a jsem u sebe + předmět + ani + předmět + kdy?", b1: "Neměl/a jsem u sebe ani kartáček na zuby, ani mapu města po příletu." },
       { q: "7. Informovat se o prohlídce památek", a2: "Chci vidět památky.", blocks: "vydat se / na / prohlídka / památky / do / okolí / město", structure: "Sloveso + na co + kam?", b1: "Další den jsem se vydal/a na prohlídku památek do okolí města." },
-      { q: "8. Zeptat se na stav kola před cestou", a2: "Kolo je v pořádku?", blocks: "zkontrolovat / stav / pneumatiky / před / začátek / cesta", structure: "Sloveso + předmět + čeho + před čím?", b1: "Před výletem jsem raději zkontroloval stav pneumatik svého kola." }
+      { q: "8. Zeptat se na stav kola před cestou", a2: "Kolo je v pořádku?", blocks: "zkontrolovat / stav / pneumatiky / před / začátek / cesta", structure: "Sloveso + předmět + čeho + před čím?", b1: "Před výletem jsem raději zkontroloval stav pneumatik svého kola." },
+      { q: "9. Zeptat se na cenu jízdy taxíkem", a2: "Kolik stojí taxi?", blocks: "zeptat se / cena / cesta taxíkem / z letiště / do hotelu", structure: "Zdvořilá otázka + cena čeho + odkud + kam?", b1: "Mohl/a bych se zeptat na cenu cesty taxíkem z letiště do hotelu?" },
+      { q: "10. Zjistit předpokládanou dobu návratu kufru", a2: "Kdy dostanu kufr?", blocks: "můžete mi sdělit / předpokládaná doba / návrat kufru", structure: "Zdvořilá otázka + doba čeho?", b1: "Můžete mi sdělit předpokládanou dobu návratu kufru?" }
     ];
 
     /* ==========================================================================
@@ -560,18 +559,18 @@
 
     const QUIZ1_DATA = [
       {
-        q: "1. Co si cestovatel/ka zkontroloval/a před cestou?",
-        opts: ["1. Platnost pasu a pojištění", "2. Stav pneumatik auta", "3. Cenu lístku na vlak"],
+        q: "1. Platnost čeho si cestovatel/ka zkontroloval/a před cestou?",
+        opts: ["Pasu", "Jízdenky", "Hotelové rezervace", "Řidičského průkazu"],
         ans: 0
       },
       {
         q: "2. Kde si cestovatel/ka půjčil/a kolo?",
-        opts: ["1. V centru města", "2. V půjčovně vedle hotelu", "3. Na letišti"],
+        opts: ["V centru města", "V půjčovně vedle hotelu", "Na letišti", "U vlakového nádraží"],
         ans: 1
       },
       {
         q: "3. Kdo cestovateli/ce nejvíce pomohl při plánování?",
-        opts: ["Sestra", "Bratr Lukáše", "Kamarad Honza"],
+        opts: ["Sestra", "Bratr Lukáše", "Kamarád Honza", "Pracovník letiště"],
         ans: 1
       }
     ];
@@ -579,17 +578,17 @@
     const QUIZ2_DATA = [
       {
         q: "1. Jaký problém nastal na letišti před odletem?",
-        opts: ["Zapomněl/a číslo letenky", "Ztratil/a pas", "Přijel/a pozdě autobus"],
+        opts: ["Zapomněl/a číslo letenky", "Ztratil/a pas", "Přijel/a pozdě autobus", "Nevěděl/a, kde je hotel"],
         ans: 0
       },
       {
         q: "2. Kde nakonec kufr zůstal?",
-        opts: ["V autobuse", "Na ploše vedle letadla", "V hotelu v Praze"],
+        opts: ["V autobuse", "Na ploše vedle letadla", "V hotelu v Praze", "Na nádraží"],
         ans: 1
       },
       {
-        q: "3. Co cestovatel/ka neměl/a u sebe během čekání?",
-        opts: ["Peníze a mobil", "Kartáček na zuby ani mapu města", "Pas a rezervaci"],
+        q: "3. Co si chtěl/a cestovatel/ka prohlédnout další den?",
+        opts: ["Památky", "Místní letiště", "Vlakové nádraží", "Obchodní centrum"],
         ans: 1
       }
     ];
@@ -599,6 +598,8 @@
        ========================================================================== */
 
     let currentVocabCategory = 'all';
+    let renderedQuiz1Data = [];
+    let renderedQuiz2Data = [];
     
     let gender1 = 'M';
     let audio1Playing = false;
@@ -644,6 +645,64 @@
       }
     }
 
+    function enableGenitiveMarking(containerId, countId) {
+      const container = document.getElementById(containerId);
+      const walker = document.createTreeWalker(container, NodeFilter.SHOW_TEXT);
+      const textNodes = [];
+      while (walker.nextNode()) {
+        const node = walker.currentNode;
+        if (node.nodeValue.trim() && !node.parentElement.closest('button, a, input, textarea')) textNodes.push(node);
+      }
+      textNodes.forEach(node => {
+        const fragment = document.createDocumentFragment();
+        node.nodeValue.split(/([A-Za-zÀ-ž]+(?:[’'-][A-Za-zÀ-ž]+)*)/g).forEach(part => {
+          if (/^[A-Za-zÀ-ž]/.test(part)) {
+            const word = document.createElement('span');
+            word.textContent = part;
+            word.className = 'genitive-mark-word cursor-pointer rounded px-0.5 hover:bg-amber-900/50';
+            word.setAttribute('role', 'button');
+            word.setAttribute('aria-pressed', 'false');
+            word.tabIndex = 0;
+            const toggle = () => {
+              const marked = word.getAttribute('aria-pressed') !== 'true';
+              word.style.backgroundColor = marked ? 'rgba(251, 191, 36, 0.3)' : '';
+              word.style.color = marked ? '#fef3c7' : '';
+              word.style.outline = marked ? '1px solid rgba(251, 191, 36, 0.7)' : '';
+              word.setAttribute('aria-pressed', String(marked));
+              updateGenitiveMarkCount(containerId, countId);
+            };
+            word.addEventListener('click', toggle);
+            word.addEventListener('keydown', event => {
+              if (event.key === 'Enter' || event.key === ' ') {
+                event.preventDefault();
+                toggle();
+              }
+            });
+            fragment.appendChild(word);
+          } else {
+            fragment.appendChild(document.createTextNode(part));
+          }
+        });
+        node.replaceWith(fragment);
+      });
+      updateGenitiveMarkCount(containerId, countId);
+    }
+
+    function updateGenitiveMarkCount(containerId, countId) {
+      const count = document.querySelectorAll(`#${containerId} .genitive-mark-word[aria-pressed="true"]`).length;
+      document.getElementById(countId).textContent = `Označeno: ${count} slov`;
+    }
+
+    function clearGenitiveMarks(containerId, countId) {
+      document.querySelectorAll(`#${containerId} .genitive-mark-word`).forEach(word => {
+        word.style.backgroundColor = '';
+        word.style.color = '';
+        word.style.outline = '';
+        word.setAttribute('aria-pressed', 'false');
+      });
+      updateGenitiveMarkCount(containerId, countId);
+    }
+
     /* ARTICLE 1 LOGIC */
     function setGender1(g) {
       gender1 = g;
@@ -659,6 +718,7 @@
         <p>Během letu jsem ${isM ? 'četl' : 'četla'} průvodce od <strong class="text-sky-300">Honzy</strong> a ${isM ? 'připravoval' : 'připravovala'} se na návštěvu místních <strong class="text-sky-300">muzeí a galerií</strong>. Po přistání jsem si ${isM ? 'vzal' : 'vzala'} taxi z <strong class="text-sky-300">letiště</strong> k hotelu, kde jsem ${isM ? 'měl' : 'měla'} rezervaci do <strong class="text-sky-300">pátku</strong>.</p>
         <p>Další den jsem si ${isM ? 'půjčil' : 'půjčila'} kolo v půjčovně <strong class="text-sky-300">kol</strong> vedle <strong class="text-sky-300">hotelu</strong> a ${isM ? 'projel' : 'projela'} cyklostezku kolem <strong class="text-sky-300">řeky</strong>. ${isM ? 'Kontroloval' : 'Kontrolovala'} jsem stav pneumatik svého <strong class="text-sky-300">kola</strong> a koupil/a suvenýr z <strong class="text-sky-300">plastu</strong>. Při plánování mi pomohl bratr <strong class="text-sky-300">Lukáše</strong>.</p>
       `;
+      enableGenitiveMarking('story1Container', 'genitiveMarkCount1');
     }
 
     function handleAudio1() {
@@ -710,6 +770,7 @@
         <p>Při odbavení se pracovník zeptal na velikost <strong class="text-amber-300">zavazadla</strong> a chtěl vidět kopii <strong class="text-amber-300">pasu</strong>. Po příletu jsem si nevšiml/a svého <strong class="text-amber-300">kufru</strong>! Kufr totiž nepřiletěl z <strong class="text-amber-300">Prahy</strong>.</p>
         <p>${isM ? 'Šel' : 'Šla'} jsem tedy na oddělení <strong class="text-amber-300">ztrát a nálezů</strong>. Úřednice se ptala na číslo <strong class="text-amber-300">zavazadlového lístku</strong> a barvu <strong class="text-amber-300">tašky</strong>. Kufr zůstal na ploše vedle <strong class="text-amber-300">letadla</strong>. Po dvou hodinách jsem se ${isM ? 'dočkal' : 'dočkala'} návratu <strong class="text-amber-300">zavazadla</strong>. Neměl/a jsem kartáček ani mapu <strong class="text-amber-300">města</strong>, ale další den jsem se již ${isM ? 'mohl' : 'mohla'} vydat na prohlídku <strong class="text-amber-300">památek</strong>.</p>
       `;
+      enableGenitiveMarking('story2Container', 'genitiveMarkCount2');
     }
 
     function handleAudio2() {
@@ -808,14 +869,24 @@
     function renderQuizzes() {
       const c1 = document.getElementById('quiz1Container');
       const c2 = document.getElementById('quiz2Container');
+      const shuffleOptions = questions => questions.map(question => {
+        const options = question.opts.map((text, index) => ({ text, correct: index === question.ans }));
+        for (let i = options.length - 1; i > 0; i--) {
+          const j = Math.floor(Math.random() * (i + 1));
+          [options[i], options[j]] = [options[j], options[i]];
+        }
+        return { q: question.q, opts: options.map(option => option.text), ans: options.findIndex(option => option.correct) };
+      });
+      renderedQuiz1Data = shuffleOptions(QUIZ1_DATA);
+      renderedQuiz2Data = shuffleOptions(QUIZ2_DATA);
 
-      c1.innerHTML = QUIZ1_DATA.map((q, qIdx) => `
+      c1.innerHTML = renderedQuiz1Data.map((q, qIdx) => `
         <div class="bg-slate-900/90 p-3 rounded-xl border border-slate-800 space-y-2">
           <p class="text-xs font-bold text-white">${q.q}</p>
           <div class="space-y-1.5">
             ${q.opts.map((opt, oIdx) => `
               <button onclick="checkQuiz1Answer(${qIdx},${oIdx})" id="q1_${qIdx}_${oIdx}" class="w-full text-left px-2.5 py-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-xs text-slate-200 border border-slate-700 transition">
-                ${opt}
+                ${String.fromCharCode(65 + oIdx)}) ${opt}
               </button>
             `).join('')}
           </div>
@@ -823,13 +894,13 @@
         </div>
       `).join('');
 
-      c2.innerHTML = QUIZ2_DATA.map((q, qIdx) => `
+      c2.innerHTML = renderedQuiz2Data.map((q, qIdx) => `
         <div class="bg-slate-900/90 p-3 rounded-xl border border-slate-800 space-y-2">
           <p class="text-xs font-bold text-white">${q.q}</p>
           <div class="space-y-1.5">
             ${q.opts.map((opt, oIdx) => `
               <button onclick="checkQuiz2Answer(${qIdx},${oIdx})" id="q2_${qIdx}_${oIdx}" class="w-full text-left px-2.5 py-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-xs text-slate-200 border border-slate-700 transition">
-                ${opt}
+                ${String.fromCharCode(65 + oIdx)}) ${opt}
               </button>
             `).join('')}
           </div>
@@ -839,7 +910,7 @@
     }
 
     function checkQuiz1Answer(qIdx, oIdx) {
-      const q = QUIZ1_DATA[qIdx];
+      const q = renderedQuiz1Data[qIdx];
       const feedback = document.getElementById(`q1Feedback_${qIdx}`);
       feedback.classList.remove('hidden', 'text-emerald-400', 'text-rose-400');
 
@@ -860,7 +931,7 @@
     }
 
     function checkQuiz2Answer(qIdx, oIdx) {
-      const q = QUIZ2_DATA[qIdx];
+      const q = renderedQuiz2Data[qIdx];
       const feedback = document.getElementById(`q2Feedback_${qIdx}`);
       feedback.classList.remove('hidden', 'text-emerald-400', 'text-rose-400');
 
@@ -887,19 +958,21 @@
 
       const renderItem = (item, idx, prefix) => {
         const parts = item.prompt.split('____');
-        const cleanAudio = parts.join(item.ans).replace(/\s*\([^)]*\)/g, '');
-        const dynamicWidth = Math.max(140, item.ans.length * 11);
+        const answers = getDrillAnswers(item);
+        let answerIndex = 0;
+        const cleanAudio = item.prompt.replace(/____/g, () => answers[answerIndex++] || '').replace(/\s*\([^)]*\)/g, '');
+        const promptContent = parts.map((part, partIdx) => {
+          if (partIdx >= answers.length) return part;
+          const gapIdx = partIdx;
+          const dynamicWidth = Math.max(100, answers[gapIdx].length * 11);
+          return `${part}<input type="text" id="${prefix}_input_${idx}_${gapIdx}" style="width: ${dynamicWidth}px;" class="exA-field bg-slate-900 border border-slate-700 rounded-xl px-3 py-1.5 text-sm sm:text-base text-sky-300 font-bold text-center focus:outline-none focus:border-sky-500 max-w-[300px] shadow-inner my-1" placeholder="...">`;
+        }).join('');
 
         return `
           <div class="glass-card rounded-xl p-4 sm:p-5 border border-slate-800 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
             <div class="text-sm sm:text-base text-slate-100 leading-relaxed flex-1">
               <span class="font-bold text-sky-400 mr-2 text-base sm:text-lg">${idx + 1}.</span>
-              ${parts[0]}
-              <input type="text" id="${prefix}_input_${idx}" data-ans="${item.ans}" 
-                    style="width: ${dynamicWidth}px;" 
-                    class="exA-field bg-slate-900 border border-slate-700 rounded-xl px-3 py-1.5 text-sm sm:text-base text-sky-300 font-bold text-center focus:outline-none focus:border-sky-500 max-w-[300px] shadow-inner my-1" 
-                    placeholder="...">
-              ${parts[1] || ''}
+              ${promptContent}
             </div>
             <div class="flex items-center gap-3 self-end sm:self-center flex-shrink-0">
               <span class="text-xs text-amber-400/90 font-mono bg-slate-900/90 px-3 py-1.5 rounded-lg border border-slate-800">${item.hint}</span>
@@ -915,24 +988,48 @@
       container2.innerHTML = DRILLS_TEXT_2.map((item, idx) => renderItem(item, idx, 'exA2')).join('');
     }
 
-    function checkAllExA() {
+    function getDrillAnswers(item) {
+      const gapCount = item.prompt.split('____').length - 1;
+      return gapCount > 1 ? item.ans.split(' / ') : [item.ans];
+    }
+
+    function checkDrillSet(items, prefix) {
       let correct = 0;
+      items.forEach((item, idx) => {
+        const answers = getDrillAnswers(item);
+        const inputs = answers.map((_, gapIdx) => document.getElementById(`${prefix}_input_${idx}_${gapIdx}`));
+        const results = inputs.map((input, gapIdx) => input.value.trim().toLowerCase() === answers[gapIdx].toLowerCase());
+        inputs.forEach((input, gapIdx) => {
+          input.className = results[gapIdx] ? "exA-field bg-emerald-950 border border-emerald-500 text-emerald-300 rounded-xl px-3 py-1.5 text-sm font-bold text-center" : "exA-field bg-rose-950 border border-rose-500 text-rose-300 rounded-xl px-3 py-1.5 text-sm font-bold text-center";
+        });
+        if (results.every(Boolean)) correct++;
+      });
+      return correct;
+    }
+
+    function revealDrillSet(items, prefix) {
+      items.forEach((item, idx) => {
+        getDrillAnswers(item).forEach((answer, gapIdx) => {
+          const input = document.getElementById(`${prefix}_input_${idx}_${gapIdx}`);
+          input.value = answer;
+          input.className = "exA-field bg-emerald-950 border border-emerald-500 text-emerald-300 rounded-xl px-3 py-1.5 text-sm font-bold text-center";
+        });
+      });
+    }
+
+    function resetDrillSet(items, prefix) {
+      items.forEach((item, idx) => {
+        getDrillAnswers(item).forEach((_, gapIdx) => {
+          const input = document.getElementById(`${prefix}_input_${idx}_${gapIdx}`);
+          input.value = '';
+          input.className = "exA-field bg-slate-900 border border-slate-700 rounded-xl px-3 py-1.5 text-sm text-sky-300 font-bold text-center focus:outline-none focus:border-sky-500";
+        });
+      });
+    }
+
+    function checkAllExA() {
       const total = DRILLS_TEXT_1.length + DRILLS_TEXT_2.length;
-
-      DRILLS_TEXT_1.forEach((item, idx) => {
-        const inp = document.getElementById(`exA1_input_${idx}`);
-        const ok = (inp.value.trim().toLowerCase() === item.ans.toLowerCase());
-        inp.className = ok ? "exA-field bg-emerald-950 border border-emerald-500 text-emerald-300 rounded-xl px-3 py-1.5 text-sm font-bold text-center" : "exA-field bg-rose-950 border border-rose-500 text-rose-300 rounded-xl px-3 py-1.5 text-sm font-bold text-center";
-        if (ok) correct++;
-      });
-
-      DRILLS_TEXT_2.forEach((item, idx) => {
-        const inp = document.getElementById(`exA2_input_${idx}`);
-        const ok = (inp.value.trim().toLowerCase() === item.ans.toLowerCase());
-        inp.className = ok ? "exA-field bg-emerald-950 border border-emerald-500 text-emerald-300 rounded-xl px-3 py-1.5 text-sm font-bold text-center" : "exA-field bg-rose-950 border border-rose-500 text-rose-300 rounded-xl px-3 py-1.5 text-sm font-bold text-center";
-        if (ok) correct++;
-      });
-
+      const correct = checkDrillSet(DRILLS_TEXT_1, 'exA1') + checkDrillSet(DRILLS_TEXT_2, 'exA2');
       const pct = Math.round((correct / total) * 100);
       document.getElementById('exAProgressBar').style.width = pct + '%';
       document.getElementById('exAScoreText').innerText = `${correct} / ${total} Správně (${pct}%)`;
@@ -940,32 +1037,16 @@
 
     function revealAllExA() {
       const total = DRILLS_TEXT_1.length + DRILLS_TEXT_2.length;
-      DRILLS_TEXT_1.forEach((item, idx) => {
-        const inp = document.getElementById(`exA1_input_${idx}`);
-        inp.value = item.ans;
-        inp.className = "exA-field bg-emerald-950 border border-emerald-500 text-emerald-300 rounded-xl px-3 py-1.5 text-sm font-bold text-center";
-      });
-      DRILLS_TEXT_2.forEach((item, idx) => {
-        const inp = document.getElementById(`exA2_input_${idx}`);
-        inp.value = item.ans;
-        inp.className = "exA-field bg-emerald-950 border border-emerald-500 text-emerald-300 rounded-xl px-3 py-1.5 text-sm font-bold text-center";
-      });
+      revealDrillSet(DRILLS_TEXT_1, 'exA1');
+      revealDrillSet(DRILLS_TEXT_2, 'exA2');
       document.getElementById('exAProgressBar').style.width = '100%';
       document.getElementById('exAScoreText').innerText = `${total} / ${total} Správně (100%)`;
     }
 
     function resetExA() {
       const total = DRILLS_TEXT_1.length + DRILLS_TEXT_2.length;
-      DRILLS_TEXT_1.forEach((item, idx) => {
-        const inp = document.getElementById(`exA1_input_${idx}`);
-        inp.value = '';
-        inp.className = "exA-field bg-slate-900 border border-slate-700 rounded-xl px-3 py-1.5 text-sm text-sky-300 font-bold text-center focus:outline-none focus:border-sky-500";
-      });
-      DRILLS_TEXT_2.forEach((item, idx) => {
-        const inp = document.getElementById(`exA2_input_${idx}`);
-        inp.value = '';
-        inp.className = "exA-field bg-slate-900 border border-slate-700 rounded-xl px-3 py-1.5 text-sm text-sky-300 font-bold text-center focus:outline-none focus:border-sky-500";
-      });
+      resetDrillSet(DRILLS_TEXT_1, 'exA1');
+      resetDrillSet(DRILLS_TEXT_2, 'exA2');
       document.getElementById('exAProgressBar').style.width = '0%';
       document.getElementById('exAScoreText').innerText = `0 / ${total} Správně`;
     }

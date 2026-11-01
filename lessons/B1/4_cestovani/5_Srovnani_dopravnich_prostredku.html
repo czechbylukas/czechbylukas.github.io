@@ -76,14 +76,11 @@
           </div>
         </div>
 
-        <!-- Quick Info / Audio Check -->
-        <div class="hidden md:flex items-center space-x-4 text-xs font-medium">
-          <span class="px-3 py-1.5 rounded-full bg-slate-800 border border-slate-700 text-slate-300 flex items-center gap-2">
-            <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
-            Teaching Mode
-          </span>
-          <button onclick="speakText('Existuje mnoho různých dopravních prostředků.')" class="px-3 py-1.5 rounded-lg bg-sky-600/20 hover:bg-sky-600/30 text-sky-300 border border-sky-500/30 transition flex items-center gap-1.5">
-            <i class="fa-solid fa-volume-high"></i> Audio Check
+        <!-- Lesson navigation and sample audio -->
+        <div class="flex items-center justify-between py-2 text-xs font-medium">
+          <a href="../B1_List_of_lessons.html" class="rounded-lg border border-slate-700 bg-slate-800 px-3 py-1.5 text-slate-300 hover:bg-slate-700">← Přehled lekcí</a>
+          <button onclick="speakText('Existuje mnoho různých dopravních prostředků.')" class="hidden sm:flex items-center gap-1.5 rounded-lg border border-sky-500/30 bg-sky-600/20 px-3 py-1.5 text-sky-300 transition hover:bg-sky-600/30">
+            <i class="fa-solid fa-volume-high"></i> Poslechnout vzorovou větu
           </button>
         </div>
       </div>
@@ -94,10 +91,10 @@
           <i class="fa-solid fa-book-open"></i> 1. Vocab &amp; Model Essay (21)
         </button>
         <button onclick="switchTab('tab-exA')" id="btn-tab-exA" class="tab-btn px-4 py-2 text-xs sm:text-sm font-semibold rounded-lg text-slate-400 hover:text-slate-200 hover:bg-slate-800 transition flex items-center gap-2 whitespace-nowrap">
-          <i class="fa-solid fa-pen-to-square"></i> 2. Exercise A: Gap-Fill
+          <i class="fa-solid fa-pen-to-square"></i> 2. Exercise A: 25 Gap-Fills
         </button>
         <button onclick="switchTab('tab-exB')" id="btn-tab-exB" class="tab-btn px-4 py-2 text-xs sm:text-sm font-semibold rounded-lg text-slate-400 hover:text-slate-200 hover:bg-slate-800 transition flex items-center gap-2 whitespace-nowrap">
-          <i class="fa-solid fa-wand-magic-sparkles"></i> 3. Exercise B: Sentence Upgrade
+          <i class="fa-solid fa-wand-magic-sparkles"></i> 3. Exercise B: 10 Sentence Upgrades
         </button>
         <button onclick="switchTab('tab-editor')" id="btn-tab-editor" class="tab-btn px-4 py-2 text-xs sm:text-sm font-semibold rounded-lg text-slate-400 hover:text-slate-200 hover:bg-slate-800 transition flex items-center gap-2 whitespace-nowrap">
           <i class="fa-solid fa-file-signature"></i> 4. Student Essay Editor
@@ -149,9 +146,9 @@
         <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-slate-800 pb-4">
           <div>
             <h3 class="text-base font-bold text-emerald-400 flex items-center gap-2">
-              <i class="fa-solid fa-file-lines"></i> Vzorová esej B1: Srovnání dopravních prostředků (168 slov)
+              <i class="fa-solid fa-file-lines"></i> Vzorová esej B1: Srovnání dopravních prostředků (151 slov)
             </h3>
-            <p class="text-xs text-slate-400 mt-0.5">Ukázkový text splňující osnovu i požadovaný rozsah.</p>
+            <p class="text-xs text-slate-400 mt-0.5">Student/ka čte vzorovou esej nahlas a potom odpoví na tři otázky.</p>
           </div>
 
           <div class="flex items-center gap-2">
@@ -169,6 +166,10 @@
         </div>
 
         <!-- Dynamic Body Model Essay -->
+        <div class="flex flex-wrap items-center justify-between gap-2 text-xs">
+          <p class="text-slate-400">Kliknutím označte slova a spojení ve 2. pádě.</p>
+          <div class="flex items-center gap-2"><span id="genitiveMarkCount" class="text-amber-300" aria-live="polite">Označeno: 0 slov</span><button type="button" onclick="clearGenitiveMarks('modelEssayContainer','genitiveMarkCount')" class="rounded-lg bg-slate-800 px-2 py-1 text-slate-300 hover:bg-slate-700">Zrušit označení</button></div>
+        </div>
         <div class="text-xs sm:text-sm text-slate-200 leading-relaxed font-sans space-y-3 bg-slate-900/80 p-5 rounded-xl border border-slate-800" id="modelEssayContainer">
           <!-- JS Rendered -->
         </div>
@@ -193,7 +194,7 @@
         <div class="lg:col-span-2 space-y-6">
           <div class="glass-card rounded-2xl p-6 border border-slate-800 flex flex-col sm:flex-row items-center justify-between gap-4">
             <div>
-              <h2 class="text-xl sm:text-2xl font-bold text-white">Exercise A: Doplňování slovní zásoby</h2>
+              <h2 class="text-xl sm:text-2xl font-bold text-white">Exercise A: Doplňování slovní zásoby (25 vět)</h2>
               <p class="text-sm text-slate-400 mt-1">Doplňte správný tvar z nové slovní zásoby Lekce 5.</p>
             </div>
             <div class="flex items-center gap-2">
@@ -208,7 +209,7 @@
             <div class="flex-1 bg-slate-900 h-3 rounded-full overflow-hidden border border-slate-800">
               <div id="exAProgressBar" class="bg-sky-500 h-full w-0 transition-all duration-300"></div>
             </div>
-            <span id="exAScoreText" class="text-xs font-mono font-bold text-sky-400 whitespace-nowrap">0 / 10 Správně</span>
+            <span id="exAScoreText" class="text-xs font-mono font-bold text-sky-400 whitespace-nowrap">0 / 25 Správně</span>
           </div>
 
           <!-- DRILLS LIST -->
@@ -243,7 +244,7 @@
         <div class="lg:col-span-2 space-y-6">
           <div class="glass-card rounded-2xl p-5 border border-slate-800">
             <h2 class="text-xl sm:text-2xl font-bold text-white flex items-center gap-2">
-              <i class="fa-solid fa-wand-magic-sparkles text-amber-400"></i> Exercise B: A2 &rarr; B1 Sentence Upgrade
+              <i class="fa-solid fa-wand-magic-sparkles text-amber-400"></i> Exercise B: A2 &rarr; B1 Sentence Upgrade (10 úkolů)
             </h2>
             <p class="text-sm text-slate-400 mt-1">
               Převeďte jednoduché A2 vyjádření na plynulé B1 věty určené pro esej.
@@ -431,15 +432,30 @@ const VOCAB_DATA = [
 
     const DRILLS_EX_A = [
       { prompt: "Existuje mnoho různých ____ (dopravní prostředek - pl.).", ans: "dopravních prostředků", hint: "dopravní prostředek" },
-      { prompt: "Každý způsob cestování má mnoho ____ (výhoda) i ____ (nevýhoda).", ans: "výhod / nevýhod", hint: "výhoda a nevýhoda" },
-      { prompt: "Já osobně dávám ____ (přednost) cestování vlakem.", ans: "přednost", hint: "přednost" },
-      { prompt: "Cestování na kole šetří ____ (životní prostředí).", ans: "životní prostředí", hint: "životní prostředí" },
-      { prompt: "Auto často stojí v dlouhé ____ (dopravní zácpa).", ans: "dopravní zácpě", hint: "dopravní zácpa" },
-      { prompt: "Cesta autem je drahá kvůli vysoké ____ (cena benzínu).", ans: "ceně benzínu", hint: "cena benzínu" },
-      { prompt: "Kolo se hodí jen na ____ (kratší vzdálenosti).", ans: "kratší vzdálenosti", hint: "kratší vzdálenosti" },
-      { prompt: "V centru města je těžké najít volné ____ (parkovací místo).", ans: "parkovací místo", hint: "parkovací místo" },
-      { prompt: "Pro mě je klíčové ____ (pohodlí) při cestě.", ans: "pohodlí", hint: "pohodlí" },
-      { prompt: "V budoucnu bych chtěl/a vyzkoušet cestování ____ (rychlovlak).", ans: "rychlovlakem", hint: "rychlovlak" }
+      { prompt: "Každý způsob cestování má mnoho ____ (výhoda) i ____ (nevýhoda).", ans: ["výhod", "nevýhod"], hint: "výhoda a nevýhoda" },
+      { prompt: "Místo ____ (auto) dávám přednost vlaku.", ans: "auta", hint: "auto" },
+      { prompt: "Na kole cestuji, protože mi záleží na ochraně ____ (životní prostředí).", ans: "životního prostředí", hint: "životní prostředí" },
+      { prompt: "Během dlouhé ____ (dopravní zácpa) trvá cesta autem déle.", ans: "dopravní zácpy", hint: "dopravní zácpa" },
+      { prompt: "Vysoká cena ____ (benzín) prodražuje cestu autem.", ans: "benzínu", hint: "benzín" },
+      { prompt: "Jízda na kole šetří čas při překonávání ____ (kratší vzdálenost).", ans: "kratších vzdáleností", hint: "kratší vzdálenost" },
+      { prompt: "Nedostatek ____ (parkovací místo) komplikuje cestu do centra.", ans: "parkovacích míst", hint: "parkovací místo" },
+      { prompt: "Při výběru dopravy záleží také na míře ____ (pohodlí).", ans: "pohodlí", hint: "pohodlí" },
+      { prompt: "Výhodou ____ (rychlovlak) je vysoká rychlost.", ans: "rychlovlaku", hint: "rychlovlak" },
+      { prompt: "Výhodou ____ (vlaková doprava) je pohodlí při delších cestách.", ans: "vlakové dopravy", hint: "vlaková doprava" },
+      { prompt: "Cena ____ (zpáteční letenka) závisí na termínu nákupu.", ans: "zpáteční letenky", hint: "zpáteční letenka" },
+      { prompt: "Místo ____ (osobní automobil) pojedeme do centra vlakem.", ans: "osobního automobilu", hint: "osobní automobil" },
+      { prompt: "Nedostatek ____ (parkovací místo) ztěžuje cestu do centra.", ans: "parkovacích míst", hint: "parkovací místo" },
+      { prompt: "Během ____ (dlouhá cesta) si cestující mohou odpočinout.", ans: "dlouhé cesty", hint: "dlouhá cesta" },
+      { prompt: "Výběr ____ (vhodný dopravní prostředek) závisí na vzdálenosti.", ans: "vhodného dopravního prostředku", hint: "vhodný dopravní prostředek" },
+      { prompt: "Lidé se ve městě často obávají ____ (hustý provoz).", ans: "hustého provozu", hint: "hustý provoz" },
+      { prompt: "Provoz ____ (osobní automobil) zvyšuje hluk ve městě.", ans: "osobních automobilů", hint: "osobní automobil" },
+      { prompt: "Jednou z výhod ____ (jízda na kole) je snadnější parkování.", ans: "jízdy na kole", hint: "jízda na kole" },
+      { prompt: "Při hledání ____ (volné parkovací místo) ztrácejí řidiči čas.", ans: "volného parkovacího místa", hint: "volné parkovací místo" },
+      { prompt: "Kvůli nedostatku ____ (přímé spojení) musí cestující přestupovat.", ans: "přímých spojení", hint: "přímé spojení" },
+      { prompt: "Vlak je vhodný na cestu bez ____ (dopravní zácpa).", ans: "dopravní zácpy", hint: "dopravní zácpa" },
+      { prompt: "Mnoho cestujících oceňuje pohodlí ____ (noční vlak).", ans: "nočního vlaku", hint: "noční vlak" },
+      { prompt: "Náklady na provoz ____ (osobní automobil) se zvyšují s cenou benzínu.", ans: "osobního automobilu", hint: "osobní automobil" },
+      { prompt: "Porovnání ____ (délka cesty) nám pomohlo vybrat nejlepší spoj.", ans: "délky cesty", hint: "délka cesty" }
     ];
 
     /* ==========================================================================
@@ -447,10 +463,16 @@ const VOCAB_DATA = [
        ========================================================================== */
 
     const SCENARIOS_EX_B = [
-      { q: "1. Porovnat auto a autobus", a2: "Auto je drahé. Autobus je levný.", blocks: "cestování / auto / být / drahé / ale / autobus / bývat / levnější", structure: "Podstatné jméno + čím + být + jaké, kvůli + čemu + ale + sloveso + čím (druhý prostředek) + být + jak + jaký.", b1: "Cestování autem je drahé kvůli benzínu, ale autobus bývá výrazně levnější." },
+      { q: "1. Porovnat auto a autobus", a2: "Auto je drahé. Autobus je levný.", blocks: "vysoké náklady / provoz automobilu / cena benzínu / autobus / levnější", structure: "Náklady na co + jaké + kvůli čemu + ale + druhý prostředek + srovnání.", b1: "Cestování autem je drahé kvůli vysoké ceně benzínu, zatímco autobus bývá výrazně levnější." },
       { q: "2. Vyjádřit ekologii vlaku", a2: "Vlak je dobrý pro přírodu.", blocks: "vlak / představovat / ekologický způsob / doprava / a / neznečišťovat / příroda", structure: "Subjekt + představovat + jaký způsob + čeho?", b1: "Vlak představuje ekologický způsob dopravy, který šetří životní prostředí." },
       { q: "3. Popsat preference při cestování do práce", a2: "Jezdím raději vlakem.", blocks: "dávat / přednost / cestování / vlak / protože / moct / pracovat", structure: "Dávám přednost + čemu + protože + sloveso?", b1: "Dávám přednost cestování vlakem, protože mohu během cesty pracovat." },
-      { q: "4. Shrnutí výhod a nevýhod v závěru", a2: "Všechno má plus i mínus.", blocks: "každý / dopravní prostředek / mít / své / výhody / i / nevýhody", structure: "Subjekt + mít + své + předmět?", b1: "Závěrem lze říct, že každý dopravní prostředek má své výhody i nevýhody." }
+      { q: "4. Shrnutí výhod a nevýhod v závěru", a2: "Všechno má plus i mínus.", blocks: "každý / dopravní prostředek / mít / své / výhody / i / nevýhody / cena provozu", structure: "Subjekt + mít + předmět + a + uveďte cenu čeho.", b1: "Závěrem lze říct, že každý dopravní prostředek má své výhody i nevýhody, ale důležitá je také cena jeho provozu." },
+      { q: "5. Porovnat náklady na auto a vlak", a2: "Auto stojí hodně peněz. Vlak je levnější.", blocks: "celkové náklady / provoz automobilu / cena zpáteční jízdenky / vlak", structure: "Porovnejte náklady na co s cenou čeho.", b1: "Celkové náklady na provoz automobilu bývají vyšší než cena zpáteční jízdenky na vlak." },
+      { q: "6. Popsat výhodu jízdy na kole ve městě", a2: "Na kole se dobře jezdí. Snadno zaparkuji.", blocks: "jedna z výhod / jízda na kole / hledání parkovacího místa / ušetřit čas", structure: "Jednou z výhod čeho je + podstatné jméno v genitivu.", b1: "Jednou z výhod jízdy na kole je úspora času při hledání parkovacího místa." },
+      { q: "7. Upozornit na nedostatek spojů večer", a2: "Večer jezdí málo autobusů.", blocks: "večer / nevýhoda / cestování autobusem / nedostatek pravidelných spojů", structure: "Nevýhodou čeho je nedostatek čeho.", b1: "Večer může být nevýhodou cestování autobusem nedostatek pravidelných spojů." },
+      { q: "8. Zvážit pohodlí a délku cesty", a2: "Vlak je pohodlný. Autobusem jedu dlouho.", blocks: "pohodlí nočního vlaku / délka cesty autobusem / porovnat", structure: "Při výběru porovnejte pohodlí čeho a délku čeho.", b1: "Při výběru dopravy je potřeba zvážit pohodlí nočního vlaku i délku cesty autobusem." },
+      { q: "9. Popsat přínos veřejné dopravy pro město", a2: "Ve městě je méně aut. Vzduch je čistší.", blocks: "výhoda veřejné dopravy / snížení množství emisí", structure: "Jednou z výhod čeho je snížení čeho.", b1: "Ve městech může být jednou z výhod veřejné dopravy snížení množství emisí." },
+      { q: "10. Shrnutí vlastní preference", a2: "Raději jezdím vlakem než autem.", blocks: "cena benzínu / nedostatek parkovacích míst / dávat přednost / cestování vlakem", structure: "Kvůli čemu dávám přednost čemu.", b1: "Kvůli ceně benzínu a nedostatku parkovacích míst dávám přednost cestování vlakem." }
     ];
 
     /* ==========================================================================
@@ -460,17 +482,17 @@ const VOCAB_DATA = [
     const QUIZ_DATA = [
       {
         q: "1. Jakou hlavní nevýhodu má podle eseje cesta autem?",
-        opts: ["Je moc pomalá", "Je drahá kvůli benzínu a parkování", "Auta nesmí do centra"],
+        opts: ["Je moc pomalá", "Je drahá kvůli benzínu a parkování", "Auta nesmí do centra", "Řidič nemůže cestovat sám"],
         ans: 1
       },
       {
         q: "2. Kterému dopravnímu prostředku dává autor/ka přednost?",
-        opts: ["Autobusu", "Vlaku", "Letadlu"],
+        opts: ["Autobusu", "Vlaku", "Letadlu", "Autu"],
         ans: 1
       },
       {
         q: "3. Co by autor/ka chtěl/a vyzkoušet v budoucnu?",
-        opts: ["Jízdu na elektrokole", "Cestování rychlovlakem v Japonsku", "Létání helikoptérou"],
+        opts: ["Jízdu na elektrokole", "Cestování rychlovlakem v Japonsku", "Létání helikoptérou", "Cestu lodí přes Atlantik"],
         ans: 1
       }
     ];
@@ -480,6 +502,7 @@ const VOCAB_DATA = [
        ========================================================================== */
 
     let currentVocabCategory = 'all';
+    let renderedQuizData = [];
     
     let essayGender = 'M';
     let audioModelPlaying = false;
@@ -515,6 +538,64 @@ const VOCAB_DATA = [
       }
     }
 
+    function enableGenitiveMarking(containerId, countId) {
+      const container = document.getElementById(containerId);
+      const walker = document.createTreeWalker(container, NodeFilter.SHOW_TEXT);
+      const textNodes = [];
+      while (walker.nextNode()) {
+        const node = walker.currentNode;
+        if (node.nodeValue.trim() && !node.parentElement.closest('button, a, input, textarea')) textNodes.push(node);
+      }
+      textNodes.forEach(node => {
+        const fragment = document.createDocumentFragment();
+        node.nodeValue.split(/([A-Za-zÀ-ž]+(?:[’'-][A-Za-zÀ-ž]+)*)/g).forEach(part => {
+          if (/^[A-Za-zÀ-ž]/.test(part)) {
+            const word = document.createElement('span');
+            word.textContent = part;
+            word.className = 'genitive-mark-word cursor-pointer rounded px-0.5 hover:bg-amber-900/50';
+            word.setAttribute('role', 'button');
+            word.setAttribute('aria-pressed', 'false');
+            word.tabIndex = 0;
+            const toggle = () => {
+              const marked = word.getAttribute('aria-pressed') !== 'true';
+              word.style.backgroundColor = marked ? 'rgba(251, 191, 36, 0.3)' : '';
+              word.style.color = marked ? '#fef3c7' : '';
+              word.style.outline = marked ? '1px solid rgba(251, 191, 36, 0.7)' : '';
+              word.setAttribute('aria-pressed', String(marked));
+              updateGenitiveMarkCount(containerId, countId);
+            };
+            word.addEventListener('click', toggle);
+            word.addEventListener('keydown', event => {
+              if (event.key === 'Enter' || event.key === ' ') {
+                event.preventDefault();
+                toggle();
+              }
+            });
+            fragment.appendChild(word);
+          } else {
+            fragment.appendChild(document.createTextNode(part));
+          }
+        });
+        node.replaceWith(fragment);
+      });
+      updateGenitiveMarkCount(containerId, countId);
+    }
+
+    function updateGenitiveMarkCount(containerId, countId) {
+      const count = document.querySelectorAll(`#${containerId} .genitive-mark-word[aria-pressed="true"]`).length;
+      document.getElementById(countId).textContent = `Označeno: ${count} slov`;
+    }
+
+    function clearGenitiveMarks(containerId, countId) {
+      document.querySelectorAll(`#${containerId} .genitive-mark-word`).forEach(word => {
+        word.style.backgroundColor = '';
+        word.style.color = '';
+        word.style.outline = '';
+        word.setAttribute('aria-pressed', 'false');
+      });
+      updateGenitiveMarkCount(containerId, countId);
+    }
+
     /* ESSAY MODEL GENDER & AUDIO */
     function setEssayGender(g) {
       essayGender = g;
@@ -531,12 +612,12 @@ const VOCAB_DATA = [
         <p>Já osobně dávám přednost cestování vlakem. Pro mě je důležité pohodlí i možnost číst si nebo pracovat na počítači. Do školy a do práce nejčastěji cestuji právě vlakem nebo městskou hromadnou dopravou.</p>
         <p>Závěrem lze říci, že každý dopravní prostředek má své výhody. Záleží vždy na vzdálenosti a finančních možnostech. V budoucnu bych ${isM ? 'chtěl' : 'chtěla'} vyzkoušet cestování rychlovlakem v Japonsku.</p>
       `;
+      enableGenitiveMarking('modelEssayContainer', 'genitiveMarkCount');
     }
 
     function handleModelAudio() {
       if (!('speechSynthesis' in window)) return;
-      const isM = (essayGender === 'M');
-      const text = `Cestování je dnes velmi důležitou součástí života. Lidé denně cestují do práce, do školy nebo za zábavou. Existuje mnoho různých dopravních prostředků a každý z nich má své výhody i nevýhody. Cestování autem je velmi pohodlné a rychlé, ale může být drahé kvůli ceně benzínu a parkování. Vlak je často rychlejší než autobus, pohodlnější a ekologičtější. Autobus bývá levnější, ale cesta trvá déle. Letadlo je nejrychlejší dopravní prostředek na dlouhé vzdálenosti. Kolo je zdravé a ekologické. Já osobně dávám přednost cestování vlakem. Závěrem lze říci, že každý dopravní prostředek má své výhody. V budoucnu bych ${isM ? 'chtěl' : 'chtěla'} vyzkoušet cestování rychlovlakem v Japonsku.`;
+      const text = document.getElementById('modelEssayContainer').innerText;
 
       if (audioModelPlaying && !audioModelPaused) {
         window.speechSynthesis.pause();
@@ -628,13 +709,21 @@ const VOCAB_DATA = [
     /* RENDER QUIZ */
     function renderQuiz() {
       const container = document.getElementById('quizContainer');
-      container.innerHTML = QUIZ_DATA.map((q, qIdx) => `
+      renderedQuizData = QUIZ_DATA.map(q => {
+        const options = q.opts.map((text, index) => ({ text, correct: index === q.ans }));
+        for (let i = options.length - 1; i > 0; i--) {
+          const j = Math.floor(Math.random() * (i + 1));
+          [options[i], options[j]] = [options[j], options[i]];
+        }
+        return { q: q.q, opts: options.map(option => option.text), ans: options.findIndex(option => option.correct) };
+      });
+      container.innerHTML = renderedQuizData.map((q, qIdx) => `
         <div class="bg-slate-900/90 p-4 rounded-xl border border-slate-800 space-y-3">
           <p class="text-xs sm:text-sm font-bold text-white">${q.q}</p>
           <div class="space-y-2">
             ${q.opts.map((opt, oIdx) => `
               <button onclick="checkQuizAnswer(${qIdx},${oIdx})" id="quiz_${qIdx}_${oIdx}" class="w-full text-left px-3 py-2 rounded-lg bg-slate-800 hover:bg-slate-700 text-xs text-slate-200 border border-slate-700 transition">
-                ${opt}
+                ${String.fromCharCode(65 + oIdx)}) ${opt}
               </button>
             `).join('')}
           </div>
@@ -644,7 +733,7 @@ const VOCAB_DATA = [
     }
 
     function checkQuizAnswer(qIdx, oIdx) {
-      const q = QUIZ_DATA[qIdx];
+      const q = renderedQuizData[qIdx];
       const feedback = document.getElementById(`quizFeedback_${qIdx}`);
       feedback.classList.remove('hidden', 'text-emerald-400', 'text-rose-400');
 
@@ -668,20 +757,23 @@ const VOCAB_DATA = [
     function renderExerciseA() {
       const container = document.getElementById('exAList');
       container.innerHTML = DRILLS_EX_A.map((item, idx) => {
+        const answers = Array.isArray(item.ans) ? item.ans : [item.ans];
         const parts = item.prompt.split('____');
-        const cleanAudio = parts.join(item.ans).replace(/\s*\([^)]*\)/g, '');
-        const dynamicWidth = Math.max(140, item.ans.length * 11);
+        let answerIndex = 0;
+        const completedPrompt = item.prompt.replace(/____/g, () => answers[answerIndex++] || '');
+        const cleanAudio = completedPrompt.replace(/\s*\([^)]*\)/g, '');
+        const promptContent = parts.map((part, partIdx) => {
+          if (partIdx >= answers.length) return part;
+          const gapIdx = partIdx;
+          const dynamicWidth = Math.max(100, answers[gapIdx].length * 11);
+          return `${part}<input type="text" id="exA_input_${idx}_${gapIdx}" data-drill="${idx}" data-gap="${gapIdx}" style="width: ${dynamicWidth}px;" class="exA-field bg-slate-900 border border-slate-700 rounded-xl px-3 py-1.5 text-sm sm:text-base text-sky-300 font-bold text-center focus:outline-none focus:border-sky-500 max-w-[300px] shadow-inner my-1" placeholder="...">`;
+        }).join('');
 
         return `
           <div class="glass-card rounded-xl p-4 sm:p-5 border border-slate-800 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
             <div class="text-sm sm:text-base text-slate-100 leading-relaxed flex-1">
               <span class="font-bold text-sky-400 mr-2 text-base sm:text-lg">${idx + 1}.</span>
-              ${parts[0]}
-              <input type="text" id="exA_input_${idx}" data-ans="${item.ans}" 
-                    style="width: ${dynamicWidth}px;" 
-                    class="exA-field bg-slate-900 border border-slate-700 rounded-xl px-3 py-1.5 text-sm sm:text-base text-sky-300 font-bold text-center focus:outline-none focus:border-sky-500 max-w-[300px] shadow-inner my-1" 
-                    placeholder="...">
-              ${parts[1] || ''}
+              ${promptContent}
             </div>
             <div class="flex items-center gap-3 self-end sm:self-center flex-shrink-0">
               <span class="text-xs text-amber-400/90 font-mono bg-slate-900/90 px-3 py-1.5 rounded-lg border border-slate-800">${item.hint}</span>
@@ -697,10 +789,13 @@ const VOCAB_DATA = [
     function checkAllExA() {
       let correct = 0;
       DRILLS_EX_A.forEach((item, idx) => {
-        const inp = document.getElementById(`exA_input_${idx}`);
-        const ok = (inp.value.trim().toLowerCase() === item.ans.toLowerCase());
-        inp.className = ok ? "exA-field bg-emerald-950 border border-emerald-500 text-emerald-300 rounded-xl px-3 py-1.5 text-sm font-bold text-center" : "exA-field bg-rose-950 border border-rose-500 text-rose-300 rounded-xl px-3 py-1.5 text-sm font-bold text-center";
-        if (ok) correct++;
+        const answers = Array.isArray(item.ans) ? item.ans : [item.ans];
+        const inputs = answers.map((_, gapIdx) => document.getElementById(`exA_input_${idx}_${gapIdx}`));
+        const results = inputs.map((input, gapIdx) => input.value.trim().toLowerCase() === answers[gapIdx].toLowerCase());
+        inputs.forEach((input, gapIdx) => {
+          input.className = results[gapIdx] ? "exA-field bg-emerald-950 border border-emerald-500 text-emerald-300 rounded-xl px-3 py-1.5 text-sm font-bold text-center" : "exA-field bg-rose-950 border border-rose-500 text-rose-300 rounded-xl px-3 py-1.5 text-sm font-bold text-center";
+        });
+        if (results.every(Boolean)) correct++;
       });
 
       const pct = Math.round((correct / DRILLS_EX_A.length) * 100);
@@ -710,9 +805,12 @@ const VOCAB_DATA = [
 
     function revealAllExA() {
       DRILLS_EX_A.forEach((item, idx) => {
-        const inp = document.getElementById(`exA_input_${idx}`);
-        inp.value = item.ans;
-        inp.className = "exA-field bg-emerald-950 border border-emerald-500 text-emerald-300 rounded-xl px-3 py-1.5 text-sm font-bold text-center";
+        const answers = Array.isArray(item.ans) ? item.ans : [item.ans];
+        answers.forEach((answer, gapIdx) => {
+          const input = document.getElementById(`exA_input_${idx}_${gapIdx}`);
+          input.value = answer;
+          input.className = "exA-field bg-emerald-950 border border-emerald-500 text-emerald-300 rounded-xl px-3 py-1.5 text-sm font-bold text-center";
+        });
       });
       document.getElementById('exAProgressBar').style.width = '100%';
       document.getElementById('exAScoreText').innerText = `${DRILLS_EX_A.length} / ${DRILLS_EX_A.length} Správně (100%)`;
@@ -720,9 +818,12 @@ const VOCAB_DATA = [
 
     function resetExA() {
       DRILLS_EX_A.forEach((item, idx) => {
-        const inp = document.getElementById(`exA_input_${idx}`);
-        inp.value = '';
-        inp.className = "exA-field bg-slate-900 border border-slate-700 rounded-xl px-3 py-1.5 text-sm text-sky-300 font-bold text-center focus:outline-none focus:border-sky-500";
+        const answers = Array.isArray(item.ans) ? item.ans : [item.ans];
+        answers.forEach((_, gapIdx) => {
+          const input = document.getElementById(`exA_input_${idx}_${gapIdx}`);
+          input.value = '';
+          input.className = "exA-field bg-slate-900 border border-slate-700 rounded-xl px-3 py-1.5 text-sm text-sky-300 font-bold text-center focus:outline-none focus:border-sky-500";
+        });
       });
       document.getElementById('exAProgressBar').style.width = '0%';
       document.getElementById('exAScoreText').innerText = `0 / ${DRILLS_EX_A.length} Správně`;
@@ -895,7 +996,7 @@ ${essay}`;
     }
 
     /* INIT */
-    window.onload = () => {
+    document.addEventListener('DOMContentLoaded', () => {
       renderVocab();
       renderModelEssay();
       renderQuiz();
@@ -916,7 +1017,7 @@ ${essay}`;
       }
 
       updateHomeworkPack();
-    };
+    });
   </script>
 </body>
 </html>

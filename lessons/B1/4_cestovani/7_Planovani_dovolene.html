@@ -33,6 +33,7 @@
           <button type="button" onclick="speakText('Kam pojedeme na dovolenou?')" class="rounded-lg border border-sky-500/30 bg-sky-600/20 px-3 py-1.5 text-sky-300 hover:bg-sky-600/30"><i class="fa-solid fa-volume-high mr-1"></i> Audio check</button>
         </div>
       </div>
+      <div class="py-2"><a href="../B1_List_of_lessons.html" class="inline-flex rounded-lg border border-slate-700 bg-slate-800 px-3 py-1.5 text-xs text-slate-300 hover:bg-slate-700">← Přehled lekcí</a></div>
       <nav id="mainTabs" class="flex gap-1 overflow-x-auto border-t border-slate-800/80 py-2" aria-label="Navigace lekce">
         <button type="button" class="tab-btn whitespace-nowrap rounded-lg bg-sky-600 px-4 py-2 text-xs font-semibold text-white" data-tab="tab-vocab"><i class="fa-solid fa-book-open mr-1"></i>1. Slovní zásoba &amp; dialog</button>
         <button type="button" class="tab-btn whitespace-nowrap rounded-lg px-4 py-2 text-xs font-semibold text-slate-400 hover:bg-slate-800 hover:text-white" data-tab="tab-exA"><i class="fa-solid fa-pen-to-square mr-1"></i>2. Genitiv: 25 vět</button>
@@ -86,7 +87,7 @@
         <div class="flex flex-col justify-between gap-4 border-b border-slate-700 pb-4 sm:flex-row sm:items-center">
           <div>
             <h2 class="text-lg font-bold text-emerald-300"><i class="fa-solid fa-comments mr-2"></i>Modelový dialog B1: Plánujeme dovolenou</h2>
-            <p class="mt-1 text-sm text-slate-400">Poslouchejte nebo čtěte. Hlasy pro každou roli lze přepnout.</p>
+            <p class="mt-1 text-sm text-slate-400">Studenti čtou dialog ve dvojici a střídají role; hlasy lze přepnout.</p>
           </div>
           <div class="flex flex-wrap gap-2">
             <button type="button" onclick="playDialog()" class="rounded-lg bg-emerald-600 px-3 py-2 text-sm font-bold hover:bg-emerald-500"><i class="fa-solid fa-play mr-1"></i>Přehrát</button>
@@ -104,6 +105,10 @@
             <button type="button" class="gender-btn rounded px-2 py-1" data-role="student" data-gender="F" onclick="setGender('student','F')">Ž</button>
           </fieldset>
           <p id="audioStatus" class="self-center text-xs text-slate-400" aria-live="polite"></p>
+        </div>
+        <div class="flex flex-wrap items-center justify-between gap-2 text-xs">
+          <p class="text-slate-400">Kliknutím označte slova a spojení ve 2. pádě.</p>
+          <div class="flex items-center gap-2"><span id="genitiveMarkCount" class="text-amber-300" aria-live="polite">Označeno: 0 slov</span><button type="button" onclick="clearGenitiveMarks('dialogText','genitiveMarkCount')" class="rounded-lg bg-slate-800 px-2 py-1 text-slate-300 hover:bg-slate-700">Zrušit označení</button></div>
         </div>
         <div id="dialogText" class="space-y-3 text-sm leading-7 text-slate-200"></div>
       </div>
@@ -310,6 +315,64 @@
     let dialogIndex = 0;
     const normalize = value => value.trim().toLocaleLowerCase("cs").replace(/[.!?]+$/, "").replace(/\s+/g, " ");
 
+    function enableGenitiveMarking(containerId, countId) {
+      const container = document.getElementById(containerId);
+      const walker = document.createTreeWalker(container, NodeFilter.SHOW_TEXT);
+      const textNodes = [];
+      while (walker.nextNode()) {
+        const node = walker.currentNode;
+        if (node.nodeValue.trim() && !node.parentElement.closest('button, a, input, textarea')) textNodes.push(node);
+      }
+      textNodes.forEach(node => {
+        const fragment = document.createDocumentFragment();
+        node.nodeValue.split(/([A-Za-zÀ-ž]+(?:[’'-][A-Za-zÀ-ž]+)*)/g).forEach(part => {
+          if (/^[A-Za-zÀ-ž]/.test(part)) {
+            const word = document.createElement('span');
+            word.textContent = part;
+            word.className = 'genitive-mark-word cursor-pointer rounded px-0.5 hover:bg-amber-900/50';
+            word.setAttribute('role', 'button');
+            word.setAttribute('aria-pressed', 'false');
+            word.tabIndex = 0;
+            const toggle = () => {
+              const marked = word.getAttribute('aria-pressed') !== 'true';
+              word.style.backgroundColor = marked ? 'rgba(251, 191, 36, 0.3)' : '';
+              word.style.color = marked ? '#fef3c7' : '';
+              word.style.outline = marked ? '1px solid rgba(251, 191, 36, 0.7)' : '';
+              word.setAttribute('aria-pressed', String(marked));
+              updateGenitiveMarkCount(containerId, countId);
+            };
+            word.addEventListener('click', toggle);
+            word.addEventListener('keydown', event => {
+              if (event.key === 'Enter' || event.key === ' ') {
+                event.preventDefault();
+                toggle();
+              }
+            });
+            fragment.appendChild(word);
+          } else {
+            fragment.appendChild(document.createTextNode(part));
+          }
+        });
+        node.replaceWith(fragment);
+      });
+      updateGenitiveMarkCount(containerId, countId);
+    }
+
+    function updateGenitiveMarkCount(containerId, countId) {
+      const count = document.querySelectorAll(`#${containerId} .genitive-mark-word[aria-pressed="true"]`).length;
+      document.getElementById(countId).textContent = `Označeno: ${count} slov`;
+    }
+
+    function clearGenitiveMarks(containerId, countId) {
+      document.querySelectorAll(`#${containerId} .genitive-mark-word`).forEach(word => {
+        word.style.backgroundColor = '';
+        word.style.color = '';
+        word.style.outline = '';
+        word.setAttribute('aria-pressed', 'false');
+      });
+      updateGenitiveMarkCount(containerId, countId);
+    }
+
     function renderVocab() {
       const query = document.getElementById("vocabSearch").value.trim().toLocaleLowerCase("cs");
       const category = document.getElementById("vocabCategory").value;
@@ -338,6 +401,7 @@
         const label = line.role === "teacher" ? "Učitel:" : studentGender === "F" ? "Studentka:" : "Student:";
         return `<p><span class="mr-2 inline-block min-w-16 font-bold ${line.role === "teacher" ? "text-sky-300" : "text-emerald-300"}">${label}</span>${text}</p>`;
       }).join("");
+      enableGenitiveMarking("dialogText", "genitiveMarkCount");
     }
 
     function renderQuiz() {

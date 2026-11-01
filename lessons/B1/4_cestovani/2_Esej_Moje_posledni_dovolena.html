@@ -85,14 +85,10 @@
           </div>
         </div>
 
-        <!-- Quick Info / Status -->
-        <div class="hidden md:flex items-center space-x-4 text-xs font-medium">
-          <span class="px-3 py-1.5 rounded-full bg-slate-800 border border-slate-700 text-slate-300 flex items-center gap-2">
-            <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
-            Live Teaching Mode
-          </span>
-          <button id="ttsTestBtn" onclick="speakText('Vítáme vás v druhé hodině české konverzace!')" class="px-3 py-1.5 rounded-lg bg-sky-600/20 hover:bg-sky-600/30 text-sky-300 border border-sky-500/30 transition flex items-center gap-1.5">
-            <i class="fa-solid fa-volume-high"></i> Audio Check
+        <div class="flex items-center justify-between py-2 text-xs font-medium">
+          <a href="../B1_List_of_lessons.html" class="rounded-lg border border-slate-700 bg-slate-800 px-3 py-1.5 text-slate-300 hover:bg-slate-700">← Přehled lekcí</a>
+          <button id="ttsTestBtn" onclick="speakText('Vítáme vás v druhé hodině české konverzace!')" class="hidden sm:flex items-center gap-1.5 rounded-lg border border-sky-500/30 bg-sky-600/20 px-3 py-1.5 text-sky-300 transition hover:bg-sky-600/30">
+            <i class="fa-solid fa-volume-high"></i> Poslechnout ukázku
           </button>
         </div>
       </div>
@@ -100,13 +96,13 @@
       <!-- Navigation Tabs -->
       <nav class="flex space-x-1 overflow-x-auto no-scrollbar border-t border-slate-800/80 py-2" id="mainTabs">
         <button onclick="switchTab('tab-vocab')" id="btn-tab-vocab" class="tab-btn active px-4 py-2 text-xs sm:text-sm font-semibold rounded-lg text-white bg-sky-600 shadow-md shadow-sky-600/20 transition flex items-center gap-2 whitespace-nowrap">
-          <i class="fa-solid fa-book"></i> 1. Core B1 Vocab (20)
+          <i class="fa-solid fa-book"></i> 1. Core B1 Vocab (21)
         </button>
         <button onclick="switchTab('tab-exA')" id="btn-tab-exA" class="tab-btn px-4 py-2 text-xs sm:text-sm font-semibold rounded-lg text-slate-400 hover:text-slate-200 hover:bg-slate-800 transition flex items-center gap-2 whitespace-nowrap">
           <i class="fa-solid fa-pen-to-square"></i> 2. Exercise A: 25 Gap-Fills
         </button>
         <button onclick="switchTab('tab-exB')" id="btn-tab-exB" class="tab-btn px-4 py-2 text-xs sm:text-sm font-semibold rounded-lg text-slate-400 hover:text-slate-200 hover:bg-slate-800 transition flex items-center gap-2 whitespace-nowrap">
-          <i class="fa-solid fa-wand-magic-sparkles"></i> 3. Exercise B: Sentence Upgrade
+          <i class="fa-solid fa-wand-magic-sparkles"></i> 3. Exercise B: 10 Sentence Upgrades
         </button>
         <button onclick="switchTab('tab-exC')" id="btn-tab-exC" class="tab-btn px-4 py-2 text-xs sm:text-sm font-semibold rounded-lg text-slate-400 hover:text-slate-200 hover:bg-slate-800 transition flex items-center gap-2 whitespace-nowrap">
           <i class="fa-solid fa-file-pen"></i> 4. Exercise C: Essay Assistant
@@ -128,7 +124,7 @@
             <i class="fa-solid fa-list-check text-sky-400"></i> B1 Travel Narrative Vocab & 2. pád Triggers
           </h2>
           <p class="text-xs text-slate-400 mt-1">
-            20 essential verbs, nouns, and prepositional triggers for describing past trips and vacations.
+            21 essential verbs, nouns, and prepositional triggers for describing past trips and vacations.
           </p>
         </div>
         
@@ -150,6 +146,32 @@
       <!-- Vocabulary Grid -->
       <div id="vocabGrid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
         <!-- Rendered dynamically via JS -->
+      </div>
+
+      <div class="glass-card rounded-2xl p-6 border border-slate-800 space-y-4">
+        <div>
+          <h3 class="text-lg font-bold text-white flex items-center gap-2">
+            <i class="fa-solid fa-book-open text-amber-400"></i> Model Reading: Moje poslední dovolená
+          </h3>
+          <p class="text-xs text-slate-400 mt-1">Student/ka čte nahlas. Potom odpovězte na tři otázky.</p>
+        </div>
+        <div class="flex flex-wrap items-center justify-between gap-2 text-xs">
+          <p class="text-slate-400">Kliknutím označte slova a spojení ve 2. pádě.</p>
+          <div class="flex items-center gap-2"><span id="genitiveMarkCount" class="text-amber-300" aria-live="polite">Označeno: 0 slov</span><button type="button" onclick="clearGenitiveMarks('readingText','genitiveMarkCount')" class="rounded-lg bg-slate-800 px-2 py-1 text-slate-300 hover:bg-slate-700">Zrušit označení</button></div>
+        </div>
+        <div id="readingText" class="text-sm text-slate-200 leading-relaxed bg-slate-900/80 p-5 rounded-xl border border-slate-800">
+          <p>
+            Minulé léto jsem strávil týden v Českém Krumlově. Do města jsme jeli vlakem z Prahy a z nádraží jsme pokračovali autobusem. Ubytovali jsme se v malém penzionu blízko řeky. Každé ráno jsme snídali u hotelu a potom jsme procházeli uličkami <strong class="text-sky-300">uprostřed historického centra</strong>. Jedno odpoledne jsme vyjeli na výlet do okolních vesnic. Během pobytu jsme ochutnali místní jídla a navštívili zámek. Počasí bylo příjemné, takže jsme nemuseli zůstávat uvnitř. Na konci dovolené jsme se vrátili domů unavení, ale plní krásných zážitků.
+          </p>
+        </div>
+        <div>
+          <h4 class="text-sm font-bold text-amber-400 uppercase tracking-wider flex items-center gap-2">
+            <i class="fa-solid fa-circle-question"></i> Krátký test porozumění textu
+          </h4>
+          <div id="readingQuizContainer" class="grid grid-cols-1 lg:grid-cols-3 gap-3 mt-3">
+            <!-- Questions and shuffled A–D options are rendered via JS -->
+          </div>
+        </div>
       </div>
     </section>
 
@@ -197,7 +219,7 @@
     <section id="tab-exB" class="tab-content hidden space-y-6">
       <div class="glass-card rounded-2xl p-5 border border-slate-800">
         <h2 class="text-xl font-bold text-white flex items-center gap-2">
-          <i class="fa-solid fa-wand-magic-sparkles text-amber-400"></i> Exercise B: A2 $\rightarrow$ B1 Sentence Upgrade (12 Scenarios)
+          <i class="fa-solid fa-wand-magic-sparkles text-amber-400"></i> Exercise B: A2 $\rightarrow$ B1 Sentence Upgrade (10 scenarios)
         </h2>
         <p class="text-xs text-slate-400 mt-1">
           Upgrade basic travel answers into descriptive B1 past narratives with prepositions and 2. pád expressions.
@@ -375,8 +397,78 @@
       { id: 17, cz: "kvůli", type: "adj", pos: "Preposition (+ 3./2. pád context)", en: "because of / due to", rule: "Kvůli + 3. pád / Z důvodu + 2. pád", ex: "Z důvodu špatného počasí mělo letadlo zpoždění." },
       { id: 18, cz: "kolem", type: "adj", pos: "Preposition (+ 2. pád)", en: "around / past", rule: "Kolem + Genitive (kolem jezera)", ex: "Procházeli jsme se kolem jezera." },
       { id: 19, cz: "místo", type: "adj", pos: "Preposition (+ 2. pád)", en: "instead of", rule: "Místo + Genitive (místo moře)", ex: "Místo moře jsme jeli do hor." },
-      { id: 20, cz: "nezapomenutelný", type: "adj", pos: "Adjective", en: "unforgettable", rule: "Z + Genitive (z cesty)", ex: "Máme spoustu nezapomenutelných zážitků z cesty." }
+      { id: 20, cz: "nezapomenutelný", type: "adj", pos: "Adjective", en: "unforgettable", rule: "Z + Genitive (z cesty)", ex: "Máme spoustu nezapomenutelných zážitků z cesty." },
+      { id: 21, cz: "uprostřed historického centra", type: "adj", pos: "Prepositional phrase (+ 2. pád)", en: "in the middle of the historic center", rule: "Uprostřed + Genitive (uprostřed historického centra)", ex: "Procházeli jsme se uprostřed historického centra." }
     ];
+
+    const READING_QUIZ_DATA = [
+      {
+        question: "Kde vypravěč strávil týden?",
+        options: [
+          { text: "V Českém Krumlově", correct: true },
+          { text: "V Praze", correct: false },
+          { text: "V Brně", correct: false },
+          { text: "V Českých Budějovicích", correct: false }
+        ]
+      },
+      {
+        question: "Jak pokračovali z nádraží?",
+        options: [
+          { text: "Autobusem", correct: true },
+          { text: "Taxíkem", correct: false },
+          { text: "Pěšky", correct: false },
+          { text: "Na kole", correct: false }
+        ]
+      },
+      {
+        question: "Co během dovolené navštívili?",
+        options: [
+          { text: "Zámek", correct: true },
+          { text: "Zoo", correct: false },
+          { text: "Hrad v Praze", correct: false },
+          { text: "Technické muzeum", correct: false }
+        ]
+      }
+    ];
+
+    function renderReadingQuiz() {
+      const container = document.getElementById('readingQuizContainer');
+      const letters = ['A', 'B', 'C', 'D'];
+      container.innerHTML = READING_QUIZ_DATA.map((question, questionIndex) => {
+        const options = [...question.options];
+        for (let index = options.length - 1; index > 0; index--) {
+          const swapIndex = Math.floor(Math.random() * (index + 1));
+          [options[index], options[swapIndex]] = [options[swapIndex], options[index]];
+        }
+        return `
+          <div class="bg-slate-900 p-4 rounded-xl border border-slate-800 space-y-2">
+            <p class="font-bold text-slate-200">${questionIndex + 1}. ${question.question}</p>
+            <div class="space-y-1 text-slate-400">
+              ${options.map((option, optionIndex) => `
+                <label class="flex items-start gap-2 cursor-pointer hover:text-slate-200">
+                  <input type="radio" name="reading-q${questionIndex + 1}" data-correct="${option.correct}" onchange="checkReadingQuiz(${questionIndex + 1})">
+                  <span>${letters[optionIndex]}. ${option.text}</span>
+                </label>
+              `).join('')}
+            </div>
+            <p id="reading-q${questionIndex + 1}-feedback" class="font-bold text-[11px] min-h-[16px]" aria-live="polite"></p>
+          </div>
+        `;
+      }).join('');
+    }
+
+    function checkReadingQuiz(questionNumber) {
+      const selected = document.querySelector(`input[name="reading-q${questionNumber}"]:checked`);
+      const feedback = document.getElementById(`reading-q${questionNumber}-feedback`);
+      if (!selected) return;
+      if (selected.dataset.correct === 'true') {
+        feedback.textContent = '✓ Správně';
+        feedback.className = 'font-bold text-[11px] text-emerald-400 min-h-[16px]';
+      } else {
+        feedback.textContent = '✗ Špatně, zkuste znovu';
+        feedback.className = 'font-bold text-[11px] text-rose-400 min-h-[16px]';
+      }
+    }
 
     const DRILLS_EX_A = [
       { id: 1, prompt: "Minulý rok v létě jsme jeli na dovolenou do ____ (Itálie).", base: "Itálie", ans: "Itálie", hint: "fem: do Itálie" },
@@ -412,13 +504,11 @@
       { id: 3, q: "3. Co jsi dělal/a během pobytu?", a2: "Plaval jsem a chodil po městě.", targets: "během pobytu / chodit kolem / památky", b1: "Během pobytu jsem plaval v moři a odpoledne chodil kolem historických památek." },
       { id: 4, q: "4. Měl/a jsi při cestě nějaké komplikace?", a2: "Ano, zapomněl jsem pas.", targets: "odjet bez / muset se vrátit z", b1: "Ano, odjel jsem z domova bez pasu, takže jsem se musel vrátit z dálnice zpátky." },
       { id: 5, q: "5. Kdy ses vrátil/a domů?", a2: "Vrátil jsem se v neděli.", targets: "vrátit se z / nechtít odjet z", b1: "Vrátil jsem se z dovolené v neděli večer a vůbec se mi nechcelo odjet z toho krásného místa." },
-      { id: 6, q: "6. Byli jste ubytovaní v hotelu nebo v soukromí?", a2: "Byli jsme v hotelu.", targets: "kousek od / pláž / bez problému", b1: "Byli jsme v hotelu jen kousek od pláže a ubytování proběhlo zcela bez problému." },
-      { id: 7, q: "7. Jaké tam bylo počasí?", a2: "Bylo hezky a teplo.", targets: "během celého / týden / bez deště", b1: "Během celého týdne bylo nádherné počasí a celá dovolená proběhla bez deště." },
-      { id: 8, q: "8. Chodil/a jsi na výlety do okolí?", a2: "Ano, byl jsem na výletě.", targets: "vyrazit od / směrem do / hory", b1: "Ano, vyrazili jsme od hotelu směrem do blízkych hor na celodenní túru." },
-      { id: 9, q: "9. Ochutnal/a jsi místní jídlo?", a2: "Ano, jedl jsem v restauraci.", targets: "místo + 2. pád / vyzkoušet / zážitek", b1: "Ano, místo rychlého občerstvení jsme zkusili místní restauraci a byl to skvělý zážitek." },
-      { id: 10, q: "10. Cestoval/a jsi sám/sama nebo s někým?", a2: "Cestoval jsem s kamarádem.", targets: "bez + 2. pád / lepší než", b1: "Cestoval jsem s kamarádem, protože cestování bez přátel pro mě není tak zábavné." },
-      { id: 11, q: "11. Kupoval/a jsi letenky/jízdenky předem?", a2: "Ano, přes internet.", targets: "předem z / domov / bez stresu", b1: "Všechno jsem rezervoval předem z domova přes internet, takže jsme cestovali bez stresu." },
-      { id: 12, q: "12. Jak bys zhodnotil/a celou dovolenou?", a2: "Byla to dobrá dovolená.", targets: "nezapomenutelný zážitek z / těšit se do", b1: "Byla to nádherná dovolená s plno nezapomenutelných zážitků z cesty a už se těším do další destinace." }
+      { id: 6, q: "6. Jaké tam bylo počasí?", a2: "Bylo hezky a teplo.", targets: "během celého / týden / bez deště", b1: "Během celého týdne bylo nádherné počasí a celá dovolená proběhla bez deště." },
+      { id: 7, q: "7. Chodil/a jsi na výlety do okolí?", a2: "Ano, byl jsem na výletě.", targets: "vyrazit od / směrem do / hory", b1: "Ano, vyrazili jsme od hotelu směrem do blízkych hor na celodenní túru." },
+      { id: 8, q: "8. Cestoval/a jsi sám/sama nebo s někým?", a2: "Cestoval jsem s kamarádem.", targets: "bez + 2. pád / lepší než", b1: "Cestoval jsem s kamarádem, protože cestování bez přátel pro mě není tak zábavné." },
+      { id: 9, q: "9. Kupoval/a jsi letenky/jízdenky předem?", a2: "Ano, přes internet.", targets: "předem z / domov / bez stresu", b1: "Všechno jsem rezervoval předem z domova přes internet, takže jsme cestovali bez stresu." },
+      { id: 10, q: "10. Jak bys zhodnotil/a celou dovolenou?", a2: "Byla to dobrá dovolená.", targets: "nezapomenutelný zážitek z / těšit se do", b1: "Byla to nádherná dovolená s plno nezapomenutelných zážitků z cesty a už se těším do další destinace." }
     ];
 
     const PHRASE_BANK = {
@@ -486,6 +576,64 @@
       } else {
         alert('Text-to-speech is not supported in this browser.');
       }
+    }
+
+    function enableGenitiveMarking(containerId, countId) {
+        const container = document.getElementById(containerId);
+        const walker = document.createTreeWalker(container, NodeFilter.SHOW_TEXT);
+        const textNodes = [];
+        while (walker.nextNode()) {
+          const node = walker.currentNode;
+          if (node.nodeValue.trim() && !node.parentElement.closest('button, a, input, textarea')) textNodes.push(node);
+    }
+        textNodes.forEach(node => {
+          const fragment = document.createDocumentFragment();
+          node.nodeValue.split(/([A-Za-zÀ-ž]+(?:[’'-][A-Za-zÀ-ž]+)*)/g).forEach(part => {
+            if (/^[A-Za-zÀ-ž]/.test(part)) {
+              const word = document.createElement('span');
+              word.textContent = part;
+              word.className = 'genitive-mark-word cursor-pointer rounded px-0.5 hover:bg-amber-900/50';
+              word.setAttribute('role', 'button');
+              word.setAttribute('aria-pressed', 'false');
+              word.tabIndex = 0;
+              const toggle = () => {
+                const marked = word.getAttribute('aria-pressed') !== 'true';
+                word.style.backgroundColor = marked ? 'rgba(251, 191, 36, 0.3)' : '';
+                word.style.color = marked ? '#fef3c7' : '';
+                word.style.outline = marked ? '1px solid rgba(251, 191, 36, 0.7)' : '';
+                word.setAttribute('aria-pressed', String(marked));
+                updateGenitiveMarkCount(containerId, countId);
+              };
+              word.addEventListener('click', toggle);
+              word.addEventListener('keydown', event => {
+                if (event.key === 'Enter' || event.key === ' ') {
+                  event.preventDefault();
+                  toggle();
+                }
+              });
+              fragment.appendChild(word);
+            } else {
+              fragment.appendChild(document.createTextNode(part));
+            }
+          });
+          node.replaceWith(fragment);
+        });
+        updateGenitiveMarkCount(containerId, countId);
+    }
+
+    function updateGenitiveMarkCount(containerId, countId) {
+        const count = document.querySelectorAll(`#${containerId} .genitive-mark-word[aria-pressed="true"]`).length;
+        document.getElementById(countId).textContent = `Označeno: ${count} slov`;
+      }
+
+    function clearGenitiveMarks(containerId, countId) {
+        document.querySelectorAll(`#${containerId} .genitive-mark-word`).forEach(word => {
+          word.style.backgroundColor = '';
+          word.style.color = '';
+          word.style.outline = '';
+          word.setAttribute('aria-pressed', 'false');
+        });
+        updateGenitiveMarkCount(containerId, countId);
     }
 
     /* ==========================================================================
@@ -895,6 +1043,8 @@ Submit your complete text before our next lesson to :@ucitellukas@gmail.com. Na 
        ========================================================================== */
     window.onload = function() {
       renderVocab();
+      renderReadingQuiz();
+      enableGenitiveMarking('readingText', 'genitiveMarkCount');
       renderExA();
       renderExB();
       renderPhraseChips();
