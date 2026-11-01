@@ -494,84 +494,53 @@
 
     const SCENARIOS_EX_B = [
       {
-        q: "1. Řekni, odkud jsi a jak se nazývají obyvatelé Česka.",
+        q: "1. Představ se a řekni, odkud pocházíš.",
         a2: "Jsem z Česka.",
-        b1: "Jsem Čech/Češka a pocházím z Česka.",
-        steps: [
-          { label: "Pojmenuj obyvatele", prompt: "Jsem ___. (muž / žena)", hint: "Muž: Čech. Žena: Češka.", answers: ["Čech", "Češka"], show: "Čech / Češka" },
-          { label: "Spoj informace", prompt: "Jsem Čech/Češka ___ pocházím z Česka.", hint: "Spojka pro spojení dvou informací: a.", answers: ["a"], show: "a" },
-          { label: "Doplň předložku původu", prompt: "Pocházím ___ Česka.", hint: "Ptáme se odkud? Použij z.", answers: ["z"], show: "z" },
-          { label: "Vytvoř 2. pád", prompt: "Pocházím z ___. (Česko)", hint: "Po předložce z je 2. pád: Česko → Česka.", answers: ["Česka"], show: "Česka", caseWord: "Česko", final: true }
-        ]
+        instruction: "Napiš jednu celou větu. Uveď, jak se nazývá muž nebo žena z Česka, a použij sloveso „pocházet“.",
+        words: "Čech / Češka · pocházet · z Česka",
+        b1: "Jsem Čech a pocházím z Česka. / Jsem Češka a pocházím z Česka."
       },
       {
-        q: "2. Rozliš Česko a Čechy: řekni, kde bydlíš a odkud pocházíš.",
+        q: "2. Řekni, kde žiješ a odkud pocházíš, pokud jsi z Čech.",
         a2: "Bydlím v Čechách.",
-        b1: "Jsem Čech/Češka, žiju v Čechách a pocházím z Čech.",
-        steps: [
-          { label: "Pojmenuj obyvatele", prompt: "Jsem ___. (muž / žena)", hint: "Muž: Čech. Žena: Češka.", answers: ["Čech", "Češka"], show: "Čech / Češka" },
-          { label: "Přidej sloveso", prompt: "… ___ v Čechách.", hint: "Sloveso žít, 1. osoba: žiju nebo žiji.", answers: ["žiju", "žiji"], show: "žiju" },
-          { label: "Vyjádři místo", prompt: "Žiju ___ Čechách.", hint: "Kde? V Čechách. Jde o 6. pád množného čísla.", answers: ["v"], show: "v" },
-          { label: "Použij správný tvar názvu oblasti", prompt: "Žiju v ___. (Čechy)", hint: "Kde? Čechy → v Čechách (6. pád).", answers: ["Čechách"], show: "Čechách", caseWord: "Čechy" },
-          { label: "Spoj místo a původ", prompt: "Žiju v Čechách ___ pocházím z Čech.", hint: "Spojka: a.", answers: ["a"], show: "a" },
-          { label: "Vyjádři původ", prompt: "Pocházím ___ Čech.", hint: "Odkud? Předložka z + 2. pád.", answers: ["z"], show: "z" },
-          { label: "Doplň 2. pád oblasti", prompt: "Pocházím z ___. (Čechy)", hint: "Čechy → Čech. Celé Česko je širší označení než historické Čechy.", answers: ["Čech"], show: "Čech", caseWord: "Čechy", final: true }
-        ]
+        instruction: "Napiš jednu celou větu. Spoj místo, kde žiješ, s původem. Pozor: Čechy jsou historická oblast, ne celé Česko.",
+        words: "žít · v Čechách · pocházet · z Čech",
+        b1: "Žiju v Čechách a pocházím z Čech."
       },
       {
         q: "3. Popiš pobyt na Slovensku a návrat domů.",
         a2: "Byl jsem na Slovensku.",
-        b1: "Na Slovensku jsem navštívil Bratislavu a vrátil jsem se ze Slovenska v neděli.",
-        steps: [
-          { label: "Vyjádři místo", prompt: "___ Slovensku jsem navštívil Bratislavu.", hint: "Ustálená vazba pro místo: na Slovensku. Jde o 6. pád.", answers: ["Na"], show: "Na" },
-          { label: "Doplň tvar pro místo", prompt: "Na ___ jsem navštívil Bratislavu. (Slovensko)", hint: "Kde? Slovensko → na Slovensku (6. pád).", answers: ["Slovensku"], show: "Slovensku", caseWord: "Slovensko" },
-          { label: "Přidej druhou informaci", prompt: "Na Slovensku jsem navštívil Bratislavu ___ vrátil jsem se…", hint: "Spojka: a.", answers: ["a"], show: "a" },
-          { label: "Vyjádři původ", prompt: "… vrátil jsem se ___ Slovenska.", hint: "Odkud? Předložka z se před Slovenska mění na ze.", answers: ["ze"], show: "ze" },
-          { label: "Použij 2. pád", prompt: "… ze ___. (Slovensko)", hint: "Po předložce ze je 2. pád: Slovensko → Slovenska.", answers: ["Slovenska"], show: "Slovenska", caseWord: "Slovensko", final: true }
-        ]
+        instruction: "Napiš jednu celou větu. Přidej, co jsi tam navštívil/a, a odkud ses vrátil/a.",
+        words: "navštívit Bratislavu · na Slovensku · vrátit se · ze Slovenska",
+        b1: "Na Slovensku jsem navštívil Bratislavu a v neděli jsem se vrátil ze Slovenska."
       },
       {
-        q: "4. Navrhni cestu na Maltu a použij také tvar pro původ.",
+        q: "4. Navrhni cestu na Maltu a řekni, kdy se vrátíš.",
         a2: "Pojedu na Maltu.",
-        b1: "Na Maltu pojedu v létě a po návratu z Malty napíšu kamarádům.",
-        steps: [
-          { label: "Urči směr", prompt: "___ Maltu pojedu v létě.", hint: "Kam? V této vazbě použij na + 4. pád.", answers: ["Na"], show: "Na" },
-          { label: "Vytvoř tvar pro směr", prompt: "Na ___ pojedu v létě. (Malta)", hint: "Kam? Malta → na Maltu (4. pád).", answers: ["Maltu"], show: "Maltu", caseWord: "Malta" },
-          { label: "Vyjádři návrat", prompt: "Po návratu ___ Malty napíšu kamarádům.", hint: "Odkud? Předložka z + 2. pád.", answers: ["z"], show: "z" },
-          { label: "Vytvoř 2. pád", prompt: "Po návratu z ___. (Malta)", hint: "Malta → Malty. Nepleť si: na Maltu (kam?) × z Malty (odkud?).", answers: ["Malty"], show: "Malty", caseWord: "Malta", final: true }
-        ]
+        instruction: "Napiš jednu celou větu. Uveď, kdy pojedeš, a použij spojení „návrat z…“.",
+        words: "na Maltu · v létě · návrat z Malty",
+        b1: "Na Maltu pojedu v létě a po návratu z Malty napíšu kamarádům."
       },
       {
-        q: "5. Řekni, kde potkáš přátele a odkud pocházejí.",
-        a2: "Jedu do Austrálie a potkám tam přátele.",
-        b1: "V Austrálii navštívím známé, kteří pocházejí z Česka.",
-        steps: [
-          { label: "Vyjádři místo", prompt: "___ Austrálii navštívím známé.", hint: "Kde? Předložka v + 6. pád: v Austrálii.", answers: ["V"], show: "V" },
-          { label: "Přidej větu o původu", prompt: "… známé, kteří pocházejí ___ Česka.", hint: "Odkud? Předložka z + 2. pád.", answers: ["z"], show: "z" },
-          { label: "Zkontroluj 2. pád", prompt: "… pocházejí z ___. (Česko)", hint: "Česko → Česka.", answers: ["Česka"], show: "Česka", caseWord: "Česko", final: true }
-        ]
+        q: "5. Popiš návštěvu známých v Austrálii a jejich původ.",
+        a2: "Jedu do Austrálie.",
+        instruction: "Napiš jednu celou větu. Uveď, kde známé navštívíš, a odkud pocházejí.",
+        words: "v Austrálii · navštívit známé · pocházet z Česka",
+        b1: "V Austrálii navštívím známé, kteří pocházejí z Česka."
       },
       {
-        q: "6. Vyprávěj o cestě do Spojených států a návratu.",
+        q: "6. Vyprávěj o návratu z USA a o cestě.",
         a2: "Byl jsem v USA.",
-        b1: "Po návratu z USA jsem vyprávěl o cestě do Spojených států amerických.",
-        steps: [
-          { label: "Uveď návrat", prompt: "___ návratu z USA jsem vyprávěl o cestě.", hint: "Časové spojení začíná předložkou po.", answers: ["Po"], show: "Po" },
-          { label: "Vyjádři původ", prompt: "Po návratu ___ USA jsem vyprávěl o cestě.", hint: "Zkratka USA se běžně používá s předložkou z.", answers: ["z"], show: "z" },
-          { label: "Použij celý název", prompt: "… o cestě ___ Spojených států amerických.", hint: "Směr dovnitř: do + 2. pád množného čísla.", answers: ["do"], show: "do" },
-          { label: "Doplň 2. pád množného čísla", prompt: "… do ___. (Spojené státy americké)", hint: "2. pád: Spojených států amerických.", answers: ["Spojených států amerických"], show: "Spojených států amerických", caseWord: "Spojené státy americké", final: true }
-        ]
+        instruction: "Napiš jednu celou větu. Začni spojením „po návratu“, použij „z USA“ a doplň, o čem jsi vyprávěl/a.",
+        words: "po návratu · z USA · vyprávět o cestě",
+        b1: "Po návratu z USA jsem vyprávěl o cestě do Spojených států amerických."
       },
       {
         q: "7. Porovnej vzdálenost Brna a Vídně.",
         a2: "Vídeň je blízko Brna.",
-        b1: "Vzdálenost Brna od Vídně je poměrně malá.",
-        steps: [
-          { label: "Začni podstatným jménem", prompt: "___ Brna od Vídně je poměrně malá.", hint: "Podstatné jméno: vzdálenost.", answers: ["Vzdálenost"], show: "Vzdálenost" },
-          { label: "Použij 2. pád města", prompt: "Vzdálenost ___ od Vídně… (Brno)", hint: "Vzdálenost koho/čeho? Brno → Brna.", answers: ["Brna"], show: "Brna", caseWord: "Brno" },
-          { label: "Doplň předložku", prompt: "Vzdálenost Brna ___ Vídně…", hint: "Předložka pro vzdálenost: od + 2. pád.", answers: ["od"], show: "od" },
-          { label: "Použij 2. pád města", prompt: "Vzdálenost Brna od ___. (Vídeň)", hint: "Vídeň → Vídně.", answers: ["Vídně"], show: "Vídně", caseWord: "Vídeň", final: true }
-        ]
+        instruction: "Napiš jednu celou větu pomocí slova „vzdálenost“. Doplň obě města ve správném tvaru.",
+        words: "vzdálenost · Brno · od · Vídeň · poměrně malá",
+        b1: "Vzdálenost Brna od Vídně je poměrně malá."
       }
     ];
 
@@ -828,129 +797,38 @@
       document.getElementById('exAScoreText').innerText = `0 / ${DRILLS_EX_A.length} Správně`;
     }
 
-    /* EXERCISE B: PROGRESSIVE SENTENCE BUILDER */
-    const exBState = {};
-
-    function normalizeExBAnswer(value) {
-      return value.trim().toLocaleLowerCase('cs-CZ').normalize('NFD')
-        .replace(/[\u0300-\u036f]/g, '').replace(/[.!?]+$/g, '').replace(/\s+/g, ' ');
-    }
-
+    /* EXERCISE B: OPEN-ENDED SENTENCE BUILDING */
     function renderExerciseB() {
       const grid = document.getElementById('exBGrid');
       grid.innerHTML = SCENARIOS_EX_B.map((item, idx) => `
-        <article class="glass-card rounded-2xl p-5 sm:p-6 border border-slate-800 space-y-4" id="exB_card_${idx}">
+        <article class="glass-card rounded-2xl p-5 sm:p-6 border border-slate-800 space-y-4">
           <div>
             <h3 class="font-bold text-white text-lg leading-snug">${item.q}</h3>
             <p class="mt-2 rounded-lg border border-rose-900/40 bg-rose-950/30 p-3 text-sm text-rose-200"><strong>A2:</strong> ${item.a2}</p>
           </div>
-          <div class="flex items-center gap-3">
-            <div class="h-2 flex-1 overflow-hidden rounded-full bg-slate-900"><div id="exB_bar_${idx}" class="h-full w-0 bg-sky-500 transition-all"></div></div>
-            <span id="exB_progress_${idx}" class="whitespace-nowrap text-xs font-bold text-sky-300"></span>
-          </div>
-          <div>
-            <p class="mb-2 text-xs font-bold uppercase tracking-wide text-slate-400">Postupně postavená věta</p>
-            <div id="exB_done_${idx}" class="flex min-h-9 flex-wrap gap-2" aria-live="polite"></div>
-          </div>
           <div class="rounded-xl border border-sky-900/50 bg-sky-950/20 p-4">
-            <p id="exB_step_label_${idx}" class="text-xs font-bold text-sky-300"></p>
-            <p id="exB_prompt_${idx}" class="mt-2 text-sm text-white"></p>
-            <label class="sr-only" for="exB_input_${idx}">Vaše odpověď</label>
-            <input id="exB_input_${idx}" type="text" autocomplete="off" class="mt-3 w-full rounded-lg border border-slate-700 bg-slate-950 p-3 text-sm text-white focus:border-sky-500 focus:outline-none" placeholder="Doplňte chybějící slovo nebo tvar…">
-            <p id="exB_feedback_${idx}" class="mt-2 text-sm text-slate-300" aria-live="polite">Napište pouze chybějící část věty.</p>
-            <p id="exB_hint_${idx}" class="mt-2 hidden rounded-lg border border-amber-900/50 bg-amber-950/40 p-3 text-sm text-amber-200"></p>
-            <div class="mt-3 flex flex-wrap gap-2">
-              <button type="button" onclick="checkExBStep(${idx})" class="exB-action rounded-lg bg-sky-600 px-4 py-2 text-sm font-bold text-white hover:bg-sky-500">Zkontrolovat</button>
-              <button type="button" onclick="hintExBStep(${idx})" class="exB-action rounded-lg border border-amber-800 bg-amber-950/60 px-4 py-2 text-sm font-semibold text-amber-200 hover:bg-amber-900/70">Nápověda</button>
-              <button type="button" onclick="revealExBStep(${idx})" class="exB-action rounded-lg border border-slate-700 bg-slate-800 px-4 py-2 text-sm text-slate-200 hover:bg-slate-700">Ukázat odpověď</button>
-            </div>
+            <p class="text-sm leading-6 text-slate-200">${item.instruction}</p>
+            <p class="mt-3 text-xs"><strong class="text-amber-200">Pomocná slova:</strong> <span class="text-amber-100">${item.words}</span></p>
+            <label class="mt-4 block text-sm font-semibold text-slate-200" for="exB_input_${idx}">Napište vlastní celou větu</label>
+            <textarea id="exB_input_${idx}" rows="2" class="mt-2 w-full rounded-lg border border-slate-700 bg-slate-950 p-3 text-sm text-white focus:border-sky-500 focus:outline-none" placeholder="Napište sem svou větu…"></textarea>
           </div>
-          <div id="exB_model_${idx}" class="hidden rounded-xl border border-emerald-800/50 bg-emerald-950/40 p-4 text-sm text-emerald-200">
-            <strong>Hotová věta B1:</strong> ${item.b1}
+          <button type="button" onclick="toggleExBModel(${idx})" aria-expanded="false" aria-controls="exB_model_${idx}" class="rounded-lg bg-slate-800 px-4 py-2 text-sm font-semibold text-sky-200 hover:bg-slate-700">
+            Ukázat vzorovou větu
+          </button>
+          <div id="exB_model_${idx}" class="hidden rounded-xl border border-emerald-800/50 bg-emerald-950/40 p-4 text-sm leading-6 text-emerald-200">
+            <strong>Možné řešení:</strong> ${item.b1}
             <button type="button" onclick="speakText(SCENARIOS_EX_B[${idx}].b1)" aria-label="Přehrát vzorovou větu" class="ml-2 rounded-lg bg-emerald-900/70 px-2 py-1 text-emerald-100"><i class="fa-solid fa-volume-high"></i></button>
           </div>
-          <button type="button" id="exB_restart_${idx}" onclick="resetExBCard(${idx})" class="hidden text-sm font-semibold text-sky-300 underline">Procvičit znovu</button>
         </article>`).join('');
-
-      SCENARIOS_EX_B.forEach((_, idx) => {
-        exBState[idx] = { step: 0, done: [] };
-        document.getElementById(`exB_input_${idx}`).addEventListener('keydown', event => {
-          if (event.key === 'Enter') checkExBStep(idx);
-        });
-        updateExBCard(idx);
-      });
     }
 
-    function updateExBCard(idx) {
-      const item = SCENARIOS_EX_B[idx];
-      const state = exBState[idx];
-      const finished = state.step >= item.steps.length;
-      const step = item.steps[Math.min(state.step, item.steps.length - 1)];
-      document.getElementById(`exB_progress_${idx}`).textContent = finished
-        ? `Hotovo: ${item.steps.length} z ${item.steps.length}`
-        : `Krok ${state.step + 1} z ${item.steps.length}`;
-      document.getElementById(`exB_bar_${idx}`).style.width = `${finished ? 100 : state.step / item.steps.length * 100}%`;
-      document.getElementById(`exB_done_${idx}`).innerHTML = state.done
-        .map(part => `<span class="rounded-md border border-emerald-800 bg-emerald-950/60 px-2 py-1 text-sm text-emerald-200">${part}</span>`).join('');
-      document.getElementById(`exB_step_label_${idx}`).textContent = finished ? 'Výborně! Věta je hotová.' : step.label;
-      document.getElementById(`exB_prompt_${idx}`).textContent = finished ? 'Všechny kroky jsou splněné.' : step.prompt;
-      const input = document.getElementById(`exB_input_${idx}`);
-      input.value = '';
-      input.disabled = finished;
-      input.classList.toggle('hidden', finished);
-      document.getElementById(`exB_feedback_${idx}`).textContent = finished
-        ? 'Přečtěte si celou větu nebo si poslechněte její výslovnost.'
-        : 'Napište pouze chybějící část věty.';
-      document.getElementById(`exB_hint_${idx}`).classList.add('hidden');
-      document.querySelectorAll(`#exB_card_${idx} .exB-action`).forEach(button => button.classList.toggle('hidden', finished));
-      document.getElementById(`exB_model_${idx}`).classList.toggle('hidden', !finished);
-      document.getElementById(`exB_restart_${idx}`).classList.toggle('hidden', !finished);
-    }
-
-    function checkExBStep(idx) {
-      const item = SCENARIOS_EX_B[idx];
-      const state = exBState[idx];
-      const step = item.steps[state.step];
-      if (!step) return;
-
-      const answer = normalizeExBAnswer(document.getElementById(`exB_input_${idx}`).value);
-      const accepted = step.answers.map(normalizeExBAnswer);
-      const feedback = document.getElementById(`exB_feedback_${idx}`);
-      if (accepted.includes(answer)) {
-        state.done.push(step.show);
-        state.step++;
-        updateExBCard(idx);
-      } else if (!answer) {
-        feedback.textContent = 'Napište odpověď, nebo si zobrazte nápovědu.';
-        feedback.className = 'mt-2 text-sm text-amber-200';
-      } else if (step.caseWord && answer === normalizeExBAnswer(step.caseWord)) {
-        feedback.textContent = `„${step.caseWord}“ je 1. pád. Zkontrolujte otázku a změňte slovo do požadovaného pádu.`;
-        feedback.className = 'mt-2 text-sm text-amber-200';
-      } else {
-        feedback.textContent = 'Zatím to nesedí. Zkontrolujte předložku nebo koncovku a zkuste to znovu.';
-        feedback.className = 'mt-2 text-sm text-rose-200';
-      }
-    }
-
-    function hintExBStep(idx) {
-      const step = SCENARIOS_EX_B[idx].steps[exBState[idx].step];
-      if (!step) return;
-      const hint = document.getElementById(`exB_hint_${idx}`);
-      hint.textContent = step.hint;
-      hint.classList.remove('hidden');
-    }
-
-    function revealExBStep(idx) {
-      const step = SCENARIOS_EX_B[idx].steps[exBState[idx].step];
-      if (!step) return;
-      exBState[idx].done.push(step.show);
-      exBState[idx].step++;
-      updateExBCard(idx);
-    }
-
-    function resetExBCard(idx) {
-      exBState[idx] = { step: 0, done: [] };
-      updateExBCard(idx);
+    function toggleExBModel(idx) {
+      const model = document.getElementById(`exB_model_${idx}`);
+      const button = model.previousElementSibling;
+      const willShow = model.classList.contains('hidden');
+      model.classList.toggle('hidden', !willShow);
+      button.textContent = willShow ? 'Skrýt vzorovou větu' : 'Ukázat vzorovou větu';
+      button.setAttribute('aria-expanded', String(willShow));
     }
 
     /* TEACHER LIVE NOTES SYNC & HOMEWORK */
