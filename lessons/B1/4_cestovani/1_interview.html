@@ -58,6 +58,19 @@
       background: rgba(30, 41, 59, 0.9);
       border-color: rgba(56, 189, 248, 0.3);
     }
+    @media (max-width: 1023px) {
+      .teacher-notes-widget {
+        position: fixed;
+        right: 0;
+        bottom: 0 !important;
+        left: 0;
+        z-index: 55;
+        width: 100% !important;
+        height: 160px !important;
+        border-radius: 0.75rem 0.75rem 0 0;
+        background: rgba(15, 23, 42, 0.97);
+      }
+    }
   </style>
 </head>
 <body class="h-full flex flex-col font-sans bg-slate-950 text-slate-100 overflow-x-hidden">
@@ -107,7 +120,7 @@
   </header>
 
   <!-- MAIN CONTAINER -->
-  <main class="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-6">
+  <main class="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-6 pb-64">
 
     <!-- TAB 1: CORE B1 VOCABULARY HUB -->
     <section id="tab-vocab" class="tab-content block space-y-6">
@@ -276,7 +289,7 @@
         </div>
 
         <!-- Right Col: Live Teacher Notepad -->
-        <div class="glass-card rounded-2xl p-5 border border-slate-800 flex flex-col h-full min-h-[500px]">
+        <div class="glass-card rounded-2xl p-5 border border-slate-800 flex flex-col h-full min-h-[500px] lg:sticky lg:top-[180px] lg:self-start">
           <div class="flex items-center justify-between pb-3 border-b border-slate-800 mb-4">
             <h3 class="font-bold text-white text-sm flex items-center gap-2">
               <i class="fa-solid fa-clipboard-user text-sky-400"></i> Teacher Live Notes
@@ -325,6 +338,14 @@
     </section>
 
   </main>
+
+  <aside class="teacher-notes-widget fixed bottom-4 right-4 z-[55] flex h-64 w-80 max-w-[calc(100vw-2rem)] flex-col rounded-2xl border border-sky-500/30 bg-slate-900/95 p-4 shadow-2xl backdrop-blur-md" aria-label="Teacher Live Notes">
+    <div class="mb-2 flex items-center justify-between border-b border-slate-700 pb-2">
+      <h2 class="text-sm font-bold text-white"><i class="fa-solid fa-clipboard-user mr-2 text-sky-400"></i>Teacher Live Notes</h2>
+      <span class="text-[10px] text-slate-400">Auto-saved</span>
+    </div>
+    <textarea class="teacherNotesArea min-h-0 w-full flex-1 resize-none rounded-lg border border-slate-700 bg-slate-950 p-3 text-xs text-slate-100 focus:border-sky-500 focus:outline-none" oninput="saveTeacherNotes(this)" placeholder="+ Skvělá fráze&#10;− Oprava / doporučení"></textarea>
+  </aside>
 
   <script>
     /* ==========================================================================
@@ -945,8 +966,12 @@
         `${mins.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
     }
 
-    function saveTeacherNotes() {
-      localStorage.setItem('czech_b1_teacher_notes', document.getElementById('teacherNotes').value);
+    function saveTeacherNotes(source = document.getElementById('teacherNotes')) {
+      const text = source.value;
+      localStorage.setItem('czech_b1_teacher_notes', text);
+      document.querySelectorAll('#teacherNotes, .teacherNotesArea').forEach(area => {
+        if (area !== source) area.value = text;
+      });
       generateHomeworkText();
     }
 
@@ -1017,9 +1042,7 @@ Send your 4 sentences back before our next lesson. Na shledanou!`;
 
       // Load saved notes if available
       const savedNotes = localStorage.getItem('czech_b1_teacher_notes');
-      if (savedNotes) {
-        document.getElementById('teacherNotes').value = savedNotes;
-      }
+      if (savedNotes !== null) document.querySelectorAll('#teacherNotes, .teacherNotesArea').forEach(area => { area.value = savedNotes; });
       generateHomeworkText();
     };
   </script>

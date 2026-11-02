@@ -57,6 +57,26 @@
       background: rgba(30, 41, 59, 0.9);
       border-color: rgba(56, 189, 248, 0.3);
     }
+    @media (max-width: 1023px) {
+      .teacher-notes-panel {
+        position: fixed !important;
+        right: 0;
+        bottom: 0;
+        left: 0;
+        z-index: 55;
+        width: 100%;
+        height: 170px !important;
+        padding: 0.75rem !important;
+        border-radius: 0.75rem 0.75rem 0 0;
+        background: rgba(15, 23, 42, 0.97);
+      }
+      .teacher-notes-panel > p {
+        display: none;
+      }
+      .teacher-notes-panel textarea {
+        min-height: 48px;
+      }
+    }
   </style>
 </head>
 <body class="h-full flex flex-col font-sans bg-slate-950 text-slate-100 overflow-x-hidden">
@@ -106,7 +126,7 @@
   </header>
 
   <!-- MAIN CONTAINER -->
-  <main class="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-6">
+  <main class="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-6 pb-48">
 
     <!-- TAB 1: B1 TRAVEL VOCABULARY HUB & EXPANDED READING TEXT -->
     <section id="tab-vocab" class="tab-content block space-y-6">
@@ -222,7 +242,7 @@
         </div>
 
         <!-- Right Col: Compact Teacher Live Notes -->
-        <div class="glass-card rounded-2xl p-4 border border-slate-800 flex flex-col h-[280px]">
+        <div class="teacher-notes-panel glass-card rounded-2xl p-4 border border-slate-800 flex flex-col h-[280px] lg:sticky lg:top-[180px] lg:self-start">
           <div class="flex items-center justify-between pb-2 border-b border-slate-800 mb-2">
             <h3 class="font-bold text-white text-xs sm:text-sm flex items-center gap-1.5">
               <i class="fa-solid fa-pen-to-square text-sky-400"></i> Teacher Live Notes
@@ -263,7 +283,7 @@
         </div>
 
         <!-- Right Col: Compact Teacher Live Notes -->
-        <div class="glass-card rounded-2xl p-4 border border-slate-800 flex flex-col h-[280px]">
+        <div class="teacher-notes-panel glass-card rounded-2xl p-4 border border-slate-800 flex flex-col h-[280px] lg:sticky lg:top-[180px] lg:self-start">
           <div class="flex items-center justify-between pb-2 border-b border-slate-800 mb-2">
             <h3 class="font-bold text-white text-xs sm:text-sm flex items-center gap-1.5">
               <i class="fa-solid fa-pen-to-square text-sky-400"></i> Teacher Live Notes
@@ -369,7 +389,7 @@
         </div>
 
         <!-- Right Col: Teacher Live Notes Pad -->
-        <div class="glass-card rounded-2xl p-6 border border-slate-800 flex flex-col h-full min-h-[500px]">
+        <div class="teacher-notes-panel glass-card rounded-2xl p-6 border border-slate-800 flex flex-col h-full min-h-[500px] lg:sticky lg:top-[180px] lg:self-start">
           <div class="flex items-center justify-between pb-4 border-b border-slate-800 mb-4">
             <h3 class="font-bold text-white text-lg flex items-center gap-2">
               <i class="fa-solid fa-pen-to-square text-sky-400"></i> Teacher Live Notes

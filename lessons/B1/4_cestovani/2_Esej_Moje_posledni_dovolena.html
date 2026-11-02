@@ -67,6 +67,23 @@
       -ms-overflow-style: none;  /* IE and Edge */
       scrollbar-width: none;  /* Firefox */
     }
+    .genitive-mark-word[aria-pressed="true"] { background-color: rgba(251, 191, 36, 0.3); color: #fef3c7; outline: 1px solid rgba(251, 191, 36, 0.7); }
+    .genitive-mark-word.mark-correct { background-color: rgba(34, 197, 94, 0.3); color: #dcfce7; outline: 1px solid rgba(34, 197, 94, 0.7); }
+    .genitive-mark-word.mark-incorrect { background-color: rgba(239, 68, 68, 0.3); color: #fee2e2; outline: 1px solid rgba(239, 68, 68, 0.7); }
+    .genitive-mark-word.mark-missed { background-color: rgba(245, 158, 11, 0.25); color: #fef3c7; outline: 1px solid rgba(245, 158, 11, 0.7); }
+    @media (max-width: 1023px) {
+      .teacher-notes-widget {
+        position: fixed;
+        right: 0;
+        bottom: 0 !important;
+        left: 0;
+        z-index: 55;
+        width: 100% !important;
+        height: 160px !important;
+        border-radius: 0.75rem 0.75rem 0 0;
+        background: rgba(15, 23, 42, 0.97);
+      }
+    }
   </style>
 </head>
 <body class="h-full flex flex-col font-sans bg-slate-950 text-slate-100 overflow-x-hidden">
@@ -115,7 +132,7 @@
   </header>
 
   <!-- MAIN CONTAINER -->
-  <main class="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-6">
+  <main class="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-6 pb-64">
 
     <section id="tab-vocab" class="tab-content block space-y-6">
       <div class="glass-card rounded-2xl p-5 border border-slate-800 flex flex-col md:flex-row gap-4 items-center justify-between">
@@ -156,12 +173,17 @@
           <p class="text-xs text-slate-400 mt-1">Student/ka čte nahlas. Potom odpovězte na tři otázky.</p>
         </div>
         <div class="flex flex-wrap items-center justify-between gap-2 text-xs">
-          <p class="text-slate-400">Kliknutím označte slova a spojení ve 2. pádě.</p>
-          <div class="flex items-center gap-2"><span id="genitiveMarkCount" class="text-amber-300" aria-live="polite">Označeno: 0 slov</span><button type="button" onclick="clearGenitiveMarks('readingText','genitiveMarkCount')" class="rounded-lg bg-slate-800 px-2 py-1 text-slate-300 hover:bg-slate-700">Zrušit označení</button></div>
+          <p class="text-slate-400">Označte všech 13 slov ve 2. pádě. Klikněte také na slova, která podle vás nejsou ve 2. pádě; kontrola je rozliší.</p>
+          <div class="flex flex-wrap items-center gap-2">
+            <span id="genitiveMarkCount" class="text-amber-300" aria-live="polite">Označeno: 0 / 13 slov</span>
+            <button type="button" onclick="checkGenitiveMarks('readingText','genitiveMarkCount','genitiveMarkFeedback')" class="rounded-lg bg-sky-700 px-2 py-1 text-white hover:bg-sky-600">Zkontrolovat</button>
+            <button type="button" onclick="clearGenitiveMarks('readingText','genitiveMarkCount','genitiveMarkFeedback')" class="rounded-lg bg-slate-800 px-2 py-1 text-slate-300 hover:bg-slate-700">Zrušit označení</button>
+          </div>
         </div>
+        <p id="genitiveMarkFeedback" class="text-xs text-slate-400" aria-live="polite">Najděte správné tvary a potom klikněte na „Zkontrolovat“.</p>
         <div id="readingText" class="text-sm text-slate-200 leading-relaxed bg-slate-900/80 p-5 rounded-xl border border-slate-800">
           <p>
-            Minulé léto jsem strávil týden v Českém Krumlově. Do města jsme jeli vlakem z Prahy a z nádraží jsme pokračovali autobusem. Ubytovali jsme se v malém penzionu blízko řeky. Každé ráno jsme snídali u hotelu a potom jsme procházeli uličkami <strong class="text-sky-300">uprostřed historického centra</strong>. Jedno odpoledne jsme vyjeli na výlet do okolních vesnic. Během pobytu jsme ochutnali místní jídla a navštívili zámek. Počasí bylo příjemné, takže jsme nemuseli zůstávat uvnitř. Na konci dovolené jsme se vrátili domů unavení, ale plní krásných zážitků.
+            Minulé léto jsem strávil týden v Českém Krumlově. Do města jsme jeli vlakem z Prahy a z nádraží jsme pokračovali autobusem. Ubytovali jsme se v malém penzionu blízko řeky. Každé ráno jsme snídali u hotelu a potom jsme procházeli uličkami uprostřed historického centra. Jedno odpoledne jsme vyjeli na výlet do okolních vesnic. Během pobytu jsme ochutnali místní jídla a navštívili zámek. Počasí bylo příjemné, takže jsme nemuseli zůstávat uvnitř. Na konci dovolené jsme se vrátili domů unavení, ale plní krásných zážitků.
           </p>
         </div>
         <div>
@@ -176,7 +198,9 @@
     </section>
 
     <section id="tab-exA" class="tab-content hidden space-y-6">
-      <div class="glass-card rounded-2xl p-5 border border-slate-800 space-y-4">
+      <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+        <div class="lg:col-span-2 space-y-6">
+          <div class="glass-card rounded-2xl p-5 border border-slate-800 space-y-4">
         <div class="flex flex-col md:flex-row md:items-center justify-between gap-4">
           <div>
             <h2 class="text-xl font-bold text-white flex items-center gap-2">
@@ -208,11 +232,26 @@
           </div>
           <span id="exAScoreText" class="text-xs font-bold text-emerald-400 whitespace-nowrap">0 / 25 Correct</span>
         </div>
-      </div>
+          </div>
 
-      <!-- Sentences Container -->
-      <div id="exAList" class="space-y-3">
-        <!-- Rendered via JS -->
+          <!-- Sentences Container -->
+          <div id="exAList" class="space-y-3">
+            <!-- Rendered via JS -->
+          </div>
+        </div>
+        <div class="glass-card rounded-2xl p-5 border border-slate-800 flex flex-col h-[320px] lg:sticky lg:top-[180px] lg:self-start">
+          <div class="flex items-center justify-between pb-3 border-b border-slate-800 mb-3">
+            <h3 class="font-bold text-white text-sm flex items-center gap-2">
+              <i class="fa-solid fa-clipboard-user text-sky-400"></i> Teacher Live Notes
+            </h3>
+            <span class="text-[10px] text-slate-500">Auto-saved</span>
+          </div>
+          <p class="text-xs text-slate-400 mb-3">Zapisujte opravy a zpětnou vazbu během cvičení.</p>
+          <textarea id="teacherNotesExercise" oninput="saveTeacherNotes(this)" placeholder="+ Správná vazba: „z Prahy“&#10;− Oprava: „do město“ → „do města“" class="w-full flex-1 bg-slate-900 border border-slate-800 rounded-xl p-3 text-xs text-slate-200 focus:outline-none focus:border-sky-500 resize-none font-mono"></textarea>
+          <button onclick="appendNotesToHomework()" class="mt-3 w-full py-2 bg-slate-800 hover:bg-slate-700 border border-slate-700 text-slate-200 text-xs font-semibold rounded-xl transition flex items-center justify-center gap-2">
+            <i class="fa-solid fa-arrow-right"></i> Add Notes to Homework Pack
+          </button>
+        </div>
       </div>
     </section>
 
@@ -322,7 +361,7 @@
         </div>
 
         <!-- Right Col: Live Teacher Notepad -->
-        <div class="glass-card rounded-2xl p-5 border border-slate-800 flex flex-col h-full min-h-[500px]">
+        <div class="glass-card rounded-2xl p-5 border border-slate-800 flex flex-col h-full min-h-[500px] lg:sticky lg:top-[180px] lg:self-start">
           <div class="flex items-center justify-between pb-3 border-b border-slate-800 mb-4">
             <h3 class="font-bold text-white text-sm flex items-center gap-2">
               <i class="fa-solid fa-clipboard-user text-sky-400"></i> Teacher Live Notes
@@ -334,7 +373,7 @@
             Log student grammar errors, 2. pád corrections, or style recommendations during essay writing:
           </p>
 
-          <textarea id="teacherNotes" oninput="saveTeacherNotes()" placeholder="e.g.
+          <textarea id="teacherNotes" oninput="saveTeacherNotes(this)" placeholder="e.g.
 + Dobrá fráze: 'Během mého pobytu v Itálii...'
 - Oprava: 'z Francie' -> 'z Francie' (2. pád OK)
 - Pozor na: 'kvůli špatnému počasí' (kvůli + 3. pád vs bez + 2. pád)
@@ -371,6 +410,14 @@
     </section>
 
   </main>
+
+  <aside class="teacher-notes-widget fixed bottom-4 right-4 z-[55] flex h-64 w-80 max-w-[calc(100vw-2rem)] flex-col rounded-2xl border border-sky-500/30 bg-slate-900/95 p-4 shadow-2xl backdrop-blur-md" aria-label="Teacher Live Notes">
+    <div class="mb-2 flex items-center justify-between border-b border-slate-700 pb-2">
+      <h2 class="text-sm font-bold text-white"><i class="fa-solid fa-clipboard-user mr-2 text-sky-400"></i>Teacher Live Notes</h2>
+      <span class="text-[10px] text-slate-400">Auto-saved</span>
+    </div>
+    <textarea id="teacherNotesWidget" class="min-h-0 w-full flex-1 resize-none rounded-lg border border-slate-700 bg-slate-950 p-3 text-xs text-slate-100 focus:border-sky-500 focus:outline-none" oninput="saveTeacherNotes(this)" placeholder="+ Skvělá fráze&#10;− Oprava / doporučení"></textarea>
+  </aside>
 
   <script>
     /* ==========================================================================
@@ -578,8 +625,9 @@
       }
     }
 
-    function enableGenitiveMarking(containerId, countId) {
+    function enableGenitiveMarking(containerId, countId, targetWords = []) {
         const container = document.getElementById(containerId);
+        const targetWordSet = new Set(targetWords.map(word => word.toLocaleLowerCase('cs-CZ')));
         const walker = document.createTreeWalker(container, NodeFilter.SHOW_TEXT);
         const textNodes = [];
         while (walker.nextNode()) {
@@ -593,15 +641,18 @@
               const word = document.createElement('span');
               word.textContent = part;
               word.className = 'genitive-mark-word cursor-pointer rounded px-0.5 hover:bg-amber-900/50';
+              if (targetWordSet.has(part.toLocaleLowerCase('cs-CZ'))) word.dataset.correct = 'true';
               word.setAttribute('role', 'button');
               word.setAttribute('aria-pressed', 'false');
               word.tabIndex = 0;
               const toggle = () => {
                 const marked = word.getAttribute('aria-pressed') !== 'true';
-                word.style.backgroundColor = marked ? 'rgba(251, 191, 36, 0.3)' : '';
-                word.style.color = marked ? '#fef3c7' : '';
-                word.style.outline = marked ? '1px solid rgba(251, 191, 36, 0.7)' : '';
                 word.setAttribute('aria-pressed', String(marked));
+                container.querySelectorAll('.genitive-mark-word').forEach(markedWord => {
+                  markedWord.classList.remove('mark-correct', 'mark-incorrect', 'mark-missed');
+                });
+                const feedback = document.getElementById('genitiveMarkFeedback');
+                if (feedback) feedback.textContent = 'Výběr změněn. Klikněte na „Zkontrolovat“.';
                 updateGenitiveMarkCount(containerId, countId);
               };
               word.addEventListener('click', toggle);
@@ -622,17 +673,58 @@
     }
 
     function updateGenitiveMarkCount(containerId, countId) {
-        const count = document.querySelectorAll(`#${containerId} .genitive-mark-word[aria-pressed="true"]`).length;
-        document.getElementById(countId).textContent = `Označeno: ${count} slov`;
+        const words = [...document.querySelectorAll(`#${containerId} .genitive-mark-word`)];
+        const count = words.filter(word => word.getAttribute('aria-pressed') === 'true').length;
+        const targetCount = words.filter(word => word.dataset.correct === 'true').length;
+        document.getElementById(countId).textContent = targetCount
+          ? `Označeno: ${count} / ${targetCount} slov`
+          : `Označeno: ${count} slov`;
       }
 
-    function clearGenitiveMarks(containerId, countId) {
+    function checkGenitiveMarks(containerId, countId, feedbackId) {
+        const words = [...document.querySelectorAll(`#${containerId} .genitive-mark-word`)];
+        const targets = words.filter(word => word.dataset.correct === 'true');
+        let correct = 0;
+        let incorrect = 0;
+        let missed = 0;
+
+        words.forEach(word => {
+          const selected = word.getAttribute('aria-pressed') === 'true';
+          const isTarget = word.dataset.correct === 'true';
+          word.classList.remove('mark-correct', 'mark-incorrect', 'mark-missed');
+          if (selected && isTarget) {
+            word.classList.add('mark-correct');
+            correct++;
+          } else if (selected) {
+            word.classList.add('mark-incorrect');
+            incorrect++;
+          } else if (isTarget) {
+            word.classList.add('mark-missed');
+            missed++;
+          }
+        });
+
+        const feedback = document.getElementById(feedbackId);
+        feedback.textContent = correct === targets.length && incorrect === 0
+          ? `Výborně! Správně jste označili všech ${targets.length} slov ve 2. pádě.`
+          : `Správně označeno: ${correct} / ${targets.length}. Chybí: ${missed}. Nesprávně označeno: ${incorrect}.`;
+        feedback.className = `text-xs ${correct === targets.length && incorrect === 0 ? 'text-emerald-300' : 'text-amber-300'}`;
+        updateGenitiveMarkCount(containerId, countId);
+      }
+
+    function clearGenitiveMarks(containerId, countId, feedbackId) {
         document.querySelectorAll(`#${containerId} .genitive-mark-word`).forEach(word => {
           word.style.backgroundColor = '';
           word.style.color = '';
           word.style.outline = '';
+          word.classList.remove('mark-correct', 'mark-incorrect', 'mark-missed');
           word.setAttribute('aria-pressed', 'false');
         });
+        const feedback = feedbackId && document.getElementById(feedbackId);
+        if (feedback) {
+          feedback.textContent = 'Najděte správné tvary a potom klikněte na „Zkontrolovat“.';
+          feedback.className = 'text-xs text-slate-400';
+        }
         updateGenitiveMarkCount(containerId, countId);
     }
 
@@ -980,8 +1072,12 @@ ${notes ? notes : "(None recorded)"}
       switchTab('tab-homework');
     }
 
-    function saveTeacherNotes() {
-      localStorage.setItem('czech_b1_lesson2_notes', document.getElementById('teacherNotes').value);
+    function saveTeacherNotes(source = document.getElementById('teacherNotes')) {
+      const notes = source.value;
+      localStorage.setItem('czech_b1_lesson2_notes', notes);
+      document.querySelectorAll('#teacherNotes, #teacherNotesExercise, #teacherNotesWidget').forEach(field => {
+        if (field !== source) field.value = notes;
+      });
       generateHomeworkText();
     }
 
@@ -1044,7 +1140,10 @@ Submit your complete text before our next lesson to :@ucitellukas@gmail.com. Na 
     window.onload = function() {
       renderVocab();
       renderReadingQuiz();
-      enableGenitiveMarking('readingText', 'genitiveMarkCount');
+      enableGenitiveMarking('readingText', 'genitiveMarkCount', [
+        'města', 'Prahy', 'nádraží', 'řeky', 'hotelu', 'historického', 'centra',
+        'okolních', 'vesnic', 'pobytu', 'dovolené', 'krásných', 'zážitků'
+      ]);
       renderExA();
       renderExB();
       renderPhraseChips();
@@ -1053,6 +1152,8 @@ Submit your complete text before our next lesson to :@ucitellukas@gmail.com. Na 
       const savedNotes = localStorage.getItem('czech_b1_lesson2_notes');
       if (savedNotes) {
         document.getElementById('teacherNotes').value = savedNotes;
+        document.getElementById('teacherNotesExercise').value = savedNotes;
+        document.getElementById('teacherNotesWidget').value = savedNotes;
       }
       generateHomeworkText();
     };
