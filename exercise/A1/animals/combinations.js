@@ -230,7 +230,7 @@ window.ANIMAL_DATABASE = {
           declension: { singular: { nom: "had", gen: "hada", dat: "hadovi", acc: "hada", voc: "hade", loc: "hadovi", inst: "hadem" }, plural: { nom: "hadi", gen: "hadů", dat: "hadům", acc: "hady", voc: "hadi", loc: "hadech", inst: "hady" } }
         },
         {
-          id: "zaba", approved: false, nominative: "žába", english: "Frog", gender: "F", symbol: "♀", color: "text-rose-400",
+          id: "zaba", approved: true, nominative: "žába", english: "Frog", gender: "F", symbol: "♀", color: "text-rose-400",
           image: "https://images.unsplash.com/photo-1559253664-ca249d4608c6?auto=format&fit=crop&w=600&q=80",
           declension: { singular: { nom: "žába", gen: "žáby", dat: "žábě", acc: "žábu", voc: "žábo", loc: "žábě", inst: "žábou" }, plural: { nom: "žáby", gen: "žab", dat: "žábám", acc: "žáby", voc: "žáby", loc: "žábách", inst: "žábami" } }
         },
@@ -396,12 +396,12 @@ window.ANIMAL_DATABASE = {
           declension: { singular: { nom: "los", gen: "losa", dat: "losovi", acc: "losa", voc: "lose", loc: "losovi", inst: "losem" }, plural: { nom: "losi", gen: "losů", dat: "losům", acc: "losy", voc: "losi", loc: "losech", inst: "losy" } }
         },
         {
-          id: "opice", approved: false, nominative: "opice", english: "Monkey", gender: "F", symbol: "♀", color: "text-rose-400",
-          image: "https://images.unsplash.com/photo-1540573133985-778788177421?auto=format&fit=crop&w=600&q=80",
+          id: "opice", approved: true, nominative: "opice", english: "Monkey", gender: "F", symbol: "♀", color: "text-rose-400",
+          image: "https://images.unsplash.com/photo-1607317146126-64b09b69eb4e?auto=format&fit=crop&w=600&q=80",
           declension: { singular: { nom: "opice", gen: "opice", dat: "opici", acc: "opici", voc: "opice", loc: "opici", inst: "opicí" }, plural: { nom: "opice", gen: "opic", dat: "opicím", acc: "opice", voc: "opice", loc: "opicích", inst: "opicemi" } }
         },
         {
-          id: "slon", approved: false, nominative: "slon", english: "Elephant", gender: "M_ANIM", symbol: "♂", color: "text-blue-400",
+          id: "slon", approved: true, nominative: "slon", english: "Elephant", gender: "M_ANIM", symbol: "♂", color: "text-blue-400",
           image: "https://images.unsplash.com/photo-1557050543-4d5f4e07ef46?auto=format&fit=crop&w=600&q=80",
           declension: { singular: { nom: "slon", gen: "slona", dat: "slonovi", acc: "slona", voc: "slone", loc: "slonovi", inst: "slonem" }, plural: { nom: "sloni", gen: "slonů", dat: "slonům", acc: "slony", voc: "sloni", loc: "slonech", inst: "slony" } }
         },
@@ -411,7 +411,7 @@ window.ANIMAL_DATABASE = {
           declension: { singular: { nom: "lev", gen: "lva", dat: "lvovi", acc: "lva", voc: "lve", loc: "lvovi", inst: "lvem" }, plural: { nom: "lvi", gen: "lvů", dat: "lvům", acc: "lvy", voc: "lvi", loc: "lvech", inst: "lvy" } }
         },
         {
-          id: "tygr", approved: false, nominative: "tygr", english: "Tiger", gender: "M_ANIM", symbol: "♂", color: "text-blue-400",
+          id: "tygr", approved: true, nominative: "tygr", english: "Tiger", gender: "M_ANIM", symbol: "♂", color: "text-blue-400",
           image: "https://images.unsplash.com/photo-1561731216-c3a4d99437d5?auto=format&fit=crop&w=600&q=80",
           declension: { singular: { nom: "tygr", gen: "tygra", dat: "tygrovi", acc: "tygra", voc: "tygře", loc: "tygrovi", inst: "tygrem" }, plural: { nom: "tygři", gen: "tygrů", dat: "tygrům", acc: "tygry", voc: "tygři", loc: "tygrech", inst: "tygry" } }
         },
@@ -421,7 +421,7 @@ window.ANIMAL_DATABASE = {
           declension: { singular: { nom: "velbloud", gen: "velblouda", dat: "velbloudovi", acc: "velblouda", voc: "velbloude", loc: "velbloudovi", inst: "velbloudem" }, plural: { nom: "velbloudi", gen: "velbloudů", dat: "velbloudům", acc: "velbloudy", voc: "velbloudi", loc: "velbloudech", inst: "velbloudy" } }
         },
         {
-          id: "tucnak", approved: false, nominative: "tučňák", english: "Penguin", gender: "M_ANIM", symbol: "♂", color: "text-blue-400",
+          id: "tucnak", approved: true, nominative: "tučňák", english: "Penguin", gender: "M_ANIM", symbol: "♂", color: "text-blue-400",
           image: "https://images.unsplash.com/photo-1598439210625-5067c578f3f6?auto=format&fit=crop&w=600&q=80",
           declension: { singular: { nom: "tučňák", gen: "tučňáka", dat: "tučňákovi", acc: "tučňáka", voc: "tučňáku", loc: "tučňákovi", inst: "tučňákem" }, plural: { nom: "tučňáci", gen: "tučňáků", dat: "tučňákům", acc: "tučňáky", voc: "tučňáci", loc: "tučňácích", inst: "tučňáky" } }
         },
@@ -597,8 +597,8 @@ window.ANIMAL_DATABASE = {
           declension: { singular: { nom: "hyena", gen: "hyeny", dat: "hyeně", acc: "hyenu", voc: "hyeno", loc: "hyeně", inst: "hyenou" }, plural: { nom: "hyeny", gen: "hyen", dat: "hyenám", acc: "hyeny", voc: "hyeny", loc: "hyenách", inst: "hyenami" } }
         },
         {
-          id: "puma", approved: false, nominative: "puma", english: "Puma", gender: "F", symbol: "♀", color: "text-rose-400",
-          image: "https://images.unsplash.com/photo-1517849845537-4d257902454a?auto=format&fit=crop&w=600&q=80",
+          id: "puma", approved: true, nominative: "puma", english: "Puma", gender: "F", symbol: "♀", color: "text-rose-400",
+          image: "https://plus.unsplash.com/premium_photo-1664304328664-ee6ee2a4412f?auto=format&fit=crop&w=600&q=80",
           declension: { singular: { nom: "puma", gen: "pumy", dat: "pumě", acc: "pumu", voc: "pumo", loc: "pumě", inst: "pumou" }, plural: { nom: "pumy", gen: "pum", dat: "pumám", acc: "pumy", voc: "pumy", loc: "pumách", inst: "pumami" } }
         },
         {
@@ -711,18 +711,140 @@ window.ANIMAL_DATABASE = {
 window.getAnimalsForLevel = function(lvl) {
     const levelData = window.ANIMAL_DATABASE.levels[lvl];
     
-    // If the requested level exists and has animals, return them
+    // Include unchecked animals in the preview so students can enable them.
     if (levelData && levelData.animals) {
-        return levelData.animals.filter(a => a.approved);
+        return levelData.animals;
     }
     
-    // Otherwise return an empty array so other levels don't show A1 animals
     return [];
 };
 
+window.getKnownAnimalsForLevel = function(lvl) {
+  return window.getAnimalsForLevel(lvl).filter(animal =>
+    window.isPracticeWordKnown("animal", animal.id, animal.approved)
+  );
+};
+
+window.getKnownAnimalsThroughLevel = function(lvl) {
+  return Object.keys(window.ANIMAL_DATABASE.levels)
+    .filter(level => Number(level) <= Number(lvl))
+    .flatMap(level => window.getKnownAnimalsForLevel(Number(level)));
+};
+
+const animalAlternativeForms = {
+  pes: { singular: { loc: ["psu"] } },
+  kun: { singular: { loc: ["koňovi"] } },
+  byk: { singular: { loc: ["býku"] } },
+  kohout: { singular: { loc: ["kohoutu"] } },
+  medved: { singular: { loc: ["medvědu"] } },
+  vlk: { singular: { loc: ["vlku"] } },
+  losos: { singular: { loc: ["lososu"] } },
+  uhor: { singular: { loc: ["úhoři"] } },
+  kapr: { singular: { loc: ["kapru"] } },
+  pstruh: { singular: { loc: ["pstruhu"] } },
+  zajic: { singular: { loc: ["zajíci"] } },
+  kralik: { singular: { loc: ["králíku"] } },
+  jezek: { singular: { loc: ["ježku"] } },
+  krecek: { singular: { loc: ["křečku"] } },
+  osel: { singular: { loc: ["oslu"] } },
+  had: { singular: { loc: ["hadu"] } },
+  komar: { singular: { loc: ["komáru"] } },
+  papousek: { singular: { loc: ["papoušku"] } },
+  kanar: { singular: { loc: ["kanáru"] } },
+  orel: { singular: { loc: ["orlu"] } },
+  zralok: { singular: { loc: ["žraloku"] } },
+  delfin: { singular: { loc: ["delfínu"] } },
+  tulen: { singular: { loc: ["tuleňovi"] } },
+  krokodil: { singular: { loc: ["krokodýlu"] } },
+  hroch: { singular: { loc: ["hrochu"] } },
+  nosorozec: { singular: { loc: ["nosorožci"] } },
+  gepard: { singular: { loc: ["gepardu"] } },
+  klokan: { singular: { loc: ["klokanu"] } },
+  jelen: { singular: { loc: ["jelenu"] } },
+  srnec: { singular: { loc: ["srnci"] } },
+  divocak: { singular: { loc: ["divočáku"] } },
+  lisak: { singular: { loc: ["lišáku"] } },
+  netopyr: { singular: { loc: ["netopýru"] } },
+  bobr: { singular: { loc: ["bobru"] } },
+  jezevec: { singular: { loc: ["jezevci"] } },
+  rys: { singular: { loc: ["rysu"] } },
+  los: { singular: { loc: ["losu"] } },
+  slon: { singular: { loc: ["slonu"] } },
+  lev: { singular: { loc: ["lvu"] } },
+  tygr: { singular: { loc: ["tygru"] } },
+  velbloud: { singular: { loc: ["velbloudu"] } },
+  tucnak: { singular: { loc: ["tučňáku"] } },
+  plamenak: { singular: { loc: ["plameňáku"] } },
+  pelikan: { singular: { loc: ["pelikánu"] } },
+  racek: { singular: { loc: ["racku"] } },
+  datel: { singular: { loc: ["datlu"] } },
+  krab: { singular: { loc: ["krabu"] } },
+  humr: { singular: { loc: ["humru"] } },
+  snek: { singular: { loc: ["šneku"] } },
+  mravenec: { singular: { loc: ["mravenci"] } },
+  pavouk: { singular: { loc: ["pavouku"] } },
+  motyl: { singular: { loc: ["motýlu"] } },
+  rejnok: { singular: { loc: ["rejnoku"] } },
+  mlok: { singular: { loc: ["mloku"] } },
+  colek: { singular: { loc: ["čolku"] } },
+  lednacek: { singular: { loc: ["ledňáčku"] } },
+  bazant: { singular: { loc: ["bažantu"] } },
+  cap: { singular: { loc: ["čápu"] } },
+  havran: { singular: { loc: ["havranu"] } },
+  pstros: { singular: { loc: ["pštrosu"] } },
+  sup: { singular: { loc: ["supu"] } },
+  jaguar: { singular: { loc: ["jaguáru"] } },
+  kamzik: { singular: { loc: ["kamzíku"] } },
+  jestrab: { singular: { loc: ["jestřábu"] } },
+  sokol: { singular: { loc: ["sokolu"] } },
+  slephys: { singular: { loc: ["slepýši"] } },
+  tetrev: { singular: { loc: ["tetřevu"] } },
+  srsen: { singular: { loc: ["sršni"] } },
+  lumik: { singular: { loc: ["lumíku"] } }
+};
+
+window.getAnimalForms = function(animal, numberKey, caseKey) {
+  const primaryForm = animal.declension[numberKey][caseKey];
+  const alternateForms =
+    animalAlternativeForms[animal.id]?.[numberKey]?.[caseKey] || [];
+  const dativeAlternatives = caseKey === "dat"
+    ? animalAlternativeForms[animal.id]?.[numberKey]?.loc || []
+    : [];
+  return [...new Set([primaryForm, ...alternateForms, ...dativeAlternatives].filter(Boolean))];
+};
+
 window.generateAnimalQuestion = function(userLevel) {
-  const pool = window.getAnimalsForLevel(userLevel, true);
-  const selectedAnimal = pool[Math.floor(Math.random() * pool.length)];
+  const selectedLevel = Number(userLevel);
+  const levels = window.ANIMAL_DATABASE.levels;
+
+  const currentLevelAnimals = window.getKnownAnimalsForLevel(selectedLevel);
+
+  const lowerLevelAnimals = Object.keys(levels)
+    .filter(levelNumber => Number(levelNumber) < selectedLevel)
+    .flatMap(levelNumber => window.getKnownAnimalsForLevel(Number(levelNumber)));
+
+  let selectedPool;
+
+  // 50% current level, 50% lower levels
+  if (currentLevelAnimals.length > 0 && lowerLevelAnimals.length > 0) {
+    selectedPool = Math.random() < 0.5
+      ? currentLevelAnimals
+      : lowerLevelAnimals;
+  } else if (currentLevelAnimals.length > 0) {
+    // Only current level has available words
+    selectedPool = currentLevelAnimals;
+  } else if (lowerLevelAnimals.length > 0) {
+    // Current level is empty: use animals from lower levels
+    selectedPool = lowerLevelAnimals;
+
+  } else {
+    console.error("No known animals are available for this level.");
+    return null;
+  }
+
+  // Select a random animal from the chosen level
+  const selectedAnimal =
+    selectedPool[Math.floor(Math.random() * selectedPool.length)];
 
   const templates = window.ANIMAL_DATABASE.verbTemplates;
   const selectedTemplate = templates[Math.floor(Math.random() * templates.length)];
@@ -730,8 +852,9 @@ window.generateAnimalQuestion = function(userLevel) {
   const isPlural = Math.random() < 0.2;
   const numberKey = isPlural ? "plural" : "singular";
   const targetCaseKey = selectedTemplate.caseKey;
-  
-  const correctTarget = selectedAnimal.declension[numberKey][targetCaseKey];
+
+  const correctTargets = window.getAnimalForms(selectedAnimal, numberKey, targetCaseKey);
+  const correctTarget = correctTargets[0];
   const sentenceTemplate = selectedTemplate.buildSentence(selectedAnimal, correctTarget, isPlural);
   const fullCorrectSentence = sentenceTemplate.replace("[___]", correctTarget);
 
@@ -742,8 +865,9 @@ window.generateAnimalQuestion = function(userLevel) {
 
   const optionSet = new Set();
   optionSet.add(correctTarget);
-  Object.values(selectedAnimal.declension.singular).forEach(v => optionSet.add(v));
-  Object.values(selectedAnimal.declension.plural).forEach(v => optionSet.add(v));
+  [...Object.values(selectedAnimal.declension.singular), ...Object.values(selectedAnimal.declension.plural)]
+    .filter(form => !correctTargets.includes(form))
+    .forEach(form => optionSet.add(form));
 
   let finalOptions = Array.from(optionSet).slice(0, 4);
   finalOptions.sort(() => Math.random() - 0.5);
@@ -755,6 +879,7 @@ window.generateAnimalQuestion = function(userLevel) {
     sentenceTemplate: sentenceTemplate,
     fullCorrectSentence: fullCorrectSentence,
     correctTarget: correctTarget,
+    correctTargets: correctTargets,
     distractor: distractor,
     options: finalOptions
   };

@@ -39,6 +39,14 @@
         /* Style for the new Breakdown Matrix */
         .group-row { background: #ecf0f1; font-weight: bold; text-align: left !important; }
         .page-row td:first-child { color: #7f8c8d; padding-left: 25px; text-align: left !important; }
+        .matrix-table td.practice-result-correct { color: #18794e; background: #eaf7ef; font-weight: bold; }
+        .matrix-table td.practice-result-incorrect { color: #b42318; background: #fff0ef; font-weight: bold; }
+        .practice-comment-cell { min-width: 230px; }
+        .practice-comment-cell textarea { width: 100%; min-height: 64px; box-sizing: border-box; padding: 8px; border: 1px solid #ccc; border-radius: 6px; font: inherit; resize: vertical; }
+        .practice-feedback-actions { display: flex; align-items: center; gap: 12px; margin: 12px 0 18px; flex-wrap: wrap; }
+        .practice-feedback-actions button { padding: 9px 14px; cursor: pointer; }
+        .practice-feedback-status { color: #475569; }
+        .practice-result-manual { color: #64748b; }
     </style>
 </head>
 <body>
@@ -124,6 +132,16 @@
                 </div>
             </div>
 
+            <div class="report-card">
+                <h4>Case &amp; Tense Practice</h4>
+                <p id="grammar-practice-status">Select a student report to load practice answers.</p>
+                <label for="grammar-practice-test">Exercise</label>
+                <select id="grammar-practice-test" class="filter-select" style="max-width: 100%; margin: 8px 0 16px;" disabled>
+                    <option value="">Select an exercise</option>
+                </select>
+                <div id="grammar-practice-answers"></div>
+            </div>
+
             <div class="report-card" style="background: #fffafa;">
     <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom: 15px;">
         <h4 style="margin:0;">Top Mistakes (Study Tool)</h4>
@@ -152,6 +170,9 @@
     let sortField = 'name';
     let sortAsc = true;
     let myChartInstance = null;
+    let grammarPracticeData = null;
+    let grammarPracticeLoadId = 0;
+    let grammarPracticeDraftTimer = null;
 
     auth.onAuthStateChanged(user => {
         if (user && user.email === 'lukas@hackczech.com') {
@@ -301,6 +322,7 @@
         document.getElementById('report-section').style.display = 'block';
         document.getElementById('report-title').innerText = "Progress: " + (u.name || u.email);
         document.getElementById('report-section').scrollIntoView({ behavior: 'smooth' });
+        loadGrammarPractice(uid);
 
         // 1. New Detailed Activity Matrix
         const detailed = u.detailed_usage || {};
@@ -386,6 +408,348 @@ if (u.mistakes) {
 }
 
 
+    }
+
+    function getGrammarPracticeItems(test) {
+        return test.items.flatMap(item => Array.isArray(item.forms)
+            ? item.forms.map(form => Object.assign({}, item, form))
+            : [item]);
+    }
+
+    function getGrammarPracticeTestLabel(test) {
+        if (test.group === 'cases') {
+            if (test.stage === 'names') return test.caseTitle;
+            const number = test.stage.indexOf('singular') !== -1 ? 'singular' : 'plural';
+            const adjective = test.stage.indexOf('adjective') !== -1 ? ' adjective' : '';
+            return test.caseId.slice('case-'.length) + 'p ' + number + adjective;
+        }
+        return test.title;
+    }
+
+    function loadGrammarPractice(uid) {
+        const requestId = ++grammarPracticeLoadId;
+        const status = document.getElementById('grammar-practice-status');
+        const selector = document.getElementById('grammar-practice-test');
+        const answersContainer = document.getElementById('grammar-practice-answers');
+        status.textContent = 'Loading exercises…';
+        selector.disabled = true;
+        selector.replaceChildren(new Option('Loading exercises…', ''));
+        answersContainer.replaceChildren();
+
+        Promise.all([
+            grammarPracticeData
+                ? Promise.resolve(grammarPracticeData)
+                : fetch('/exercise/practicing_forms/data/exercises.json').then(response => {
+                    if (!response.ok) throw new Error('Exercise data request failed: ' + response.status);
+                    return response.json();
+                }),
+            dbRef.ref('users/' + uid + '/grammar_practice/tests').get(),
+            dbRef.ref('users/' + uid + '/grammar_practice/teacher_comments').get(),
+            dbRef.ref('users/' + uid + '/grammar_practice/teacher_feedback').get()
+        ]).then(([data, snapshot, commentsSnapshot, feedbackSnapshot]) => {
+            if (requestId !== grammarPracticeLoadId) return;
+            grammarPracticeData = data;
+            const savedTests = snapshot.val() || {};
+            const legacyComments = commentsSnapshot.val() || {};
+            const publishedFeedback = feedbackSnapshot.val() || {};
+            const tests = data.tests;
+            selector.replaceChildren(new Option('Select an exercise', ''));
+
+            const orderedTests = tests.slice().sort((left, right) => {
+                if (left.group !== right.group) return left.group === 'cases' ? -1 : 1;
+                if (left.group !== 'cases') return 0;
+                const caseDifference = Number(left.caseId.slice('case-'.length)) -
+                    Number(right.caseId.slice('case-'.length));
+                if (caseDifference) return caseDifference;
+                const stages = ['singular', 'plural', 'adjective-singular', 'adjective-plural', 'names'];
+                return stages.indexOf(left.stage) - stages.indexOf(right.stage);
+            });
+            orderedTests.forEach(test => {
+                const saved = savedTests[test.id] || {};
+                const answers = saved.answers || {};
+                const answered = getGrammarPracticeItems(test).filter(item => {
+                    const answer = answers[item.id];
+                    return answer && String(answer.value || '').trim();
+                }).length;
+                const title = getGrammarPracticeTestLabel(test);
+                const option = new Option(
+                    title + ' (' + answered + '/' + getGrammarPracticeItems(test).length + ')',
+                    test.id
+                );
+                selector.add(option);
+            });
+
+            selector.disabled = tests.length === 0;
+            selector.value = '';
+            let activeTestId = '';
+            status.textContent = tests.length
+                ? 'Choose an exercise to review the student’s answers.'
+                : 'No exercises are available.';
+            selector.onchange = () => {
+                if (activeTestId) {
+                    if (grammarPracticeDraftTimer) {
+                        clearTimeout(grammarPracticeDraftTimer);
+                        grammarPracticeDraftTimer = null;
+                    }
+                    saveGrammarPracticeDraft(uid, activeTestId);
+                }
+                activeTestId = selector.value;
+                if (selector.value) {
+                    status.textContent = 'Review the complete list. Results are marked automatically; comments are sent only when you choose Send.';
+                    renderGrammarPracticeAnswers(
+                        selector.value,
+                        uid,
+                        savedTests,
+                        legacyComments,
+                        publishedFeedback
+                    );
+                } else {
+                    status.textContent = 'Choose an exercise to review the student’s answers.';
+                    answersContainer.replaceChildren();
+                }
+            };
+        }).catch(error => {
+            if (requestId !== grammarPracticeLoadId) return;
+            console.error('Could not load student grammar practice:', error);
+            status.textContent = 'Could not load this student’s saved answers.';
+            selector.replaceChildren(new Option('Could not load exercises', ''));
+        });
+    }
+
+    function grammarPracticeDraftKey(uid, testId) {
+        return 'grammar-practice-feedback-draft:' + uid + ':' + testId;
+    }
+
+    function getGrammarPracticeDraft(uid, testId, legacyComments, published) {
+        try {
+            const savedDraft = localStorage.getItem(grammarPracticeDraftKey(uid, testId));
+            if (savedDraft) {
+                const parsed = JSON.parse(savedDraft);
+                if (parsed && parsed.comments && typeof parsed.comments === 'object') return parsed.comments;
+            }
+        } catch (error) {
+            console.error('Could not read the local teacher feedback draft:', error);
+        }
+
+        if (published && published.items) {
+            const comments = {};
+            Object.keys(published.items).forEach(itemId => {
+                comments[itemId] = published.items[itemId].comment || '';
+            });
+            return comments;
+        }
+
+        const oldTestComments = legacyComments[testId] || {};
+        const comments = {};
+        Object.keys(oldTestComments).forEach(itemId => {
+            const comment = oldTestComments[itemId];
+            comments[itemId] = comment && typeof comment.text === 'string' ? comment.text : '';
+        });
+        return comments;
+    }
+
+    function saveGrammarPracticeDraft(uid, testId) {
+        const container = document.getElementById('grammar-practice-answers');
+        const draftStatus = document.getElementById('grammar-practice-draft-status');
+        if (!container || !draftStatus) return;
+        const comments = {};
+        container.querySelectorAll('.practice-comment-input').forEach(input => {
+            comments[input.dataset.itemId] = input.value;
+        });
+        try {
+            localStorage.setItem(grammarPracticeDraftKey(uid, testId), JSON.stringify({ comments }));
+            draftStatus.textContent = 'Draft saved in this browser. The student cannot see it until you send it.';
+        } catch (error) {
+            console.error('Could not save the local teacher feedback draft:', error);
+            draftStatus.textContent = 'Could not save this draft in the browser. Keep this page open until you send it.';
+        }
+    }
+
+    function normalizePracticeAnswer(value) {
+        return String(value || '').trim().replace(/\s+/g, ' ').toLocaleLowerCase();
+    }
+
+    function renderGrammarPracticeAnswers(testId, uid, savedTests, legacyComments, publishedFeedback) {
+        const container = document.getElementById('grammar-practice-answers');
+        container.replaceChildren();
+        const test = grammarPracticeData.tests.find(item => item.id === testId);
+        if (!test) return;
+
+        const saved = savedTests[test.id] || {};
+        const answers = saved.answers || {};
+        const items = getGrammarPracticeItems(test);
+        const comments = getGrammarPracticeDraft(
+            uid,
+            testId,
+            legacyComments,
+            publishedFeedback[testId]
+        );
+        const answeredItems = items.filter(item => {
+            const answer = answers[item.id];
+            return answer && String(answer.value || '').trim();
+        });
+        const correctCount = answeredItems.filter(item =>
+            !test.manualReview && typeof item.answer === 'string' &&
+            normalizePracticeAnswer(answers[item.id].value) === normalizePracticeAnswer(item.answer)
+        ).length;
+        const incorrectCount = answeredItems.filter(item =>
+            !test.manualReview && typeof item.answer === 'string' &&
+            normalizePracticeAnswer(answers[item.id].value) !== normalizePracticeAnswer(item.answer)
+        ).length;
+        const summary = document.createElement('p');
+        summary.id = 'grammar-practice-summary';
+        summary.textContent = answeredItems.length + ' of ' + items.length + ' answered · ' +
+            correctCount + ' correct · ' + incorrectCount + ' incorrect' +
+            (test.manualReview ? ' · manual review required' : '');
+        container.appendChild(summary);
+
+        const actions = document.createElement('div');
+        actions.className = 'practice-feedback-actions';
+        const sendButton = document.createElement('button');
+        sendButton.type = 'button';
+        sendButton.textContent = publishedFeedback[testId] ? 'Send updated feedback' : 'Send feedback to student';
+        sendButton.disabled = answeredItems.length === 0;
+        const draftStatus = document.createElement('span');
+        draftStatus.id = 'grammar-practice-draft-status';
+        draftStatus.className = 'practice-feedback-status';
+        draftStatus.setAttribute('aria-live', 'polite');
+        draftStatus.textContent = publishedFeedback[testId]
+            ? 'Feedback was sent. Changes you make now stay private until you send again.'
+            : 'Comments will be saved in this browser and stay private until you send them.';
+        actions.append(sendButton, draftStatus);
+        container.appendChild(actions);
+
+        const commentInputs = new Map();
+        const table = document.createElement('table');
+        table.className = 'matrix-table';
+        const head = document.createElement('thead');
+        const headingRow = document.createElement('tr');
+        ['#', 'Question', 'Student answer', 'Correct answer', 'Result', 'Teacher comment'].forEach(label => {
+            const cell = document.createElement('th');
+            cell.textContent = label;
+            headingRow.appendChild(cell);
+        });
+        head.appendChild(headingRow);
+        table.appendChild(head);
+
+        const body = document.createElement('tbody');
+        items.forEach((item, index) => {
+            const response = answers[item.id];
+            const row = document.createElement('tr');
+            const question = test.group === 'tenses'
+                ? item.person + ' + ' + item.verb
+                : test.stage === 'names'
+                    ? 'Oslovte: ' + item.base
+                    : item.prep + (item.adjective ? ' (' + item.adjective + ')' : '') + ' ____ · ' + item.base;
+            const hasResponse = response && String(response.value || '').trim();
+            const result = !response || !String(response.value || '').trim()
+                ? 'Not answered'
+                : !test.manualReview && typeof item.answer === 'string'
+                    ? normalizePracticeAnswer(response.value) === normalizePracticeAnswer(item.answer)
+                        ? 'Correct'
+                        : 'Incorrect'
+                    : 'Manual review';
+            [
+                String(index + 1),
+                question,
+                hasResponse ? response.value : '—',
+                item.answer || '—',
+                result
+            ].forEach((value, columnIndex) => {
+                const cell = document.createElement('td');
+                cell.textContent = value;
+                if (columnIndex === 4 && value === 'Correct') cell.className = 'practice-result-correct';
+                if (columnIndex === 4 && value === 'Incorrect') cell.className = 'practice-result-incorrect';
+                if (columnIndex === 4 && value === 'Manual review') cell.className = 'practice-result-manual';
+                row.appendChild(cell);
+            });
+
+            const commentCell = document.createElement('td');
+            commentCell.className = 'practice-comment-cell';
+            const commentInput = document.createElement('textarea');
+            commentInput.maxLength = 1000;
+            commentInput.className = 'practice-comment-input';
+            commentInput.dataset.itemId = item.id;
+            commentInput.setAttribute('aria-label', 'Teacher comment for question ' + (index + 1));
+            commentInput.value = comments[item.id] || '';
+            commentInputs.set(item.id, commentInput);
+            commentInput.addEventListener('input', () => {
+                draftStatus.textContent = 'Saving private draft…';
+                if (grammarPracticeDraftTimer) clearTimeout(grammarPracticeDraftTimer);
+                grammarPracticeDraftTimer = setTimeout(() => {
+                    grammarPracticeDraftTimer = null;
+                    saveGrammarPracticeDraft(uid, testId);
+                }, 300);
+            });
+            commentCell.appendChild(commentInput);
+            row.appendChild(commentCell);
+            body.appendChild(row);
+        });
+        table.appendChild(body);
+        container.appendChild(table);
+
+        sendButton.addEventListener('click', () => {
+            if (grammarPracticeDraftTimer) {
+                clearTimeout(grammarPracticeDraftTimer);
+                grammarPracticeDraftTimer = null;
+            }
+            saveGrammarPracticeDraft(uid, testId);
+            const feedbackItems = {};
+            let scoreCorrect = 0;
+            let scoreTotal = 0;
+            items.forEach(item => {
+                const response = answers[item.id];
+                if (!response || !String(response.value || '').trim()) return;
+                const canAutoGrade = !test.manualReview && typeof item.answer === 'string';
+                const correct = canAutoGrade &&
+                    normalizePracticeAnswer(response.value) === normalizePracticeAnswer(item.answer);
+                if (canAutoGrade) {
+                    scoreTotal += 1;
+                    if (correct) scoreCorrect += 1;
+                }
+                const comment = comments[item.id] || '';
+                const commentInput = commentInputs.get(item.id);
+                feedbackItems[item.id] = {
+                    studentAnswer: String(response.value).trim(),
+                    correctAnswer: item.answer || '',
+                    result: canAutoGrade ? (correct ? 'correct' : 'incorrect') : 'manual',
+                    comment: commentInput ? commentInput.value.trim() : comment
+                };
+            });
+            const feedback = {
+                items: feedbackItems,
+                score: { correct: scoreCorrect, total: scoreTotal },
+                publishedAt: firebase.database.ServerValue.TIMESTAMP
+            };
+            sendButton.disabled = true;
+            container.querySelectorAll('.practice-comment-input').forEach(input => {
+                input.disabled = true;
+            });
+            draftStatus.textContent = 'Sending feedback…';
+            dbRef.ref(
+                'users/' + uid + '/grammar_practice/teacher_feedback/' + testId
+            ).set(feedback).then(() => {
+                publishedFeedback[testId] = feedback;
+                try {
+                    localStorage.removeItem(grammarPracticeDraftKey(uid, testId));
+                } catch (error) {
+                    console.error('Could not clear the local teacher feedback draft:', error);
+                }
+                draftStatus.textContent = 'Feedback sent. The student can now see the results, correct answers, and comments.';
+                sendButton.textContent = 'Send updated feedback';
+                sendButton.disabled = false;
+                container.querySelectorAll('.practice-comment-input').forEach(input => {
+                    input.disabled = false;
+                });
+            }).catch(error => {
+                console.error('Could not send teacher feedback:', error);
+                draftStatus.textContent = 'Could not send feedback. Your private draft remains saved; please try again.';
+                sendButton.disabled = false;
+                container.querySelectorAll('.practice-comment-input').forEach(input => {
+                    input.disabled = false;
+                });
+            });
+        });
     }
 
     function renderChart(labels, data) {

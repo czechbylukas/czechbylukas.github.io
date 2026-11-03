@@ -293,16 +293,28 @@ window.CZECH_GRAMMAR_DB = {
 
 window.generateCombinationQuestion = function(targetDifficulty, restrictToFirstPerson, mode = "grammar") {
   const db = window.CZECH_GRAMMAR_DB;
-
-  let eligibleVerbs = db.verbs.filter(v => v.level === targetDifficulty);
-  if (eligibleVerbs.length === 0) {
-    eligibleVerbs = db.verbs.filter(v => v.level === 1);
+  const knownVerbs = window.getKnownVerbsThroughLevel(targetDifficulty);
+  const currentLevelVerbs = knownVerbs.filter(v => v.level === Number(targetDifficulty));
+  const lowerLevelVerbs = knownVerbs.filter(v => v.level < Number(targetDifficulty));
+  if (knownVerbs.length === 0) {
+    throw new Error(`No known verbs are available for level ${targetDifficulty}.`);
   }
 
-  let eligibleSubjects = db.subjects;
-  if (restrictToFirstPerson) {
-    eligibleSubjects = db.subjects.filter(s => s.label.includes("Já"));
+  let eligibleVerbs;
+
+  if (currentLevelVerbs.length > 0 && lowerLevelVerbs.length > 0) {
+    eligibleVerbs = Math.random() < 0.5 ? currentLevelVerbs : lowerLevelVerbs;
+  } else if (currentLevelVerbs.length > 0) {
+    eligibleVerbs = currentLevelVerbs;
+  } else if (lowerLevelVerbs.length > 0) {
+    eligibleVerbs = lowerLevelVerbs;
+  } else {
+    eligibleVerbs = knownVerbs;
   }
+
+  const eligibleSubjects = restrictToFirstPerson
+    ? db.subjects.filter(s => s.label.includes("Já"))
+    : db.subjects;
 
   const verbObj = eligibleVerbs[Math.floor(Math.random() * eligibleVerbs.length)];
   const subjectObj = eligibleSubjects[Math.floor(Math.random() * eligibleSubjects.length)];
@@ -410,4 +422,14 @@ window.generateCombinationQuestion = function(targetDifficulty, restrictToFirstP
     targetItem: targetItem,
     options: finalOptions
   };
+};
+
+window.getKnownVerbsThroughLevel = function(level) {
+  const db = window.CZECH_GRAMMAR_DB;
+  return db.verbs.filter(verb =>
+    verb.level <= Number(level) &&
+    Array.isArray(verb.compatibleCategories) &&
+    verb.compatibleCategories.some(category => db.categories[category]?.length) &&
+    window.isPracticeWordKnown("verb", verb.infinitive, true)
+  );
 };

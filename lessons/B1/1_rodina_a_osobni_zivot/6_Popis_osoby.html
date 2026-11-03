@@ -1,0 +1,388 @@
+<!DOCTYPE html>
+<html lang="cs" class="h-full bg-slate-950 text-slate-100">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Czech B1 Mastery: Lekce 6 – Popis osoby: vzhled a povaha</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    body { font-family: Inter, sans-serif; }
+    .glass-card { background:rgba(30,41,59,.76); backdrop-filter:blur(12px); border:1px solid rgba(255,255,255,.08); }
+    .no-scrollbar::-webkit-scrollbar { display:none; }
+    .no-scrollbar { scrollbar-width:none; }
+    .teacher-notes-widget { position:fixed; right:1rem; bottom:1rem; z-index:55; width:19rem; height:14rem; }
+    body main.lesson-main { padding:1.5rem 21rem 16rem 1rem; }
+    .mark-token { border:0; border-bottom:1px dashed #64748b; border-radius:.25rem; padding:0 .12rem; background:transparent; color:inherit; cursor:pointer; }
+    .mark-token.selected { background:#075985; color:#e0f2fe; border-bottom:2px solid #38bdf8; }
+    .mark-token.correct { background:#064e3b; color:#d1fae5; }
+    .mark-token.incorrect { background:#7f1d1d; color:#fee2e2; }
+    .answer-correct { border-color:#10b981 !important; }
+    .answer-incorrect { border-color:#ef4444 !important; }
+    .exercise-actions { bottom:.5rem; }
+    @media (max-width:1023px) {
+      .teacher-notes-widget { right:0; bottom:0; left:0; width:100%; height:10rem; border-radius:1rem 1rem 0 0; background:rgba(15,23,42,.98); }
+      body main.lesson-main { padding:1.5rem 1rem 16rem; }
+      .exercise-actions { bottom:10.5rem; }
+    }
+  </style>
+</head>
+<body class="min-h-full bg-slate-950 text-slate-100 overflow-x-hidden">
+  <header class="sticky top-0 z-50 border-b border-slate-800 bg-slate-900/95 backdrop-blur-md shadow-lg">
+    <div class="mx-auto max-w-7xl px-4 sm:px-6">
+      <div class="flex min-h-16 items-center justify-between gap-3">
+        <div class="flex items-center gap-3">
+          <div class="flex h-10 w-10 items-center justify-center rounded-xl bg-gradient-to-tr from-sky-500 to-indigo-600 text-lg"><i class="fa-solid fa-users"></i></div>
+          <div><h1 class="font-bold text-white">Czech B1 Mastery</h1><p class="text-xs text-sky-400">Lekce 6: Popis osoby: vzhled a povaha</p></div>
+        </div>
+        <a href="../B1_List_of_lessons.html" class="whitespace-nowrap rounded-lg border border-slate-700 bg-slate-800 px-3 py-2 text-xs text-slate-200 hover:bg-slate-700">← Přehled lekcí</a>
+      </div>
+      <nav class="flex gap-1 overflow-x-auto border-t border-slate-800 py-2 no-scrollbar" aria-label="Navigace lekce">
+        <button class="tab-btn rounded-lg bg-sky-600 px-3 py-2 text-xs font-semibold text-white whitespace-nowrap" data-tab="vocab">1. Slovní zásoba</button>
+        <button class="tab-btn rounded-lg px-3 py-2 text-xs font-semibold text-slate-400 whitespace-nowrap" data-tab="exA">2. Cvičení A</button>
+        <button class="tab-btn rounded-lg px-3 py-2 text-xs font-semibold text-slate-400 whitespace-nowrap" data-tab="exB">3. Cvičení B</button>
+        <button class="tab-btn rounded-lg px-3 py-2 text-xs font-semibold text-slate-400 whitespace-nowrap" data-tab="tool">4. Procvičování</button>
+        <button class="tab-btn rounded-lg px-3 py-2 text-xs font-semibold text-slate-400 whitespace-nowrap" data-tab="homework">5. Domácí úkol</button>
+      </nav>
+    </div>
+  </header>
+
+  <main class="lesson-main mx-auto max-w-7xl">
+    <section id="tab-vocab" class="tab-panel space-y-6">
+      <div class="glass-card rounded-2xl p-5">
+        <div class="flex flex-col justify-between gap-4 lg:flex-row lg:items-center">
+          <div><h2 class="text-xl font-bold"><i class="fa-solid fa-book-open mr-2 text-sky-400"></i>Slovní zásoba: 21 výrazů</h2><p class="mt-1 text-sm text-slate-400">Neutrálně popsat vzhled a povahu a klást otázky v aktivitě Hádej, kdo jsem</p></div>
+          <div class="flex flex-col gap-2 sm:flex-row">
+            <input id="vocabSearch" type="search" placeholder="Hledat česky nebo anglicky…" class="rounded-lg border border-slate-700 bg-slate-900 px-3 py-2 text-sm" aria-label="Hledat slovní zásobu">
+            <div class="flex gap-1 overflow-x-auto">
+              <button class="filter-btn rounded-lg bg-sky-700 px-2 py-2 text-xs" data-filter="all">Vše</button>
+              <button class="filter-btn rounded-lg bg-slate-800 px-2 py-2 text-xs" data-filter="noun">Podstatná</button>
+              <button class="filter-btn rounded-lg bg-slate-800 px-2 py-2 text-xs" data-filter="verb">Slovesa</button>
+              <button class="filter-btn rounded-lg bg-slate-800 px-2 py-2 text-xs" data-filter="adj">Přídavná</button>
+              <button class="filter-btn rounded-lg bg-slate-800 px-2 py-2 text-xs" data-filter="phrase">Fráze</button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div id="vocabGrid" class="grid gap-3 sm:grid-cols-2 xl:grid-cols-3"></div>
+      <div class="glass-card space-y-4 rounded-2xl p-5">
+        <div class="flex flex-wrap items-center justify-between gap-3">
+          <div><h2 class="text-xl font-bold">Modelový text</h2><p class="mt-1 text-sm text-slate-400"><strong class="text-sky-300">Student čte nahlas.</strong> Označ přesně 4 příklady cílového jevu: Shoda přídavných jmen a popis osoby v přítomném čase. Začni bez označení, potom vyber příklady a stiskni Kontrola.</p></div>
+          <button id="speakModel" class="rounded-lg bg-slate-800 px-3 py-2 text-sm hover:bg-slate-700"><i class="fa-solid fa-volume-high mr-1"></i> Poslechnout</button>
+        </div>
+        <p id="modelText" class="rounded-xl border border-slate-800 bg-slate-900/80 p-4 text-base leading-8"></p>
+        <div class="flex flex-wrap items-center gap-2">
+          <button id="checkMarks" class="rounded-lg bg-sky-700 px-4 py-2 text-sm font-bold hover:bg-sky-600">Zkontrolovat označení</button>
+          <button id="clearMarks" class="rounded-lg bg-slate-800 px-4 py-2 text-sm hover:bg-slate-700">Zrušit výběr</button>
+          <span id="markFeedback" class="text-sm text-slate-300" aria-live="polite"></span>
+        </div>
+      </div>
+      <div class="glass-card space-y-4 rounded-2xl p-5">
+        <div><h2 class="text-xl font-bold">Kvíz k porozumění</h2><p class="mt-1 text-sm text-slate-400">Odpověz na každou otázku. Možnosti A–D se při načtení stránky zamíchají.</p></div>
+        <div id="quizList" class="space-y-4"></div>
+        <div class="flex flex-wrap items-center gap-3"><button id="checkQuiz" class="rounded-lg bg-sky-700 px-4 py-2 text-sm font-bold hover:bg-sky-600">Zkontrolovat kvíz</button><button id="resetQuiz" class="rounded-lg bg-slate-800 px-4 py-2 text-sm hover:bg-slate-700">Vymazat odpovědi</button><span id="quizFeedback" class="text-sm" aria-live="polite"></span></div>
+      </div>
+    </section>
+
+    <section id="tab-exA" class="tab-panel hidden space-y-5">
+      <div class="glass-card rounded-2xl p-5"><h2 class="text-xl font-bold">Cvičení A: Doplňování</h2><p class="mt-1 text-sm text-slate-400">Doplň správný tvar slovesa v minulém čase. Nápověda uvádí sloveso v infinitivu.</p><p id="exAProgress" class="mt-3 text-sm text-sky-300">Vyplněno 0 z 25</p></div>
+      <div id="exAList" class="space-y-3"></div>
+      <div class="exercise-actions sticky z-10 flex flex-wrap gap-2 rounded-xl border border-slate-700 bg-slate-900/95 p-3 backdrop-blur">
+        <button id="checkExA" class="rounded-lg bg-sky-700 px-4 py-2 text-sm font-bold">Zkontrolovat</button><button id="revealExA" class="rounded-lg bg-amber-700 px-4 py-2 text-sm font-bold">Ukázat řešení</button><button id="resetExA" class="rounded-lg bg-slate-700 px-4 py-2 text-sm font-bold">Začít znovu</button><span id="exAFeedback" class="self-center text-sm" aria-live="polite"></span>
+      </div>
+    </section>
+
+    <section id="tab-exB" class="tab-panel hidden space-y-5">
+      <div class="glass-card rounded-2xl p-5"><h2 class="text-xl font-bold">Cvičení B: Rozvíjení vět</h2><p class="mt-1 text-sm text-slate-400">U každého úkolu nejdřív přečti výchozí větu, potom proveď zadanou změnu nebo doplnění. Napiš svou verzi, zkontroluj kritérium a podle potřeby odkryj modelovou odpověď.</p><p id="exBProgress" class="mt-3 text-sm text-sky-300">Hotovo 0 z 10</p></div>
+      <div id="exBList" class="space-y-3"></div>
+      <div class="exercise-actions sticky z-10 flex flex-wrap gap-2 rounded-xl border border-slate-700 bg-slate-900/95 p-3 backdrop-blur">
+        <button id="checkExB" class="rounded-lg bg-sky-700 px-4 py-2 text-sm font-bold">Zkontrolovat postup</button><button id="resetExB" class="rounded-lg bg-slate-700 px-4 py-2 text-sm font-bold">Vymazat odpovědi</button><span id="exBFeedback" class="self-center text-sm" aria-live="polite"></span>
+      </div>
+    </section>
+
+    <section id="tab-tool" class="tab-panel hidden space-y-5">
+      <div class="glass-card space-y-4 rounded-2xl p-5">
+        <h2 class="text-xl font-bold"><i class="fa-solid fa-comments mr-2 text-sky-400"></i>Procvičovací studio</h2>
+        <p class="text-sm leading-6 text-slate-300">Použij toto pole k přípravě krátkého mluveného projevu nebo dialogu k cíli lekce: <strong>Neutrálně popsat vzhled a povahu a klást otázky v aktivitě Hádej, kdo jsem</strong> Napiš 6–8 vět, přečti je nahlas nebo použij tlačítko Poslechnout. Kontrola slov počítá rozsah textu; obsah si ověř sám/sama.</p>
+        <div class="rounded-xl border border-slate-800 bg-slate-900 p-4"><p class="text-sm font-bold text-sky-300">Cvičná aktivita</p><p class="mt-2 text-sm leading-6">Vyber známou nebo vymyšlenou osobu. Partner ji hádá pomocí otázek ano/ne; odpovídej pouze ANO nebo NE a střídejte se.</p></div>
+        <textarea id="practiceText" rows="8" class="w-full rounded-xl border border-slate-700 bg-slate-950 p-4 text-sm leading-6 focus:border-sky-500 focus:outline-none" placeholder="Napiš si vlastní odpověď nebo dialog…"></textarea>
+        <div class="flex flex-wrap items-center gap-2"><button id="speakPractice" class="rounded-lg bg-sky-700 px-4 py-2 text-sm font-bold">Poslechnout text</button><button id="clearPractice" class="rounded-lg bg-slate-800 px-4 py-2 text-sm">Vymazat</button><span id="practiceCount" class="text-sm text-slate-400">0 slov</span><span id="practiceStatus" class="text-sm" aria-live="polite"></span></div>
+      </div>
+    </section>
+
+    <section id="tab-homework" class="tab-panel hidden space-y-5">
+      <div class="glass-card space-y-4 rounded-2xl p-5">
+        <h2 class="text-xl font-bold"><i class="fa-solid fa-house-chimney-user mr-2 text-sky-400"></i>Domácí úkol: Popis osoby: vzhled a povaha</h2>
+        <p class="text-slate-200">Popiš kamaráda, známou osobu nebo vymyšlenou postavu. Piš neutrálně a s respektem.</p>
+        <div class="grid gap-4 md:grid-cols-2">
+          <div class="rounded-xl border border-slate-800 bg-slate-900 p-4"><h3 class="font-bold text-sky-300">Osnova</h3><p class="mt-2 whitespace-pre-line text-sm leading-6">1. Představ osobu.
+2. Popiš vlasy, oči, postavu a oblečení.
+3. Popiš dvě vlastnosti příkladem.
+4. Vysvětli, proč sis osobu vybral/a.</p></div>
+          <div class="rounded-xl border border-slate-800 bg-slate-900 p-4"><h3 class="font-bold text-sky-300">Užitečné fráze</h3><p class="mt-2 whitespace-pre-line text-sm leading-6">Je vysoký/vysoká a má…
+Na sobě má…
+Působí jako…
+Je …, protože…</p></div>
+        </div>
+        <div class="rounded-xl border border-amber-700/40 bg-amber-950/30 p-4 text-sm"><p><strong>Rozsah:</strong> 120–150 slov.</p><p class="mt-2"><strong>Odevzdání:</strong> Až text dokončíš, přidej ho jako komentář k zadání, označ lukas@hackczech.com a zaškrtni „Assign task“.</p></div>
+        <label for="homeworkDraft" class="block text-sm font-bold">Pracovní koncept (ukládá se v tomto prohlížeči)</label>
+        <textarea id="homeworkDraft" rows="8" class="w-full rounded-xl border border-slate-700 bg-slate-950 p-4 text-sm leading-6 focus:border-sky-500 focus:outline-none" placeholder="Začni psát koncept domácího úkolu…"></textarea>
+        <div class="flex flex-wrap items-center gap-3"><span id="homeworkCount" class="text-sm text-slate-400">0 slov</span><span id="homeworkStatus" class="text-sm text-slate-400" aria-live="polite"></span><button id="clearHomework" class="rounded-lg bg-slate-800 px-3 py-2 text-sm">Vymazat koncept</button></div>
+      </div>
+    </section>
+  </main>
+
+  <aside class="teacher-notes-widget glass-card flex flex-col rounded-2xl p-3 shadow-2xl" aria-label="Teacher Live Notes">
+    <label for="teacherNotes" class="mb-2 flex items-center justify-between text-sm font-bold"><span><i class="fa-solid fa-pen-to-square mr-2 text-sky-400"></i>Teacher Live Notes</span><span id="notesStatus" class="text-[10px] font-normal text-emerald-300" aria-live="polite">Automaticky uložené</span></label>
+    <textarea id="teacherNotes" class="min-h-0 flex-1 resize-none rounded-lg border border-slate-700 bg-slate-950 p-3 text-xs leading-5 text-slate-100 focus:border-sky-500 focus:outline-none" placeholder="Zapište krátkou zpětnou vazbu; poznámky se ukládají jen v tomto prohlížeči."></textarea>
+  </aside>
+
+  <script>
+    const DATA = {"number":6,"title":"Popis osoby: vzhled a povaha","focus":"Neutrálně popsat vzhled a povahu a klást otázky v aktivitě Hádej, kdo jsem","grammar":"Shoda přídavných jmen a popis osoby v přítomném čase","mark":4,"model":"Můj kamarád Daniel je vysoký a má **štíhlou postavu**. **Má krátké, rovné vlasy** a hnědé oči. Když pracuje, nosí brýle; o víkendu je často nemá. Na sobě má obvykle pohodlné oblečení, například tričko a džíny. Na první pohled působí klidně, ale je také **veselý a velmi pracovitý**. **Jeho sestra má dlouhé kudrnaté vlasy** a nosí barevné šaty. Vzhled nám může pomoci člověka poznat, ale o jeho povaze se dozvíme až při rozhovoru. V aktivitě Hádej, kdo jsem proto kladu otázky, na které lze odpovědět ano nebo ne. Nepoužívám otázky, které by mohly být příliš osobní.","vocab":[{"cz":"vypadat","en":"to look, appear","category":"verb","pos":"sloveso","example":"Moje kamarádka vypadá velmi sympaticky.","answer":"vypadá","hint":"přítomný čas"},{"cz":"vysoký","en":"tall","category":"adj","pos":"přídavné jméno","example":"Můj bratr je vysoký a štíhlý.","answer":"vysoký","hint":"mužský rod"},{"cz":"malý","en":"small, short","category":"adj","pos":"přídavné jméno","example":"Její syn je ještě malý.","answer":"malý","hint":"mužský rod"},{"cz":"štíhlý","en":"slim","category":"adj","pos":"přídavné jméno","example":"Její sestra je štíhlá.","answer":"štíhlá","hint":"ženský rod"},{"cz":"plnoštíhlý","en":"full-figured","category":"adj","pos":"přídavné jméno","example":"Jeho maminka je plnoštíhlá.","answer":"plnoštíhlá","hint":"ženský rod"},{"cz":"blond","en":"blond","category":"adj","pos":"přídavné jméno","example":"Má blond vlasy.","answer":"blond","hint":"nesklonné přídavné jméno"},{"cz":"rezavý","en":"red-haired","category":"adj","pos":"přídavné jméno","example":"Její bratr má rezavé vlasy.","answer":"rezavé","hint":"množné číslo"},{"cz":"šedivý","en":"grey-haired","category":"adj","pos":"přídavné jméno","example":"Dědeček má šedivé vlasy.","answer":"šedivé","hint":"množné číslo"},{"cz":"kudrnatý","en":"curly","category":"adj","pos":"přídavné jméno","example":"Má krátké kudrnaté vlasy.","answer":"kudrnaté","hint":"množné číslo"},{"cz":"dlouhý","en":"long","category":"adj","pos":"přídavné jméno","example":"Moje sestra má dlouhé vlasy.","answer":"dlouhé","hint":"množné číslo"},{"cz":"krátký","en":"short","category":"adj","pos":"přídavné jméno","example":"Nosí krátké vlasy.","answer":"krátké","hint":"množné číslo"},{"cz":"rovný","en":"straight","category":"adj","pos":"přídavné jméno","example":"Má rovné vlasy a modré oči.","answer":"rovné","hint":"množné číslo"},{"cz":"vlasy","en":"hair","category":"noun","pos":"podstatné jméno","example":"Její vlasy jsou dlouhé a tmavé.","answer":"vlasy","hint":"množné číslo"},{"cz":"oči","en":"eyes","category":"noun","pos":"podstatné jméno","example":"Má zelené oči.","answer":"oči","hint":"množné číslo"},{"cz":"brýle","en":"glasses","category":"noun","pos":"podstatné jméno","example":"Každý den nosí brýle.","answer":"brýle","hint":"množné číslo"},{"cz":"vousy","en":"beard","category":"noun","pos":"podstatné jméno","example":"Jeho vousy jsou krátké.","answer":"vousy","hint":"množné číslo"},{"cz":"knír","en":"moustache","category":"noun","pos":"podstatné jméno","example":"Dědeček nosí šedý knír.","answer":"knír","hint":"mužský rod"},{"cz":"postava","en":"figure, build","category":"noun","pos":"podstatné jméno","example":"Má sportovní postavu.","answer":"postavu","hint":"4. pád"},{"cz":"hezký","en":"pretty, nice","category":"adj","pos":"přídavné jméno","example":"Je to hezká a milá žena.","answer":"hezká","hint":"ženský rod"},{"cz":"sympatický","en":"likeable","category":"adj","pos":"přídavné jméno","example":"Působí jako sympatický člověk.","answer":"sympatický","hint":"mužský rod"},{"cz":"mít na sobě","en":"to wear","category":"verb","pos":"sloveso","example":"Na sobě má modrou košili.","answer":"Na sobě má","hint":"ustálené spojení"}],"extra":[{"sentence":"Moje sestra je ___.","answer":"vysoká","hint":"ženský rod"},{"sentence":"Má ___ oči.","answer":"zelené","hint":"množné číslo"},{"sentence":"Na sobě ___ modré tričko.","answer":"má","hint":"mít na sobě"},{"sentence":"Můj dědeček má ___ vlasy.","answer":"šedivé","hint":"množné číslo"}],"upgrades":[{"start":"Má vlasy.","change":"Přidej délku, tvar nebo barvu vlasů.","success":"Použij přídavné jméno ve správném tvaru.","hint":"Například: dlouhé, krátké, rovné, kudrnaté.","model":"Má dlouhé, kudrnaté vlasy."},{"start":"Je vysoký.","change":"Doplň jednu další neutrální informaci o vzhledu.","success":"Použij přídavné jméno shodné s mužským rodem.","hint":"Můžeš popsat postavu.","model":"Je vysoký a má štíhlou postavu."},{"start":"Nosí oblečení.","change":"Uveď konkrétní kus oblečení a barvu.","success":"Použij vazbu „mít na sobě“.","hint":"Například „Na sobě má…“.","model":"Na sobě má modrou košili a černé kalhoty."},{"start":"Má oči.","change":"Doplň barvu očí a další rys.","success":"Udrž shodu v množném čísle.","hint":"Barva očí: hnědé, modré nebo zelené.","model":"Má zelené oči a krátké blond vlasy."},{"start":"Vypadá sympaticky.","change":"Přidej povahovou vlastnost a příklad chování.","success":"Odděl vzhled a povahu do dvou vět.","hint":"Můžeš začít „Působí…“.","model":"Vypadá sympaticky. Je také klidný a vždy pozorně poslouchá."},{"start":"Její vlasy jsou dlouhé.","change":"Přidej barvu nebo tvar vlasů.","success":"Použij dvě přídavná jména v množném čísle.","hint":"Pozor na tvar „rovné/kudrnaté“.","model":"Její vlasy jsou dlouhé a rovné."},{"start":"Má brýle.","change":"Uveď, kdy je nosí.","success":"Použij přítomný čas a časové určení.","hint":"Například „při práci“.","model":"Brýle nosí hlavně při práci na počítači."},{"start":"Popiš kamaráda.","change":"Uveď tři viditelné rysy bez hodnocení.","success":"Napiš krátký souvislý popis osoby.","hint":"Zahrň výšku, vlasy a oblečení.","model":"Můj kamarád je vysoký, má krátké tmavé vlasy a často nosí sportovní oblečení."},{"start":"Popiš kamarádku.","change":"Uveď vzhled a jednu vlastnost.","success":"Dbej na ženský rod přídavných jmen.","hint":"Například „je veselá“.","model":"Moje kamarádka je štíhlá, má dlouhé vlasy a je velmi veselá."},{"start":"Hádej, kdo jsem.","change":"Vytvoř tři ano/ne otázky o vzhledu.","success":"Otázky musí být jednoznačné a ne příliš osobní.","hint":"Začni „Má…?“ nebo „Nosí…?“.","model":"Má tato osoba brýle? Má dlouhé vlasy? Nosí obvykle klobouk?"}],"quiz":[{"question":"Jakou postavu má Daniel?","options":["Štíhlou.","Plnoštíhlou.","Malou.","Sportovní."],"correct":"Štíhlou."},{"question":"Kdy Daniel obvykle nosí brýle?","options":["Když pracuje.","O víkendu.","Když sportuje.","Večer."],"correct":"Když pracuje."},{"question":"Jaké vlasy má Danielova sestra?","options":["Dlouhé kudrnaté.","Krátké rovné.","Krátké blond.","Dlouhé šedivé."],"correct":"Dlouhé kudrnaté."}],"exercises":[{"sentence":"Na staré fotografii můj dědeček ___ mladě.","answer":"vypadal","hint":"vypadat"},{"sentence":"Když byl mladý, ___ krátké vlasy.","answer":"měl","hint":"mít"},{"sentence":"Často ___ brýle.","answer":"nosil","hint":"nosit"},{"sentence":"Na svatbě ___ tmavý oblek.","answer":"měl na sobě","hint":"mít na sobě"},{"sentence":"Jeho sestra ___ dlouhé kudrnaté vlasy.","answer":"měla","hint":"mít"},{"sentence":"Na fotografii ___ velmi veselá.","answer":"vypadala","hint":"vypadat"},{"sentence":"Moje babička ___ štíhlou postavu.","answer":"měla","hint":"mít"},{"sentence":"Jako dítě ___ tichá a klidná.","answer":"byla","hint":"být"},{"sentence":"Můj otec ___ vysoký a hubený.","answer":"byl","hint":"být"},{"sentence":"V mládí ___ fotbal každý týden.","answer":"hrál","hint":"hrát"},{"sentence":"Moje maminka ___ jako zdravotní sestra.","answer":"pracovala","hint":"pracovat"},{"sentence":"V práci ___ vždy velmi pečlivá.","answer":"byla","hint":"být"},{"sentence":"Její kolegové ji ___ jako milou.","answer":"popisovali","hint":"popisovat"},{"sentence":"Můj strýc ___ knír.","answer":"nosil","hint":"nosit"},{"sentence":"Na rodinné oslavě ___ veselý příběh.","answer":"vyprávěl","hint":"vyprávět"},{"sentence":"Moje teta ___ červené šaty.","answer":"měla na sobě","hint":"mít na sobě"},{"sentence":"Její děti ___ po zahradě.","answer":"běhaly","hint":"běhat"},{"sentence":"Dědeček ___ klidný a trpělivý.","answer":"býval","hint":"bývat"},{"sentence":"Babička ___ každému, kdo potřeboval pomoc.","answer":"pomohla","hint":"pomoci"},{"sentence":"Jako mladý muž ___ v malém bytě.","answer":"bydlel","hint":"bydlet"},{"sentence":"Moji rodiče se ___ na univerzitě.","answer":"poznali","hint":"poznat se"},{"sentence":"Maminka se ___ z Polska do Česka.","answer":"přestěhovala","hint":"přestěhovat se"},{"sentence":"Otec ___ německy a anglicky.","answer":"mluvil","hint":"mluvit"},{"sentence":"Moje sestra ___ podobně jako naše babička.","answer":"vypadala","hint":"vypadat"},{"sentence":"Na posledním setkání jsme si ___ staré fotografie.","answer":"prohlíželi","hint":"prohlížet si"}]};
+    const NOTES_KEY = "cz_b1_l" + DATA.number + "_notes";
+    const $ = (selector, root = document) => root.querySelector(selector);
+    const $$ = (selector, root = document) => [...root.querySelectorAll(selector)];
+    const escapeHtml = value => String(value).replace(/[&<>"']/g, char => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[char]));
+    const shuffle = values => {
+      const result = [...values];
+      for (let i = result.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [result[i], result[j]] = [result[j], result[i]];
+      }
+      return result;
+    };
+    const normalize = value => value.trim().toLocaleLowerCase("cs-CZ").replace(/[.!?,;:]+$/g, "").replace(/\s+/g, " ");
+    const wordCount = value => value.trim() ? value.trim().split(/\s+/).length : 0;
+    let activeFilter = "all";
+
+    function switchTab(name) {
+      $$(".tab-panel").forEach(panel => panel.classList.toggle("hidden", panel.id !== "tab-" + name));
+      $$(".tab-btn").forEach(button => {
+        const active = button.dataset.tab === name;
+        button.classList.toggle("bg-sky-600", active);
+        button.classList.toggle("text-white", active);
+        button.classList.toggle("text-slate-400", !active);
+        button.setAttribute("aria-selected", String(active));
+      });
+    }
+
+    function speakText(text, statusId) {
+      if (!("speechSynthesis" in window)) {
+        if (statusId) $("#" + statusId).textContent = "Přehrávání řeči není v tomto prohlížeči dostupné.";
+        return;
+      }
+      window.speechSynthesis.cancel();
+      const utterance = new SpeechSynthesisUtterance(text);
+      utterance.lang = "cs-CZ";
+      window.speechSynthesis.speak(utterance);
+    }
+
+    function renderVocab() {
+      const query = $("#vocabSearch").value.trim().toLocaleLowerCase("cs-CZ");
+      const items = DATA.vocab.filter(item => (activeFilter === "all" || item.category === activeFilter) &&
+        (query === "" || item.cz.toLocaleLowerCase("cs-CZ").includes(query) ||
+          item.en.toLocaleLowerCase("cs-CZ").includes(query) || item.example.toLocaleLowerCase("cs-CZ").includes(query) ||
+          (item.note || "").toLocaleLowerCase("cs-CZ").includes(query)));
+      $("#vocabGrid").innerHTML = items.length ? items.map(item => `
+        <article class="glass-card rounded-xl p-4">
+          <div class="flex items-start justify-between gap-2">
+            <div class="flex items-center gap-2"><button class="speak-word rounded-lg bg-sky-900/60 px-2.5 py-2 text-sky-300" data-speak="${escapeHtml(item.cz)}" aria-label="Přehrát ${escapeHtml(item.cz)}"><i class="fa-solid fa-volume-high"></i></button><h3 class="font-bold">${escapeHtml(item.cz)}</h3></div>
+            <span class="rounded-full bg-slate-800 px-2 py-1 text-[10px] text-slate-300">${escapeHtml(item.pos)}</span>
+          </div>
+          <p class="mt-2 text-sm text-sky-300">${escapeHtml(item.en)}</p>
+          <p class="mt-3 rounded-lg bg-slate-900 p-3 text-sm italic leading-6 text-slate-300">${escapeHtml(item.example)}</p>
+          ${item.note ? `<p class="mt-2 text-xs leading-5 text-amber-200">${escapeHtml(item.note)}</p>` : ""}
+        </article>`).join("") : `<p class="col-span-full py-8 text-center text-slate-400">Žádná slovíčka neodpovídají hledání.</p>`;
+    }
+
+    function renderModel() {
+      const pieces = DATA.model.split(/(\*\*.*?\*\*)/g);
+      $("#modelText").innerHTML = pieces.map(piece => piece.startsWith("**") && piece.endsWith("**")
+        ? `<button class="mark-token" type="button" aria-pressed="false">${escapeHtml(piece.slice(2, -2))}</button>`
+        : escapeHtml(piece)).join("");
+    }
+
+    function renderQuiz() {
+      $("#quizList").innerHTML = DATA.quiz.map((item, index) => `
+        <fieldset class="rounded-xl border border-slate-800 bg-slate-900/70 p-4">
+          <legend class="px-1 font-bold">${index + 1}. ${escapeHtml(item.question)}</legend>
+          <div class="mt-3 grid gap-2 sm:grid-cols-2">${shuffle(item.options).map((option, optionIndex) => `
+            <label class="flex cursor-pointer gap-2 rounded-lg border border-slate-800 p-3 text-sm hover:bg-slate-800">
+              <input type="radio" name="quiz-${index}" value="${escapeHtml(option)}"><span><b>${String.fromCharCode(65 + optionIndex)}.</b> ${escapeHtml(option)}</span>
+            </label>`).join("")}</div>
+        </fieldset>`).join("");
+    }
+
+    function renderExercises() {
+      const exercises = DATA.exercises;
+      $("#exAList").innerHTML = exercises.map((item, index) => {
+        const parts = item.sentence.split("___");
+        const width = Math.min(280, Math.max(100, item.answer.length * 11 + 20));
+        return `<article class="glass-card rounded-xl p-4">
+          <div class="flex flex-col gap-3 md:flex-row md:items-center">
+            <p class="flex-1 text-sm leading-8 sm:text-base"><b class="mr-2 text-sky-300">${index + 1}.</b>${escapeHtml(parts[0])}<input class="exA-input mx-1 inline-block rounded-lg border border-slate-600 bg-slate-950 px-2 py-1 text-center text-sky-200" style="width:${width}px" data-answer="${escapeHtml(item.answer)}" aria-label="Odpověď ${index + 1}">${escapeHtml(parts.slice(1).join("___"))}</p>
+            <span class="rounded-lg bg-slate-900 px-3 py-2 text-xs text-amber-200">Nápověda: ${escapeHtml(item.hint)}</span>
+          </div><p class="exA-result mt-2 text-xs" aria-live="polite"></p></article>`;
+      }).join("");
+      $("#exBList").innerHTML = DATA.upgrades.map((item, index) => `
+        <article class="glass-card space-y-3 rounded-xl p-4" data-upgrade="${index}">
+          <div class="grid gap-2 text-sm sm:grid-cols-2">
+            <p class="rounded-lg bg-slate-900 p-3"><b class="text-sky-300">Začínáš:</b> ${escapeHtml(item.start)}</p>
+            <p class="rounded-lg bg-slate-900 p-3"><b class="text-sky-300">Změň / doplň:</b> ${escapeHtml(item.change)}</p>
+          </div>
+          <p class="text-sm text-slate-300"><b>Úspěšná odpověď:</b> ${escapeHtml(item.success)}</p>
+          <p class="text-xs text-amber-200"><b>Nápověda:</b> ${escapeHtml(item.hint)}</p>
+          <textarea class="upgrade-input w-full rounded-lg border border-slate-700 bg-slate-950 p-3 text-sm leading-6" rows="2" placeholder="Napiš svou rozšířenou větu…"></textarea>
+          <div class="flex flex-wrap items-center gap-2"><button class="reveal-model rounded-lg bg-slate-800 px-3 py-2 text-xs font-bold">Ukázat model</button><span class="upgrade-result text-xs" aria-live="polite"></span></div>
+          <p class="upgrade-model hidden rounded-lg border border-emerald-800/60 bg-emerald-950/30 p-3 text-sm leading-6"><b>Modelová odpověď:</b> ${escapeHtml(item.model)}</p>
+        </article>`).join("");
+      updateExAProgress();
+      updateExBProgress();
+    }
+
+    function updateExAProgress() {
+      const inputs = $$(".exA-input");
+      const filled = inputs.filter(input => input.value.trim()).length;
+      $("#exAProgress").textContent = `Vyplněno ${filled} z ${inputs.length}`;
+    }
+    function checkExA() {
+      let correct = 0;
+      $$(".exA-input").forEach(input => {
+        const ok = normalize(input.value) === normalize(input.dataset.answer);
+        input.classList.toggle("answer-correct", ok);
+        input.classList.toggle("answer-incorrect", !ok);
+        input.closest("article").querySelector(".exA-result").textContent = ok ? "Správně." : "Zkontroluj tvar a nápovědu.";
+        input.closest("article").querySelector(".exA-result").className = "exA-result mt-2 text-xs " + (ok ? "text-emerald-300" : "text-rose-300");
+        if (ok) correct++;
+      });
+      $("#exAFeedback").textContent = `Správně: ${correct} z ${$$(".exA-input").length}.`;
+    }
+    function revealExA() {
+      $$(".exA-input").forEach(input => { input.value = input.dataset.answer; input.classList.remove("answer-incorrect"); input.classList.add("answer-correct"); });
+      $$(".exA-result").forEach(result => { result.textContent = "Řešení."; result.className = "exA-result mt-2 text-xs text-sky-300"; });
+      updateExAProgress();
+      $("#exAFeedback").textContent = "Zobrazena všechna řešení.";
+    }
+    function resetExA() {
+      $$(".exA-input").forEach(input => { input.value = ""; input.classList.remove("answer-correct", "answer-incorrect"); });
+      $$(".exA-result").forEach(result => { result.textContent = ""; });
+      updateExAProgress();
+      $("#exAFeedback").textContent = "";
+    }
+    function updateExBProgress() {
+      const fields = $$(".upgrade-input");
+      const complete = fields.filter(field => field.value.trim()).length;
+      $("#exBProgress").textContent = `Hotovo ${complete} z ${fields.length}`;
+    }
+    function checkExB() {
+      const fields = $$(".upgrade-input");
+      const complete = fields.filter(field => field.value.trim()).length;
+      fields.forEach(field => { field.closest("article").querySelector(".upgrade-result").textContent = field.value.trim() ? "Návrh zapsán — porovnej ho s kritériem a modelovou odpovědí." : "Nejdřív napiš svou odpověď."; });
+      $("#exBFeedback").textContent = `Vyplněno ${complete} z ${fields.length}. Jde o vlastní tvorbu, ne automatické známkování.`;
+    }
+    function resetExB() {
+      $$(".upgrade-input").forEach(field => { field.value = ""; });
+      $$(".upgrade-result").forEach(result => { result.textContent = ""; });
+      $$(".upgrade-model").forEach(model => model.classList.add("hidden"));
+      updateExBProgress();
+      $("#exBFeedback").textContent = "";
+    }
+    function checkMarks() {
+      const selected = $$(".mark-token.selected");
+      const correct = $$(".mark-token").filter(token => token.classList.contains("selected"));
+      correct.forEach(token => token.classList.add("correct"));
+      const countOK = selected.length === DATA.mark;
+      $("#markFeedback").textContent = countOK ? `Označil/a jsi ${selected.length} z ${DATA.mark} příkladů. Správné příklady jsou zvýrazněné zeleně; červeně se zobrazí chybějící nebo nadbytečné volby.` : `Označil/a jsi ${selected.length}; očekává se ${DATA.mark}. Zkontroluj výběr a zkus to znovu.`;
+      if (countOK) $$(".mark-token:not(.selected)").forEach(token => token.classList.add("incorrect"));
+      else $$(".mark-token").forEach(token => token.classList.remove("correct", "incorrect"));
+    }
+    function clearMarks() {
+      $$(".mark-token").forEach(token => { token.classList.remove("selected", "correct", "incorrect"); token.setAttribute("aria-pressed", "false"); });
+      $("#markFeedback").textContent = "";
+    }
+    function checkQuiz() {
+      let correct = 0;
+      let answered = 0;
+      DATA.quiz.forEach((question, index) => {
+        const selected = $(`input[name="quiz-${index}"]:checked`);
+        if (selected) { answered++; if (selected.value === question.correct) correct++; }
+      });
+      $("#quizFeedback").textContent = answered < DATA.quiz.length ? `Odpověděl/a jsi na ${answered} ze 3 otázek. Správně zatím ${correct}.` : `Výsledek: ${correct} ze 3 správně.`;
+      $("#quizFeedback").className = "text-sm " + (correct === 3 && answered === 3 ? "text-emerald-300" : "text-amber-200");
+    }
+    function saveLocal(key, value, status) {
+      try {
+        localStorage.setItem(key, value);
+        if (status) status.textContent = "Uloženo v tomto prohlížeči.";
+      } catch (error) {
+        if (status) status.textContent = "Uložení se nezdařilo; zkontroluj nastavení úložiště prohlížeče.";
+      }
+    }
+    function loadLocal(key, status) {
+      try { return localStorage.getItem(key) || ""; }
+      catch (error) {
+        if (status) status.textContent = "Uložené údaje nejsou dostupné.";
+        return "";
+      }
+    }
+    function init() {
+      renderVocab();
+      renderModel();
+      renderQuiz();
+      renderExercises();
+      $("#vocabSearch").addEventListener("input", renderVocab);
+      $$(".filter-btn").forEach(button => button.addEventListener("click", () => {
+        activeFilter = button.dataset.filter;
+        $$(".filter-btn").forEach(item => item.className = "filter-btn rounded-lg px-2 py-2 text-xs " + (item === button ? "bg-sky-700" : "bg-slate-800"));
+        renderVocab();
+      }));
+      document.addEventListener("click", event => {
+        const speak = event.target.closest("[data-speak]");
+        if (speak) speakText(speak.dataset.speak);
+      });
+      $$(".tab-btn").forEach(button => button.addEventListener("click", () => switchTab(button.dataset.tab)));
+      $("#speakModel").addEventListener("click", () => speakText(DATA.model.replace(/\*\*/g, "")));
+      $("#modelText").addEventListener("click", event => {
+        const token = event.target.closest(".mark-token");
+        if (!token) return;
+        token.classList.toggle("selected");
+        token.classList.remove("correct", "incorrect");
+        token.setAttribute("aria-pressed", String(token.classList.contains("selected")));
+        $("#markFeedback").textContent = "";
+      });
+      $("#checkMarks").addEventListener("click", checkMarks);
+      $("#clearMarks").addEventListener("click", clearMarks);
+      $("#checkQuiz").addEventListener("click", checkQuiz);
+      $("#resetQuiz").addEventListener("click", () => { $$('input[type="radio"]').forEach(input => input.checked = false); $("#quizFeedback").textContent = ""; });
+      $("#checkExA").addEventListener("click", checkExA);
+      $("#revealExA").addEventListener("click", revealExA);
+      $("#resetExA").addEventListener("click", resetExA);
+      $("#exAList").addEventListener("input", updateExAProgress);
+      $("#checkExB").addEventListener("click", checkExB);
+      $("#resetExB").addEventListener("click", resetExB);
+      $("#exBList").addEventListener("input", updateExBProgress);
+      $("#exBList").addEventListener("click", event => {
+        const button = event.target.closest(".reveal-model");
+        if (button) button.closest("article").querySelector(".upgrade-model").classList.toggle("hidden");
+      });
+      $("#speakPractice").addEventListener("click", () => speakText($("#practiceText").value, "practiceStatus"));
+      $("#clearPractice").addEventListener("click", () => { $("#practiceText").value = ""; $("#practiceCount").textContent = "0 slov"; $("#practiceStatus").textContent = ""; });
+      $("#practiceText").addEventListener("input", () => $("#practiceCount").textContent = `${wordCount($("#practiceText").value)} slov`);
+      const notes = $("#teacherNotes");
+      notes.value = loadLocal(NOTES_KEY, $("#notesStatus"));
+      notes.addEventListener("input", () => saveLocal(NOTES_KEY, notes.value, $("#notesStatus")));
+      const homework = $("#homeworkDraft");
+      const homeworkKey = NOTES_KEY + "_homework";
+      homework.value = loadLocal(homeworkKey, $("#homeworkStatus"));
+      const updateHomeworkCount = () => $("#homeworkCount").textContent = `${wordCount(homework.value)} slov`;
+      updateHomeworkCount();
+      homework.addEventListener("input", () => { updateHomeworkCount(); saveLocal(homeworkKey, homework.value, $("#homeworkStatus")); });
+      $("#clearHomework").addEventListener("click", () => { homework.value = ""; updateHomeworkCount(); saveLocal(homeworkKey, "", $("#homeworkStatus")); });
+    }
+    init();
+  </script>
+</body>
+</html>

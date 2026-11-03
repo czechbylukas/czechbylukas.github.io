@@ -56,7 +56,7 @@
                     <button onclick="resetLevelSelection()" class="w-1/3 bg-slate-700 hover:bg-slate-600 text-slate-200 font-bold py-2.5 rounded-xl text-sm transition">
                         Zpět
                     </button>
-                    <button onclick="startPracticeApp()" class="w-2/3 bg-blue-600 hover:bg-blue-500 text-white font-bold py-2.5 rounded-xl text-sm transition">
+                    <button id="startPracticeButton" onclick="startPracticeApp()" class="w-2/3 bg-blue-600 hover:bg-blue-500 text-white font-bold py-2.5 rounded-xl text-sm transition">
                         Start
                     </button>
                 </div>
@@ -158,6 +158,7 @@
         </div>
 
     </div>
+    <script src="../known_words.js"></script>
     <script src="combinations.js"></script>
 
     <script>
@@ -282,9 +283,31 @@ renderLevelCards();
             grid.innerHTML = '';
 
             vocabList.forEach(item => {
+                const isKnown = window.isPracticeWordKnown('animal', item.id, item.approved);
                 const card = document.createElement('div');
-                card.className = "bg-slate-800 hover:bg-slate-700 border border-slate-700 rounded-xl p-3 flex items-center justify-between cursor-pointer transition active:scale-95 group";
+                card.className = "bg-slate-800 hover:bg-slate-700 border border-slate-700 rounded-xl p-3 flex items-center justify-between gap-2 cursor-pointer transition active:scale-95 group";
                 card.onclick = () => openDeclensionModal(item);
+                card.dataset.known = String(isKnown);
+                updateKnownCardStyle(card, isKnown);
+
+                const checkbox = document.createElement('input');
+                checkbox.type = 'checkbox';
+                checkbox.checked = isKnown;
+                checkbox.setAttribute('aria-label', `Znám slovo ${item.nominative}`);
+                checkbox.className = 'h-5 w-5 shrink-0 accent-amber-500 cursor-pointer';
+                checkbox.onclick = event => event.stopPropagation();
+                checkbox.onchange = () => {
+                    window.setPracticeWordKnown('animal', item.id, checkbox.checked);
+                    card.dataset.known = String(checkbox.checked);
+                    updateKnownCardStyle(card, checkbox.checked);
+                    sortKnownCards(grid);
+                    updateStartPracticeButton();
+                };
+
+                const knownLabel = document.createElement('label');
+                knownLabel.className = 'inline-flex items-center gap-1 shrink-0 text-[10px] text-slate-400';
+                knownLabel.onclick = event => event.stopPropagation();
+                knownLabel.append(checkbox, document.createTextNode('Znám'));
 
                 card.innerHTML = `
                     <div class="flex items-center space-x-3 overflow-hidden">
@@ -300,8 +323,40 @@ renderLevelCards();
                         🔊
                     </button>
                 `;
+                card.prepend(knownLabel);
+                const audioButton = card.querySelector('button');
+                audioButton.onclick = event => {
+                    event.stopPropagation();
+                    speakCzech(item.nominative, event);
+                };
                 grid.appendChild(card);
             });
+            sortKnownCards(grid);
+            updateStartPracticeButton();
+        }
+
+        function updateKnownCardStyle(card, isKnown) {
+            card.classList.toggle('opacity-40', !isKnown);
+            card.classList.toggle('grayscale', !isKnown);
+            card.classList.toggle('translate-y-1', !isKnown);
+            card.classList.toggle('opacity-100', isKnown);
+            card.classList.toggle('grayscale-0', isKnown);
+            card.classList.toggle('translate-y-0', isKnown);
+        }
+
+        function sortKnownCards(grid) {
+            [...grid.children]
+                .sort((a, b) => Number(b.dataset.known === 'true') - Number(a.dataset.known === 'true'))
+                .forEach(card => grid.appendChild(card));
+        }
+
+        function updateStartPracticeButton() {
+            const startButton = document.getElementById('startPracticeButton');
+            const hasKnownAnimals = window.getKnownAnimalsThroughLevel(selectedLevel).length > 0;
+            startButton.disabled = !hasKnownAnimals;
+            startButton.textContent = hasKnownAnimals ? 'Start' : 'Vyberte alespoň jedno zvíře';
+            startButton.classList.toggle('opacity-50', !hasKnownAnimals);
+            startButton.classList.toggle('cursor-not-allowed', !hasKnownAnimals);
         }
 
         function openDeclensionModal(animal) {
@@ -326,8 +381,8 @@ renderLevelCards();
                 tr.className = "hover:bg-slate-800/50";
                 tr.innerHTML = `
                     <td class="p-2 font-semibold text-slate-400">${c.n}</td>
-                    <td class="p-2 font-bold text-amber-300">${animal.declension.singular[c.k]}</td>
-                    <td class="p-2 font-bold text-slate-200">${animal.declension.plural[c.k]}</td>
+                    <td class="p-2 font-bold text-amber-300">${window.getAnimalForms(animal, 'singular', c.k).join(' / ')}</td>
+                    <td class="p-2 font-bold text-slate-200">${window.getAnimalForms(animal, 'plural', c.k).join(' / ')}</td>
                 `;
                 tbody.appendChild(tr);
             });
@@ -363,6 +418,7 @@ renderLevelCards();
         }
 
         function startPracticeApp() {
+            if (window.getKnownAnimalsThroughLevel(selectedLevel).length === 0) return;
             document.getElementById('demoModal').classList.add('hidden');
             loadNextQuestion();
         }
@@ -379,23 +435,31 @@ renderLevelCards();
                 currentQuestion = window.generateAnimalQuestion(selectedLevel);
             } else {
                 const baseQ = window.generateAnimalQuestion(selectedLevel);
-                const levelAnimals = window.getAnimalsForLevel(selectedLevel);
                 const targetCaseKey = baseQ.template.caseKey; 
                 const isPlural = baseQ.isPlural;
                 const numberKey = isPlural ? 'plural' : 'singular';
 
-                const correctTarget = baseQ.animal.declension[numberKey][targetCaseKey];
-                const distractorAnimals = levelAnimals.filter(a => a.nominative !== baseQ.animal.nominative);
-                const shuffled = [...distractorAnimals].sort(() => 0.5 - Math.random()).slice(0, 3);
-                
-                const distractorForms = shuffled.map(a => a.declension[numberKey][targetCaseKey]);
+                const correctTargets = window.getAnimalForms(baseQ.animal, numberKey, targetCaseKey);
+                const correctTarget = correctTargets[0];
+                const optionAnimals = Object.entries(window.ANIMAL_DATABASE.levels)
+                    .filter(([level]) => Number(level) <= selectedLevel)
+                    .flatMap(([, data]) => (data.animals || []).filter(animal =>
+                        window.isPracticeWordKnown('animal', animal.id, animal.approved)
+                    ));
+                const distractorForms = [...new Set(optionAnimals
+                    .filter(animal => animal.nominative !== baseQ.animal.nominative)
+                    .flatMap(animal => window.getAnimalForms(animal, numberKey, targetCaseKey))
+                    .filter(form => form && !correctTargets.includes(form)))]
+                    .sort(() => 0.5 - Math.random())
+                    .slice(0, 3);
                 const options = [...distractorForms, correctTarget].sort(() => 0.5 - Math.random());
 
-                const distractor = distractorForms[0] || "jiné zvíře";
+                const distractor = distractorForms[0] || baseQ.animal.nominative;
 
                 currentQuestion = {
                     ...baseQ,
                     correctTarget: correctTarget,
+                    correctTargets: correctTargets,
                     distractor: distractor,
                     options: options,
                     fullCorrectSentence: baseQ.sentenceTemplate.replace('[___]', correctTarget)
@@ -440,7 +504,9 @@ renderLevelCards();
                         <span class="truncate">${opt}</span>
                     `;
                     
-                    btn.onclick = () => handleAnswer(opt.toLowerCase() === currentQuestion.correctTarget.toLowerCase());
+                    btn.onclick = () => handleAnswer(
+                        opt.toLocaleLowerCase('cs') === currentQuestion.correctTarget.toLocaleLowerCase('cs')
+                    );
                     grid.appendChild(btn);
                 });
                 
@@ -488,23 +554,28 @@ renderLevelCards();
                 
                 const processTypingAnswer = () => {
                     const val = input.value.trim().toLowerCase();
-                    const target = currentQuestion.correctTarget.trim().toLowerCase();
                     const nominative = currentQuestion.animal.nominative.trim().toLowerCase();
+                    const targets = currentQuestion.correctTargets.map(target => target.trim().toLocaleLowerCase('cs'));
 
                     if (!val) return;
 
                     if (appGameMode === 'vocab') {
                         // In Easy/Vocab Mode: Accept ANY valid case form OR nominative of this animal
-                        const allSingular = Object.values(currentQuestion.animal.declension.singular).map(v => v.toLowerCase());
-                        const allPlural = Object.values(currentQuestion.animal.declension.plural).map(v => v.toLowerCase());
+                        const allSingular = Object.keys(currentQuestion.animal.declension.singular)
+                            .flatMap(key => window.getAnimalForms(currentQuestion.animal, 'singular', key))
+                            .map(v => v.toLocaleLowerCase('cs'));
+                        const allPlural = Object.keys(currentQuestion.animal.declension.plural)
+                            .flatMap(key => window.getAnimalForms(currentQuestion.animal, 'plural', key))
+                            .map(v => v.toLocaleLowerCase('cs'));
                         const validForms = [...allSingular, ...allPlural, nominative];
 
                         const isExactMatch = validForms.includes(val);
                         handleAnswer(isExactMatch);
                     } else {
                         // In Grammar Mode: Enforce exact declined target or trigger second chance for near misses
-                        if (val !== target) {
-                            const dist = levenshteinDistance(val, target);
+                        const isCorrectForm = targets.includes(val);
+                        if (!isCorrectForm) {
+                            const dist = Math.min(...targets.map(target => levenshteinDistance(val, target)));
                             const isNom = (val === nominative);
 
                             if (isNom || dist <= 2) {
@@ -513,7 +584,7 @@ renderLevelCards();
                                 return;
                             }
                         }
-                        handleAnswer(val === target);
+                        handleAnswer(isCorrectForm);
                     }
                 };
 
@@ -536,8 +607,8 @@ renderLevelCards();
                     input.select();
                 }
             } else {
-                const target = currentQuestion.correctTarget.trim().toLowerCase();
-                handleAnswer(pendingTypedAnswer === target);
+                const targets = currentQuestion.correctTargets.map(target => target.trim().toLocaleLowerCase('cs'));
+                handleAnswer(targets.includes(pendingTypedAnswer));
             }
         }
 

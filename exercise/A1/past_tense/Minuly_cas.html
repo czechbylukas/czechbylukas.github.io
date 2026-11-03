@@ -116,6 +116,7 @@
         </div>
     </div>
 
+    <script src="../known_words.js"></script>
     <script src="combinations.js"></script>
     <script>
         let selectedLevel = 1;
@@ -179,12 +180,7 @@
             const levelInfo = levelNames[level] || { icon: '📚', name: `Level ${level}` };
             document.getElementById('demoTitle').textContent = `${levelInfo.icon} ${levelInfo.name}`;
             renderVerbCards();
-            const hasVerbs = window.CZECH_GRAMMAR_DB.verbs.some(verb => verb.level === selectedLevel);
-            const startButton = document.getElementById('startPracticeButton');
-            startButton.disabled = !hasVerbs;
-            startButton.textContent = hasVerbs ? 'Start' : 'Slovní zásoba se připravuje';
-            startButton.classList.toggle('opacity-50', !hasVerbs);
-            startButton.classList.toggle('cursor-not-allowed', !hasVerbs);
+            updateStartPracticeButton();
             setAppGameMode(appGameMode);
         }
 
@@ -200,9 +196,12 @@
             }
 
             verbs.forEach(verb => {
+                const isKnown = window.isPracticeWordKnown('verb', verb.infinitive, true);
                 const card = document.createElement('div');
-                card.className = 'bg-slate-800 hover:bg-slate-700 border border-slate-700 rounded-xl p-3 flex items-center justify-between cursor-pointer transition active:scale-95 group';
+                card.className = 'bg-slate-800 hover:bg-slate-700 border border-slate-700 rounded-xl p-3 flex items-center justify-between gap-2 cursor-pointer transition active:scale-95 group';
                 card.onclick = () => openVerbFormsModal(verb);
+                card.dataset.known = String(isKnown);
+                updateKnownCardStyle(card, isKnown);
 
                 const details = document.createElement('div');
                 details.className = 'flex items-center space-x-3 overflow-hidden';
@@ -221,16 +220,63 @@
                 text.append(infinitive, translation);
                 details.append(image, text);
 
+                const checkbox = document.createElement('input');
+                checkbox.type = 'checkbox';
+                checkbox.checked = isKnown;
+                checkbox.setAttribute('aria-label', `Znám sloveso ${verb.infinitive}`);
+                checkbox.className = 'h-5 w-5 shrink-0 accent-amber-500 cursor-pointer';
+                checkbox.onclick = event => event.stopPropagation();
+                checkbox.onchange = () => {
+                    window.setPracticeWordKnown('verb', verb.infinitive, checkbox.checked);
+                    card.dataset.known = String(checkbox.checked);
+                    updateKnownCardStyle(card, checkbox.checked);
+                    sortKnownCards(grid);
+                    updateStartPracticeButton();
+                };
+
+                const knownLabel = document.createElement('label');
+                knownLabel.className = 'inline-flex items-center gap-1 shrink-0 text-[10px] text-slate-400';
+                knownLabel.onclick = event => event.stopPropagation();
+                knownLabel.append(checkbox, document.createTextNode('Znám'));
+
                 const audioButton = document.createElement('button');
                 audioButton.type = 'button';
                 audioButton.title = 'Přehrát výslovnost';
                 audioButton.setAttribute('aria-label', `Přehrát ${verb.infinitive}`);
                 audioButton.className = 'p-2 ml-2 rounded-lg bg-slate-900/60 hover:bg-amber-500 hover:text-slate-900 text-slate-300 border border-slate-700 transition flex items-center justify-center shrink-0';
                 audioButton.textContent = '🔊';
-                audioButton.onclick = event => speakCzech(verb.infinitive.toLocaleLowerCase('cs'), event);
-                card.append(details, audioButton);
+                audioButton.onclick = event => {
+                    event.stopPropagation();
+                    speakCzech(verb.infinitive.toLocaleLowerCase('cs'), event);
+                };
+                card.append(knownLabel, details, audioButton);
                 grid.appendChild(card);
             });
+            sortKnownCards(grid);
+        }
+
+        function updateKnownCardStyle(card, isKnown) {
+            card.classList.toggle('opacity-40', !isKnown);
+            card.classList.toggle('grayscale', !isKnown);
+            card.classList.toggle('translate-y-1', !isKnown);
+            card.classList.toggle('opacity-100', isKnown);
+            card.classList.toggle('grayscale-0', isKnown);
+            card.classList.toggle('translate-y-0', isKnown);
+        }
+
+        function sortKnownCards(grid) {
+            [...grid.children]
+                .sort((a, b) => Number(b.dataset.known === 'true') - Number(a.dataset.known === 'true'))
+                .forEach(card => grid.appendChild(card));
+        }
+
+        function updateStartPracticeButton() {
+            const startButton = document.getElementById('startPracticeButton');
+            const hasVerbs = window.getKnownVerbsThroughLevel(selectedLevel).length > 0;
+            startButton.disabled = !hasVerbs;
+            startButton.textContent = hasVerbs ? 'Start' : 'Zaškrtněte alespoň jedno sloveso';
+            startButton.classList.toggle('opacity-50', !hasVerbs);
+            startButton.classList.toggle('cursor-not-allowed', !hasVerbs);
         }
 
         function openVerbFormsModal(verb) {
@@ -280,6 +326,7 @@
         }
 
         function startPracticeApp() {
+            if (window.getKnownVerbsThroughLevel(selectedLevel).length === 0) return;
             correctCount = 0;
             answeredCount = 0;
             successStreak = 0;

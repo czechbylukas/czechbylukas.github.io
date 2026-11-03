@@ -1,0 +1,388 @@
+<!DOCTYPE html>
+<html lang="cs" class="h-full bg-slate-950 text-slate-100">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Czech B1 Mastery: Lekce 8 – Životopis a stručné CV</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    body { font-family: Inter, sans-serif; }
+    .glass-card { background:rgba(30,41,59,.76); backdrop-filter:blur(12px); border:1px solid rgba(255,255,255,.08); }
+    .no-scrollbar::-webkit-scrollbar { display:none; }
+    .no-scrollbar { scrollbar-width:none; }
+    .teacher-notes-widget { position:fixed; right:1rem; bottom:1rem; z-index:55; width:19rem; height:14rem; }
+    body main.lesson-main { padding:1.5rem 21rem 16rem 1rem; }
+    .mark-token { border:0; border-bottom:1px dashed #64748b; border-radius:.25rem; padding:0 .12rem; background:transparent; color:inherit; cursor:pointer; }
+    .mark-token.selected { background:#075985; color:#e0f2fe; border-bottom:2px solid #38bdf8; }
+    .mark-token.correct { background:#064e3b; color:#d1fae5; }
+    .mark-token.incorrect { background:#7f1d1d; color:#fee2e2; }
+    .answer-correct { border-color:#10b981 !important; }
+    .answer-incorrect { border-color:#ef4444 !important; }
+    .exercise-actions { bottom:.5rem; }
+    @media (max-width:1023px) {
+      .teacher-notes-widget { right:0; bottom:0; left:0; width:100%; height:10rem; border-radius:1rem 1rem 0 0; background:rgba(15,23,42,.98); }
+      body main.lesson-main { padding:1.5rem 1rem 16rem; }
+      .exercise-actions { bottom:10.5rem; }
+    }
+  </style>
+</head>
+<body class="min-h-full bg-slate-950 text-slate-100 overflow-x-hidden">
+  <header class="sticky top-0 z-50 border-b border-slate-800 bg-slate-900/95 backdrop-blur-md shadow-lg">
+    <div class="mx-auto max-w-7xl px-4 sm:px-6">
+      <div class="flex min-h-16 items-center justify-between gap-3">
+        <div class="flex items-center gap-3">
+          <div class="flex h-10 w-10 items-center justify-center rounded-xl bg-gradient-to-tr from-sky-500 to-indigo-600 text-lg"><i class="fa-solid fa-users"></i></div>
+          <div><h1 class="font-bold text-white">Czech B1 Mastery</h1><p class="text-xs text-sky-400">Lekce 8: Životopis a stručné CV</p></div>
+        </div>
+        <a href="../B1_List_of_lessons.html" class="whitespace-nowrap rounded-lg border border-slate-700 bg-slate-800 px-3 py-2 text-xs text-slate-200 hover:bg-slate-700">← Přehled lekcí</a>
+      </div>
+      <nav class="flex gap-1 overflow-x-auto border-t border-slate-800 py-2 no-scrollbar" aria-label="Navigace lekce">
+        <button class="tab-btn rounded-lg bg-sky-600 px-3 py-2 text-xs font-semibold text-white whitespace-nowrap" data-tab="vocab">1. Slovní zásoba</button>
+        <button class="tab-btn rounded-lg px-3 py-2 text-xs font-semibold text-slate-400 whitespace-nowrap" data-tab="exA">2. Cvičení A</button>
+        <button class="tab-btn rounded-lg px-3 py-2 text-xs font-semibold text-slate-400 whitespace-nowrap" data-tab="exB">3. Cvičení B</button>
+        <button class="tab-btn rounded-lg px-3 py-2 text-xs font-semibold text-slate-400 whitespace-nowrap" data-tab="tool">4. Procvičování</button>
+        <button class="tab-btn rounded-lg px-3 py-2 text-xs font-semibold text-slate-400 whitespace-nowrap" data-tab="homework">5. Domácí úkol</button>
+      </nav>
+    </div>
+  </header>
+
+  <main class="lesson-main mx-auto max-w-7xl">
+    <section id="tab-vocab" class="tab-panel space-y-6">
+      <div class="glass-card rounded-2xl p-5">
+        <div class="flex flex-col justify-between gap-4 lg:flex-row lg:items-center">
+          <div><h2 class="text-xl font-bold"><i class="fa-solid fa-book-open mr-2 text-sky-400"></i>Slovní zásoba: 21 výrazů</h2><p class="mt-1 text-sm text-slate-400">Seřadit životní události a představit vzdělání, zkušenosti a dovednosti</p></div>
+          <div class="flex flex-col gap-2 sm:flex-row">
+            <input id="vocabSearch" type="search" placeholder="Hledat česky nebo anglicky…" class="rounded-lg border border-slate-700 bg-slate-900 px-3 py-2 text-sm" aria-label="Hledat slovní zásobu">
+            <div class="flex gap-1 overflow-x-auto">
+              <button class="filter-btn rounded-lg bg-sky-700 px-2 py-2 text-xs" data-filter="all">Vše</button>
+              <button class="filter-btn rounded-lg bg-slate-800 px-2 py-2 text-xs" data-filter="noun">Podstatná</button>
+              <button class="filter-btn rounded-lg bg-slate-800 px-2 py-2 text-xs" data-filter="verb">Slovesa</button>
+              <button class="filter-btn rounded-lg bg-slate-800 px-2 py-2 text-xs" data-filter="adj">Přídavná</button>
+              <button class="filter-btn rounded-lg bg-slate-800 px-2 py-2 text-xs" data-filter="phrase">Fráze</button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div id="vocabGrid" class="grid gap-3 sm:grid-cols-2 xl:grid-cols-3"></div>
+      <div class="glass-card space-y-4 rounded-2xl p-5">
+        <div class="flex flex-wrap items-center justify-between gap-3">
+          <div><h2 class="text-xl font-bold">Modelový text</h2><p class="mt-1 text-sm text-slate-400"><strong class="text-sky-300">Teacher čte nahlas.</strong> Označ přesně 4 příklady cílového jevu: Minulý čas v životopisu a časové výrazy. Začni bez označení, potom vyber příklady a stiskni Kontrola.</p></div>
+          <button id="speakModel" class="rounded-lg bg-slate-800 px-3 py-2 text-sm hover:bg-slate-700"><i class="fa-solid fa-volume-high mr-1"></i> Poslechnout</button>
+        </div>
+        <p id="modelText" class="rounded-xl border border-slate-800 bg-slate-900/80 p-4 text-base leading-8"></p>
+        <div class="flex flex-wrap items-center gap-2">
+          <button id="checkMarks" class="rounded-lg bg-sky-700 px-4 py-2 text-sm font-bold hover:bg-sky-600">Zkontrolovat označení</button>
+          <button id="clearMarks" class="rounded-lg bg-slate-800 px-4 py-2 text-sm hover:bg-slate-700">Zrušit výběr</button>
+          <span id="markFeedback" class="text-sm text-slate-300" aria-live="polite"></span>
+        </div>
+      </div>
+      <div class="glass-card space-y-4 rounded-2xl p-5">
+        <div><h2 class="text-xl font-bold">Kvíz k porozumění</h2><p class="mt-1 text-sm text-slate-400">Odpověz na každou otázku. Možnosti A–D se při načtení stránky zamíchají.</p></div>
+        <div id="quizList" class="space-y-4"></div>
+        <div class="flex flex-wrap items-center gap-3"><button id="checkQuiz" class="rounded-lg bg-sky-700 px-4 py-2 text-sm font-bold hover:bg-sky-600">Zkontrolovat kvíz</button><button id="resetQuiz" class="rounded-lg bg-slate-800 px-4 py-2 text-sm hover:bg-slate-700">Vymazat odpovědi</button><span id="quizFeedback" class="text-sm" aria-live="polite"></span></div>
+      </div>
+    </section>
+
+    <section id="tab-exA" class="tab-panel hidden space-y-5">
+      <div class="glass-card rounded-2xl p-5"><h2 class="text-xl font-bold">Cvičení A: Doplňování</h2><p class="mt-1 text-sm text-slate-400">Doplň správný tvar slovesa v minulém čase. Nápověda uvádí sloveso v infinitivu.</p><p id="exAProgress" class="mt-3 text-sm text-sky-300">Vyplněno 0 z 25</p></div>
+      <div id="exAList" class="space-y-3"></div>
+      <div class="exercise-actions sticky z-10 flex flex-wrap gap-2 rounded-xl border border-slate-700 bg-slate-900/95 p-3 backdrop-blur">
+        <button id="checkExA" class="rounded-lg bg-sky-700 px-4 py-2 text-sm font-bold">Zkontrolovat</button><button id="revealExA" class="rounded-lg bg-amber-700 px-4 py-2 text-sm font-bold">Ukázat řešení</button><button id="resetExA" class="rounded-lg bg-slate-700 px-4 py-2 text-sm font-bold">Začít znovu</button><span id="exAFeedback" class="self-center text-sm" aria-live="polite"></span>
+      </div>
+    </section>
+
+    <section id="tab-exB" class="tab-panel hidden space-y-5">
+      <div class="glass-card rounded-2xl p-5"><h2 class="text-xl font-bold">Cvičení B: Rozvíjení vět</h2><p class="mt-1 text-sm text-slate-400">U každého úkolu nejdřív přečti výchozí větu, potom proveď zadanou změnu nebo doplnění. Napiš svou verzi, zkontroluj kritérium a podle potřeby odkryj modelovou odpověď.</p><p id="exBProgress" class="mt-3 text-sm text-sky-300">Hotovo 0 z 10</p></div>
+      <div id="exBList" class="space-y-3"></div>
+      <div class="exercise-actions sticky z-10 flex flex-wrap gap-2 rounded-xl border border-slate-700 bg-slate-900/95 p-3 backdrop-blur">
+        <button id="checkExB" class="rounded-lg bg-sky-700 px-4 py-2 text-sm font-bold">Zkontrolovat postup</button><button id="resetExB" class="rounded-lg bg-slate-700 px-4 py-2 text-sm font-bold">Vymazat odpovědi</button><span id="exBFeedback" class="self-center text-sm" aria-live="polite"></span>
+      </div>
+    </section>
+
+    <section id="tab-tool" class="tab-panel hidden space-y-5">
+      <div class="glass-card space-y-4 rounded-2xl p-5">
+        <h2 class="text-xl font-bold"><i class="fa-solid fa-comments mr-2 text-sky-400"></i>Procvičovací studio</h2>
+        <p class="text-sm leading-6 text-slate-300">Použij toto pole k přípravě krátkého mluveného projevu nebo dialogu k cíli lekce: <strong>Seřadit životní události a představit vzdělání, zkušenosti a dovednosti</strong> Napiš 6–8 vět, přečti je nahlas nebo použij tlačítko Poslechnout. Kontrola slov počítá rozsah textu; obsah si ověř sám/sama.</p>
+        <div class="rounded-xl border border-slate-800 bg-slate-900 p-4"><p class="text-sm font-bold text-sky-300">Cvičná aktivita</p><p class="mt-2 text-sm leading-6">Sepiš stručný profil CV, vzdělání, dvě pracovní zkušenosti, jazyky a dovednosti. Použij smyšlené údaje, pokud si přeješ.</p></div>
+        <textarea id="practiceText" rows="8" class="w-full rounded-xl border border-slate-700 bg-slate-950 p-4 text-sm leading-6 focus:border-sky-500 focus:outline-none" placeholder="Napiš si vlastní odpověď nebo dialog…"></textarea>
+        <div class="flex flex-wrap items-center gap-2"><button id="speakPractice" class="rounded-lg bg-sky-700 px-4 py-2 text-sm font-bold">Poslechnout text</button><button id="clearPractice" class="rounded-lg bg-slate-800 px-4 py-2 text-sm">Vymazat</button><span id="practiceCount" class="text-sm text-slate-400">0 slov</span><span id="practiceStatus" class="text-sm" aria-live="polite"></span></div>
+      </div>
+    </section>
+
+    <section id="tab-homework" class="tab-panel hidden space-y-5">
+      <div class="glass-card space-y-4 rounded-2xl p-5">
+        <h2 class="text-xl font-bold"><i class="fa-solid fa-house-chimney-user mr-2 text-sky-400"></i>Domácí úkol: Životopis a stručné CV</h2>
+        <p class="text-slate-200">Připrav stručný, pravdivý nebo fiktivní životopis/CV v češtině. Neuváděj rodné číslo ani číslo dokladu.</p>
+        <div class="grid gap-4 md:grid-cols-2">
+          <div class="rounded-xl border border-slate-800 bg-slate-900 p-4"><h3 class="font-bold text-sky-300">Osnova</h3><p class="mt-2 whitespace-pre-line text-sm leading-6">1. Osobní profil (bez citlivých údajů).
+2. Vzdělání a kurzy s roky.
+3. Pracovní zkušenosti.
+4. Schopnosti, jazyky a koníčky.</p></div>
+          <div class="rounded-xl border border-slate-800 bg-slate-900 p-4"><h3 class="font-bold text-sky-300">Užitečné fráze</h3><p class="mt-2 whitespace-pre-line text-sm leading-6">V roce … jsem dokončil/a…
+Pracoval/a jsem jako…
+Mezi mé schopnosti patří…
+Mám zkušenosti s…</p></div>
+        </div>
+        <div class="rounded-xl border border-amber-700/40 bg-amber-950/30 p-4 text-sm"><p><strong>Rozsah:</strong> 100–130 slov.</p><p class="mt-2"><strong>Odevzdání:</strong> Až text dokončíš, přidej ho jako komentář k zadání, označ lukas@hackczech.com a zaškrtni „Assign task“.</p></div>
+        <label for="homeworkDraft" class="block text-sm font-bold">Pracovní koncept (ukládá se v tomto prohlížeči)</label>
+        <textarea id="homeworkDraft" rows="8" class="w-full rounded-xl border border-slate-700 bg-slate-950 p-4 text-sm leading-6 focus:border-sky-500 focus:outline-none" placeholder="Začni psát koncept domácího úkolu…"></textarea>
+        <div class="flex flex-wrap items-center gap-3"><span id="homeworkCount" class="text-sm text-slate-400">0 slov</span><span id="homeworkStatus" class="text-sm text-slate-400" aria-live="polite"></span><button id="clearHomework" class="rounded-lg bg-slate-800 px-3 py-2 text-sm">Vymazat koncept</button></div>
+      </div>
+    </section>
+  </main>
+
+  <aside class="teacher-notes-widget glass-card flex flex-col rounded-2xl p-3 shadow-2xl" aria-label="Teacher Live Notes">
+    <label for="teacherNotes" class="mb-2 flex items-center justify-between text-sm font-bold"><span><i class="fa-solid fa-pen-to-square mr-2 text-sky-400"></i>Teacher Live Notes</span><span id="notesStatus" class="text-[10px] font-normal text-emerald-300" aria-live="polite">Automaticky uložené</span></label>
+    <textarea id="teacherNotes" class="min-h-0 flex-1 resize-none rounded-lg border border-slate-700 bg-slate-950 p-3 text-xs leading-5 text-slate-100 focus:border-sky-500 focus:outline-none" placeholder="Zapište krátkou zpětnou vazbu; poznámky se ukládají jen v tomto prohlížeči."></textarea>
+  </aside>
+
+  <script>
+    const DATA = {"number":8,"title":"Životopis a stručné CV","focus":"Seřadit životní události a představit vzdělání, zkušenosti a dovednosti","grammar":"Minulý čas v životopisu a časové výrazy","mark":4,"model":"Modelový životopis vypráví o Aleně. **Narodila se v roce 1993** v Olomouci a vystudovala ekonomii. **V roce 2015 dokončila** bakalářské studium a o dva roky později získala magisterský titul. Potom pracovala jako účetní v menší firmě. **V roce 2020 se přestěhovala do Prahy**, kde nyní pracuje v mezinárodní společnosti. **Absolvovala také kurz účetnictví** a umí pracovat s počítačem. Mluví česky a anglicky a učí se německy. Mezi její schopnosti patří pečlivost, samostatnost a komunikace v týmu. Ve volném čase ráda čte a jezdí na kole. V životopisu uvádíme pravdivé a relevantní informace, nikoli citlivá osobní data.","vocab":[{"cz":"životopis","en":"CV, biography","category":"noun","pos":"podstatné jméno","example":"Životopis začíná osobními údaji.","answer":"Životopis","hint":"mužský rod"},{"cz":"rok","en":"year","category":"noun","pos":"podstatné jméno","example":"V roce 2019 dokončila studium.","answer":"V roce 2019","hint":"časový údaj"},{"cz":"narodit se","en":"to be born","category":"verb","pos":"sloveso","example":"Narodil se v Ostravě.","answer":"Narodil se","hint":"minulý čas, muž"},{"cz":"bydlet","en":"to live, reside","category":"verb","pos":"sloveso","example":"Několik let bydlela v Brně.","answer":"bydlela","hint":"minulý čas, žena"},{"cz":"studovat","en":"to study","category":"verb","pos":"sloveso","example":"Studoval informatiku na univerzitě.","answer":"Studoval","hint":"minulý čas, muž"},{"cz":"bakalář","en":"bachelor's degree holder","category":"noun","pos":"podstatné jméno","example":"Můj bratr je bakalář a pracuje v Brně.","answer":"bakalář","hint":"mužský rod"},{"cz":"magistr","en":"master's degree holder","category":"noun","pos":"podstatné jméno","example":"Magistr vystudoval ekonomii na univerzitě.","answer":"Magistr","hint":"mužský rod"},{"cz":"inženýr","en":"engineer","category":"noun","pos":"podstatné jméno","example":"Její bratr je inženýr.","answer":"inženýr","hint":"mužský rod"},{"cz":"práce","en":"work, job","category":"noun","pos":"podstatné jméno","example":"První práci našel po škole.","answer":"práci","hint":"4. pád"},{"cz":"pracovat jako","en":"to work as","category":"verb","pos":"sloveso","example":"Pracovala jako účetní.","answer":"Pracovala jako","hint":"minulý čas"},{"cz":"schopnost","en":"skill","category":"noun","pos":"podstatné jméno","example":"Mezi jeho schopnosti patří komunikace.","answer":"schopnosti","hint":"množné číslo"},{"cz":"jazyk","en":"language","category":"noun","pos":"podstatné jméno","example":"Ovládá český a anglický jazyk.","answer":"český a anglický jazyk","hint":"shoda"},{"cz":"kurz","en":"course","category":"noun","pos":"podstatné jméno","example":"Absolvovala kurz první pomoci.","answer":"kurz","hint":"4. pád"},{"cz":"koníček","en":"hobby","category":"noun","pos":"podstatné jméno","example":"Ve volném čase má několik koníčků.","answer":"koníčků","hint":"2. pád"},{"cz":"adresa","en":"address","category":"noun","pos":"podstatné jméno","example":"Aktuální adresa je uvedena v CV.","answer":"adresa","hint":"ženský rod"},{"cz":"e-mail","en":"email","category":"noun","pos":"podstatné jméno","example":"Kontaktní e-mail je uveden nahoře.","answer":"e-mail","hint":"mužský rod"},{"cz":"zkušenost","en":"experience","category":"noun","pos":"podstatné jméno","example":"Má zkušenosti s prací v týmu.","answer":"zkušenosti","hint":"množné číslo"},{"cz":"povolání","en":"occupation","category":"noun","pos":"podstatné jméno","example":"Jeho povolání je učitel.","answer":"povolání","hint":"střední rod"},{"cz":"absolvent","en":"graduate","category":"noun","pos":"podstatné jméno","example":"Absolvent nastoupil do firmy v červnu.","answer":"Absolvent","hint":"mužský rod"},{"cz":"schopnosti a vlastnosti","en":"skills and qualities","category":"phrase","pos":"fráze","example":"Mezi její schopnosti a vlastnosti patří pečlivost.","answer":"schopnosti a vlastnosti","hint":"množné číslo"},{"cz":"přestěhovat se do","en":"to move to","category":"verb","pos":"sloveso","example":"V roce 2022 se přestěhoval do Prahy.","answer":"do Prahy","hint":"do + 2. pád"}],"extra":[{"sentence":"V roce 2020 ___ univerzitu.","answer":"dokončila","hint":"minulý čas, žena"},{"sentence":"Po škole ___ jako učitel.","answer":"pracoval","hint":"minulý čas, muž"},{"sentence":"V životopisu uvedu své pracovní ___.","answer":"zkušenosti","hint":"množné číslo"},{"sentence":"Absolvovala ___ češtiny.","answer":"kurz","hint":"4. pád"}],"upgrades":[{"start":"Studoval/a jsem ekonomii.","change":"Přidej školu, město a rok dokončení.","success":"Použij minulý čas a konkrétní časový údaj.","hint":"Začni „V roce…“.","model":"V roce 2018 jsem dokončila studium ekonomie na univerzitě v Brně."},{"start":"Pracoval/a jsem v obchodě.","change":"Uveď pozici a délku zkušenosti.","success":"Napiš dvě věty o předchozí práci.","hint":"Použij „pracoval/a jsem jako“.","model":"Pracoval jsem jako prodavač v Brně. V obchodě jsem pracoval dva roky."},{"start":"Mluvím dvěma jazyky.","change":"Uveď jazyky a svou úroveň češtiny.","success":"Napiš přehlednou větu vhodnou do CV.","hint":"Použij „plynně“ jen pokud je to pravda.","model":"Mluvím plynně anglicky a dobře česky. Učím se také německy."},{"start":"Mám dobré schopnosti.","change":"Vyber dvě pracovní schopnosti a přidej příklad.","success":"Ukaž, jak se schopnost projevila v práci.","hint":"Začni „Mezi mé schopnosti patří…“.","model":"Mezi mé schopnosti patří komunikace a pečlivost. V předchozí práci jsem pravidelně připravoval zprávy."},{"start":"Mám koníčky.","change":"Uveď dva koníčky a jednu související dovednost.","success":"Zapiš je krátce a přirozeně do CV.","hint":"Neuváděj dlouhý seznam.","model":"Mezi mé koníčky patří běh a fotografování. Rád také pracuji s počítačem."},{"start":"Narodil/a jsem se v roce 1990.","change":"Přidej vzdělání a jednu událost v chronologickém pořadí.","success":"Použij nejméně dva časové údaje.","hint":"Začni narozením, pokračuj školou.","model":"Narodil jsem se v roce 1990. V roce 2006 jsem nastoupil na střední školu."},{"start":"Přestěhoval/a jsem se do Prahy.","change":"Uveď rok a důvod, pokud ho chceš sdílet.","success":"Použij vazbu „přestěhovat se do“ správně.","hint":"Po „do“ je 2. pád.","model":"V roce 2022 jsem se přestěhovala do Prahy kvůli nové práci."},{"start":"Jsem absolvent/ka.","change":"Doplň obor a školu.","success":"Napiš stručnou větu vhodnou do profilu CV.","hint":"Uveď, co jsi vystudoval/a.","model":"Jsem absolventka pedagogické fakulty a vystudovala jsem češtinu."},{"start":"Popiš pracovní zkušenost.","change":"Uveď zaměstnavatele obecně, pozici a jednu povinnost.","success":"Použij minulý čas a konkrétní sloveso.","hint":"Nevymýšlej citlivé údaje o skutečné firmě.","model":"Pracoval jsem jako asistent v menší firmě a připravoval jsem dokumenty."},{"start":"Napiš krátký profil do CV.","change":"Shrň obor, zkušenost a jeden cíl.","success":"Napiš 2–3 souvislé věty bez neověřitelných tvrzení.","hint":"Začni „Jsem…“ nebo „Mám zkušenosti…“.","model":"Jsem absolventka ekonomie a mám zkušenosti s účetnictvím. Ráda bych se dále rozvíjela ve financích."}],"quiz":[{"question":"Ve kterém městě se Alena narodila?","options":["V Olomouci.","V Praze.","V Brně.","V Ostravě."],"correct":"V Olomouci."},{"question":"Kdy získala titul magistr?","options":["V roce 2017.","V roce 2015.","V roce 2020.","V roce 1993."],"correct":"V roce 2017."},{"question":"Jaké jazyky Alena ovládá nebo studuje?","options":["Česky, anglicky a učí se německy.","Jen česky.","Anglicky a rusky.","Německy a francouzsky."],"correct":"Česky, anglicky a učí se německy."}],"exercises":[{"sentence":"Alena se ___ v Olomouci v roce 1993.","answer":"narodila","hint":"narodit se"},{"sentence":"Po základní škole ___ na gymnázium.","answer":"nastoupila","hint":"nastoupit"},{"sentence":"V roce 2015 ___ bakalářské studium.","answer":"dokončila","hint":"dokončit"},{"sentence":"O dva roky později ___ magisterský titul.","answer":"získala","hint":"získat"},{"sentence":"Po studiu ___ jako účetní.","answer":"pracovala","hint":"pracovat"},{"sentence":"Před třemi lety se ___ do Prahy.","answer":"přestěhovala","hint":"přestěhovat se"},{"sentence":"V nové firmě ___ důležité zkušenosti.","answer":"získala","hint":"získat"},{"sentence":"Během práce ___ kurz účetnictví.","answer":"absolvovala","hint":"absolvovat"},{"sentence":"Její kolega ___ informatiku v Brně.","answer":"studoval","hint":"studovat"},{"sentence":"V roce 2018 ___ svou první práci.","answer":"našel","hint":"najít"},{"sentence":"Potom ___ jako technik ve firmě.","answer":"pracoval","hint":"pracovat"},{"sentence":"Loni ___ odborný kurz.","answer":"dokončil","hint":"dokončit"},{"sentence":"Po kurzu ___ nový počítačový program.","answer":"ovládal","hint":"ovládat"},{"sentence":"Minulý měsíc ___ svůj životopis.","answer":"aktualizoval","hint":"aktualizovat"},{"sentence":"V CV ___ také své jazykové znalosti.","answer":"uvedl","hint":"uvést"},{"sentence":"Petra ___ češtinu a angličtinu.","answer":"studovala","hint":"studovat"},{"sentence":"V předchozí práci ___ s klienty.","answer":"komunikovala","hint":"komunikovat"},{"sentence":"Kolegové ___ společný projekt.","answer":"připravili","hint":"připravit"},{"sentence":"Alena a její kolegové minulý rok ___ několik nových dovedností.","answer":"získali","hint":"získat"},{"sentence":"Po škole ___ absolventi do různých firem.","answer":"nastoupili","hint":"nastoupit"},{"sentence":"V roce 2022 Jana ___ novou pracovní nabídku.","answer":"přijala","hint":"přijmout"},{"sentence":"Před nástupem do práce ___ motivační dopis.","answer":"napsala","hint":"napsat"},{"sentence":"Na pohovoru ___ o své praxi.","answer":"mluvila","hint":"mluvit"},{"sentence":"Před dvěma lety Martin ___ v malé firmě.","answer":"pracoval","hint":"pracovat"},{"sentence":"Jana po stěhování ___ novou adresu do formuláře.","answer":"zapsala","hint":"zapsat"}]};
+    const NOTES_KEY = "cz_b1_l" + DATA.number + "_notes";
+    const $ = (selector, root = document) => root.querySelector(selector);
+    const $$ = (selector, root = document) => [...root.querySelectorAll(selector)];
+    const escapeHtml = value => String(value).replace(/[&<>"']/g, char => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[char]));
+    const shuffle = values => {
+      const result = [...values];
+      for (let i = result.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [result[i], result[j]] = [result[j], result[i]];
+      }
+      return result;
+    };
+    const normalize = value => value.trim().toLocaleLowerCase("cs-CZ").replace(/[.!?,;:]+$/g, "").replace(/\s+/g, " ");
+    const wordCount = value => value.trim() ? value.trim().split(/\s+/).length : 0;
+    let activeFilter = "all";
+
+    function switchTab(name) {
+      $$(".tab-panel").forEach(panel => panel.classList.toggle("hidden", panel.id !== "tab-" + name));
+      $$(".tab-btn").forEach(button => {
+        const active = button.dataset.tab === name;
+        button.classList.toggle("bg-sky-600", active);
+        button.classList.toggle("text-white", active);
+        button.classList.toggle("text-slate-400", !active);
+        button.setAttribute("aria-selected", String(active));
+      });
+    }
+
+    function speakText(text, statusId) {
+      if (!("speechSynthesis" in window)) {
+        if (statusId) $("#" + statusId).textContent = "Přehrávání řeči není v tomto prohlížeči dostupné.";
+        return;
+      }
+      window.speechSynthesis.cancel();
+      const utterance = new SpeechSynthesisUtterance(text);
+      utterance.lang = "cs-CZ";
+      window.speechSynthesis.speak(utterance);
+    }
+
+    function renderVocab() {
+      const query = $("#vocabSearch").value.trim().toLocaleLowerCase("cs-CZ");
+      const items = DATA.vocab.filter(item => (activeFilter === "all" || item.category === activeFilter) &&
+        (query === "" || item.cz.toLocaleLowerCase("cs-CZ").includes(query) ||
+          item.en.toLocaleLowerCase("cs-CZ").includes(query) || item.example.toLocaleLowerCase("cs-CZ").includes(query) ||
+          (item.note || "").toLocaleLowerCase("cs-CZ").includes(query)));
+      $("#vocabGrid").innerHTML = items.length ? items.map(item => `
+        <article class="glass-card rounded-xl p-4">
+          <div class="flex items-start justify-between gap-2">
+            <div class="flex items-center gap-2"><button class="speak-word rounded-lg bg-sky-900/60 px-2.5 py-2 text-sky-300" data-speak="${escapeHtml(item.cz)}" aria-label="Přehrát ${escapeHtml(item.cz)}"><i class="fa-solid fa-volume-high"></i></button><h3 class="font-bold">${escapeHtml(item.cz)}</h3></div>
+            <span class="rounded-full bg-slate-800 px-2 py-1 text-[10px] text-slate-300">${escapeHtml(item.pos)}</span>
+          </div>
+          <p class="mt-2 text-sm text-sky-300">${escapeHtml(item.en)}</p>
+          <p class="mt-3 rounded-lg bg-slate-900 p-3 text-sm italic leading-6 text-slate-300">${escapeHtml(item.example)}</p>
+          ${item.note ? `<p class="mt-2 text-xs leading-5 text-amber-200">${escapeHtml(item.note)}</p>` : ""}
+        </article>`).join("") : `<p class="col-span-full py-8 text-center text-slate-400">Žádná slovíčka neodpovídají hledání.</p>`;
+    }
+
+    function renderModel() {
+      const pieces = DATA.model.split(/(\*\*.*?\*\*)/g);
+      $("#modelText").innerHTML = pieces.map(piece => piece.startsWith("**") && piece.endsWith("**")
+        ? `<button class="mark-token" type="button" aria-pressed="false">${escapeHtml(piece.slice(2, -2))}</button>`
+        : escapeHtml(piece)).join("");
+    }
+
+    function renderQuiz() {
+      $("#quizList").innerHTML = DATA.quiz.map((item, index) => `
+        <fieldset class="rounded-xl border border-slate-800 bg-slate-900/70 p-4">
+          <legend class="px-1 font-bold">${index + 1}. ${escapeHtml(item.question)}</legend>
+          <div class="mt-3 grid gap-2 sm:grid-cols-2">${shuffle(item.options).map((option, optionIndex) => `
+            <label class="flex cursor-pointer gap-2 rounded-lg border border-slate-800 p-3 text-sm hover:bg-slate-800">
+              <input type="radio" name="quiz-${index}" value="${escapeHtml(option)}"><span><b>${String.fromCharCode(65 + optionIndex)}.</b> ${escapeHtml(option)}</span>
+            </label>`).join("")}</div>
+        </fieldset>`).join("");
+    }
+
+    function renderExercises() {
+      const exercises = DATA.exercises;
+      $("#exAList").innerHTML = exercises.map((item, index) => {
+        const parts = item.sentence.split("___");
+        const width = Math.min(280, Math.max(100, item.answer.length * 11 + 20));
+        return `<article class="glass-card rounded-xl p-4">
+          <div class="flex flex-col gap-3 md:flex-row md:items-center">
+            <p class="flex-1 text-sm leading-8 sm:text-base"><b class="mr-2 text-sky-300">${index + 1}.</b>${escapeHtml(parts[0])}<input class="exA-input mx-1 inline-block rounded-lg border border-slate-600 bg-slate-950 px-2 py-1 text-center text-sky-200" style="width:${width}px" data-answer="${escapeHtml(item.answer)}" aria-label="Odpověď ${index + 1}">${escapeHtml(parts.slice(1).join("___"))}</p>
+            <span class="rounded-lg bg-slate-900 px-3 py-2 text-xs text-amber-200">Nápověda: ${escapeHtml(item.hint)}</span>
+          </div><p class="exA-result mt-2 text-xs" aria-live="polite"></p></article>`;
+      }).join("");
+      $("#exBList").innerHTML = DATA.upgrades.map((item, index) => `
+        <article class="glass-card space-y-3 rounded-xl p-4" data-upgrade="${index}">
+          <div class="grid gap-2 text-sm sm:grid-cols-2">
+            <p class="rounded-lg bg-slate-900 p-3"><b class="text-sky-300">Začínáš:</b> ${escapeHtml(item.start)}</p>
+            <p class="rounded-lg bg-slate-900 p-3"><b class="text-sky-300">Změň / doplň:</b> ${escapeHtml(item.change)}</p>
+          </div>
+          <p class="text-sm text-slate-300"><b>Úspěšná odpověď:</b> ${escapeHtml(item.success)}</p>
+          <p class="text-xs text-amber-200"><b>Nápověda:</b> ${escapeHtml(item.hint)}</p>
+          <textarea class="upgrade-input w-full rounded-lg border border-slate-700 bg-slate-950 p-3 text-sm leading-6" rows="2" placeholder="Napiš svou rozšířenou větu…"></textarea>
+          <div class="flex flex-wrap items-center gap-2"><button class="reveal-model rounded-lg bg-slate-800 px-3 py-2 text-xs font-bold">Ukázat model</button><span class="upgrade-result text-xs" aria-live="polite"></span></div>
+          <p class="upgrade-model hidden rounded-lg border border-emerald-800/60 bg-emerald-950/30 p-3 text-sm leading-6"><b>Modelová odpověď:</b> ${escapeHtml(item.model)}</p>
+        </article>`).join("");
+      updateExAProgress();
+      updateExBProgress();
+    }
+
+    function updateExAProgress() {
+      const inputs = $$(".exA-input");
+      const filled = inputs.filter(input => input.value.trim()).length;
+      $("#exAProgress").textContent = `Vyplněno ${filled} z ${inputs.length}`;
+    }
+    function checkExA() {
+      let correct = 0;
+      $$(".exA-input").forEach(input => {
+        const ok = normalize(input.value) === normalize(input.dataset.answer);
+        input.classList.toggle("answer-correct", ok);
+        input.classList.toggle("answer-incorrect", !ok);
+        input.closest("article").querySelector(".exA-result").textContent = ok ? "Správně." : "Zkontroluj tvar a nápovědu.";
+        input.closest("article").querySelector(".exA-result").className = "exA-result mt-2 text-xs " + (ok ? "text-emerald-300" : "text-rose-300");
+        if (ok) correct++;
+      });
+      $("#exAFeedback").textContent = `Správně: ${correct} z ${$$(".exA-input").length}.`;
+    }
+    function revealExA() {
+      $$(".exA-input").forEach(input => { input.value = input.dataset.answer; input.classList.remove("answer-incorrect"); input.classList.add("answer-correct"); });
+      $$(".exA-result").forEach(result => { result.textContent = "Řešení."; result.className = "exA-result mt-2 text-xs text-sky-300"; });
+      updateExAProgress();
+      $("#exAFeedback").textContent = "Zobrazena všechna řešení.";
+    }
+    function resetExA() {
+      $$(".exA-input").forEach(input => { input.value = ""; input.classList.remove("answer-correct", "answer-incorrect"); });
+      $$(".exA-result").forEach(result => { result.textContent = ""; });
+      updateExAProgress();
+      $("#exAFeedback").textContent = "";
+    }
+    function updateExBProgress() {
+      const fields = $$(".upgrade-input");
+      const complete = fields.filter(field => field.value.trim()).length;
+      $("#exBProgress").textContent = `Hotovo ${complete} z ${fields.length}`;
+    }
+    function checkExB() {
+      const fields = $$(".upgrade-input");
+      const complete = fields.filter(field => field.value.trim()).length;
+      fields.forEach(field => { field.closest("article").querySelector(".upgrade-result").textContent = field.value.trim() ? "Návrh zapsán — porovnej ho s kritériem a modelovou odpovědí." : "Nejdřív napiš svou odpověď."; });
+      $("#exBFeedback").textContent = `Vyplněno ${complete} z ${fields.length}. Jde o vlastní tvorbu, ne automatické známkování.`;
+    }
+    function resetExB() {
+      $$(".upgrade-input").forEach(field => { field.value = ""; });
+      $$(".upgrade-result").forEach(result => { result.textContent = ""; });
+      $$(".upgrade-model").forEach(model => model.classList.add("hidden"));
+      updateExBProgress();
+      $("#exBFeedback").textContent = "";
+    }
+    function checkMarks() {
+      const selected = $$(".mark-token.selected");
+      const correct = $$(".mark-token").filter(token => token.classList.contains("selected"));
+      correct.forEach(token => token.classList.add("correct"));
+      const countOK = selected.length === DATA.mark;
+      $("#markFeedback").textContent = countOK ? `Označil/a jsi ${selected.length} z ${DATA.mark} příkladů. Správné příklady jsou zvýrazněné zeleně; červeně se zobrazí chybějící nebo nadbytečné volby.` : `Označil/a jsi ${selected.length}; očekává se ${DATA.mark}. Zkontroluj výběr a zkus to znovu.`;
+      if (countOK) $$(".mark-token:not(.selected)").forEach(token => token.classList.add("incorrect"));
+      else $$(".mark-token").forEach(token => token.classList.remove("correct", "incorrect"));
+    }
+    function clearMarks() {
+      $$(".mark-token").forEach(token => { token.classList.remove("selected", "correct", "incorrect"); token.setAttribute("aria-pressed", "false"); });
+      $("#markFeedback").textContent = "";
+    }
+    function checkQuiz() {
+      let correct = 0;
+      let answered = 0;
+      DATA.quiz.forEach((question, index) => {
+        const selected = $(`input[name="quiz-${index}"]:checked`);
+        if (selected) { answered++; if (selected.value === question.correct) correct++; }
+      });
+      $("#quizFeedback").textContent = answered < DATA.quiz.length ? `Odpověděl/a jsi na ${answered} ze 3 otázek. Správně zatím ${correct}.` : `Výsledek: ${correct} ze 3 správně.`;
+      $("#quizFeedback").className = "text-sm " + (correct === 3 && answered === 3 ? "text-emerald-300" : "text-amber-200");
+    }
+    function saveLocal(key, value, status) {
+      try {
+        localStorage.setItem(key, value);
+        if (status) status.textContent = "Uloženo v tomto prohlížeči.";
+      } catch (error) {
+        if (status) status.textContent = "Uložení se nezdařilo; zkontroluj nastavení úložiště prohlížeče.";
+      }
+    }
+    function loadLocal(key, status) {
+      try { return localStorage.getItem(key) || ""; }
+      catch (error) {
+        if (status) status.textContent = "Uložené údaje nejsou dostupné.";
+        return "";
+      }
+    }
+    function init() {
+      renderVocab();
+      renderModel();
+      renderQuiz();
+      renderExercises();
+      $("#vocabSearch").addEventListener("input", renderVocab);
+      $$(".filter-btn").forEach(button => button.addEventListener("click", () => {
+        activeFilter = button.dataset.filter;
+        $$(".filter-btn").forEach(item => item.className = "filter-btn rounded-lg px-2 py-2 text-xs " + (item === button ? "bg-sky-700" : "bg-slate-800"));
+        renderVocab();
+      }));
+      document.addEventListener("click", event => {
+        const speak = event.target.closest("[data-speak]");
+        if (speak) speakText(speak.dataset.speak);
+      });
+      $$(".tab-btn").forEach(button => button.addEventListener("click", () => switchTab(button.dataset.tab)));
+      $("#speakModel").addEventListener("click", () => speakText(DATA.model.replace(/\*\*/g, "")));
+      $("#modelText").addEventListener("click", event => {
+        const token = event.target.closest(".mark-token");
+        if (!token) return;
+        token.classList.toggle("selected");
+        token.classList.remove("correct", "incorrect");
+        token.setAttribute("aria-pressed", String(token.classList.contains("selected")));
+        $("#markFeedback").textContent = "";
+      });
+      $("#checkMarks").addEventListener("click", checkMarks);
+      $("#clearMarks").addEventListener("click", clearMarks);
+      $("#checkQuiz").addEventListener("click", checkQuiz);
+      $("#resetQuiz").addEventListener("click", () => { $$('input[type="radio"]').forEach(input => input.checked = false); $("#quizFeedback").textContent = ""; });
+      $("#checkExA").addEventListener("click", checkExA);
+      $("#revealExA").addEventListener("click", revealExA);
+      $("#resetExA").addEventListener("click", resetExA);
+      $("#exAList").addEventListener("input", updateExAProgress);
+      $("#checkExB").addEventListener("click", checkExB);
+      $("#resetExB").addEventListener("click", resetExB);
+      $("#exBList").addEventListener("input", updateExBProgress);
+      $("#exBList").addEventListener("click", event => {
+        const button = event.target.closest(".reveal-model");
+        if (button) button.closest("article").querySelector(".upgrade-model").classList.toggle("hidden");
+      });
+      $("#speakPractice").addEventListener("click", () => speakText($("#practiceText").value, "practiceStatus"));
+      $("#clearPractice").addEventListener("click", () => { $("#practiceText").value = ""; $("#practiceCount").textContent = "0 slov"; $("#practiceStatus").textContent = ""; });
+      $("#practiceText").addEventListener("input", () => $("#practiceCount").textContent = `${wordCount($("#practiceText").value)} slov`);
+      const notes = $("#teacherNotes");
+      notes.value = loadLocal(NOTES_KEY, $("#notesStatus"));
+      notes.addEventListener("input", () => saveLocal(NOTES_KEY, notes.value, $("#notesStatus")));
+      const homework = $("#homeworkDraft");
+      const homeworkKey = NOTES_KEY + "_homework";
+      homework.value = loadLocal(homeworkKey, $("#homeworkStatus"));
+      const updateHomeworkCount = () => $("#homeworkCount").textContent = `${wordCount(homework.value)} slov`;
+      updateHomeworkCount();
+      homework.addEventListener("input", () => { updateHomeworkCount(); saveLocal(homeworkKey, homework.value, $("#homeworkStatus")); });
+      $("#clearHomework").addEventListener("click", () => { homework.value = ""; updateHomeworkCount(); saveLocal(homeworkKey, "", $("#homeworkStatus")); });
+    }
+    init();
+  </script>
+</body>
+</html>
