@@ -126,6 +126,9 @@
         if (test.group === 'tenses') {
             return item.person + ' + ' + item.verb;
         }
+        if (test.group === 'shopping') {
+            return item.question;
+        }
         if (test.stage === 'names') {
             return 'Oslovte: ' + item.base;
         }
@@ -148,7 +151,10 @@
         table.className = 'question-table';
         const head = document.createElement('thead');
         const headingRow = document.createElement('tr');
-        ['#', 'Prompt', 'Word / hint', 'Your answer', 'Correct answer', 'Teacher feedback'].forEach(function (label) {
+        const headers = test.group === 'shopping'
+            ? ['#', 'Slovíčko', 'Otázka', 'Tvoje odpověď', 'Správná odpověď', 'Komentář učitele']
+            : ['#', 'Prompt', 'Word / hint', 'Your answer', 'Correct answer', 'Teacher feedback'];
+        headers.forEach(function (label) {
             const cell = document.createElement('th');
             cell.scope = 'col';
             cell.textContent = label;
@@ -210,7 +216,11 @@
                 saveQuestion(test, item, input.value);
             });
 
-            row.append(number, promptCell, hint, answerCell, correctAnswerCell, feedbackCell);
+            if (test.group === 'shopping') {
+                row.append(number, hint, promptCell, answerCell, correctAnswerCell, feedbackCell);
+            } else {
+                row.append(number, promptCell, hint, answerCell, correctAnswerCell, feedbackCell);
+            }
             body.appendChild(row);
         });
 
@@ -312,7 +322,11 @@
     function openTest(test) {
         currentTest = test;
         document.getElementById('test-category').textContent =
-            test.group === 'cases' ? test.caseTitle : 'Verb tenses';
+            test.group === 'cases'
+                ? test.caseTitle
+                : test.group === 'shopping'
+                    ? 'Nakupování'
+                    : 'Verb tenses';
         document.getElementById('test-title').textContent = getTestLabel(test);
         document.getElementById('test-description').textContent = test.description;
         checklistEl.hidden = true;
