@@ -624,7 +624,10 @@ if (u.mistakes) {
         table.className = 'matrix-table';
         const head = document.createElement('thead');
         const headingRow = document.createElement('tr');
-        ['#', 'Question', 'Student answer', 'Correct answer', 'Result', 'Teacher comment'].forEach(label => {
+        const headers = test.group === 'shopping'
+            ? ['#', 'Slovíčko', 'Question', 'Student answer', 'Correct answer', 'Result', 'Teacher comment']
+            : ['#', 'Question', 'Student answer', 'Correct answer', 'Result', 'Teacher comment'];
+        headers.forEach(label => {
             const cell = document.createElement('th');
             cell.textContent = label;
             headingRow.appendChild(cell);
@@ -638,6 +641,8 @@ if (u.mistakes) {
             const row = document.createElement('tr');
             const question = test.group === 'tenses'
                 ? item.person + ' + ' + item.verb
+                : test.group === 'shopping'
+                    ? item.question
                 : test.stage === 'names'
                     ? 'Oslovte: ' + item.base
                     : item.prep + (item.adjective ? ' (' + item.adjective + ')' : '') + ' ____ · ' + item.base;
@@ -649,18 +654,16 @@ if (u.mistakes) {
                         ? 'Correct'
                         : 'Incorrect'
                     : 'Manual review';
-            [
-                String(index + 1),
-                question,
-                hasResponse ? response.value : '—',
-                item.answer || '—',
-                result
-            ].forEach((value, columnIndex) => {
+            const rowValues = test.group === 'shopping'
+                ? [String(index + 1), item.base, question, hasResponse ? response.value : '—', item.answer || '—', result]
+                : [String(index + 1), question, hasResponse ? response.value : '—', item.answer || '—', result];
+            const resultColumn = test.group === 'shopping' ? 5 : 4;
+            rowValues.forEach((value, columnIndex) => {
                 const cell = document.createElement('td');
                 cell.textContent = value;
-                if (columnIndex === 4 && value === 'Correct') cell.className = 'practice-result-correct';
-                if (columnIndex === 4 && value === 'Incorrect') cell.className = 'practice-result-incorrect';
-                if (columnIndex === 4 && value === 'Manual review') cell.className = 'practice-result-manual';
+                if (columnIndex === resultColumn && value === 'Correct') cell.className = 'practice-result-correct';
+                if (columnIndex === resultColumn && value === 'Incorrect') cell.className = 'practice-result-incorrect';
+                if (columnIndex === resultColumn && value === 'Manual review') cell.className = 'practice-result-manual';
                 row.appendChild(cell);
             });
 
