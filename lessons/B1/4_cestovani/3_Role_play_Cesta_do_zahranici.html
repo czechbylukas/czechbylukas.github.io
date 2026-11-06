@@ -4,132 +4,32 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Czech B1 Mastery: Lesson 3 – Cesta do zahraničí (Kompletní 2. pád)</title>
+  <script>window.B1_LESSON = {"topic": "Cestování", "number": 3, "title": "Cesta do zahraničí", "icon": "fa-plane-departure", "notesKey": "cz_b1_l3_notes", "tabs": {"exC": "Role play"}};</script>
+  <script src="../core/b1-core.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-auth-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-database-compat.js"></script>
+  <script src="../../../scripts-header.js"></script>
   <!-- Tailwind CSS -->
-  <script src="https://cdn.tailwindcss.com"></script>
   <!-- FontAwesome Icons -->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <!-- Google Fonts: Inter -->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
   
-  <script>
-    tailwind.config = {
-      theme: {
-        extend: {
-          fontFamily: {
-            sans: ['Inter', 'sans-serif'],
-          },
-          colors: {
-            brand: {
-              50: '#f0f9ff',
-              100: '#e0f2fe',
-              500: '#0284c7',
-              600: '#0284c7',
-              700: '#0369a1',
-            }
-          }
-        }
-      }
-    }
-  </script>
-  <style>
-    ::-webkit-scrollbar {
-      width: 8px;
-      height: 8px;
-    }
-    ::-webkit-scrollbar-track {
-      background: rgba(15, 23, 42, 0.6);
-    }
-    ::-webkit-scrollbar-thumb {
-      background: rgba(51, 65, 85, 0.8);
-      border-radius: 4px;
-    }
-    ::-webkit-scrollbar-thumb:hover {
-      background: rgba(71, 85, 105, 1);
-    }
-    .glass-card {
-      background: rgba(30, 41, 59, 0.7);
-      backdrop-filter: blur(12px);
-      border: 1px solid rgba(255, 255, 255, 0.08);
-    }
-    .glass-card-hover:hover {
-      background: rgba(30, 41, 59, 0.9);
-      border-color: rgba(56, 189, 248, 0.3);
-    }
-    @media (max-width: 1023px) {
-      .teacher-notes-panel {
-        position: fixed !important;
-        right: 0;
-        bottom: 0;
-        left: 0;
-        z-index: 55;
-        width: 100%;
-        height: 170px !important;
-        padding: 0.75rem !important;
-        border-radius: 0.75rem 0.75rem 0 0;
-        background: rgba(15, 23, 42, 0.97);
-      }
-      .teacher-notes-panel > p {
-        display: none;
-      }
-      .teacher-notes-panel textarea {
-        min-height: 48px;
-      }
-    }
-  </style>
 </head>
-<body class="h-full flex flex-col font-sans bg-slate-950 text-slate-100 overflow-x-hidden">
+<body class="min-h-full flex flex-col bg-slate-950 text-slate-100 overflow-x-hidden">
+  <script>B1Lesson.mount();</script>
 
   <!-- HEADER & NAVBAR -->
-  <header class="sticky top-0 z-50 bg-slate-900/90 backdrop-blur-md border-b border-slate-800 shadow-lg">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      <div class="flex items-center justify-between h-16">
-        <!-- Logo / Title -->
-        <div class="flex items-center space-x-3">
-          <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-sky-500 to-indigo-600 flex items-center justify-center text-white shadow-lg shadow-sky-500/20 font-bold text-xl">
-            <i class="fa-solid fa-plane-departure"></i>
-          </div>
-          <div>
-            <h1 class="text-lg font-bold text-white leading-tight">Czech B1 Mastery</h1>
-            <p class="text-xs text-sky-400 font-medium">Lekce 3: Cesta do zahraničí &amp; Kompletní 2. pád (21 výrazů)</p>
-          </div>
-        </div>
-
-        <div class="flex items-center justify-between py-2 text-xs font-medium">
-          <a href="../B1_List_of_lessons.html" class="rounded-lg border border-slate-700 bg-slate-800 px-3 py-1.5 text-slate-300 hover:bg-slate-700">← Přehled lekcí</a>
-          <button onclick="speakText('Přestoupili jsme do rychlíku směrem do Vídně.')" class="hidden sm:flex items-center gap-1.5 rounded-lg border border-sky-500/30 bg-sky-600/20 px-3 py-1.5 text-sky-300 transition hover:bg-sky-600/30">
-            <i class="fa-solid fa-volume-high"></i> Poslechnout vzorovou větu
-          </button>
-        </div>
-      </div>
-
-      <!-- Navigation Tabs -->
-      <nav class="flex space-x-1 overflow-x-auto no-scrollbar border-t border-slate-800/80 py-2" id="mainTabs">
-        <button onclick="switchTab('tab-vocab')" id="btn-tab-vocab" class="tab-btn active px-4 py-2 text-xs sm:text-sm font-semibold rounded-lg text-white bg-sky-600 shadow-md shadow-sky-600/20 transition flex items-center gap-2 whitespace-nowrap">
-          <i class="fa-solid fa-book"></i> 1. B1 Vocab &amp; Text (21)
-        </button>
-        <button onclick="switchTab('tab-exA')" id="btn-tab-exA" class="tab-btn px-4 py-2 text-xs sm:text-sm font-semibold rounded-lg text-slate-400 hover:text-slate-200 hover:bg-slate-800 transition flex items-center gap-2 whitespace-nowrap">
-          <i class="fa-solid fa-pen-to-square"></i> 2. Exercise A: 25 Gap-Fills
-        </button>
-        <button onclick="switchTab('tab-exB')" id="btn-tab-exB" class="tab-btn px-4 py-2 text-xs sm:text-sm font-semibold rounded-lg text-slate-400 hover:text-slate-200 hover:bg-slate-800 transition flex items-center gap-2 whitespace-nowrap">
-          <i class="fa-solid fa-wand-magic-sparkles"></i> 3. Exercise B: 10 Sentence Upgrades
-        </button>
-        <button onclick="switchTab('tab-exC')" id="btn-tab-exC" class="tab-btn px-4 py-2 text-xs sm:text-sm font-semibold rounded-lg text-slate-400 hover:text-slate-200 hover:bg-slate-800 transition flex items-center gap-2 whitespace-nowrap">
-          <i class="fa-solid fa-comments"></i> 4. Dynamic Role Play Simulator
-        </button>
-        <button onclick="switchTab('tab-homework')" id="btn-tab-homework" class="tab-btn px-4 py-2 text-xs sm:text-sm font-semibold rounded-lg text-slate-400 hover:text-slate-200 hover:bg-slate-800 transition flex items-center gap-2 whitespace-nowrap">
-          <i class="fa-solid fa-paper-plane"></i> 5. Homework &amp; Summary Guide
-        </button>
-      </nav>
-    </div>
-  </header>
 
   <!-- MAIN CONTAINER -->
   <main class="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-6 pb-48">
 
     <!-- TAB 1: B1 TRAVEL VOCABULARY HUB & EXPANDED READING TEXT -->
     <section id="tab-vocab" class="tab-content block space-y-6">
+      <div class="glass-card rounded-2xl border border-sky-500/20 bg-slate-900/50 p-4 sm:p-5">
+        <h2 class="text-lg font-bold text-sky-200">Stručně ke gramatice: 2. pád (genitiv)</h2>
+        <p class="mt-2 text-sm leading-6 text-slate-300">Genitiv odpovídá na otázku <em>koho, čeho?</em> Používáme ho například po předložkách <em>do, z/ze, bez, během</em> a ve spojeních vyjadřujících množství. V sousloví se do genitivu mění podstatné jméno i jeho přídavné jméno: <em>do nového města, bez platného pasu</em>. Koncovky závisejí na rodě, čísle a typu skloňování.</p>
+        <button type="button" disabled class="mt-3 cursor-not-allowed rounded-lg border border-slate-600 px-3 py-2 text-sm text-slate-400" aria-disabled="true">Podrobné vysvětlení – work in progress</button>
+      </div>
       <div class="glass-card rounded-2xl p-5 border border-slate-800 flex flex-col md:flex-row gap-4 items-center justify-between">
         <div>
           <h2 class="text-xl font-bold text-white flex items-center gap-2">
@@ -167,37 +67,32 @@
             <h3 class="text-lg font-bold text-white flex items-center gap-2">
               <i class="fa-solid fa-book-open text-amber-400"></i> Text k poslechu a čtení (B1 Reading Text)
             </h3>
-            <p class="text-xs text-slate-400 mt-0.5">
-              Učitel/ka čte text nahlas; studenti sledují zvýrazněné tvary 2. pádu. Téma: „Dobrodružná cesta na letiště v Paříži“.
-            </p>
+            <p class="text-xs text-slate-400 mt-0.5">Přečti, označ 2. pád a odpověz na otázky.</p>
           </div>
           <button onclick="readStoryText()" class="px-4 py-2 bg-amber-600 hover:bg-amber-500 text-white rounded-xl text-xs font-bold transition flex items-center gap-2 self-start sm:self-auto shadow-lg shadow-amber-600/20">
             <i class="fa-solid fa-volume-high"></i> Přehrát celý text
           </button>
         </div>
 
-        <div class="flex flex-wrap items-center justify-between gap-2 text-xs">
-          <p class="text-slate-400">Kliknutím označte slova a spojení ve 2. pádě.</p>
-          <div class="flex items-center gap-2"><span id="genitiveMarkCount" class="text-amber-300" aria-live="polite">Označeno: 0 slov</span><button type="button" onclick="clearGenitiveMarks('storyContainer','genitiveMarkCount')" class="rounded-lg bg-slate-800 px-2 py-1 text-slate-300 hover:bg-slate-700">Zrušit označení</button></div>
-        </div>
+        <div><span id="genitiveMarkCount"></span></div>
         <div class="text-xs sm:text-sm text-slate-200 leading-relaxed font-sans space-y-3 bg-slate-900/80 p-5 rounded-xl border border-slate-800" id="storyContainer">
           <p>
-            Minulý týden jsem zažil neuvěřitelnou cestu do <strong class="text-sky-300 font-semibold underline decoration-sky-500/50">Paříže</strong>. Ráno jsem odešel z <strong class="text-sky-300 font-semibold underline decoration-sky-500/50">domova</strong> už v šest hodin, abych se vyhnul dopravní zácpě a dorazil na letiště bez <strong class="text-sky-300 font-semibold underline decoration-sky-500/50">zbytečného stresu</strong>.
+            Minulý týden jsem {{zažil|zažila}} neuvěřitelnou cestu do <strong class="text-sky-300 font-semibold underline decoration-sky-500/50">Paříže</strong>. Ráno jsem {{odešel|odešla}} z <strong class="text-sky-300 font-semibold underline decoration-sky-500/50">domova</strong> už v šest hodin, abych se {{vyhnul|vyhnula}} dopravní zácpě a {{dorazil|dorazila}} na letiště bez <strong class="text-sky-300 font-semibold underline decoration-sky-500/50">zbytečného stresu</strong>.
           </p>
           <p>
-            Podle <strong class="text-sky-300 font-semibold underline decoration-sky-500/50">letového řádu</strong> mělo naše letadlo odletět přesně v deset hodin dopoledne. Na vlakové nádraží jsem dorazil bez <strong class="text-sky-300 font-semibold underline decoration-sky-500/50">jakýchkoli problémů</strong>, ale tam mě čekalo překvapení. Místo <strong class="text-sky-300 font-semibold underline decoration-sky-500/50">přímého rychlíku</strong> museli všichni cestující jet náhradním autobusem. Během <strong class="text-sky-300 font-semibold underline decoration-sky-500/50">dvacetiminutové cesty</strong> autobusem jsme projížděli kolem <strong class="text-sky-300 font-semibold underline decoration-sky-500/50">historického centra</strong> města, což bylo opravdu krásné.
+            Podle <strong class="text-sky-300 font-semibold underline decoration-sky-500/50">letového řádu</strong> mělo naše letadlo odletět přesně v deset hodin dopoledne. Na vlakové nádraží jsem {{dorazil|dorazila}} bez <strong class="text-sky-300 font-semibold underline decoration-sky-500/50">jakýchkoli problémů</strong>, ale tam mě čekalo překvapení. Místo <strong class="text-sky-300 font-semibold underline decoration-sky-500/50">přímého rychlíku</strong> museli všichni cestující jet náhradním autobusem. Během <strong class="text-sky-300 font-semibold underline decoration-sky-500/50">dvacetiminutové cesty</strong> autobusem jsme projížděli kolem <strong class="text-sky-300 font-semibold underline decoration-sky-500/50">historického centra města</strong>, což bylo opravdu krásné.
           </p>
           <p>
-            Když jsme konečně dorazili k budově <strong class="text-sky-300 font-semibold underline decoration-sky-500/50">letiště</strong>, byla tam obrovská spousta <strong class="text-sky-300 font-semibold underline decoration-sky-500/50">pasažérů</strong>. U <strong class="text-sky-300 font-semibold underline decoration-sky-500/50">odbavovací přepážky</strong> číslo 5 stála dlouhá fronta asi dvaceti <strong class="text-sky-300 font-semibold underline decoration-sky-500/50">lidí</strong>. Protože bylo velké horko, koupil jsem si u malého stánku půl litru <strong class="text-sky-300 font-semibold underline decoration-sky-500/50">chladné vody</strong> a malý šálek <strong class="text-sky-300 font-semibold underline decoration-sky-500/50">kávy</strong>.
+            Když jsme konečně dorazili k budově <strong class="text-sky-300 font-semibold underline decoration-sky-500/50">letiště</strong>, byla tam obrovská spousta <strong class="text-sky-300 font-semibold underline decoration-sky-500/50">pasažérů</strong>. U <strong class="text-sky-300 font-semibold underline decoration-sky-500/50">odbavovací přepážky</strong> číslo 5 stála dlouhá fronta asi <strong class="text-sky-300 font-semibold underline decoration-sky-500/50">dvaceti lidí</strong>. Protože bylo velké horko, {{koupil|koupila}} jsem si <strong class="text-sky-300 font-semibold underline decoration-sky-500/50">u malého stánku</strong> <strong class="text-sky-300 font-semibold underline decoration-sky-500/50">půl litru chladné vody</strong> a malý šálek <strong class="text-sky-300 font-semibold underline decoration-sky-500/50">kávy</strong>.
           </p>
           <p>
-            Cestoval jsem jen s jedním příručním <strong class="text-sky-300 font-semibold underline decoration-sky-500/50">zavazadlem</strong>, protože velký kufr <strong class="text-sky-300 font-semibold underline decoration-sky-500/50">mého mladšího bratra</strong> se ztratil při naší minulé cestě do <strong class="text-sky-300 font-semibold underline decoration-sky-500/50">Německa</strong>, a tak jsem nechtěl nic riskovat. Hned vedle <strong class="text-sky-300 font-semibold underline decoration-sky-500/50">pasové kontroly</strong> se nacházela bezpečnostní prohlídka. Všechno probíhalo hladce až do <strong class="text-sky-300 font-semibold underline decoration-sky-500/50">chvíle</strong>, kdy jsem zjistil, že nemám u sebe svůj palubní lístek! Naštěstí se našel na dně mého <strong class="text-sky-300 font-semibold underline decoration-sky-500/50">batohu</strong>.
+            {{Cestoval|Cestovala}} jsem jen s jedním příručním zavazadlem, protože velký kufr <strong class="text-sky-300 font-semibold underline decoration-sky-500/50">mého mladšího bratra</strong> se ztratil při naší minulé cestě do <strong class="text-sky-300 font-semibold underline decoration-sky-500/50">Německa</strong>, a tak jsem {{nechtěl|nechtěla}} nic riskovat. Hned vedle <strong class="text-sky-300 font-semibold underline decoration-sky-500/50">pasové kontroly</strong> se nacházela bezpečnostní prohlídka. Všechno probíhalo hladce až do <strong class="text-sky-300 font-semibold underline decoration-sky-500/50">chvíle</strong>, kdy jsem {{zjistil|zjistila}}, že nemám u sebe svůj palubní lístek! Naštěstí se našel na dně <strong class="text-sky-300 font-semibold underline decoration-sky-500/50">mého batohu</strong>.
           </p>
           <p>
-            Bohužel jsem si uvědomil ještě jednu věc. V úschovně <strong class="text-sky-300 font-semibold underline decoration-sky-500/50">zavazadel</strong> blízko <strong class="text-sky-300 font-semibold underline decoration-sky-500/50">hlavního vchodu</strong> jsem totiž zapomněl svou novou bundu. Musel jsem běžet z jednoho konce <strong class="text-sky-300 font-semibold underline decoration-sky-500/50">haly</strong> na druhý a projít bezpečnostní kontrolou znovu. Těsně před zavřením <strong class="text-sky-300 font-semibold underline decoration-sky-500/50">gatu</strong> jsem ale všechno stihl.
+            Bohužel jsem si {{uvědomil|uvědomila}} ještě jednu věc. V úschovně <strong class="text-sky-300 font-semibold underline decoration-sky-500/50">zavazadel</strong> blízko <strong class="text-sky-300 font-semibold underline decoration-sky-500/50">hlavního vchodu</strong> jsem totiž {{zapomněl|zapomněla}} svou novou bundu. {{Musel|Musela}} jsem běžet z <strong class="text-sky-300 font-semibold underline decoration-sky-500/50">jednoho konce haly</strong> na druhý a projít bezpečnostní kontrolou znovu. Těsně před zavřením <strong class="text-sky-300 font-semibold underline decoration-sky-500/50">gatu</strong> jsem ale všechno {{stihl|stihla}}.
           </p>
           <p>
-            Kromě <strong class="text-sky-300 font-semibold underline decoration-sky-500/50">malého zpoždění</strong> na začátku proběhl celý let skvěle. Místo <strong class="text-sky-300 font-semibold underline decoration-sky-500/50">dlouhé cesty</strong> vlakem jsem byl v Paříži za dvě hodiny a byl to pro mě nezapomenutelný zážitek z <strong class="text-sky-300 font-semibold underline decoration-sky-500/50">cestování</strong>.
+            Kromě <strong class="text-sky-300 font-semibold underline decoration-sky-500/50">malého zpoždění</strong> na začátku proběhl celý let skvěle. Místo <strong class="text-sky-300 font-semibold underline decoration-sky-500/50">dlouhé cesty</strong> vlakem jsem {{byl|byla}} v Paříži za dvě hodiny a byl to pro mě nezapomenutelný zážitek z <strong class="text-sky-300 font-semibold underline decoration-sky-500/50">cestování</strong>.
           </p>
         </div>
 
@@ -512,12 +407,12 @@
         }
         return `
           <div class="bg-slate-900 p-4 rounded-xl border border-slate-800 space-y-2">
-            <p class="font-bold text-slate-200">${questionIndex + 1}. ${question.question}</p>
+            <p class="font-bold text-slate-200">${questionIndex + 1}. ${B1Gender.t(question.question)}</p>
             <div class="space-y-1 text-slate-400">
               ${options.map((option, optionIndex) => `
                 <label class="flex items-start gap-2 cursor-pointer hover:text-slate-200">
                   <input type="radio" name="reading-q${questionIndex + 1}" data-correct="${option.correct}" onchange="checkReadingQuiz(${questionIndex + 1})">
-                  <span>${letters[optionIndex]}. ${option.text}</span>
+                  <span>${letters[optionIndex]}. ${B1Gender.t(option.text)}</span>
                 </label>
               `).join('')}
             </div>
@@ -617,67 +512,9 @@
       }
     }
 
-    function enableGenitiveMarking(containerId, countId) {
-      const container = document.getElementById(containerId);
-      const walker = document.createTreeWalker(container, NodeFilter.SHOW_TEXT);
-      const textNodes = [];
-      while (walker.nextNode()) {
-        const node = walker.currentNode;
-        if (node.nodeValue.trim() && !node.parentElement.closest('button, a, input, textarea')) textNodes.push(node);
-      }
-      textNodes.forEach(node => {
-        const fragment = document.createDocumentFragment();
-        node.nodeValue.split(/([A-Za-zÀ-ž]+(?:[’'-][A-Za-zÀ-ž]+)*)/g).forEach(part => {
-          if (/^[A-Za-zÀ-ž]/.test(part)) {
-            const word = document.createElement('span');
-            word.textContent = part;
-            word.className = 'genitive-mark-word cursor-pointer rounded px-0.5 hover:bg-amber-900/50';
-            word.setAttribute('role', 'button');
-            word.setAttribute('aria-pressed', 'false');
-            word.tabIndex = 0;
-            const toggle = () => {
-              const marked = word.getAttribute('aria-pressed') !== 'true';
-              word.style.backgroundColor = marked ? 'rgba(251, 191, 36, 0.3)' : '';
-              word.style.color = marked ? '#fef3c7' : '';
-              word.style.outline = marked ? '1px solid rgba(251, 191, 36, 0.7)' : '';
-              word.setAttribute('aria-pressed', String(marked));
-              updateGenitiveMarkCount(containerId, countId);
-            };
-            word.addEventListener('click', toggle);
-            word.addEventListener('keydown', event => {
-              if (event.key === 'Enter' || event.key === ' ') {
-                event.preventDefault();
-                toggle();
-              }
-            });
-            fragment.appendChild(word);
-          } else {
-            fragment.appendChild(document.createTextNode(part));
-          }
-        });
-        node.replaceWith(fragment);
-      });
-      updateGenitiveMarkCount(containerId, countId);
-    }
-
-    function updateGenitiveMarkCount(containerId, countId) {
-      const count = document.querySelectorAll(`#${containerId} .genitive-mark-word[aria-pressed="true"]`).length;
-      document.getElementById(countId).textContent = `Označeno: ${count} slov`;
-    }
-
-    function clearGenitiveMarks(containerId, countId) {
-      document.querySelectorAll(`#${containerId} .genitive-mark-word`).forEach(word => {
-        word.style.backgroundColor = '';
-        word.style.color = '';
-        word.style.outline = '';
-        word.setAttribute('aria-pressed', 'false');
-      });
-      updateGenitiveMarkCount(containerId, countId);
-    }
-
     function readStoryText() {
-      const storyText = "Minulý týden jsem zažil neuvěřitelnou cestu do Paříže. Ráno jsem odešel z domova už v šest hodin, abych se vyhnul dopravní zácpě a dorazil na letiště bez zbytečného stresu. Podle letového řádu mělo naše letadlo odletět přesně v deset hodin dopoledne. Na vlakové nádraží jsem dorazil bez jakýchkoli problémů, ale tam mě čekalo překvapení. Místo přímého rychlíku museli všichni cestující jet náhradním autobusem. Během dvacetiminutové cesty autobusem jsme projížděli kolem historického centra města, což bylo opravdu krásné. Když jsme konečně dorazili k budově letiště, byla tam velká spousta pasažérů. U odbavovací přepážky číslo 5 stála dlouhá fronta asi dvaceti lidí. Protože bylo velké horko, koupil jsem si u malého stánku dva litry chladné vody a malý šálek kávy. Cestoval jsem jen s jedním příručním zavazadlem, protože velký kufr mého mladšího bratra se ztratil při naší minulé cestě do Německa, a tak jsem nechtěl nic riskovat. Hned vedle pasové kontroly se nacházela bezpečnostní prohlídka. Všechno probíhalo hladce až do chvíle, kdy jsem zjistil, že nemám u sebe svůj palubní lístek! Naštěstí se našel na dně mého batohu. Bohužel jsem si uvědomil ještě jednu věc – v úschovně zavazadel blízko hlavního vchodu jsem zapomněl svou novou bundu. Musel jsem běžet z jednoho konce haly na druhý a projít bezpečnostní kontrolou znovu. Těsně před zavřením gatu jsem ale všechno stihl. Kromě malého zpoždění na začátku proběhl celý let skvěle. Místo dlouhé cesty vlakem jsem byl v Paříži za dvě hodiny a byl to pro mě nezapomenutelný zážitek z cestování.";
-      speakText(storyText);
+      const storyText = "Minulý týden jsem {{zažil|zažila}} neuvěřitelnou cestu do Paříže. Ráno jsem {{odešel|odešla}} z domova už v šest hodin, abych se {{vyhnul|vyhnula}} dopravní zácpě a {{dorazil|dorazila}} na letiště bez zbytečného stresu. Podle letového řádu mělo naše letadlo odletět přesně v deset hodin dopoledne. Na vlakové nádraží jsem {{dorazil|dorazila}} bez jakýchkoli problémů, ale tam mě čekalo překvapení. Místo přímého rychlíku museli všichni cestující jet náhradním autobusem. Během dvacetiminutové cesty autobusem jsme projížděli kolem historického centra města, což bylo opravdu krásné. Když jsme konečně dorazili k budově letiště, byla tam velká spousta pasažérů. U odbavovací přepážky číslo 5 stála dlouhá fronta asi dvaceti lidí. Protože bylo velké horko, {{koupil|koupila}} jsem si u malého stánku dva litry chladné vody a malý šálek kávy. {{Cestoval|Cestovala}} jsem jen s jedním příručním zavazadlem, protože velký kufr mého mladšího bratra se ztratil při naší minulé cestě do Německa, a tak jsem {{nechtěl|nechtěla}} nic riskovat. Hned vedle pasové kontroly se nacházela bezpečnostní prohlídka. Všechno probíhalo hladce až do chvíle, kdy jsem {{zjistil|zjistila}}, že nemám u sebe svůj palubní lístek! Naštěstí se našel na dně mého batohu. Bohužel jsem si {{uvědomil|uvědomila}} ještě jednu věc – v úschovně zavazadel blízko hlavního vchodu jsem {{zapomněl|zapomněla}} svou novou bundu. {{Musel|Musela}} jsem běžet z jednoho konce haly na druhý a projít bezpečnostní kontrolou znovu. Těsně před zavřením gatu jsem ale všechno {{stihl|stihla}}. Kromě malého zpoždění na začátku proběhl celý let skvěle. Místo dlouhé cesty vlakem jsem {{byl|byla}} v Paříži za dvě hodiny a byl to pro mě nezapomenutelný zážitek z cestování.";
+      speakText(B1Gender.t(storyText));
     }
 
     /* VOCABULARY FILTERING */
@@ -760,7 +597,6 @@
               ${parts[1]}
             </div>
             <div class="flex items-center gap-3 self-end sm:self-center flex-shrink-0">
-              <span class="text-xs sm:text-sm text-amber-400/90 font-mono bg-slate-900/90 px-3 py-1.5 rounded-lg border border-slate-800 shadow-sm">${item.hint}</span>
               <button onclick="speakText('${cleanAudioSentence.replace(/'/g, "\\'")}')" class="w-9 h-9 rounded-lg bg-slate-800 hover:bg-sky-600/30 text-slate-300 hover:text-sky-300 border border-slate-700 transition flex items-center justify-center" title="Přehrát celou větu">
                 <i class="fa-solid fa-volume-high text-sm"></i>
               </button>
@@ -812,7 +648,7 @@
         <div class="glass-card rounded-2xl p-6 border border-slate-800 space-y-4">
           <!-- Nadpis & Zvuk -->
           <div class="flex items-center justify-between gap-2">
-            <h3 class="font-bold text-white text-lg sm:text-xl leading-snug">${item.q}</h3>
+            <h3 class="font-bold text-white text-lg sm:text-xl leading-snug">${B1Gender.t(item.q)}</h3>
             <button onclick="speakText('${item.b1.replace(/'/g, "\\'")}')" class="w-10 h-10 rounded-xl bg-slate-800 hover:bg-sky-600/30 text-slate-300 hover:text-sky-300 border border-slate-700 transition flex items-center justify-center flex-shrink-0" title="Přehrát B1 větu">
               <i class="fa-solid fa-volume-high text-base"></i>
             </button>
@@ -820,12 +656,12 @@
 
           <!-- A2 Základ -->
           <div class="text-base text-rose-300/90 bg-rose-950/40 p-3.5 rounded-xl border border-rose-900/40">
-            <strong>A2 Základ:</strong> "${item.a2}"
+            <strong>A2 Základ:</strong> "${B1Gender.t(item.a2)}"
           </div>
 
           <!-- Struktura věty (viditelná) -->
           <div class="text-sm sm:text-base text-sky-300/90 font-mono bg-sky-950/30 p-3 rounded-xl border border-sky-900/40">
-            <i class="fa-solid fa-sitemap mr-1.5"></i> <strong>Struktura věty:</strong> ${item.structure}
+            <i class="fa-solid fa-sitemap mr-1.5"></i> <strong>Struktura věty:</strong> ${B1Gender.t(item.structure)}
           </div>
 
           <!-- Tlačítko pro skrytí / odkrytí slovíček -->
@@ -835,7 +671,7 @@
 
           <!-- Skrytá slovní zásoba (původní tvary) -->
           <div id="exB_blocks_${idx}" class="hidden text-sm sm:text-base text-amber-300/90 font-medium bg-amber-950/40 p-3.5 rounded-xl border border-amber-900/40">
-            <i class="fa-solid fa-cubes mr-1.5"></i> <strong>Slovní zásoba (základní tvary):</strong> ${item.blocks}
+            <i class="fa-solid fa-cubes mr-1.5"></i> <strong>Slovní zásoba (základní tvary):</strong> ${B1Gender.t(item.blocks)}
           </div>
 
           <!-- Textarea pro odpověď -->
@@ -848,7 +684,7 @@
 
           <!-- Modelová B1 věta -->
           <div id="exB_model_${idx}" class="hidden text-base text-emerald-300 bg-emerald-950/50 p-4 rounded-xl border border-emerald-800/50 font-mono leading-relaxed">
-            <strong>Vzorová B1 věta:</strong> "${item.b1}"
+            <strong>Vzorová B1 věta:</strong> "${B1Gender.t(item.b1)}"
           </div>
         </div>
       `).join('');
@@ -1172,9 +1008,17 @@
     window.onload = () => {
       renderVocab();
       renderReadingQuiz();
-      enableGenitiveMarking('storyContainer', 'genitiveMarkCount');
+      B1Marking.setup('storyContainer', 'genitiveMarkCount', [
+        'do Paříže', 'z domova', 'bez zbytečného stresu', 'Podle letového řádu', 'bez jakýchkoli problémů',
+        'Místo přímého rychlíku', 'Během dvacetiminutové cesty', 'kolem historického centra města',
+        '~k ~budově letiště', '~spousta pasažérů', 'U odbavovací přepážky', 'dvaceti lidí', 'u malého stánku',
+        '~půl litru chladné vody', '~šálek kávy', '~kufr mého mladšího bratra', 'do Německa', 'vedle pasové kontroly',
+        '~až do chvíle', 'mého batohu', '~úschovně zavazadel', 'blízko hlavního vchodu', 'z jednoho konce haly',
+        '~zavřením gatu', 'Kromě malého zpoždění', 'Místo dlouhé cesty', 'z cestování'
+      ]);
       renderExerciseA();
       renderExerciseB();
+      B1Gender.onChange(() => { renderReadingQuiz(); renderExerciseB(); });
 
       // Pre-load saved notes into all live note textareas across all tabs
       const savedNotes = localStorage.getItem('cz_b1_l3_notes');
@@ -1186,8 +1030,7 @@
       updateHomeworkPack();
     };
 
-
-
   </script>
+  
 </body>
 </html>
