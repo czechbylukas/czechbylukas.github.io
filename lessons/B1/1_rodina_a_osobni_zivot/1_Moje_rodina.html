@@ -4,57 +4,27 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Czech B1 Mastery: Lekce 1 – Moje rodina</title>
-  <script src="https://cdn.tailwindcss.com"></script>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
-  <style>
-    body { font-family: Inter, sans-serif; }
-    .glass-card { background:rgba(30,41,59,.76); backdrop-filter:blur(12px); border:1px solid rgba(255,255,255,.08); }
-    .no-scrollbar::-webkit-scrollbar { display:none; }
-    .no-scrollbar { scrollbar-width:none; }
-    .teacher-notes-widget { position:fixed; right:1rem; bottom:1rem; z-index:55; width:19rem; height:14rem; }
-    body main.lesson-main { padding:1.5rem 21rem 16rem 1rem; }
-    .mark-token { border:0; border-bottom:1px dashed #64748b; border-radius:.25rem; padding:0 .12rem; background:transparent; color:inherit; cursor:pointer; }
-    .mark-token.selected { background:#075985; color:#e0f2fe; border-bottom:2px solid #38bdf8; }
-    .mark-token.correct { background:#064e3b; color:#d1fae5; }
-    .mark-token.incorrect { background:#7f1d1d; color:#fee2e2; }
-    .answer-correct { border-color:#10b981 !important; }
-    .answer-incorrect { border-color:#ef4444 !important; }
-    .exercise-actions { bottom:.5rem; }
-    @media (max-width:1023px) {
-      .teacher-notes-widget { right:0; bottom:0; left:0; width:100%; height:10rem; border-radius:1rem 1rem 0 0; background:rgba(15,23,42,.98); }
-      body main.lesson-main { padding:1.5rem 1rem 16rem; }
-      .exercise-actions { bottom:10.5rem; }
-    }
-  </style>
+  <script>window.B1_LESSON = {"topic": "Osobní život a rodina", "number": 1, "title": "Moje rodina", "icon": "fa-users", "notesKey": "cz_b1_l2_notes"};</script>
+  <script src="../core/b1-core.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-auth-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-database-compat.js"></script>
+  <script src="../../../scripts-header.js"></script>
+  
 </head>
-<body class="min-h-full bg-slate-950 text-slate-100 overflow-x-hidden">
-  <header class="sticky top-0 z-50 border-b border-slate-800 bg-slate-900/95 backdrop-blur-md shadow-lg">
-    <div class="mx-auto max-w-7xl px-4 sm:px-6">
-      <div class="flex min-h-16 items-center justify-between gap-3">
-        <div class="flex items-center gap-3">
-          <div class="flex h-10 w-10 items-center justify-center rounded-xl bg-gradient-to-tr from-sky-500 to-indigo-600 text-lg"><i class="fa-solid fa-users"></i></div>
-          <div><h1 class="font-bold text-white">Czech B1 Mastery</h1><p class="text-xs text-sky-400">Lekce 1: Moje rodina</p></div>
-        </div>
-        <a href="../B1_List_of_lessons.html" class="whitespace-nowrap rounded-lg border border-slate-700 bg-slate-800 px-3 py-2 text-xs text-slate-200 hover:bg-slate-700">← Přehled lekcí</a>
-      </div>
-      <nav class="flex gap-1 overflow-x-auto border-t border-slate-800 py-2 no-scrollbar" aria-label="Navigace lekce">
-        <button class="tab-btn rounded-lg bg-sky-600 px-3 py-2 text-xs font-semibold text-white whitespace-nowrap" data-tab="vocab">1. Slovní zásoba</button>
-        <button class="tab-btn rounded-lg px-3 py-2 text-xs font-semibold text-slate-400 whitespace-nowrap" data-tab="exA">2. Cvičení A</button>
-        <button class="tab-btn rounded-lg px-3 py-2 text-xs font-semibold text-slate-400 whitespace-nowrap" data-tab="exB">3. Cvičení B</button>
-        <button class="tab-btn rounded-lg px-3 py-2 text-xs font-semibold text-slate-400 whitespace-nowrap" data-tab="tool">4. Procvičování</button>
-        <button class="tab-btn rounded-lg px-3 py-2 text-xs font-semibold text-slate-400 whitespace-nowrap" data-tab="homework">5. Domácí úkol</button>
-      </nav>
-    </div>
-  </header>
+<body class="min-h-full flex flex-col bg-slate-950 text-slate-100 overflow-x-hidden">
+  <script>B1Lesson.mount();</script>
 
   <main class="lesson-main mx-auto max-w-7xl">
     <section id="tab-vocab" class="tab-panel space-y-6">
+      <div class="glass-card rounded-2xl border border-sky-500/20 bg-slate-900/50 p-4 sm:p-5">
+        <h2 class="text-lg font-bold text-sky-200">Stručně ke gramatice: minulý čas</h2>
+        <p class="mt-2 text-sm leading-6 text-slate-300">V minulém čase se příčestí shoduje s podmětem v rodě a čísle: <em>psal, psala, psalo; psali, psaly</em>. V 1. a 2. osobě přidáme pomocné sloveso <em>být</em> (<em>já jsem psal/a, ty jsi psal/a, my jsme psali</em>); ve 3. osobě se běžně nepoužívá (<em>on psal, oni psali</em>). Zápor tvoříme předponou <em>ne-</em>: <em>nepsal/a</em>.</p>
+        <button type="button" disabled class="mt-3 cursor-not-allowed rounded-lg border border-slate-600 px-3 py-2 text-sm text-slate-400" aria-disabled="true">Podrobné vysvětlení – work in progress</button>
+      </div>
       <div class="glass-card rounded-2xl p-5">
         <div class="flex flex-col justify-between gap-4 lg:flex-row lg:items-center">
-          <div><h2 class="text-xl font-bold"><i class="fa-solid fa-book-open mr-2 text-sky-400"></i>Slovní zásoba: 21 výrazů</h2><p class="mt-1 text-sm text-slate-400">Rodinné vztahy, přivlastňovací zájmena a přirozený popis rodiny</p></div>
+          <div><h2 class="text-xl font-bold"><i class="fa-solid fa-book-open mr-2 text-sky-400"></i>Slovní zásoba: 21 výrazů</h2><p class="mt-1 text-sm text-slate-400">Přečti, označ minulý čas a odpověz na otázky.</p></div>
           <div class="flex flex-col gap-2 sm:flex-row">
             <input id="vocabSearch" type="search" placeholder="Hledat česky nebo anglicky…" class="rounded-lg border border-slate-700 bg-slate-900 px-3 py-2 text-sm" aria-label="Hledat slovní zásobu">
             <div class="flex gap-1 overflow-x-auto">
@@ -70,15 +40,11 @@
       <div id="vocabGrid" class="grid gap-3 sm:grid-cols-2 xl:grid-cols-3"></div>
       <div class="glass-card space-y-4 rounded-2xl p-5">
         <div class="flex flex-wrap items-center justify-between gap-3">
-          <div><h2 class="text-xl font-bold">Modelový text</h2><p class="mt-1 text-sm text-slate-400"><strong class="text-sky-300">Student čte nahlas.</strong> Označ přesně 4 slovesa v minulém čase. Začni bez označení; vyber zvýrazněná slovesa a stiskni Kontrola.</p></div>
+          <div><h2 class="text-xl font-bold">Modelový text</h2><p class="mt-1 text-sm text-slate-400"><strong class="text-sky-300">Student čte nahlas.</strong> Označ všechna slovesa v minulém čase, včetně pomocného „jsem / jsi / jsme“ a „se“. Počet vidíš v počítadle; potom stiskni Zkontrolovat.</p></div>
           <button id="speakModel" class="rounded-lg bg-slate-800 px-3 py-2 text-sm hover:bg-slate-700"><i class="fa-solid fa-volume-high mr-1"></i> Poslechnout</button>
         </div>
         <p id="modelText" class="rounded-xl border border-slate-800 bg-slate-900/80 p-4 text-base leading-8"></p>
-        <div class="flex flex-wrap items-center gap-2">
-          <button id="checkMarks" class="rounded-lg bg-sky-700 px-4 py-2 text-sm font-bold hover:bg-sky-600">Zkontrolovat označení</button>
-          <button id="clearMarks" class="rounded-lg bg-slate-800 px-4 py-2 text-sm hover:bg-slate-700">Zrušit výběr</button>
-          <span id="markFeedback" class="text-sm text-slate-300" aria-live="polite"></span>
-        </div>
+        <div><span id="markCount"></span></div>
       </div>
       <div class="glass-card space-y-4 rounded-2xl p-5">
         <div><h2 class="text-xl font-bold">Kvíz k porozumění</h2><p class="mt-1 text-sm text-slate-400">Odpověz na každou otázku. Možnosti A–D se při načtení stránky zamíchají.</p></div>
@@ -135,254 +101,10 @@ O víkendech společně…</p></div>
     </section>
   </main>
 
-  <aside class="teacher-notes-widget glass-card flex flex-col rounded-2xl p-3 shadow-2xl" aria-label="Teacher Live Notes">
-    <label for="teacherNotes" class="mb-2 flex items-center justify-between text-sm font-bold"><span><i class="fa-solid fa-pen-to-square mr-2 text-sky-400"></i>Teacher Live Notes</span><span id="notesStatus" class="text-[10px] font-normal text-emerald-300" aria-live="polite">Automaticky uložené</span></label>
-    <textarea id="teacherNotes" class="min-h-0 flex-1 resize-none rounded-lg border border-slate-700 bg-slate-950 p-3 text-xs leading-5 text-slate-100 focus:border-sky-500 focus:outline-none" placeholder="Zapište krátkou zpětnou vazbu; poznámky se ukládají jen v tomto prohlížeči."></textarea>
-  </aside>
-
   <script>
-    const DATA = {"number":1,"title":"Moje rodina","focus":"Rodina, důležité rodinné události a vyprávění v minulém čase","grammar":"Minulý čas: shoda rodu a čísla","mark":4,"model":"Minulou sobotu se moje rodina **se?la** u babi?ky v Olomouci. Moji rodi?e **p?ijeli** dopoledne s dom?c?m kol??em. Maminka **p?ipravila** ob?d pro v?echny. Po ob?d? n?m d?de?ek **vypr?v?l** p??b?h ze sv?ho d?tstv?. U stolu je p?t m?st.","vocab":[{"cz":"rodina","en":"family","category":"noun","pos":"podstatné jméno","example":"Moje rodina se minulý víkend sešla.","answer":"rodina","hint":""},{"cz":"rodiče","en":"parents","category":"noun","pos":"podstatné jméno","example":"Moji rodiče přijeli na návštěvu.","answer":"rodiče","hint":""},{"cz":"maminka","en":"mum; mother","category":"noun","pos":"podstatné jméno","example":"Maminka připravila nedělní oběd.","answer":"maminka","hint":"","note":"Also máma (familiar, everyday) and matka (formal, often used in official contexts)."},{"cz":"otec","en":"father","category":"noun","pos":"podstatné jméno","example":"Otec vyprávěl příběh ze svého dětství.","answer":"otec","hint":"","note":"Also táta (familiar, everyday) and tatínek (affectionate)."},{"cz":"bratr","en":"brother","category":"noun","pos":"podstatné jméno","example":"Můj bratr pomohl dědečkovi na zahradě.","answer":"bratr","hint":""},{"cz":"sestra","en":"sister","category":"noun","pos":"podstatné jméno","example":"Moje sestra studovala v Brně.","answer":"sestra","hint":""},{"cz":"dítě","en":"child","category":"noun","pos":"podstatné jméno","example":"Jejich dítě si hrálo na zahradě.","answer":"dítě","hint":""},{"cz":"syn","en":"son","category":"noun","pos":"podstatné jméno","example":"Jejich syn začal chodit do školy.","answer":"syn","hint":""},{"cz":"dcera","en":"daughter","category":"noun","pos":"podstatné jméno","example":"Jejich dcera se narodila v Praze.","answer":"dcera","hint":""},{"cz":"babička","en":"grandmother","category":"noun","pos":"podstatné jméno","example":"Babička upekla koláč.","answer":"babička","hint":""},{"cz":"dědeček","en":"grandfather","category":"noun","pos":"podstatné jméno","example":"Dědeček nám ukázal fotografie.","answer":"dědeček","hint":""},{"cz":"prarodiče","en":"grandparents","category":"noun","pos":"podstatné jméno","example":"Prarodiče bydleli na venkově.","answer":"prarodiče","hint":""},{"cz":"strýc","en":"uncle","category":"noun","pos":"podstatné jméno","example":"Strýc přijel v sobotu.","answer":"strýc","hint":"","note":"Colloquial form: strejda. Use strýc in neutral or formal speech."},{"cz":"teta","en":"aunt","category":"noun","pos":"podstatné jméno","example":"Teta přinesla rodinné fotografie.","answer":"teta","hint":""},{"cz":"bratranec","en":"male cousin","category":"noun","pos":"podstatné jméno","example":"Můj bratranec studoval v Olomouci.","answer":"bratranec","hint":""},{"cz":"sestřenice","en":"female cousin","category":"noun","pos":"podstatné jméno","example":"Moje sestřenice přijela vlakem.","answer":"sestřenice","hint":""},{"cz":"manžel","en":"husband","category":"noun","pos":"podstatné jméno","example":"Její manžel připravil večeři.","answer":"manžel","hint":""},{"cz":"manželka","en":"wife","category":"noun","pos":"podstatné jméno","example":"Jeho manželka pracovala jako učitelka.","answer":"manželka","hint":""},{"cz":"partner","en":"male partner","category":"noun","pos":"podstatné jméno","example":"Můj partner se seznámil s rodiči.","answer":"partner","hint":""},{"cz":"partnerka","en":"female partner","category":"noun","pos":"podstatné jméno","example":"Moje partnerka navštívila svou rodinu.","answer":"partnerka","hint":""},{"cz":"žít s","en":"to live with","category":"verb","pos":"sloveso","example":"Před svatbou žila s rodiči.","answer":"žít s","hint":""}],"extra":[{"sentence":"Moje ___ se jmenuje Anna.","answer":"maminka","hint":"ženský rod"},{"sentence":"Mám jednoho ___.","answer":"bratra","hint":"4. pád"},{"sentence":"Moji ___ bydlí v Ostravě.","answer":"rodiče","hint":"množné číslo"},{"sentence":"O víkendu jedeme ___ babičky.","answer":"k babičce","hint":"předložka k + 3. pád"}],"upgrades":[{"start":"Bydlím s rodinou.","change":"Přidej dva členy rodiny a jejich vztah k sobě.","success":"Uveď alespoň tři osoby a jasně pojmenuj jejich vztahy.","hint":"Použij „rodiče“ a jeden výraz pro širší rodinu.","model":"Bydlím s rodiči. Mám také mladší sestru a bratrance."},{"start":"Moje rodina je malá.","change":"Doplň počet členů a jednu informaci o nich.","success":"Použij správně číslovku a celé věty o dvou členech.","hint":"Pozor na spojení „máme ... členů“.","model":"Moje rodina má čtyři členy. Žiji s rodiči a mladším bratrem."},{"start":"Babička bydlí daleko.","change":"Přidej místo a jak často ji navštěvuješ.","success":"Použij přirozenou větu o bydlišti a návštěvách.","hint":"Můžeš začít „Moje babička žije…“.","model":"Moje babička žije na venkově, a proto ji navštěvuji jednou za měsíc."},{"start":"Mám bratra.","change":"Rozšiř větu o věk a studium bratra.","success":"Použij spojení „je mu ... let“ a sloveso „studovat“.","hint":"Věk vyjádři dativem: „Je mu…“.","model":"Mám bratra. Je mu dvacet let a studuje na univerzitě."},{"start":"Rodiče pracují.","change":"Uveď, kde nebo jako co pracují.","success":"Napiš dvě souvislé věty o obou rodičích.","hint":"Použij „pracuje jako“.","model":"Maminka pracuje jako lékařka a otec pracuje v kanceláři."},{"start":"Mám sestřenici.","change":"Doplň její jméno a co spolu děláte.","success":"Použij přítomný čas a jednu společnou aktivitu.","hint":"Začni „Moje sestřenice se jmenuje…“.","model":"Moje sestřenice se jmenuje Klára. Často spolu chodíme na procházky."},{"start":"Rodina je důležitá.","change":"Vysvětli proč a uveď konkrétní příklad.","success":"Spoj názor s důvodem pomocí „protože“.","hint":"Popiš, co rodina dělá, když máš problém.","model":"Rodina je pro mě důležitá, protože mě vždy vyslechne a podpoří."},{"start":"Žijeme spolu.","change":"Přidej, s kým a kde žijete.","success":"Použij správný tvar po předložce „s“.","hint":"Po „s“ použij 7. pád.","model":"Žiji s rodiči a sestrou v menším bytě v Praze."},{"start":"O víkendech jsme spolu.","change":"Uveď dvě konkrétní činnosti.","success":"Použij dvě slovesa v přítomném čase.","hint":"Můžeš spojit věty slovem „a“.","model":"O víkendech vaříme oběd a potom chodíme na výlet."},{"start":"Můj otec je hodný.","change":"Přidej další vlastnost a vysvětli ji příkladem.","success":"Udrž shodu přídavného jména s mužským rodem.","hint":"Přidej větu začínající „Vždy…“.","model":"Můj otec je hodný a trpělivý. Vždy mi rád poradí."}],"quiz":[{"question":"Kde se rodina sešla?","options":["U babičky v Olomouci.","U tety v Brně.","U rodičů v Praze.","U strýce v Ostravě."],"correct":"U babičky v Olomouci."},{"question":"Co přivezli rodiče?","options":["Koláč.","Rodinné fotografie.","Nový stůl.","Květiny."],"correct":"Koláč."},{"question":"Kdo po ob?d? vypr?v?l p??b?h ze sv?ho d?tstv??","options":["D?de?ek.","Babi?ka.","Maminka.","Otec."],"correct":"D?de?ek."}],"exercises":[{"sentence":"V porodnici v Brně se moje maminka ___ v roce 1980.","answer":"narodila","hint":"narodit se"},{"sentence":"Moji rodiče se ___ na univerzitě.","answer":"poznali","hint":"poznat se"},{"sentence":"V roce 1998 se rodiče ___.","answer":"vzali","hint":"vzít se"},{"sentence":"Po svatbě rodiče ___ v Olomouci.","answer":"bydleli","hint":"bydlet"},{"sentence":"Maminka ___ jako zdravotní sestra.","answer":"pracovala","hint":"pracovat"},{"sentence":"Táta ___ každý den autobusem do práce.","answer":"jezdil","hint":"jezdit"},{"sentence":"Když byl Filip malý, ___ si s bratrem na zahradě.","answer":"hrál","hint":"hrát si"},{"sentence":"Včera rodina společně ___ oběd.","answer":"uvařila","hint":"uvařit"},{"sentence":"K narozeninám babička ___ čokoládový dort.","answer":"upekla","hint":"upéct"},{"sentence":"Dědeček nám ___ příběh ze svého dětství.","answer":"vyprávěl","hint":"vyprávět"},{"sentence":"Moje sestra ___ základní školu v roce 2015.","answer":"dokončila","hint":"dokončit"},{"sentence":"Můj bratr ___ střední školu v červnu.","answer":"dokončil","hint":"dokončit"},{"sentence":"V sobotu jsme ___ babičku a dědečka.","answer":"navštívili","hint":"navštívit"},{"sentence":"Na oslavu ___ také naše teta.","answer":"přišla","hint":"přijít"},{"sentence":"Strýc ___ autem z Prahy.","answer":"přijel","hint":"přijet"},{"sentence":"Sestřenice ___ na oslavu vlakem.","answer":"přijela","hint":"přijet"},{"sentence":"Po obědě děti ___ na zahradě.","answer":"běhaly","hint":"běhat"},{"sentence":"Rodiče ___ staré rodinné fotografie.","answer":"ukázali","hint":"ukázat"},{"sentence":"Babička ___, když jsme jí zavolali.","answer":"odpověděla","hint":"odpovědět"},{"sentence":"Před třemi lety se naše rodina ___ do Brna.","answer":"přestěhovala","hint":"přestěhovat se"},{"sentence":"V novém městě jsme ___ větší byt.","answer":"našli","hint":"najít"},{"sentence":"Můj partner ___ večeři pro celou rodinu.","answer":"připravil","hint":"připravit"},{"sentence":"Moje partnerka ___ rodičům s nákupem.","answer":"pomohla","hint":"pomoci"},{"sentence":"Manželé ___ návštěvu na neděli.","answer":"naplánovali","hint":"naplánovat"},{"sentence":"Po oslavě jsme ___ domů pozdě večer.","answer":"odjeli","hint":"odjet"}]};
-    const NOTES_KEY = "cz_b1_l2_notes";
-    const $ = (selector, root = document) => root.querySelector(selector);
-    const $$ = (selector, root = document) => [...root.querySelectorAll(selector)];
-    const escapeHtml = value => String(value).replace(/[&<>"']/g, char => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[char]));
-    const shuffle = values => {
-      const result = [...values];
-      for (let i = result.length - 1; i > 0; i--) {
-        const j = Math.floor(Math.random() * (i + 1));
-        [result[i], result[j]] = [result[j], result[i]];
-      }
-      return result;
-    };
-    const normalize = value => value.trim().toLocaleLowerCase("cs-CZ").replace(/[.!?,;:]+$/g, "").replace(/\s+/g, " ");
-    const wordCount = value => value.trim() ? value.trim().split(/\s+/).length : 0;
-    let activeFilter = "all";
-
-    function switchTab(name) {
-      $$(".tab-panel").forEach(panel => panel.classList.toggle("hidden", panel.id !== "tab-" + name));
-      $$(".tab-btn").forEach(button => {
-        const active = button.dataset.tab === name;
-        button.classList.toggle("bg-sky-600", active);
-        button.classList.toggle("text-white", active);
-        button.classList.toggle("text-slate-400", !active);
-        button.setAttribute("aria-selected", String(active));
-      });
-    }
-
-    function speakText(text, statusId) {
-      if (!("speechSynthesis" in window)) {
-        if (statusId) $("#" + statusId).textContent = "Přehrávání řeči není v tomto prohlížeči dostupné.";
-        return;
-      }
-      window.speechSynthesis.cancel();
-      const utterance = new SpeechSynthesisUtterance(text);
-      utterance.lang = "cs-CZ";
-      window.speechSynthesis.speak(utterance);
-    }
-
-    function renderVocab() {
-      const query = $("#vocabSearch").value.trim().toLocaleLowerCase("cs-CZ");
-      const items = DATA.vocab.filter(item => (activeFilter === "all" || item.category === activeFilter) &&
-        (query === "" || item.cz.toLocaleLowerCase("cs-CZ").includes(query) ||
-          item.en.toLocaleLowerCase("cs-CZ").includes(query) || item.example.toLocaleLowerCase("cs-CZ").includes(query) ||
-          (item.note || "").toLocaleLowerCase("cs-CZ").includes(query)));
-      $("#vocabGrid").innerHTML = items.length ? items.map(item => `
-        <article class="glass-card rounded-xl p-4">
-          <div class="flex items-start justify-between gap-2">
-            <div class="flex items-center gap-2"><button class="speak-word rounded-lg bg-sky-900/60 px-2.5 py-2 text-sky-300" data-speak="${escapeHtml(item.cz)}" aria-label="Přehrát ${escapeHtml(item.cz)}"><i class="fa-solid fa-volume-high"></i></button><h3 class="font-bold">${escapeHtml(item.cz)}</h3></div>
-            <span class="rounded-full bg-slate-800 px-2 py-1 text-[10px] text-slate-300">${escapeHtml(item.pos)}</span>
-          </div>
-          <p class="mt-2 text-sm text-sky-300">${escapeHtml(item.en)}</p>
-          <p class="mt-3 rounded-lg bg-slate-900 p-3 text-sm italic leading-6 text-slate-300">${escapeHtml(item.example)}</p>
-          ${item.note ? `<p class="mt-2 text-xs leading-5 text-amber-200">${escapeHtml(item.note)}</p>` : ""}
-        </article>`).join("") : `<p class="col-span-full py-8 text-center text-slate-400">Žádná slovíčka neodpovídají hledání.</p>`;
-    }
-
-    function renderModel() {
-      const pieces = DATA.model.split(/(\*\*.*?\*\*)/g);
-      $("#modelText").innerHTML = pieces.map(piece => piece.startsWith("**") && piece.endsWith("**")
-        ? `<button class="mark-token" type="button" aria-pressed="false">${escapeHtml(piece.slice(2, -2))}</button>`
-        : escapeHtml(piece)).join("");
-    }
-
-    function renderQuiz() {
-      $("#quizList").innerHTML = DATA.quiz.map((item, index) => `
-        <fieldset class="rounded-xl border border-slate-800 bg-slate-900/70 p-4">
-          <legend class="px-1 font-bold">${index + 1}. ${escapeHtml(item.question)}</legend>
-          <div class="mt-3 grid gap-2 sm:grid-cols-2">${shuffle(item.options).map((option, optionIndex) => `
-            <label class="flex cursor-pointer gap-2 rounded-lg border border-slate-800 p-3 text-sm hover:bg-slate-800">
-              <input type="radio" name="quiz-${index}" value="${escapeHtml(option)}"><span><b>${String.fromCharCode(65 + optionIndex)}.</b> ${escapeHtml(option)}</span>
-            </label>`).join("")}</div>
-        </fieldset>`).join("");
-    }
-
-    function renderExercises() {
-      const exercises = DATA.exercises;
-      $("#exAList").innerHTML = exercises.map((item, index) => {
-        const parts = item.sentence.split("___");
-        const width = Math.min(280, Math.max(100, item.answer.length * 11 + 20));
-        return `<article class="glass-card rounded-xl p-4">
-          <div class="flex flex-col gap-3 md:flex-row md:items-center">
-            <p class="flex-1 text-sm leading-8 sm:text-base"><b class="mr-2 text-sky-300">${index + 1}.</b>${escapeHtml(parts[0])}<input class="exA-input mx-1 inline-block rounded-lg border border-slate-600 bg-slate-950 px-2 py-1 text-center text-sky-200" style="width:${width}px" data-answer="${escapeHtml(item.answer)}" aria-label="Odpověď ${index + 1}">${escapeHtml(parts.slice(1).join("___"))}</p>
-            <span class="rounded-lg bg-slate-900 px-3 py-2 text-xs text-amber-200">Nápověda: ${escapeHtml(item.hint)}</span>
-          </div><p class="exA-result mt-2 text-xs" aria-live="polite"></p></article>`;
-      }).join("");
-      $("#exBList").innerHTML = DATA.upgrades.map((item, index) => `
-        <article class="glass-card space-y-3 rounded-xl p-4" data-upgrade="${index}">
-          <div class="grid gap-2 text-sm sm:grid-cols-2">
-            <p class="rounded-lg bg-slate-900 p-3"><b class="text-sky-300">Začínáš:</b> ${escapeHtml(item.start)}</p>
-            <p class="rounded-lg bg-slate-900 p-3"><b class="text-sky-300">Změň / doplň:</b> ${escapeHtml(item.change)}</p>
-          </div>
-          <p class="text-sm text-slate-300"><b>Úspěšná odpověď:</b> ${escapeHtml(item.success)}</p>
-          <p class="text-xs text-amber-200"><b>Nápověda:</b> ${escapeHtml(item.hint)}</p>
-          <textarea class="upgrade-input w-full rounded-lg border border-slate-700 bg-slate-950 p-3 text-sm leading-6" rows="2" placeholder="Napiš svou rozšířenou větu…"></textarea>
-          <div class="flex flex-wrap items-center gap-2"><button class="reveal-model rounded-lg bg-slate-800 px-3 py-2 text-xs font-bold">Ukázat model</button><span class="upgrade-result text-xs" aria-live="polite"></span></div>
-          <p class="upgrade-model hidden rounded-lg border border-emerald-800/60 bg-emerald-950/30 p-3 text-sm leading-6"><b>Modelová odpověď:</b> ${escapeHtml(item.model)}</p>
-        </article>`).join("");
-      updateExAProgress();
-      updateExBProgress();
-    }
-
-    function updateExAProgress() {
-      const inputs = $$(".exA-input");
-      const filled = inputs.filter(input => input.value.trim()).length;
-      $("#exAProgress").textContent = `Vyplněno ${filled} z ${inputs.length}`;
-    }
-    function checkExA() {
-      let correct = 0;
-      $$(".exA-input").forEach(input => {
-        const ok = normalize(input.value) === normalize(input.dataset.answer);
-        input.classList.toggle("answer-correct", ok);
-        input.classList.toggle("answer-incorrect", !ok);
-        input.closest("article").querySelector(".exA-result").textContent = ok ? "Správně." : "Zkontroluj tvar a nápovědu.";
-        input.closest("article").querySelector(".exA-result").className = "exA-result mt-2 text-xs " + (ok ? "text-emerald-300" : "text-rose-300");
-        if (ok) correct++;
-      });
-      $("#exAFeedback").textContent = `Správně: ${correct} z ${$$(".exA-input").length}.`;
-    }
-    function revealExA() {
-      $$(".exA-input").forEach(input => { input.value = input.dataset.answer; input.classList.remove("answer-incorrect"); input.classList.add("answer-correct"); });
-      $$(".exA-result").forEach(result => { result.textContent = "Řešení."; result.className = "exA-result mt-2 text-xs text-sky-300"; });
-      updateExAProgress();
-      $("#exAFeedback").textContent = "Zobrazena všechna řešení.";
-    }
-    function resetExA() {
-      $$(".exA-input").forEach(input => { input.value = ""; input.classList.remove("answer-correct", "answer-incorrect"); });
-      $$(".exA-result").forEach(result => { result.textContent = ""; });
-      updateExAProgress();
-      $("#exAFeedback").textContent = "";
-    }
-    function updateExBProgress() {
-      const fields = $$(".upgrade-input");
-      const complete = fields.filter(field => field.value.trim()).length;
-      $("#exBProgress").textContent = `Hotovo ${complete} z ${fields.length}`;
-    }
-    function checkExB() {
-      const fields = $$(".upgrade-input");
-      const complete = fields.filter(field => field.value.trim()).length;
-      fields.forEach(field => { field.closest("article").querySelector(".upgrade-result").textContent = field.value.trim() ? "Návrh zapsán — porovnej ho s kritériem a modelovou odpovědí." : "Nejdřív napiš svou odpověď."; });
-      $("#exBFeedback").textContent = `Vyplněno ${complete} z ${fields.length}. Jde o vlastní tvorbu, ne automatické známkování.`;
-    }
-    function resetExB() {
-      $$(".upgrade-input").forEach(field => { field.value = ""; });
-      $$(".upgrade-result").forEach(result => { result.textContent = ""; });
-      $$(".upgrade-model").forEach(model => model.classList.add("hidden"));
-      updateExBProgress();
-      $("#exBFeedback").textContent = "";
-    }
-    function checkMarks() {
-      const selected = $$(".mark-token.selected");
-      const correct = $$(".mark-token").filter(token => token.classList.contains("selected"));
-      correct.forEach(token => token.classList.add("correct"));
-      const countOK = selected.length === DATA.mark;
-      $("#markFeedback").textContent = countOK ? `Označil/a jsi ${selected.length} z ${DATA.mark} příkladů. Správné příklady jsou zvýrazněné zeleně; červeně se zobrazí chybějící nebo nadbytečné volby.` : `Označil/a jsi ${selected.length}; očekává se ${DATA.mark}. Zkontroluj výběr a zkus to znovu.`;
-      if (countOK) $$(".mark-token:not(.selected)").forEach(token => token.classList.add("incorrect"));
-      else $$(".mark-token").forEach(token => token.classList.remove("correct", "incorrect"));
-    }
-    function clearMarks() {
-      $$(".mark-token").forEach(token => { token.classList.remove("selected", "correct", "incorrect"); token.setAttribute("aria-pressed", "false"); });
-      $("#markFeedback").textContent = "";
-    }
-    function checkQuiz() {
-      let correct = 0;
-      let answered = 0;
-      DATA.quiz.forEach((question, index) => {
-        const selected = $(`input[name="quiz-${index}"]:checked`);
-        if (selected) { answered++; if (selected.value === question.correct) correct++; }
-      });
-      $("#quizFeedback").textContent = answered < DATA.quiz.length ? `Odpověděl/a jsi na ${answered} ze 3 otázek. Správně zatím ${correct}.` : `Výsledek: ${correct} ze 3 správně.`;
-      $("#quizFeedback").className = "text-sm " + (correct === 3 && answered === 3 ? "text-emerald-300" : "text-amber-200");
-    }
-    function saveLocal(key, value, status) {
-      try {
-        localStorage.setItem(key, value);
-        if (status) status.textContent = "Uloženo v tomto prohlížeči.";
-      } catch (error) {
-        if (status) status.textContent = "Uložení se nezdařilo; zkontroluj nastavení úložiště prohlížeče.";
-      }
-    }
-    function loadLocal(key, status) {
-      try { return localStorage.getItem(key) || ""; }
-      catch (error) {
-        if (status) status.textContent = "Uložené údaje nejsou dostupné.";
-        return "";
-      }
-    }
-    function init() {
-      renderVocab();
-      renderModel();
-      renderQuiz();
-      renderExercises();
-      $("#vocabSearch").addEventListener("input", renderVocab);
-      $$(".filter-btn").forEach(button => button.addEventListener("click", () => {
-        activeFilter = button.dataset.filter;
-        $$(".filter-btn").forEach(item => item.className = "filter-btn rounded-lg px-2 py-2 text-xs " + (item === button ? "bg-sky-700" : "bg-slate-800"));
-        renderVocab();
-      }));
-      document.addEventListener("click", event => {
-        const speak = event.target.closest("[data-speak]");
-        if (speak) speakText(speak.dataset.speak);
-      });
-      $$(".tab-btn").forEach(button => button.addEventListener("click", () => switchTab(button.dataset.tab)));
-      $("#speakModel").addEventListener("click", () => speakText(DATA.model.replace(/\*\*/g, "")));
-      $("#modelText").addEventListener("click", event => {
-        const token = event.target.closest(".mark-token");
-        if (!token) return;
-        token.classList.toggle("selected");
-        token.classList.remove("correct", "incorrect");
-        token.setAttribute("aria-pressed", String(token.classList.contains("selected")));
-        $("#markFeedback").textContent = "";
-      });
-      $("#checkMarks").addEventListener("click", checkMarks);
-      $("#clearMarks").addEventListener("click", clearMarks);
-      $("#checkQuiz").addEventListener("click", checkQuiz);
-      $("#resetQuiz").addEventListener("click", () => { $$('input[type="radio"]').forEach(input => input.checked = false); $("#quizFeedback").textContent = ""; });
-      $("#checkExA").addEventListener("click", checkExA);
-      $("#revealExA").addEventListener("click", revealExA);
-      $("#resetExA").addEventListener("click", resetExA);
-      $("#exAList").addEventListener("input", updateExAProgress);
-      $("#checkExB").addEventListener("click", checkExB);
-      $("#resetExB").addEventListener("click", resetExB);
-      $("#exBList").addEventListener("input", updateExBProgress);
-      $("#exBList").addEventListener("click", event => {
-        const button = event.target.closest(".reveal-model");
-        if (button) button.closest("article").querySelector(".upgrade-model").classList.toggle("hidden");
-      });
-      $("#speakPractice").addEventListener("click", () => speakText($("#practiceText").value, "practiceStatus"));
-      $("#clearPractice").addEventListener("click", () => { $("#practiceText").value = ""; $("#practiceCount").textContent = "0 slov"; $("#practiceStatus").textContent = ""; });
-      $("#practiceText").addEventListener("input", () => $("#practiceCount").textContent = `${wordCount($("#practiceText").value)} slov`);
-      const notes = $("#teacherNotes");
-      notes.value = loadLocal(NOTES_KEY, $("#notesStatus"));
-      notes.addEventListener("input", () => saveLocal(NOTES_KEY, notes.value, $("#notesStatus")));
-      const homework = $("#homeworkDraft");
-      const homeworkKey = NOTES_KEY + "_homework";
-      homework.value = loadLocal(homeworkKey, $("#homeworkStatus"));
-      const updateHomeworkCount = () => $("#homeworkCount").textContent = `${wordCount(homework.value)} slov`;
-      updateHomeworkCount();
-      homework.addEventListener("input", () => { updateHomeworkCount(); saveLocal(homeworkKey, homework.value, $("#homeworkStatus")); });
-      $("#clearHomework").addEventListener("click", () => { homework.value = ""; updateHomeworkCount(); saveLocal(homeworkKey, "", $("#homeworkStatus")); });
-    }
-    init();
+    const DATA = {"number": 1, "title": "Moje rodina", "focus": "Rodina, důležité rodinné události a vyprávění v minulém čase", "grammar": "Minulý čas: shoda rodu a čísla", "mark": 5, "model": "Minulou sobotu se moje rodina **sešla** u babičky v Olomouci. Moji rodiče **přijeli** dopoledne s domácím koláčem. Maminka **připravila** oběd pro všechny. Po obědě nám dědeček **vyprávěl** příběh ze svého dětství. U stolu **bylo** pět míst.", "vocab": [{"cz": "rodina", "en": "family", "category": "noun", "pos": "podstatné jméno", "example": "Moje rodina se minulý víkend sešla.", "answer": "rodina", "hint": ""}, {"cz": "rodiče", "en": "parents", "category": "noun", "pos": "podstatné jméno", "example": "Moji rodiče přijeli na návštěvu.", "answer": "rodiče", "hint": ""}, {"cz": "maminka", "en": "mum; mother", "category": "noun", "pos": "podstatné jméno", "example": "Maminka připravila nedělní oběd.", "answer": "maminka", "hint": "", "note": "Also máma (familiar, everyday) and matka (formal, often used in official contexts)."}, {"cz": "otec", "en": "father", "category": "noun", "pos": "podstatné jméno", "example": "Otec vyprávěl příběh ze svého dětství.", "answer": "otec", "hint": "", "note": "Also táta (familiar, everyday) and tatínek (affectionate)."}, {"cz": "bratr", "en": "brother", "category": "noun", "pos": "podstatné jméno", "example": "Můj bratr pomohl dědečkovi na zahradě.", "answer": "bratr", "hint": ""}, {"cz": "sestra", "en": "sister", "category": "noun", "pos": "podstatné jméno", "example": "Moje sestra studovala v Brně.", "answer": "sestra", "hint": ""}, {"cz": "dítě", "en": "child", "category": "noun", "pos": "podstatné jméno", "example": "Jejich dítě si hrálo na zahradě.", "answer": "dítě", "hint": ""}, {"cz": "syn", "en": "son", "category": "noun", "pos": "podstatné jméno", "example": "Jejich syn začal chodit do školy.", "answer": "syn", "hint": ""}, {"cz": "dcera", "en": "daughter", "category": "noun", "pos": "podstatné jméno", "example": "Jejich dcera se narodila v Praze.", "answer": "dcera", "hint": ""}, {"cz": "babička", "en": "grandmother", "category": "noun", "pos": "podstatné jméno", "example": "Babička upekla koláč.", "answer": "babička", "hint": ""}, {"cz": "dědeček", "en": "grandfather", "category": "noun", "pos": "podstatné jméno", "example": "Dědeček nám ukázal fotografie.", "answer": "dědeček", "hint": ""}, {"cz": "prarodiče", "en": "grandparents", "category": "noun", "pos": "podstatné jméno", "example": "Prarodiče bydleli na venkově.", "answer": "prarodiče", "hint": ""}, {"cz": "strýc", "en": "uncle", "category": "noun", "pos": "podstatné jméno", "example": "Strýc přijel v sobotu.", "answer": "strýc", "hint": "", "note": "Colloquial form: strejda. Use strýc in neutral or formal speech."}, {"cz": "teta", "en": "aunt", "category": "noun", "pos": "podstatné jméno", "example": "Teta přinesla rodinné fotografie.", "answer": "teta", "hint": ""}, {"cz": "bratranec", "en": "male cousin", "category": "noun", "pos": "podstatné jméno", "example": "Můj bratranec studoval v Olomouci.", "answer": "bratranec", "hint": ""}, {"cz": "sestřenice", "en": "female cousin", "category": "noun", "pos": "podstatné jméno", "example": "Moje sestřenice přijela vlakem.", "answer": "sestřenice", "hint": ""}, {"cz": "manžel", "en": "husband", "category": "noun", "pos": "podstatné jméno", "example": "Její manžel připravil večeři.", "answer": "manžel", "hint": ""}, {"cz": "manželka", "en": "wife", "category": "noun", "pos": "podstatné jméno", "example": "Jeho manželka pracovala jako učitelka.", "answer": "manželka", "hint": ""}, {"cz": "partner", "en": "male partner", "category": "noun", "pos": "podstatné jméno", "example": "Můj partner se seznámil s rodiči.", "answer": "partner", "hint": ""}, {"cz": "partnerka", "en": "female partner", "category": "noun", "pos": "podstatné jméno", "example": "Moje partnerka navštívila svou rodinu.", "answer": "partnerka", "hint": ""}, {"cz": "žít s", "en": "to live with", "category": "verb", "pos": "sloveso", "example": "Před svatbou žila s rodiči.", "answer": "žít s", "hint": ""}], "extra": [{"sentence": "Moje ___ se jmenuje Anna.", "answer": "maminka", "hint": "ženský rod"}, {"sentence": "Mám jednoho ___.", "answer": "bratra", "hint": "4. pád"}, {"sentence": "Moji ___ bydlí v Ostravě.", "answer": "rodiče", "hint": "množné číslo"}, {"sentence": "O víkendu jedeme ___ babičky.", "answer": "k babičce", "hint": "předložka k + 3. pád"}], "upgrades": [{"start": "Bydlím s rodinou.", "change": "Přidej dva členy rodiny a jejich vztah k sobě.", "success": "Uveď alespoň tři osoby a jasně pojmenuj jejich vztahy.", "hint": "Použij „rodiče“ a jeden výraz pro širší rodinu.", "model": "Bydlím s rodiči. Mám také mladší sestru a bratrance."}, {"start": "Moje rodina je malá.", "change": "Doplň počet členů a jednu informaci o nich.", "success": "Použij správně číslovku a celé věty o dvou členech.", "hint": "Pozor na spojení „máme ... členů“.", "model": "Moje rodina má čtyři členy. Žiji s rodiči a mladším bratrem."}, {"start": "Babička bydlí daleko.", "change": "Přidej místo a jak často ji navštěvuješ.", "success": "Použij přirozenou větu o bydlišti a návštěvách.", "hint": "Můžeš začít „Moje babička žije…“.", "model": "Moje babička žije na venkově, a proto ji navštěvuji jednou za měsíc."}, {"start": "Mám bratra.", "change": "Rozšiř větu o věk a studium bratra.", "success": "Použij spojení „je mu ... let“ a sloveso „studovat“.", "hint": "Věk vyjádři dativem: „Je mu…“.", "model": "Mám bratra. Je mu dvacet let a studuje na univerzitě."}, {"start": "Rodiče pracují.", "change": "Uveď, kde nebo jako co pracují.", "success": "Napiš dvě souvislé věty o obou rodičích.", "hint": "Použij „pracuje jako“.", "model": "Maminka pracuje jako lékařka a otec pracuje v kanceláři."}, {"start": "Mám sestřenici.", "change": "Doplň její jméno a co spolu děláte.", "success": "Použij přítomný čas a jednu společnou aktivitu.", "hint": "Začni „Moje sestřenice se jmenuje…“.", "model": "Moje sestřenice se jmenuje Klára. Často spolu chodíme na procházky."}, {"start": "Rodina je důležitá.", "change": "Vysvětli proč a uveď konkrétní příklad.", "success": "Spoj názor s důvodem pomocí „protože“.", "hint": "Popiš, co rodina dělá, když máš problém.", "model": "Rodina je pro mě důležitá, protože mě vždy vyslechne a podpoří."}, {"start": "Žijeme spolu.", "change": "Přidej, s kým a kde žijete.", "success": "Použij správný tvar po předložce „s“.", "hint": "Po „s“ použij 7. pád.", "model": "Žiji s rodiči a sestrou v menším bytě v Praze."}, {"start": "O víkendech jsme spolu.", "change": "Uveď dvě konkrétní činnosti.", "success": "Použij dvě slovesa v přítomném čase.", "hint": "Můžeš spojit věty slovem „a“.", "model": "O víkendech vaříme oběd a potom chodíme na výlet."}, {"start": "Můj otec je hodný.", "change": "Přidej další vlastnost a vysvětli ji příkladem.", "success": "Udrž shodu přídavného jména s mužským rodem.", "hint": "Přidej větu začínající „Vždy…“.", "model": "Můj otec je hodný a trpělivý. Vždy mi rád poradí."}], "quiz": [{"question": "Kde se rodina sešla?", "options": ["U babičky v Olomouci.", "U tety v Brně.", "U rodičů v Praze.", "U strýce v Ostravě."], "correct": "U babičky v Olomouci."}, {"question": "Co přivezli rodiče?", "options": ["Koláč.", "Rodinné fotografie.", "Nový stůl.", "Květiny."], "correct": "Koláč."}, {"question": "Kdo po obědě vyprávěl příběh ze svého dětství?", "options": ["Dědeček.", "Babička.", "Maminka.", "Otec."], "correct": "Dědeček."}], "exercises": [{"sentence": "V porodnici v Brně se moje maminka ___ v roce 1980.", "answer": "narodila", "hint": "narodit se"}, {"sentence": "Moji rodiče se ___ na univerzitě.", "answer": "poznali", "hint": "poznat se"}, {"sentence": "V roce 1998 se rodiče ___.", "answer": "vzali", "hint": "vzít se"}, {"sentence": "Po svatbě rodiče ___ v Olomouci.", "answer": "bydleli", "hint": "bydlet"}, {"sentence": "Maminka ___ jako zdravotní sestra.", "answer": "pracovala", "hint": "pracovat"}, {"sentence": "Táta ___ každý den autobusem do práce.", "answer": "jezdil", "hint": "jezdit"}, {"sentence": "Když byl Filip malý, ___ si s bratrem na zahradě.", "answer": "hrál", "hint": "hrát si"}, {"sentence": "Včera rodina společně ___ oběd.", "answer": "uvařila", "hint": "uvařit"}, {"sentence": "K narozeninám babička ___ čokoládový dort.", "answer": "upekla", "hint": "upéct"}, {"sentence": "Dědeček nám ___ příběh ze svého dětství.", "answer": "vyprávěl", "hint": "vyprávět"}, {"sentence": "Moje sestra ___ základní školu v roce 2015.", "answer": "dokončila", "hint": "dokončit"}, {"sentence": "Můj bratr ___ střední školu v červnu.", "answer": "dokončil", "hint": "dokončit"}, {"sentence": "V sobotu jsme ___ babičku a dědečka.", "answer": "navštívili", "hint": "navštívit"}, {"sentence": "Na oslavu ___ také naše teta.", "answer": "přišla", "hint": "přijít"}, {"sentence": "Strýc ___ autem z Prahy.", "answer": "přijel", "hint": "přijet"}, {"sentence": "Sestřenice ___ na oslavu vlakem.", "answer": "přijela", "hint": "přijet"}, {"sentence": "Po obědě děti ___ na zahradě.", "answer": "běhaly", "hint": "běhat"}, {"sentence": "Rodiče ___ staré rodinné fotografie.", "answer": "ukázali", "hint": "ukázat"}, {"sentence": "Babička ___, když jsme jí zavolali.", "answer": "odpověděla", "hint": "odpovědět"}, {"sentence": "Před třemi lety se naše rodina ___ do Brna.", "answer": "přestěhovala", "hint": "přestěhovat se"}, {"sentence": "V novém městě jsme ___ větší byt.", "answer": "našli", "hint": "najít"}, {"sentence": "Můj partner ___ večeři pro celou rodinu.", "answer": "připravil", "hint": "připravit"}, {"sentence": "Moje partnerka ___ rodičům s nákupem.", "answer": "pomohla", "hint": "pomoci"}, {"sentence": "Manželé ___ návštěvu na neděli.", "answer": "naplánovali", "hint": "naplánovat"}, {"sentence": "Po oslavě jsme ___ domů pozdě večer.", "answer": "odjeli", "hint": "odjet"}]};
   </script>
+  <script src="../core/b1-family-lesson.js"></script>
+  
 </body>
 </html>
