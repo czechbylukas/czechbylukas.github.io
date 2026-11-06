@@ -4,106 +4,21 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Czech B1 Mastery: Lesson 4 – Moje poslední cesta & Ztracený kufr na cestě</title>
+  <script>window.B1_LESSON = {"topic": "Cestování", "number": 4, "title": "Zážitek z cesty", "icon": "fa-suitcase-rolling", "notesKey": "cz_b1_l4_notes", "tabs": {"exC": "Role play"}};</script>
+  <script src="../core/b1-core.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-auth-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-database-compat.js"></script>
+  <script src="../../../scripts-header.js"></script>
   <!-- Tailwind CSS -->
-  <script src="https://cdn.tailwindcss.com"></script>
   <!-- FontAwesome Icons -->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <!-- Google Fonts: Inter -->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
   
-  <script>
-    tailwind.config = {
-      theme: {
-        extend: {
-          fontFamily: {
-            sans: ['Inter', 'sans-serif'],
-          },
-          colors: {
-            brand: {
-              50: '#f0f9ff',
-              100: '#e0f2fe',
-              500: '#0284c7',
-              600: '#0284c7',
-              700: '#0369a1',
-            }
-          }
-        }
-      }
-    }
-  </script>
-  <style>
-    ::-webkit-scrollbar {
-      width: 8px;
-      height: 8px;
-    }
-    ::-webkit-scrollbar-track {
-      background: rgba(15, 23, 42, 0.6);
-    }
-    ::-webkit-scrollbar-thumb {
-      background: rgba(51, 65, 85, 0.8);
-      border-radius: 4px;
-    }
-    ::-webkit-scrollbar-thumb:hover {
-      background: rgba(71, 85, 105, 1);
-    }
-    .glass-card {
-      background: rgba(30, 41, 59, 0.7);
-      backdrop-filter: blur(12px);
-      border: 1px solid rgba(255, 255, 255, 0.08);
-    }
-    .glass-card-hover:hover {
-      background: rgba(30, 41, 59, 0.9);
-      border-color: rgba(56, 189, 248, 0.3);
-    }
-  </style>
 </head>
-<body class="h-full flex flex-col font-sans bg-slate-950 text-slate-100 overflow-x-hidden">
+<body class="min-h-full flex flex-col bg-slate-950 text-slate-100 overflow-x-hidden">
+  <script>B1Lesson.mount();</script>
 
   <!-- HEADER & NAVBAR -->
-  <header class="sticky top-0 z-50 bg-slate-900/90 backdrop-blur-md border-b border-slate-800 shadow-lg">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      <div class="flex items-center justify-between h-16">
-        <!-- Logo / Title -->
-        <div class="flex items-center space-x-3">
-          <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-sky-500 to-indigo-600 flex items-center justify-center text-white shadow-lg shadow-sky-500/20 font-bold text-xl">
-            <i class="fa-solid fa-suitcase-rolling"></i>
-          </div>
-          <div>
-            <h1 class="text-lg font-bold text-white leading-tight">Czech B1 Mastery</h1>
-            <p class="text-xs text-sky-400 font-medium">Lekce 4: Oba články &amp; 21 výrazů v 2. pádě</p>
-          </div>
-        </div>
-
-        <div class="flex items-center justify-between py-2 text-xs font-medium">
-          <a href="../B1_List_of_lessons.html" class="rounded-lg border border-slate-700 bg-slate-800 px-3 py-1.5 text-slate-300 hover:bg-slate-700">← Přehled lekcí</a>
-          <button onclick="speakText('Nahlásil jsem kufr na oddělení ztrát a nálezů.')" class="hidden sm:flex items-center gap-1.5 rounded-lg border border-sky-500/30 bg-sky-600/20 px-3 py-1.5 text-sky-300 transition hover:bg-sky-600/30">
-            <i class="fa-solid fa-volume-high"></i> Poslechnout vzorovou větu
-          </button>
-        </div>
-      </div>
-
-      <!-- Navigation Tabs -->
-      <nav class="flex space-x-1 overflow-x-auto no-scrollbar border-t border-slate-800/80 py-2" id="mainTabs">
-        <button onclick="switchTab('tab-vocab')" id="btn-tab-vocab" class="tab-btn active px-4 py-2 text-xs sm:text-sm font-semibold rounded-lg text-white bg-sky-600 shadow-md shadow-sky-600/20 transition flex items-center gap-2 whitespace-nowrap">
-          <i class="fa-solid fa-book-open"></i> 1. Vocab &amp; Both Articles (21)
-        </button>
-        <button onclick="switchTab('tab-exA')" id="btn-tab-exA" class="tab-btn px-4 py-2 text-xs sm:text-sm font-semibold rounded-lg text-slate-400 hover:text-slate-200 hover:bg-slate-800 transition flex items-center gap-2 whitespace-nowrap">
-          <i class="fa-solid fa-pen-to-square"></i> 2. Exercise A: 25 Gap-Fills
-        </button>
-        <button onclick="switchTab('tab-exB')" id="btn-tab-exB" class="tab-btn px-4 py-2 text-xs sm:text-sm font-semibold rounded-lg text-slate-400 hover:text-slate-200 hover:bg-slate-800 transition flex items-center gap-2 whitespace-nowrap">
-          <i class="fa-solid fa-wand-magic-sparkles"></i> 3. Exercise B: 10 Sentence Upgrades
-        </button>
-        <button onclick="switchTab('tab-exC')" id="btn-tab-exC" class="tab-btn px-4 py-2 text-xs sm:text-sm font-semibold rounded-lg text-slate-400 hover:text-slate-200 hover:bg-slate-800 transition flex items-center gap-2 whitespace-nowrap">
-          <i class="fa-solid fa-comments"></i> 4. Dynamic Role Play Simulator
-        </button>
-        <button onclick="switchTab('tab-homework')" id="btn-tab-homework" class="tab-btn px-4 py-2 text-xs sm:text-sm font-semibold rounded-lg text-slate-400 hover:text-slate-200 hover:bg-slate-800 transition flex items-center gap-2 whitespace-nowrap">
-          <i class="fa-solid fa-paper-plane"></i> 5. Homework &amp; Letter Writer
-        </button>
-      </nav>
-    </div>
-  </header>
 
   <!-- MAIN CONTAINER -->
   <main class="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-6">
@@ -112,6 +27,11 @@
     <section id="tab-vocab" class="tab-content block space-y-8">
       
       <!-- Vocabulary Header -->
+      <div class="glass-card rounded-2xl border border-sky-500/20 bg-slate-900/50 p-4 sm:p-5">
+        <h2 class="text-lg font-bold text-sky-200">Stručně ke gramatice: 2. pád (genitiv)</h2>
+        <p class="mt-2 text-sm leading-6 text-slate-300">Genitiv odpovídá na otázku <em>koho, čeho?</em> Používáme ho například po předložkách <em>do, z/ze, bez, během</em> a ve spojeních vyjadřujících množství. V sousloví se do genitivu mění podstatné jméno i jeho přídavné jméno: <em>do nového města, bez platného pasu</em>. Koncovky závisejí na rodě, čísle a typu skloňování.</p>
+        <button type="button" disabled class="mt-3 cursor-not-allowed rounded-lg border border-slate-600 px-3 py-2 text-sm text-slate-400" aria-disabled="true">Podrobné vysvětlení – work in progress</button>
+      </div>
       <div class="glass-card rounded-2xl p-5 border border-slate-800 flex flex-col md:flex-row gap-4 items-center justify-between">
         <div>
           <h2 class="text-xl font-bold text-white flex items-center gap-2">
@@ -151,15 +71,10 @@
                 <h3 class="text-base font-bold text-sky-400 flex items-center gap-2">
                   <i class="fa-solid fa-plane-departure"></i> Článek 1: Moje poslední cesta
                 </h3>
-                <p class="text-xs text-slate-400 mt-0.5">Čte učitel/ka nahlas. Studenti sledují text a hledají tvary 2. pádu.</p>
+                <p class="text-xs text-slate-400 mt-0.5">Přečti, označ 2. pád a odpověz na otázky.</p>
               </div>
 
               <div class="flex items-center gap-2">
-                <!-- Gender Toggle Article 1 -->
-                <div class="flex items-center bg-slate-900 border border-slate-800 p-1 rounded-xl text-xs font-semibold">
-                  <button onclick="setGender1('M')" id="g1M" class="px-2.5 py-1 rounded-lg bg-sky-600 text-white font-bold transition">M</button>
-                  <button onclick="setGender1('F')" id="g1F" class="px-2.5 py-1 rounded-lg text-slate-400 hover:text-slate-200 transition">Ž</button>
-                </div>
 
                 <!-- Audio Article 1 -->
                 <button onclick="handleAudio1()" id="btnAudio1" class="px-3 py-1.5 bg-sky-600 hover:bg-sky-500 text-white rounded-xl text-xs font-bold transition flex items-center gap-1.5 shadow-md">
@@ -170,8 +85,7 @@
 
             <!-- Dynamic Body Article 1 -->
             <div class="flex flex-wrap items-center justify-between gap-2 text-xs">
-              <p class="text-slate-400">Kliknutím označte slova a spojení ve 2. pádě.</p>
-              <div class="flex items-center gap-2"><span id="genitiveMarkCount1" class="text-amber-300" aria-live="polite">Označeno: 0 slov</span><button type="button" onclick="clearGenitiveMarks('story1Container','genitiveMarkCount1')" class="rounded-lg bg-slate-800 px-2 py-1 text-slate-300 hover:bg-slate-700">Zrušit označení</button></div>
+              <div><span id="genitiveMarkCount1"></span></div>
             </div>
             <div class="text-xs sm:text-sm text-slate-200 leading-relaxed font-sans space-y-3 bg-slate-900/80 p-4 rounded-xl border border-slate-800" id="story1Container">
               <!-- JS Rendered -->
@@ -197,15 +111,10 @@
                 <h3 class="text-base font-bold text-amber-400 flex items-center gap-2">
                   <i class="fa-solid fa-suitcase"></i> Článek 2: Ztracený kufr na cestě
                 </h3>
-                <p class="text-xs text-slate-400 mt-0.5">Student/ka čte nahlas.</p>
+                <p class="text-xs text-slate-400 mt-0.5">Přečti, označ 2. pád a odpověz na otázky.</p>
               </div>
 
               <div class="flex items-center gap-2">
-                <!-- Gender Toggle Article 2 -->
-                <div class="flex items-center bg-slate-900 border border-slate-800 p-1 rounded-xl text-xs font-semibold">
-                  <button onclick="setGender2('M')" id="g2M" class="px-2.5 py-1 rounded-lg bg-amber-600 text-white font-bold transition">M</button>
-                  <button onclick="setGender2('F')" id="g2F" class="px-2.5 py-1 rounded-lg text-slate-400 hover:text-slate-200 transition">Ž</button>
-                </div>
 
                 <!-- Audio Article 2 -->
                 <button onclick="handleAudio2()" id="btnAudio2" class="px-3 py-1.5 bg-amber-600 hover:bg-amber-500 text-white rounded-xl text-xs font-bold transition flex items-center gap-1.5 shadow-md">
@@ -216,8 +125,7 @@
 
             <!-- Dynamic Body Article 2 -->
             <div class="flex flex-wrap items-center justify-between gap-2 text-xs">
-              <p class="text-slate-400">Kliknutím označte slova a spojení ve 2. pádě.</p>
-              <div class="flex items-center gap-2"><span id="genitiveMarkCount2" class="text-amber-300" aria-live="polite">Označeno: 0 slov</span><button type="button" onclick="clearGenitiveMarks('story2Container','genitiveMarkCount2')" class="rounded-lg bg-slate-800 px-2 py-1 text-slate-300 hover:bg-slate-700">Zrušit označení</button></div>
+              <div><span id="genitiveMarkCount2"></span></div>
             </div>
             <div class="text-xs sm:text-sm text-slate-200 leading-relaxed font-sans space-y-3 bg-slate-900/80 p-4 rounded-xl border border-slate-800" id="story2Container">
               <!-- JS Rendered -->
@@ -513,9 +421,9 @@
       { prompt: "Koupil(a) jsem si průvodce s mapou ____ (město).", ans: "města", hint: "město" },
       { prompt: "Připravoval(a) jsem se na návštěvu místních ____ (muzeum a galerie - pl.).", ans: "muzeí a galerií", hint: "muzea a galerie (pl.)" },
       { prompt: "Zamířil(a) jsem k hotelu, kde jsem měl(a) rezervaci do ____ (pátek).", ans: "pátku", hint: "pátek" },
-      { prompt: "Půjčil(a) jsem si kolo v půjčovně ____ (kolo - pl.) vedle ____ (hotel).", ans: "kol / hotelu", hint: "kolo (pl.) / hotel" },
+      { prompt: "Půjčil(a) jsem si kolo v půjčovně ____ (kolo - pl.) vedle ____ (hotel).", ans: "kol / hotelu", hint: "2. pád pl. / 2. pád" },
       { prompt: "Při cestě jsem si všiml(a) ____ (muzeum) vedle ____ (zajímavá dopravní značka - pl.).", ans: "muzea / zajímavých dopravních značek", hint: "muzeum / zajímavá dopravní značka (pl.)" },
-      { prompt: "Kontroloval(a) jsem stav ____ (pneumatika - pl.) ____ (své kolo).", ans: "pneumatik / svého kola", hint: "pneumatika (pl.) / své kolo" },
+      { prompt: "Kontroloval(a) jsem stav ____ (pneumatika - pl.) ____ (své kolo).", ans: "pneumatik / svého kola", hint: "2. pád pl. / 2. pád" },
       { prompt: "Chtěl(a) jsem se vyhnout problémům během ____ (cesta).", ans: "cesty", hint: "cesta" },
       { prompt: "Koupil(a) jsem si suvenýr v obchodě s výrobky z ____ (plast).", ans: "plastu", hint: "plast" },
       { prompt: "Uvědomil(a) jsem si, že plánování ____ (cesta) je důležité od ____ (letenka) až po hotel.", ans: "cesty / letenky", hint: "cesta / letenka" }
@@ -523,7 +431,7 @@
 
     const DRILLS_TEXT_2 = [
       { prompt: "Minulý rok jsem se vydal/a na dovolenou do ____ (město).", ans: "města", hint: "město" },
-      { prompt: "Cesta začala už u ____ (nádraží), odkud jsem jel/a autobusem na letiště.", ans: "nádraží", hint: "nádraží" },
+      { prompt: "Cesta začala už u ____ (nádraží), odkud jsem jel/a autobusem na letiště.", ans: "nádraží", hint: "2. pád" },
       { prompt: "Na letišti jsem si všiml/a, že jsem zapomněl/a číslo ____ (letenka) a musel/a jsem ho hledat v mobilu.", ans: "letenky", hint: "letenka" },
       { prompt: "Při odbavení se pracovník zeptal na velikost ____ (zavazadlo) a také chtěl vidět kopii ____ (pas).", ans: "zavazadla / pasu", hint: "zavazadlo / pas" },
       { prompt: "Všechno proběhlo dobře, ale hned po příletu jsem si nevšiml/a ____ (kufr).", ans: "kufru", hint: "kufr" },
@@ -533,7 +441,7 @@
       { prompt: "Nakonec mi řekla, že kufr zůstal na ploše vedle ____ (letadlo).", ans: "letadla", hint: "letadlo" },
       { prompt: "Po dvou hodinách čekání jsem se konečně dočkal/a ____ (návrat zavazadla).", ans: "návratu zavazadla", hint: "návrat zavazadla" },
       { prompt: "Bylo to trochu nepříjemné, protože jsem neměl/a u sebe ani kartáček na zuby, ani mapu ____ (město), kam jsem cestoval/a.", ans: "města", hint: "město" },
-      { prompt: "Naštěstí všechno dobře dopadlo a už další den jsem se mohl/a vydat na prohlídku ____ (památky).", ans: "památek", hint: "památky" }
+      { prompt: "Naštěstí všechno dobře dopadlo a už další den jsem se mohl/a vydat na prohlídku ____ (památka - pl.).", ans: "památek", hint: "památky" }
     ];
 
     /* ==========================================================================
@@ -559,17 +467,17 @@
 
     const QUIZ1_DATA = [
       {
-        q: "1. Platnost čeho si cestovatel/ka zkontroloval/a před cestou?",
+        q: "1. Platnost čeho si {{cestovatel zkontroloval|cestovatelka zkontrolovala}} před cestou?",
         opts: ["Pasu", "Jízdenky", "Hotelové rezervace", "Řidičského průkazu"],
         ans: 0
       },
       {
-        q: "2. Kde si cestovatel/ka půjčil/a kolo?",
+        q: "2. Kde si {{cestovatel půjčil|cestovatelka půjčila}} kolo?",
         opts: ["V centru města", "V půjčovně vedle hotelu", "Na letišti", "U vlakového nádraží"],
         ans: 1
       },
       {
-        q: "3. Kdo cestovateli/ce nejvíce pomohl při plánování?",
+        q: "3. Komu nejvíce pomohl při plánování {{cestovateli|cestovatelce}}?",
         opts: ["Sestra", "Bratr Lukáše", "Kamarád Honza", "Pracovník letiště"],
         ans: 1
       }
@@ -578,7 +486,7 @@
     const QUIZ2_DATA = [
       {
         q: "1. Jaký problém nastal na letišti před odletem?",
-        opts: ["Zapomněl/a číslo letenky", "Ztratil/a pas", "Přijel/a pozdě autobus", "Nevěděl/a, kde je hotel"],
+        opts: ["{{Zapomněl|Zapomněla}} číslo letenky", "{{Ztratil|Ztratila}} pas", "{{Přijel|Přijela}} pozdě autobus", "{{Nevěděl|Nevěděla}}, kde je hotel"],
         ans: 0
       },
       {
@@ -587,9 +495,9 @@
         ans: 1
       },
       {
-        q: "3. Co si chtěl/a cestovatel/ka prohlédnout další den?",
+        q: "3. Co si {{cestovatel chtěl|cestovatelka chtěla}} prohlédnout další den?",
         opts: ["Památky", "Místní letiště", "Vlakové nádraží", "Obchodní centrum"],
-        ans: 1
+        ans: 0
       }
     ];
 
@@ -601,12 +509,10 @@
     let renderedQuiz1Data = [];
     let renderedQuiz2Data = [];
     
-    let gender1 = 'M';
     let audio1Playing = false;
     let audio1Paused = false;
     let utt1 = null;
 
-    let gender2 = 'M';
     let audio2Playing = false;
     let audio2Paused = false;
     let utt2 = null;
@@ -645,85 +551,20 @@
       }
     }
 
-    function enableGenitiveMarking(containerId, countId) {
-      const container = document.getElementById(containerId);
-      const walker = document.createTreeWalker(container, NodeFilter.SHOW_TEXT);
-      const textNodes = [];
-      while (walker.nextNode()) {
-        const node = walker.currentNode;
-        if (node.nodeValue.trim() && !node.parentElement.closest('button, a, input, textarea')) textNodes.push(node);
-      }
-      textNodes.forEach(node => {
-        const fragment = document.createDocumentFragment();
-        node.nodeValue.split(/([A-Za-zÀ-ž]+(?:[’'-][A-Za-zÀ-ž]+)*)/g).forEach(part => {
-          if (/^[A-Za-zÀ-ž]/.test(part)) {
-            const word = document.createElement('span');
-            word.textContent = part;
-            word.className = 'genitive-mark-word cursor-pointer rounded px-0.5 hover:bg-amber-900/50';
-            word.setAttribute('role', 'button');
-            word.setAttribute('aria-pressed', 'false');
-            word.tabIndex = 0;
-            const toggle = () => {
-              const marked = word.getAttribute('aria-pressed') !== 'true';
-              word.style.backgroundColor = marked ? 'rgba(251, 191, 36, 0.3)' : '';
-              word.style.color = marked ? '#fef3c7' : '';
-              word.style.outline = marked ? '1px solid rgba(251, 191, 36, 0.7)' : '';
-              word.setAttribute('aria-pressed', String(marked));
-              updateGenitiveMarkCount(containerId, countId);
-            };
-            word.addEventListener('click', toggle);
-            word.addEventListener('keydown', event => {
-              if (event.key === 'Enter' || event.key === ' ') {
-                event.preventDefault();
-                toggle();
-              }
-            });
-            fragment.appendChild(word);
-          } else {
-            fragment.appendChild(document.createTextNode(part));
-          }
-        });
-        node.replaceWith(fragment);
-      });
-      updateGenitiveMarkCount(containerId, countId);
-    }
-
-    function updateGenitiveMarkCount(containerId, countId) {
-      const count = document.querySelectorAll(`#${containerId} .genitive-mark-word[aria-pressed="true"]`).length;
-      document.getElementById(countId).textContent = `Označeno: ${count} slov`;
-    }
-
-    function clearGenitiveMarks(containerId, countId) {
-      document.querySelectorAll(`#${containerId} .genitive-mark-word`).forEach(word => {
-        word.style.backgroundColor = '';
-        word.style.color = '';
-        word.style.outline = '';
-        word.setAttribute('aria-pressed', 'false');
-      });
-      updateGenitiveMarkCount(containerId, countId);
-    }
-
     /* ARTICLE 1 LOGIC */
-    function setGender1(g) {
-      gender1 = g;
-      document.getElementById('g1M').className = g === 'M' ? 'px-2.5 py-1 rounded-lg bg-sky-600 text-white font-bold transition' : 'px-2.5 py-1 rounded-lg text-slate-400 hover:text-slate-200 transition';
-      document.getElementById('g1F').className = g === 'F' ? 'px-2.5 py-1 rounded-lg bg-sky-600 text-white font-bold transition' : 'px-2.5 py-1 rounded-lg text-slate-400 hover:text-slate-200 transition';
-      renderStory1();
-    }
-
     function renderStory1() {
-      const isM = (gender1 === 'M');
+      const isM = B1Gender.isMale();
       document.getElementById('story1Container').innerHTML = `
         <p>Minulý měsíc jsem se ${isM ? 'vydal' : 'vydala'} na výlet do krás <strong class="text-sky-300">Česka</strong>. Před cestou jsem si ${isM ? 'ověřil' : 'ověřila'} časy <strong class="text-sky-300">letu</strong> a ${isM ? 'zkontroloval' : 'zkontrolovala'} platnost <strong class="text-sky-300">pasu</strong> a cestovního <strong class="text-sky-300">pojištění</strong>. Na letišti jsem ${isM ? 'odevzdal' : 'odevzdala'} 6 <strong class="text-sky-300">zavazadel</strong> a ${isM ? 'koupil' : 'koupila'} si noviny s mapou <strong class="text-sky-300">města</strong>.</p>
         <p>Během letu jsem ${isM ? 'četl' : 'četla'} průvodce od <strong class="text-sky-300">Honzy</strong> a ${isM ? 'připravoval' : 'připravovala'} se na návštěvu místních <strong class="text-sky-300">muzeí a galerií</strong>. Po přistání jsem si ${isM ? 'vzal' : 'vzala'} taxi z <strong class="text-sky-300">letiště</strong> k hotelu, kde jsem ${isM ? 'měl' : 'měla'} rezervaci do <strong class="text-sky-300">pátku</strong>.</p>
-        <p>Další den jsem si ${isM ? 'půjčil' : 'půjčila'} kolo v půjčovně <strong class="text-sky-300">kol</strong> vedle <strong class="text-sky-300">hotelu</strong> a ${isM ? 'projel' : 'projela'} cyklostezku kolem <strong class="text-sky-300">řeky</strong>. ${isM ? 'Kontroloval' : 'Kontrolovala'} jsem stav pneumatik svého <strong class="text-sky-300">kola</strong> a koupil/a suvenýr z <strong class="text-sky-300">plastu</strong>. Při plánování mi pomohl bratr <strong class="text-sky-300">Lukáše</strong>.</p>
+        <p>Další den jsem si ${isM ? 'půjčil' : 'půjčila'} kolo v půjčovně <strong class="text-sky-300">kol</strong> vedle <strong class="text-sky-300">hotelu</strong> a ${isM ? 'projel' : 'projela'} cyklostezku kolem <strong class="text-sky-300">řeky</strong>. ${isM ? 'Kontroloval' : 'Kontrolovala'} jsem stav pneumatik svého <strong class="text-sky-300">kola</strong> a ${isM ? 'koupil' : 'koupila'} suvenýr z <strong class="text-sky-300">plastu</strong>. Při plánování mi pomohl bratr <strong class="text-sky-300">Lukáše</strong>.</p>
       `;
-      enableGenitiveMarking('story1Container', 'genitiveMarkCount1');
+      B1Marking.setup('story1Container', 'genitiveMarkCount1', ['do krás Česka', 'letu', 'během', 'pasu', 'cestovního pojištění', 'zavazadel', 'města', 'od Honzy', 'místních muzeí', 'galerií', 'z letiště', 'do pátku', 'kol', 'vedle hotelu', 'kolem řeky', 'pneumatik', 'svého kola', 'z plastu', 'Lukáše']);
     }
 
     function handleAudio1() {
       if (!('speechSynthesis' in window)) return;
-      const isM = (gender1 === 'M');
+      const isM = B1Gender.isMale();
       const text = `Minulý měsíc jsem se ${isM ? 'vydal' : 'vydala'} na výlet do krás Česka. Před cestou jsem si ${isM ? 'ověřil' : 'ověřila'} časy letu a zkontroloval platnost pasu a cestovního pojištění. Na letišti jsem odevzdal 6 zavazadel a koupil si průvodce s mapou města. Během letu jsem četl průvodce od Honzy a připravoval se na návštěvu místních muzeí a galerií. Po přistání jsem si vzal taxi z letiště k hotelu, kde jsem měl rezervaci do pátku. Další den jsem si půjčil kolo v půjčovně kol vedle hotelu a projel cyklostezku kolem řeky.`;
 
       if (audio1Playing && !audio1Paused) {
@@ -756,26 +597,19 @@
     }
 
     /* ARTICLE 2 LOGIC */
-    function setGender2(g) {
-      gender2 = g;
-      document.getElementById('g2M').className = g === 'M' ? 'px-2.5 py-1 rounded-lg bg-amber-600 text-white font-bold transition' : 'px-2.5 py-1 rounded-lg text-slate-400 hover:text-slate-200 transition';
-      document.getElementById('g2F').className = g === 'F' ? 'px-2.5 py-1 rounded-lg bg-amber-600 text-white font-bold transition' : 'px-2.5 py-1 rounded-lg text-slate-400 hover:text-slate-200 transition';
-      renderStory2();
-    }
-
     function renderStory2() {
-      const isM = (gender2 === 'M');
+      const isM = B1Gender.isMale();
       document.getElementById('story2Container').innerHTML = `
         <p>Minulý rok jsem se ${isM ? 'vydal' : 'vydala'} na dovolenou do <strong class="text-amber-300">města</strong>. Cesta začala už u <strong class="text-amber-300">nádraží</strong>, odkud jsem ${isM ? 'jel' : 'jela'} autobusem na letiště. Na letišti jsem si ${isM ? 'všiml' : 'všimla'}, že jsem ${isM ? 'zapomněl' : 'zapomněla'} číslo <strong class="text-amber-300">letenky</strong> a ${isM ? 'musel' : 'musela'} ho hledat v mobilu.</p>
-        <p>Při odbavení se pracovník zeptal na velikost <strong class="text-amber-300">zavazadla</strong> a chtěl vidět kopii <strong class="text-amber-300">pasu</strong>. Po příletu jsem si nevšiml/a svého <strong class="text-amber-300">kufru</strong>! Kufr totiž nepřiletěl z <strong class="text-amber-300">Prahy</strong>.</p>
-        <p>${isM ? 'Šel' : 'Šla'} jsem tedy na oddělení <strong class="text-amber-300">ztrát a nálezů</strong>. Úřednice se ptala na číslo <strong class="text-amber-300">zavazadlového lístku</strong> a barvu <strong class="text-amber-300">tašky</strong>. Kufr zůstal na ploše vedle <strong class="text-amber-300">letadla</strong>. Po dvou hodinách jsem se ${isM ? 'dočkal' : 'dočkala'} návratu <strong class="text-amber-300">zavazadla</strong>. Neměl/a jsem kartáček ani mapu <strong class="text-amber-300">města</strong>, ale další den jsem se již ${isM ? 'mohl' : 'mohla'} vydat na prohlídku <strong class="text-amber-300">památek</strong>.</p>
+        <p>Při odbavení se pracovník zeptal na velikost <strong class="text-amber-300">zavazadla</strong> a chtěl vidět kopii <strong class="text-amber-300">pasu</strong>. Po příletu jsem si ${isM ? 'nevšiml' : 'nevšimla'} svého <strong class="text-amber-300">kufru</strong>! Kufr totiž nepřiletěl z <strong class="text-amber-300">Prahy</strong>.</p>
+        <p>${isM ? 'Šel' : 'Šla'} jsem tedy na oddělení <strong class="text-amber-300">ztrát a nálezů</strong>. Pracovnice se ptala na číslo <strong class="text-amber-300">zavazadlového lístku</strong> a barvu <strong class="text-amber-300">tašky</strong>. Kufr zůstal na ploše vedle <strong class="text-amber-300">letadla</strong>. Po dvou hodinách jsem se ${isM ? 'dočkal' : 'dočkala'} návratu <strong class="text-amber-300">zavazadla</strong>. ${isM ? 'Neměl' : 'Neměla'} jsem kartáček ani mapu <strong class="text-amber-300">města</strong>, ale další den jsem se již ${isM ? 'mohl' : 'mohla'} vydat na prohlídku <strong class="text-amber-300">památek</strong>.</p>
       `;
-      enableGenitiveMarking('story2Container', 'genitiveMarkCount2');
+      B1Marking.setup('story2Container', 'genitiveMarkCount2', ['do města', 'města', 'u nádraží', 'letenky', 'zavazadla', 'pasu', 'svého kufru', 'z Prahy', 'ztrát', 'nálezů', 'zavazadlového lístku', 'tašky', 'vedle letadla', 'návratu', 'památek']);
     }
 
     function handleAudio2() {
       if (!('speechSynthesis' in window)) return;
-      const isM = (gender2 === 'M');
+      const isM = B1Gender.isMale();
       const text = `Minulý rok jsem se ${isM ? 'vydal' : 'vydala'} na dovolenou do města. Cesta začala už u nádraží, odkud jsem jel autobusem na letiště. Na letišti jsem si všiml, že jsem zapomněl číslo letenky a musel jsem ho hledat v mobilu. Při odbavení se pracovník zeptal na velikost zavazadla a také chtěl vidět kopii pasu. Po příletu jsem si nevšiml svého kufru! Kufr totiž nepřiletěl z Prahy. Šel jsem tedy na oddělení ztrát a nálezů. Úřednice se ptala na číslo zavazadlového lístku a barvu tašky. Nakonec mi řekla, že kufr zůstal na ploše vedle letadla. Po dvou hodinách jsem se konečně dočkal návratu zavazadla. Naštěstí všechno dobře dopadlo a už další den jsem se mohl vydat na prohlídku památek.`;
 
       if (audio2Playing && !audio2Paused) {
@@ -875,7 +709,7 @@
           const j = Math.floor(Math.random() * (i + 1));
           [options[i], options[j]] = [options[j], options[i]];
         }
-        return { q: question.q, opts: options.map(option => option.text), ans: options.findIndex(option => option.correct) };
+        return { q: B1Gender.t(question.q), opts: options.map(option => B1Gender.t(option.text)), ans: options.findIndex(option => option.correct) };
       });
       renderedQuiz1Data = shuffleOptions(QUIZ1_DATA);
       renderedQuiz2Data = shuffleOptions(QUIZ2_DATA);
@@ -975,7 +809,6 @@
               ${promptContent}
             </div>
             <div class="flex items-center gap-3 self-end sm:self-center flex-shrink-0">
-              <span class="text-xs text-amber-400/90 font-mono bg-slate-900/90 px-3 py-1.5 rounded-lg border border-slate-800">${item.hint}</span>
               <button onclick="speakText('${cleanAudio.replace(/'/g, "\\'")}')" class="w-9 h-9 rounded-lg bg-slate-800 hover:bg-sky-600/30 text-slate-300 hover:text-sky-300 border border-slate-700 transition flex items-center justify-center">
                 <i class="fa-solid fa-volume-high text-sm"></i>
               </button>
@@ -1054,7 +887,7 @@
     /* EXERCISE B SCENARIOS */
     function renderExerciseB() {
       const grid = document.getElementById('exBGrid');
-      grid.innerHTML = SCENARIOS_EX_B.map((item, idx) => `
+      grid.innerHTML = SCENARIOS_EX_B.map(raw => ({ ...raw, a2: B1Gender.t(raw.a2), structure: B1Gender.t(raw.structure), blocks: B1Gender.t(raw.blocks), b1: B1Gender.t(raw.b1) })).map((item, idx) => `
         <div class="glass-card rounded-2xl p-6 border border-slate-800 space-y-4">
           <div class="flex items-center justify-between gap-2">
             <h3 class="font-bold text-white text-lg sm:text-xl leading-snug">${item.q}</h3>
@@ -1317,6 +1150,7 @@ ${notes}
       renderVocab();
       renderStory1();
       renderStory2();
+      B1Gender.onChange(() => { renderStory1(); renderStory2(); renderQuizzes(); renderExerciseB(); });
       renderQuizzes();
       renderExerciseA();
       renderExerciseB();
@@ -1330,5 +1164,6 @@ ${notes}
       updateHomeworkPack();
     };
   </script>
+  
 </body>
 </html>
