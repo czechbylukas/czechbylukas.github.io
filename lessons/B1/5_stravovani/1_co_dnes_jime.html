@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Czech B1 Mastery: Lekce 1 – Co dnes jíme?</title>
-  <script>window.B1_LESSON = { topic: "Stravování", number: 1, title: "Co dnes jíme?", icon: "fa-utensils", notesKey: "czechB1.food.lesson1.notes", tabs: { practice: "Procvičování" } }; window.B1_STRAVOVANI_LESSON = 1;</script>
+  <script>window.B1_LESSON = { topic: "Stravování", number: 1, title: "Co dnes jíme?", icon: "fa-utensils", notesKey: "czechB1.food.lesson1.notes", homeworkKey: "b1:food:1:homework", tabs: { practice: "Procvičování" } };</script>
   <script src="../core/b1-core.js"></script>
   <script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-app-compat.js"></script>
   <script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-auth-compat.js"></script>
@@ -15,6 +15,6 @@
   <script>B1Lesson.mount();</script>
   <main id="foodLessonApp" class="mx-auto w-full max-w-7xl flex-1 space-y-6 px-4 py-6 pb-32 sm:px-6 lg:px-8"></main>
   <script src="b1-stravovani-data.js"></script>
-  <script src="b1-stravovani.js"></script>
+  <script>B1Lesson.mountStructured(window.B1_STRAVOVANI_DATA[window.B1_LESSON.number], "foodLessonApp");</script>
 </body>
 </html>

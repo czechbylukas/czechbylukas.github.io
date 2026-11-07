@@ -87,6 +87,10 @@ body.b1-login-only:not(.logged-in) .teacher-live-notes-dock { display: none !imp
   .exercise-actions { bottom: 6rem; }
 }
 
+@media (max-width: 640px) {
+  #b1Header .b1-top > div:last-child { min-width: 0; flex-wrap: wrap; }
+}
+
 /* Grammar marking widget (see b1-core.js, B1Marking) */
 .genitive-mark-word { color: inherit; text-decoration: none; cursor: pointer; border-radius: .25rem; padding: 0 .1rem; }
 .genitive-mark-word:hover { background: rgba(251, 191, 36, .18); }
