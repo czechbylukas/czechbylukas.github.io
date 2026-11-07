@@ -139,7 +139,7 @@
           Přehled lekcí češtiny B1
         </h2>
         <p class="text-sm text-slate-300 max-w-2xl leading-relaxed">
-          Vyberte si lekci pro studium. Všechny lekce obsahují interaktivní slovní zásobu, gramatické drily, poslech, konverzační simulace a prostor pro psaní a učitelské poznámky.
+          Nejdříve vyberte tematický okruh. Uvnitř každého okruhu najdete jeho lekce a procvičování.
         </p>
       </div>
     </div>
@@ -151,8 +151,69 @@
 
 
 
+    <section id="topic-menu" class="space-y-4 pt-2" aria-label="Tematické okruhy">
+      <div class="grid grid-cols-1 gap-5 md:grid-cols-2 lg:grid-cols-3">
+        <button type="button" class="glass-card glass-card-hover rounded-2xl p-5 text-left" data-open-topic="1">
+          <svg class="mb-4 block h-36 w-full rounded-xl" viewBox="0 0 360 144" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+            <rect width="360" height="144" fill="#252c58"/>
+            <circle cx="296" cy="24" r="72" fill="#818cf8" opacity=".12"/>
+            <path d="M0 119 Q90 86 180 121 T360 109 V144 H0Z" fill="#373b74"/>
+            <path d="M30 73 L78 32 L126 73 V121 H30Z" fill="#6366a0"/>
+            <path d="M23 76 L78 27 L133 76" fill="none" stroke="#c7d2fe" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/>
+            <rect x="68" y="87" width="21" height="34" rx="3" fill="#312e65"/>
+            <circle cx="200" cy="53" r="16" fill="#f2bc9e"/>
+            <path d="M174 116 V101 Q174 76 200 76 Q226 76 226 101 V116Z" fill="#a5b4fc"/>
+            <circle cx="255" cy="51" r="16" fill="#d99d7d"/>
+            <path d="M229 116 V100 Q229 75 255 75 Q281 75 281 100 V116Z" fill="#e9a8b7"/>
+            <circle cx="227" cy="80" r="12" fill="#ecc3a9"/>
+            <path d="M208 122 V112 Q208 96 227 96 Q246 96 246 112 V122Z" fill="#fcd58d"/>
+            <path d="M294 60 C280 51 272 42 277 35 C281 29 289 31 294 37 C299 31 307 29 311 35 C316 42 308 51 294 60Z" fill="#f9a8d4"/>
+          </svg>
+          <span class="text-xs font-mono font-bold text-indigo-300">OKRUH 1</span>
+          <h3 class="mt-2 text-lg font-bold text-white">Rodina a osobní život</h3>
+          <p class="mt-1 text-sm text-slate-400">Rodinné vztahy, životní příběhy a minulý čas</p>
+          <span class="mt-4 inline-block text-sm font-semibold text-indigo-300">9 lekcí <i class="fa-solid fa-arrow-right ml-1"></i></span>
+        </button>
+        <button type="button" class="glass-card glass-card-hover rounded-2xl p-5 text-left" data-open-topic="4">
+          <svg class="mb-4 block h-36 w-full rounded-xl" viewBox="0 0 360 144" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+            <rect width="360" height="144" fill="#143a54"/>
+            <circle cx="292" cy="32" r="18" fill="#fde68a"/>
+            <path d="M0 112 L77 44 L142 109 L197 57 L276 123 L360 80 V144 H0Z" fill="#32627b"/>
+            <path d="M42 75 L77 44 L108 75 L92 67 L79 72 L67 63Z M166 86 L197 57 L228 83 L213 77 L201 82 L190 73Z" fill="#e0f2fe" opacity=".85"/>
+            <path d="M0 123 Q86 98 174 124 T360 116 V144 H0Z" fill="#164e63"/>
+            <path d="M102 39 L139 31 L156 10 L165 8 L158 30 L191 25 Q199 24 200 28 Q201 32 194 34 L160 43 L165 58 L159 60 L147 46 L121 52 L112 59 L106 59 L111 50 L99 45Z" fill="#e0f2fe"/>
+            <rect x="244" y="90" width="39" height="38" rx="6" fill="#fbbf77"/>
+            <path d="M254 90 V84 Q254 79 263 79 Q272 79 272 84 V90 M256 95 V123 M271 95 V123" fill="none" stroke="#9a5c42" stroke-width="3"/>
+          </svg>
+          <span class="text-xs font-mono font-bold text-sky-300">OKRUH 4</span>
+          <h3 class="mt-2 text-lg font-bold text-white">Cestování</h3>
+          <p class="mt-1 text-sm text-slate-400">Plánování cest, zážitky a doprava; 2. pád</p>
+          <span class="mt-4 inline-block text-sm font-semibold text-sky-300">8 lekcí <i class="fa-solid fa-arrow-right ml-1"></i></span>
+        </button>
+        <button type="button" class="glass-card glass-card-hover rounded-2xl p-5 text-left" data-open-topic="5">
+          <svg class="mb-4 block h-36 w-full rounded-xl" viewBox="0 0 360 144" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+            <rect width="360" height="144" fill="#123d3c"/>
+            <circle cx="62" cy="22" r="58" fill="#6ee7b7" opacity=".1"/>
+            <path d="M0 111 Q88 98 180 113 T360 106 V144 H0Z" fill="#1e5651"/>
+            <ellipse cx="180" cy="83" rx="79" ry="49" fill="#b9e5d6"/>
+            <ellipse cx="180" cy="83" rx="65" ry="38" fill="#f0fdf4"/>
+            <path d="M134 85 Q147 56 169 68 Q184 51 195 69 Q216 54 227 76 Q228 94 208 101 Q190 94 174 105 Q150 103 134 85Z" fill="#57a56e"/>
+            <circle cx="157" cy="79" r="11" fill="#f87171"/>
+            <circle cx="199" cy="88" r="12" fill="#fb923c"/>
+            <circle cx="185" cy="71" r="8" fill="#facc8b"/>
+            <path d="M263 36 V116 M255 36 V59 Q255 68 263 68 Q271 68 271 59 V36 M263 36 V60" fill="none" stroke="#d1fae5" stroke-width="4" stroke-linecap="round"/>
+            <path d="M95 37 Q84 48 87 69 Q88 75 95 78 V116" fill="none" stroke="#d1fae5" stroke-width="4" stroke-linecap="round"/>
+          </svg>
+          <span class="text-xs font-mono font-bold text-emerald-300">OKRUH 5</span>
+          <h3 class="mt-2 text-lg font-bold text-white">Stravování</h3>
+          <p class="mt-1 text-sm text-slate-400">Jídlo, návyky, restaurace a vaření; 4. pád</p>
+          <span class="mt-4 inline-block text-sm font-semibold text-emerald-300">7 lekcí <i class="fa-solid fa-arrow-right ml-1"></i></span>
+        </button>
+      </div>
+    </section>
+
 <!-- TOPIC SECTION: RODINA A OSOBNÍ ŽIVOT -->
-<section class="space-y-4 pt-6">
+<section id="topic-1" data-topic-panel="1" class="space-y-4 pt-6" hidden>
   
   <!-- Topic Header -->
   <div class="flex items-center justify-between border-b border-slate-800 pb-3">
@@ -261,7 +322,7 @@
 
 
     <!-- TOPIC SECTION: 4. CESTOVÁNÍ -->
-    <section class="space-y-4">
+    <section id="topic-4" data-topic-panel="4" class="space-y-4" hidden>
       
       <!-- Topic Header -->
       <div class="flex items-center justify-between border-b border-slate-800 pb-3">
@@ -277,7 +338,7 @@
           </div>
         </div>
         <span class="text-xs font-mono font-bold text-sky-400 bg-sky-950/60 border border-sky-800/80 px-3 py-1 rounded-full">
-          7 Lekcí
+          8 Lekcí
         </span>
       </div>
 
@@ -479,6 +540,28 @@
       </div>
     </section>
 
+    <section id="topic-5" data-topic-panel="5" class="space-y-4 pt-6" hidden>
+      <div class="flex flex-wrap items-center justify-between gap-3 border-b border-slate-800 pb-3">
+        <div class="flex items-center gap-3">
+          <div class="flex h-8 w-8 items-center justify-center rounded-lg border border-emerald-500/30 bg-emerald-500/20 text-sm font-bold text-emerald-300">5</div>
+          <div>
+            <h3 class="text-lg font-bold text-white">Okruh 5: Stravování</h3>
+            <p class="text-xs text-slate-400">Jídlo a pití, zdravé návyky, objednávání a příprava jídla; 4. pád</p>
+          </div>
+        </div>
+        <span class="rounded-full border border-emerald-800/80 bg-emerald-950/60 px-3 py-1 text-xs font-mono font-bold text-emerald-300">7 lekcí</span>
+      </div>
+      <div class="grid grid-cols-1 gap-5 md:grid-cols-2 lg:grid-cols-3">
+        <a href="5_stravovani/1_co_dnes_jime.html" class="glass-card glass-card-hover group flex flex-col justify-between space-y-4 rounded-2xl border border-slate-800 p-5"><div><span class="text-xs font-bold text-emerald-300">LEKCE 1</span><h4 class="mt-2 font-bold text-white group-hover:text-emerald-300">Co dnes jíme?</h4><p class="mt-1 text-sm text-slate-400">Jídlo a pití v kategoriích; brainstorming a česká kuchyně.</p></div><span class="border-t border-slate-800 pt-3 text-sm text-emerald-300">Otevřít lekci <i class="fa-solid fa-arrow-right ml-1"></i></span></a>
+        <a href="5_stravovani/2_stravovaci_navyky.html" class="glass-card glass-card-hover group flex flex-col justify-between space-y-4 rounded-2xl border border-slate-800 p-5"><div><span class="text-xs font-bold text-emerald-300">LEKCE 2</span><h4 class="mt-2 font-bold text-white group-hover:text-emerald-300">Stravovací návyky</h4><p class="mt-1 text-sm text-slate-400">Diskuze o každodenním jídle, výběru a zdravém stravování.</p></div><span class="border-t border-slate-800 pt-3 text-sm text-emerald-300">Otevřít lekci <i class="fa-solid fa-arrow-right ml-1"></i></span></a>
+        <a href="5_stravovani/3_denni_menu.html" class="glass-card glass-card-hover group flex flex-col justify-between space-y-4 rounded-2xl border border-slate-800 p-5"><div><span class="text-xs font-bold text-emerald-300">LEKCE 3</span><h4 class="mt-2 font-bold text-white group-hover:text-emerald-300">Denní menu</h4><p class="mt-1 text-sm text-slate-400">Tvorba jídelního lístku a prezentace nabídky restaurace.</p></div><span class="border-t border-slate-800 pt-3 text-sm text-emerald-300">Otevřít lekci <i class="fa-solid fa-arrow-right ml-1"></i></span></a>
+        <a href="5_stravovani/4_zdrave_a_nezdrave_jidlo.html" class="glass-card glass-card-hover group flex flex-col justify-between space-y-4 rounded-2xl border border-slate-800 p-5"><div><span class="text-xs font-bold text-emerald-300">LEKCE 4</span><h4 class="mt-2 font-bold text-white group-hover:text-emerald-300">Zdravé vs. nezdravé jídlo</h4><p class="mt-1 text-sm text-slate-400">Diskuze a esej o výhodách, nevýhodách a vlastních návycích.</p></div><span class="border-t border-slate-800 pt-3 text-sm text-emerald-300">Otevřít lekci <i class="fa-solid fa-arrow-right ml-1"></i></span></a>
+        <a href="5_stravovani/5_dialog_v_restauraci.html" class="glass-card glass-card-hover group flex flex-col justify-between space-y-4 rounded-2xl border border-slate-800 p-5"><div><span class="text-xs font-bold text-emerald-300">LEKCE 5</span><h4 class="mt-2 font-bold text-white group-hover:text-emerald-300">Dialog v restauraci</h4><p class="mt-1 text-sm text-slate-400">Objednávka, doporučení, otázky na jídlo a placení.</p></div><span class="border-t border-slate-800 pt-3 text-sm text-emerald-300">Otevřít lekci <i class="fa-solid fa-arrow-right ml-1"></i></span></a>
+        <a href="5_stravovani/6_nakup_na_trhu.html" class="glass-card glass-card-hover group flex flex-col justify-between space-y-4 rounded-2xl border border-slate-800 p-5"><div><span class="text-xs font-bold text-emerald-300">LEKCE 6</span><h4 class="mt-2 font-bold text-white group-hover:text-emerald-300">Nákup na trhu</h4><p class="mt-1 text-sm text-slate-400">Nakupování surovin na slavnostní večeři a vyjadřování množství.</p></div><span class="border-t border-slate-800 pt-3 text-sm text-emerald-300">Otevřít lekci <i class="fa-solid fa-arrow-right ml-1"></i></span></a>
+        <a href="5_stravovani/7_oblibene_jidlo.html" class="glass-card glass-card-hover group flex flex-col justify-between space-y-4 rounded-2xl border border-slate-800 p-5"><div><span class="text-xs font-bold text-emerald-300">LEKCE 7</span><h4 class="mt-2 font-bold text-white group-hover:text-emerald-300">Postup přípravy oblíbeného jídla</h4><p class="mt-1 text-sm text-slate-400">Recept, ingredience, množství a spojovací výrazy.</p></div><span class="border-t border-slate-800 pt-3 text-sm text-emerald-300">Otevřít lekci <i class="fa-solid fa-arrow-right ml-1"></i></span></a>
+      </div>
+    </section>
+
   </main>
 
   <!-- FOOTER -->
@@ -486,5 +569,32 @@
     <p>Czech B1 Mastery Course Platform</p>
   </footer>
 
+<script>
+  (() => {
+    const menu = document.getElementById("topic-menu");
+    const panels = [...document.querySelectorAll("[data-topic-panel]")];
+    const showMenu = () => {
+      menu.hidden = false;
+      panels.forEach(panel => { panel.hidden = true; });
+      window.scrollTo({ top: 0 });
+    };
+    const showTopic = id => {
+      const selected = panels.find(panel => panel.dataset.topicPanel === id);
+      if (!selected) return;
+      menu.hidden = true;
+      panels.forEach(panel => { panel.hidden = panel !== selected; });
+      window.scrollTo({ top: 0 });
+    };
+    document.querySelectorAll("[data-open-topic]").forEach(button => button.addEventListener("click", () => showTopic(button.dataset.openTopic)));
+    panels.forEach(panel => {
+      const back = document.createElement("button");
+      back.type = "button";
+      back.className = "mb-2 rounded-lg border border-slate-700 bg-slate-900 px-3 py-2 text-sm font-semibold text-slate-200 hover:bg-slate-800";
+      back.innerHTML = '<i class="fa-solid fa-arrow-left mr-2"></i>Zpět na tematické okruhy';
+      back.addEventListener("click", showMenu);
+      panel.prepend(back);
+    });
+  })();
+</script>
 </body>
 </html>
