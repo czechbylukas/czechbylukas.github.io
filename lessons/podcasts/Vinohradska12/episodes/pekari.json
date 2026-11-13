@@ -1,0 +1,1614 @@
+{
+  "title": "Vinu necítí, peníze nevrátili. Co měli pekaři zamlčet v kauze Babišových toastů za 100 milionů?",
+  "description": "Práce s textem – úrovně B1, B2, C1",
+  "audioUrl": "",
+  "episodeUrl": "https://www.irozhlas.cz/zpravy-domov/vinu-neciti-penize-nevratili-co-meli-pekari-zamlcet-v-kauze-babisovych-toastu-za_2611120600_jkd",
+  "levels": {
+    "B1": {
+      "vocabulary": [
+        {
+          "czech": "dotace",
+          "english": "grant"
+        },
+        {
+          "czech": "subsidy",
+          "english": ""
+        },
+        {
+          "czech": "pekárna",
+          "english": "bakery"
+        },
+        {
+          "czech": "žalobce",
+          "english": "prosecutor"
+        },
+        {
+          "czech": "vina",
+          "english": "guilt"
+        },
+        {
+          "czech": "výzkum",
+          "english": "research"
+        },
+        {
+          "czech": "vrátit",
+          "english": "to return"
+        },
+        {
+          "czech": "soud",
+          "english": "court"
+        },
+        {
+          "czech": "trest",
+          "english": "punishment"
+        }
+      ],
+      "exercises": [
+        {
+          "title": "Cvičení 1 – Slovní zásoba",
+          "type": "standard",
+          "instructions": "Spojte výraz s významem.",
+          "optionsList": [],
+          "items": [
+            {
+              "section_title": "",
+              "prompt": "dotace",
+              "type": "single",
+              "is_multiselect": false,
+              "options": []
+            },
+            {
+              "section_title": "",
+              "prompt": "pekárna",
+              "type": "single",
+              "is_multiselect": false,
+              "options": []
+            },
+            {
+              "section_title": "",
+              "prompt": "žalobce",
+              "type": "single",
+              "is_multiselect": false,
+              "options": []
+            },
+            {
+              "section_title": "",
+              "prompt": "vina",
+              "type": "single",
+              "is_multiselect": false,
+              "options": []
+            },
+            {
+              "section_title": "",
+              "prompt": "výzkum",
+              "type": "single",
+              "is_multiselect": false,
+              "options": []
+            },
+            {
+              "section_title": "",
+              "prompt": "vrátit",
+              "type": "single",
+              "is_multiselect": false,
+              "options": []
+            },
+            {
+              "section_title": "",
+              "prompt": "soud",
+              "type": "single",
+              "is_multiselect": false,
+              "options": []
+            },
+            {
+              "section_title": "",
+              "prompt": "trest",
+              "type": "single",
+              "is_multiselect": false,
+              "options": []
+            }
+          ],
+          "matchingItems": [],
+          "matchingOptions": [],
+          "matchingSection": "",
+          "sharedOptions": [
+            "Instituce, která rozhoduje o vině a trestu.",
+            "Peníze poskytnuté například státem na určitý projekt.",
+            "Povinnost nebo odpovědnost za něco špatného.",
+            "Místo, kde se vyrábí chléb a jiné pečivo.",
+            "Sankce za porušení zákona.",
+            "Znovu někomu dát něco, co mu patří.",
+            "Člověk, který před soudem zastupuje obžalobu.",
+            "Činnost, při které se získávají nové poznatky."
+          ]
+        },
+        {
+          "title": "Cvičení 2 – Doplň do věty",
+          "type": "standard",
+          "instructions": "Doplňte vhodné slovo.\nSlova: audit, dotace, firma, chléb, inovace, Německo, soud, technologie",
+          "optionsList": [
+            "audit",
+            "dotace",
+            "firma",
+            "chléb",
+            "inovace",
+            "Německo",
+            "soud",
+            "technologie"
+          ],
+          "items": [
+            {
+              "section_title": "",
+              "prompt": "Pekárna Zelená louka získala státní ________ ve výši 100 milionů korun.",
+              "type": "single",
+              "is_multiselect": false,
+              "options": []
+            },
+            {
+              "section_title": "",
+              "prompt": "Evropská komise provedla ________, který se zabýval také střetem zájmů.",
+              "type": "single",
+              "is_multiselect": false,
+              "options": []
+            },
+            {
+              "section_title": "",
+              "prompt": "Výrobní linka měla podle obžaloby používat již existující ________.",
+              "type": "single",
+              "is_multiselect": false,
+              "options": []
+            },
+            {
+              "section_title": "",
+              "prompt": "Německá pekárna Lieken patřila do stejného koncernu jako česká ________.",
+              "type": "single",
+              "is_multiselect": false,
+              "options": []
+            },
+            {
+              "section_title": "",
+              "prompt": "Projekt měl přinést skutečnou ________, nikoliv pouze modernizaci.",
+              "type": "single",
+              "is_multiselect": false,
+              "options": []
+            },
+            {
+              "section_title": "",
+              "prompt": "Nová výrobní linka měla vyrábět kvalitnější toastový ________.",
+              "type": "single",
+              "is_multiselect": false,
+              "options": []
+            },
+            {
+              "section_title": "",
+              "prompt": "Technologii clean-room používaly již dříve pekárenské závody v ________.",
+              "type": "single",
+              "is_multiselect": false,
+              "options": []
+            },
+            {
+              "section_title": "",
+              "prompt": "V listopadu 2026 začal ________ s obžalovanými představiteli pekárny.",
+              "type": "single",
+              "is_multiselect": false,
+              "options": []
+            }
+          ],
+          "matchingItems": [],
+          "matchingOptions": [],
+          "matchingSection": ""
+        },
+        {
+          "title": "Cvičení 3 – Gramatika: Podmínka a hypotéza",
+          "type": "standard",
+          "instructions": "Doplňte správný tvar slovesa v podmiňovacím způsobu.",
+          "optionsList": [],
+          "items": [
+            {
+              "section_title": "",
+              "prompt": "Kdyby pekárna uvedla všechny informace, možná by se vyhnula ________ (obžalovat).",
+              "type": "single",
+              "is_multiselect": false,
+              "options": []
+            },
+            {
+              "section_title": "",
+              "prompt": "Kdyby Evropská komise dotaci schválila, Česká republika ________ (dostat) peníze zpět.",
+              "type": "single",
+              "is_multiselect": false,
+              "options": []
+            },
+            {
+              "section_title": "",
+              "prompt": "Kdybych byl členem vedení pekárny, ________ (zkontrolovat) bych všechny dokumenty.",
+              "type": "single",
+              "is_multiselect": false,
+              "options": []
+            },
+            {
+              "section_title": "",
+              "prompt": "Kdyby firma technologii skutečně vyvinula, ________ (moci) získat dotaci.",
+              "type": "single",
+              "is_multiselect": false,
+              "options": []
+            },
+            {
+              "section_title": "",
+              "prompt": "Kdyby ministerstvo začalo peníze vymáhat dříve, možná ________ (vyřešit) celý problém rychleji.",
+              "type": "single",
+              "is_multiselect": false,
+              "options": []
+            },
+            {
+              "section_title": "",
+              "prompt": "Kdyby univerzita věděla o použití dokumentů v žádosti, možná by s tím ________ (nesouhlasit).",
+              "type": "single",
+              "is_multiselect": false,
+              "options": []
+            },
+            {
+              "section_title": "",
+              "prompt": "Kdyby obžalovaní přiznali vinu, ________ (moci) uzavřít dohodu o vině a trestu.",
+              "type": "single",
+              "is_multiselect": false,
+              "options": []
+            },
+            {
+              "section_title": "",
+              "prompt": "Kdybychom znali všechny důkazy, lépe bychom ________ (rozumět) celé kauze.",
+              "type": "single",
+              "is_multiselect": false,
+              "options": []
+            }
+          ],
+          "matchingItems": [],
+          "matchingOptions": [],
+          "matchingSection": ""
+        },
+        {
+          "title": "Cvičení 4 – Slovní zásoba a předložky",
+          "type": "standard",
+          "instructions": "Doplňte správnou předložku nebo výraz. Pokud je výraz bez předložky, nechte políčko prázdné.\nSlova: během, bez předložky, do, kvůli, na, o, podle, z",
+          "optionsList": [
+            "během",
+            "bez předložky",
+            "do",
+            "kvůli",
+            "na",
+            "o",
+            "podle",
+            "z"
+          ],
+          "items": [
+            {
+              "section_title": "",
+              "prompt": "Pekárna požádala ________ dotaci v roce 2015.",
+              "type": "single",
+              "is_multiselect": false,
+              "options": []
+            },
+            {
+              "section_title": "",
+              "prompt": "Projekt měl být zaměřen ________ inovativní výzkum.",
+              "type": "single",
+              "is_multiselect": false,
+              "options": []
+            },
+            {
+              "section_title": "",
+              "prompt": "Evropská komise se zabývala také otázkou střetu zájmů ________ Andreje Babiše.",
+              "type": "single",
+              "is_multiselect": false,
+              "options": []
+            },
+            {
+              "section_title": "",
+              "prompt": "Technologie clean-room pocházela ________ německých pekárenských závodů.",
+              "type": "single",
+              "is_multiselect": false,
+              "options": []
+            },
+            {
+              "section_title": "",
+              "prompt": "Firma měla podle obžaloby zamlčet informace ________ propojení s německou pekárnou.",
+              "type": "single",
+              "is_multiselect": false,
+              "options": []
+            },
+            {
+              "section_title": "",
+              "prompt": "________ auditu se objevily pochybnosti o inovativnosti projektu.",
+              "type": "single",
+              "is_multiselect": false,
+              "options": []
+            },
+            {
+              "section_title": "",
+              "prompt": "Pekárna získala peníze ________ modernizaci výrobní linky.",
+              "type": "single",
+              "is_multiselect": false,
+              "options": []
+            },
+            {
+              "section_title": "",
+              "prompt": "Obžalovaní odmítají svou ________.",
+              "type": "single",
+              "is_multiselect": false,
+              "options": []
+            }
+          ],
+          "matchingItems": [],
+          "matchingOptions": [],
+          "matchingSection": ""
+        },
+        {
+          "title": "Cvičení 5 – Práce s textem",
+          "type": "standard",
+          "instructions": "",
+          "optionsList": [],
+          "items": [
+            {
+              "section_title": "A. Ano – Ne",
+              "prompt": "Pekárna Zelená louka patří pod společnost Penam.",
+              "type": "single",
+              "is_multiselect": false,
+              "options": []
+            },
+            {
+              "section_title": "A. Ano – Ne",
+              "prompt": "Pekárna požádala o dotaci v roce 2019.",
+              "type": "single",
+              "is_multiselect": false,
+              "options": []
+            },
+            {
+              "section_title": "A. Ano – Ne",
+              "prompt": "Dotace měla podporovat inovativní výzkumné projekty.",
+              "type": "single",
+              "is_multiselect": false,
+              "options": []
+            },
+            {
+              "section_title": "A. Ano – Ne",
+              "prompt": "Technologie clean-room byla podle obžaloby již používána v Německu.",
+              "type": "single",
+              "is_multiselect": false,
+              "options": []
+            },
+            {
+              "section_title": "A. Ano – Ne",
+              "prompt": "Vysoká škola chemicko-technologická provedla celý výzkum nové technologie.",
+              "type": "single",
+              "is_multiselect": false,
+              "options": []
+            },
+            {
+              "section_title": "A. Ano – Ne",
+              "prompt": "Pekárna již vrátila 100 milionů korun.",
+              "type": "single",
+              "is_multiselect": false,
+              "options": []
+            },
+            {
+              "section_title": "A. Ano – Ne",
+              "prompt": "Andrej Babiš převedl akcie Agrofertu do svěřenského fondu.",
+              "type": "single",
+              "is_multiselect": false,
+              "options": []
+            },
+            {
+              "section_title": "A. Ano – Ne",
+              "prompt": "Soudní proces začal v listopadu 2026.",
+              "type": "single",
+              "is_multiselect": false,
+              "options": []
+            },
+            {
+              "section_title": "B. Vyberte nejpřesnější odpověď",
+              "prompt": "Kdo zastupuje Pekárnu Zelená louka u soudu?",
+              "type": "single",
+              "is_multiselect": false,
+              "options": [
+                "Adam Bašný",
+                "Marian Piecha",
+                "Václav Šrámek",
+                "Josef Bartončík"
+              ]
+            },
+            {
+              "section_title": "B. Vyberte nejpřesnější odpověď",
+              "prompt": "Kdy pekárna dostala dotaci?",
+              "type": "single",
+              "is_multiselect": false,
+              "options": [
+                "V roce 2015.",
+                "V roce 2016.",
+                "V roce 2018.",
+                "V roce 2021."
+              ]
+            },
+            {
+              "section_title": "B. Vyberte nejpřesnější odpověď",
+              "prompt": "Proč Evropská komise odmítla dotaci proplatit?",
+              "type": "single",
+              "is_multiselect": false,
+              "options": [
+                "Protože pekárna ukončila výrobu.",
+                "Protože firma neměla dostatek zaměstnanců.",
+                "Protože projekt podle závěrů auditu nesplňoval podmínky inovace.",
+                "Protože univerzita odmítla podepsat smlouvu."
+              ]
+            },
+            {
+              "section_title": "B. Vyberte nejpřesnější odpověď",
+              "prompt": "Kolik peněz má podle rozhovoru pekárna stále vrátit?",
+              "type": "single",
+              "is_multiselect": false,
+              "options": [
+                "50 milionů korun.",
+                "15 milionů korun.",
+                "100 milionů korun.",
+                "150 milionů korun."
+              ]
+            }
+          ],
+          "matchingItems": [],
+          "matchingOptions": [],
+          "matchingSection": ""
+        }
+      ]
+    },
+    "B2": {
+      "vocabulary": [
+        {
+          "czech": "zamlčet",
+          "english": "to conceal"
+        },
+        {
+          "czech": "obžaloba",
+          "english": "indictment"
+        },
+        {
+          "czech": "střet zájmů",
+          "english": "conflict of interest"
+        },
+        {
+          "czech": "vymáhat",
+          "english": "to enforce"
+        },
+        {
+          "czech": "recover",
+          "english": ""
+        },
+        {
+          "czech": "modernizace",
+          "english": "modernization"
+        },
+        {
+          "czech": "propojení",
+          "english": "connection"
+        },
+        {
+          "czech": "důkaz",
+          "english": "evidence"
+        },
+        {
+          "czech": "zamítnout",
+          "english": "to reject"
+        }
+      ],
+      "exercises": [
+        {
+          "title": "Cvičení 1 – Slovní zásoba",
+          "type": "standard",
+          "instructions": "Spojte výraz s významem.",
+          "optionsList": [],
+          "items": [
+            {
+              "section_title": "",
+              "prompt": "zamlčet",
+              "type": "single",
+              "is_multiselect": false,
+              "options": []
+            },
+            {
+              "section_title": "",
+              "prompt": "obžaloba",
+              "type": "single",
+              "is_multiselect": false,
+              "options": []
+            },
+            {
+              "section_title": "",
+              "prompt": "střet zájmů",
+              "type": "single",
+              "is_multiselect": false,
+              "options": []
+            },
+            {
+              "section_title": "",
+              "prompt": "vymáhat",
+              "type": "single",
+              "is_multiselect": false,
+              "options": []
+            },
+            {
+              "section_title": "",
+              "prompt": "modernizace",
+              "type": "single",
+              "is_multiselect": false,
+              "options": []
+            },
+            {
+              "section_title": "",
+              "prompt": "propojení",
+              "type": "single",
+              "is_multiselect": false,
+              "options": []
+            },
+            {
+              "section_title": "",
+              "prompt": "důkaz",
+              "type": "single",
+              "is_multiselect": false,
+              "options": []
+            },
+            {
+              "section_title": "",
+              "prompt": "zamítnout",
+              "type": "single",
+              "is_multiselect": false,
+              "options": []
+            }
+          ],
+          "matchingItems": [],
+          "matchingOptions": [],
+          "matchingSection": "",
+          "sharedOptions": [
+            "Situace, kdy se osobní zájmy dostávají do konfliktu s profesními nebo veřejnými povinnostmi.",
+            "Neuvést záměrně nějakou důležitou informaci.",
+            "Oficiální obvinění před soudem.",
+            "Vynucovat si splnění určité povinnosti, například vrácení peněz.",
+            "Informace nebo skutečnost, která potvrzuje určité tvrzení.",
+            "Odmítnout žádost nebo návrh.",
+            "Vztah nebo spojení mezi dvěma organizacemi či osobami.",
+            "Zlepšení a technické zdokonalení něčeho, co již existuje."
+          ]
+        },
+        {
+          "title": "Cvičení 2 – Doplň do věty",
+          "type": "standard",
+          "instructions": "Doplňte vhodné slovo.\nSlova: audit, dohoda, koncern, krytí, ministerstvo, obžaloba, posudek, sebereflexe",
+          "optionsList": [
+            "audit",
+            "dohoda",
+            "koncern",
+            "krytí",
+            "ministerstvo",
+            "obžaloba",
+            "posudek",
+            "sebereflexe"
+          ],
+          "items": [
+            {
+              "section_title": "",
+              "prompt": "Evropská komise provedla ________, který odhalil pochybnosti o projektu.",
+              "type": "single",
+              "is_multiselect": false,
+              "options": []
+            },
+            {
+              "section_title": "",
+              "prompt": "Pekárna byla součástí širšího podnikatelského ________ Agrofert.",
+              "type": "single",
+              "is_multiselect": false,
+              "options": []
+            },
+            {
+              "section_title": "",
+              "prompt": "Dokumenty univerzity měly podle žalobce sloužit pouze jako formální ________ žádosti.",
+              "type": "single",
+              "is_multiselect": false,
+              "options": []
+            },
+            {
+              "section_title": "",
+              "prompt": "Státní zástupce podal ________ proti dvěma bývalým představitelům pekárny a samotné společnosti.",
+              "type": "single",
+              "is_multiselect": false,
+              "options": []
+            },
+            {
+              "section_title": "",
+              "prompt": "Ministerstvo si nechalo vypracovat odborný ________, který měl potvrdit inovativnost projektu.",
+              "type": "single",
+              "is_multiselect": false,
+              "options": []
+            },
+            {
+              "section_title": "",
+              "prompt": "Obžalovaný nakonec odmítl uzavřít ________ o vině a trestu.",
+              "type": "single",
+              "is_multiselect": false,
+              "options": []
+            },
+            {
+              "section_title": "",
+              "prompt": "Případnou absenci základní kritické ________ zmínil bývalý evropský žalobce.",
+              "type": "single",
+              "is_multiselect": false,
+              "options": []
+            },
+            {
+              "section_title": "",
+              "prompt": "________ průmyslu a obchodu rozhodovalo o poskytnutí dotace.",
+              "type": "single",
+              "is_multiselect": false,
+              "options": []
+            }
+          ],
+          "matchingItems": [],
+          "matchingOptions": [],
+          "matchingSection": ""
+        },
+        {
+          "title": "Cvičení 3 – Gramatika: Podmínka a hypotéza",
+          "type": "standard",
+          "instructions": "Doplňte správný tvar slovesa v podmiňovacím způsobu.",
+          "optionsList": [],
+          "items": [
+            {
+              "section_title": "",
+              "prompt": "Kdyby společnost nezamlčela propojení s Liekenem, její žádost ________ (vypadat) jinak.",
+              "type": "single",
+              "is_multiselect": false,
+              "options": []
+            },
+            {
+              "section_title": "",
+              "prompt": "Kdyby univerzita provedla skutečný výzkum, její dokumenty ________ (mít) jinou hodnotu.",
+              "type": "single",
+              "is_multiselect": false,
+              "options": []
+            },
+            {
+              "section_title": "",
+              "prompt": "Kdyby ministerstvo začalo dotaci vymáhat v roce 2020, možná ________ (postupovat) rychleji.",
+              "type": "single",
+              "is_multiselect": false,
+              "options": []
+            },
+            {
+              "section_title": "",
+              "prompt": "Kdyby žalobce nepředložil dostatek důkazů, soud by obžalované ________ (nemoci) uznat vinnými.",
+              "type": "single",
+              "is_multiselect": false,
+              "options": []
+            },
+            {
+              "section_title": "",
+              "prompt": "Kdyby firma dodržela dotační podmínky, ________ (vyhnout se) současnému soudnímu procesu.",
+              "type": "single",
+              "is_multiselect": false,
+              "options": []
+            },
+            {
+              "section_title": "",
+              "prompt": "Kdybychom měli k dispozici všechny dokumenty, ________ (moci) bychom lépe posoudit rozhodnutí ministerstva.",
+              "type": "single",
+              "is_multiselect": false,
+              "options": []
+            },
+            {
+              "section_title": "",
+              "prompt": "Kdyby Miksche uzavřel dohodu o vině a trestu, jeho případ ________ (skončit) jinak.",
+              "type": "single",
+              "is_multiselect": false,
+              "options": []
+            },
+            {
+              "section_title": "",
+              "prompt": "Kdyby Evropská komise změnila své stanovisko, Česká republika ________ (získat) evropské peníze.",
+              "type": "single",
+              "is_multiselect": false,
+              "options": []
+            }
+          ],
+          "matchingItems": [],
+          "matchingOptions": [],
+          "matchingSection": ""
+        },
+        {
+          "title": "Cvičení 4 – Slovní zásoba a předložky",
+          "type": "standard",
+          "instructions": "Doplňte správnou předložku nebo výraz. Pokud je výraz bez předložky, nechte políčko prázdné.\nSlova: bez předložky, během, kvůli, mezi, o, od, pro, vůči",
+          "optionsList": [
+            "bez předložky",
+            "během",
+            "kvůli",
+            "mezi",
+            "o",
+            "od",
+            "pro",
+            "vůči"
+          ],
+          "items": [
+            {
+              "section_title": "",
+              "prompt": "Evropská komise odmítla dotaci proplatit ________ závěrům svého auditu.",
+              "type": "single",
+              "is_multiselect": false,
+              "options": []
+            },
+            {
+              "section_title": "",
+              "prompt": "Podle obžaloby firma zamlčela informace ________ svém propojení s německou pekárnou.",
+              "type": "single",
+              "is_multiselect": false,
+              "options": []
+            },
+            {
+              "section_title": "",
+              "prompt": "Ministerstvo průmyslu se pokoušelo přesvědčit Evropskou komisi ________ inovativnosti projektu.",
+              "type": "single",
+              "is_multiselect": false,
+              "options": []
+            },
+            {
+              "section_title": "",
+              "prompt": "Technologii clean-room používaly pekárenské závody ________ Agrofertu v Německu.",
+              "type": "single",
+              "is_multiselect": false,
+              "options": []
+            },
+            {
+              "section_title": "",
+              "prompt": "________ vyšetřování se změnilo několik důležitých okolností případu.",
+              "type": "single",
+              "is_multiselect": false,
+              "options": []
+            },
+            {
+              "section_title": "",
+              "prompt": "Státní zástupce požaduje zákaz přijímání dotací ________ dobu patnácti let.",
+              "type": "single",
+              "is_multiselect": false,
+              "options": []
+            },
+            {
+              "section_title": "",
+              "prompt": "Rozdíl ________ modernizací a inovací byl pro celý případ zásadní.",
+              "type": "single",
+              "is_multiselect": false,
+              "options": []
+            },
+            {
+              "section_title": "",
+              "prompt": "Obžalovaní se u soudu vyjádřili ________ své vině jednoznačně odmítavě.",
+              "type": "single",
+              "is_multiselect": false,
+              "options": []
+            }
+          ],
+          "matchingItems": [],
+          "matchingOptions": [],
+          "matchingSection": ""
+        },
+        {
+          "title": "Cvičení 5 – Práce s textem",
+          "type": "standard",
+          "instructions": "",
+          "optionsList": [],
+          "items": [
+            {
+              "section_title": "A. Ano – Ne",
+              "prompt": "Agrofert vlastnil německou pekárnu Lieken již od roku 2013.",
+              "type": "single",
+              "is_multiselect": false,
+              "options": []
+            },
+            {
+              "section_title": "A. Ano – Ne",
+              "prompt": "Pekárna Zelená louka žádala o dotaci až po dokončení auditu Evropské komise.",
+              "type": "single",
+              "is_multiselect": false,
+              "options": []
+            },
+            {
+              "section_title": "A. Ano – Ne",
+              "prompt": "Dotace byla určena také na běžnou modernizaci již existující technologie.",
+              "type": "single",
+              "is_multiselect": false,
+              "options": []
+            },
+            {
+              "section_title": "A. Ano – Ne",
+              "prompt": "Vysoká škola chemicko-technologická podle obžaloby nevěděla, že její dokumenty budou součástí dotační žádosti.",
+              "type": "single",
+              "is_multiselect": false,
+              "options": []
+            },
+            {
+              "section_title": "A. Ano – Ne",
+              "prompt": "Firma, která dodávala výrobní linku, navštívila pekárenské závody v Německu.",
+              "type": "single",
+              "is_multiselect": false,
+              "options": []
+            },
+            {
+              "section_title": "A. Ano – Ne",
+              "prompt": "Pšeničný kvas začala pekárna používat ještě před podáním žádosti o dotaci.",
+              "type": "single",
+              "is_multiselect": false,
+              "options": []
+            },
+            {
+              "section_title": "A. Ano – Ne",
+              "prompt": "Ministerstvo zahájilo řízení o odnětí dotace na podzim 2021.",
+              "type": "single",
+              "is_multiselect": false,
+              "options": []
+            },
+            {
+              "section_title": "A. Ano – Ne",
+              "prompt": "Evropská unie pekárně skutečně proplatila celých 100 milionů korun.",
+              "type": "single",
+              "is_multiselect": false,
+              "options": []
+            },
+            {
+              "section_title": "B. Vyberte nejpřesnější odpověď",
+              "prompt": "Co mělo být podle obžaloby hlavním problémem projektu?",
+              "type": "single",
+              "is_multiselect": false,
+              "options": [
+                "Pekárna neměla dostatečnou výrobní kapacitu.",
+                "Technologie byla příliš drahá.",
+                "Projekt představoval pouze modernizaci již existující technologie.",
+                "Univerzita odmítla spolupracovat s pekárnou."
+              ]
+            },
+            {
+              "section_title": "B. Vyberte nejpřesnější odpověď",
+              "prompt": "Proč trvalo vyšetřování tak dlouho?",
+              "type": "single",
+              "is_multiselect": false,
+              "options": [
+                "Nebylo možné najít nezávislé odborníky a vyšetřování komplikovaly také personální změny.",
+                "Evropská komise odmítala poskytnout českým úřadům jakékoliv informace.",
+                "Všichni obžalovaní dlouhodobě pobývali v zahraničí.",
+                "Ministerstvo průmyslu odmítlo případ předat policii."
+              ]
+            },
+            {
+              "section_title": "B. Vyberte nejpřesnější odpověď",
+              "prompt": "Jakou roli měla podle obžaloby sehrát VŠCHT?",
+              "type": "single",
+              "is_multiselect": false,
+              "options": [
+                "Měla financovat celou výrobní linku.",
+                "Měla zajistit formální propojení projektu s výzkumnou institucí.",
+                "Měla vyvinout technologii clean-room v Německu.",
+                "Měla rozhodnout o přidělení dotace."
+              ]
+            },
+            {
+              "section_title": "B. Vyberte nejpřesnější odpověď",
+              "prompt": "Jak se zachovalo ministerstvo průmyslu po odmítnutí evropského financování?",
+              "type": "single",
+              "is_multiselect": false,
+              "options": [
+                "Okamžitě vymohlo celou dotaci.",
+                "Převzalo výrobní linku do státního vlastnictví.",
+                "Přestalo se případem zabývat.",
+                "Nechalo si vypracovat vlastní analýzy a pokoušelo se obhájit inovativnost projektu."
+              ]
+            }
+          ],
+          "matchingItems": [],
+          "matchingOptions": [],
+          "matchingSection": ""
+        }
+      ]
+    },
+    "C1": {
+      "vocabulary": [
+        {
+          "czech": "zvlášť závažný",
+          "english": "particularly serious"
+        },
+        {
+          "czech": "transparentně",
+          "english": "transparently"
+        },
+        {
+          "czech": "dozorovat",
+          "english": "to supervise"
+        },
+        {
+          "czech": "sebereflexe",
+          "english": "self-reflection"
+        },
+        {
+          "czech": "zaštiťovat se",
+          "english": "to invoke"
+        },
+        {
+          "czech": "to rely on",
+          "english": ""
+        },
+        {
+          "czech": "proplatit",
+          "english": "to reimburse"
+        },
+        {
+          "czech": "účelový",
+          "english": "deliberate"
+        },
+        {
+          "czech": "designed for a purpose",
+          "english": ""
+        },
+        {
+          "czech": "vyňat",
+          "english": "removed"
+        },
+        {
+          "czech": "excluded",
+          "english": ""
+        }
+      ],
+      "exercises": [
+        {
+          "title": "Cvičení 1 – Slovní zásoba",
+          "type": "standard",
+          "instructions": "Spojte výraz s významem.",
+          "optionsList": [],
+          "items": [
+            {
+              "section_title": "",
+              "prompt": "zvlášť závažný",
+              "type": "single",
+              "is_multiselect": false,
+              "options": []
+            },
+            {
+              "section_title": "",
+              "prompt": "transparentně",
+              "type": "single",
+              "is_multiselect": false,
+              "options": []
+            },
+            {
+              "section_title": "",
+              "prompt": "dozorovat",
+              "type": "single",
+              "is_multiselect": false,
+              "options": []
+            },
+            {
+              "section_title": "",
+              "prompt": "sebereflexe",
+              "type": "single",
+              "is_multiselect": false,
+              "options": []
+            },
+            {
+              "section_title": "",
+              "prompt": "zaštiťovat se",
+              "type": "single",
+              "is_multiselect": false,
+              "options": []
+            },
+            {
+              "section_title": "",
+              "prompt": "proplatit",
+              "type": "single",
+              "is_multiselect": false,
+              "options": []
+            },
+            {
+              "section_title": "",
+              "prompt": "účelový",
+              "type": "single",
+              "is_multiselect": false,
+              "options": []
+            },
+            {
+              "section_title": "",
+              "prompt": "vyňat",
+              "type": "single",
+              "is_multiselect": false,
+              "options": []
+            }
+          ],
+          "matchingItems": [],
+          "matchingOptions": [],
+          "matchingSection": "",
+          "sharedOptions": [
+            "Záměrně vytvořený nebo použitý k dosažení určitého cíle.",
+            "Převzít dohled nad průběhem určité činnosti.",
+            "Být uhrazen nebo finančně proplacen.",
+            "Velmi závažný z hlediska právního posouzení.",
+            "Zhodnotit kriticky vlastní jednání a jeho důsledky.",
+            "Být vyjmut z většího celku.",
+            "Otevřeně, srozumitelně a bez skrývání podstatných informací.",
+            "Opírat své tvrzení o autoritu, dokument nebo určité stanovisko."
+          ]
+        },
+        {
+          "title": "Cvičení 2 – Doplň do věty",
+          "type": "standard",
+          "instructions": "Doplňte vhodné slovo.\nSlova: auditor, doložit, financování, formulace, inovativní, kontext, podnět, rozpor",
+          "optionsList": [
+            "auditor",
+            "doložit",
+            "financování",
+            "formulace",
+            "inovativní",
+            "kontext",
+            "podnět",
+            "rozpor"
+          ],
+          "items": [
+            {
+              "section_title": "",
+              "prompt": "Evropský úřad pověřeného žalobce převzal v roce 2021 balík ________, které se týkaly mimo jiné dotací a střetu zájmů.",
+              "type": "single",
+              "is_multiselect": false,
+              "options": []
+            },
+            {
+              "section_title": "",
+              "prompt": "Projekt měl být podle dotačních podmínek skutečně ________, nikoliv pouze technicky vylepšený.",
+              "type": "single",
+              "is_multiselect": false,
+              "options": []
+            },
+            {
+              "section_title": "",
+              "prompt": "Evropská komise zpochybnila možnost evropského ________ projektu.",
+              "type": "single",
+              "is_multiselect": false,
+              "options": []
+            },
+            {
+              "section_title": "",
+              "prompt": "Závěry ________ upozornily na problematické okolnosti spojené s dotací.",
+              "type": "single",
+              "is_multiselect": false,
+              "options": []
+            },
+            {
+              "section_title": "",
+              "prompt": "Význam některých výroků je nutné posuzovat v širším ________.",
+              "type": "single",
+              "is_multiselect": false,
+              "options": []
+            },
+            {
+              "section_title": "",
+              "prompt": "Obhajoba měla podle žalobce určitý ________ se závěry shromážděných důkazů.",
+              "type": "single",
+              "is_multiselect": false,
+              "options": []
+            },
+            {
+              "section_title": "",
+              "prompt": "Společnost měla v žádosti přesně ________ původ a charakter použité technologie.",
+              "type": "single",
+              "is_multiselect": false,
+              "options": []
+            },
+            {
+              "section_title": "",
+              "prompt": "Výběr konkrétní ________ v dotační žádosti mohl ovlivnit její celkové vyznění.",
+              "type": "single",
+              "is_multiselect": false,
+              "options": []
+            }
+          ],
+          "matchingItems": [],
+          "matchingOptions": [],
+          "matchingSection": ""
+        },
+        {
+          "title": "Cvičení 3 – Gramatika",
+          "type": "standard",
+          "instructions": "Opravte chybu\nV každé větě je jedna gramatická chyba. Pokud je text bez chyby, napiš: „správně“.",
+          "optionsList": [],
+          "items": [
+            {
+              "section_title": "A. Opravte chybu\nV každé větě je jedna gramatická chyba. Pokud je text bez chyby, napiš: „správně“.",
+              "prompt": "Evropská komise odmítla, aby byly dotace proplacené z evropských fondů.",
+              "type": "single",
+              "is_multiselect": false,
+              "options": []
+            },
+            {
+              "section_title": "A. Opravte chybu\nV každé větě je jedna gramatická chyba. Pokud je text bez chyby, napiš: „správně“.",
+              "prompt": "Ministerstvo se pokoušelo přesvědčit Evropskou komisi o inovativnosti projektu.",
+              "type": "single",
+              "is_multiselect": false,
+              "options": []
+            },
+            {
+              "section_title": "A. Opravte chybu\nV každé větě je jedna gramatická chyba. Pokud je text bez chyby, napiš: „správně“.",
+              "prompt": "Obžalovaní odmítali, že by se dopustili jakéhokoliv protiprávního jednání.",
+              "type": "single",
+              "is_multiselect": false,
+              "options": []
+            },
+            {
+              "section_title": "A. Opravte chybu\nV každé větě je jedna gramatická chyba. Pokud je text bez chyby, napiš: „správně“.",
+              "prompt": "Technologie clean-room byla podle obžaloby převzata z německých pekáren.",
+              "type": "single",
+              "is_multiselect": false,
+              "options": []
+            },
+            {
+              "section_title": "A. Opravte chybu\nV každé větě je jedna gramatická chyba. Pokud je text bez chyby, napiš: „správně“.",
+              "prompt": "Vysoká škola chemicko-technologická údajně netušila, že její dokumenty budou použitá v dotační žádosti.",
+              "type": "single",
+              "is_multiselect": false,
+              "options": []
+            },
+            {
+              "section_title": "A. Opravte chybu\nV každé větě je jedna gramatická chyba. Pokud je text bez chyby, napiš: „správně“.",
+              "prompt": "Bývalý žalobce zdůraznil absenci kritické sebereflexe ze strany společnosti.",
+              "type": "single",
+              "is_multiselect": false,
+              "options": []
+            },
+            {
+              "section_title": "A. Opravte chybu\nV každé větě je jedna gramatická chyba. Pokud je text bez chyby, napiš: „správně“.",
+              "prompt": "Ministerstvo zahájilo řízení o odnětí dotace až poté, co bylo jasné, že Evropská komise peníze neproplatí.",
+              "type": "single",
+              "is_multiselect": false,
+              "options": []
+            },
+            {
+              "section_title": "A. Opravte chybu\nV každé větě je jedna gramatická chyba. Pokud je text bez chyby, napiš: „správně“.",
+              "prompt": "Evropská komise požadovala, aby české úřady potvrdily, že peníze nebyly vyfakturovány Evropské unii.",
+              "type": "single",
+              "is_multiselect": false,
+              "options": []
+            },
+            {
+              "section_title": "B. Doplňte správný výraz nebo tvar slovesa",
+              "prompt": "Projekt nesplňoval dotační podmínky, přestože se jeho představitelé snažili ________ (prezentovat) jej jako inovativní.",
+              "type": "single",
+              "is_multiselect": false,
+              "options": []
+            },
+            {
+              "section_title": "B. Doplňte správný výraz nebo tvar slovesa",
+              "prompt": "Výrobní linka byla vybudována na základě technologie, která se již ________ (používat) v německých závodech.",
+              "type": "single",
+              "is_multiselect": false,
+              "options": []
+            },
+            {
+              "section_title": "B. Doplňte správný výraz nebo tvar slovesa",
+              "prompt": "Kdyby ministerstvo zahájilo vymáhání dříve, nemuselo by se dnes ________ (zabývat) tak složitým případem.",
+              "type": "single",
+              "is_multiselect": false,
+              "options": []
+            },
+            {
+              "section_title": "B. Doplňte správný výraz nebo tvar slovesa",
+              "prompt": "Zástupci pekárny odmítli, že by v žádosti ________ (zamlčet) podstatné informace.",
+              "type": "single",
+              "is_multiselect": false,
+              "options": []
+            },
+            {
+              "section_title": "B. Doplňte správný výraz nebo tvar slovesa",
+              "prompt": "Evropská komise trvala na tom, aby dotace ________ (nebýt) proplacena z evropských prostředků.",
+              "type": "single",
+              "is_multiselect": false,
+              "options": []
+            },
+            {
+              "section_title": "B. Doplňte správný výraz nebo tvar slovesa",
+              "prompt": "Bývalý žalobce upozornil na skutečnost, že společnost nedokázala kriticky ________ (zhodnotit) vlastní postup.",
+              "type": "single",
+              "is_multiselect": false,
+              "options": []
+            },
+            {
+              "section_title": "B. Doplňte správný výraz nebo tvar slovesa",
+              "prompt": "Pokud by univerzita o použití dokumentů věděla, pravděpodobně by se proti jejich využití ________ (ohradit).",
+              "type": "single",
+              "is_multiselect": false,
+              "options": []
+            },
+            {
+              "section_title": "B. Doplňte správný výraz nebo tvar slovesa",
+              "prompt": "Při posuzování případu je nutné ________ (rozlišovat) mezi běžnou modernizací a skutečnou inovací.",
+              "type": "single",
+              "is_multiselect": false,
+              "options": []
+            }
+          ],
+          "matchingItems": [],
+          "matchingOptions": [],
+          "matchingSection": ""
+        },
+        {
+          "title": "Cvičení 4 – Slovní zásoba a předložky",
+          "type": "standard",
+          "instructions": "Doplňte správnou předložku nebo výraz. Pokud je výraz bez předložky, nechte políčko prázdné.\nSlova: bez předložky, navzdory, na základě, ohledně, prostřednictvím, v důsledku, v rámci, vůči",
+          "optionsList": [
+            "bez předložky",
+            "navzdory",
+            "na základě",
+            "ohledně",
+            "prostřednictvím",
+            "v důsledku",
+            "v rámci",
+            "vůči"
+          ],
+          "items": [
+            {
+              "section_title": "",
+              "prompt": "Evropská komise odmítla dotaci proplatit ________ závěrům svého auditu.",
+              "type": "single",
+              "is_multiselect": false,
+              "options": []
+            },
+            {
+              "section_title": "",
+              "prompt": "Společnost měla podle obžaloby získat veřejné prostředky ________ nepravdivých nebo hrubě zkreslených údajů.",
+              "type": "single",
+              "is_multiselect": false,
+              "options": []
+            },
+            {
+              "section_title": "",
+              "prompt": "Univerzita měla být do projektu zapojena pouze ________ rámcové smlouvy.",
+              "type": "single",
+              "is_multiselect": false,
+              "options": []
+            },
+            {
+              "section_title": "",
+              "prompt": "Ministerstvo průmyslu se opakovaně vyjadřovalo ________ stanovisku Evropské komise.",
+              "type": "single",
+              "is_multiselect": false,
+              "options": []
+            },
+            {
+              "section_title": "",
+              "prompt": "________ probíhajícího auditu se objevily pochybnosti o oprávněnosti dotace.",
+              "type": "single",
+              "is_multiselect": false,
+              "options": []
+            },
+            {
+              "section_title": "",
+              "prompt": "Pekárna měla podle žalobce postupovat ________ dotačním podmínkám.",
+              "type": "single",
+              "is_multiselect": false,
+              "options": []
+            },
+            {
+              "section_title": "",
+              "prompt": "Evropská komise požadovala ujištění ________ skutečného původu financování.",
+              "type": "single",
+              "is_multiselect": false,
+              "options": []
+            },
+            {
+              "section_title": "",
+              "prompt": "Státní zástupce se vyjádřil ________ odpovědnosti jednotlivých obžalovaných.",
+              "type": "single",
+              "is_multiselect": false,
+              "options": []
+            }
+          ],
+          "matchingItems": [],
+          "matchingOptions": [],
+          "matchingSection": ""
+        },
+        {
+          "title": "Cvičení 5 – Práce s textem",
+          "type": "standard",
+          "instructions": "",
+          "optionsList": [],
+          "items": [
+            {
+              "section_title": "A. Ano – Ne",
+              "prompt": "Kauza Pekárny Zelená louka souvisela s auditem, který se původně zabýval střetem zájmů Andreje Babiše.",
+              "type": "single",
+              "is_multiselect": false,
+              "options": []
+            },
+            {
+              "section_title": "A. Ano – Ne",
+              "prompt": "Podle obžaloby spočívala inovativnost projektu především v tom, že se jednalo o technologii dosud neznámou v celém pekárenském průmyslu.",
+              "type": "single",
+              "is_multiselect": false,
+              "options": []
+            },
+            {
+              "section_title": "A. Ano – Ne",
+              "prompt": "Německé pekárenské závody Lieken byly součástí Agrofertu již od roku 2013.",
+              "type": "single",
+              "is_multiselect": false,
+              "options": []
+            },
+            {
+              "section_title": "A. Ano – Ne",
+              "prompt": "VŠCHT podle obžaloby provedla kompletní technologický výzkum a následně garantovala výsledky projektu.",
+              "type": "single",
+              "is_multiselect": false,
+              "options": []
+            },
+            {
+              "section_title": "A. Ano – Ne",
+              "prompt": "Bývalý provozní ředitel Miksche v roce 2020 veřejně uvedl, že na výrobní lince nebylo nic inovativního.",
+              "type": "single",
+              "is_multiselect": false,
+              "options": []
+            },
+            {
+              "section_title": "A. Ano – Ne",
+              "prompt": "Ministerstvo průmyslu zahájilo řízení o odnětí dotace ještě před sněmovními volbami v roce 2021.",
+              "type": "single",
+              "is_multiselect": false,
+              "options": []
+            },
+            {
+              "section_title": "A. Ano – Ne",
+              "prompt": "Evropská komise se podle respondentky pravděpodobně soustředila především na výsledky auditu a otázku proplacení dotací.",
+              "type": "single",
+              "is_multiselect": false,
+              "options": []
+            },
+            {
+              "section_title": "A. Ano – Ne",
+              "prompt": "Obžaloba navrhuje pro pekárnu nejen vrácení dotace, ale také peněžitý trest a patnáctiletý zákaz přijímání dotací.",
+              "type": "single",
+              "is_multiselect": false,
+              "options": []
+            },
+            {
+              "section_title": "B. Vyberte nejpřesnější odpověď",
+              "prompt": "Proč podle Terezy Čemusové představuje kauza také reputační problém Andreje Babiše?",
+              "type": "single",
+              "is_multiselect": false,
+              "options": [
+                "Protože byl osobně členem představenstva pekárny.",
+                "Protože v době žádosti o dotaci Agrofert vlastnil a byl zároveň aktivním politikem.",
+                "Protože osobně rozhodoval o každé jednotlivé platbě.",
+                "Protože byl jedním z obžalovaných v této konkrétní kauze."
+              ]
+            },
+            {
+              "section_title": "B. Vyberte nejpřesnější odpověď",
+              "prompt": "Jaký význam měla podle obžaloby spolupráce s VŠCHT?",
+              "type": "single",
+              "is_multiselect": false,
+              "options": [
+                "Univerzita financovala technologický vývoj a dodala kompletní výrobní zařízení.",
+                "Univerzita rozhodovala o tom, zda projekt splňuje podmínky dotačního programu.",
+                "Univerzita měla zajistit provoz pekárny po dobu patnácti let.",
+                "Její zapojení mělo formálně vytvořit dojem spolupráce s výzkumnou institucí."
+              ]
+            },
+            {
+              "section_title": "B. Vyberte nejpřesnější odpověď",
+              "prompt": "Jak vysvětlovala respondentka dlouhé trvání případu?",
+              "type": "single",
+              "is_multiselect": false,
+              "options": [
+                "Poukázala mimo jiné na obtížné hledání nezávislých znalců, odchod důležitého vyšetřovatele a složitost obhajoby.",
+                "Uvedla, že policie neměla pravomoc vyšetřovat společnosti patřící do Agrofertu.",
+                "Vysvětlila, že Evropská komise požadovala opakované hlasování o dotaci.",
+                "Tvrdila, že soud čekal na konečné rozhodnutí německých úřadů."
+              ]
+            },
+            {
+              "section_title": "B. Vyberte nejpřesnější odpověď",
+              "prompt": "Co vyplývá z rozdílu mezi českým a evropským financováním projektu?",
+              "type": "single",
+              "is_multiselect": false,
+              "options": [
+                "Evropská unie již peníze proplatila a nyní je vymáhá zpět.",
+                "Český stát poskytl pouze polovinu dotace.",
+                "Pekárna získala peníze z českého státního rozpočtu, ale Evropská komise je následně neproplatila.",
+                "Ministerstvo převedlo odpovědnost za vrácení peněz na německou společnost Lieken."
+              ]
+            },
+            {
+              "section_title": "C. Vyberte správnou možnost / možnosti",
+              "prompt": "Které skutečnosti podle rozhovoru přispěly k pochybnostem o skutečné inovativnosti projektu?",
+              "type": "checkbox",
+              "is_multiselect": true,
+              "options": [
+                "Technologie clean-room již existovala a používala se v německých pekárnách.",
+                "Pšeničný kvas nebyl podle obžaloby novou technologií.",
+                "VŠCHT podle obžaloby neprovedla výzkum, který měl být součástí projektu.",
+                "Pekárna neměla žádnou výrobní halu ani zaměstnance."
+              ]
+            },
+            {
+              "section_title": "C. Vyberte správnou možnost / možnosti",
+              "prompt": "Jaké důsledky nebo požadavky jsou spojeny s obžalobou?",
+              "type": "checkbox",
+              "is_multiselect": true,
+              "options": [
+                "Pekárna má podle návrhu obžaloby uhradit 100 milionů korun.",
+                "Pekárně hrozí peněžitý trest ve výši 50 milionů korun.",
+                "Pekárně hrozí patnáctiletý zákaz přijímání dotací.",
+                "Všem obžalovaným byl již pravomocně uložen trest odnětí svobody."
+              ]
+            }
+          ],
+          "matchingItems": [],
+          "matchingOptions": [],
+          "matchingSection": ""
+        }
+      ]
+    }
+  },
+  "answer_key": {
+    "B1": {
+      "Cvičení 1": [
+        "1–b, 2–d, 3–g, 4–c, 5–h, 6–f, 7–a, 8–e"
+      ],
+      "Cvičení 2": [
+        "dotaci",
+        "audit",
+        "technologii",
+        "firma",
+        "inovace",
+        "chléb",
+        "Německu",
+        "soud"
+      ],
+      "Cvičení 3": [
+        "obžalování",
+        "dostala",
+        "zkontroloval",
+        "mohla",
+        "vyřešilo",
+        "nesouhlasila",
+        "mohli",
+        "rozuměli"
+      ],
+      "Cvičení 4": [
+        "o",
+        "na",
+        "bez předložky",
+        "z",
+        "kvůli",
+        "během",
+        "na",
+        "bez předložky"
+      ],
+      "Cvičení 5": [
+        "Ano",
+        "Ne",
+        "Ano",
+        "Ano",
+        "Ne",
+        "Ne",
+        "Ano",
+        "Ano",
+        "d",
+        "b",
+        "c",
+        "c"
+      ]
+    },
+    "B2": {
+      "Cvičení 1": [
+        "1–b, 2–c, 3–a, 4–d, 5–h, 6–g, 7–e, 8–f"
+      ],
+      "Cvičení 2": [
+        "audit",
+        "koncernu",
+        "krytí",
+        "obžalobu",
+        "posudek",
+        "dohodu",
+        "sebereflexe",
+        "ministerstvo"
+      ],
+      "Cvičení 3": [
+        "by vypadala",
+        "by měly",
+        "by postupovalo",
+        "nemohl",
+        "vyhnula by se",
+        "mohli",
+        "by skončil",
+        "by získala"
+      ],
+      "Cvičení 4": [
+        "kvůli",
+        "o",
+        "ohledně",
+        "od",
+        "během",
+        "pro",
+        "mezi",
+        "vůči"
+      ],
+      "Cvičení 5": [
+        "Ano",
+        "Ne",
+        "Ne",
+        "Ano",
+        "Ano",
+        "Ne",
+        "Ano",
+        "Ne",
+        "c",
+        "a",
+        "b",
+        "d"
+      ]
+    },
+    "C1": {
+      "Cvičení 1": [
+        "1–d, 2–g, 3–b, 4–e, 5–h, 6–c, 7–a, 8–f"
+      ],
+      "Cvičení 2": [
+        "podnětů",
+        "inovativní",
+        "financování",
+        "auditora",
+        "kontextu",
+        "rozpor",
+        "doložit",
+        "formulace"
+      ],
+      "Cvičení 3": [
+        "proplaceny",
+        "správně",
+        "správně",
+        "správně",
+        "použity",
+        "správně",
+        "správně",
+        "správně",
+        "prezentovat",
+        "používala",
+        "zabývat",
+        "zamlčeli",
+        "nebyla",
+        "zhodnotit",
+        "ohradila",
+        "rozlišovat"
+      ],
+      "Cvičení 4": [
+        "v důsledku",
+        "na základě",
+        "prostřednictvím",
+        "vůči",
+        "v rámci",
+        "navzdory",
+        "bez předložky",
+        "ohledně"
+      ],
+      "Cvičení 5": [
+        "Ano",
+        "Ne",
+        "Ano",
+        "Ne",
+        "Ano",
+        "Ne",
+        "Ano",
+        "Ano",
+        "b",
+        "d",
+        "a",
+        "c",
+        "abc",
+        "c"
+      ]
+    }
+  }
+}
