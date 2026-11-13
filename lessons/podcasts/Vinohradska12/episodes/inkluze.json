@@ -1197,14 +1197,14 @@
             },
             {
               "section_title": "B. Doplňte správný tvar",
-              "prompt": "Pokud by se učitelé opírali výhradně o frontální výuku, jejich možnosti individuálně reagovat na potřeby žáků ______ (omezit) se.",
+              "prompt": "Pokud by se učitelé opírali výhradně o frontální výuku, jejich možnosti individuálně reagovat na potřeby žáků ______ (omezit se).",
               "type": "single",
               "is_multiselect": false,
               "options": []
             },
             {
               "section_title": "B. Doplňte správný tvar",
-              "prompt": "Kdyby poradenská zařízení doporučila intenzivnější podporu, škola ______ (moci) zapojit dalšího odborníka.",
+              "prompt": "Kdyby poradenská zařízení doporučila intenzivnější podporu, škola ______ (moct) zapojit dalšího odborníka.",
               "type": "single",
               "is_multiselect": false,
               "options": []
@@ -1217,21 +1217,19 @@
         {
           "title": "Cvičení 4 – Slovní zásoba a předložky",
           "type": "standard",
-          "instructions": "Doplňte správnou předložku nebo výraz. Pokud je výraz bez předložky, nechte políčko prázdné.\nSlova: aniž, do, kvůli, na, o, proti, v, z",
+          "instructions": "Doplňte správnou předložku nebo výraz. Pokud je výraz bez předložky, nechte políčko prázdné.\nSlova: aniž, na, mezi, v, z, ze",
           "optionsList": [
             "aniž",
-            "do",
-            "kvůli",
+            "ze",
             "na",
-            "o",
-            "proti",
+            "mezi",
             "v",
             "z"
           ],
           "items": [
             {
               "section_title": "",
-              "prompt": "Podle expertky není možné zrušit podporu ______ toho, aby se vyřešilo, kam budou děti umístěny.",
+              "prompt": "Podle expertky není možné zrušit podporu, ______ by se vyřešilo, kam budou děti umístěny.",
               "type": "single",
               "is_multiselect": false,
               "options": []
@@ -1539,7 +1537,7 @@
         "diskriminační",
         "kontinuální",
         "explicitně",
-        "flexibilní",
+        "Flexibilní",
         "systémový",
         "aprobační",
         "efektivní",
@@ -1552,24 +1550,24 @@
         "správně",
         "projevuje",
         "správně",
-        "žádný",
+        "dopady",
         "správně",
-        "získaly by",
-        "museli by",
+        "by získaly",
+        "museli",
         "dojít",
-        "čelily by",
-        "měli by",
+        "by čelily",
+        "by měli",
         "vznikly by",
         "by se omezily",
-        "mohla by"
+        "by mohla"
       ],
       "Cvičení 4": [
         "aniž",
-        "proti",
+        "",
         "v",
         "na",
         "mezi",
-        "do",
+        "ze",
         "z",
         "na"
       ],
