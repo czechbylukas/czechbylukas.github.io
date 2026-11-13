@@ -119,11 +119,11 @@
 
         .word-bank-container { display: flex; flex-wrap: wrap; gap: 8px; margin: 10px 0 15px 0; }
         .word-badge { 
-            background: #94a3b8; color: #f8fafc; padding: 4px 10px; 
-            border-radius: 6px; font-size: 0.9rem; font-weight: 600; border: 1px solid #64748b;
-            font-family: inherit; cursor: pointer;
+            background: #16a34a; color: #fff; padding: 4px 10px; 
+            border-radius: 6px; font-size: 0.9rem; font-weight: 600; border: 1px solid #15803d;
+            font-family: inherit; cursor: pointer; user-select: text; -webkit-user-select: text;
         }
-        .word-badge.used { background: #e2e8f0; color: #1e293b; border-color: #cbd5e1; }
+        .word-badge.used { background: #e2e8f0; color: #94a3b8; border-color: #cbd5e1; }
 
         /* --- FIXED ITEM ROW LAYOUT --- */
         .item-row { 
@@ -142,18 +142,58 @@
             gap: 8px;
         }
 
-        @media (min-width: 600px) {
+        @media (min-width: 700px) {
             .item-row { 
                 display: grid;
-                grid-template-columns: 1fr min-content; 
+                grid-template-columns: minmax(0, 30%) minmax(0, 1fr); 
                 align-items: center;
                 gap: 20px;
             }
+            .item-row.has-input { grid-template-columns: minmax(0, 1fr) 230px; }
         }
 
         .item-right {
-            min-width: 220px;
+            min-width: 0;
         }
+
+        /* Larger text for readability, also when sharing the screen */
+        #podcast-view { max-width: 1100px; font-size: 1.3rem; }
+        #podcast-view .exercise-card { padding: 26px; }
+        #podcast-view .exercise-title { font-size: 1.6rem; }
+        #podcast-view .item-row, #podcast-view .item-row-vertical { padding: 16px 0; }
+        #podcast-view .item-left, #podcast-view .item-row-vertical > div { line-height: 1.5; }
+        #podcast-view .ex-input { font-size: 1.15rem; padding: 12px 14px; }
+        #podcast-view .word-badge { font-size: 1.15rem; padding: 6px 14px; }
+        #podcast-view .checkbox-group label { font-size: 1.15rem !important; }
+        #podcast-view .feedback-text { font-size: 1.05rem; }
+        #podcast-view .vocab-item { font-size: 1.15rem; }
+        #podcast-view .level-btn { font-size: 1.1rem; }
+        #podcast-view .btn-submit-all { font-size: 1.3rem; }
+        #podcast-view p em { font-size: 1.15rem !important; }
+        #podcast-view input[type="checkbox"], #podcast-view input[type="radio"] { width: 20px; height: 20px; }
+
+        .item-row.answered .item-left { color: #b4bcc8; text-decoration: line-through; }
+
+        .cd-select { position: relative; width: 100%; }
+        .cd-button {
+            width: 100%; display: flex; justify-content: space-between; align-items: center; gap: 12px;
+            padding: 12px 14px; border: 2px solid #cbd5e1; border-radius: 8px; background: #fff;
+            font: inherit; font-size: 1.1rem; text-align: left; cursor: pointer; color: #64748b;
+        }
+        .cd-select.has-value .cd-button { color: #1e293b; border-color: #2f52b5; }
+        .cd-button:hover, .cd-select.open .cd-button { border-color: #2f52b5; }
+        .cd-arrow { font-size: 0.8rem; flex-shrink: 0; }
+        .cd-menu {
+            display: none; position: absolute; left: 0; right: 0; top: 100%; z-index: 1000;
+            background: #fff; border: 2px solid #2f52b5; border-radius: 8px; margin-top: 2px;
+            overflow: visible; box-shadow: 0 6px 18px rgba(0,0,0,0.25);
+        }
+        .cd-select.open .cd-menu { display: block; }
+        .cd-option { padding: 8px 14px; font-size: 1.1rem; line-height: 1.4; cursor: pointer; border-bottom: 1px solid #f1f5f9; color: #1e293b; }
+        .cd-option:last-child { border-bottom: none; }
+        .cd-option:hover { background: #f0f4ff; }
+        .cd-option.selected { background: #e0e9ff; font-weight: 600; }
+        .cd-option.disabled { color: #b4bcc8; background: #f4f6f9; cursor: not-allowed; text-decoration: line-through; }
 
         .item-row:last-child, .item-row-vertical:last-child { border-bottom: none; }
         .item-left { font-weight: 500; line-height: 1.4; }
@@ -389,11 +429,83 @@
                 const j = Math.floor(Math.random() * (i + 1));
                 [words[i], words[j]] = [words[j], words[i]];
             }
-            let badges = '<div class="word-bank-container">' + words.map(w => `<button type="button" class="word-badge" aria-pressed="false">${w}</button>`).join('') + '</div>';
+            let badges = '<div class="word-bank-container">' + words.map(w => `<span class="word-badge" aria-pressed="false">${w}</span>`).join('') + '</div>';
             return `<p style="font-size: 0.95rem; color: #4a5568;"><em>${parts[0]}</em></p>${badges}`;
         }
         return `<p style="font-size: 0.95rem; color: #4a5568;"><em>${instructions}</em></p>`;
     }
+
+    // Native <select> popups are not captured by screen sharing, so each select is replaced by an in-page dropdown.
+    function enhanceSelect(select) {
+        const wrap = document.createElement('div');
+        wrap.className = 'cd-select';
+        const btn = document.createElement('button');
+        btn.type = 'button';
+        btn.className = 'cd-button';
+        const label = document.createElement('span');
+        label.className = 'cd-label';
+        const arrow = document.createElement('span');
+        arrow.textContent = '▼';
+        arrow.className = 'cd-arrow';
+        btn.append(label, arrow);
+        const menu = document.createElement('div');
+        menu.className = 'cd-menu';
+
+        Array.from(select.options).forEach(opt => {
+            const div = document.createElement('div');
+            div.className = 'cd-option';
+            div.dataset.value = opt.value;
+            div.textContent = opt.textContent;
+            div.addEventListener('click', () => {
+                if (div.classList.contains('disabled')) return;
+                select.value = opt.value;
+                wrap.classList.remove('open');
+                syncSelects(select.form, select);
+            });
+            menu.appendChild(div);
+        });
+
+        btn.addEventListener('click', e => {
+            e.stopPropagation();
+            const willOpen = !wrap.classList.contains('open');
+            document.querySelectorAll('.cd-select.open').forEach(w => w.classList.remove('open'));
+            wrap.classList.toggle('open', willOpen);
+        });
+
+        select.style.display = 'none';
+        select.parentNode.insertBefore(wrap, select);
+        wrap.append(btn, menu, select);
+        wrap._label = label;
+        select._wrap = wrap;
+        syncSelects(select.form, select);
+    }
+
+    function syncSelects(form, changed) {
+        if (!form) return;
+        const selects = Array.from(form.querySelectorAll('select.ex-select'));
+        const unique = form.dataset.unique === '1';
+        selects.forEach(sel => {
+            const wrap = sel._wrap;
+            if (!wrap) return;
+            const chosen = sel.options[sel.selectedIndex];
+            wrap._label.textContent = chosen ? chosen.textContent : '';
+            wrap.classList.toggle('has-value', !!sel.value);
+            const row = wrap.closest('.item-row, .item-row-vertical');
+            if (row && unique) row.classList.toggle('answered', !!sel.value);
+            wrap.querySelectorAll('.cd-option').forEach(o => {
+                const takenElsewhere = unique && o.dataset.value !== '' &&
+                    selects.some(other => other !== sel && other.value === o.dataset.value);
+                o.classList.toggle('disabled', takenElsewhere);
+                o.classList.toggle('selected', o.dataset.value === sel.value);
+            });
+        });
+    }
+
+    document.addEventListener('click', e => {
+        if (!e.target.closest('.cd-select')) {
+            document.querySelectorAll('.cd-select.open').forEach(w => w.classList.remove('open'));
+        }
+    });
 
     function renderLevelExercises(level) {
         const container = document.getElementById('exercise-container');
@@ -479,15 +591,16 @@
 
                 html += `</form>`;
             } else {
-                let sharedExerciseOptions = [];
+                let sharedExerciseOptions = Array.isArray(ex.sharedOptions) ? ex.sharedOptions : [];
                 items.forEach(it => {
                     if (typeof it === 'object' && it.options && it.options.length > sharedExerciseOptions.length) {
                         sharedExerciseOptions = it.options;
                     }
                 });
+                const uniqueMatching = exIdx === 0 || (Array.isArray(ex.sharedOptions) && ex.sharedOptions.length > 0);
 
                 if (items.length > 0) {
-                    html += `<form id="ex-form-${exIdx}">`;
+                    html += `<form id="ex-form-${exIdx}"${uniqueMatching ? ' data-unique="1"' : ''}>`;
                     let currentSectionHeader = '';
                     items.forEach((item, itemIdx) => {
                         const promptText = typeof item === 'string' ? item : item.prompt;
@@ -497,7 +610,8 @@
                             currentSectionHeader = item.section_title;
                             html += `<h4 style="color: #2f52b5; margin-top: 25px; margin-bottom: 12px; border-bottom: 2px solid #e2e8f0; padding-bottom: 6px; white-space: pre-line;">${currentSectionHeader}</h4>`;
                         }
-                        html += `<div class="item-row">`;
+                        const rowHasSelect = !!(itemOptions && itemOptions.length > 0);
+                        html += `<div class="item-row ${rowHasSelect ? 'has-select' : 'has-input'}">`;
                         html += `<div class="item-left">${itemIdx + 1}. ${promptText}</div>`;
                         html += `<div class="item-right">`;
 
@@ -521,10 +635,12 @@
             card.innerHTML = html;
             card.querySelectorAll('.word-badge').forEach(badge => {
                 badge.addEventListener('click', () => {
+                    if (String(window.getSelection()).trim() !== '') return;
                     const isUsed = badge.classList.toggle('used');
                     badge.setAttribute('aria-pressed', String(isUsed));
                 });
             });
+            card.querySelectorAll('select.ex-select').forEach(enhanceSelect);
             container.appendChild(card);
         });
 

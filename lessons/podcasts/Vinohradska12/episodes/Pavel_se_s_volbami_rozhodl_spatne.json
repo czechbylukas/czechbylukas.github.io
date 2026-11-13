@@ -45,134 +45,72 @@
           "type": "standard",
           "instructions": "Spojte výraz s významem.",
           "optionsList": [],
+          "sharedOptions": [
+            "Člověk, který někomu pomáhá svými zkušenostmi a názory.",
+            "Čas, kdy člověk nemusí pracovat a může odpočívat.",
+            "To, co následuje po nějakém činu nebo rozhodnutí.",
+            "Člověk, který se uchází o určitou funkci.",
+            "Situace, kdy se mnoho lidí začne o něco zajímat a mluvit o tom.",
+            "Omyl nebo nesprávné rozhodnutí.",
+            "Vyjádření názoru při volbách.",
+            "To, že se někdo na něčem podílí."
+          ],
           "items": [
             {
               "section_title": "",
               "prompt": "rozruch",
               "type": "single",
               "is_multiselect": false,
-              "options": [
-                "Člověk, který někomu pomáhá svými zkušenostmi a názory.",
-                "Čas, kdy člověk nemusí pracovat a může odpočívat.",
-                "To, co následuje po nějakém činu nebo rozhodnutí.",
-                "Člověk, který se uchází o určitou funkci.",
-                "Situace, kdy se mnoho lidí začne o něco zajímat a mluvit o tom.",
-                "Omyl nebo nesprávné rozhodnutí.",
-                "Vyjádření názoru při volbách.",
-                "To, že se někdo na něčem podílí."
-              ]
+              "options": []
             },
             {
               "section_title": "",
               "prompt": "poradce",
               "type": "single",
               "is_multiselect": false,
-              "options": [
-                "Člověk, který někomu pomáhá svými zkušenostmi a názory.",
-                "Čas, kdy člověk nemusí pracovat a může odpočívat.",
-                "To, co následuje po nějakém činu nebo rozhodnutí.",
-                "Člověk, který se uchází o určitou funkci.",
-                "Situace, kdy se mnoho lidí začne o něco zajímat a mluvit o tom.",
-                "Omyl nebo nesprávné rozhodnutí.",
-                "Vyjádření názoru při volbách.",
-                "To, že se někdo na něčem podílí."
-              ]
+              "options": []
             },
             {
               "section_title": "",
               "prompt": "hlas",
               "type": "single",
               "is_multiselect": false,
-              "options": [
-                "Člověk, který někomu pomáhá svými zkušenostmi a názory.",
-                "Čas, kdy člověk nemusí pracovat a může odpočívat.",
-                "To, co následuje po nějakém činu nebo rozhodnutí.",
-                "Člověk, který se uchází o určitou funkci.",
-                "Situace, kdy se mnoho lidí začne o něco zajímat a mluvit o tom.",
-                "Omyl nebo nesprávné rozhodnutí.",
-                "Vyjádření názoru při volbách.",
-                "To, že se někdo na něčem podílí."
-              ]
+              "options": []
             },
             {
               "section_title": "",
               "prompt": "účast",
               "type": "single",
               "is_multiselect": false,
-              "options": [
-                "Člověk, který někomu pomáhá svými zkušenostmi a názory.",
-                "Čas, kdy člověk nemusí pracovat a může odpočívat.",
-                "To, co následuje po nějakém činu nebo rozhodnutí.",
-                "Člověk, který se uchází o určitou funkci.",
-                "Situace, kdy se mnoho lidí začne o něco zajímat a mluvit o tom.",
-                "Omyl nebo nesprávné rozhodnutí.",
-                "Vyjádření názoru při volbách.",
-                "To, že se někdo na něčem podílí."
-              ]
+              "options": []
             },
             {
               "section_title": "",
               "prompt": "dovolená",
               "type": "single",
               "is_multiselect": false,
-              "options": [
-                "Člověk, který někomu pomáhá svými zkušenostmi a názory.",
-                "Čas, kdy člověk nemusí pracovat a může odpočívat.",
-                "To, co následuje po nějakém činu nebo rozhodnutí.",
-                "Člověk, který se uchází o určitou funkci.",
-                "Situace, kdy se mnoho lidí začne o něco zajímat a mluvit o tom.",
-                "Omyl nebo nesprávné rozhodnutí.",
-                "Vyjádření názoru při volbách.",
-                "To, že se někdo na něčem podílí."
-              ]
+              "options": []
             },
             {
               "section_title": "",
               "prompt": "chyba",
               "type": "single",
               "is_multiselect": false,
-              "options": [
-                "Člověk, který někomu pomáhá svými zkušenostmi a názory.",
-                "Čas, kdy člověk nemusí pracovat a může odpočívat.",
-                "To, co následuje po nějakém činu nebo rozhodnutí.",
-                "Člověk, který se uchází o určitou funkci.",
-                "Situace, kdy se mnoho lidí začne o něco zajímat a mluvit o tom.",
-                "Omyl nebo nesprávné rozhodnutí.",
-                "Vyjádření názoru při volbách.",
-                "To, že se někdo na něčem podílí."
-              ]
+              "options": []
             },
             {
               "section_title": "",
               "prompt": "kandidát",
               "type": "single",
               "is_multiselect": false,
-              "options": [
-                "Člověk, který někomu pomáhá svými zkušenostmi a názory.",
-                "Čas, kdy člověk nemusí pracovat a může odpočívat.",
-                "To, co následuje po nějakém činu nebo rozhodnutí.",
-                "Člověk, který se uchází o určitou funkci.",
-                "Situace, kdy se mnoho lidí začne o něco zajímat a mluvit o tom.",
-                "Omyl nebo nesprávné rozhodnutí.",
-                "Vyjádření názoru při volbách.",
-                "To, že se někdo na něčem podílí."
-              ]
+              "options": []
             },
             {
               "section_title": "",
               "prompt": "důsledek",
               "type": "single",
               "is_multiselect": false,
-              "options": [
-                "Člověk, který někomu pomáhá svými zkušenostmi a názory.",
-                "Čas, kdy člověk nemusí pracovat a může odpočívat.",
-                "To, co následuje po nějakém činu nebo rozhodnutí.",
-                "Člověk, který se uchází o určitou funkci.",
-                "Situace, kdy se mnoho lidí začne o něco zajímat a mluvit o tom.",
-                "Omyl nebo nesprávné rozhodnutí.",
-                "Vyjádření názoru při volbách.",
-                "To, že se někdo na něčem podílí."
-              ]
+              "options": []
             }
           ],
           "matchingItems": [],
@@ -185,14 +123,13 @@
           "instructions": "Doplňte vhodné slovo.\nSlova: rozhodnout se, kritizovat, odpočívat, volit, podepsat, přesvědčit, plánovat, omluvit",
           "optionsList": [
             "kritizovat",
-            "odpočívat",            
-            "omluvit",        
+            "odpočívat",
+            "omluvit",
             "rozhodnout se",
             "plánovat",
             "podepsat",
             "přesvědčit",
             "volit"
-          
           ],
           "items": [
             {
@@ -334,7 +271,7 @@
             "od",
             "s",
             "v",
-            "za",      
+            "za",
             "bez předložky"
           ],
           "items": [
@@ -557,134 +494,72 @@
           "type": "standard",
           "instructions": "Spojte výraz s významem.",
           "optionsList": [],
+          "sharedOptions": [
+            "Právo vykonávat určitou funkci získané volbou.",
+            "Takový, který něco omlouvá nebo posuzuje mírně.",
+            "Způsob hlasování, při kterém se hlas odevzdává na dálku.",
+            "Něco, co zakrývá skutečný důvod jednání.",
+            "Oprávněný a uznávaný podle pravidel.",
+            "Neoprávněné ovlivňování nebo pozměňování něčeho.",
+            "Právní ochrana před určitými postihy.",
+            "Chybný nebo nevhodný krok."
+          ],
           "items": [
             {
               "section_title": "",
               "prompt": "legitimní",
               "type": "single",
               "is_multiselect": false,
-              "options": [
-                "Právo vykonávat určitou funkci získané volbou.",
-                "Takový, který něco omlouvá nebo posuzuje mírně.",
-                "Způsob hlasování, při kterém se hlas odevzdává na dálku.",
-                "Něco, co zakrývá skutečný důvod jednání.",
-                "Oprávněný a uznávaný podle pravidel.",
-                "Neoprávněné ovlivňování nebo pozměňování něčeho.",
-                "Právní ochrana před určitými postihy.",
-                "Chybný nebo nevhodný krok."
-              ]
+              "options": []
             },
             {
               "section_title": "",
               "prompt": "přešlap",
               "type": "single",
               "is_multiselect": false,
-              "options": [
-                "Právo vykonávat určitou funkci získané volbou.",
-                "Takový, který něco omlouvá nebo posuzuje mírně.",
-                "Způsob hlasování, při kterém se hlas odevzdává na dálku.",
-                "Něco, co zakrývá skutečný důvod jednání.",
-                "Oprávněný a uznávaný podle pravidel.",
-                "Neoprávněné ovlivňování nebo pozměňování něčeho.",
-                "Právní ochrana před určitými postihy.",
-                "Chybný nebo nevhodný krok."
-              ]
+              "options": []
             },
             {
               "section_title": "",
               "prompt": "imunita",
               "type": "single",
               "is_multiselect": false,
-              "options": [
-                "Právo vykonávat určitou funkci získané volbou.",
-                "Takový, který něco omlouvá nebo posuzuje mírně.",
-                "Způsob hlasování, při kterém se hlas odevzdává na dálku.",
-                "Něco, co zakrývá skutečný důvod jednání.",
-                "Oprávněný a uznávaný podle pravidel.",
-                "Neoprávněné ovlivňování nebo pozměňování něčeho.",
-                "Právní ochrana před určitými postihy.",
-                "Chybný nebo nevhodný krok."
-              ]
+              "options": []
             },
             {
               "section_title": "",
               "prompt": "shovívavý",
               "type": "single",
               "is_multiselect": false,
-              "options": [
-                "Právo vykonávat určitou funkci získané volbou.",
-                "Takový, který něco omlouvá nebo posuzuje mírně.",
-                "Způsob hlasování, při kterém se hlas odevzdává na dálku.",
-                "Něco, co zakrývá skutečný důvod jednání.",
-                "Oprávněný a uznávaný podle pravidel.",
-                "Neoprávněné ovlivňování nebo pozměňování něčeho.",
-                "Právní ochrana před určitými postihy.",
-                "Chybný nebo nevhodný krok."
-              ]
+              "options": []
             },
             {
               "section_title": "",
               "prompt": "zástěrka",
               "type": "single",
               "is_multiselect": false,
-              "options": [
-                "Právo vykonávat určitou funkci získané volbou.",
-                "Takový, který něco omlouvá nebo posuzuje mírně.",
-                "Způsob hlasování, při kterém se hlas odevzdává na dálku.",
-                "Něco, co zakrývá skutečný důvod jednání.",
-                "Oprávněný a uznávaný podle pravidel.",
-                "Neoprávněné ovlivňování nebo pozměňování něčeho.",
-                "Právní ochrana před určitými postihy.",
-                "Chybný nebo nevhodný krok."
-              ]
+              "options": []
             },
             {
               "section_title": "",
               "prompt": "korespondenční",
               "type": "single",
               "is_multiselect": false,
-              "options": [
-                "Právo vykonávat určitou funkci získané volbou.",
-                "Takový, který něco omlouvá nebo posuzuje mírně.",
-                "Způsob hlasování, při kterém se hlas odevzdává na dálku.",
-                "Něco, co zakrývá skutečný důvod jednání.",
-                "Oprávněný a uznávaný podle pravidel.",
-                "Neoprávněné ovlivňování nebo pozměňování něčeho.",
-                "Právní ochrana před určitými postihy.",
-                "Chybný nebo nevhodný krok."
-              ]
+              "options": []
             },
             {
               "section_title": "",
               "prompt": "mandát",
               "type": "single",
               "is_multiselect": false,
-              "options": [
-                "Právo vykonávat určitou funkci získané volbou.",
-                "Takový, který něco omlouvá nebo posuzuje mírně.",
-                "Způsob hlasování, při kterém se hlas odevzdává na dálku.",
-                "Něco, co zakrývá skutečný důvod jednání.",
-                "Oprávněný a uznávaný podle pravidel.",
-                "Neoprávněné ovlivňování nebo pozměňování něčeho.",
-                "Právní ochrana před určitými postihy.",
-                "Chybný nebo nevhodný krok."
-              ]
+              "options": []
             },
             {
               "section_title": "",
               "prompt": "manipulace",
               "type": "single",
               "is_multiselect": false,
-              "options": [
-                "Právo vykonávat určitou funkci získané volbou.",
-                "Takový, který něco omlouvá nebo posuzuje mírně.",
-                "Způsob hlasování, při kterém se hlas odevzdává na dálku.",
-                "Něco, co zakrývá skutečný důvod jednání.",
-                "Oprávněný a uznávaný podle pravidel.",
-                "Neoprávněné ovlivňování nebo pozměňování něčeho.",
-                "Právní ochrana před určitými postihy.",
-                "Chybný nebo nevhodný krok."
-              ]
+              "options": []
             }
           ],
           "matchingItems": [],
@@ -1068,134 +943,72 @@
           "type": "standard",
           "instructions": "Spojte výraz s významem.",
           "optionsList": [],
+          "sharedOptions": [
+            "Pokusit se zbavit odpovědnosti za určité jednání.",
+            "Samostatný a nezávislý ve svém rozhodování.",
+            "Vytvořit z něčeho výhodu nebo zisk.",
+            "Zpochybnění platnosti nebo oprávněnosti určitého rozhodnutí.",
+            "Obtížné nebo komplikované události a změny.",
+            "Soutěžení nebo soupeření.",
+            "Mírný a tolerantní přístup k někomu.",
+            "Učinit něco méně důvěryhodným nebo méně jistým."
+          ],
           "items": [
             {
               "section_title": "",
               "prompt": "svébytný",
               "type": "single",
               "is_multiselect": false,
-              "options": [
-                "Pokusit se zbavit odpovědnosti za určité jednání.",
-                "Samostatný a nezávislý ve svém rozhodování.",
-                "Vytvořit z něčeho výhodu nebo zisk.",
-                "Zpochybnění platnosti nebo oprávněnosti určitého rozhodnutí.",
-                "Obtížné nebo komplikované události a změny.",
-                "Soutěžení nebo soupeření.",
-                "Mírný a tolerantní přístup k někomu.",
-                "Učinit něco méně důvěryhodným nebo méně jistým."
-              ]
+              "options": []
             },
             {
               "section_title": "",
               "prompt": "legitimita",
               "type": "single",
               "is_multiselect": false,
-              "options": [
-                "Pokusit se zbavit odpovědnosti za určité jednání.",
-                "Samostatný a nezávislý ve svém rozhodování.",
-                "Vytvořit z něčeho výhodu nebo zisk.",
-                "Zpochybnění platnosti nebo oprávněnosti určitého rozhodnutí.",
-                "Obtížné nebo komplikované události a změny.",
-                "Soutěžení nebo soupeření.",
-                "Mírný a tolerantní přístup k někomu.",
-                "Učinit něco méně důvěryhodným nebo méně jistým."
-              ]
+              "options": []
             },
             {
               "section_title": "",
               "prompt": "peripetie",
               "type": "single",
               "is_multiselect": false,
-              "options": [
-                "Pokusit se zbavit odpovědnosti za určité jednání.",
-                "Samostatný a nezávislý ve svém rozhodování.",
-                "Vytvořit z něčeho výhodu nebo zisk.",
-                "Zpochybnění platnosti nebo oprávněnosti určitého rozhodnutí.",
-                "Obtížné nebo komplikované události a změny.",
-                "Soutěžení nebo soupeření.",
-                "Mírný a tolerantní přístup k někomu.",
-                "Učinit něco méně důvěryhodným nebo méně jistým."
-              ]
+              "options": []
             },
             {
               "section_title": "",
               "prompt": "shovívavost",
               "type": "single",
               "is_multiselect": false,
-              "options": [
-                "Pokusit se zbavit odpovědnosti za určité jednání.",
-                "Samostatný a nezávislý ve svém rozhodování.",
-                "Vytvořit z něčeho výhodu nebo zisk.",
-                "Zpochybnění platnosti nebo oprávněnosti určitého rozhodnutí.",
-                "Obtížné nebo komplikované události a změny.",
-                "Soutěžení nebo soupeření.",
-                "Mírný a tolerantní přístup k někomu.",
-                "Učinit něco méně důvěryhodným nebo méně jistým."
-              ]
+              "options": []
             },
             {
               "section_title": "",
               "prompt": "zápolení",
               "type": "single",
               "is_multiselect": false,
-              "options": [
-                "Pokusit se zbavit odpovědnosti za určité jednání.",
-                "Samostatný a nezávislý ve svém rozhodování.",
-                "Vytvořit z něčeho výhodu nebo zisk.",
-                "Zpochybnění platnosti nebo oprávněnosti určitého rozhodnutí.",
-                "Obtížné nebo komplikované události a změny.",
-                "Soutěžení nebo soupeření.",
-                "Mírný a tolerantní přístup k někomu.",
-                "Učinit něco méně důvěryhodným nebo méně jistým."
-              ]
+              "options": []
             },
             {
               "section_title": "",
               "prompt": "vyvinit se",
               "type": "single",
               "is_multiselect": false,
-              "options": [
-                "Pokusit se zbavit odpovědnosti za určité jednání.",
-                "Samostatný a nezávislý ve svém rozhodování.",
-                "Vytvořit z něčeho výhodu nebo zisk.",
-                "Zpochybnění platnosti nebo oprávněnosti určitého rozhodnutí.",
-                "Obtížné nebo komplikované události a změny.",
-                "Soutěžení nebo soupeření.",
-                "Mírný a tolerantní přístup k někomu.",
-                "Učinit něco méně důvěryhodným nebo méně jistým."
-              ]
+              "options": []
             },
             {
               "section_title": "",
               "prompt": "zpochybnit",
               "type": "single",
               "is_multiselect": false,
-              "options": [
-                "Pokusit se zbavit odpovědnosti za určité jednání.",
-                "Samostatný a nezávislý ve svém rozhodování.",
-                "Vytvořit z něčeho výhodu nebo zisk.",
-                "Zpochybnění platnosti nebo oprávněnosti určitého rozhodnutí.",
-                "Obtížné nebo komplikované události a změny.",
-                "Soutěžení nebo soupeření.",
-                "Mírný a tolerantní přístup k někomu.",
-                "Učinit něco méně důvěryhodným nebo méně jistým."
-              ]
+              "options": []
             },
             {
               "section_title": "",
               "prompt": "vytěžit",
               "type": "single",
               "is_multiselect": false,
-              "options": [
-                "Pokusit se zbavit odpovědnosti za určité jednání.",
-                "Samostatný a nezávislý ve svém rozhodování.",
-                "Vytvořit z něčeho výhodu nebo zisk.",
-                "Zpochybnění platnosti nebo oprávněnosti určitého rozhodnutí.",
-                "Obtížné nebo komplikované události a změny.",
-                "Soutěžení nebo soupeření.",
-                "Mírný a tolerantní přístup k někomu.",
-                "Učinit něco méně důvěryhodným nebo méně jistým."
-              ]
+              "options": []
             }
           ],
           "matchingItems": [],
@@ -1406,7 +1219,6 @@
           "type": "standard",
           "instructions": "Doplňte správnou předložku nebo výraz. Pokud je výraz bez předložky, nechte políčko prázdné.\nSlova: z hlediska, vůči, kvůli, o, bez předložky, v, na, s",
           "optionsList": [
-            
             "kvůli",
             "na",
             "o",

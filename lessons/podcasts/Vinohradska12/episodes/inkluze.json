@@ -45,134 +45,72 @@
           "type": "standard",
           "instructions": "Spojte výraz s významem.",
           "optionsList": [],
+          "sharedOptions": [
+            "Proces, při kterém se člověk znovu učí nebo procvičuje oslabené schopnosti.",
+            "Možnost určitého zařízení přijmout další lidi nebo poskytovat služby.",
+            "Oddělování určité skupiny lidí od ostatních.",
+            "Člověk, který pomáhá učiteli při práci se žáky.",
+            "Zahrnování lidí s různými potřebami do společného prostředí.",
+            "Obtíž nebo zdravotní problém, který člověka omezuje.",
+            "Pomoc nebo úprava, která má člověku usnadnit určitou činnost.",
+            "Zařízení, kde odborníci poskytují rady a doporučení."
+          ],
           "items": [
             {
               "section_title": "",
               "prompt": "inkluze",
               "type": "single",
               "is_multiselect": false,
-              "options": [
-                "Proces, při kterém se člověk znovu učí nebo procvičuje oslabené schopnosti.",
-                "Možnost určitého zařízení přijmout další lidi nebo poskytovat služby.",
-                "Oddělování určité skupiny lidí od ostatních.",
-                "Člověk, který pomáhá učiteli při práci se žáky.",
-                "Zahrnování lidí s různými potřebami do společného prostředí.",
-                "Obtíž nebo zdravotní problém, který člověka omezuje.",
-                "Pomoc nebo úprava, která má člověku usnadnit určitou činnost.",
-                "Zařízení, kde odborníci poskytují rady a doporučení."
-              ]
+              "options": []
             },
             {
               "section_title": "",
               "prompt": "asistent pedagoga",
               "type": "single",
               "is_multiselect": false,
-              "options": [
-                "Proces, při kterém se člověk znovu učí nebo procvičuje oslabené schopnosti.",
-                "Možnost určitého zařízení přijmout další lidi nebo poskytovat služby.",
-                "Oddělování určité skupiny lidí od ostatních.",
-                "Člověk, který pomáhá učiteli při práci se žáky.",
-                "Zahrnování lidí s různými potřebami do společného prostředí.",
-                "Obtíž nebo zdravotní problém, který člověka omezuje.",
-                "Pomoc nebo úprava, která má člověku usnadnit určitou činnost.",
-                "Zařízení, kde odborníci poskytují rady a doporučení."
-              ]
+              "options": []
             },
             {
               "section_title": "",
               "prompt": "podpůrné opatření",
               "type": "single",
               "is_multiselect": false,
-              "options": [
-                "Proces, při kterém se člověk znovu učí nebo procvičuje oslabené schopnosti.",
-                "Možnost určitého zařízení přijmout další lidi nebo poskytovat služby.",
-                "Oddělování určité skupiny lidí od ostatních.",
-                "Člověk, který pomáhá učiteli při práci se žáky.",
-                "Zahrnování lidí s různými potřebami do společného prostředí.",
-                "Obtíž nebo zdravotní problém, který člověka omezuje.",
-                "Pomoc nebo úprava, která má člověku usnadnit určitou činnost.",
-                "Zařízení, kde odborníci poskytují rady a doporučení."
-              ]
+              "options": []
             },
             {
               "section_title": "",
               "prompt": "poradna",
               "type": "single",
               "is_multiselect": false,
-              "options": [
-                "Proces, při kterém se člověk znovu učí nebo procvičuje oslabené schopnosti.",
-                "Možnost určitého zařízení přijmout další lidi nebo poskytovat služby.",
-                "Oddělování určité skupiny lidí od ostatních.",
-                "Člověk, který pomáhá učiteli při práci se žáky.",
-                "Zahrnování lidí s různými potřebami do společného prostředí.",
-                "Obtíž nebo zdravotní problém, který člověka omezuje.",
-                "Pomoc nebo úprava, která má člověku usnadnit určitou činnost.",
-                "Zařízení, kde odborníci poskytují rady a doporučení."
-              ]
+              "options": []
             },
             {
               "section_title": "",
               "prompt": "postižení",
               "type": "single",
               "is_multiselect": false,
-              "options": [
-                "Proces, při kterém se člověk znovu učí nebo procvičuje oslabené schopnosti.",
-                "Možnost určitého zařízení přijmout další lidi nebo poskytovat služby.",
-                "Oddělování určité skupiny lidí od ostatních.",
-                "Člověk, který pomáhá učiteli při práci se žáky.",
-                "Zahrnování lidí s různými potřebami do společného prostředí.",
-                "Obtíž nebo zdravotní problém, který člověka omezuje.",
-                "Pomoc nebo úprava, která má člověku usnadnit určitou činnost.",
-                "Zařízení, kde odborníci poskytují rady a doporučení."
-              ]
+              "options": []
             },
             {
               "section_title": "",
               "prompt": "segregace",
               "type": "single",
               "is_multiselect": false,
-              "options": [
-                "Proces, při kterém se člověk znovu učí nebo procvičuje oslabené schopnosti.",
-                "Možnost určitého zařízení přijmout další lidi nebo poskytovat služby.",
-                "Oddělování určité skupiny lidí od ostatních.",
-                "Člověk, který pomáhá učiteli při práci se žáky.",
-                "Zahrnování lidí s různými potřebami do společného prostředí.",
-                "Obtíž nebo zdravotní problém, který člověka omezuje.",
-                "Pomoc nebo úprava, která má člověku usnadnit určitou činnost.",
-                "Zařízení, kde odborníci poskytují rady a doporučení."
-              ]
+              "options": []
             },
             {
               "section_title": "",
               "prompt": "kapacita",
               "type": "single",
               "is_multiselect": false,
-              "options": [
-                "Proces, při kterém se člověk znovu učí nebo procvičuje oslabené schopnosti.",
-                "Možnost určitého zařízení přijmout další lidi nebo poskytovat služby.",
-                "Oddělování určité skupiny lidí od ostatních.",
-                "Člověk, který pomáhá učiteli při práci se žáky.",
-                "Zahrnování lidí s různými potřebami do společného prostředí.",
-                "Obtíž nebo zdravotní problém, který člověka omezuje.",
-                "Pomoc nebo úprava, která má člověku usnadnit určitou činnost.",
-                "Zařízení, kde odborníci poskytují rady a doporučení."
-              ]
+              "options": []
             },
             {
               "section_title": "",
               "prompt": "reedukace",
               "type": "single",
               "is_multiselect": false,
-              "options": [
-                "Proces, při kterém se člověk znovu učí nebo procvičuje oslabené schopnosti.",
-                "Možnost určitého zařízení přijmout další lidi nebo poskytovat služby.",
-                "Oddělování určité skupiny lidí od ostatních.",
-                "Člověk, který pomáhá učiteli při práci se žáky.",
-                "Zahrnování lidí s různými potřebami do společného prostředí.",
-                "Obtíž nebo zdravotní problém, který člověka omezuje.",
-                "Pomoc nebo úprava, která má člověku usnadnit určitou činnost.",
-                "Zařízení, kde odborníci poskytují rady a doporučení."
-              ]
+              "options": []
             }
           ],
           "matchingItems": [],
@@ -556,134 +494,72 @@
           "type": "standard",
           "instructions": "Spojte výraz s významem.",
           "optionsList": [],
+          "sharedOptions": [
+            "Soubor právních pravidel a zákonů platných v určité oblasti.",
+            "Zjišťování a zaznamenávání informací o předchozím vývoji a zdravotní či rodinné historii člověka.",
+            "Situace, kdy je určitá služba nebo instituce určena podle místa bydliště.",
+            "Způsob rozdělování peněz na základě předem stanoveného principu, nikoli podle jednotlivých případů.",
+            "Vztahy a soudržnost mezi členy určité společnosti.",
+            "Proces, při kterém se určují konkrétní parametry a pravidla fungování systému.",
+            "Nerovné zacházení s člověkem kvůli určité vlastnosti nebo příslušnosti ke skupině.",
+            "Cílený odborný zásah, jehož účelem je ovlivnit nebo zlepšit určitou situaci."
+          ],
           "items": [
             {
               "section_title": "",
               "prompt": "parametrizace",
               "type": "single",
               "is_multiselect": false,
-              "options": [
-                "Soubor právních pravidel a zákonů platných v určité oblasti.",
-                "Zjišťování a zaznamenávání informací o předchozím vývoji a zdravotní či rodinné historii člověka.",
-                "Situace, kdy je určitá služba nebo instituce určena podle místa bydliště.",
-                "Způsob rozdělování peněz na základě předem stanoveného principu, nikoli podle jednotlivých případů.",
-                "Vztahy a soudržnost mezi členy určité společnosti.",
-                "Proces, při kterém se určují konkrétní parametry a pravidla fungování systému.",
-                "Nerovné zacházení s člověkem kvůli určité vlastnosti nebo příslušnosti ke skupině.",
-                "Cílený odborný zásah, jehož účelem je ovlivnit nebo zlepšit určitou situaci."
-              ]
+              "options": []
             },
             {
               "section_title": "",
               "prompt": "paušální financování",
               "type": "single",
               "is_multiselect": false,
-              "options": [
-                "Soubor právních pravidel a zákonů platných v určité oblasti.",
-                "Zjišťování a zaznamenávání informací o předchozím vývoji a zdravotní či rodinné historii člověka.",
-                "Situace, kdy je určitá služba nebo instituce určena podle místa bydliště.",
-                "Způsob rozdělování peněz na základě předem stanoveného principu, nikoli podle jednotlivých případů.",
-                "Vztahy a soudržnost mezi členy určité společnosti.",
-                "Proces, při kterém se určují konkrétní parametry a pravidla fungování systému.",
-                "Nerovné zacházení s člověkem kvůli určité vlastnosti nebo příslušnosti ke skupině.",
-                "Cílený odborný zásah, jehož účelem je ovlivnit nebo zlepšit určitou situaci."
-              ]
+              "options": []
             },
             {
               "section_title": "",
               "prompt": "spádovost",
               "type": "single",
               "is_multiselect": false,
-              "options": [
-                "Soubor právních pravidel a zákonů platných v určité oblasti.",
-                "Zjišťování a zaznamenávání informací o předchozím vývoji a zdravotní či rodinné historii člověka.",
-                "Situace, kdy je určitá služba nebo instituce určena podle místa bydliště.",
-                "Způsob rozdělování peněz na základě předem stanoveného principu, nikoli podle jednotlivých případů.",
-                "Vztahy a soudržnost mezi členy určité společnosti.",
-                "Proces, při kterém se určují konkrétní parametry a pravidla fungování systému.",
-                "Nerovné zacházení s člověkem kvůli určité vlastnosti nebo příslušnosti ke skupině.",
-                "Cílený odborný zásah, jehož účelem je ovlivnit nebo zlepšit určitou situaci."
-              ]
+              "options": []
             },
             {
               "section_title": "",
               "prompt": "diskriminace",
               "type": "single",
               "is_multiselect": false,
-              "options": [
-                "Soubor právních pravidel a zákonů platných v určité oblasti.",
-                "Zjišťování a zaznamenávání informací o předchozím vývoji a zdravotní či rodinné historii člověka.",
-                "Situace, kdy je určitá služba nebo instituce určena podle místa bydliště.",
-                "Způsob rozdělování peněz na základě předem stanoveného principu, nikoli podle jednotlivých případů.",
-                "Vztahy a soudržnost mezi členy určité společnosti.",
-                "Proces, při kterém se určují konkrétní parametry a pravidla fungování systému.",
-                "Nerovné zacházení s člověkem kvůli určité vlastnosti nebo příslušnosti ke skupině.",
-                "Cílený odborný zásah, jehož účelem je ovlivnit nebo zlepšit určitou situaci."
-              ]
+              "options": []
             },
             {
               "section_title": "",
               "prompt": "legislativa",
               "type": "single",
               "is_multiselect": false,
-              "options": [
-                "Soubor právních pravidel a zákonů platných v určité oblasti.",
-                "Zjišťování a zaznamenávání informací o předchozím vývoji a zdravotní či rodinné historii člověka.",
-                "Situace, kdy je určitá služba nebo instituce určena podle místa bydliště.",
-                "Způsob rozdělování peněz na základě předem stanoveného principu, nikoli podle jednotlivých případů.",
-                "Vztahy a soudržnost mezi členy určité společnosti.",
-                "Proces, při kterém se určují konkrétní parametry a pravidla fungování systému.",
-                "Nerovné zacházení s člověkem kvůli určité vlastnosti nebo příslušnosti ke skupině.",
-                "Cílený odborný zásah, jehož účelem je ovlivnit nebo zlepšit určitou situaci."
-              ]
+              "options": []
             },
             {
               "section_title": "",
               "prompt": "anamnéza",
               "type": "single",
               "is_multiselect": false,
-              "options": [
-                "Soubor právních pravidel a zákonů platných v určité oblasti.",
-                "Zjišťování a zaznamenávání informací o předchozím vývoji a zdravotní či rodinné historii člověka.",
-                "Situace, kdy je určitá služba nebo instituce určena podle místa bydliště.",
-                "Způsob rozdělování peněz na základě předem stanoveného principu, nikoli podle jednotlivých případů.",
-                "Vztahy a soudržnost mezi členy určité společnosti.",
-                "Proces, při kterém se určují konkrétní parametry a pravidla fungování systému.",
-                "Nerovné zacházení s člověkem kvůli určité vlastnosti nebo příslušnosti ke skupině.",
-                "Cílený odborný zásah, jehož účelem je ovlivnit nebo zlepšit určitou situaci."
-              ]
+              "options": []
             },
             {
               "section_title": "",
               "prompt": "kohezе",
               "type": "single",
               "is_multiselect": false,
-              "options": [
-                "Soubor právních pravidel a zákonů platných v určité oblasti.",
-                "Zjišťování a zaznamenávání informací o předchozím vývoji a zdravotní či rodinné historii člověka.",
-                "Situace, kdy je určitá služba nebo instituce určena podle místa bydliště.",
-                "Způsob rozdělování peněz na základě předem stanoveného principu, nikoli podle jednotlivých případů.",
-                "Vztahy a soudržnost mezi členy určité společnosti.",
-                "Proces, při kterém se určují konkrétní parametry a pravidla fungování systému.",
-                "Nerovné zacházení s člověkem kvůli určité vlastnosti nebo příslušnosti ke skupině.",
-                "Cílený odborný zásah, jehož účelem je ovlivnit nebo zlepšit určitou situaci."
-              ]
+              "options": []
             },
             {
               "section_title": "",
               "prompt": "intervence",
               "type": "single",
               "is_multiselect": false,
-              "options": [
-                "Soubor právních pravidel a zákonů platných v určité oblasti.",
-                "Zjišťování a zaznamenávání informací o předchozím vývoji a zdravotní či rodinné historii člověka.",
-                "Situace, kdy je určitá služba nebo instituce určena podle místa bydliště.",
-                "Způsob rozdělování peněz na základě předem stanoveného principu, nikoli podle jednotlivých případů.",
-                "Vztahy a soudržnost mezi členy určité společnosti.",
-                "Proces, při kterém se určují konkrétní parametry a pravidla fungování systému.",
-                "Nerovné zacházení s člověkem kvůli určité vlastnosti nebo příslušnosti ke skupině.",
-                "Cílený odborný zásah, jehož účelem je ovlivnit nebo zlepšit určitou situaci."
-              ]
+              "options": []
             }
           ],
           "matchingItems": [],
@@ -1067,134 +943,72 @@
           "type": "standard",
           "instructions": "Spojte výraz s významem.",
           "optionsList": [],
+          "sharedOptions": [
+            "Výuka, při které učitel předává informace celé třídě stejným způsobem.",
+            "Zapojení jednotlivce do určité činnosti nebo společenského života.",
+            "Označení člověka na základě určitého zjištěného problému či poruchy.",
+            "Škola, ve které se v jedné třídě vzdělávají žáci několika ročníků.",
+            "Vzájemný pocit spojení, blízkosti a příslušnosti ke skupině.",
+            "Proces stanovování konkrétních hodnot a pravidel fungování systému.",
+            "Kvalifikace učitele pro výuku konkrétních vyučovacích předmětů.",
+            "Přístup, při kterém se rozdílné případy posuzují jednotně bez dostatečného rozlišení."
+          ],
           "items": [
             {
               "section_title": "",
               "prompt": "sounáležitost",
               "type": "single",
               "is_multiselect": false,
-              "options": [
-                "Výuka, při které učitel předává informace celé třídě stejným způsobem.",
-                "Zapojení jednotlivce do určité činnosti nebo společenského života.",
-                "Označení člověka na základě určitého zjištěného problému či poruchy.",
-                "Škola, ve které se v jedné třídě vzdělávají žáci několika ročníků.",
-                "Vzájemný pocit spojení, blízkosti a příslušnosti ke skupině.",
-                "Proces stanovování konkrétních hodnot a pravidel fungování systému.",
-                "Kvalifikace učitele pro výuku konkrétních vyučovacích předmětů.",
-                "Přístup, při kterém se rozdílné případy posuzují jednotně bez dostatečného rozlišení."
-              ]
+              "options": []
             },
             {
               "section_title": "",
               "prompt": "frontální výuka",
               "type": "single",
               "is_multiselect": false,
-              "options": [
-                "Výuka, při které učitel předává informace celé třídě stejným způsobem.",
-                "Zapojení jednotlivce do určité činnosti nebo společenského života.",
-                "Označení člověka na základě určitého zjištěného problému či poruchy.",
-                "Škola, ve které se v jedné třídě vzdělávají žáci několika ročníků.",
-                "Vzájemný pocit spojení, blízkosti a příslušnosti ke skupině.",
-                "Proces stanovování konkrétních hodnot a pravidel fungování systému.",
-                "Kvalifikace učitele pro výuku konkrétních vyučovacích předmětů.",
-                "Přístup, při kterém se rozdílné případy posuzují jednotně bez dostatečného rozlišení."
-              ]
+              "options": []
             },
             {
               "section_title": "",
               "prompt": "malotřídní škola",
               "type": "single",
               "is_multiselect": false,
-              "options": [
-                "Výuka, při které učitel předává informace celé třídě stejným způsobem.",
-                "Zapojení jednotlivce do určité činnosti nebo společenského života.",
-                "Označení člověka na základě určitého zjištěného problému či poruchy.",
-                "Škola, ve které se v jedné třídě vzdělávají žáci několika ročníků.",
-                "Vzájemný pocit spojení, blízkosti a příslušnosti ke skupině.",
-                "Proces stanovování konkrétních hodnot a pravidel fungování systému.",
-                "Kvalifikace učitele pro výuku konkrétních vyučovacích předmětů.",
-                "Přístup, při kterém se rozdílné případy posuzují jednotně bez dostatečného rozlišení."
-              ]
+              "options": []
             },
             {
               "section_title": "",
               "prompt": "aprobační předpoklady",
               "type": "single",
               "is_multiselect": false,
-              "options": [
-                "Výuka, při které učitel předává informace celé třídě stejným způsobem.",
-                "Zapojení jednotlivce do určité činnosti nebo společenského života.",
-                "Označení člověka na základě určitého zjištěného problému či poruchy.",
-                "Škola, ve které se v jedné třídě vzdělávají žáci několika ročníků.",
-                "Vzájemný pocit spojení, blízkosti a příslušnosti ke skupině.",
-                "Proces stanovování konkrétních hodnot a pravidel fungování systému.",
-                "Kvalifikace učitele pro výuku konkrétních vyučovacích předmětů.",
-                "Přístup, při kterém se rozdílné případy posuzují jednotně bez dostatečného rozlišení."
-              ]
+              "options": []
             },
             {
               "section_title": "",
               "prompt": "paušalizace",
               "type": "single",
               "is_multiselect": false,
-              "options": [
-                "Výuka, při které učitel předává informace celé třídě stejným způsobem.",
-                "Zapojení jednotlivce do určité činnosti nebo společenského života.",
-                "Označení člověka na základě určitého zjištěného problému či poruchy.",
-                "Škola, ve které se v jedné třídě vzdělávají žáci několika ročníků.",
-                "Vzájemný pocit spojení, blízkosti a příslušnosti ke skupině.",
-                "Proces stanovování konkrétních hodnot a pravidel fungování systému.",
-                "Kvalifikace učitele pro výuku konkrétních vyučovacích předmětů.",
-                "Přístup, při kterém se rozdílné případy posuzují jednotně bez dostatečného rozlišení."
-              ]
+              "options": []
             },
             {
               "section_title": "",
               "prompt": "participace",
               "type": "single",
               "is_multiselect": false,
-              "options": [
-                "Výuka, při které učitel předává informace celé třídě stejným způsobem.",
-                "Zapojení jednotlivce do určité činnosti nebo společenského života.",
-                "Označení člověka na základě určitého zjištěného problému či poruchy.",
-                "Škola, ve které se v jedné třídě vzdělávají žáci několika ročníků.",
-                "Vzájemný pocit spojení, blízkosti a příslušnosti ke skupině.",
-                "Proces stanovování konkrétních hodnot a pravidel fungování systému.",
-                "Kvalifikace učitele pro výuku konkrétních vyučovacích předmětů.",
-                "Přístup, při kterém se rozdílné případy posuzují jednotně bez dostatečného rozlišení."
-              ]
+              "options": []
             },
             {
               "section_title": "",
               "prompt": "diagnostická nálepka",
               "type": "single",
               "is_multiselect": false,
-              "options": [
-                "Výuka, při které učitel předává informace celé třídě stejným způsobem.",
-                "Zapojení jednotlivce do určité činnosti nebo společenského života.",
-                "Označení člověka na základě určitého zjištěného problému či poruchy.",
-                "Škola, ve které se v jedné třídě vzdělávají žáci několika ročníků.",
-                "Vzájemný pocit spojení, blízkosti a příslušnosti ke skupině.",
-                "Proces stanovování konkrétních hodnot a pravidel fungování systému.",
-                "Kvalifikace učitele pro výuku konkrétních vyučovacích předmětů.",
-                "Přístup, při kterém se rozdílné případy posuzují jednotně bez dostatečného rozlišení."
-              ]
+              "options": []
             },
             {
               "section_title": "",
               "prompt": "parametrizace",
               "type": "single",
               "is_multiselect": false,
-              "options": [
-                "Výuka, při které učitel předává informace celé třídě stejným způsobem.",
-                "Zapojení jednotlivce do určité činnosti nebo společenského života.",
-                "Označení člověka na základě určitého zjištěného problému či poruchy.",
-                "Škola, ve které se v jedné třídě vzdělávají žáci několika ročníků.",
-                "Vzájemný pocit spojení, blízkosti a příslušnosti ke skupině.",
-                "Proces stanovování konkrétních hodnot a pravidel fungování systému.",
-                "Kvalifikace učitele pro výuku konkrétních vyučovacích předmětů.",
-                "Přístup, při kterém se rozdílné případy posuzují jednotně bez dostatečného rozlišení."
-              ]
+              "options": []
             }
           ],
           "matchingItems": [],
