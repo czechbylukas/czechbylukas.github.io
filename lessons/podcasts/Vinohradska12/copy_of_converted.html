@@ -335,7 +335,8 @@ function parseRawText(raw) {
         const bank = (last.options || []).slice().sort((a, b) => String(a.label || "").localeCompare(String(b.label || ""))).map(option => typeof option === "object" ? option.text : option);
         if (bank.length) {
           last.options = [];
-          currentExercise.items.forEach(item => { item.options = bank.slice(); });
+          currentExercise.sharedOptions = bank;
+          currentExercise.items.forEach(item => { item.options = []; });
         }
       } else {
         currentExercise.items.forEach(item => {
@@ -649,7 +650,7 @@ function inspectTestStructure(parsed) {
       const expected = expectedCounts[index];
       if (expected !== null && expected !== undefined && exercise.items.length !== expected) errors.push(level + " / Cvičení " + number + ": nalezeno " + exercise.items.length + " otázek, očekává se " + expected + ".");
       if (index === 2 && (exercise.items.length < 8 || exercise.items.length > 16)) errors.push(level + " / Cvičení 3: očekává se 8–16 otázek.");
-      if (index === 0 && exercise.items.some(item => item.options.length !== 8)) errors.push(level + " / Cvičení 1: každá položka musí mít společnou nabídku osmi definic a)–h). Zkontrolujte samostatné řádky možností.");
+      if (index === 0 && (exercise.sharedOptions || []).length !== 8) errors.push(level + " / Cvičení 1: každá položka musí mít společnou nabídku osmi definic a)–h). Zkontrolujte samostatné řádky možností.");
       if ((index === 1 || index === 3) && exercise.optionsList.length !== 8) errors.push(level + " / Cvičení " + number + ": chybí banka osmi slov ve formátu „Slova: …“.");
       if (index === 4) {
         const choiceItems = exercise.items.filter(item => item.options.length === 4);
