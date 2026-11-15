@@ -4,133 +4,39 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Czech B1 Mastery: Lekce 2 – Osobní život a rodina (Minulý čas & Rodokmen)</title>
+  <script>window.B1_LESSON = {"topic": "Osobní život a rodina", "number": 2, "title": "Osobní život a rodina", "icon": "fa-users", "notesKey": "cz_b1_l1_notes", "tabs": {"exC": "Rodokmen a příběh"}};</script>
+  <script src="../core/b1-core.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-auth-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-database-compat.js"></script>
+  <script src="../../../scripts-header.js"></script>
   <!-- Tailwind CSS -->
-  <script src="https://cdn.tailwindcss.com"></script>
   <!-- FontAwesome Icons -->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <!-- Google Fonts: Inter -->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
-  
-  <script>
-    tailwind.config = {
-      theme: {
-        extend: {
-          fontFamily: {
-            sans: ['Inter', 'sans-serif'],
-          },
-          colors: {
-            brand: {
-              50: '#f0f9ff',
-              100: '#e0f2fe',
-              500: '#0284c7',
-              600: '#0284c7',
-              700: '#0369a1',
-            }
-          }
-        }
-      }
-    }
-  </script>
   <style>
-    ::-webkit-scrollbar {
-      width: 8px;
-      height: 8px;
-    }
-    ::-webkit-scrollbar-track {
-      background: rgba(15, 23, 42, 0.6);
-    }
-    ::-webkit-scrollbar-thumb {
-      background: rgba(51, 65, 85, 0.8);
-      border-radius: 4px;
-    }
-    ::-webkit-scrollbar-thumb:hover {
-      background: rgba(71, 85, 105, 1);
-    }
-    .glass-card {
-      background: rgba(30, 41, 59, 0.7);
-      backdrop-filter: blur(12px);
-      border: 1px solid rgba(255, 255, 255, 0.08);
-    }
-    .past-token { color:inherit; background:transparent; border:0; border-radius:.25rem; padding:0 .05rem; cursor:pointer; text-decoration:none; }
-    .past-token:hover { color:inherit; background:transparent; }
-    .past-token.past-correct { color:#a7f3d0; background:#064e3b; text-decoration:underline solid #34d399; }
-    .past-token.past-incorrect { color:#94a3b8; background:#334155; }
-    .past-token.past-missed { color:#fecaca; background:#7f1d1d; text-decoration:underline solid #f87171; }
-    .past-token:disabled { cursor:default; }
-    .glass-card-hover:hover {
-      background: rgba(30, 41, 59, 0.9);
-      border-color: rgba(56, 189, 248, 0.3);
-    }
-    .no-scrollbar::-webkit-scrollbar {
-      display: none;
-    }
-    .no-scrollbar {
-      -ms-overflow-style: none;
-      scrollbar-width: none;
-    }
-    @media (max-width: 1023px) {
-      .teacher-notes-widget {
-        position: fixed;
-        right: 0;
-        bottom: 0 !important;
-        left: 0;
-        z-index: 55;
-        width: 100% !important;
-        height: 160px !important;
-        border-radius: 0.75rem 0.75rem 0 0;
-        background: rgba(15, 23, 42, 0.97);
-      }
-    }
+.past-token { color:inherit; background:transparent; border:0; border-radius:.25rem; padding:0 .05rem; cursor:pointer; text-decoration:none; }
+.past-token:hover { color:inherit; background:transparent; }
+.past-token.past-correct { color:#a7f3d0; background:#064e3b; text-decoration:underline solid #34d399; }
+.past-token.past-incorrect { color:#94a3b8; background:#334155; }
+.past-token.past-missed { color:#fecaca; background:#7f1d1d; text-decoration:underline solid #f87171; }
+.past-token:disabled { cursor:default; }
   </style>
 </head>
-<body class="h-full flex flex-col font-sans bg-slate-950 text-slate-100 overflow-x-hidden">
+<body class="min-h-full flex flex-col bg-slate-950 text-slate-100 overflow-x-hidden">
+  <script>B1Lesson.mount();</script>
 
   <!-- HEADER & NAVBAR -->
-  <header class="sticky top-0 z-50 bg-slate-900/90 backdrop-blur-md border-b border-slate-800 shadow-lg">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      <div class="flex items-center justify-between h-16">
-        <!-- Logo / Title -->
-        <div class="flex items-center space-x-3">
-          <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-sky-500 to-indigo-600 flex items-center justify-center text-white shadow-lg shadow-sky-500/20 font-bold text-xl">
-            <i class="fa-solid fa-users text-lg"></i>
-          </div>
-          <div>
-            <h1 class="text-lg font-bold text-white leading-tight">Czech B1 Mastery</h1>
-            <p class="text-xs text-sky-400 font-medium">Lekce 2: Osobní život a rodina &amp; Minulý čas (21 výrazů)</p>
-          </div>
-        </div>
-
-        <a href="../B1_List_of_lessons.html" class="shrink-0 whitespace-nowrap rounded-lg border border-slate-700 bg-slate-800 px-3 py-2 text-xs text-slate-200 hover:bg-slate-700">← Přehled lekcí</a>
-      </div>
-
-      <!-- Navigation Tabs -->
-      <nav class="flex space-x-1 overflow-x-auto no-scrollbar border-t border-slate-800/80 py-2" id="mainTabs">
-        <button onclick="switchTab('tab-vocab')" id="btn-tab-vocab" class="tab-btn active px-4 py-2 text-xs sm:text-sm font-semibold rounded-lg text-white bg-sky-600 shadow-md shadow-sky-600/20 transition flex items-center gap-2 whitespace-nowrap">
-          <i class="fa-solid fa-book"></i> 1. Vocab &amp; Model Content
-        </button>
-        <button onclick="switchTab('tab-exA')" id="btn-tab-exA" class="tab-btn px-4 py-2 text-xs sm:text-sm font-semibold rounded-lg text-slate-400 hover:text-slate-200 hover:bg-slate-800 transition flex items-center gap-2 whitespace-nowrap">
-          <i class="fa-solid fa-pen-to-square"></i> 2. Exercise A: Gap-Fill Drills (25)
-        </button>
-        <button onclick="switchTab('tab-exB')" id="btn-tab-exB" class="tab-btn px-4 py-2 text-xs sm:text-sm font-semibold rounded-lg text-slate-400 hover:text-slate-200 hover:bg-slate-800 transition flex items-center gap-2 whitespace-nowrap">
-          <i class="fa-solid fa-wand-magic-sparkles"></i> 3. Exercise B: Sentence Upgrader
-        </button>
-        <button onclick="switchTab('tab-exC')" id="btn-tab-exC" class="tab-btn px-4 py-2 text-xs sm:text-sm font-semibold rounded-lg text-slate-400 hover:text-slate-200 hover:bg-slate-800 transition flex items-center gap-2 whitespace-nowrap">
-          <i class="fa-solid fa-sitemap"></i> 4. Interaktivní Rodokmen &amp; Příběh
-        </button>
-        <button onclick="switchTab('tab-homework')" id="btn-tab-homework" class="tab-btn px-4 py-2 text-xs sm:text-sm font-semibold rounded-lg text-slate-400 hover:text-slate-200 hover:bg-slate-800 transition flex items-center gap-2 whitespace-nowrap">
-          <i class="fa-solid fa-paper-plane"></i> 5. Homework &amp; Live Notes Area
-        </button>
-      </nav>
-    </div>
-  </header>
 
   <!-- MAIN CONTAINER -->
   <main class="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-6 pb-64">
 
     <!-- TAB 1: B1 VOCABULARY HUB & EXPANDED READING TEXT -->
     <section id="tab-vocab" class="tab-content block space-y-6">
+      <div class="glass-card rounded-2xl border border-sky-500/20 bg-slate-900/50 p-4 sm:p-5">
+        <h2 class="text-lg font-bold text-sky-200">Stručně ke gramatice: minulý čas</h2>
+        <p class="mt-2 text-sm leading-6 text-slate-300">V minulém čase se příčestí shoduje s podmětem v rodě a čísle: <em>psal, psala, psalo; psali, psaly</em>. V 1. a 2. osobě přidáme pomocné sloveso <em>být</em> (<em>já jsem psal/a, ty jsi psal/a, my jsme psali</em>); ve 3. osobě se běžně nepoužívá (<em>on psal, oni psali</em>). Zápor tvoříme předponou <em>ne-</em>: <em>nepsal/a</em>.</p>
+        <button type="button" disabled class="mt-3 cursor-not-allowed rounded-lg border border-slate-600 px-3 py-2 text-sm text-slate-400" aria-disabled="true">Podrobné vysvětlení – work in progress</button>
+      </div>
       <div class="glass-card rounded-2xl p-5 border border-slate-800 flex flex-col md:flex-row gap-4 items-center justify-between">
         <div>
           <h2 class="text-xl font-bold text-white flex items-center gap-2">
@@ -168,29 +74,20 @@
               <i class="fa-solid fa-book-open text-amber-400"></i> Modelový text: Rodinná oslava a historie
             </h3>
           <p class="text-xs text-slate-400 mt-0.5">
-              Přečtěte si příběh a klikněte na každé sloveso v minulém čase (<span id="pastTargetCount">26</span> tvarů). Po kontrole se správné tvary zvýrazní zeleně a vynechané červeně.
+              Přečti, označ minulý čas a odpověz na otázky.
             </p>
           </div>
           <div class="flex items-center gap-3 self-start sm:self-auto">
-            <!-- Gender Toggle -->
-            <div class="flex items-center bg-slate-900 border border-slate-700 p-1 rounded-xl text-xs">
-              <button onclick="setGender('M')" id="gender-btn-M" class="px-3 py-1 rounded-lg font-bold transition text-white bg-sky-600">Muž</button>
-              <button onclick="setGender('Z')" id="gender-btn-Z" class="px-3 py-1 rounded-lg font-bold transition text-slate-400 hover:text-white">Žena</button>
-            </div>
             <button onclick="readStoryText()" class="px-4 py-2 bg-amber-600 hover:bg-amber-500 text-white rounded-xl text-xs font-bold transition flex items-center gap-2 shadow-lg shadow-amber-600/20">
               <i class="fa-solid fa-volume-high"></i> Přehrát celý text
             </button>
           </div>
         </div>
 
-        <div class="text-xs sm:text-sm text-slate-200 leading-relaxed font-sans space-y-3 bg-slate-900/80 p-5 rounded-xl border border-slate-800" id="storyContainer">
+        <div class="text-sm sm:text-base text-slate-200 leading-relaxed font-sans space-y-3 bg-slate-900/80 p-5 rounded-xl border border-slate-800" id="storyContainer">
           <!-- JS Rendered based on Gender -->
         </div>
-        <div class="flex flex-wrap items-center gap-3">
-          <button onclick="finishPastTenseExercise()" id="finishPastExercise" class="px-4 py-2 bg-emerald-600 hover:bg-emerald-500 text-white rounded-xl text-xs font-bold">Zkontrolovat minulý čas</button>
-          <button onclick="renderModelStory()" class="px-4 py-2 bg-slate-800 hover:bg-slate-700 text-slate-200 rounded-xl text-xs font-bold">Zkusit znovu</button>
-          <span id="pastExerciseStatus" class="text-xs text-slate-400" aria-live="polite">Kliknuto správně: 0 z 26</span>
-        </div>
+        <div><span id="pastCount"></span></div>
 
         <!-- 3-Question Comprehension Quiz -->
         <div class="pt-4 border-t border-slate-800/80 space-y-4">
@@ -592,14 +489,6 @@
 
   </main>
 
-  <aside class="teacher-notes-widget fixed bottom-4 right-4 z-[55] flex h-64 w-80 max-w-[calc(100vw-2rem)] flex-col rounded-2xl border border-sky-500/30 bg-slate-900/95 p-4 shadow-2xl backdrop-blur-md" aria-label="Teacher Live Notes">
-    <div class="mb-2 flex items-center justify-between border-b border-slate-700 pb-2">
-      <h2 class="text-sm font-bold text-white"><i class="fa-solid fa-clipboard-user mr-2 text-sky-400"></i>Teacher Live Notes</h2>
-      <span class="text-[10px] text-slate-400">Auto-saved</span>
-    </div>
-    <textarea class="teacherNotesArea min-h-0 w-full flex-1 resize-none rounded-lg border border-slate-700 bg-slate-950 p-3 text-xs text-slate-100 focus:border-sky-500 focus:outline-none" oninput="syncTeacherNotes(this)" placeholder="+ Skvělá formulace&#10;− Oprava / doporučení"></textarea>
-  </aside>
-
   <!-- JAVASCRIPT LOGIC -->
   <script>
     /* ==========================================================================
@@ -723,40 +612,15 @@
       }
     }
 
-    /* GENDER TOGGLE FOR STORY */
-    function setGender(g) {
-      currentGender = g;
-      document.getElementById('gender-btn-M').className = g === 'M' ? "px-3 py-1 rounded-lg font-bold transition text-white bg-sky-600" : "px-3 py-1 rounded-lg font-bold transition text-slate-400 hover:text-white";
-      document.getElementById('gender-btn-Z').className = g === 'Z' ? "px-3 py-1 rounded-lg font-bold transition text-white bg-sky-600" : "px-3 py-1 rounded-lg font-bold transition text-slate-400 hover:text-white";
-      renderModelStory();
-    }
-
     function renderModelStory() {
       const container = document.getElementById('storyContainer');
-      const isM = currentGender === 'M';
-      const past = text => `<button type="button" class="past-token" data-correct="true" onclick="selectPastToken(this)" aria-label="Sloveso v minulém čase">${text}</button>`;
-      container.innerHTML = `<p>Minulou sobotu ${past('jsme')} ${past('měli')} velkou rodinnou oslavu, takže se ${past('sešla')} celá rodina. ${past(isM ? 'Narodil' : 'Narodila')} ${past('jsem')} se v Praze, ale moji rodiče ${past('pocházeli')} z Moravy a dnes žijí v Praze. ${past('Vzali')} se před třiceti lety a brzy potom se ${past('přestěhovali')} do hlavního města. Otec ${past('pracoval')} celé roky jako inženýr a ${past('byl')} vždycky neuvěřitelně pracovitý.</p><p>Na oslavu ${past('přišla')} celá širší rodina. Moje sestra nedávno ${past('vystudovala')} univerzitu a minulý rok se ${past('vdala')}. Její manžel, můj nový švagr, ${past('byl')} moc sympatický. Můj bratranec a sestřenice ${past('přijeli')} až z Olomouce. Babička nedávno ${past('oslavila')} osmdesáté narozeniny, ale dědeček bohužel před pěti lety ${past('zemřel')}.</p><p>Všichni prarodiče i strýcové ${past('byli')} vždycky velice pohostinní. ${past('Prohlíželi')} ${past('jsme')} si staré fotografie a ${past('vzpomínali')} ${past('jsme')} na dětství. Můj strýc se ${past('rozvedl')} před dvěma lety. Na oslavě ${past('panovala')} skvělá nálada a všichni ${past('jsme')} si to moc ${past('užili')}.</p>`;
-      const targetCount = container.querySelectorAll('.past-token[data-correct="true"]').length;
-      document.getElementById('pastTargetCount').textContent = targetCount;
-      document.getElementById('pastExerciseStatus').textContent = `Kliknuto správně: 0 z ${targetCount}`;
-      document.getElementById('finishPastExercise').disabled = false;
-    }
-
-    function selectPastToken(button) {
-      if (button.disabled) return;
-      if (button.dataset.correct === 'true') { button.classList.add('past-correct'); button.dataset.selected = 'true'; }
-      else button.classList.add('past-incorrect');
-      const selected = document.querySelectorAll('#storyContainer .past-token[data-selected="true"]').length;
-      const targetCount = document.querySelectorAll('#storyContainer .past-token[data-correct="true"]').length;
-      document.getElementById('pastExerciseStatus').textContent = `Kliknuto správně: ${selected} z ${targetCount}`;
-    }
-
-    function finishPastTenseExercise() {
-      const tokens = Array.from(document.querySelectorAll('#storyContainer .past-token[data-correct="true"]'));
-      let missed = 0;
-      tokens.forEach(button => { if (button.dataset.correct === 'true' && button.dataset.selected !== 'true') { button.classList.add('past-missed'); missed++; } button.disabled = true; });
-      document.getElementById('finishPastExercise').disabled = true;
-      document.getElementById('pastExerciseStatus').textContent = missed ? `Hotovo. Vynechali jste ${missed} tvarů; jsou označené červeně.` : 'Hotovo. Našli jste všechny tvary minulého času!';
+      const isM = B1Gender.isMale();
+      const narodil = isM ? 'Narodil' : 'Narodila';
+      container.innerHTML = `<p>Minulou sobotu jsme měli velkou rodinnou oslavu, takže se sešla celá rodina. ${narodil} jsem se v Praze, ale moji rodiče pocházeli z Moravy a dnes žijí v Praze. Vzali se před třiceti lety a brzy potom se přestěhovali do hlavního města. Otec pracoval celé roky jako inženýr a byl vždycky neuvěřitelně pracovitý.</p><p>Na oslavu přišla celá širší rodina. Moje sestra nedávno vystudovala univerzitu a minulý rok se vdala. Její manžel, můj nový švagr, byl moc sympatický. Můj bratranec a sestřenice přijeli až z Olomouce. Babička nedávno oslavila osmdesáté narozeniny, ale dědeček bohužel před pěti lety zemřel.</p><p>Všichni prarodiče i strýcové byli vždycky velice pohostinní. Prohlíželi jsme si staré fotografie a vzpomínali jsme na dětství. Můj strýc se rozvedl před dvěma lety. Na oslavě panovala skvělá nálada a všichni jsme si to moc užili.</p>`;
+      B1Marking.setup('storyContainer', 'pastCount', ['jsme měli', '~se sešla', narodil + ' jsem ~se', 'pocházeli', 'Vzali ~se', '~se přestěhovali', 'pracoval', 'byl', 'přišla', 'vystudovala', '~se vdala', 'přijeli', 'oslavila', 'zemřel', 'byli', 'Prohlíželi jsme ~si', 'vzpomínali jsme', '~se rozvedl', 'panovala', 'jsme ~si ~to ~moc užili'], 'slov v minulém čase');
+      const total = container.querySelectorAll('[data-correct="true"]').length;
+      const target = document.getElementById('pastTargetCount');
+      if (target) target.textContent = total;
     }
 
     function readStoryText() {
@@ -898,7 +762,6 @@
               ${parts[1]}
             </div>
             <div class="flex items-center gap-3 self-end sm:self-center flex-shrink-0">
-              <span class="text-xs sm:text-sm text-amber-400/90 font-mono bg-slate-900/90 px-3 py-1.5 rounded-lg border border-slate-800 shadow-sm">${item.hint}</span>
               <button onclick="speakText('${cleanAudioSentence.replace(/'/g, "\\'")}')" class="w-9 h-9 rounded-lg bg-slate-800 hover:bg-sky-600/30 text-slate-300 hover:text-sky-300 border border-slate-700 transition flex items-center justify-center" title="Přehrát větu">
                 <i class="fa-solid fa-volume-high text-sm"></i>
               </button>
@@ -1469,11 +1332,12 @@
     }
 
     /* INITIALIZATION ON LOAD */
+    renderVocab();
     window.onload = () => {
       shuffleQuizChoices();
       window.addEventListener('resize', () => requestAnimationFrame(drawFamilyConnections));
-      renderVocab();
       renderModelStory();
+      B1Gender.onChange(renderModelStory);
       renderExerciseA();
       renderExerciseB();
       renderFamilyCanvas();
@@ -1488,5 +1352,6 @@
       updateHomeworkPack();
     };
   </script>
+  
 </body>
 </html>
