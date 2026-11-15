@@ -4,126 +4,32 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Czech B1 Mastery: Lesson 1 - Travel Habits & 2. pád</title>
+  <script>window.B1_LESSON = {"topic": "Cestování", "number": 1, "title": "Zvyky při cestování", "icon": "fa-plane-departure", "notesKey": "czech_b1_teacher_notes", "tabs": {"exC": "Rozhovor"}};</script>
+  <script src="../core/b1-core.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-auth-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-database-compat.js"></script>
+  <script src="../../../scripts-header.js"></script>
   <!-- Tailwind CSS -->
-  <script src="https://cdn.tailwindcss.com"></script>
   <!-- FontAwesome Icons -->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <!-- Google Fonts: Inter -->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
   
-  <script>
-    tailwind.config = {
-      theme: {
-        extend: {
-          fontFamily: {
-            sans: ['Inter', 'sans-serif'],
-          },
-          colors: {
-            brand: {
-              50: '#f0f9ff',
-              100: '#e0f2fe',
-              500: '#0284c7',
-              600: '#0284c7',
-              700: '#0369a1',
-            }
-          }
-        }
-      }
-    }
-  </script>
-  <style>
-    /* Custom scrollbar & glassmorphism utilities */
-    ::-webkit-scrollbar {
-      width: 8px;
-      height: 8px;
-    }
-    ::-webkit-scrollbar-track {
-      background: rgba(15, 23, 42, 0.6);
-    }
-    ::-webkit-scrollbar-thumb {
-      background: rgba(51, 65, 85, 0.8);
-      border-radius: 4px;
-    }
-    ::-webkit-scrollbar-thumb:hover {
-      background: rgba(71, 85, 105, 1);
-    }
-    .glass-card {
-      background: rgba(30, 41, 59, 0.7);
-      backdrop-filter: blur(12px);
-      border: 1px solid rgba(255, 255, 255, 0.08);
-    }
-    .glass-card-hover:hover {
-      background: rgba(30, 41, 59, 0.9);
-      border-color: rgba(56, 189, 248, 0.3);
-    }
-    @media (max-width: 1023px) {
-      .teacher-notes-widget {
-        position: fixed;
-        right: 0;
-        bottom: 0 !important;
-        left: 0;
-        z-index: 55;
-        width: 100% !important;
-        height: 160px !important;
-        border-radius: 0.75rem 0.75rem 0 0;
-        background: rgba(15, 23, 42, 0.97);
-      }
-    }
-  </style>
 </head>
-<body class="h-full flex flex-col font-sans bg-slate-950 text-slate-100 overflow-x-hidden">
+<body class="min-h-full flex flex-col bg-slate-950 text-slate-100 overflow-x-hidden">
+  <script>B1Lesson.mount();</script>
 
   <!-- HEADER & NAVBAR -->
-  <header class="sticky top-0 z-50 bg-slate-900/90 backdrop-blur-md border-b border-slate-800 shadow-lg">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      <div class="flex items-center justify-between h-16">
-        <!-- Logo / Title -->
-        <div class="flex items-center space-x-3">
-          <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-sky-500 to-indigo-600 flex items-center justify-center text-white shadow-lg shadow-sky-500/20 font-bold text-xl">
-            <i class="fa-solid fa-plane-departure"></i>
-          </div>
-          <div>
-            <h1 class="text-lg font-bold text-white leading-tight">Czech B1 Mastery</h1>
-            <p class="text-xs text-sky-400 font-medium">Lesson 1: Travel Habits & Genitive (2. pád)</p>
-          </div>
-        </div>
-
-        <div class="flex items-center justify-between py-2 text-xs font-medium">
-          <a href="../B1_List_of_lessons.html" class="rounded-lg border border-slate-700 bg-slate-800 px-3 py-1.5 text-slate-300 hover:bg-slate-700">← Přehled lekcí</a>
-          <button id="ttsTestBtn" onclick="speakText('Vítáme vás v hodině češtiny!')" class="hidden sm:flex items-center gap-1.5 rounded-lg border border-sky-500/30 bg-sky-600/20 px-3 py-1.5 text-sky-300 transition hover:bg-sky-600/30">
-            <i class="fa-solid fa-volume-high"></i> Poslechnout ukázku
-          </button>
-        </div>
-      </div>
-
-      <!-- Navigation Tabs -->
-      <nav class="flex space-x-1 overflow-x-auto no-scrollbar border-t border-slate-800/80 py-2" id="mainTabs">
-        <button onclick="switchTab('tab-vocab')" id="btn-tab-vocab" class="tab-btn active px-4 py-2 text-xs sm:text-sm font-semibold rounded-lg text-white bg-sky-600 shadow-md shadow-sky-600/20 transition flex items-center gap-2 whitespace-nowrap">
-          <i class="fa-solid fa-book"></i> 1. Core B1 Vocab (21)
-        </button>
-        <button onclick="switchTab('tab-exA')" id="btn-tab-exA" class="tab-btn px-4 py-2 text-xs sm:text-sm font-semibold rounded-lg text-slate-400 hover:text-slate-200 hover:bg-slate-800 transition flex items-center gap-2 whitespace-nowrap">
-          <i class="fa-solid fa-pen-to-square"></i> 2. Exercise A: 25 Gap-Fills
-        </button>
-        <button onclick="switchTab('tab-exB')" id="btn-tab-exB" class="tab-btn px-4 py-2 text-xs sm:text-sm font-semibold rounded-lg text-slate-400 hover:text-slate-200 hover:bg-slate-800 transition flex items-center gap-2 whitespace-nowrap">
-          <i class="fa-solid fa-wand-magic-sparkles"></i> 3. Exercise B: 10 Sentence Upgrades
-        </button>
-        <button onclick="switchTab('tab-exC')" id="btn-tab-exC" class="tab-btn px-4 py-2 text-xs sm:text-sm font-semibold rounded-lg text-slate-400 hover:text-slate-200 hover:bg-slate-800 transition flex items-center gap-2 whitespace-nowrap">
-          <i class="fa-solid fa-comments"></i> 4. Exercise C: Live Interview
-        </button>
-        <button onclick="switchTab('tab-homework')" id="btn-tab-homework" class="tab-btn px-4 py-2 text-xs sm:text-sm font-semibold rounded-lg text-slate-400 hover:text-slate-200 hover:bg-slate-800 transition flex items-center gap-2 whitespace-nowrap">
-          <i class="fa-solid fa-paper-plane"></i> 5. Homework & Pack
-        </button>
-      </nav>
-    </div>
-  </header>
 
   <!-- MAIN CONTAINER -->
   <main class="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-6 pb-64">
 
     <!-- TAB 1: CORE B1 VOCABULARY HUB -->
     <section id="tab-vocab" class="tab-content block space-y-6">
+      <div class="glass-card rounded-2xl border border-sky-500/20 bg-slate-900/50 p-4 sm:p-5">
+        <h2 class="text-lg font-bold text-sky-200">Stručně ke gramatice: 2. pád (genitiv)</h2>
+        <p class="mt-2 text-sm leading-6 text-slate-300">Genitiv odpovídá na otázku <em>koho, čeho?</em> Používáme ho například po předložkách <em>do, z/ze, bez, během</em> a ve spojeních vyjadřujících množství. V sousloví se do genitivu mění podstatné jméno i jeho přídavné jméno: <em>do nového města, bez platného pasu</em>. Koncovky závisejí na rodě, čísle a typu skloňování.</p>
+        <button type="button" disabled class="mt-3 cursor-not-allowed rounded-lg border border-slate-600 px-3 py-2 text-sm text-slate-400" aria-disabled="true">Podrobné vysvětlení – work in progress</button>
+      </div>
       <!-- Section Intro & Filters -->
       <div class="glass-card rounded-2xl p-5 border border-slate-800 flex flex-col md:flex-row gap-4 items-center justify-between">
         <div>
@@ -162,15 +68,14 @@
           <h3 class="text-lg font-bold text-white flex items-center gap-2">
             <i class="fa-solid fa-book-open text-amber-400"></i> Model Reading: Moje cestovní návyky
           </h3>
-          <p class="text-xs text-slate-400 mt-1">Student/ka čte nahlas. Potom odpovězte na tři otázky.</p>
+          <p class="text-xs text-slate-400 mt-1">Přečti, označ 2. pád a odpověz na otázky.</p>
         </div>
         <div class="flex flex-wrap items-center justify-between gap-2 text-xs">
-          <p class="text-slate-400">Kliknutím označte slova a spojení ve 2. pádě.</p>
           <div class="flex items-center gap-2"><span id="genitiveMarkCount" class="text-amber-300" aria-live="polite">Označeno: 0 slov</span><button type="button" onclick="clearGenitiveMarks('readingText','genitiveMarkCount')" class="rounded-lg bg-slate-800 px-2 py-1 text-slate-300 hover:bg-slate-700">Zrušit označení</button></div>
         </div>
         <div id="readingText" class="text-sm text-slate-200 leading-relaxed bg-slate-900/80 p-5 rounded-xl border border-slate-800">
           <p>
-            Cestování mě baví, ale rád se na něj připravuji. Před cestou si vždy zkontroluji počasí a koupím jízdenku předem. Nejraději cestuji vlakem, protože během cesty můžu číst nebo poslouchat hudbu. Když jedu do ciziny, balím si jen malé zavazadlo a nikdy necestuji <strong class="text-sky-300">bez cestovního pojištění</strong>. Na letiště přijíždím s dostatečným předstihem, abych neměl stres. Každá cesta závisí na dobrém plánu, ale nejlepší zážitky často přijdou nečekaně.
+            Cestování mě baví, ale {{rád|ráda}} se na něj připravuji. Před cestou si vždy zkontroluji počasí a koupím jízdenku předem. Nejraději cestuji vlakem, protože během cesty můžu číst nebo poslouchat hudbu. Když jedu do ciziny, balím si jen malé zavazadlo a nikdy necestuji <strong class="text-sky-300">bez cestovního pojištění</strong>. Na letiště přijíždím s dostatečným předstihem, abych {{neměl|neměla}} stres. Každá cesta závisí na dobrém plánu, ale nejlepší zážitky často přijdou nečekaně.
           </p>
         </div>
         <div>
@@ -339,14 +244,6 @@
 
   </main>
 
-  <aside class="teacher-notes-widget fixed bottom-4 right-4 z-[55] flex h-64 w-80 max-w-[calc(100vw-2rem)] flex-col rounded-2xl border border-sky-500/30 bg-slate-900/95 p-4 shadow-2xl backdrop-blur-md" aria-label="Teacher Live Notes">
-    <div class="mb-2 flex items-center justify-between border-b border-slate-700 pb-2">
-      <h2 class="text-sm font-bold text-white"><i class="fa-solid fa-clipboard-user mr-2 text-sky-400"></i>Teacher Live Notes</h2>
-      <span class="text-[10px] text-slate-400">Auto-saved</span>
-    </div>
-    <textarea class="teacherNotesArea min-h-0 w-full flex-1 resize-none rounded-lg border border-slate-700 bg-slate-950 p-3 text-xs text-slate-100 focus:border-sky-500 focus:outline-none" oninput="saveTeacherNotes(this)" placeholder="+ Skvělá fráze&#10;− Oprava / doporučení"></textarea>
-  </aside>
-
   <script>
     /* ==========================================================================
        DATA STRUCTURES: VOCABULARY, DRILLS, SCENARIOS, INTERVIEW ROUNDS
@@ -417,12 +314,12 @@
         }
         return `
           <div class="bg-slate-900 p-4 rounded-xl border border-slate-800 space-y-2">
-            <p class="font-bold text-slate-200">${questionIndex + 1}. ${question.question}</p>
+            <p class="font-bold text-slate-200">${questionIndex + 1}. ${B1Gender.t(question.question)}</p>
             <div class="space-y-1 text-slate-400">
               ${options.map((option, optionIndex) => `
                 <label class="flex items-start gap-2 cursor-pointer hover:text-slate-200">
                   <input type="radio" name="reading-q${questionIndex + 1}" data-correct="${option.correct}" onchange="checkReadingQuiz(${questionIndex + 1})">
-                  <span>${letters[optionIndex]}. ${option.text}</span>
+                  <span>${letters[optionIndex]}. ${B1Gender.t(option.text)}</span>
                 </label>
               `).join('')}
             </div>
@@ -446,31 +343,31 @@
     }
 
     const DRILLS_EX_A = [
-      { id: 1, prompt: "Ujel mi vlak, protože jsem musel běžet až od ____ (domov).", base: "domov", ans: "domova", hint: "m. inanim: od domova" },
-      { id: 2, prompt: "Včera jsme stáli dvě hodiny v zácpě na sjezdu z ____ (dálnice).", base: "dálnice", ans: "dálnice", hint: "fem: z dálnice" },
-      { id: 3, prompt: "Rezervuji si jízdenky předem, abych se vyhnul dlouhému čekání u ____ (pokladna).", base: "pokladna", ans: "pokladny", hint: "fem: u pokladny" },
-      { id: 4, prompt: "Půjčil jsem si auto z ____ (půjčovna), ale bez ____ (navigace) bych se ztratil.", base: "půjčovna / navigace", ans: "půjčovny / navigace", isDouble: true, ans1: "půjčovny", ans2: "navigace", hint: "fem / fem: z půjčovny / bez navigace" },
-      { id: 5, prompt: "Dostala pokutu tisíc korun od ____ (policie) za rychlou jízdu.", base: "policie", ans: "policie", hint: "fem: od policie" },
-      { id: 6, prompt: "Místo ____ (dovolená) u moře letos jedeme do českých hor.", base: "dovolená", ans: "dovolené", hint: "fem adjective form: místo dovolené" },
-      { id: 7, prompt: "Nemám rád cestování do ciziny bez mého ____ (kufr).", base: "kufr", ans: "kufru", hint: "m. inanim: bez kufru" },
-      { id: 8, prompt: "Měli jsme obrovské zpoždění kvůli špatnému počasí kolem ____ (letiště).", base: "letiště", ans: "letiště", hint: "neut: kolem letiště" },
-      { id: 9, prompt: "Zastávka tramvaje je jen pár metrů od ____ (nádraží).", base: "nádraží", ans: "nádraží", hint: "neut: od nádraží" },
-      { id: 10, prompt: "Při návštěvě Prahy nemůžeme vynechat prohlídku ____ (památky - pl.).", base: "památky", ans: "památek", hint: "fem plural genitive: památek" },
-      { id: 11, prompt: "Během cesty z ____ (Brno) do ____ (Praha) jsme neměli žádný problém.", base: "Brno / Praha", ans: "Brna / Prahy", isDouble: true, ans1: "Brna", ans2: "Prahy", hint: "neut / fem: z Brna do Prahy" },
-      { id: 12, prompt: "Autobus odjíždí přesně z ____ (zastávka) číslo 4.", base: "zastávka", ans: "zastávky", hint: "fem: ze zastávky" },
-      { id: 13, prompt: "Mám hodně skvělých zážitků z ____ (cestování).", base: "cestování", ans: "cestování", hint: "neut: z cestování" },
-      { id: 14, prompt: "Na hranicích do ____ (Rakousko) byla velmi dlouhá kontrola.", base: "Rakousko", ans: "Rakouska", hint: "neut: do Rakouska" },
-      { id: 15, prompt: "Změna mého ____ (dopravní návyk) byla opravdu nutná.", base: "dopravní návyk", ans: "dopravního návyku", hint: "adj + m. inanim: dopravního návyku" },
-      { id: 16, prompt: "Vystoupili jsme z ____ (vlak) hned na první stanici.", base: "vlak", ans: "vlaku", hint: "m. inanim: z vlaku" },
-      { id: 17, prompt: "Nemám rád dlouhé čekání během ____ (odlet).", base: "odlet", ans: "odletu", hint: "m. inanim: během odletu" },
-      { id: 18, prompt: "Do ____ (práce) jezdím každé ráno už od ____ (sedm hodin).", base: "práce / sedm hodin", ans: "práce / sedmi hodin", isDouble: true, ans1: "práce", ans2: "sedmi hodin", hint: "fem / genitive time: do práce / od sedmi hodin" },
-      { id: 19, prompt: "Přejezd ____ (hranice - pl.) proběhl bez problémů.", base: "hranice", ans: "hranic", hint: "fem plural genitive: přejezd hranic" },
-      { id: 20, prompt: "Můj kamarád cestuje raději bez ____ (průvodce).", base: "průvodce", ans: "průvodce", hint: "masc. anim: bez průvodce" },
-      { id: 21, prompt: "Koupil si lístek do ____ (muzeum) přes internet.", base: "muzeum", ans: "muzea", hint: "neut: do muzea" },
-      { id: 22, prompt: "Auto je rozbité, takže se vracíme z ____ (autoservis) pěšky.", base: "autoservis", ans: "autoservisu", hint: "m. inanim: z autoservisu" },
-      { id: 23, prompt: "Od ____ (poslední cesta) uplynuly už dva měsíce.", base: "poslední cesta", ans: "poslední cesty", hint: "adj + fem: od poslední cesty" },
-      { id: 24, prompt: "Místo ____ (rychlík) musíme jet pomalým osobním vlakem.", base: "rychlík", ans: "rychlíku", hint: "m. inanim: místo rychlíku" },
-      { id: 25, prompt: "Vrátila se z ____ (prohlídka) města celá unavená.", base: "prohlídka", ans: "prohlídky", hint: "fem: z prohlídky" }
+      { id: 1, prompt: "Ujel mi vlak, protože jsem musel běžet až od ____ (domov).", base: "domov", ans: "domova", hint: "m. inanim" },
+      { id: 2, prompt: "Včera jsme stáli dvě hodiny v zácpě na sjezdu z ____ (dálnice).", base: "dálnice", ans: "dálnice", hint: "fem" },
+      { id: 3, prompt: "Rezervuji si jízdenky předem, abych se vyhnul dlouhému čekání u ____ (pokladna).", base: "pokladna", ans: "pokladny", hint: "fem" },
+      { id: 4, prompt: "Půjčil jsem si auto z ____ (půjčovna), ale bez ____ (navigace) bych se ztratil.", base: "půjčovna / navigace", ans: "půjčovny / navigace", isDouble: true, ans1: "půjčovny", ans2: "navigace", hint: "fem / fem" },
+      { id: 5, prompt: "Dostala pokutu tisíc korun od ____ (policie) za rychlou jízdu.", base: "policie", ans: "policie", hint: "fem" },
+      { id: 6, prompt: "Místo ____ (dovolená) u moře letos jedeme do českých hor.", base: "dovolená", ans: "dovolené", hint: "fem adjective form" },
+      { id: 7, prompt: "Nemám rád cestování do ciziny bez mého ____ (kufr).", base: "kufr", ans: "kufru", hint: "m. inanim" },
+      { id: 8, prompt: "Měli jsme obrovské zpoždění kvůli špatnému počasí kolem ____ (letiště).", base: "letiště", ans: "letiště", hint: "neut" },
+      { id: 9, prompt: "Zastávka tramvaje je jen pár metrů od ____ (nádraží).", base: "nádraží", ans: "nádraží", hint: "neut" },
+      { id: 10, prompt: "Při návštěvě Prahy nemůžeme vynechat prohlídku ____ (památky - pl.).", base: "památky", ans: "památek", hint: "fem plural genitive" },
+      { id: 11, prompt: "Během cesty z ____ (Brno) do ____ (Praha) jsme neměli žádný problém.", base: "Brno / Praha", ans: "Brna / Prahy", isDouble: true, ans1: "Brna", ans2: "Prahy", hint: "neut / fem" },
+      { id: 12, prompt: "Autobus odjíždí přesně z ____ (zastávka) číslo 4.", base: "zastávka", ans: "zastávky", hint: "fem" },
+      { id: 13, prompt: "Mám hodně skvělých zážitků z ____ (cestování).", base: "cestování", ans: "cestování", hint: "neut" },
+      { id: 14, prompt: "Na hranicích do ____ (Rakousko) byla velmi dlouhá kontrola.", base: "Rakousko", ans: "Rakouska", hint: "neut" },
+      { id: 15, prompt: "Změna mého ____ (dopravní návyk) byla opravdu nutná.", base: "dopravní návyk", ans: "dopravního návyku", hint: "adj + m. inanim" },
+      { id: 16, prompt: "Vystoupili jsme z ____ (vlak) hned na první stanici.", base: "vlak", ans: "vlaku", hint: "m. inanim" },
+      { id: 17, prompt: "Nemám rád dlouhé čekání během ____ (odlet).", base: "odlet", ans: "odletu", hint: "m. inanim" },
+      { id: 18, prompt: "Do ____ (práce) jezdím každé ráno už od ____ (sedm hodin).", base: "práce / sedm hodin", ans: "práce / sedmi hodin", isDouble: true, ans1: "práce", ans2: "sedmi hodin", hint: "fem / genitive time" },
+      { id: 19, prompt: "Přejezd ____ (hranice - pl.) proběhl bez problémů.", base: "hranice", ans: "hranic", hint: "fem plural genitive" },
+      { id: 20, prompt: "Můj kamarád cestuje raději bez ____ (průvodce).", base: "průvodce", ans: "průvodce", hint: "masc. anim" },
+      { id: 21, prompt: "Koupil si lístek do ____ (muzeum) přes internet.", base: "muzeum", ans: "muzea", hint: "neut" },
+      { id: 22, prompt: "Auto je rozbité, takže se vracíme z ____ (autoservis) pěšky.", base: "autoservis", ans: "autoservisu", hint: "m. inanim" },
+      { id: 23, prompt: "Od ____ (poslední cesta) uplynuly už dva měsíce.", base: "poslední cesta", ans: "poslední cesty", hint: "adj + fem" },
+      { id: 24, prompt: "Místo ____ (rychlík) musíme jet pomalým osobním vlakem.", base: "rychlík", ans: "rychlíku", hint: "m. inanim" },
+      { id: 25, prompt: "Vrátila se z ____ (prohlídka) města celá unavená.", base: "prohlídka", ans: "prohlídky", hint: "fem" }
     ];
 
     const SCENARIOS_EX_B = [
@@ -720,17 +617,11 @@
               ` : `
                 <input type="text" id="exA-input-${item.id}" placeholder="Your answer" onkeyup="checkExAItem(${item.id})" class="w-36 sm:w-44 bg-slate-900 border border-slate-700 text-slate-200 text-xs rounded-lg px-2.5 py-1.5 focus:outline-none focus:border-emerald-500">
               `}
-              <button onclick="toggleExAHint(${item.id})" class="p-1.5 bg-slate-800 hover:bg-slate-700 text-slate-400 hover:text-slate-200 rounded-lg text-xs transition" title="Show Hint">
-                <i class="fa-solid fa-lightbulb"></i>
-              </button>
             </div>
           </div>
 
           <!-- Hint / Solution status -->
-          <div id="exA-feedback-${item.id}" class="hidden text-xs flex items-center justify-between pt-2 border-t border-slate-800/60">
-            <span id="exA-hintText-${item.id}" class="text-amber-400 font-mono text-[11px]">
-              <i class="fa-solid fa-info-circle"></i> ${item.hint}
-            </span>
+          <div id="exA-feedback-${item.id}" class="hidden text-xs flex items-center justify-end pt-2 border-t border-slate-800/60">
             <span id="exA-statusText-${item.id}" class="font-bold"></span>
           </div>
         </div>
@@ -838,8 +729,8 @@
           <div class="space-y-2">
             <!-- Question & A2 Answer -->
             <div class="flex items-start justify-between gap-2">
-              <h3 class="font-bold text-white text-xs sm:text-sm">${item.q}</h3>
-              <span class="text-[10px] font-bold px-2 py-0.5 rounded bg-amber-500/20 text-amber-300 border border-amber-500/30 whitespace-nowrap">A2 Answer: "${item.a2}"</span>
+              <h3 class="font-bold text-white text-xs sm:text-sm">${B1Gender.t(item.q)}</h3>
+              <span class="text-[10px] font-bold px-2 py-0.5 rounded bg-amber-500/20 text-amber-300 border border-amber-500/30 whitespace-nowrap">A2 Answer: "${B1Gender.t(item.a2)}"</span>
             </div>
 
             <!-- Target Prompts -->
@@ -864,7 +755,7 @@
             </div>
 
             <div id="exB-modelBox-${item.id}" class="hidden bg-emerald-950/20 border border-emerald-500/30 p-2.5 rounded-xl text-xs text-emerald-300 italic">
-              <i class="fa-solid fa-star text-amber-400 mr-1"></i> "${item.b1}"
+              <i class="fa-solid fa-star text-amber-400 mr-1"></i> "${B1Gender.t(item.b1)}"
             </div>
           </div>
         </div>
@@ -896,7 +787,7 @@
         <div class="glass-card rounded-2xl p-5 border border-slate-800 space-y-4">
           <div class="flex items-start justify-between gap-3">
             <h3 class="font-bold text-white text-base leading-snug">
-              <span class="text-indigo-400 font-mono mr-2">Q${idx + 1}:</span>${q.q}
+              <span class="text-indigo-400 font-mono mr-2">Q${idx + 1}:</span>${B1Gender.t(q.q)}
             </h3>
             <button onclick="speakText('${q.q.replace(/'/g, "\\'")}')" class="p-2 rounded-lg bg-indigo-600/20 text-indigo-300 border border-indigo-500/30 hover:bg-indigo-600/40 transition">
               <i class="fa-solid fa-volume-high text-xs"></i>
@@ -1034,9 +925,10 @@ Send your 4 sentences back before our next lesson. Na shledanou!`;
     window.onload = function() {
       renderVocab();
       renderReadingQuiz();
-      enableGenitiveMarking('readingText', 'genitiveMarkCount');
+      B1Marking.setup('readingText', 'genitiveMarkCount', ['během cesty', 'do ciziny', 'bez cestovního pojištění']);
       renderExA();
       renderExB();
+      B1Gender.onChange(() => { renderReadingQuiz(); renderExB(); renderInterviewQuestions(); });
       renderInterviewTabs();
       renderInterviewQuestions();
 
@@ -1046,5 +938,6 @@ Send your 4 sentences back before our next lesson. Na shledanou!`;
       generateHomeworkText();
     };
   </script>
+  
 </body>
 </html>

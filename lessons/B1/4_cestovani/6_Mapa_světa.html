@@ -4,71 +4,27 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Czech B1 Mastery: Lekce 6 – 2. pád: Země, města a národnosti</title>
+  <script>window.B1_LESSON = {"topic": "Cestování", "number": 6, "title": "Země, města a národnosti", "icon": "fa-earth-europe", "notesKey": "cz_b1_l6_notes", "tabs": {"world": "Mapa světa"}};</script>
+  <script src="../core/b1-core.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-auth-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-database-compat.js"></script>
+  <script src="../../../scripts-header.js"></script>
   <!-- Tailwind CSS -->
-  <script src="https://cdn.tailwindcss.com"></script>
   <!-- FontAwesome Icons -->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <!-- Google Fonts: Inter -->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
   <!-- Leaflet Real World Map CSS & JS -->
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" crossorigin="" />
   <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" crossorigin=""></script>
-  
-  <script>
-    tailwind.config = {
-      theme: {
-        extend: {
-          fontFamily: {
-            sans: ['Inter', 'sans-serif'],
-          },
-          colors: {
-            brand: {
-              50: '#f0f9ff',
-              100: '#e0f2fe',
-              500: '#0284c7',
-              600: '#0284c7',
-              700: '#0369a1',
-            }
-          }
-        }
-      }
-    }
-  </script>
   <style>
-    ::-webkit-scrollbar {
-      width: 8px;
-      height: 8px;
-    }
-    ::-webkit-scrollbar-track {
-      background: rgba(15, 23, 42, 0.6);
-    }
-    ::-webkit-scrollbar-thumb {
-      background: rgba(51, 65, 85, 0.8);
-      border-radius: 4px;
-    }
-    ::-webkit-scrollbar-thumb:hover {
-      background: rgba(71, 85, 105, 1);
-    }
-    .glass-card {
-      background: rgba(30, 41, 59, 0.7);
-      backdrop-filter: blur(12px);
-      border: 1px solid rgba(255, 255, 255, 0.08);
-    }
-    .glass-card-hover:hover {
-      background: rgba(30, 41, 59, 0.9);
-      border-color: rgba(56, 189, 248, 0.3);
-    }
-    /* Custom Leaflet Map styling to match dark theme */
-    .leaflet-container {
+.leaflet-container {
       background: #020617 !important;
       font-family: 'Inter', sans-serif !important;
     }
-    .leaflet-tile-pane {
+.leaflet-tile-pane {
       filter: brightness(0.6) invert(1) contrast(3) hue-rotate(200deg) saturate(0.3);
     }
-    .leaflet-popup-content-wrapper, .leaflet-popup-tip {
+.leaflet-popup-content-wrapper, .leaflet-popup-tip {
       background: #0f172a !important;
       color: #f8fafc !important;
       border: 1px solid rgba(56, 189, 248, 0.3);
@@ -76,52 +32,10 @@
     }
   </style>
 </head>
-<body class="h-full flex flex-col font-sans bg-slate-950 text-slate-100 overflow-x-hidden">
-
+<body class="min-h-full flex flex-col bg-slate-950 text-slate-100 overflow-x-hidden">
+  <script>B1Lesson.mount();</script>
 
   <!-- HEADER & NAVBAR -->
-  <header class="sticky top-[37px] z-50 bg-slate-900/90 backdrop-blur-md border-b border-slate-800 shadow-lg">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      <div class="flex items-center justify-between h-16">
-        <!-- Logo / Title -->
-        <div class="flex items-center space-x-3">
-          <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-sky-500 to-indigo-600 flex items-center justify-center text-white shadow-lg shadow-sky-500/20 font-bold text-xl">
-            <i class="fa-solid fa-earth-europe"></i>
-          </div>
-          <div>
-            <h1 class="text-lg font-bold text-white leading-tight">Czech B1 Mastery</h1>
-            <p class="text-xs text-sky-400 font-medium">Lekce 6: 2. pád – Země, města a národnosti</p>
-          </div>
-        </div>
-
-        <div class="flex items-center justify-between py-2 text-xs font-medium">
-          <a href="../B1_List_of_lessons.html" class="rounded-lg border border-slate-700 bg-slate-800 px-3 py-1.5 text-slate-300 hover:bg-slate-700">← Přehled lekcí</a>
-          <button onclick="speakText('Jsem z České republiky a mluvím česky.')" class="hidden sm:flex items-center gap-1.5 rounded-lg border border-sky-500/30 bg-sky-600/20 px-3 py-1.5 text-sky-300 transition hover:bg-sky-600/30">
-            <i class="fa-solid fa-volume-high"></i> Poslechnout vzorovou větu
-          </button>
-        </div>
-      </div>
-
-      <!-- Navigation Tabs -->
-      <nav class="flex space-x-1 overflow-x-auto no-scrollbar border-t border-slate-800/80 py-2" id="mainTabs">
-        <button onclick="switchTab('tab-vocab')" id="btn-tab-vocab" class="tab-btn active px-4 py-2 text-xs sm:text-sm font-semibold rounded-lg text-white bg-sky-600 shadow-md shadow-sky-600/20 transition flex items-center gap-2 whitespace-nowrap">
-          <i class="fa-solid fa-book-open"></i> 1. Slovní zásoba &amp; národnosti (21)
-        </button>
-        <button onclick="switchTab('tab-world')" id="btn-tab-world" class="tab-btn px-4 py-2 text-xs sm:text-sm font-semibold rounded-lg text-slate-400 hover:text-slate-200 hover:bg-slate-800 transition flex items-center gap-2 whitespace-nowrap">
-          <i class="fa-solid fa-globe"></i> 2. Mapa světa &amp; původ
-        </button>
-        <button onclick="switchTab('tab-exA')" id="btn-tab-exA" class="tab-btn px-4 py-2 text-xs sm:text-sm font-semibold rounded-lg text-slate-400 hover:text-slate-200 hover:bg-slate-800 transition flex items-center gap-2 whitespace-nowrap">
-          <i class="fa-solid fa-pen-to-square"></i> 3. Cvičení A: Doplňte 2. pád (25 vět)
-        </button>
-        <button onclick="switchTab('tab-exB')" id="btn-tab-exB" class="tab-btn px-4 py-2 text-xs sm:text-sm font-semibold rounded-lg text-slate-400 hover:text-slate-200 hover:bg-slate-800 transition flex items-center gap-2 whitespace-nowrap">
-          <i class="fa-solid fa-wand-magic-sparkles"></i> 4. Cvičení B: Stavba vět (10 úkolů)
-        </button>
-        <button onclick="switchTab('tab-homework')" id="btn-tab-homework" class="tab-btn px-4 py-2 text-xs sm:text-sm font-semibold rounded-lg text-slate-400 hover:text-slate-200 hover:bg-slate-800 transition flex items-center gap-2 whitespace-nowrap">
-          <i class="fa-solid fa-paper-plane"></i> 5. Domácí úkol &amp; poznámky
-        </button>
-      </nav>
-    </div>
-  </header>
 
   <!-- MAIN CONTAINER -->
   <main class="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-6">
@@ -162,6 +76,7 @@
         <h3 class="text-base font-bold text-amber-300 flex items-center gap-2 border-b border-slate-800 pb-3">
           <i class="fa-solid fa-book-bookmark"></i> Gramatické pravidlo: 2. pád (genitiv) u zemí a měst
         </h3>
+        <button type="button" disabled class="rounded-lg border border-slate-600 px-3 py-2 text-sm text-slate-400 cursor-not-allowed" aria-disabled="true">Podrobné vysvětlení – work in progress</button>
         <p class="text-sm leading-6 text-slate-300">Nejdřív se podívejte na rod názvu: pomůže vám vytvořit 2. pád. Potom rozlište otázky <em>kde?</em>, <em>kam?</em> a <em>odkud?</em> U měst a většiny zemí je základní předložka pro místo <em>v/ve</em>.</p>
         <div class="space-y-3">
           <div>
@@ -171,7 +86,7 @@
           <div class="grid grid-cols-1 gap-4 text-sm md:grid-cols-3">
             <div class="rounded-xl border border-sky-500/25 bg-slate-900/90 p-4">
               <h5 class="font-bold text-sky-200">1. MASKULINA (M)</h5>
-              <p class="mt-2 text-slate-300">Zakončení na souhlásku → často <strong>-u, -a nebo -e</strong></p>
+              <p class="mt-2 text-slate-300">Zakončení na souhlásku:</p>
               <ul class="mt-2 space-y-1.5 text-slate-300">
                 <li>Madrid → <strong>z Madridu</strong></li>
                 <li>Pozor: Řím → <strong>z Říma</strong></li>
@@ -192,6 +107,7 @@
                 <li>Norsko → <strong>z Norska</strong></li>
                 <li>Japonsko → <strong>z Japonska</strong></li>
                 <li>Slovensko → <strong>ze Slovenska</strong></li>
+                <li>Nizozemí → <strong>z Nizozemí</strong></li>
               </ul>
             </div>
           </div>
@@ -259,14 +175,13 @@
         <div class="glass-card rounded-2xl p-6 border border-slate-800 space-y-4">
           <div>
             <h3 class="text-lg font-bold text-emerald-300"><i class="fa-solid fa-book-open mr-2"></i>Krátký text: Návštěva rodiny v zahraničí</h3>
-            <p class="mt-1 text-xs text-slate-400">Čte student/ka nahlas. Všimněte si tvarů 2. pádu po otázce „odkud?“ a po předložkách „z/ze“ a „do“.</p>
+            <p class="mt-1 text-xs text-slate-400">Přečti, označ 2. pád a odpověz na otázky.</p>
           </div>
           <div class="flex flex-wrap items-center justify-between gap-2 text-xs">
-            <p class="text-slate-400">Kliknutím označte slova a spojení ve 2. pádě.</p>
-            <div class="flex items-center gap-2"><span id="genitiveMarkCount" class="text-amber-300" aria-live="polite">Označeno: 0 slov</span><button type="button" onclick="clearGenitiveMarks('readingText','genitiveMarkCount')" class="rounded-lg bg-slate-800 px-2 py-1 text-slate-300 hover:bg-slate-700">Zrušit označení</button></div>
+            <div><span id="genitiveMarkCount"></span></div>
           </div>
           <div id="readingText" class="rounded-xl border border-slate-700 bg-slate-900/80 p-5 text-sm leading-7 text-slate-200">
-            Jmenuji se Petr a pocházím <strong class="text-sky-300">z Česka</strong>. Moje sestra studuje <strong class="text-sky-300">v Austrálii</strong>, ale minulý rok se vrátila <strong class="text-sky-300">z Austrálie</strong> na návštěvu. Společně jsme jeli <strong class="text-sky-300">na Slovensko</strong>, kde bydlí naši prarodiče. Ti pocházejí <strong class="text-sky-300">ze Slovenska</strong>. Potom jsme letěli <strong class="text-sky-300">do USA</strong> a navštívili New York. Cesta <strong class="text-sky-300">z USA</strong> do Evropy trvala dlouho, ale během letu jsme si povídali. V zahraničí jsme mluvili anglicky, doma spolu mluvíme česky. Příští rok bych chtěl navštívit také Maltu a poznat život na ostrově.
+            Jmenuji se {{Petr|Petra}} a pocházím <strong class="text-sky-300">z Česka</strong>. Moje sestra studuje <strong class="text-sky-300">v Austrálii</strong>, ale minulý rok se vrátila <strong class="text-sky-300">z Austrálie</strong> na návštěvu. Společně jsme jeli <strong class="text-sky-300">na Slovensko</strong>, kde bydlí naši prarodiče. Ti pocházejí <strong class="text-sky-300">ze Slovenska</strong>. Potom jsme letěli <strong class="text-sky-300">do USA</strong> a navštívili New York. Cesta <strong class="text-sky-300">z USA</strong> do Evropy trvala dlouho, ale během letu jsme si povídali. V zahraničí jsme mluvili anglicky, doma spolu mluvíme česky. Příští rok bych {{chtěl|chtěla}} navštívit také Maltu a poznat život na ostrově.
           </div>
           <div>
             <h4 class="mb-3 text-sm font-bold text-amber-300"><i class="fa-solid fa-circle-question mr-2"></i>Kvíz porozumění (3 otázky)</h4>
@@ -515,15 +430,15 @@
       { prompt: "Během ____ (výlet) jsme navštívili Krakov.", ans: "výletu", hint: "výlet" },
       { prompt: "Město Vídeň je hlavní město ____ (Rakousko).", ans: "Rakouska", hint: "Rakousko" },
       { prompt: "Uprostřed ____ (Polsko) je Varšava.", ans: "Polska", hint: "Polsko" },
-      { prompt: "Bez ____ (dálnice) by cesta do Maďarska byla delší.", ans: "dálnice", hint: "dálnice" },
+      { prompt: "Bez ____ (dálnice) by cesta do Maďarska byla delší.", ans: "dálnice", hint: "2. pád" },
       { prompt: "Turisté se často bojí dopravy v centru ____ (Istanbul).", ans: "Istanbulu", hint: "Istanbul" },
       { prompt: "Eiffelova věž je symbolem ____ (Paříž).", ans: "Paříže", hint: "Paříž" },
       { prompt: "Vzdálenost Budapešti od ____ (Vídeň) je asi 250 km.", ans: "Vídně", hint: "Vídeň" },
-      { prompt: "Pojedu do severní části ____ (Itálie).", ans: "Itálie", hint: "Itálie" },
-      { prompt: "Příští rok bych chtěl navštívit některé z památek ____ (Řím).", ans: "Říma", hint: "Řím" },
+      { prompt: "Pojedu do severní části ____ (Itálie).", ans: "Itálie", hint: "2. pád" },
+      { prompt: "Příští rok bych {{chtěl|chtěla}} navštívit některé z památek ____ (Řím).", ans: "Říma", hint: "Řím" },
       { prompt: "Učím se jazyk obyvatel ____ (Španělsko).", ans: "Španělska", hint: "Španělsko" },
       { prompt: "Během cesty do ____ (Německo) jsme potkali hodně zajímavých lidí.", ans: "Německa", hint: "Německo" },
-      { prompt: "Většina památek ____ (Atény) pochází z antiky.", ans: "Atén", hint: "Atény" },
+      { prompt: "Většina památek ____ (Atény) pochází z antiky.", ans: "Atén", hint: "2. pád" },
       { prompt: "Po návratu z ____ (Japonsko) jsem si koupil suvenýr.", ans: "Japonska", hint: "Japonsko" },
       { prompt: "Turisté často navštěvují sever ____ (Norsko).", ans: "Norska", hint: "Norsko" },
       { prompt: "Během léta se chystáme do hor na severu ____ (Švýcarsko).", ans: "Švýcarska", hint: "Švýcarsko" },
@@ -531,7 +446,7 @@
       { prompt: "Pláže ____ (Chorvatsko) jsou velmi populární.", ans: "Chorvatska", hint: "Chorvatsko" },
       { prompt: "Nejznámější část ____ (Barcelona) je čtvrť s chrámem Sagrada Familia.", ans: "Barcelony", hint: "Barcelona" },
       { prompt: "V okolí ____ (Petrohrad) je spousta historických paláců.", ans: "Petrohradu", hint: "Petrohrad" },
-      { prompt: "Pocházím z ____ (Čechy), ale teď žiju na Moravě.", ans: "Čech", hint: "Čechy = oblast; z Čech" },
+      { prompt: "Pocházím z ____ (Čechy), ale teď žiju na Moravě.", ans: "Čech", hint: "2. pád (oblast)" },
       { prompt: "Po návratu ze ____ (Spojené státy americké) jsem vyprávěl o cestě.", ans: "Spojených států amerických", hint: "2. pád množného čísla" },
       { prompt: "Včera jsem se vrátil z ____ (Malta).", ans: "Malty", hint: "z + 2. pád" },
       { prompt: "Přijela z ____ (Austrálie) před týdnem.", ans: "Austrálie", hint: "z + 2. pád" },
@@ -612,8 +527,8 @@
     ];
 
     const READING_QUIZ = [
-      { q: "Kde studuje Petrova sestra?", opts: ["V Austrálii", "V USA", "Na Slovensku", "V Česku"], ans: 0 },
-      { q: "Odkud pocházejí Petrovi prarodiče?", opts: ["Z Malty", "Ze Slovenska", "Z Austrálie", "Z USA"], ans: 1 },
+      { q: "Kde studuje {{Petrova|Petřina}} sestra?", opts: ["V Austrálii", "V USA", "Na Slovensku", "V Česku"], ans: 0 },
+      { q: "Odkud pocházejí {{Petrovi|Petřini}} prarodiče?", opts: ["Z Malty", "Ze Slovenska", "Z Austrálie", "Z USA"], ans: 1 },
       { q: "Jakým jazykem mluvili v zahraničí?", opts: ["Česky", "Slovensky", "Anglicky", "Německy"], ans: 2 }
     ];
     let renderedReadingQuiz = [];
@@ -662,11 +577,11 @@
           const j = Math.floor(Math.random() * (i + 1));
           [options[i], options[j]] = [options[j], options[i]];
         }
-        return { q: item.q, opts: options.map(option => option.text), ans: options.findIndex(option => option.correct) };
+        return { q: B1Gender.t(item.q), opts: options.map(option => option.text), ans: options.findIndex(option => option.correct) };
       });
       document.getElementById('readingQuiz').innerHTML = renderedReadingQuiz.map((item, qi) => `
         <article class="rounded-xl border border-slate-800 bg-slate-900/90 p-4">
-          <p class="mb-3 text-sm font-bold text-white">${item.q}</p>
+          <p class="mb-3 text-sm font-bold text-white">${B1Gender.t(item.q)}</p>
           <div class="space-y-2">${item.opts.map((option, oi) => `<button type="button" id="reading_${qi}_${oi}" onclick="checkReadingAnswer(${qi},${oi})" class="w-full rounded-lg border border-slate-700 bg-slate-800 px-3 py-2 text-left text-xs text-slate-200 hover:bg-slate-700">${String.fromCharCode(65 + oi)}) ${option}</button>`).join('')}</div>
           <p id="reading_feedback_${qi}" class="mt-2 hidden text-xs font-bold" aria-live="polite"></p>
         </article>`).join('');
@@ -699,64 +614,6 @@
         utterance.rate = 0.9;
         window.speechSynthesis.speak(utterance);
       }
-    }
-
-    function enableGenitiveMarking(containerId, countId) {
-      const container = document.getElementById(containerId);
-      const walker = document.createTreeWalker(container, NodeFilter.SHOW_TEXT);
-      const textNodes = [];
-      while (walker.nextNode()) {
-        const node = walker.currentNode;
-        if (node.nodeValue.trim() && !node.parentElement.closest('button, a, input, textarea')) textNodes.push(node);
-      }
-      textNodes.forEach(node => {
-        const fragment = document.createDocumentFragment();
-        node.nodeValue.split(/([A-Za-zÀ-ž]+(?:[’'-][A-Za-zÀ-ž]+)*)/g).forEach(part => {
-          if (/^[A-Za-zÀ-ž]/.test(part)) {
-            const word = document.createElement('span');
-            word.textContent = part;
-            word.className = 'genitive-mark-word cursor-pointer rounded px-0.5 hover:bg-amber-900/50';
-            word.setAttribute('role', 'button');
-            word.setAttribute('aria-pressed', 'false');
-            word.tabIndex = 0;
-            const toggle = () => {
-              const marked = word.getAttribute('aria-pressed') !== 'true';
-              word.style.backgroundColor = marked ? 'rgba(251, 191, 36, 0.3)' : '';
-              word.style.color = marked ? '#fef3c7' : '';
-              word.style.outline = marked ? '1px solid rgba(251, 191, 36, 0.7)' : '';
-              word.setAttribute('aria-pressed', String(marked));
-              updateGenitiveMarkCount(containerId, countId);
-            };
-            word.addEventListener('click', toggle);
-            word.addEventListener('keydown', event => {
-              if (event.key === 'Enter' || event.key === ' ') {
-                event.preventDefault();
-                toggle();
-              }
-            });
-            fragment.appendChild(word);
-          } else {
-            fragment.appendChild(document.createTextNode(part));
-          }
-        });
-        node.replaceWith(fragment);
-      });
-      updateGenitiveMarkCount(containerId, countId);
-    }
-
-    function updateGenitiveMarkCount(containerId, countId) {
-      const count = document.querySelectorAll(`#${containerId} .genitive-mark-word[aria-pressed="true"]`).length;
-      document.getElementById(countId).textContent = `Označeno: ${count} slov`;
-    }
-
-    function clearGenitiveMarks(containerId, countId) {
-      document.querySelectorAll(`#${containerId} .genitive-mark-word`).forEach(word => {
-        word.style.backgroundColor = '';
-        word.style.color = '';
-        word.style.outline = '';
-        word.setAttribute('aria-pressed', 'false');
-      });
-      updateGenitiveMarkCount(containerId, countId);
     }
 
     /* REAL LEAFLET WORLD MAP INITIALIZATION */
@@ -921,7 +778,6 @@
               ${parts[1] || ''}
             </div>
             <div class="flex items-center gap-3 self-end sm:self-center flex-shrink-0">
-              <span class="text-xs text-amber-400/90 font-mono bg-slate-900/90 px-3 py-1.5 rounded-lg border border-slate-800">${item.hint}</span>
               <button onclick="speakText('${cleanAudio.replace(/'/g, "\\'")}')" class="w-9 h-9 rounded-lg bg-slate-800 hover:bg-sky-600/30 text-slate-300 hover:text-sky-300 border border-slate-700 transition flex items-center justify-center">
                 <i class="fa-solid fa-volume-high text-sm"></i>
               </button>
@@ -971,8 +827,8 @@
       grid.innerHTML = SCENARIOS_EX_B.map((item, idx) => `
         <article class="glass-card rounded-2xl p-5 sm:p-6 border border-slate-800 space-y-4">
           <div>
-            <h3 class="font-bold text-white text-lg leading-snug">${item.q}</h3>
-            <p class="mt-2 rounded-lg border border-rose-900/40 bg-rose-950/30 p-3 text-sm text-rose-200"><strong>A2:</strong> ${item.a2}</p>
+            <h3 class="font-bold text-white text-lg leading-snug">${B1Gender.t(item.q)}</h3>
+            <p class="mt-2 rounded-lg border border-rose-900/40 bg-rose-950/30 p-3 text-sm text-rose-200"><strong>A2:</strong> ${B1Gender.t(item.a2)}</p>
           </div>
           <div class="rounded-xl border border-sky-900/50 bg-sky-950/20 p-4">
             <p class="text-sm leading-6 text-slate-200">${item.instruction}</p>
@@ -984,7 +840,7 @@
             Ukázat vzorovou větu
           </button>
           <div id="exB_model_${idx}" class="hidden rounded-xl border border-emerald-800/50 bg-emerald-950/40 p-4 text-sm leading-6 text-emerald-200">
-            <strong>Možné řešení:</strong> ${item.b1}
+            <strong>Možné řešení:</strong> ${B1Gender.t(item.b1)}
             <button type="button" onclick="speakText(SCENARIOS_EX_B[${idx}].b1)" aria-label="Přehrát vzorovou větu" class="ml-2 rounded-lg bg-emerald-900/70 px-2 py-1 text-emerald-100"><i class="fa-solid fa-volume-high"></i></button>
           </div>
         </article>`).join('');
@@ -1060,7 +916,8 @@ Kam? Pojedu na Slovensko. (4. pád)`;
       renderExerciseA();
       renderExerciseB();
       renderReadingQuiz();
-      enableGenitiveMarking('readingText', 'genitiveMarkCount');
+      B1Marking.setup('readingText', 'genitiveMarkCount', ['z Česka', 'z Austrálie', 'ze Slovenska', 'do USA', 'z USA', 'do Evropy', 'během letu']);
+      B1Gender.onChange(() => { renderReadingQuiz(); renderExerciseB(); });
 
       const savedNotes = localStorage.getItem('cz_b1_l6_notes');
       if (savedNotes) {
@@ -1072,5 +929,6 @@ Kam? Pojedu na Slovensko. (4. pád)`;
       updateHomeworkPack();
     };
   </script>
+  
 </body>
 </html>
