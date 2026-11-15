@@ -61,134 +61,72 @@
           "type": "standard",
           "instructions": "Spojte výraz s významem.",
           "optionsList": [],
+          "sharedOptions": [
+            "člověk, který má povinnost vrátit někomu peníze",
+            "získat něco z přírody, například pomocí těžby",
+            "vyměnit jednu věc za jinou",
+            "něco, co není běžné a je obtížné to získat",
+            "množství něčeho, co je k dispozici",
+            "vytvořit nepravou kopii něčeho",
+            "ochrana před možným problémem nebo ztrátou",
+            "malá taška, ve které se dříve nosily peníze"
+          ],
           "items": [
             {
               "section_title": "",
               "prompt": "vzácný",
               "type": "single",
               "is_multiselect": false,
-              "options": [
-                "člověk, který má povinnost vrátit někomu peníze",
-                "získat něco z přírody, například pomocí těžby",
-                "vyměnit jednu věc za jinou",
-                "něco, co není běžné a je obtížné to získat",
-                "množství něčeho, co je k dispozici",
-                "vytvořit nepravou kopii něčeho",
-                "ochrana před možným problémem nebo ztrátou",
-                "malá taška, ve které se dříve nosily peníze"
-              ]
+              "options": []
             },
             {
               "section_title": "",
               "prompt": "měšec",
               "type": "single",
               "is_multiselect": false,
-              "options": [
-                "člověk, který má povinnost vrátit někomu peníze",
-                "získat něco z přírody, například pomocí těžby",
-                "vyměnit jednu věc za jinou",
-                "něco, co není běžné a je obtížné to získat",
-                "množství něčeho, co je k dispozici",
-                "vytvořit nepravou kopii něčeho",
-                "ochrana před možným problémem nebo ztrátou",
-                "malá taška, ve které se dříve nosily peníze"
-              ]
+              "options": []
             },
             {
               "section_title": "",
               "prompt": "zásoba",
               "type": "single",
               "is_multiselect": false,
-              "options": [
-                "člověk, který má povinnost vrátit někomu peníze",
-                "získat něco z přírody, například pomocí těžby",
-                "vyměnit jednu věc za jinou",
-                "něco, co není běžné a je obtížné to získat",
-                "množství něčeho, co je k dispozici",
-                "vytvořit nepravou kopii něčeho",
-                "ochrana před možným problémem nebo ztrátou",
-                "malá taška, ve které se dříve nosily peníze"
-              ]
+              "options": []
             },
             {
               "section_title": "",
               "prompt": "padělat",
               "type": "single",
               "is_multiselect": false,
-              "options": [
-                "člověk, který má povinnost vrátit někomu peníze",
-                "získat něco z přírody, například pomocí těžby",
-                "vyměnit jednu věc za jinou",
-                "něco, co není běžné a je obtížné to získat",
-                "množství něčeho, co je k dispozici",
-                "vytvořit nepravou kopii něčeho",
-                "ochrana před možným problémem nebo ztrátou",
-                "malá taška, ve které se dříve nosily peníze"
-              ]
+              "options": []
             },
             {
               "section_title": "",
               "prompt": "směnit",
               "type": "single",
               "is_multiselect": false,
-              "options": [
-                "člověk, který má povinnost vrátit někomu peníze",
-                "získat něco z přírody, například pomocí těžby",
-                "vyměnit jednu věc za jinou",
-                "něco, co není běžné a je obtížné to získat",
-                "množství něčeho, co je k dispozici",
-                "vytvořit nepravou kopii něčeho",
-                "ochrana před možným problémem nebo ztrátou",
-                "malá taška, ve které se dříve nosily peníze"
-              ]
+              "options": []
             },
             {
               "section_title": "",
               "prompt": "vytěžit",
               "type": "single",
               "is_multiselect": false,
-              "options": [
-                "člověk, který má povinnost vrátit někomu peníze",
-                "získat něco z přírody, například pomocí těžby",
-                "vyměnit jednu věc za jinou",
-                "něco, co není běžné a je obtížné to získat",
-                "množství něčeho, co je k dispozici",
-                "vytvořit nepravou kopii něčeho",
-                "ochrana před možným problémem nebo ztrátou",
-                "malá taška, ve které se dříve nosily peníze"
-              ]
+              "options": []
             },
             {
               "section_title": "",
               "prompt": "pojistka",
               "type": "single",
               "is_multiselect": false,
-              "options": [
-                "člověk, který má povinnost vrátit někomu peníze",
-                "získat něco z přírody, například pomocí těžby",
-                "vyměnit jednu věc za jinou",
-                "něco, co není běžné a je obtížné to získat",
-                "množství něčeho, co je k dispozici",
-                "vytvořit nepravou kopii něčeho",
-                "ochrana před možným problémem nebo ztrátou",
-                "malá taška, ve které se dříve nosily peníze"
-              ]
+              "options": []
             },
             {
               "section_title": "",
               "prompt": "dlužník",
               "type": "single",
               "is_multiselect": false,
-              "options": [
-                "člověk, který má povinnost vrátit někomu peníze",
-                "získat něco z přírody, například pomocí těžby",
-                "vyměnit jednu věc za jinou",
-                "něco, co není běžné a je obtížné to získat",
-                "množství něčeho, co je k dispozici",
-                "vytvořit nepravou kopii něčeho",
-                "ochrana před možným problémem nebo ztrátou",
-                "malá taška, ve které se dříve nosily peníze"
-              ]
+              "options": []
             }
           ],
           "matchingItems": [],
@@ -576,134 +514,72 @@
           "type": "standard",
           "instructions": "Spojte výraz s významem.",
           "optionsList": [],
+          "sharedOptions": [
+            "schopnost peněz zajistit nákup určitého množství zboží a služeb",
+            "výměna zboží nebo služeb bez použití peněz",
+            "něco, co má pevně stanovenou hodnotu a nemění se",
+            "stát nebo mocnost s dominantním vlivem",
+            "hodnota vyjádřená číslem, nikoli skutečným množstvím nebo účinkem",
+            "množství dostupných finančních prostředků",
+            "určit něčemu nižší hodnotu, než jakou by to mělo mít",
+            "finanční prostředky nebo jiná aktiva uchovávaná pro budoucí potřebu"
+          ],
           "items": [
             {
               "section_title": "",
               "prompt": "hegemon",
               "type": "single",
               "is_multiselect": false,
-              "options": [
-                "schopnost peněz zajistit nákup určitého množství zboží a služeb",
-                "výměna zboží nebo služeb bez použití peněz",
-                "něco, co má pevně stanovenou hodnotu a nemění se",
-                "stát nebo mocnost s dominantním vlivem",
-                "hodnota vyjádřená číslem, nikoli skutečným množstvím nebo účinkem",
-                "množství dostupných finančních prostředků",
-                "určit něčemu nižší hodnotu, než jakou by to mělo mít",
-                "finanční prostředky nebo jiná aktiva uchovávaná pro budoucí potřebu"
-              ]
+              "options": []
             },
             {
               "section_title": "",
               "prompt": "barter",
               "type": "single",
               "is_multiselect": false,
-              "options": [
-                "schopnost peněz zajistit nákup určitého množství zboží a služeb",
-                "výměna zboží nebo služeb bez použití peněz",
-                "něco, co má pevně stanovenou hodnotu a nemění se",
-                "stát nebo mocnost s dominantním vlivem",
-                "hodnota vyjádřená číslem, nikoli skutečným množstvím nebo účinkem",
-                "množství dostupných finančních prostředků",
-                "určit něčemu nižší hodnotu, než jakou by to mělo mít",
-                "finanční prostředky nebo jiná aktiva uchovávaná pro budoucí potřebu"
-              ]
+              "options": []
             },
             {
               "section_title": "",
               "prompt": "fixní",
               "type": "single",
               "is_multiselect": false,
-              "options": [
-                "schopnost peněz zajistit nákup určitého množství zboží a služeb",
-                "výměna zboží nebo služeb bez použití peněz",
-                "něco, co má pevně stanovenou hodnotu a nemění se",
-                "stát nebo mocnost s dominantním vlivem",
-                "hodnota vyjádřená číslem, nikoli skutečným množstvím nebo účinkem",
-                "množství dostupných finančních prostředků",
-                "určit něčemu nižší hodnotu, než jakou by to mělo mít",
-                "finanční prostředky nebo jiná aktiva uchovávaná pro budoucí potřebu"
-              ]
+              "options": []
             },
             {
               "section_title": "",
               "prompt": "kupní síla",
               "type": "single",
               "is_multiselect": false,
-              "options": [
-                "schopnost peněz zajistit nákup určitého množství zboží a služeb",
-                "výměna zboží nebo služeb bez použití peněz",
-                "něco, co má pevně stanovenou hodnotu a nemění se",
-                "stát nebo mocnost s dominantním vlivem",
-                "hodnota vyjádřená číslem, nikoli skutečným množstvím nebo účinkem",
-                "množství dostupných finančních prostředků",
-                "určit něčemu nižší hodnotu, než jakou by to mělo mít",
-                "finanční prostředky nebo jiná aktiva uchovávaná pro budoucí potřebu"
-              ]
+              "options": []
             },
             {
               "section_title": "",
               "prompt": "podhodnotit",
               "type": "single",
               "is_multiselect": false,
-              "options": [
-                "schopnost peněz zajistit nákup určitého množství zboží a služeb",
-                "výměna zboží nebo služeb bez použití peněz",
-                "něco, co má pevně stanovenou hodnotu a nemění se",
-                "stát nebo mocnost s dominantním vlivem",
-                "hodnota vyjádřená číslem, nikoli skutečným množstvím nebo účinkem",
-                "množství dostupných finančních prostředků",
-                "určit něčemu nižší hodnotu, než jakou by to mělo mít",
-                "finanční prostředky nebo jiná aktiva uchovávaná pro budoucí potřebu"
-              ]
+              "options": []
             },
             {
               "section_title": "",
               "prompt": "likvidita",
               "type": "single",
               "is_multiselect": false,
-              "options": [
-                "schopnost peněz zajistit nákup určitého množství zboží a služeb",
-                "výměna zboží nebo služeb bez použití peněz",
-                "něco, co má pevně stanovenou hodnotu a nemění se",
-                "stát nebo mocnost s dominantním vlivem",
-                "hodnota vyjádřená číslem, nikoli skutečným množstvím nebo účinkem",
-                "množství dostupných finančních prostředků",
-                "určit něčemu nižší hodnotu, než jakou by to mělo mít",
-                "finanční prostředky nebo jiná aktiva uchovávaná pro budoucí potřebu"
-              ]
+              "options": []
             },
             {
               "section_title": "",
               "prompt": "nominální",
               "type": "single",
               "is_multiselect": false,
-              "options": [
-                "schopnost peněz zajistit nákup určitého množství zboží a služeb",
-                "výměna zboží nebo služeb bez použití peněz",
-                "něco, co má pevně stanovenou hodnotu a nemění se",
-                "stát nebo mocnost s dominantním vlivem",
-                "hodnota vyjádřená číslem, nikoli skutečným množstvím nebo účinkem",
-                "množství dostupných finančních prostředků",
-                "určit něčemu nižší hodnotu, než jakou by to mělo mít",
-                "finanční prostředky nebo jiná aktiva uchovávaná pro budoucí potřebu"
-              ]
+              "options": []
             },
             {
               "section_title": "",
               "prompt": "rezervy",
               "type": "single",
               "is_multiselect": false,
-              "options": [
-                "schopnost peněz zajistit nákup určitého množství zboží a služeb",
-                "výměna zboží nebo služeb bez použití peněz",
-                "něco, co má pevně stanovenou hodnotu a nemění se",
-                "stát nebo mocnost s dominantním vlivem",
-                "hodnota vyjádřená číslem, nikoli skutečným množstvím nebo účinkem",
-                "množství dostupných finančních prostředků",
-                "určit něčemu nižší hodnotu, než jakou by to mělo mít",
-                "finanční prostředky nebo jiná aktiva uchovávaná pro budoucí potřebu"
-              ]
+              "options": []
             }
           ],
           "matchingItems": [],
@@ -1095,134 +971,72 @@
           "type": "standard",
           "instructions": "Spojte výraz s významem.",
           "optionsList": [],
+          "sharedOptions": [
+            "předmět nebo zboží, s nímž se obchoduje",
+            "schopnost přizpůsobit se změněným podmínkám",
+            "něco, co funguje samo podle určitého pravidla nebo mechanismu",
+            "výrazná a dlouhodobá zaujatost určitým tématem",
+            "prvek, který poskytuje stabilitu a oporu",
+            "takový, jehož vývoj lze do určité míry předvídat",
+            "snížení hodnoty měny",
+            "jasně definovaný názor nebo postoj"
+          ],
           "items": [
             {
               "section_title": "",
               "prompt": "kotva",
               "type": "single",
               "is_multiselect": false,
-              "options": [
-                "předmět nebo zboží, s nímž se obchoduje",
-                "schopnost přizpůsobit se změněným podmínkám",
-                "něco, co funguje samo podle určitého pravidla nebo mechanismu",
-                "výrazná a dlouhodobá zaujatost určitým tématem",
-                "prvek, který poskytuje stabilitu a oporu",
-                "takový, jehož vývoj lze do určité míry předvídat",
-                "snížení hodnoty měny",
-                "jasně definovaný názor nebo postoj"
-              ]
+              "options": []
             },
             {
               "section_title": "",
               "prompt": "devalvace",
               "type": "single",
               "is_multiselect": false,
-              "options": [
-                "předmět nebo zboží, s nímž se obchoduje",
-                "schopnost přizpůsobit se změněným podmínkám",
-                "něco, co funguje samo podle určitého pravidla nebo mechanismu",
-                "výrazná a dlouhodobá zaujatost určitým tématem",
-                "prvek, který poskytuje stabilitu a oporu",
-                "takový, jehož vývoj lze do určité míry předvídat",
-                "snížení hodnoty měny",
-                "jasně definovaný názor nebo postoj"
-              ]
+              "options": []
             },
             {
               "section_title": "",
               "prompt": "artikl",
               "type": "single",
               "is_multiselect": false,
-              "options": [
-                "předmět nebo zboží, s nímž se obchoduje",
-                "schopnost přizpůsobit se změněným podmínkám",
-                "něco, co funguje samo podle určitého pravidla nebo mechanismu",
-                "výrazná a dlouhodobá zaujatost určitým tématem",
-                "prvek, který poskytuje stabilitu a oporu",
-                "takový, jehož vývoj lze do určité míry předvídat",
-                "snížení hodnoty měny",
-                "jasně definovaný názor nebo postoj"
-              ]
+              "options": []
             },
             {
               "section_title": "",
               "prompt": "predikovatelný",
               "type": "single",
               "is_multiselect": false,
-              "options": [
-                "předmět nebo zboží, s nímž se obchoduje",
-                "schopnost přizpůsobit se změněným podmínkám",
-                "něco, co funguje samo podle určitého pravidla nebo mechanismu",
-                "výrazná a dlouhodobá zaujatost určitým tématem",
-                "prvek, který poskytuje stabilitu a oporu",
-                "takový, jehož vývoj lze do určité míry předvídat",
-                "snížení hodnoty měny",
-                "jasně definovaný názor nebo postoj"
-              ]
+              "options": []
             },
             {
               "section_title": "",
               "prompt": "automatismus",
               "type": "single",
               "is_multiselect": false,
-              "options": [
-                "předmět nebo zboží, s nímž se obchoduje",
-                "schopnost přizpůsobit se změněným podmínkám",
-                "něco, co funguje samo podle určitého pravidla nebo mechanismu",
-                "výrazná a dlouhodobá zaujatost určitým tématem",
-                "prvek, který poskytuje stabilitu a oporu",
-                "takový, jehož vývoj lze do určité míry předvídat",
-                "snížení hodnoty měny",
-                "jasně definovaný názor nebo postoj"
-              ]
+              "options": []
             },
             {
               "section_title": "",
               "prompt": "flexibilita",
               "type": "single",
               "is_multiselect": false,
-              "options": [
-                "předmět nebo zboží, s nímž se obchoduje",
-                "schopnost přizpůsobit se změněným podmínkám",
-                "něco, co funguje samo podle určitého pravidla nebo mechanismu",
-                "výrazná a dlouhodobá zaujatost určitým tématem",
-                "prvek, který poskytuje stabilitu a oporu",
-                "takový, jehož vývoj lze do určité míry předvídat",
-                "snížení hodnoty měny",
-                "jasně definovaný názor nebo postoj"
-              ]
+              "options": []
             },
             {
               "section_title": "",
               "prompt": "obsese",
               "type": "single",
               "is_multiselect": false,
-              "options": [
-                "předmět nebo zboží, s nímž se obchoduje",
-                "schopnost přizpůsobit se změněným podmínkám",
-                "něco, co funguje samo podle určitého pravidla nebo mechanismu",
-                "výrazná a dlouhodobá zaujatost určitým tématem",
-                "prvek, který poskytuje stabilitu a oporu",
-                "takový, jehož vývoj lze do určité míry předvídat",
-                "snížení hodnoty měny",
-                "jasně definovaný názor nebo postoj"
-              ]
+              "options": []
             },
             {
               "section_title": "",
               "prompt": "vyhraněný",
               "type": "single",
               "is_multiselect": false,
-              "options": [
-                "předmět nebo zboží, s nímž se obchoduje",
-                "schopnost přizpůsobit se změněným podmínkám",
-                "něco, co funguje samo podle určitého pravidla nebo mechanismu",
-                "výrazná a dlouhodobá zaujatost určitým tématem",
-                "prvek, který poskytuje stabilitu a oporu",
-                "takový, jehož vývoj lze do určité míry předvídat",
-                "snížení hodnoty měny",
-                "jasně definovaný názor nebo postoj"
-              ]
+              "options": []
             }
           ],
           "matchingItems": [],

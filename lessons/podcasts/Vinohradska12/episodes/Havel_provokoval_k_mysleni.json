@@ -45,134 +45,72 @@
           "type": "standard",
           "instructions": "Spojte výraz s významem.",
           "optionsList": [],
+          "sharedOptions": [
+            "Slova, která se často opakují, ale mohou mít malý skutečný obsah.",
+            "Upozornění na možné nebezpečí nebo problém.",
+            "Schopnost nebát se a jednat i v obtížné situaci.",
+            "Člověk, který veřejně nesouhlasí s politickým režimem.",
+            "Pocit, že se na někoho můžeme spolehnout.",
+            "Připomínka určité události, která se stala před určitým počtem let.",
+            "Místo, kde jsou lidé drženi proti své vůli jako trest.",
+            "Událost, při které lidé něco slaví."
+          ],
           "items": [
             {
               "section_title": "",
               "prompt": "disident",
               "type": "single",
               "is_multiselect": false,
-              "options": [
-                "Slova, která se často opakují, ale mohou mít malý skutečný obsah.",
-                "Upozornění na možné nebezpečí nebo problém.",
-                "Schopnost nebát se a jednat i v obtížné situaci.",
-                "Člověk, který veřejně nesouhlasí s politickým režimem.",
-                "Pocit, že se na někoho můžeme spolehnout.",
-                "Připomínka určité události, která se stala před určitým počtem let.",
-                "Místo, kde jsou lidé drženi proti své vůli jako trest.",
-                "Událost, při které lidé něco slaví."
-              ]
+              "options": []
             },
             {
               "section_title": "",
               "prompt": "výročí",
               "type": "single",
               "is_multiselect": false,
-              "options": [
-                "Slova, která se často opakují, ale mohou mít malý skutečný obsah.",
-                "Upozornění na možné nebezpečí nebo problém.",
-                "Schopnost nebát se a jednat i v obtížné situaci.",
-                "Člověk, který veřejně nesouhlasí s politickým režimem.",
-                "Pocit, že se na někoho můžeme spolehnout.",
-                "Připomínka určité události, která se stala před určitým počtem let.",
-                "Místo, kde jsou lidé drženi proti své vůli jako trest.",
-                "Událost, při které lidé něco slaví."
-              ]
+              "options": []
             },
             {
               "section_title": "",
               "prompt": "odvaha",
               "type": "single",
               "is_multiselect": false,
-              "options": [
-                "Slova, která se často opakují, ale mohou mít malý skutečný obsah.",
-                "Upozornění na možné nebezpečí nebo problém.",
-                "Schopnost nebát se a jednat i v obtížné situaci.",
-                "Člověk, který veřejně nesouhlasí s politickým režimem.",
-                "Pocit, že se na někoho můžeme spolehnout.",
-                "Připomínka určité události, která se stala před určitým počtem let.",
-                "Místo, kde jsou lidé drženi proti své vůli jako trest.",
-                "Událost, při které lidé něco slaví."
-              ]
+              "options": []
             },
             {
               "section_title": "",
               "prompt": "důvěra",
               "type": "single",
               "is_multiselect": false,
-              "options": [
-                "Slova, která se často opakují, ale mohou mít malý skutečný obsah.",
-                "Upozornění na možné nebezpečí nebo problém.",
-                "Schopnost nebát se a jednat i v obtížné situaci.",
-                "Člověk, který veřejně nesouhlasí s politickým režimem.",
-                "Pocit, že se na někoho můžeme spolehnout.",
-                "Připomínka určité události, která se stala před určitým počtem let.",
-                "Místo, kde jsou lidé drženi proti své vůli jako trest.",
-                "Událost, při které lidé něco slaví."
-              ]
+              "options": []
             },
             {
               "section_title": "",
               "prompt": "fráze",
               "type": "single",
               "is_multiselect": false,
-              "options": [
-                "Slova, která se často opakují, ale mohou mít malý skutečný obsah.",
-                "Upozornění na možné nebezpečí nebo problém.",
-                "Schopnost nebát se a jednat i v obtížné situaci.",
-                "Člověk, který veřejně nesouhlasí s politickým režimem.",
-                "Pocit, že se na někoho můžeme spolehnout.",
-                "Připomínka určité události, která se stala před určitým počtem let.",
-                "Místo, kde jsou lidé drženi proti své vůli jako trest.",
-                "Událost, při které lidé něco slaví."
-              ]
+              "options": []
             },
             {
               "section_title": "",
               "prompt": "vězení",
               "type": "single",
               "is_multiselect": false,
-              "options": [
-                "Slova, která se často opakují, ale mohou mít malý skutečný obsah.",
-                "Upozornění na možné nebezpečí nebo problém.",
-                "Schopnost nebát se a jednat i v obtížné situaci.",
-                "Člověk, který veřejně nesouhlasí s politickým režimem.",
-                "Pocit, že se na někoho můžeme spolehnout.",
-                "Připomínka určité události, která se stala před určitým počtem let.",
-                "Místo, kde jsou lidé drženi proti své vůli jako trest.",
-                "Událost, při které lidé něco slaví."
-              ]
+              "options": []
             },
             {
               "section_title": "",
               "prompt": "oslava",
               "type": "single",
               "is_multiselect": false,
-              "options": [
-                "Slova, která se často opakují, ale mohou mít malý skutečný obsah.",
-                "Upozornění na možné nebezpečí nebo problém.",
-                "Schopnost nebát se a jednat i v obtížné situaci.",
-                "Člověk, který veřejně nesouhlasí s politickým režimem.",
-                "Pocit, že se na někoho můžeme spolehnout.",
-                "Připomínka určité události, která se stala před určitým počtem let.",
-                "Místo, kde jsou lidé drženi proti své vůli jako trest.",
-                "Událost, při které lidé něco slaví."
-              ]
+              "options": []
             },
             {
               "section_title": "",
               "prompt": "varování",
               "type": "single",
               "is_multiselect": false,
-              "options": [
-                "Slova, která se často opakují, ale mohou mít malý skutečný obsah.",
-                "Upozornění na možné nebezpečí nebo problém.",
-                "Schopnost nebát se a jednat i v obtížné situaci.",
-                "Člověk, který veřejně nesouhlasí s politickým režimem.",
-                "Pocit, že se na někoho můžeme spolehnout.",
-                "Připomínka určité události, která se stala před určitým počtem let.",
-                "Místo, kde jsou lidé drženi proti své vůli jako trest.",
-                "Událost, při které lidé něco slaví."
-              ]
+              "options": []
             }
           ],
           "matchingItems": [],
@@ -556,134 +494,72 @@
           "type": "standard",
           "instructions": "Spojte výraz s významem.",
           "optionsList": [],
+          "sharedOptions": [
+            "Stav, kdy člověk přizpůsobuje své názory nebo chování okolí.",
+            "Situace, kdy někdo získává nebo udržuje moc nad druhými.",
+            "Něco, co je v rozporu s běžnou logikou nebo působí nesmyslně.",
+            "Schopnost nebo povinnost nést následky vlastního jednání.",
+            "Proces, při kterém někdo ovlivňuje druhé často skrytým způsobem.",
+            "Představa o sobě samém, která neodpovídá skutečnosti.",
+            "Situace, kdy se něco nebo někdo přestává dostávat do pozornosti.",
+            "Jedna ze dvou věcí, které se významově nebo vlastnostmi liší."
+          ],
           "items": [
             {
               "section_title": "",
               "prompt": "konformita",
               "type": "single",
               "is_multiselect": false,
-              "options": [
-                "Stav, kdy člověk přizpůsobuje své názory nebo chování okolí.",
-                "Situace, kdy někdo získává nebo udržuje moc nad druhými.",
-                "Něco, co je v rozporu s běžnou logikou nebo působí nesmyslně.",
-                "Schopnost nebo povinnost nést následky vlastního jednání.",
-                "Proces, při kterém někdo ovlivňuje druhé často skrytým způsobem.",
-                "Představa o sobě samém, která neodpovídá skutečnosti.",
-                "Situace, kdy se něco nebo někdo přestává dostávat do pozornosti.",
-                "Jedna ze dvou věcí, které se významově nebo vlastnostmi liší."
-              ]
+              "options": []
             },
             {
               "section_title": "",
               "prompt": "protiklad",
               "type": "single",
               "is_multiselect": false,
-              "options": [
-                "Stav, kdy člověk přizpůsobuje své názory nebo chování okolí.",
-                "Situace, kdy někdo získává nebo udržuje moc nad druhými.",
-                "Něco, co je v rozporu s běžnou logikou nebo působí nesmyslně.",
-                "Schopnost nebo povinnost nést následky vlastního jednání.",
-                "Proces, při kterém někdo ovlivňuje druhé často skrytým způsobem.",
-                "Představa o sobě samém, která neodpovídá skutečnosti.",
-                "Situace, kdy se něco nebo někdo přestává dostávat do pozornosti.",
-                "Jedna ze dvou věcí, které se významově nebo vlastnostmi liší."
-              ]
+              "options": []
             },
             {
               "section_title": "",
               "prompt": "manipulace",
               "type": "single",
               "is_multiselect": false,
-              "options": [
-                "Stav, kdy člověk přizpůsobuje své názory nebo chování okolí.",
-                "Situace, kdy někdo získává nebo udržuje moc nad druhými.",
-                "Něco, co je v rozporu s běžnou logikou nebo působí nesmyslně.",
-                "Schopnost nebo povinnost nést následky vlastního jednání.",
-                "Proces, při kterém někdo ovlivňuje druhé často skrytým způsobem.",
-                "Představa o sobě samém, která neodpovídá skutečnosti.",
-                "Situace, kdy se něco nebo někdo přestává dostávat do pozornosti.",
-                "Jedna ze dvou věcí, které se významově nebo vlastnostmi liší."
-              ]
+              "options": []
             },
             {
               "section_title": "",
               "prompt": "sebeiluze",
               "type": "single",
               "is_multiselect": false,
-              "options": [
-                "Stav, kdy člověk přizpůsobuje své názory nebo chování okolí.",
-                "Situace, kdy někdo získává nebo udržuje moc nad druhými.",
-                "Něco, co je v rozporu s běžnou logikou nebo působí nesmyslně.",
-                "Schopnost nebo povinnost nést následky vlastního jednání.",
-                "Proces, při kterém někdo ovlivňuje druhé často skrytým způsobem.",
-                "Představa o sobě samém, která neodpovídá skutečnosti.",
-                "Situace, kdy se něco nebo někdo přestává dostávat do pozornosti.",
-                "Jedna ze dvou věcí, které se významově nebo vlastnostmi liší."
-              ]
+              "options": []
             },
             {
               "section_title": "",
               "prompt": "nadvláda",
               "type": "single",
               "is_multiselect": false,
-              "options": [
-                "Stav, kdy člověk přizpůsobuje své názory nebo chování okolí.",
-                "Situace, kdy někdo získává nebo udržuje moc nad druhými.",
-                "Něco, co je v rozporu s běžnou logikou nebo působí nesmyslně.",
-                "Schopnost nebo povinnost nést následky vlastního jednání.",
-                "Proces, při kterém někdo ovlivňuje druhé často skrytým způsobem.",
-                "Představa o sobě samém, která neodpovídá skutečnosti.",
-                "Situace, kdy se něco nebo někdo přestává dostávat do pozornosti.",
-                "Jedna ze dvou věcí, které se významově nebo vlastnostmi liší."
-              ]
+              "options": []
             },
             {
               "section_title": "",
               "prompt": "odpovědnost",
               "type": "single",
               "is_multiselect": false,
-              "options": [
-                "Stav, kdy člověk přizpůsobuje své názory nebo chování okolí.",
-                "Situace, kdy někdo získává nebo udržuje moc nad druhými.",
-                "Něco, co je v rozporu s běžnou logikou nebo působí nesmyslně.",
-                "Schopnost nebo povinnost nést následky vlastního jednání.",
-                "Proces, při kterém někdo ovlivňuje druhé často skrytým způsobem.",
-                "Představa o sobě samém, která neodpovídá skutečnosti.",
-                "Situace, kdy se něco nebo někdo přestává dostávat do pozornosti.",
-                "Jedna ze dvou věcí, které se významově nebo vlastnostmi liší."
-              ]
+              "options": []
             },
             {
               "section_title": "",
               "prompt": "zneviditelnění",
               "type": "single",
               "is_multiselect": false,
-              "options": [
-                "Stav, kdy člověk přizpůsobuje své názory nebo chování okolí.",
-                "Situace, kdy někdo získává nebo udržuje moc nad druhými.",
-                "Něco, co je v rozporu s běžnou logikou nebo působí nesmyslně.",
-                "Schopnost nebo povinnost nést následky vlastního jednání.",
-                "Proces, při kterém někdo ovlivňuje druhé často skrytým způsobem.",
-                "Představa o sobě samém, která neodpovídá skutečnosti.",
-                "Situace, kdy se něco nebo někdo přestává dostávat do pozornosti.",
-                "Jedna ze dvou věcí, které se významově nebo vlastnostmi liší."
-              ]
+              "options": []
             },
             {
               "section_title": "",
               "prompt": "absurdní",
               "type": "single",
               "is_multiselect": false,
-              "options": [
-                "Stav, kdy člověk přizpůsobuje své názory nebo chování okolí.",
-                "Situace, kdy někdo získává nebo udržuje moc nad druhými.",
-                "Něco, co je v rozporu s běžnou logikou nebo působí nesmyslně.",
-                "Schopnost nebo povinnost nést následky vlastního jednání.",
-                "Proces, při kterém někdo ovlivňuje druhé často skrytým způsobem.",
-                "Představa o sobě samém, která neodpovídá skutečnosti.",
-                "Situace, kdy se něco nebo někdo přestává dostávat do pozornosti.",
-                "Jedna ze dvou věcí, které se významově nebo vlastnostmi liší."
-              ]
+              "options": []
             }
           ],
           "matchingItems": [],
@@ -707,7 +583,7 @@
           "items": [
             {
               "section_title": "",
-              "prompt": "Alice Koubová ______ (minulý čas) posluchače na práci Knihovny Václava Havla. " ,
+              "prompt": "Alice Koubová ______ (minulý čas) posluchače na práci Knihovny Václava Havla. ",
               "type": "single",
               "is_multiselect": false,
               "options": []
@@ -781,7 +657,7 @@
             },
             {
               "section_title": "",
-              "prompt": "Kdyby člověk kriticky zkoumal vlastní postoje, ______ (moci) lépe rozpoznat sebeiluzi.",
+              "prompt": "Kdyby člověk kriticky zkoumal vlastní postoje, ______ (moct) lépe rozpoznat sebeiluzi.",
               "type": "single",
               "is_multiselect": false,
               "options": []
@@ -1067,134 +943,72 @@
           "type": "standard",
           "instructions": "Spojte výraz s významem.",
           "optionsList": [],
+          "sharedOptions": [
+            "Soubor zásad nebo přesvědčení, které člověk považuje za základní.",
+            "Stav, kdy výraz ztrácí obsah a zůstává jen jeho formální podoba.",
+            "Takový, jehož význam nebo platnost přesahuje konkrétní historické období.",
+            "Složitý, důmyslný a někdy obtížně rozpoznatelný způsob jednání.",
+            "Uspořádání prvků nebo vztahů v určité situaci.",
+            "Proces potlačování vlastní živosti, aktivity nebo schopnosti jednat.",
+            "Stav společnosti charakterizovaný přetrvávajícími mechanismy totalitní moci.",
+            "Takový, kdo se osvobodil od závislosti nebo omezení a jedná samostatně."
+          ],
           "items": [
             {
               "section_title": "",
               "prompt": "posttotalita",
               "type": "single",
               "is_multiselect": false,
-              "options": [
-                "Soubor zásad nebo přesvědčení, které člověk považuje za základní.",
-                "Stav, kdy výraz ztrácí obsah a zůstává jen jeho formální podoba.",
-                "Takový, jehož význam nebo platnost přesahuje konkrétní historické období.",
-                "Složitý, důmyslný a někdy obtížně rozpoznatelný způsob jednání.",
-                "Uspořádání prvků nebo vztahů v určité situaci.",
-                "Proces potlačování vlastní živosti, aktivity nebo schopnosti jednat.",
-                "Stav společnosti charakterizovaný přetrvávajícími mechanismy totalitní moci.",
-                "Takový, kdo se osvobodil od závislosti nebo omezení a jedná samostatně."
-              ]
+              "options": []
             },
             {
               "section_title": "",
               "prompt": "konstelace",
               "type": "single",
               "is_multiselect": false,
-              "options": [
-                "Soubor zásad nebo přesvědčení, které člověk považuje za základní.",
-                "Stav, kdy výraz ztrácí obsah a zůstává jen jeho formální podoba.",
-                "Takový, jehož význam nebo platnost přesahuje konkrétní historické období.",
-                "Složitý, důmyslný a někdy obtížně rozpoznatelný způsob jednání.",
-                "Uspořádání prvků nebo vztahů v určité situaci.",
-                "Proces potlačování vlastní živosti, aktivity nebo schopnosti jednat.",
-                "Stav společnosti charakterizovaný přetrvávajícími mechanismy totalitní moci.",
-                "Takový, kdo se osvobodil od závislosti nebo omezení a jedná samostatně."
-              ]
+              "options": []
             },
             {
               "section_title": "",
               "prompt": "rafinovaný",
               "type": "single",
               "is_multiselect": false,
-              "options": [
-                "Soubor zásad nebo přesvědčení, které člověk považuje za základní.",
-                "Stav, kdy výraz ztrácí obsah a zůstává jen jeho formální podoba.",
-                "Takový, jehož význam nebo platnost přesahuje konkrétní historické období.",
-                "Složitý, důmyslný a někdy obtížně rozpoznatelný způsob jednání.",
-                "Uspořádání prvků nebo vztahů v určité situaci.",
-                "Proces potlačování vlastní živosti, aktivity nebo schopnosti jednat.",
-                "Stav společnosti charakterizovaný přetrvávajícími mechanismy totalitní moci.",
-                "Takový, kdo se osvobodil od závislosti nebo omezení a jedná samostatně."
-              ]
+              "options": []
             },
             {
               "section_title": "",
               "prompt": "sebeumrtvení",
               "type": "single",
               "is_multiselect": false,
-              "options": [
-                "Soubor zásad nebo přesvědčení, které člověk považuje za základní.",
-                "Stav, kdy výraz ztrácí obsah a zůstává jen jeho formální podoba.",
-                "Takový, jehož význam nebo platnost přesahuje konkrétní historické období.",
-                "Složitý, důmyslný a někdy obtížně rozpoznatelný způsob jednání.",
-                "Uspořádání prvků nebo vztahů v určité situaci.",
-                "Proces potlačování vlastní živosti, aktivity nebo schopnosti jednat.",
-                "Stav společnosti charakterizovaný přetrvávajícími mechanismy totalitní moci.",
-                "Takový, kdo se osvobodil od závislosti nebo omezení a jedná samostatně."
-              ]
+              "options": []
             },
             {
               "section_title": "",
               "prompt": "emancipovaný",
               "type": "single",
               "is_multiselect": false,
-              "options": [
-                "Soubor zásad nebo přesvědčení, které člověk považuje za základní.",
-                "Stav, kdy výraz ztrácí obsah a zůstává jen jeho formální podoba.",
-                "Takový, jehož význam nebo platnost přesahuje konkrétní historické období.",
-                "Složitý, důmyslný a někdy obtížně rozpoznatelný způsob jednání.",
-                "Uspořádání prvků nebo vztahů v určité situaci.",
-                "Proces potlačování vlastní živosti, aktivity nebo schopnosti jednat.",
-                "Stav společnosti charakterizovaný přetrvávajícími mechanismy totalitní moci.",
-                "Takový, kdo se osvobodil od závislosti nebo omezení a jedná samostatně."
-              ]
+              "options": []
             },
             {
               "section_title": "",
               "prompt": "nadčasový",
               "type": "single",
               "is_multiselect": false,
-              "options": [
-                "Soubor zásad nebo přesvědčení, které člověk považuje za základní.",
-                "Stav, kdy výraz ztrácí obsah a zůstává jen jeho formální podoba.",
-                "Takový, jehož význam nebo platnost přesahuje konkrétní historické období.",
-                "Složitý, důmyslný a někdy obtížně rozpoznatelný způsob jednání.",
-                "Uspořádání prvků nebo vztahů v určité situaci.",
-                "Proces potlačování vlastní živosti, aktivity nebo schopnosti jednat.",
-                "Stav společnosti charakterizovaný přetrvávajícími mechanismy totalitní moci.",
-                "Takový, kdo se osvobodil od závislosti nebo omezení a jedná samostatně."
-              ]
+              "options": []
             },
             {
               "section_title": "",
               "prompt": "krédo",
               "type": "single",
               "is_multiselect": false,
-              "options": [
-                "Soubor zásad nebo přesvědčení, které člověk považuje za základní.",
-                "Stav, kdy výraz ztrácí obsah a zůstává jen jeho formální podoba.",
-                "Takový, jehož význam nebo platnost přesahuje konkrétní historické období.",
-                "Složitý, důmyslný a někdy obtížně rozpoznatelný způsob jednání.",
-                "Uspořádání prvků nebo vztahů v určité situaci.",
-                "Proces potlačování vlastní živosti, aktivity nebo schopnosti jednat.",
-                "Stav společnosti charakterizovaný přetrvávajícími mechanismy totalitní moci.",
-                "Takový, kdo se osvobodil od závislosti nebo omezení a jedná samostatně."
-              ]
+              "options": []
             },
             {
               "section_title": "",
               "prompt": "vyprázdněnost",
               "type": "single",
               "is_multiselect": false,
-              "options": [
-                "Soubor zásad nebo přesvědčení, které člověk považuje za základní.",
-                "Stav, kdy výraz ztrácí obsah a zůstává jen jeho formální podoba.",
-                "Takový, jehož význam nebo platnost přesahuje konkrétní historické období.",
-                "Složitý, důmyslný a někdy obtížně rozpoznatelný způsob jednání.",
-                "Uspořádání prvků nebo vztahů v určité situaci.",
-                "Proces potlačování vlastní živosti, aktivity nebo schopnosti jednat.",
-                "Stav společnosti charakterizovaný přetrvávajícími mechanismy totalitní moci.",
-                "Takový, kdo se osvobodil od závislosti nebo omezení a jedná samostatně."
-              ]
+              "options": []
             }
           ],
           "matchingItems": [],
