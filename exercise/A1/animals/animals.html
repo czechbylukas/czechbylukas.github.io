@@ -2,14 +2,20 @@
 <html lang="cs" class="h-full">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Czech Animals & Declension Practice</title>
+    <script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-database-compat.js"></script>
+    <script>window.canShowAds = false;</script>
+    <script src="../../../scripts-header.js"></script>
     <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="../exercise_layout.css">
 </head>
-<body class="bg-slate-900 text-slate-100 min-h-screen w-full flex flex-col items-center justify-center p-2 sm:p-6 overflow-hidden">
+<body class="exercise-page bg-slate-900 text-slate-100 min-h-screen w-full flex flex-col items-center justify-center p-2 sm:p-6">
     
     <!-- App Container -->
-    <div class="w-full max-w-2xl h-[88vh] max-h-[720px] min-h-[600px] bg-slate-800 border border-slate-700 rounded-2xl p-4 sm:p-6 shadow-2xl flex flex-col justify-between overflow-hidden relative">
+    <div class="exercise-shell w-full bg-slate-800 border border-slate-700 rounded-2xl p-4 sm:p-6 shadow-2xl flex flex-col justify-between relative">
 
         <!-- LEVEL SELECTION & DEMO VOCABULARY OVERLAY -->
         <div id="demoModal" class="absolute inset-0 bg-slate-900/95 backdrop-blur-md z-40 p-6 flex flex-col justify-between overflow-y-auto rounded-2xl">
@@ -35,8 +41,9 @@
                         <div class="text-amber-200 text-xs font-medium">Koukni se na tahák a osvěž si slovíčka!</div>
                     </div>
 
-                    <div class="flex justify-between items-center border-b border-slate-700 pb-2 mb-3">
+                    <div class="flex justify-between items-center gap-2 border-b border-slate-700 pb-2 mb-3">
                         <h2 id="demoTitle" class="text-lg font-bold text-amber-400"></h2>
+                        <a href="image-credits.html" class="text-xs text-slate-300 hover:text-amber-400 underline">Zdroje fotografií</a>
                     </div>
 
                     <!-- Mode Selector moved here right under the level header -->
@@ -80,7 +87,8 @@
         </div>
 
         <!-- FULL DECLENSION TABLE MODAL -->
-        <div id="declensionModal" class="hidden absolute inset-0 bg-slate-950/90 backdrop-blur-md z-50 p-4 flex flex-col justify-between rounded-2xl">
+        <dialog id="declensionModal" class="word-dialog" aria-labelledby="modalAnimalTitle">
+          <div class="word-dialog-panel">
             <div class="flex justify-between items-center border-b border-slate-700 pb-2">
                 <div class="flex items-center space-x-2">
                     <span id="modalAnimalSymbol" class="text-xl"></span>
@@ -89,7 +97,9 @@
                 <button onclick="closeDeclensionModal()" class="text-slate-400 hover:text-white font-bold text-xl px-2">✕</button>
             </div>
 
-            <div class="overflow-y-auto my-2 pr-1">
+            <div class="word-dialog-body my-2">
+              <img id="modalAnimalImage" class="word-dialog-image" alt="">
+              <div class="word-dialog-details">
                 <table class="w-full text-xs sm:text-sm text-left text-slate-300">
                     <thead class="text-xs uppercase bg-slate-800 text-slate-400 sticky top-0">
                         <tr>
@@ -100,12 +110,14 @@
                     </thead>
                     <tbody id="declensionTableBody" class="divide-y divide-slate-700/60"></tbody>
                 </table>
+              </div>
             </div>
 
             <button onclick="closeDeclensionModal()" class="w-full bg-slate-700 hover:bg-slate-600 text-white font-bold py-2 rounded-xl text-sm transition shrink-0">
                 Zavřít
             </button>
-        </div>
+          </div>
+        </dialog>
 
         <!-- TOP BAR: Progress & Streaks -->
         <div class="flex items-center justify-between border-b border-slate-700/80 pb-3 h-10 shrink-0">
@@ -116,7 +128,7 @@
         </div>
 
         <!-- WORKSPACE -->
-        <div class="flex-1 my-2 flex flex-col justify-start gap-2 overflow-hidden">
+        <div class="exercise-workspace flex-1 my-2 flex flex-col justify-start gap-2">
             <div class="grid grid-cols-3 gap-3 items-center h-28 shrink-0">
                 <div class="col-span-1 bg-slate-900 border border-slate-700 rounded-xl overflow-hidden h-full flex items-center justify-center relative">
                     <img id="animalImage" src="" alt="Animal" class="w-full h-full object-cover">
@@ -149,7 +161,7 @@
             </button>
 
             <footer class="flex items-center justify-between text-[11px] text-slate-400 pt-1 border-t border-slate-700/40 px-1">
-                <span>Fotky z <a href="https://unsplash.com" target="_blank" rel="noopener noreferrer" class="text-amber-400 hover:underline">Unsplash</a></span>
+                <span>Fotky: <a href="https://unsplash.com" target="_blank" rel="noopener noreferrer" class="text-amber-400 hover:underline">Unsplash</a>, <a href="image-credits.html" class="text-amber-400 hover:underline">Wikimedia Commons</a></span>
                 <a href="https://www.hackczech.com" target="_blank" rel="noopener noreferrer" class="inline-flex items-center space-x-1 text-slate-300 hover:text-amber-400 bg-slate-900/60 hover:bg-slate-900 px-2.5 py-1 rounded-md border border-slate-700/80 transition">
                     <span>🌐</span>
                     <span class="font-semibold">Learn more of Czech @ HackCzech´s Home Page</span>
@@ -158,8 +170,10 @@
         </div>
 
     </div>
+    <script src="../image_urls.js"></script>
     <script src="../known_words.js"></script>
     <script src="combinations.js"></script>
+    <script src="../image_zoom.js"></script>
 
     <script>
         let selectedLevel = 1;
@@ -287,12 +301,20 @@ renderLevelCards();
                 const card = document.createElement('div');
                 card.className = "bg-slate-800 hover:bg-slate-700 border border-slate-700 rounded-xl p-3 flex items-center justify-between gap-2 cursor-pointer transition active:scale-95 group";
                 card.onclick = () => openDeclensionModal(item);
+                card.tabIndex = 0;
+                card.onkeydown = event => {
+                    if (event.target === card && (event.key === 'Enter' || event.key === ' ')) {
+                        event.preventDefault();
+                        openDeclensionModal(item);
+                    }
+                };
                 card.dataset.known = String(isKnown);
                 updateKnownCardStyle(card, isKnown);
 
                 const checkbox = document.createElement('input');
                 checkbox.type = 'checkbox';
                 checkbox.checked = isKnown;
+                checkbox.disabled = !window.isPracticeSelectionsReady();
                 checkbox.setAttribute('aria-label', `Znám slovo ${item.nominative}`);
                 checkbox.className = 'h-5 w-5 shrink-0 accent-amber-500 cursor-pointer';
                 checkbox.onclick = event => event.stopPropagation();
@@ -311,7 +333,7 @@ renderLevelCards();
 
                 card.innerHTML = `
                     <div class="flex items-center space-x-3 overflow-hidden">
-                        <img src="${item.image}" class="w-12 h-12 rounded-lg object-cover border border-slate-600 shrink-0">
+                        <img src="${item.image}" alt="${item.nominative}" class="w-12 h-12 rounded-lg object-cover border border-slate-600 shrink-0">
                         <div class="overflow-hidden">
                             <div class="font-bold text-slate-100 text-sm truncate">${item.nominative}</div>
                             <div class="text-xs text-amber-400">${item.english}</div>
@@ -352,7 +374,7 @@ renderLevelCards();
 
         function updateStartPracticeButton() {
             const startButton = document.getElementById('startPracticeButton');
-            const hasKnownAnimals = window.getKnownAnimalsThroughLevel(selectedLevel).length > 0;
+            const hasKnownAnimals = window.isPracticeSelectionsReady() && window.getKnownAnimalsThroughLevel(selectedLevel).length > 0;
             startButton.disabled = !hasKnownAnimals;
             startButton.textContent = hasKnownAnimals ? 'Start' : 'Vyberte alespoň jedno zvíře';
             startButton.classList.toggle('opacity-50', !hasKnownAnimals);
@@ -362,6 +384,8 @@ renderLevelCards();
         function openDeclensionModal(animal) {
             document.getElementById('modalAnimalSymbol').textContent = animal.symbol;
             document.getElementById('modalAnimalTitle').textContent = `${animal.nominative} (${animal.english})`;
+            document.getElementById('modalAnimalImage').src = animal.image;
+            document.getElementById('modalAnimalImage').alt = animal.nominative;
 
             const caseLabels = [
                 { k: 'nom', n: '1. Nominativ' },
@@ -387,7 +411,7 @@ renderLevelCards();
                 tbody.appendChild(tr);
             });
 
-            document.getElementById('declensionModal').classList.remove('hidden');
+            document.getElementById('declensionModal').showModal();
         }
 
 
@@ -409,7 +433,7 @@ renderLevelCards();
 
 
         function closeDeclensionModal() {
-            document.getElementById('declensionModal').classList.add('hidden');
+            document.getElementById('declensionModal').close();
         }
 
         function resetLevelSelection() {
@@ -418,10 +442,17 @@ renderLevelCards();
         }
 
         function startPracticeApp() {
-            if (window.getKnownAnimalsThroughLevel(selectedLevel).length === 0) return;
+            if (!window.isPracticeSelectionsReady() || window.getKnownAnimalsThroughLevel(selectedLevel).length === 0) return;
             document.getElementById('demoModal').classList.add('hidden');
             loadNextQuestion();
         }
+
+        window.addEventListener('practiceSelectionsChanged', () => {
+            document.getElementById('demoModal').classList.remove('hidden');
+            if (!document.getElementById('demoVocabStep').classList.contains('hidden')) {
+                selectStartingLevel(selectedLevel);
+            }
+        });
 
         function loadNextQuestion() {
             feedbackBox.className = "min-h-[40px] py-1.5 rounded-xl border text-sm font-bold flex items-center justify-center px-4 transition-all opacity-0 invisible text-center";
@@ -471,6 +502,7 @@ renderLevelCards();
 
         function renderUI() {
             animalImage.src = currentQuestion.animal.image;
+            animalImage.alt = currentQuestion.animal.nominative;
             genderBadge.textContent = currentQuestion.animal.symbol;
             genderBadge.className = `absolute bottom-1 left-1 border border-slate-700/80 bg-slate-900/80 text-xs px-1.5 py-0.5 rounded font-bold ${currentQuestion.animal.color}`;
             

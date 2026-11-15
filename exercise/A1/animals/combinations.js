@@ -95,7 +95,7 @@ window.ANIMAL_DATABASE = {
         },
         {
           id: "byk", approved: false, nominative: "býk", english: "Bull", gender: "M_ANIM", symbol: "♂", color: "text-blue-400",
-          image: "https://images.unsplash.com/photo-1545468843-27956a3a7ef8?auto=format&fit=crop&w=600&q=80",
+          image: "https://images.unsplash.com/photo-1772187900597-dca19d1d56bb?auto=format&fit=crop&w=600&q=80",
           declension: { singular: { nom: "býk", gen: "býka", dat: "býkovi", acc: "býka", voc: "býku", loc: "býkovi", inst: "býkem" }, plural: { nom: "býci", gen: "býků", dat: "býkům", acc: "býky", voc: "býci", loc: "býcích", inst: "býky" } }
         },
         {
@@ -125,12 +125,12 @@ window.ANIMAL_DATABASE = {
         },
         {
           id: "kohout", approved: false, nominative: "kohout", english: "Rooster", gender: "M_ANIM", symbol: "♂", color: "text-blue-400",
-          image: "https://images.unsplash.com/photo-1612170153139-6f881ff067e0?auto=format&fit=crop&w=600&q=80",
+          image: "https://images.unsplash.com/photo-1554740760-5db7aca3ec66?auto=format&fit=crop&w=600&q=80",
           declension: { singular: { nom: "kohout", gen: "kohouta", dat: "kohoutovi", acc: "kohouta", voc: "kohoute", loc: "kohoutovi", inst: "kohoutem" }, plural: { nom: "kohouti", gen: "kohoutů", dat: "kohoutům", acc: "kohouty", voc: "kohouti", loc: "kohoutech", inst: "kohouty" } }
         },
         {
           id: "kure", approved: false, nominative: "kuře", english: "Chicken", gender: "N", symbol: "⚧", color: "text-amber-400",
-          image: "https://images.unsplash.com/photo-1563281577-a7be47e20db9?auto=format&fit=crop&w=600&q=80",
+          image: "https://images.unsplash.com/photo-1546272989-40c92939c6c2?auto=format&fit=crop&w=600&q=80",
           declension: { singular: { nom: "kuře", gen: "kuřete", dat: "kuřeti", acc: "kuře", voc: "kuře", loc: "kuřeti", inst: "kuřetem" }, plural: { nom: "kuřata", gen: "kuřat", dat: "kuřatům", acc: "kuřata", voc: "kuřata", loc: "kuřatech", inst: "kuřaty" } }
         },
         {
@@ -161,27 +161,27 @@ window.ANIMAL_DATABASE = {
         },
         {
           id: "losos", approved: false, nominative: "losos", english: "Salmon", gender: "M_ANIM", symbol: "♂", color: "text-blue-400",
-          image: "https://images.unsplash.com/photo-1519708227418-c8fd9a32b7a2?auto=format&fit=crop&w=600&q=80",
+          image: "https://images.unsplash.com/photo-1723716541979-635c7ff2db68?auto=format&fit=crop&w=600&q=80",
           declension: { singular: { nom: "losos", gen: "lososa", dat: "lososovi", acc: "lososa", voc: "losose", loc: "lososovi", inst: "lososem" }, plural: { nom: "lososi", gen: "lososů", dat: "lososům", acc: "lososy", voc: "lososi", loc: "lososech", inst: "lososy" } }
         },
         {
           id: "uhor", approved: false, nominative: "úhoř", english: "Eel", gender: "M_ANIM", symbol: "♂", color: "text-blue-400",
-          image: "https://images.unsplash.com/photo-1544551763-46a013bb70d5?auto=format&fit=crop&w=600&q=80",
+          image: "https://images.unsplash.com/photo-1668887462910-ac742be4fa62?auto=format&fit=crop&w=600&q=80",
           declension: { singular: { nom: "úhoř", gen: "úhoře", dat: "úhořovi", acc: "úhoře", voc: "úhoři", loc: "úhořovi", inst: "úhořem" }, plural: { nom: "úhoři", gen: "úhořů", dat: "úhořům", acc: "úhoře", voc: "úhoři", loc: "úhořích", inst: "úhoři" } }
         },
         {
           id: "kapr", approved: false, nominative: "kapr", english: "Carp", gender: "M_ANIM", symbol: "♂", color: "text-blue-400",
-          image: "https://images.unsplash.com/photo-1520301251406-844222f7f9aa?auto=format&fit=crop&w=600&q=80",
+          image: "https://images.unsplash.com/photo-1722798485935-d4c882e7feb0",
           declension: { singular: { nom: "kapr", gen: "kapra", dat: "kaprovi", acc: "kapra", voc: "kapře", loc: "kaprovi", inst: "kaprem" }, plural: { nom: "kapři", gen: "kaprů", dat: "kaprům", acc: "kapry", voc: "kapři", loc: "kaprech", inst: "kapry" } }
         },
         {
           id: "pstruh", approved: false, nominative: "pstruh", english: "Trout", gender: "M_ANIM", symbol: "♂", color: "text-blue-400",
-          image: "https://images.unsplash.com/photo-1544551763-46a013bb70d5?auto=format&fit=crop&w=600&q=80",
+          image: "https://images.unsplash.com/photo-1722797657686-85e4b8a51604",
           declension: { singular: { nom: "pstruh", gen: "pstruha", dat: "pstruhovi", acc: "pstruha", voc: "pstruhu", loc: "pstruhovi", inst: "pstruhem" }, plural: { nom: "pstruzi", gen: "pstruhů", dat: "pstruhům", acc: "pstruhy", voc: "pstruzi", loc: "pstruzích", inst: "pstruhy" } }
         },
         {
           id: "treska", approved: false, nominative: "treska", english: "Cod", gender: "F", symbol: "♀", color: "text-rose-400",
-          image: "https://images.unsplash.com/photo-1534043464124-3be32fe000c9?auto=format&fit=crop&w=600&q=80",
+          image: "https://images.unsplash.com/photo-1767382289823-54e5df659c2e",
           declension: { singular: { nom: "treska", gen: "tresky", dat: "tresce", acc: "tresku", voc: "tresko", loc: "tresce", inst: "treskou" }, plural: { nom: "tresky", gen: "tresek", dat: "treskám", acc: "tresky", voc: "tresky", loc: "treskách", inst: "treskami" } }
         },
         {
@@ -191,7 +191,7 @@ window.ANIMAL_DATABASE = {
         },
         {
           id: "zajic", approved: false, nominative: "zajíc", english: "Hare", gender: "M_ANIM", symbol: "♂", color: "text-blue-400",
-          image: "https://images.unsplash.com/photo-1520638023360-6def43369781?auto=format&fit=crop&w=600&q=80",
+          image: "https://images.unsplash.com/photo-1567426077162-1558520b719a",
           declension: { singular: { nom: "zajíc", gen: "zajíce", dat: "zajícovi", acc: "zajíce", voc: "zajíci", loc: "zajícovi", inst: "zajícem" }, plural: { nom: "zajíci", gen: "zajíců", dat: "zajícům", acc: "zajíce", voc: "zajíci", loc: "zajících", inst: "zajíci" } }
         },
         {
@@ -221,7 +221,7 @@ window.ANIMAL_DATABASE = {
         },
         {
           id: "osel", approved: false, nominative: "osel", english: "Donkey", gender: "M_ANIM", symbol: "♂", color: "text-blue-400",
-          image: "https://images.unsplash.com/photo-1551884170-09fb70a3a2ed?auto=format&fit=crop&w=600&q=80",
+          image: "https://images.unsplash.com/photo-1568495732369-3a3f5b5290dd",
           declension: { singular: { nom: "osel", gen: "osla", dat: "oslovi", acc: "osla", voc: "osle", loc: "oslovi", inst: "oslem" }, plural: { nom: "osli", gen: "oslů", dat: "oslům", acc: "osly", voc: "osli", loc: "oslech", inst: "osly" } }
         },
         {
@@ -236,22 +236,22 @@ window.ANIMAL_DATABASE = {
         },
         {
           id: "komar", approved: false, nominative: "komár", english: "Mosquito", gender: "M_ANIM", symbol: "♂", color: "text-blue-400",
-          image: "https://images.unsplash.com/photo-1568605117036-5fe5e7bab0b7?auto=format&fit=crop&w=600&q=80",
+          image: "https://images.unsplash.com/photo-1707943768453-7850f916ebde",
           declension: { singular: { nom: "komár", gen: "komára", dat: "komárovi", acc: "komára", voc: "komáre", loc: "komárovi", inst: "komárem" }, plural: { nom: "komáři", gen: "komárů", dat: "komárům", acc: "komáry", voc: "komáři", loc: "komárech", inst: "komáry" } }
         },
         {
           id: "kachna", approved: false, nominative: "kachna", english: "Duck", gender: "F", symbol: "♀", color: "text-rose-400",
-          image: "https://images.unsplash.com/photo-1518020382113-a7e8fc38eac9?auto=format&fit=crop&w=600&q=80",
+          image: "https://images.unsplash.com/photo-1465153690352-10c1b29577f8",
           declension: { singular: { nom: "kachna", gen: "kachny", dat: "kachně", acc: "kachnu", voc: "kachno", loc: "kachně", inst: "kachnou" }, plural: { nom: "kachny", gen: "kachen", dat: "kachnám", acc: "kachny", voc: "kachny", loc: "kachnách", inst: "kachnami" } }
         },
         {
           id: "husa", approved: false, nominative: "husa", english: "Goose", gender: "F", symbol: "♀", color: "text-rose-400",
-          image: "https://images.unsplash.com/photo-1541781774459-bb2af2f05b55?auto=format&fit=crop&w=600&q=80",
+          image: "https://images.unsplash.com/photo-1564851375740-1052e619dcbc",
           declension: { singular: { nom: "husa", gen: "husy", dat: "huse", acc: "husu", voc: "huso", loc: "huse", inst: "husou" }, plural: { nom: "husy", gen: "hus", dat: "husám", acc: "husy", voc: "husy", loc: "husách", inst: "husami" } }
         },
         {
           id: "labut", approved: false, nominative: "labuť", english: "Swan", gender: "F", symbol: "♀", color: "text-rose-400",
-          image: "https://images.unsplash.com/photo-1513836279014-a89f7a76ae86?auto=format&fit=crop&w=600&q=80",
+          image: "https://images.unsplash.com/photo-1477132394330-d2376dc4c091",
           declension: { singular: { nom: "labuť", gen: "labutě", dat: "labuti", acc: "labuť", voc: "labuti", loc: "labuti", inst: "labutí" }, plural: { nom: "labutě", gen: "labutí", dat: "labutím", acc: "labutě", voc: "labutě", loc: "labutích", inst: "labutěmi" } }
         },
         {
@@ -261,7 +261,7 @@ window.ANIMAL_DATABASE = {
         },
         {
           id: "kanar", approved: false, nominative: "kanár", english: "Canary", gender: "M_ANIM", symbol: "♂", color: "text-blue-400",
-          image: "https://images.unsplash.com/photo-1522858547137-f1dcec554f55?auto=format&fit=crop&w=600&q=80",
+          image: "https://images.unsplash.com/photo-1779495780802-fcc8b7281def",
           declension: { singular: { nom: "kanár", gen: "kanára", dat: "kanárovi", acc: "kanára", voc: "kanáre", loc: "kanárovi", inst: "kanárem" }, plural: { nom: "kanáři", gen: "kanárů", dat: "kanárům", acc: "kanáry", voc: "kanáři", loc: "kanárech", inst: "kanáry" } }
         },
         {
@@ -276,7 +276,7 @@ window.ANIMAL_DATABASE = {
         },
         {
           id: "zralok", approved: false, nominative: "žralok", english: "Shark", gender: "M_ANIM", symbol: "♂", color: "text-blue-400",
-          image: "https://images.unsplash.com/photo-1560275619-4660e43ab900?auto=format&fit=crop&w=600&q=80",
+          image: "https://images.unsplash.com/photo-1560275619-4662e36fa65c",
           declension: { singular: { nom: "žralok", gen: "žraloka", dat: "žralokovi", acc: "žraloka", voc: "žraloku", loc: "žralokovi", inst: "žralokem" }, plural: { nom: "žraloci", gen: "žraloků", dat: "žralokům", acc: "žraloky", voc: "žraloci", loc: "žralocích", inst: "žraloky" } }
         },
         {
@@ -286,32 +286,32 @@ window.ANIMAL_DATABASE = {
         },
         {
           id: "velryba", approved: false, nominative: "velryba", english: "Whale", gender: "F", symbol: "♀", color: "text-rose-400",
-          image: "https://images.unsplash.com/photo-1568430460464-02e3456542c2?auto=format&fit=crop&w=600&q=80",
+          image: "https://images.unsplash.com/photo-1698472505070-6d3b90afb530",
           declension: { singular: { nom: "velryba", gen: "velryby", dat: "velrybě", acc: "velrybu", voc: "velrybo", loc: "velrybě", inst: "velrybou" }, plural: { nom: "velryby", gen: "velryb", dat: "velrybám", acc: "velryby", voc: "velryby", loc: "velrybách", inst: "velrybami" } }
         },
         {
           id: "tulen", approved: false, nominative: "tuleň", english: "Seal", gender: "M_ANIM", symbol: "♂", color: "text-blue-400",
-          image: "https://images.unsplash.com/photo-1551085254-e96b210df58a?auto=format&fit=crop&w=600&q=80",
+          image: "https://images.unsplash.com/photo-1533084417605-e538a510d50a",
           declension: { singular: { nom: "tuleň", gen: "tulení", dat: "tuleni", acc: "tuleně", voc: "tuleni", loc: "tuleni", inst: "tuleněm" }, plural: { nom: "tuleni", gen: "tuleňů", dat: "tuleňům", acc: "tuleně", voc: "tuleni", loc: "tuleních", inst: "tuleni" } }
         },
         {
           id: "krokodil", approved: false, nominative: "krokodýl", english: "Crocodile", gender: "M_ANIM", symbol: "♂", color: "text-blue-400",
-          image: "https://images.unsplash.com/photo-1516426122078-c23e76319801?auto=format&fit=crop&w=600&q=80",
+          image: "https://images.unsplash.com/photo-1605649461784-7d5e4df56c97",
           declension: { singular: { nom: "krokodýl", gen: "krokodýla", dat: "krokodýlovi", acc: "krokodýla", voc: "krokodýle", loc: "krokodýlovi", inst: "krokodýlem" }, plural: { nom: "krokodýli", gen: "krokodýlů", dat: "krokodýlům", acc: "krokodýly", voc: "krokodýli", loc: "krokodýlech", inst: "krokodýly" } }
         },
         {
           id: "hroch", approved: false, nominative: "hroch", english: "Hippo", gender: "M_ANIM", symbol: "♂", color: "text-blue-400",
-          image: "https://images.unsplash.com/photo-1541781774459-bb2af2f05b55?auto=format&fit=crop&w=600&q=80",
+          image: "https://images.unsplash.com/photo-1712642421888-b3de5073231f",
           declension: { singular: { nom: "hroch", gen: "hrocha", dat: "hrochovi", acc: "hrocha", voc: "hrochu", loc: "hrochovi", inst: "hrochem" }, plural: { nom: "hroši", gen: "hrochů", dat: "hrochům", acc: "hrochy", voc: "hroši", loc: "hroších", inst: "hrochy" } }
         },
         {
           id: "nosorozec", approved: false, nominative: "nosorožec", english: "Rhino", gender: "M_ANIM", symbol: "♂", color: "text-blue-400",
-          image: "https://images.unsplash.com/photo-1534567153574-2b12153a87f0?auto=format&fit=crop&w=600&q=80",
+          image: "https://images.unsplash.com/photo-1598894000396-bc30e0996899",
           declension: { singular: { nom: "nosorožec", gen: "nosorožce", dat: "nosorožcovi", acc: "nosorožce", voc: "nosorožče", loc: "nosorožcovi", inst: "nosorožcem" }, plural: { nom: "nosorožci", gen: "nosorožců", dat: "nosorožcům", acc: "nosorožce", voc: "nosorožci", loc: "nosorožcích", inst: "nosorožci" } }
         },
         {
           id: "gepard", approved: false, nominative: "gepard", english: "Cheetah", gender: "M_ANIM", symbol: "♂", color: "text-blue-400",
-          image: "https://images.unsplash.com/photo-1534188753412-3e26d0d618d6?auto=format&fit=crop&w=600&q=80",
+          image: "https://images.unsplash.com/photo-1551969014-7d2c4cddf0b6?auto=format&fit=crop&w=600&q=80",
           declension: { singular: { nom: "gepard", gen: "geparda", dat: "gepardovi", acc: "geparda", voc: "geparde", loc: "gepardovi", inst: "gepardem" }, plural: { nom: "gepardi", gen: "gepardů", dat: "gepardům", acc: "gepardy", voc: "gepardi", loc: "gepardech", inst: "gepardy" } }
         },
         {
@@ -326,17 +326,17 @@ window.ANIMAL_DATABASE = {
         },
         {
           id: "gorila", approved: false, nominative: "gorila", english: "Gorilla", gender: "F", symbol: "♀", color: "text-rose-400",
-          image: "https://images.unsplash.com/photo-1535591273668-578e31182c4f?auto=format&fit=crop&w=600&q=80",
+          image: "https://images.unsplash.com/photo-1581281863883-2469417a1668",
           declension: { singular: { nom: "gorila", gen: "gorily", dat: "gorile", acc: "gorilu", voc: "gorilo", loc: "gorile", inst: "gorilou" }, plural: { nom: "gorily", gen: "goril", dat: "gorilám", acc: "gorily", voc: "gorily", loc: "gorilách", inst: "gorilami" } }
         },
         {
           id: "panda", approved: false, nominative: "panda", english: "Panda", gender: "F", symbol: "♀", color: "text-rose-400",
-          image: "https://images.unsplash.com/photo-1564349683136-77e08dba1ef9?auto=format&fit=crop&w=600&q=80",
+          image: "https://images.unsplash.com/photo-1703248187251-c897f32fe4ec?q=80&w=735&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=NHwxMjA3fDA%3D",
           declension: { singular: { nom: "panda", gen: "pandy", dat: "pandě", acc: "pandu", voc: "pando", loc: "pandě", inst: "pandou" }, plural: { nom: "pandy", gen: "pand", dat: "pandám", acc: "pandy", voc: "pandy", loc: "pandách", inst: "pandami" } }
         },
         {
           id: "klokan", approved: false, nominative: "klokan", english: "Kangaroo", gender: "M_ANIM", symbol: "♂", color: "text-blue-400",
-          image: "https://images.unsplash.com/photo-1529101091764-9352478b14f3?auto=format&fit=crop&w=600&q=80",
+          image: "https://images.unsplash.com/photo-1575699914911-0027c7b95fb6",
           declension: { singular: { nom: "klokan", gen: "klokana", dat: "klokanovi", acc: "klokana", voc: "klokane", loc: "klokanovi", inst: "klokanem" }, plural: { nom: "klokani", gen: "klokanů", dat: "klokanům", acc: "klokany", voc: "klokani", loc: "klokanech", inst: "klokany" } }
         }
       ]
@@ -352,12 +352,12 @@ window.ANIMAL_DATABASE = {
         },
         {
           id: "srnec", approved: false, nominative: "srnec", english: "Roe deer", gender: "M_ANIM", symbol: "♂", color: "text-blue-400",
-          image: "https://images.unsplash.com/photo-1549366021-9f761d450615?auto=format&fit=crop&w=600&q=80",
+          image: "https://images.unsplash.com/photo-1790448745885-c2664f74efe3",
           declension: { singular: { nom: "srnec", gen: "srnce", dat: "srncovi", acc: "srnce", voc: "srnče", loc: "srncovi", inst: "srncem" }, plural: { nom: "srnci", gen: "srnců", dat: "srncům", acc: "srnce", voc: "srnci", loc: "srncích", inst: "srnci" } }
         },
         {
           id: "divocak", approved: false, nominative: "divočák", english: "Wild boar", gender: "M_ANIM", symbol: "♂", color: "text-blue-400",
-          image: "https://images.unsplash.com/photo-1589656966895-2f33e7653819?auto=format&fit=crop&w=600&q=80",
+          image: "https://images.unsplash.com/photo-1785952638293-06412e0284e9",
           declension: { singular: { nom: "divočák", gen: "divočáka", dat: "divočákovi", acc: "divočáka", voc: "divočáku", loc: "divočákovi", inst: "divočákem" }, plural: { nom: "divočáci", gen: "divočáků", dat: "divočákům", acc: "divočáky", voc: "divočáci", loc: "divočácích", inst: "divočáky" } }
         },
         {
@@ -372,27 +372,27 @@ window.ANIMAL_DATABASE = {
         },
         {
           id: "vydra", approved: false, nominative: "vydra", english: "Otter", gender: "F", symbol: "♀", color: "text-rose-400",
-          image: "https://images.unsplash.com/photo-1559827291-72ee739d0d9a?auto=format&fit=crop&w=600&q=80",
+          image: "https://images.unsplash.com/photo-1698435354379-b10bcc803369",
           declension: { singular: { nom: "vydra", gen: "vydry", dat: "vydře", acc: "vydru", voc: "vydro", loc: "vydře", inst: "vydrou" }, plural: { nom: "vydry", gen: "vydr", dat: "vydrám", acc: "vydry", voc: "vydry", loc: "vydrách", inst: "vydrami" } }
         },
         {
           id: "bobr", approved: false, nominative: "bobr", english: "Beaver", gender: "M_ANIM", symbol: "♂", color: "text-blue-400",
-          image: "https://images.unsplash.com/photo-1589656966895-2f33e7653819?auto=format&fit=crop&w=600&q=80",
+          image: "https://images.unsplash.com/photo-1774623776636-2306d886ea28",
           declension: { singular: { nom: "bobr", gen: "bobra", dat: "bobrovi", acc: "bobra", voc: "bobre", loc: "bobrovi", inst: "bobrem" }, plural: { nom: "bobři", gen: "bobrů", dat: "bobrům", acc: "bobry", voc: "bobři", loc: "bobrech", inst: "bobry" } }
         },
         {
           id: "jezevec", approved: false, nominative: "jezevec", english: "Badger", gender: "M_ANIM", symbol: "♂", color: "text-blue-400",
-          image: "https://images.unsplash.com/photo-1500479694472-551d1fb6258d?auto=format&fit=crop&w=600&q=80",
+          image: "https://images.unsplash.com/photo-1689595217862-f8b5eda62bee",
           declension: { singular: { nom: "jezevec", gen: "jezevce", dat: "jezevcovi", acc: "jezevce", voc: "jezevče", loc: "jezevcovi", inst: "jezevcem" }, plural: { nom: "jezevci", gen: "jezevců", dat: "jezevcům", acc: "jezevce", voc: "jezevci", loc: "jezevcích", inst: "jezevci" } }
         },
         {
           id: "rys", approved: false, nominative: "rys", english: "Lynx", gender: "M_ANIM", symbol: "♂", color: "text-blue-400",
-          image: "https://images.unsplash.com/photo-1517849845537-4d257902454a?auto=format&fit=crop&w=600&q=80",
+          image: "https://images.unsplash.com/photo-1729756736992-1c619793e8fe",
           declension: { singular: { nom: "rys", gen: "rysa", dat: "rysovi", acc: "rysa", voc: "ryse", loc: "rysovi", inst: "rysem" }, plural: { nom: "rysi", gen: "rysů", dat: "rysům", acc: "rysy", voc: "rysi", loc: "rysech", inst: "rysy" } }
         },
         {
           id: "los", approved: false, nominative: "los", english: "Moose", gender: "M_ANIM", symbol: "♂", color: "text-blue-400",
-          image: "https://images.unsplash.com/photo-1484406566174-9da000fda645?auto=format&fit=crop&w=600&q=80",
+          image: "https://images.unsplash.com/photo-1716830479110-d915c422d6be",
           declension: { singular: { nom: "los", gen: "losa", dat: "losovi", acc: "losa", voc: "lose", loc: "losovi", inst: "losem" }, plural: { nom: "losi", gen: "losů", dat: "losům", acc: "losy", voc: "losi", loc: "losech", inst: "losy" } }
         },
         {
@@ -407,17 +407,17 @@ window.ANIMAL_DATABASE = {
         },
         {
           id: "lev", approved: false, nominative: "lev", english: "Lion", gender: "M_ANIM", symbol: "♂", color: "text-blue-400",
-          image: "https://images.unsplash.com/photo-1614027164847-1b28cfe1df60?auto=format&fit=crop&w=600&q=80",
+          image: "https://thumb.wikimedia.org/wikipedia/commons/thumb/a/a6/020_The_lion_king_Snyggve_in_the_Serengeti_National_Park_Photo_by_Giles_Laurent.jpg/960px-020_The_lion_king_Snyggve_in_the_Serengeti_National_Park_Photo_by_Giles_Laurent.jpg",
           declension: { singular: { nom: "lev", gen: "lva", dat: "lvovi", acc: "lva", voc: "lve", loc: "lvovi", inst: "lvem" }, plural: { nom: "lvi", gen: "lvů", dat: "lvům", acc: "lvy", voc: "lvi", loc: "lvech", inst: "lvy" } }
         },
         {
           id: "tygr", approved: true, nominative: "tygr", english: "Tiger", gender: "M_ANIM", symbol: "♂", color: "text-blue-400",
-          image: "https://images.unsplash.com/photo-1561731216-c3a4d99437d5?auto=format&fit=crop&w=600&q=80",
+          image: "https://thumb.wikimedia.org/wikipedia/commons/thumb/b/b0/Bengal_tiger_%28Panthera_tigris_tigris%29_female_3_crop.jpg/960px-Bengal_tiger_%28Panthera_tigris_tigris%29_female_3_crop.jpg",
           declension: { singular: { nom: "tygr", gen: "tygra", dat: "tygrovi", acc: "tygra", voc: "tygře", loc: "tygrovi", inst: "tygrem" }, plural: { nom: "tygři", gen: "tygrů", dat: "tygrům", acc: "tygry", voc: "tygři", loc: "tygrech", inst: "tygry" } }
         },
         {
           id: "velbloud", approved: false, nominative: "velbloud", english: "Camel", gender: "M_ANIM", symbol: "♂", color: "text-blue-400",
-          image: "https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=600&q=80",
+          image: "https://images.unsplash.com/photo-1778867730839-00f9571f8cad",
           declension: { singular: { nom: "velbloud", gen: "velblouda", dat: "velbloudovi", acc: "velblouda", voc: "velbloude", loc: "velbloudovi", inst: "velbloudem" }, plural: { nom: "velbloudi", gen: "velbloudů", dat: "velbloudům", acc: "velbloudy", voc: "velbloudi", loc: "velbloudech", inst: "velbloudy" } }
         },
         {
@@ -427,77 +427,77 @@ window.ANIMAL_DATABASE = {
         },
         {
           id: "plamenak", approved: false, nominative: "plameňák", english: "Flamingo", gender: "M_ANIM", symbol: "♂", color: "text-blue-400",
-          image: "https://images.unsplash.com/photo-1518992028580-6d57bd80f2dd?auto=format&fit=crop&w=600&q=80",
+          image: "https://images.unsplash.com/photo-1763641683842-3b4f09950d67",
           declension: { singular: { nom: "plameňák", gen: "plameňáka", dat: "plameňákovi", acc: "plameňáka", voc: "plameňáku", loc: "plameňákovi", inst: "plameňákem" }, plural: { nom: "plameňáci", gen: "plameňáků", dat: "plameňákům", acc: "plameňáky", voc: "plameňáci", loc: "plameňácích", inst: "plameňáky" } }
         },
         {
           id: "pelikan", approved: false, nominative: "pelikán", english: "Pelican", gender: "M_ANIM", symbol: "♂", color: "text-blue-400",
-          image: "https://images.unsplash.com/photo-1538370965046-79c0d6907d47?auto=format&fit=crop&w=600&q=80",
+          image: "https://images.unsplash.com/photo-1706465197257-cd525d56356f",
           declension: { singular: { nom: "pelikán", gen: "pelikána", dat: "pelikánovi", acc: "pelikána", voc: "pelikáne", loc: "pelikánovi", inst: "pelikánem" }, plural: { nom: "pelikáni", gen: "pelikánů", dat: "pelikánům", acc: "pelikány", voc: "pelikáni", loc: "pelikánech", inst: "pelikány" } }
         },
         {
           id: "racek", approved: false, nominative: "racek", english: "Seagull", gender: "M_ANIM", symbol: "♂", color: "text-blue-400",
-          image: "https://images.unsplash.com/photo-1513836279014-a89f7a76ae86?auto=format&fit=crop&w=600&q=80",
+          image: "https://thumb.wikimedia.org/wikipedia/commons/thumb/b/b9/Herring_Gull_%28Larus_argentatus%29%2C_Brighton%2C_England.JPG/960px-Herring_Gull_%28Larus_argentatus%29%2C_Brighton%2C_England.JPG",
           declension: { singular: { nom: "racek", gen: "racka", dat: "rackovi", acc: "racka", voc: "racku", loc: "rackovi", inst: "rackem" }, plural: { nom: "racci", gen: "racků", dat: "rackům", acc: "racky", voc: "racci", loc: "racích", inst: "racky" } }
         },
         {
           id: "datel", approved: false, nominative: "datel", english: "Woodpecker", gender: "M_ANIM", symbol: "♂", color: "text-blue-400",
-          image: "https://images.unsplash.com/photo-1522858547137-f1dcec554f55?auto=format&fit=crop&w=600&q=80",
+          image: "https://thumb.wikimedia.org/wikipedia/commons/thumb/2/20/%D0%96%D0%B5%D0%BB%D0%BD%D0%B0_%28Dryocopus_martius%2C_fem%29%2C_%C2%AB%D0%93%D0%BE%D1%80%D0%BE%D0%B4%D1%81%D0%BA%D0%B0%D1%8F_%D1%88%D1%83%D0%BC%D0%B0%D1%88%D0%B5%D1%88%D0%B0%D1%8F%C2%BB.jpg/960px-%D0%96%D0%B5%D0%BB%D0%BD%D0%B0_%28Dryocopus_martius%2C_fem%29%2C_%C2%AB%D0%93%D0%BE%D1%80%D0%BE%D0%B4%D1%81%D0%BA%D0%B0%D1%8F_%D1%88%D1%83%D0%BC%D0%B0%D1%88%D0%B5%D1%88%D0%B0%D1%8F%C2%BB.jpg",
           declension: { singular: { nom: "datel", gen: "datla", dat: "datlovi", acc: "datla", voc: "datle", loc: "datlovi", inst: "datlem" }, plural: { nom: "datli", gen: "datlů", dat: "datlům", acc: "datly", voc: "datli", loc: "datlech", inst: "datly" } }
         },
         {
           id: "kukacka", approved: false, nominative: "kukačka", english: "Cuckoo", gender: "F", symbol: "♀", color: "text-rose-400",
-          image: "https://images.unsplash.com/photo-1518992028580-6d57bd80f2dd?auto=format&fit=crop&w=600&q=80",
+          image: "https://thumb.wikimedia.org/wikipedia/commons/thumb/b/b9/Cuckoo_%2851169010335%29.jpg/960px-Cuckoo_%2851169010335%29.jpg",
           declension: { singular: { nom: "kukačka", gen: "kukačky", dat: "kukačce", acc: "kukačku", voc: "kukačko", loc: "kukačce", inst: "kukačkou" }, plural: { nom: "kukačky", gen: "kukaček", dat: "kukačkám", acc: "kukačky", voc: "kukačky", loc: "kukačkách", inst: "kukačkami" } }
         },
         {
           id: "krab", approved: false, nominative: "krab", english: "Crab", gender: "M_ANIM", symbol: "♂", color: "text-blue-400",
-          image: "https://images.unsplash.com/photo-1559827291-72ee739d0d9a?auto=format&fit=crop&w=600&q=80",
+          image: "https://thumb.wikimedia.org/wikipedia/commons/thumb/7/71/Cancer_pagurus.jpg/960px-Cancer_pagurus.jpg",
           declension: { singular: { nom: "krab", gen: "kraba", dat: "krabovi", acc: "kraba", voc: "krabe", loc: "krabovi", inst: "krabem" }, plural: { nom: "krabi", gen: "krabů", dat: "krabům", acc: "kraby", voc: "krabi", loc: "krabech", inst: "kraby" } }
         },
         {
           id: "humr", approved: false, nominative: "humr", english: "Lobster", gender: "M_ANIM", symbol: "♂", color: "text-blue-400",
-          image: "https://images.unsplash.com/photo-1559827291-72ee739d0d9a?auto=format&fit=crop&w=600&q=80",
+          image: "https://thumb.wikimedia.org/wikipedia/commons/thumb/0/0b/KreeftbijDenOsse.jpg/960px-KreeftbijDenOsse.jpg",
           declension: { singular: { nom: "humr", gen: "humra", dat: "humrovi", acc: "humra", voc: "humře", loc: "humrovi", inst: "humrem" }, plural: { nom: "humři", gen: "humrů", dat: "humrům", acc: "humry", voc: "humři", loc: "humrech", inst: "humry" } }
         },
         {
           id: "snek", approved: false, nominative: "šnek", english: "Snail", gender: "M_ANIM", symbol: "♂", color: "text-blue-400",
-          image: "https://images.unsplash.com/photo-1534043464124-3be32fe000c9?auto=format&fit=crop&w=600&q=80",
+          image: "https://thumb.wikimedia.org/wikipedia/commons/thumb/6/69/Grapevinesnail_01.jpg/960px-Grapevinesnail_01.jpg",
           declension: { singular: { nom: "šnek", gen: "šneka", dat: "šnekovi", acc: "šneka", voc: "šneku", loc: "šnekovi", inst: "šnekem" }, plural: { nom: "šneci", gen: "šneků", dat: "šnekům", acc: "šneky", voc: "šneci", loc: "šnecích", inst: "šneky" } }
         },
         {
           id: "zizala", approved: false, nominative: "žížala", english: "Earthworm", gender: "F", symbol: "♀", color: "text-rose-400",
-          image: "https://images.unsplash.com/photo-1568605117036-5fe5e7bab0b7?auto=format&fit=crop&w=600&q=80",
+          image: "https://thumb.wikimedia.org/wikipedia/commons/thumb/4/46/Eisenia_foetida_R.H._%288%29.JPG/960px-Eisenia_foetida_R.H._%288%29.JPG",
           declension: { singular: { nom: "žížala", gen: "žížaly", dat: "žížale", acc: "žížalu", voc: "žížalo", loc: "žížale", inst: "žížalou" }, plural: { nom: "žížaly", gen: "žížal", dat: "žížalám", acc: "žížaly", voc: "žížaly", loc: "žížalách", inst: "žížalami" } }
         },
         {
           id: "vcela", approved: false, nominative: "včela", english: "Bee", gender: "F", symbol: "♀", color: "text-rose-400",
-          image: "https://images.unsplash.com/photo-1558642452-9d2a7deb7f62?auto=format&fit=crop&w=600&q=80",
+          image: "https://thumb.wikimedia.org/wikipedia/commons/thumb/4/4d/Apis_mellifera_Western_honey_bee.jpg/960px-Apis_mellifera_Western_honey_bee.jpg",
           declension: { singular: { nom: "včela", gen: "včely", dat: "včele", acc: "včelu", voc: "včelo", loc: "včele", inst: "včelou" }, plural: { nom: "včely", gen: "včel", dat: "včelám", acc: "včely", voc: "včely", loc: "včelách", inst: "včelami" } }
         },
         {
           id: "mravenec", approved: false, nominative: "mravenec", english: "Ant", gender: "M_ANIM", symbol: "♂", color: "text-blue-400",
-          image: "https://images.unsplash.com/photo-1589656966895-2f33e7653819?auto=format&fit=crop&w=600&q=80",
+          image: "https://thumb.wikimedia.org/wikipedia/commons/thumb/d/db/Red_Ant_-_March_2025.jpg/960px-Red_Ant_-_March_2025.jpg",
           declension: { singular: { nom: "mravenec", gen: "mravence", dat: "mravencovi", acc: "mravence", voc: "mravenče", loc: "mravencovi", inst: "mravencem" }, plural: { nom: "mravenci", gen: "mravenců", dat: "mravencům", acc: "mravence", voc: "mravenci", loc: "mravencích", inst: "mravenci" } }
         },
         {
           id: "pavouk", approved: false, nominative: "pavouk", english: "Spider", gender: "M_ANIM", symbol: "♂", color: "text-blue-400",
-          image: "https://images.unsplash.com/photo-1520301251406-844222f7f9aa?auto=format&fit=crop&w=600&q=80",
+          image: "https://thumb.wikimedia.org/wikipedia/commons/thumb/f/f3/Araneus_diadematus_%28Clerck%2C_1757%29.JPG/960px-Araneus_diadematus_%28Clerck%2C_1757%29.JPG",
           declension: { singular: { nom: "pavouk", gen: "pavouka", dat: "pavoukovi", acc: "pavouka", voc: "pavouku", loc: "pavoukovi", inst: "pavoukem" }, plural: { nom: "pavouci", gen: "pavouků", dat: "pavoukům", acc: "pavouky", voc: "pavouci", loc: "pavoucích", inst: "pavouky" } }
         },
         {
           id: "moucha", approved: false, nominative: "moucha", english: "Fly", gender: "F", symbol: "♀", color: "text-rose-400",
-          image: "https://images.unsplash.com/photo-1568605117036-5fe5e7bab0b7?auto=format&fit=crop&w=600&q=80",
+          image: "https://thumb.wikimedia.org/wikipedia/commons/thumb/1/14/Common_house_fly%2C_Musca_domestica.jpg/960px-Common_house_fly%2C_Musca_domestica.jpg",
           declension: { singular: { nom: "moucha", gen: "mouchy", dat: "mouše", acc: "mouchu", voc: "moucho", loc: "mouše", inst: "mouchou" }, plural: { nom: "mouchy", gen: "mouch", dat: "mouchám", acc: "mouchy", voc: "mouchy", loc: "mouchách", inst: "mouchami" } }
         },
         {
           id: "motyl", approved: false, nominative: "motýl", english: "Butterfly", gender: "M_ANIM", symbol: "♂", color: "text-blue-400",
-          image: "https://images.unsplash.com/photo-1526336024174-e58f5cdd8e13?auto=format&fit=crop&w=600&q=80",
+          image: "https://upload.wikimedia.org/wikipedia/commons/3/3d/Fesoj_-_Papilio_machaon_%28by%29.jpg",
           declension: { singular: { nom: "motýl", gen: "motýla", dat: "motýlovi", acc: "motýla", voc: "motýle", loc: "motýlovi", inst: "motýlem" }, plural: { nom: "motýli", gen: "motýlů", dat: "motýlům", acc: "motýly", voc: "motýli", loc: "motýlech", inst: "motýly" } }
         },
         {
           id: "blecha", approved: false, nominative: "blecha", english: "Flea", gender: "F", symbol: "♀", color: "text-rose-400",
-          image: "https://images.unsplash.com/photo-1568605117036-5fe5e7bab0b7?auto=format&fit=crop&w=600&q=80",
+          image: "https://thumb.wikimedia.org/wikipedia/commons/thumb/9/9d/%D0%9A%D0%BE%D1%88%D0%B0%D1%87%D1%8C%D1%8F_%D0%B1%D0%BB%D0%BE%D1%85%D0%B0.jpg/960px-%D0%9A%D0%BE%D1%88%D0%B0%D1%87%D1%8C%D1%8F_%D0%B1%D0%BB%D0%BE%D1%85%D0%B0.jpg",
           declension: { singular: { nom: "blecha", gen: "blechy", dat: "bleše", acc: "blechu", voc: "blecho", loc: "bleše", inst: "blechou" }, plural: { nom: "blechy", gen: "blech", dat: "blechám", acc: "blechy", voc: "blechy", loc: "blechách", inst: "blechami" } }
         },
         {
@@ -518,82 +518,82 @@ window.ANIMAL_DATABASE = {
         },
         {
           id: "meduza", approved: false, nominative: "medúza", english: "Jellyfish", gender: "F", symbol: "♀", color: "text-rose-400",
-          image: "https://images.unsplash.com/photo-1544551763-46a013bb70d5?auto=format&fit=crop&w=600&q=80",
+          image: "https://thumb.wikimedia.org/wikipedia/commons/thumb/4/44/Jelly_cc11.jpg/960px-Jelly_cc11.jpg",
           declension: { singular: { nom: "medúza", gen: "medúzy", dat: "medúze", acc: "medúzu", voc: "medúzo", loc: "medúze", inst: "medúzou" }, plural: { nom: "medúzy", gen: "medúz", dat: "medúzám", acc: "medúzy", voc: "medúzy", loc: "medúzách", inst: "medúzami" } }
         },
         {
           id: "rejnok", approved: false, nominative: "rejnok", english: "Stingray", gender: "M_ANIM", symbol: "♂", color: "text-blue-400",
-          image: "https://images.unsplash.com/photo-1544551763-46a013bb70d5?auto=format&fit=crop&w=600&q=80",
+          image: "https://thumb.wikimedia.org/wikipedia/commons/thumb/a/a0/SStringray.jpg/960px-SStringray.jpg",
           declension: { singular: { nom: "rejnok", gen: "rejnoka", dat: "rejnokovi", acc: "rejnoka", voc: "rejnoku", loc: "rejnokovi", inst: "rejnokem" }, plural: { nom: "rejnoci", gen: "rejnoků", dat: "rejnokům", acc: "rejnoky", voc: "rejnoci", loc: "rejnocích", inst: "rejnoky" } }
         },
         {
           id: "zmije", approved: false, nominative: "zmije", english: "Viper", gender: "F", symbol: "♀", color: "text-rose-400",
-          image: "https://images.unsplash.com/photo-1531386151447-fd76ad50012f?auto=format&fit=crop&w=600&q=80",
+          image: "https://thumb.wikimedia.org/wikipedia/commons/thumb/a/a7/Common_European_viper_%28Vipera_berus%29_female_Pieniny.jpg/960px-Common_European_viper_%28Vipera_berus%29_female_Pieniny.jpg",
           declension: { singular: { nom: "zmije", gen: "zmije", dat: "zmiji", acc: "zmiji", voc: "zmije", loc: "zmiji", inst: "zmijí" }, plural: { nom: "zmije", gen: "zmijí", dat: "zmijím", acc: "zmije", voc: "zmije", loc: "zmijích", inst: "zmijemi" } }
         },
         {
           id: "mlok", approved: false, nominative: "mlok", english: "Salamander", gender: "M_ANIM", symbol: "♂", color: "text-blue-400",
-          image: "https://images.unsplash.com/photo-1559253664-ca249d4608c6?auto=format&fit=crop&w=600&q=80",
+          image: "https://thumb.wikimedia.org/wikipedia/commons/thumb/1/1b/Salamandra_salamandra_MHNT_1.jpg/960px-Salamandra_salamandra_MHNT_1.jpg",
           declension: { singular: { nom: "mlok", gen: "mloka", dat: "mlokovi", acc: "mloka", voc: "mloku", loc: "mlokovi", inst: "mlokem" }, plural: { nom: "mloci", gen: "mloků", dat: "mlokům", acc: "mloky", voc: "mloci", loc: "mlocích", inst: "mloky" } }
         },
         {
           id: "colek", approved: false, nominative: "čolek", english: "Newt", gender: "M_ANIM", symbol: "♂", color: "text-blue-400",
-          image: "https://images.unsplash.com/photo-1559253664-ca249d4608c6?auto=format&fit=crop&w=600&q=80",
+          image: "https://thumb.wikimedia.org/wikipedia/commons/thumb/f/fa/Triturus_vulgaris_maennchen_cropped.jpg/960px-Triturus_vulgaris_maennchen_cropped.jpg",
           declension: { singular: { nom: "čolek", gen: "čolka", dat: "čolkovi", acc: "čolka", voc: "čolku", loc: "čolkovi", inst: "čolkem" }, plural: { nom: "čolci", gen: "čolků", dat: "čolkům", acc: "čolky", voc: "čolci", loc: "čolcích", inst: "čolky" } }
         },
         {
           id: "svetluska", approved: false, nominative: "světluška", english: "Firefly", gender: "F", symbol: "♀", color: "text-rose-400",
-          image: "https://images.unsplash.com/photo-1558642452-9d2a7deb7f62?auto=format&fit=crop&w=600&q=80",
+          image: "https://thumb.wikimedia.org/wikipedia/commons/thumb/5/52/Photuris_lucicrescens.jpg/960px-Photuris_lucicrescens.jpg",
           declension: { singular: { nom: "světluška", gen: "světlušky", dat: "světlušce", acc: "světlušku", voc: "světluško", loc: "světlušce", inst: "světluškou" }, plural: { nom: "světlušky", gen: "světlušek", dat: "světluškám", acc: "světlušky", voc: "světlušky", loc: "světluškách", inst: "světluškami" } }
         },
         {
           id: "lednacek", approved: false, nominative: "ledňáček", english: "Kingfisher", gender: "M_ANIM", symbol: "♂", color: "text-blue-400",
-          image: "https://images.unsplash.com/photo-1518992028580-6d57bd80f2dd?auto=format&fit=crop&w=600&q=80",
+          image: "https://thumb.wikimedia.org/wikipedia/commons/thumb/b/bc/Alcedo_atthis_-England-8_%28cropped%29.jpg/960px-Alcedo_atthis_-England-8_%28cropped%29.jpg",
           declension: { singular: { nom: "ledňáček", gen: "ledňáčka", dat: "ledňáčkovi", acc: "ledňáčka", voc: "ledňáčku", loc: "ledňáčkovi", inst: "ledňáčkem" }, plural: { nom: "ledňáčci", gen: "ledňáčků", dat: "ledňáčkům", acc: "ledňáčky", voc: "ledňáčci", loc: "ledňáčcích", inst: "ledňáčky" } }
         },
         {
           id: "bazant", approved: false, nominative: "bažant", english: "Pheasant", gender: "M_ANIM", symbol: "♂", color: "text-blue-400",
-          image: "https://images.unsplash.com/photo-1518992028580-6d57bd80f2dd?auto=format&fit=crop&w=600&q=80",
+          image: "https://thumb.wikimedia.org/wikipedia/commons/thumb/f/f7/Phasianus_colchicus_Oulu_20200524_02.jpg/960px-Phasianus_colchicus_Oulu_20200524_02.jpg",
           declension: { singular: { nom: "bažant", gen: "bažanta", dat: "bažantovi", acc: "bažanta", voc: "bažante", loc: "bažantovi", inst: "bažantem" }, plural: { nom: "bažanti", gen: "bažantů", dat: "bažantům", acc: "bažanty", voc: "bažanti", loc: "bažantech", inst: "bažanty" } }
         },
         {
           id: "cap", approved: false, nominative: "čáp", english: "Stork", gender: "M_ANIM", symbol: "♂", color: "text-blue-400",
-          image: "https://images.unsplash.com/photo-1513836279014-a89f7a76ae86?auto=format&fit=crop&w=600&q=80",
+          image: "https://thumb.wikimedia.org/wikipedia/commons/thumb/1/13/White_stork_%28Ciconia_ciconia%29_Bia%C5%82owieza.jpg/960px-White_stork_%28Ciconia_ciconia%29_Bia%C5%82owieza.jpg",
           declension: { singular: { nom: "čáp", gen: "čápa", dat: "čápovi", acc: "čápa", voc: "čápe", loc: "čápovi", inst: "čápem" }, plural: { nom: "čápi", gen: "čápů", dat: "čápům", acc: "čápy", voc: "čápi", loc: "čápech", inst: "čápy" } }
         },
         {
           id: "vlastovka", approved: false, nominative: "vlaštovka", english: "Swallow", gender: "F", symbol: "♀", color: "text-rose-400",
-          image: "https://images.unsplash.com/photo-1513836279014-a89f7a76ae86?auto=format&fit=crop&w=600&q=80",
+          image: "https://thumb.wikimedia.org/wikipedia/commons/thumb/7/7d/Rauchschwalbe_Hirundo_rustica.jpg/960px-Rauchschwalbe_Hirundo_rustica.jpg",
           declension: { singular: { nom: "vlaštovka", gen: "vlaštovky", dat: "vlaštovce", acc: "vlaštovku", voc: "vlaštovko", loc: "vlaštovce", inst: "vlaštovkou" }, plural: { nom: "vlaštovky", gen: "vlaštovek", dat: "vlaštovkám", acc: "vlaštovky", voc: "vlaštovky", loc: "vlaštovkách", inst: "vlaštovkami" } }
         },
         {
           id: "vrana", approved: false, nominative: "vrána", english: "Crow", gender: "F", symbol: "♀", color: "text-rose-400",
-          image: "https://images.unsplash.com/photo-1513836279014-a89f7a76ae86?auto=format&fit=crop&w=600&q=80",
+          image: "https://upload.wikimedia.org/wikipedia/commons/a/a9/Corvus_corone_-near_Canford_Cliffs%2C_Poole%2C_England-8.jpg",
           declension: { singular: { nom: "vrána", gen: "vrány", dat: "vráně", acc: "vránu", voc: "vráno", loc: "vráně", inst: "vránou" }, plural: { nom: "vrány", gen: "vran", dat: "vránám", acc: "vrány", voc: "vrány", loc: "vránách", inst: "vranami" } }
         },
         {
           id: "havran", approved: false, nominative: "havran", english: "Raven", gender: "M_ANIM", symbol: "♂", color: "text-blue-400",
-          image: "https://images.unsplash.com/photo-1513836279014-a89f7a76ae86?auto=format&fit=crop&w=600&q=80",
+          image: "https://thumb.wikimedia.org/wikipedia/commons/thumb/a/af/Rook_%28Corvus_frugilegus%29_Heligan.jpg/960px-Rook_%28Corvus_frugilegus%29_Heligan.jpg",
           declension: { singular: { nom: "havran", gen: "havrana", dat: "havranovi", acc: "havrana", voc: "havrane", loc: "havranovi", inst: "havranem" }, plural: { nom: "havrani", gen: "havranů", dat: "havranům", acc: "havrany", voc: "havrani", loc: "havranech", inst: "havrany" } }
         },
         {
           id: "pstros", approved: false, nominative: "pštros", english: "Ostrich", gender: "M_ANIM", symbol: "♂", color: "text-blue-400",
-          image: "https://images.unsplash.com/photo-1518992028580-6d57bd80f2dd?auto=format&fit=crop&w=600&q=80",
+          image: "https://thumb.wikimedia.org/wikipedia/commons/thumb/9/9d/Struthio_camelus_-_Etosha_2014_%283%29.jpg/960px-Struthio_camelus_-_Etosha_2014_%283%29.jpg",
           declension: { singular: { nom: "pštros", gen: "pštrosa", dat: "pštrosovi", acc: "pštrosa", voc: "pštrose", loc: "pštrosovi", inst: "pštrosem" }, plural: { nom: "pštrosi", gen: "pštrosů", dat: "pštrosům", acc: "pštrosy", voc: "pštrosi", loc: "pštrosech", inst: "pštrosy" } }
         },
         {
           id: "sup", approved: false, nominative: "sup", english: "Vulture", gender: "M_ANIM", symbol: "♂", color: "text-blue-400",
-          image: "https://images.unsplash.com/photo-1611689342806-0863700ce1e4?auto=format&fit=crop&w=600&q=80",
+          image: "https://thumb.wikimedia.org/wikipedia/commons/thumb/3/33/Gyps_rueppellii_-Nairobi_National_Park%2C_Kenya-8-4c.jpg/960px-Gyps_rueppellii_-Nairobi_National_Park%2C_Kenya-8-4c.jpg",
           declension: { singular: { nom: "sup", gen: "supa", dat: "supovi", acc: "supa", voc: "supe", loc: "supovi", inst: "supem" }, plural: { nom: "supi", gen: "supů", dat: "supům", acc: "supy", voc: "supi", loc: "supech", inst: "supy" } }
         },
         {
           id: "jesterka", approved: false, nominative: "ještěrka", english: "Lizard", gender: "F", symbol: "♀", color: "text-rose-400",
-          image: "https://images.unsplash.com/photo-1516426122078-c23e76319801?auto=format&fit=crop&w=600&q=80",
+          image: "https://thumb.wikimedia.org/wikipedia/commons/thumb/a/ab/Lacerta_agilis_male_2014_G1.jpg/960px-Lacerta_agilis_male_2014_G1.jpg",
           declension: { singular: { nom: "ještěrka", gen: "ještěrky", dat: "ještěrce", acc: "ještěrku", voc: "ještěrko", loc: "ještěrce", inst: "ještěrkou" }, plural: { nom: "ještěrky", gen: "ještěrek", dat: "ještěrkám", acc: "ještěrky", voc: "ještěrky", loc: "ještěrkách", inst: "ještěrkami" } }
         },
         {
           id: "hyena", approved: false, nominative: "hyena", english: "Hyena", gender: "F", symbol: "♀", color: "text-rose-400",
-          image: "https://images.unsplash.com/photo-1534188753412-3e26d0d618d6?auto=format&fit=crop&w=600&q=80",
+          image: "https://thumb.wikimedia.org/wikipedia/commons/thumb/d/dc/Spotted_hyena_%28Crocuta_crocuta%29.jpg/960px-Spotted_hyena_%28Crocuta_crocuta%29.jpg",
           declension: { singular: { nom: "hyena", gen: "hyeny", dat: "hyeně", acc: "hyenu", voc: "hyeno", loc: "hyeně", inst: "hyenou" }, plural: { nom: "hyeny", gen: "hyen", dat: "hyenám", acc: "hyeny", voc: "hyeny", loc: "hyenách", inst: "hyenami" } }
         },
         {
@@ -603,7 +603,7 @@ window.ANIMAL_DATABASE = {
         },
         {
           id: "jaguar", approved: false, nominative: "jaguár", english: "Jaguar", gender: "M_ANIM", symbol: "♂", color: "text-blue-400",
-          image: "https://images.unsplash.com/photo-1534188753412-3e26d0d618d6?auto=format&fit=crop&w=600&q=80",
+          image: "https://upload.wikimedia.org/wikipedia/commons/0/0a/Standing_jaguar.jpg",
           declension: { singular: { nom: "jaguár", gen: "jaguára", dat: "jaguárovi", acc: "jaguára", voc: "jaguáre", loc: "jaguárovi", inst: "jaguárem" }, plural: { nom: "jaguáři", gen: "jaguárů", dat: "jaguárům", acc: "jaguáry", voc: "jaguáři", loc: "jaguárech", inst: "jaguáry" } }
         }
       ]
@@ -614,52 +614,52 @@ window.ANIMAL_DATABASE = {
       animals: [
         {
           id: "kamzik", approved: false, nominative: "kamzík", english: "Chamois", gender: "M_ANIM", symbol: "♂", color: "text-blue-400",
-          image: "https://images.unsplash.com/photo-1524024973431-2ad916746881?auto=format&fit=crop&w=600&q=80",
+          image: "https://thumb.wikimedia.org/wikipedia/commons/thumb/f/f0/064_Wild_Chamois_Parc_r%C3%A9gional_Chasseral_Photo_by_Giles_Laurent.jpg/960px-064_Wild_Chamois_Parc_r%C3%A9gional_Chasseral_Photo_by_Giles_Laurent.jpg",
           declension: { singular: { nom: "kamzík", gen: "kamzíka", dat: "kamzíkovi", acc: "kamzíka", voc: "kamzíku", loc: "kamzíkovi", inst: "kamzíkem" }, plural: { nom: "kamzíci", gen: "kamzíků", dat: "kamzíkům", acc: "kamzíky", voc: "kamzíci", loc: "kamzících", inst: "kamzíky" } }
         },
         {
           id: "jestrab", approved: false, nominative: "jestřáb", english: "Hawk", gender: "M_ANIM", symbol: "♂", color: "text-blue-400",
-          image: "https://images.unsplash.com/photo-1611689342806-0863700ce1e4?auto=format&fit=crop&w=600&q=80",
+          image: "https://upload.wikimedia.org/wikipedia/commons/8/81/Northern_Goshawk_ad_M2.jpg",
           declension: { singular: { nom: "jestřáb", gen: "jestřába", dat: "jestřábovi", acc: "jestřába", voc: "jestřábe", loc: "jestřábovi", inst: "jestřábem" }, plural: { nom: "jestřábi", gen: "jestřábů", dat: "jestřábům", acc: "jestřáby", voc: "jestřábi", loc: "jestřábech", inst: "jestřáby" } }
         },
         {
           id: "sokol", approved: false, nominative: "sokol", english: "Falcon", gender: "M_ANIM", symbol: "♂", color: "text-blue-400",
-          image: "https://images.unsplash.com/photo-1611689342806-0863700ce1e4?auto=format&fit=crop&w=600&q=80",
+          image: "https://thumb.wikimedia.org/wikipedia/commons/thumb/9/9c/Falco_peregrinus_m_Humber_Bay_Park_Toronto.jpg/960px-Falco_peregrinus_m_Humber_Bay_Park_Toronto.jpg",
           declension: { singular: { nom: "sokol", gen: "sokola", dat: "sokolovi", acc: "sokola", voc: "sokole", loc: "sokolovi", inst: "sokolem" }, plural: { nom: "sokoli", gen: "sokolů", dat: "sokolům", acc: "sokoly", voc: "sokoli", loc: "sokolech", inst: "sokoly" } }
         },
         {
           id: "slephys", approved: false, nominative: "slepýš", english: "Slow worm", gender: "M_ANIM", symbol: "♂", color: "text-blue-400",
-          image: "https://images.unsplash.com/photo-1531386151447-fd76ad50012f?auto=format&fit=crop&w=600&q=80",
+          image: "https://upload.wikimedia.org/wikipedia/commons/e/e5/Anguis_colchica2.jpg",
           declension: { singular: { nom: "slepýš", gen: "slepýše", dat: "slepýšovi", acc: "slepýše", voc: "slepýši", loc: "slepýšovi", inst: "slepýšem" }, plural: { nom: "slepýši", gen: "slepýšů", dat: "slepýšům", acc: "slepýše", voc: "slepýši", loc: "slepýších", inst: "slepýši" } }
         },
         {
           id: "tetrev", approved: false, nominative: "tetřev", english: "Capercaillie", gender: "M_ANIM", symbol: "♂", color: "text-blue-400",
-          image: "https://images.unsplash.com/photo-1518992028580-6d57bd80f2dd?auto=format&fit=crop&w=600&q=80",
+          image: "https://thumb.wikimedia.org/wikipedia/commons/thumb/b/ba/David_Palmer_Capercaillie.jpg/960px-David_Palmer_Capercaillie.jpg",
           declension: { singular: { nom: "tetřev", gen: "tetřeva", dat: "tetřevovi", acc: "tetřeva", voc: "tetřeve", loc: "tetřevovi", inst: "tetřevem" }, plural: { nom: "tetřevi", gen: "tetřevů", dat: "tetřevům", acc: "tetřevy", voc: "tetřevi", loc: "tetřevech", inst: "tetřevy" } }
         },
         {
           id: "svinucha", approved: false, nominative: "sviňucha", english: "Porpoise", gender: "F", symbol: "♀", color: "text-rose-400",
-          image: "https://images.unsplash.com/photo-1570481662006-a3a1374699e8?auto=format&fit=crop&w=600&q=80",
+          image: "https://thumb.wikimedia.org/wikipedia/commons/thumb/0/0e/Ecomare_-_bruinvis_Michael_in_2015_%28bruinvis-michael2015-9313-sw%29.jpg/960px-Ecomare_-_bruinvis_Michael_in_2015_%28bruinvis-michael2015-9313-sw%29.jpg",
           declension: { singular: { nom: "sviňucha", gen: "sviňuchy", dat: "sviňuše", acc: "sviňuchu", voc: "sviňucho", loc: "sviňuše", inst: "sviňuchou" }, plural: { nom: "sviňuchy", gen: "sviňuch", dat: "sviňuchám", acc: "sviňuchy", voc: "sviňuchy", loc: "sviňuchách", inst: "sviňuchami" } }
         },
         {
           id: "vosa", approved: false, nominative: "vosa", english: "Wasp", gender: "F", symbol: "♀", color: "text-rose-400",
-          image: "https://images.unsplash.com/photo-1558642452-9d2a7deb7f62?auto=format&fit=crop&w=600&q=80",
+          image: "https://thumb.wikimedia.org/wikipedia/commons/thumb/6/66/Vespula_vulgaris-m.jpg/960px-Vespula_vulgaris-m.jpg",
           declension: { singular: { nom: "vosa", gen: "vosy", dat: "vose", acc: "vosu", voc: "voso", loc: "vose", inst: "vosou" }, plural: { nom: "vosy", gen: "vos", dat: "vosám", acc: "vosy", voc: "vosy", loc: "vosách", inst: "vosami" } }
         },
         {
           id: "srsen", approved: false, nominative: "sršeň", english: "Hornet", gender: "M_ANIM", symbol: "♂", color: "text-blue-400",
-          image: "https://images.unsplash.com/photo-1558642452-9d2a7deb7f62?auto=format&fit=crop&w=600&q=80",
+          image: "https://thumb.wikimedia.org/wikipedia/commons/thumb/3/36/European_hornet_090621.jpg/960px-European_hornet_090621.jpg",
           declension: { singular: { nom: "sršeň", gen: "sršně", dat: "sršňovi", acc: "sršně", voc: "sršni", loc: "sršňovi", inst: "sršněm" }, plural: { nom: "sršni", gen: "sršňů", dat: "sršňům", acc: "sršně", voc: "sršni", loc: "sršních", inst: "sršni" } }
         },
         {
           id: "kliste", approved: false, nominative: "klíště", english: "Tick", gender: "N", symbol: "", color: "text-amber-400",
-          image: "https://images.unsplash.com/photo-1568605117036-5fe5e7bab0b7?auto=format&fit=crop&w=600&q=80",
+          image: "https://thumb.wikimedia.org/wikipedia/commons/thumb/1/13/Ixodus_ricinus_5x.jpg/960px-Ixodus_ricinus_5x.jpg",
           declension: { singular: { nom: "klíště", gen: "klíštěte", dat: "klíštěti", acc: "klíště", voc: "klíště", loc: "klíštěti", inst: "klíštětem" }, plural: { nom: "klíšťata", gen: "klíšťat", dat: "klíšťatům", acc: "klíšťata", voc: "klíšťata", loc: "klíšťatech", inst: "klíšťaty" } }
         },
         {
           id: "stonozka", approved: false, nominative: "stonožka", english: "Centipede", gender: "F", symbol: "♀", color: "text-rose-400",
-          image: "https://images.unsplash.com/photo-1568605117036-5fe5e7bab0b7?auto=format&fit=crop&w=600&q=80",
+          image: "https://thumb.wikimedia.org/wikipedia/commons/thumb/d/db/Scolopendra_cingulata_-_D7-08-2291.JPG/960px-Scolopendra_cingulata_-_D7-08-2291.JPG",
           declension: { singular: { nom: "stonožka", gen: "stonožky", dat: "stonožce", acc: "stonožku", voc: "stonožko", loc: "stonožce", inst: "stonožkou" }, plural: { nom: "stonožky", gen: "stonožek", dat: "stonožkám", acc: "stonožky", voc: "stonožky", loc: "stonožkách", inst: "stonožkami" } }
         }
       ]
@@ -670,43 +670,49 @@ window.ANIMAL_DATABASE = {
       animals: [
         {
           id: "rosnicka", approved: false, nominative: "rosnička", english: "Tree frog", gender: "F", symbol: "♀", color: "text-rose-400",
-          image: "https://images.unsplash.com/photo-1559253664-ca249d4608c6?auto=format&fit=crop&w=600&q=80",
+          image: "https://thumb.wikimedia.org/wikipedia/commons/thumb/a/a7/European_tree_frog_%28Hyla_arborea%29_on_hemp-agrimony_%28Eupatorium_cannabinum%29.jpg/960px-European_tree_frog_%28Hyla_arborea%29_on_hemp-agrimony_%28Eupatorium_cannabinum%29.jpg",
           declension: { singular: { nom: "rosnička", gen: "rosničky", dat: "rosničce", acc: "rosničku", voc: "rosničko", loc: "rosničce", inst: "rosničkou" }, plural: { nom: "rosničky", gen: "rosniček", dat: "rosničkám", acc: "rosničky", voc: "rosničky", loc: "rosničkách", inst: "rosničkami" } }
         },
         {
           id: "manta", approved: false, nominative: "manta", english: "Manta ray", gender: "F", symbol: "♀", color: "text-rose-400",
-          image: "https://images.unsplash.com/photo-1544551763-46a013bb70d5?auto=format&fit=crop&w=600&q=80",
+          image: "https://thumb.wikimedia.org/wikipedia/commons/thumb/3/30/Dharavandhoo_Thila_-_Manata_Black_Pearl.JPG/960px-Dharavandhoo_Thila_-_Manata_Black_Pearl.JPG",
           declension: { singular: { nom: "manta", gen: "manty", dat: "mantě", acc: "mantu", voc: "manto", loc: "mantě", inst: "mantou" }, plural: { nom: "manty", gen: "mant", dat: "mantám", acc: "manty", voc: "manty", loc: "mantách", inst: "mantami" } }
         },
         {
           id: "koroptev", approved: false, nominative: "koroptev", english: "Partridge", gender: "F", symbol: "♀", color: "text-rose-400",
-          image: "https://images.unsplash.com/photo-1518992028580-6d57bd80f2dd?auto=format&fit=crop&w=600&q=80",
+          image: "https://upload.wikimedia.org/wikipedia/commons/3/31/Perdix_perdix_Turvey_3.jpg",
           declension: { singular: { nom: "koroptev", gen: "koroptve", dat: "koroptvi", acc: "koroptev", voc: "koroptvi", loc: "koroptvi", inst: "koroptví" }, plural: { nom: "koroptve", gen: "koroptví", dat: "koroptvím", acc: "koroptve", voc: "koroptve", loc: "koroptvích", inst: "koroptvemi" } }
         },
         {
           id: "korela", approved: false, nominative: "korela", english: "Cockatiel", gender: "F", symbol: "♀", color: "text-rose-400",
-          image: "https://images.unsplash.com/photo-1552728089-57bdde30beb3?auto=format&fit=crop&w=600&q=80",
+          image: "https://thumb.wikimedia.org/wikipedia/commons/thumb/8/8a/Cockatiel_3.jpg/960px-Cockatiel_3.jpg",
           declension: { singular: { nom: "korela", gen: "korely", dat: "korele", acc: "korelu", voc: "korelo", loc: "korele", inst: "korelou" }, plural: { nom: "korely", gen: "korel", dat: "korelám", acc: "korely", voc: "korely", loc: "korelách", inst: "korelami" } }
         },
         {
           id: "sasanka", approved: false, nominative: "sasanka", english: "Sea anemone", gender: "F", symbol: "♀", color: "text-rose-400",
-          image: "https://images.unsplash.com/photo-1545671913-b89ac1b4ac10?auto=format&fit=crop&w=600&q=80",
+          image: "https://thumb.wikimedia.org/wikipedia/commons/thumb/3/31/Tomate_de_mar_%28Actinia_equina%29%2C_Set%C3%BAbal%2C_Portugal%2C_2020-08-01%2C_DD_11.jpg/960px-Tomate_de_mar_%28Actinia_equina%29%2C_Set%C3%BAbal%2C_Portugal%2C_2020-08-01%2C_DD_11.jpg",
           declension: { singular: { nom: "sasanka", gen: "sasanky", dat: "sasance", acc: "sasanku", voc: "sasanko", loc: "sasance", inst: "sasankou" }, plural: { nom: "sasanky", gen: "sasanek", dat: "sasankám", acc: "sasanky", voc: "sasanky", loc: "sasankách", inst: "sasankách" } }
         },
         {
           id: "lumik", approved: false, nominative: "lumík", english: "Lemming", gender: "M_ANIM", symbol: "♂", color: "text-blue-400",
-          image: "https://images.unsplash.com/photo-1425082661705-1834bfd09dca?auto=format&fit=crop&w=600&q=80",
+          image: "https://thumb.wikimedia.org/wikipedia/commons/thumb/e/ef/Tunturisopuli_Lemmus_Lemmus.jpg/960px-Tunturisopuli_Lemmus_Lemmus.jpg",
           declension: { singular: { nom: "lumík", gen: "lumíka", dat: "lumíkovi", acc: "lumíka", voc: "lumíku", loc: "lumíkovi", inst: "lumíkem" }, plural: { nom: "lumíci", gen: "lumíků", dat: "lumíkům", acc: "lumíky", voc: "lumíci", loc: "lumících", inst: "lumíky" } }
         },
         {
           id: "mandelinka", approved: false, nominative: "mandelinka", english: "Potato beetle", gender: "F", symbol: "♀", color: "text-rose-400",
-          image: "https://images.unsplash.com/photo-1558642452-9d2a7deb7f62?auto=format&fit=crop&w=600&q=80",
+          image: "https://thumb.wikimedia.org/wikipedia/commons/thumb/2/21/Colorado_potato_beetle.jpg/960px-Colorado_potato_beetle.jpg",
           declension: { singular: { nom: "mandelinka", gen: "mandelinky", dat: "mandelince", acc: "mandelinku", voc: "mandelinko", loc: "mandelince", inst: "mandelinkou" }, plural: { nom: "mandelinky", gen: "mandelinek", dat: "mandelinkám", acc: "mandelinky", voc: "mandelinky", loc: "mandelinkách", inst: "mandelinkami" } }
         }
       ]
     }
   }
 };
+
+Object.values(window.ANIMAL_DATABASE.levels).forEach(level => {
+  level.animals.forEach(animal => {
+    animal.image = window.exerciseImageUrl(animal.image);
+  });
+});
 
 window.getAnimalsForLevel = function(lvl) {
     const levelData = window.ANIMAL_DATABASE.levels[lvl];

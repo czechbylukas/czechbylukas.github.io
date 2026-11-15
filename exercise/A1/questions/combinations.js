@@ -115,7 +115,7 @@ const questionWordImages = {
     "kdy": "photo-1506784983877-45594efa4cbe",
     "kdo": "photo-1500648767791-00dcc994a43e",
     "kde": "photo-1519501025264-65ba15a82390",
-    "proc": "photo-1500530855697-b586d89ba3ee",
+    "proc": "photo-1652795385688-9bafaac3100f",
     "v-kolik": "photo-1508057198894-247b23fe5ade",
     "kolik": "photo-1554224155-6726b3ff858f",
     "ktery": "photo-1490730141103-6cac27aaab94",
@@ -125,7 +125,7 @@ const questionWordImages = {
     "odkdy": "photo-1506784983877-45594efa4cbe",
     "dokdy": "photo-1508057198894-247b23fe5ade",
     "jak-casto": "photo-1506784983877-45594efa4cbe",
-    "jak": "photo-1500530855697-b586d89ba3ee",
+    "jak": "photo-1663422468271-dc79caa4b02f",
     "kam": "photo-1464822759023-fed622ff2c3b",
     "jak-dlouho": "photo-1508057198894-247b23fe5ade",
     "ci": "photo-1490730141103-6cac27aaab94",
@@ -138,9 +138,9 @@ const questionWordImages = {
     "pro-co": "photo-1490312278390-ab64016e0aa9",
     "k-cemu": "photo-1490312278390-ab64016e0aa9",
     "o-cem": "photo-1490312278390-ab64016e0aa9",
-    "cim": "photo-1500648767791-00dcc994a43e",
+    "cim": "photo-1663422468271-dc79caa4b02f",
     "kolikrat": "photo-1508057198894-247b23fe5ade",
-    "s-cim": "photo-1500648767791-00dcc994a43e",
+    "s-cim": "photo-1663422468271-dc79caa4b02f",
     "za-jak-dlouho": "photo-1508057198894-247b23fe5ade",
     "na-koho": "photo-1500648767791-00dcc994a43e",
     "na-co": "photo-1490312278390-ab64016e0aa9",
@@ -188,12 +188,14 @@ const questionWordImages = {
 
 Object.values(window.QUESTION_DATABASE.levels).forEach(level => {
     level.questions.forEach(question => {
-        const imageId = questionWordImages[question.id];
-        if (imageId) question.image = `https://images.unsplash.com/${imageId}?auto=format&fit=crop&w=600&q=80`;
+        const image = questionWordImages[question.id];
+        if (image) question.image = window.exerciseImageUrl(image);
     });
 });
 
 window.getQuestionWordsForLevel = level => {
     const levelData = window.QUESTION_DATABASE.levels[level];
-    return levelData ? levelData.questions.filter(question => question.approved) : [];
+    return levelData ? levelData.questions.filter(question =>
+        window.isPracticeWordKnown('question', question.id, question.approved)
+    ) : [];
 };

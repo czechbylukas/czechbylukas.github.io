@@ -44,7 +44,30 @@ window.CZECH_GRAMMAR_DB = {
     readingMedia: ["knihu", "dopis", "článek", "zprávy", "e-mail"],
     placesTo: ["do kina", "do parku", "do práce", "na koncert", "domů"],
     thingsToHave: ["čas", "nápad", "schůzku", "problém", "dovolenou"],
-    thingsToWant: ["kávu", "odpočinek", "nové auto", "pauzu"]
+    thingsToWant: ["kávu", "odpočinek", "nové auto", "pauzu"],
+    writing: ["dopis", "zprávu", "e-mail"],
+    shopping: ["potraviny", "ovoce", "chléb"],
+    understanding: ["otázce", "odpovědi", "vysvětlení"],
+    travel: ["do Prahy", "do zahraničí", "po Evropě"],
+    driving: ["auto", "autobus", "taxi"],
+    waiting: ["na vlak", "na kamaráda", "na autobus"],
+    visiting: ["muzeum", "kamaráda", "výstavu"],
+    explaining: ["pravidlo", "postup", "úkol"],
+    recommending: ["film", "knihu", "restauraci"],
+    deciding: ["pro změnu", "pro cestu", "pro nový plán"],
+    planning: ["dovolenou", "cestu", "schůzku"],
+    negotiating: ["o smlouvě", "o ceně", "o podmínkách"],
+    persuading: ["kolegu", "kamaráda", "zákazníka"],
+    adapting: ["změně", "novým podmínkám", "situaci"],
+    evaluating: ["výsledky", "projekt", "nabídku"],
+    arranging: ["setkání", "kontakt", "spolupráci"],
+    justifying: ["rozhodnutí", "návrh", "změnu"],
+    considering: ["náklady", "rizika", "potřeby zákazníků"],
+    specifying: ["požadavky", "podmínky", "detaily"],
+    questioning: ["tvrzení", "závěr", "rozhodnutí"],
+    reflecting: ["zkušenosti", "vlastní práci", "své rozhodnutí"],
+    interpreting: ["výsledky", "údaje", "text"],
+    formulating: ["otázku", "návrh", "odpověď"]
   },
 
   verbs: [
@@ -60,6 +83,121 @@ window.CZECH_GRAMMAR_DB = {
         PL: { M_ANIM: "dělali", F: "dělaly", N: "dělala" }
       }
     },
+      {
+        infinitive: "PSÁT", translation: "to write", level: 1,
+        image: "https://images.unsplash.com/photo-1488722796624-0aa6f1bb6399", reflexive: false, compatibleCategories: ["writing"],
+        forms: { SG: { M: "psal", F: "psala", N: "psalo" }, PL: { M_ANIM: "psali", F: "psaly", N: "psala" } }
+      },
+      {
+        infinitive: "KUPOVAT", translation: "to buy", level: 1,
+        image: "https://images.unsplash.com/photo-1685640206182-c51b8aa9b686", reflexive: false, compatibleCategories: ["shopping"],
+        forms: { SG: { M: "kupoval", F: "kupovala", N: "kupovalo" }, PL: { M_ANIM: "kupovali", F: "kupovaly", N: "kupovala" } }
+      },
+      {
+        infinitive: "ROZUMĚT", translation: "to understand", level: 1,
+        image: "https://images.unsplash.com/photo-1519074002996-a69e7ac46a42", reflexive: false, compatibleCategories: ["understanding"],
+        forms: { SG: { M: "rozuměl", F: "rozuměla", N: "rozumělo" }, PL: { M_ANIM: "rozuměli", F: "rozuměly", N: "rozuměla" } }
+      },
+      {
+        infinitive: "CESTOVAT", translation: "to travel", level: 2,
+        image: "https://images.unsplash.com/photo-1521575363954-393ae1439d33", reflexive: false, compatibleCategories: ["travel"],
+        forms: { SG: { M: "cestoval", F: "cestovala", N: "cestovalo" }, PL: { M_ANIM: "cestovali", F: "cestovaly", N: "cestovala" } }
+      },
+      {
+        infinitive: "ŘÍDIT", translation: "to drive", level: 2,
+        image: "https://images.unsplash.com/photo-1666706017766-f884bbfcd643", reflexive: false, compatibleCategories: ["driving"],
+        forms: { SG: { M: "řídil", F: "řídila", N: "řídilo" }, PL: { M_ANIM: "řídili", F: "řídily", N: "řídila" } }
+      },
+      {
+        infinitive: "ČEKAT", translation: "to wait", level: 2,
+        image: "https://images.unsplash.com/photo-1752500997837-d50181837e6a", reflexive: false, compatibleCategories: ["waiting"],
+        forms: { SG: { M: "čekal", F: "čekala", N: "čekalo" }, PL: { M_ANIM: "čekali", F: "čekaly", N: "čekala" } }
+      },
+      {
+        infinitive: "NAVŠTÍVIT", translation: "to visit", level: 2,
+        image: "https://images.unsplash.com/photo-1643841368618-4aa128ae63c2", reflexive: false, compatibleCategories: ["visiting"],
+        forms: { SG: { M: "navštívil", F: "navštívila", N: "navštívilo" }, PL: { M_ANIM: "navštívili", F: "navštívily", N: "navštívila" } }
+      },
+      {
+        infinitive: "VYSVĚTLIT", translation: "to explain", level: 3,
+        image: "https://images.unsplash.com/photo-1509062522246-3755977927d7", reflexive: false, compatibleCategories: ["explaining"],
+        forms: { SG: { M: "vysvětlil", F: "vysvětlila", N: "vysvětlilo" }, PL: { M_ANIM: "vysvětlili", F: "vysvětlily", N: "vysvětlila" } }
+      },
+      {
+        infinitive: "DOPORUČIT", translation: "to recommend", level: 3,
+        image: "https://images.unsplash.com/photo-1758600587781-e98ef705ab0e", reflexive: false, compatibleCategories: ["recommending"],
+        forms: { SG: { M: "doporučil", F: "doporučila", N: "doporučilo" }, PL: { M_ANIM: "doporučili", F: "doporučily", N: "doporučila" } }
+      },
+      {
+        infinitive: "ROZHODNOUT SE", translation: "to decide", level: 3,
+        image: "https://images.unsplash.com/photo-1429743305873-d4065c15f93e", reflexive: "se", compatibleCategories: ["deciding"],
+        forms: { SG: { M: "rozhodl", F: "rozhodla", N: "rozhodlo" }, PL: { M_ANIM: "rozhodli", F: "rozhodly", N: "rozhodla" } }
+      },
+      {
+        infinitive: "PLÁNOVAT", translation: "to plan", level: 3,
+        image: "https://images.unsplash.com/photo-1488722796624-0aa6f1bb6399", reflexive: false, compatibleCategories: ["planning"],
+        forms: { SG: { M: "plánoval", F: "plánovala", N: "plánovalo" }, PL: { M_ANIM: "plánovali", F: "plánovaly", N: "plánovala" } }
+      },
+      {
+        infinitive: "VYJEDNÁVAT", translation: "to negotiate", level: 4,
+        image: "https://images.unsplash.com/photo-1681505531034-8d67054e07f6", reflexive: false, compatibleCategories: ["negotiating"],
+        forms: { SG: { M: "vyjednával", F: "vyjednávala", N: "vyjednávalo" }, PL: { M_ANIM: "vyjednávali", F: "vyjednávaly", N: "vyjednávala" } }
+      },
+      {
+        infinitive: "PŘESVĚDČIT", translation: "to persuade", level: 4,
+        image: "https://images.unsplash.com/photo-1714976694720-01c558074a80", reflexive: false, compatibleCategories: ["persuading"],
+        forms: { SG: { M: "přesvědčil", F: "přesvědčila", N: "přesvědčilo" }, PL: { M_ANIM: "přesvědčili", F: "přesvědčily", N: "přesvědčila" } }
+      },
+      {
+        infinitive: "PŘIZPŮSOBIT SE", translation: "to adapt", level: 4,
+        image: "https://images.unsplash.com/photo-1617540021016-72023b487e99", reflexive: "se", compatibleCategories: ["adapting"],
+        forms: { SG: { M: "přizpůsobil", F: "přizpůsobila", N: "přizpůsobilo" }, PL: { M_ANIM: "přizpůsobili", F: "přizpůsobily", N: "přizpůsobila" } }
+      },
+      {
+        infinitive: "VYHODNOTIT", translation: "to evaluate", level: 4,
+        image: "https://images.unsplash.com/photo-1633613286991-611fe299c4be", reflexive: false, compatibleCategories: ["evaluating"],
+        forms: { SG: { M: "vyhodnotil", F: "vyhodnotila", N: "vyhodnotilo" }, PL: { M_ANIM: "vyhodnotili", F: "vyhodnotily", N: "vyhodnotila" } }
+      },
+      {
+        infinitive: "ZPROSTŘEDKOVAT", translation: "to arrange or facilitate", level: 5,
+        image: "https://images.unsplash.com/photo-1459499362902-55a20553e082", reflexive: false, compatibleCategories: ["arranging"],
+        forms: { SG: { M: "zprostředkoval", F: "zprostředkovala", N: "zprostředkovalo" }, PL: { M_ANIM: "zprostředkovali", F: "zprostředkovaly", N: "zprostředkovala" } }
+      },
+      {
+        infinitive: "ZDŮVODNIT", translation: "to justify", level: 5,
+        image: "https://images.unsplash.com/photo-1758691736545-5c33b6255dca", reflexive: false, compatibleCategories: ["justifying"],
+        forms: { SG: { M: "zdůvodnil", F: "zdůvodnila", N: "zdůvodnilo" }, PL: { M_ANIM: "zdůvodnili", F: "zdůvodnily", N: "zdůvodnila" } }
+      },
+      {
+        infinitive: "ZOHLEDNIT", translation: "to take into account", level: 5,
+        image: "https://images.unsplash.com/photo-1768055105012-4c53791b2877", reflexive: false, compatibleCategories: ["considering"],
+        forms: { SG: { M: "zohlednil", F: "zohlednila", N: "zohlednilo" }, PL: { M_ANIM: "zohlednili", F: "zohlednily", N: "zohlednila" } }
+      },
+      {
+        infinitive: "SPECIFIKOVAT", translation: "to specify", level: 5,
+        image: "https://images.unsplash.com/photo-1565688534245-05d6b5be184a", reflexive: false, compatibleCategories: ["specifying"],
+        forms: { SG: { M: "specifikoval", F: "specifikovala", N: "specifikovalo" }, PL: { M_ANIM: "specifikovali", F: "specifikovaly", N: "specifikovala" } }
+      },
+      {
+        infinitive: "ZPOCHYBNIT", translation: "to question or challenge", level: 6,
+        image: "https://images.unsplash.com/photo-1633613286848-e6f43bbafb8d", reflexive: false, compatibleCategories: ["questioning"],
+        forms: { SG: { M: "zpochybnil", F: "zpochybnila", N: "zpochybnilo" }, PL: { M_ANIM: "zpochybnili", F: "zpochybnily", N: "zpochybnila" } }
+      },
+      {
+        infinitive: "REFLEKTOVAT", translation: "to reflect on", level: 6,
+        image: "https://images.unsplash.com/photo-1758876022649-ab858801c6dc", reflexive: false, compatibleCategories: ["reflecting"],
+        forms: { SG: { M: "reflektoval", F: "reflektovala", N: "reflektovalo" }, PL: { M_ANIM: "reflektovali", F: "reflektovaly", N: "reflektovala" } }
+      },
+      {
+        infinitive: "INTERPRETOVAT", translation: "to interpret", level: 6,
+        image: "https://images.unsplash.com/photo-1707157281599-d155d1da5b4c", reflexive: false, compatibleCategories: ["interpreting"],
+        forms: { SG: { M: "interpretoval", F: "interpretovala", N: "interpretovalo" }, PL: { M_ANIM: "interpretovali", F: "interpretovaly", N: "interpretovala" } }
+      },
+      {
+        infinitive: "FORMULOVAT", translation: "to formulate", level: 6,
+        image: "https://images.unsplash.com/photo-1517971071642-34a2d3ecc9cd", reflexive: false, compatibleCategories: ["formulating"],
+        forms: { SG: { M: "formuloval", F: "formulovala", N: "formulovalo" }, PL: { M_ANIM: "formulovali", F: "formulovaly", N: "formulovala" } }
+      },
     {
       infinitive: "PLAVAT",
       translation: "to swim",
@@ -244,7 +382,7 @@ window.CZECH_GRAMMAR_DB = {
       infinitive: "MÍT",
       translation: "to have",
       level: 2,
-      image: "https://images.unsplash.com/photo-1598099326472-924ef29b8413?auto=format&fit=crop&w=600&q=80",
+      image: "https://images.unsplash.com/photo-1544639044-4f142ceb6a2b",
       reflexive: false,
       compatibleCategories: ["thingsToHave"],
       forms: {
@@ -268,7 +406,7 @@ window.CZECH_GRAMMAR_DB = {
       infinitive: "ČÍST",
       translation: "to read",
       level: 2,
-      image: "https://images.unsplash.com/photo-1512820790803-83ca734da794?auto=format&fit=crop&w=600&q=80",
+      image: "https://images.unsplash.com/photo-1725582203570-d396d6399cab",
       reflexive: false,
       compatibleCategories: ["readingMedia"],
       forms: {
@@ -290,6 +428,10 @@ window.CZECH_GRAMMAR_DB = {
     }
   ]
 };
+
+window.CZECH_GRAMMAR_DB.verbs.forEach(verb => {
+  verb.image = window.exerciseImageUrl(verb.image);
+});
 
 window.generateCombinationQuestion = function(targetDifficulty, restrictToFirstPerson, mode = "grammar") {
   const db = window.CZECH_GRAMMAR_DB;

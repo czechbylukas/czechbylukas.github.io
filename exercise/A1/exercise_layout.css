@@ -1,0 +1,185 @@
+html {
+    height: auto;
+}
+
+body.exercise-page {
+    min-height: 100vh;
+    overflow: auto;
+    justify-content: flex-start !important;
+}
+
+.practice-account {
+    display: flex;
+    align-items: center;
+    gap: .75rem;
+    width: 100%;
+    max-width: 72rem;
+    padding: .5rem;
+    color: #e2e8f0;
+    font-size: .875rem;
+}
+
+.practice-account button {
+    color: #fbbf24;
+    text-decoration: underline;
+}
+
+.exercise-shell {
+    width: 100%;
+    max-width: 72rem;
+    height: auto;
+    max-height: none;
+    min-height: min(90vh, 48rem);
+    overflow: visible;
+}
+
+#demoModal {
+    overflow-y: auto;
+}
+
+#levelSelectStep,
+#demoVocabStep {
+    height: auto;
+    min-height: 100%;
+}
+
+#levelSelectStep {
+    overflow: visible;
+}
+
+#demoCardsGrid {
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 17rem), 1fr));
+    max-height: none;
+    overflow: visible;
+}
+
+#gameScreen,
+#gameScreen > div,
+.exercise-workspace {
+    overflow: visible;
+}
+
+#secondChanceModal {
+    position: fixed;
+    overflow-y: auto;
+}
+
+.word-dialog {
+    width: 100vw;
+    height: 100vh;
+    max-width: none;
+    max-height: none;
+    margin: 0;
+    padding: 1rem;
+    border: 0;
+    background: transparent;
+    color: #f1f5f9;
+}
+
+.word-dialog[open] {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.word-dialog::backdrop {
+    background: rgb(2 6 23 / 85%);
+}
+
+.word-dialog-panel {
+    display: flex;
+    flex-direction: column;
+    width: min(100%, 64rem);
+    max-height: min(90vh, 55rem);
+    padding: 1rem;
+    border: 1px solid #475569;
+    border-radius: 1rem;
+    background: #0f172a;
+}
+
+.word-dialog-body {
+    display: flex;
+    gap: 1rem;
+    min-height: 0;
+    overflow-y: auto;
+}
+
+.word-dialog-image {
+    width: 38%;
+    max-height: 65vh;
+    align-self: flex-start;
+    object-fit: contain;
+    border-radius: .75rem;
+}
+
+.word-dialog-details {
+    flex: 1;
+    min-width: 0;
+    overflow-x: auto;
+}
+
+@media (max-width: 600px) {
+    .word-dialog-body {
+        flex-direction: column;
+    }
+
+    .word-dialog-image {
+        width: 100%;
+        max-height: 12rem;
+    }
+}
+
+.exercise-image-zoom {
+    cursor: zoom-in;
+}
+
+.exercise-image-zoom:focus-visible {
+    outline: 3px solid #fbbf24;
+    outline-offset: 2px;
+}
+
+.image-dialog {
+    width: min(94vw, 70rem);
+    max-width: none;
+    max-height: 94vh;
+    padding: 1rem;
+    border: 1px solid #475569;
+    border-radius: 1rem;
+    color: #f1f5f9;
+    background: #0f172a;
+}
+
+.image-dialog::backdrop {
+    background: rgb(2 6 23 / 85%);
+}
+
+.image-dialog img {
+    display: block;
+    max-width: 100%;
+    max-height: 75vh;
+    margin: 0 auto;
+    object-fit: contain;
+}
+
+.image-dialog button {
+    display: block;
+    margin: .75rem auto 0;
+    padding: .5rem 1.5rem;
+    border: 1px solid #64748b;
+    border-radius: .5rem;
+    background: #334155;
+    color: white;
+    cursor: pointer;
+}
+
+@media (max-width: 500px) {
+    #gameScreen > div:first-child {
+        height: auto;
+        flex-wrap: wrap;
+    }
+
+    #questionImage {
+        width: 5rem;
+        height: 5rem;
+    }
+}

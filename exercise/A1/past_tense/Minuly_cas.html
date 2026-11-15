@@ -2,12 +2,18 @@
 <html lang="cs" class="h-full">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Czech Past Tense Practice</title>
+    <script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-database-compat.js"></script>
+    <script>window.canShowAds = false;</script>
+    <script src="../../../scripts-header.js"></script>
     <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="../exercise_layout.css">
 </head>
-<body class="bg-slate-900 text-slate-100 min-h-screen w-full flex flex-col items-center justify-center p-2 sm:p-6 overflow-hidden">
-    <div class="relative w-full max-w-2xl h-[88vh] max-h-[720px] min-h-[600px] bg-slate-800 border border-slate-700 rounded-2xl p-4 sm:p-6 shadow-2xl flex flex-col justify-between overflow-hidden">
+<body class="exercise-page bg-slate-900 text-slate-100 min-h-screen w-full flex flex-col items-center justify-center p-2 sm:p-6">
+    <div class="exercise-shell relative w-full bg-slate-800 border border-slate-700 rounded-2xl p-4 sm:p-6 shadow-2xl flex flex-col justify-between">
         <div id="demoModal" class="absolute inset-0 bg-slate-900/95 backdrop-blur-md z-40 p-6 flex flex-col justify-between overflow-y-auto rounded-2xl">
             <div id="levelSelectStep" class="flex flex-col h-full justify-between items-center text-center overflow-y-auto">
                 <div class="w-full h-24 rounded-xl overflow-hidden border border-slate-700 relative shrink-0 mb-2">
@@ -53,7 +59,8 @@
             </div>
         </div>
 
-        <div id="verbFormsModal" class="hidden absolute inset-0 bg-slate-950/95 backdrop-blur-md z-50 p-4 flex flex-col rounded-2xl">
+        <dialog id="verbFormsModal" class="word-dialog" aria-labelledby="modalVerbTitle">
+          <div class="word-dialog-panel">
             <div class="flex justify-between items-center border-b border-slate-700 pb-2 mb-3 shrink-0">
                 <div>
                     <div id="modalVerbTitle" class="text-lg font-bold text-amber-400"></div>
@@ -61,11 +68,15 @@
                 </div>
                 <button onclick="closeVerbFormsModal()" class="text-slate-400 hover:text-slate-100 font-bold text-lg px-2" aria-label="Zavřít">✕</button>
             </div>
-            <div id="modalVerbForms" class="grid grid-cols-1 sm:grid-cols-2 gap-3 overflow-y-auto pr-1"></div>
+            <div class="word-dialog-body">
+                <img id="modalVerbImage" class="word-dialog-image" alt="">
+                <div id="modalVerbForms" class="word-dialog-details grid grid-cols-1 sm:grid-cols-2 gap-3"></div>
+            </div>
             <button onclick="closeVerbFormsModal()" class="w-full bg-slate-700 hover:bg-slate-600 text-white font-bold py-2 rounded-xl text-sm transition mt-3 shrink-0">
                 Zavřít
             </button>
-        </div>
+          </div>
+        </dialog>
 
         <div id="gameScreen" class="hidden h-full flex flex-col justify-between overflow-hidden">
             <div class="flex items-center justify-between border-b border-slate-700/80 pb-2 h-9 shrink-0">
@@ -116,8 +127,10 @@
         </div>
     </div>
 
+    <script src="../image_urls.js"></script>
     <script src="../known_words.js"></script>
     <script src="combinations.js"></script>
+    <script src="../image_zoom.js"></script>
     <script>
         let selectedLevel = 1;
         let exerciseModeLevel = 1;
@@ -200,6 +213,13 @@
                 const card = document.createElement('div');
                 card.className = 'bg-slate-800 hover:bg-slate-700 border border-slate-700 rounded-xl p-3 flex items-center justify-between gap-2 cursor-pointer transition active:scale-95 group';
                 card.onclick = () => openVerbFormsModal(verb);
+                card.tabIndex = 0;
+                card.onkeydown = event => {
+                    if (event.target === card && (event.key === 'Enter' || event.key === ' ')) {
+                        event.preventDefault();
+                        openVerbFormsModal(verb);
+                    }
+                };
                 card.dataset.known = String(isKnown);
                 updateKnownCardStyle(card, isKnown);
 
@@ -207,7 +227,7 @@
                 details.className = 'flex items-center space-x-3 overflow-hidden';
                 const image = document.createElement('img');
                 image.src = verb.image;
-                image.alt = '';
+                image.alt = verb.infinitive;
                 image.className = 'w-12 h-12 rounded-lg object-cover border border-slate-600 shrink-0';
                 const text = document.createElement('div');
                 text.className = 'overflow-hidden';
@@ -223,6 +243,7 @@
                 const checkbox = document.createElement('input');
                 checkbox.type = 'checkbox';
                 checkbox.checked = isKnown;
+                checkbox.disabled = !window.isPracticeSelectionsReady();
                 checkbox.setAttribute('aria-label', `Znám sloveso ${verb.infinitive}`);
                 checkbox.className = 'h-5 w-5 shrink-0 accent-amber-500 cursor-pointer';
                 checkbox.onclick = event => event.stopPropagation();
@@ -272,7 +293,7 @@
 
         function updateStartPracticeButton() {
             const startButton = document.getElementById('startPracticeButton');
-            const hasVerbs = window.getKnownVerbsThroughLevel(selectedLevel).length > 0;
+            const hasVerbs = window.isPracticeSelectionsReady() && window.getKnownVerbsThroughLevel(selectedLevel).length > 0;
             startButton.disabled = !hasVerbs;
             startButton.textContent = hasVerbs ? 'Start' : 'Zaškrtněte alespoň jedno sloveso';
             startButton.classList.toggle('opacity-50', !hasVerbs);
@@ -281,6 +302,8 @@
 
         function openVerbFormsModal(verb) {
             document.getElementById('modalVerbTitle').textContent = verb.infinitive;
+            document.getElementById('modalVerbImage').src = verb.image;
+            document.getElementById('modalVerbImage').alt = verb.infinitive;
             const formsGrid = document.getElementById('modalVerbForms');
             formsGrid.replaceChildren();
             window.CZECH_GRAMMAR_DB.subjects.forEach(subject => {
@@ -305,11 +328,11 @@
                 row.append(label, value);
                 formsGrid.appendChild(row);
             });
-            document.getElementById('verbFormsModal').classList.remove('hidden');
+            document.getElementById('verbFormsModal').showModal();
         }
 
         function closeVerbFormsModal() {
-            document.getElementById('verbFormsModal').classList.add('hidden');
+            document.getElementById('verbFormsModal').close();
         }
 
         function setAppGameMode(mode) {
@@ -326,7 +349,7 @@
         }
 
         function startPracticeApp() {
-            if (window.getKnownVerbsThroughLevel(selectedLevel).length === 0) return;
+            if (!window.isPracticeSelectionsReady() || window.getKnownVerbsThroughLevel(selectedLevel).length === 0) return;
             correctCount = 0;
             answeredCount = 0;
             successStreak = 0;
@@ -336,6 +359,15 @@
             document.getElementById('gameScreen').classList.remove('hidden');
             loadNextQuestion();
         }
+
+        window.addEventListener('practiceSelectionsChanged', () => {
+            document.getElementById('gameScreen').classList.add('hidden');
+            document.getElementById('demoModal').classList.remove('hidden');
+            if (!document.getElementById('demoVocabStep').classList.contains('hidden')) {
+                renderVerbCards();
+                updateStartPracticeButton();
+            }
+        });
 
         function showLevelSelection() {
             document.getElementById('gameScreen').classList.add('hidden');
