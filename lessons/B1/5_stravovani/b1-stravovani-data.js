@@ -234,7 +234,7 @@ window.B1_STRAVOVANI_DATA = {
         { question: "Jak chce host zaplatit?", options: ["Zvlášť.", "Dohromady.", "Hotově.", "Kartou."], answer: 0 }
       ],
       exA: [
-        ["Na večer si uděláme ___ (rezervace).", "rezervaci"],
+        ["Na večer si uděláme ___ (včasná rezervace).", "včasnou rezervaci"],
         ["Prosím o ___ (stůl pro dva).", "stůl pro dva"],
         ["Číšník zapíše ___ (důležitá objednávka).", "důležitou objednávku"],
         ["Na večer si rezervujeme ___ (volný stůl).", "volný stůl"],
@@ -518,7 +518,7 @@ window.B1_STRAVOVANI_DATA = {
     ],
     exA: [
       ["Na salát koupím ___ (kilo rajčat - 2).", "dvě kila rajčat"],
-      ["Do košíku dám ___ (okurka - 1).", "jednu okurku"],
+      ["Do košíku dám ___ (salátová okurka - 1).", "jednu salátovou okurku"],
       ["Do polévky přidám ___ (stroužek česneku - pl., 3).", "tři stroužky česneku"],
       ["Na večeři koupíme ___ (kilogram brambor - 1).", "jeden kilogram brambor"],
       ["Do zeleninové směsi nakrájím ___ (mrkev - pl., 2).", "dvě mrkve"],
