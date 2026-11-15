@@ -763,6 +763,56 @@ async function logMismatchToSheet(word, caseLabel, number, myApp, wiki) {
     }).catch(e => console.log("Logging failed", e));
 }
 
+async function fetchNounDeclension(word) {
+    const params = new URLSearchParams({
+        action: 'parse', page: word, prop: 'text', format: 'json', origin: '*', redirects: '1'
+    });
+    const response = await fetch(`https://cs.wiktionary.org/w/api.php?${params}`);
+    if (!response.ok) throw new Error(`Wiktionary request failed: ${response.status}`);
+    const data = await response.json();
+    if (data.error) throw new Error(`Wiktionary: ${data.error.info}`);
+
+    const doc = new DOMParser().parseFromString(data.parse.text['*'], 'text/html');
+    const caseLabels = {
+        'nominativ': 'Nominativ (1.)',
+        'genitiv': 'Genitiv (2.)',
+        'dativ': 'Dativ (3.)',
+        'akuzativ': 'Akuzativ (4.)',
+        'vokativ': 'Vokativ (5.)',
+        'lokál': 'Lokál (6.)',
+        'instrumentál': 'Instrumentál (7.)'
+    };
+    let czech = false;
+    let noun = false;
+    let declension = false;
+    for (const element of doc.querySelectorAll('h2, h3, h4, table')) {
+        const text = element.textContent.trim().toLowerCase();
+        if (element.tagName === 'H2') {
+            if (czech) break;
+            czech = text === 'čeština';
+        } else if (czech && element.tagName === 'H3') {
+            noun = text.includes('podstatné jméno');
+            declension = false;
+        } else if (czech && element.tagName === 'H4') {
+            declension = noun && text.includes('skloňování');
+        } else if (czech && declension && element.tagName === 'TABLE' &&
+                   (element.classList.contains('declension') || element.classList.contains('deklinace'))) {
+            const rows = Array.from(element.rows).flatMap(row => {
+                const cells = row.cells;
+                const label = cells.length >= 3 && caseLabels[cells[0].textContent.trim().toLowerCase()];
+                if (!label) return [];
+                return [{
+                    case: label,
+                    singular: cells[1].textContent.trim(),
+                    plural: cells[2].textContent.trim()
+                }];
+            });
+            if (rows.length) return rows;
+        }
+    }
+    throw new Error(`No Czech noun declension table found for "${word}"`);
+}
+
 
 
 
@@ -773,16 +823,16 @@ async function verifyWithWiktionary(word, myResult, caseValue, numberValue, mode
     const badgesContainer = document.getElementById('badges');
     const warningElement = document.getElementById('unverified-warning');
     
-    const endpoint = (mode === 'verb') 
-        ? `scrape_conjugation?word=${encodeURIComponent(word)}&tense=${tense}&person=${person}&number=${numberValue}&gender=${gender}`
-        : `scrape_declension?word=${encodeURIComponent(word)}`;
-
     try {
-        const response = await fetch(`https://lessons-487913.ey.r.appspot.com/${endpoint}`);
-        if (!response.ok) throw new Error("Wiki connection failed");
-        
-        // 🟢 FIX 1: This is your local JSON variable name!
-        const wikiData = await response.json(); 
+        let wikiData;
+        if (mode === 'noun') {
+            wikiData = await fetchNounDeclension(word);
+        } else {
+            const endpoint = `scrape_conjugation?word=${encodeURIComponent(word)}&tense=${tense}&person=${person}&number=${numberValue}&gender=${gender}`;
+            const response = await fetch(`https://lessons-487913.ey.r.appspot.com/${endpoint}`);
+            if (!response.ok) throw new Error("Wiki connection failed");
+            wikiData = await response.json();
+        }
 
         console.log("Input Word:", word);
         console.log("Mode Selected:", mode);
