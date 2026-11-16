@@ -540,14 +540,14 @@
               "type": "single",
               "is_multiselect": false,
               "options": [
-                "výdaje, které musí stát ze zákona nebo z jiných závazků platit",
+                "peníze, které musí stát ze zákona nebo z jiných závazků platit",
                 "první, předběžná podoba návrhu",
                 "opatření směřující ke snížení schodku a stabilizaci veřejných financí",
-                "výdaje spojené s placením úroků ze státního dluhu",
+                "výdaje spojené s placením státního dluhu",
                 "situace, kdy veřejné investice mohou omezovat jiné investice kvůli omezeným zdrojům",
                 "opatření nebo pravidlo umožňující určitou výjimku",
-                "takový, který má podporovat ekonomický růst",
-                "zmírnit nebo změnit omezení stanovená rozpočtovými pravidly"
+                "takový, který má podporovat ekonomickou aktivitu",
+                "zmírnit nebo změnit stanovená omezení pro tvorbu budgetu"
               ]
             }
           ]
@@ -838,7 +838,7 @@
               "is_multiselect": false,
               "options": [
                 "Dobrovolné investice vlády.",
-                "Výdaje, které stát musí platit.",
+                "Peníze, které stát musí platit.",
                 "Výdaje pouze na zahraniční politiku."
               ]
             },
@@ -1457,10 +1457,7 @@
       ],
       "Cvičení 4": [
         "na",
-        [
-          "3",
-          "7 %"
-        ],
+        "bez předložky",
         "na",
         "k",
         "k",

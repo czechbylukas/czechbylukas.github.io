@@ -625,7 +625,7 @@
             },
             {
               "section_title": "",
-              "prompt": "Pavelovo jmenování premiérem bylo podle rozhovoru ________ postojem ke střetu zájmů.",
+              "prompt": "Pavlovo jmenování premiérem bylo podle rozhovoru ________ postojem ke střetu zájmů.",
               "type": "single",
               "is_multiselect": false,
               "options": []

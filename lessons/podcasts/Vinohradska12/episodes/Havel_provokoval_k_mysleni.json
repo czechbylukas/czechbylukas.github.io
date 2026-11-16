@@ -263,9 +263,9 @@
         {
           "title": "Cvičení 4 – Slovní zásoba a předložky",
           "type": "standard",
-          "instructions": "Doplňte správnou předložku nebo výraz. Pokud je výraz bez předložky, nechte políčko prázdné.\nSlova: mezi, o, pro, v, proti, na, bez předložky, před",
+          "instructions": "Doplňte správnou předložku nebo výraz. Pokud je výraz bez předložky, nechte políčko prázdné.\nSlova: s, o, pro, v, proti, na, bez předložky, před",
           "optionsList": [
-            "mezi",
+            "s",
             "o",
             "pro",
             "v",
@@ -284,7 +284,7 @@
             },
             {
               "section_title": "",
-              "prompt": "Havel se stal prezidentem po období, kdy působil ______ disidenta.",
+              "prompt": "Havel se stal prezidentem po období, kdy působil ______ roli disidenta.",
               "type": "single",
               "is_multiselect": false,
               "options": []
@@ -305,28 +305,28 @@
             },
             {
               "section_title": "",
-              "prompt": "Havel psal také ______ nebezpečí, která ohrožují společnost.",
+              "prompt": "Havel psal také ______ nebezpečích, která ohrožují společnost.",
               "type": "single",
               "is_multiselect": false,
               "options": []
             },
             {
               "section_title": "",
-              "prompt": "Lidé by měli stát ______ manipulaci a nespravedlnosti.",
+              "prompt": "Lidé by se měli postavit ______ manipulaci a nespravedlnosti. (je vyžadována předložka)",
               "type": "single",
               "is_multiselect": false,
               "options": []
             },
             {
               "section_title": "",
-              "prompt": "Havel dokázal spojovat protiklady, například strach a odvahu, ______ dalšími vlastnostmi.",
+              "prompt": "Havel dokázal spojovat protiklady, například strach a odvahu ______ dalšími vlastnostmi.",
               "type": "single",
               "is_multiselect": false,
               "options": []
             },
             {
               "section_title": "",
-              "prompt": "Alice Koubová doporučila čtenářům Havlovy texty ______ odradit se jejich složitostí.",
+              "prompt": "Alice Koubová doporučila čtenářům Havlovy texty a také nenechat se odradit ______ jejich složitostí.",
               "type": "single",
               "is_multiselect": false,
               "options": []
@@ -1452,9 +1452,9 @@
         "přečetla",
         "by čelili",
         "rozuměli",
-        "objevili",
+        "objevili by",
         "museli",
-        "bylo",
+        "bylo by",
         "dozvěděli bychom se"
       ],
       "Cvičení 4": [
@@ -1462,9 +1462,9 @@
         "v",
         "o",
         "před",
-        "na",
+        "o",
         "proti",
-        "mezi",
+        "s",
         "bez předložky"
       ],
       "Cvičení 5": [

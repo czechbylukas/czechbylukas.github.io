@@ -136,7 +136,7 @@
         {
           "title": "Cvičení 2 – Doplň do věty",
           "type": "standard",
-          "instructions": "Doplňte vhodné slovo.\nSlova: banka, důvěra, inflace, mince, peněženka, poklad, stvrzenka, váha",
+          "instructions": "Doplňte vhodné slovo ve správném tvaru.\nSlova: banka, důvěra, inflace, mince, peněženka, poklad, stvrzenka, váha",
           "optionsList": [
             "banka",
             "důvěra",
@@ -589,7 +589,7 @@
         {
           "title": "Cvičení 2 – Doplň do věty",
           "type": "standard",
-          "instructions": "Doplňte vhodné slovo.\nSlova: akceptovat, devalvovat, důchod, emitovat, fixovat, kontrolovat, obchodovat, tolerovat",
+          "instructions": "Doplňte vhodné slovo ve správném tvaru.\nSlova: akceptovat, devalvovat, důchod, emitovat, fixovat, kontrolovat, obchodovat, tolerovat",
           "optionsList": [
             "akceptovat",
             "devalvovat",
@@ -1046,7 +1046,7 @@
         {
           "title": "Cvičení 2 – Doplň do věty",
           "type": "standard",
-          "instructions": "Doplňte vhodné slovo.\nSlova: aktivum, blahobyt, devalvovat, diverzifikovat, kotva, predikce, symbolický, tolerovat",
+          "instructions": "Doplňte vhodné slovo ve správném tvaru.\nSlova: aktivum, blahobyt, devalvovat, diverzifikovat, kotva, predikce, symbolický, tolerovat",
           "optionsList": [
             "aktivum",
             "blahobyt",
@@ -1190,7 +1190,7 @@
             },
             {
               "section_title": "B. Doplňte správný tvar",
-              "prompt": "Kdyby se cena zlata výrazně snížila, centrální banka ______ (zaznamenat) ztrátu.",
+              "prompt": "Kdyby se cena zlata výrazně snížila, centrální banka ______ (zaznamenat - podmínka) ztrátu.",
               "type": "single",
               "is_multiselect": false,
               "options": []
@@ -1218,7 +1218,7 @@
             },
             {
               "section_title": "B. Doplňte správný tvar",
-              "prompt": "Zlato zůstává aktivem, které je v době nejistoty často ______ (vyhledávat).",
+              "prompt": "Zlato zůstává aktivem, které je v době nejistoty často ______ (vyhledávat - trpný rod).",
               "type": "single",
               "is_multiselect": false,
               "options": []
@@ -1308,7 +1308,7 @@
             },
             {
               "section_title": "",
-              "prompt": "Současná poptávka po zlatě roste mimo jiné ______ nedůvěře v některá jiná aktiva.",
+              "prompt": "Současná poptávka po zlatě roste mimo jiné ______ nedůvěře v některá jiná aktiva. (pozitivní vliv)",
               "type": "single",
               "is_multiselect": false,
               "options": []
@@ -1575,7 +1575,7 @@
       ],
       "Cvičení 3": [
         "správně",
-        "mohou",
+        "může",
         "správně",
         "vyžadoval",
         "správně",
